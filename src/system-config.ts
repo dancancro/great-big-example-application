@@ -3,16 +3,16 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  // 'node-uuid': 'node_modules/node-uuid/uuid.js'
+  'node-uuid': 'vendor/node-uuid'
 };
 
 /** User packages configuration. */
 const packages: any = {
-  // 'node-uuid': {
-  //   format: 'cjs',
-  //   defaultExtension: 'js',
-  //   main: 'uuid.js'
-  // }
+  'node-uuid': {
+    format: 'global',
+    defaultExtension: 'js',
+    main: 'uuid.js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

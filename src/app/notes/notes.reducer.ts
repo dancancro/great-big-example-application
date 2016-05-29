@@ -1,11 +1,14 @@
 import { Note } from './note.model';
 import { Action, Reducer } from '@ngrx/store';
-//import * as uuid from 'uuid';
+import 'node-uuid';
+declare let uuid;
 
 export const notes: Reducer<Array<Note>> = (notes: Array<Note> = [], action: Action) => {
   switch(action.type){
     //Front end Actions
     case "ADD_NOTE":
+      var newId = uuid.v1();  //TODO - use the newId in the new item
+      console.log(`newId: ${newId}`);
       return [
         ...notes,
         Object.assign({}, action.payload, {dirty: true})      
