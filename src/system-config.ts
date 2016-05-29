@@ -3,10 +3,16 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  // 'node-uuid': 'node_modules/node-uuid/uuid.js'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  // 'node-uuid': {
+  //   format: 'cjs',
+  //   defaultExtension: 'js',
+  //   main: 'uuid.js'
+  // }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,6 +28,7 @@ const barrels: string[] = [
   '@angular/router',
   '@angular/platform-browser',
   '@angular/platform-browser-dynamic',
+  '@ngrx/store',
 
   // Thirdparty barrels.
   'rxjs',
@@ -29,6 +36,7 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/notes',
   /** @cli-barrel */
 ];
 
@@ -45,6 +53,7 @@ System.config({
   map: {
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
+    '@ngrx': 'vendor/@ngrx',
     'main': 'main.js'
   },
   packages: cliSystemConfigPackages

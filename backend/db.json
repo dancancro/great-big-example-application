@@ -1,0 +1,19 @@
+{
+  "notes": [
+    {
+      "colour": "red",
+      "text": "First Note from DB",
+      "id": 1
+    },
+    {
+      "text": "Second Note from DB",
+      "colour": "green",
+      "id": 2
+    },
+    {
+      "colour": "blue",
+      "text": "Third Note from DB",
+      "id": 3
+    }
+  ]
+}
