@@ -1,7 +1,11 @@
 {
-  "name": "myhack5",
+  "name": "ng2-state-demo",
   "version": "0.0.0",
+  "description": "Exploring State and Data management with @ngrx/store and http in an Angular2 demo",
   "license": "MIT",
+  "author": {
+    "name": "@JavascriptMick"
+  },
   "angular-cli": {},
   "scripts": {
     "start": "ng server",

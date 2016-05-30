@@ -1,9 +1,9 @@
-export class Myhack5Page {
+export class MyPage {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('myhack5-app h1')).getText();
+    return element(by.css('my-app h1')).getText();
   }
 }

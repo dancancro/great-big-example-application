@@ -1,7 +1,7 @@
 {
   "project": {
     "version": "0.1.0",
-    "name": "myhack5"
+    "name": "ng2-state-demo"
   },
   "apps": [
     {"main": "src/main.ts", "tsconfig": "src/tsconfig.json"}

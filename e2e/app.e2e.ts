@@ -1,14 +1,14 @@
-import { Myhack5Page } from './app.po';
+import { MyPage } from './app.po';
 
-describe('myhack5 App', function() {
-  let page: Myhack5Page;
+describe('my App', function() {
+  let page: MyPage;
 
   beforeEach(() => {
-    page = new Myhack5Page();
+    page = new MyPage();
   })
 
-  it('should display message saying app works', () => {
+  it('should display message text', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('myhack5 works!');
+    expect(page.getParagraphText()).toEqual('Angular2 State Management Demo');
   });
 });

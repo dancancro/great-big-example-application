@@ -1,6 +1,6 @@
-# @ngrx/store sample app
+# Angular2 State Demo
 
-Exploring @ngrx/store and integration with http
+Exploring State and Data management with @ngrx/store and http in an Angular2 demo
 
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
@@ -14,8 +14,8 @@ This is a standard angular-cli generated application so you can use all of the n
 
 ```
 # Download the code
-$ git clone https://github.com/tba.git
-$ cd MYHACK5
+$ git clone https://github.com/JavascriptMick/ng2-state-demo.git
+$ cd ng2-state-demo
 
 # Install dependencies
 $ npm i
