@@ -26,8 +26,10 @@ export class NotesComponent implements OnInit {
   }
   
   onAddNote(noteText){
-    this.store.dispatch({type: "ADD_NOTE", payload: {text: noteText, colour: "red"}});
+    //client first - Let the reducer handle the creation
+    this.store.dispatch({type: "ADD_NOTE", payload: {text: noteText, colour: "red"}});   
     
+    //now synchronise the mutated state with the DB
     this.syncToServer();
     
     //server first
@@ -37,9 +39,9 @@ export class NotesComponent implements OnInit {
   }
   
   onChangeNoteText(newText: string, id: number){
-    //Local first approach.. let the reducer handle the mutation, then sync with the DB
+    //client first - Let the reducer handle the mutation, then sync with the DB
     
-    //Give the reducer a chance to mutate the state
+    //Give the reducer a chance to create a new updated note
     this.store.dispatch({type: "UPDATE_NOTE_TEXT", payload: {id, newText}});
     
     //now synchronise the mutated state with the DB
@@ -50,7 +52,6 @@ export class NotesComponent implements OnInit {
     this.store.getState().notes.forEach(note => {
       if(note.dirty === true){
         //Update on the DB and dispatch a 'patch' event to reflect any changes that the DB might have made (e.g. audit timestamps)
-        delete note['dirty'];//server doesn't want to know about this
         if(note.id){
           this.notesService.updateNote(note).subscribe( serverNote => {
             this.store.dispatch({type: "UPDATE_NOTE_FROM_SERVER", payload: {originalNote: note, serverNote}});

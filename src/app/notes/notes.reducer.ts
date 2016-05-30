@@ -7,8 +7,8 @@ export const notes: Reducer<Array<Note>> = (notes: Array<Note> = [], action: Act
   switch(action.type){
     //Front end Actions
     case "ADD_NOTE":
-      var newId = uuid.v1();  //TODO - use the newId in the new item
-      console.log(`newId: ${newId}`);
+      var newId = uuid.v1();  //TODO - use the newId in the new item?
+      
       return [
         ...notes,
         Object.assign({}, action.payload, {dirty: true})      
@@ -29,7 +29,15 @@ export const notes: Reducer<Array<Note>> = (notes: Array<Note> = [], action: Act
         Object.assign({}, action.payload, {dirty: false})      
       ]
     case "UPDATE_NOTE_FROM_SERVER":
-      return notes.map(note =>{
+      return notes.map(note => {
+        /*
+        Note - this check introduces a race condition.
+        Any change to the note between sending the http post/put
+        and invoking this UPDATE action will result in a new object.
+        This check will always fail and effectively and 'orphan'
+        the data returning from the server.  Even worse, there is a chance
+        you could double up items if you post -> update -> post again
+        */
         if(note === action.payload.originalNote){
           return Object.assign({}, action.payload.serverNote, {dirty: false})
         } else {

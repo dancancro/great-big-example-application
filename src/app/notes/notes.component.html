@@ -1,5 +1,4 @@
 <div>
-  
   <div *ngFor="let note of notes | async">
     <p><bold>{{note.text}}</bold>{{note.colour}}:{{note.id}}:{{note.dirty}}</p>
     <input #changeNoteText [value]="note.text"/>
@@ -7,6 +6,4 @@
   </div>
   <input #newNoteText placeholder="enter note text"/>
   <button (click)="onAddNote(newNoteText.value)">Add Note</button>
-  
-  <!--<p *ngFor="let otherNote of otherNotes | async">{{otherNote.text}}</p>-->
 </div>
