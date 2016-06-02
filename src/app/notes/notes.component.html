@@ -1,9 +1,9 @@
 <div>
   <div *ngFor="let note of notes | async">
-    <p><bold>{{note.text}}</bold>{{note.colour}}:{{note.id}}:{{note.dirty}}</p>
+    <p><bold>{{note.text}}</bold>:{{note.colour}}:{{note.dirty}}:{{note.id}}</p>
     <input #changeNoteText [value]="note.text"/>
-    <button (click)="onChangeNoteText(changeNoteText.value, note.id)">Update Note</button>
+    <button (click)="onChangeNoteText(changeNoteText.value, note)">Update Note</button>
   </div>
   <input #newNoteText placeholder="enter note text"/>
-  <button (click)="onAddNote(newNoteText.value)">Add Note</button>
+  <button (click)="onAddNote(newNoteText.value); newNoteText.value='';">Add Note</button>
 </div>

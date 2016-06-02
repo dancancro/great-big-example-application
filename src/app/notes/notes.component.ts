@@ -26,23 +26,21 @@ export class NotesComponent implements OnInit {
   }
   
   onAddNote(noteText){
-    //client first - Let the reducer handle the creation
+    //** Store First **
     this.store.dispatch({type: "ADD_NOTE", payload: {text: noteText, colour: "red"}});   
-    
-    //now synchronise the mutated state with the DB
     this.syncToServer();
     
-    //server first
+    //** Server First **
     // this.notesService.addNote({text: noteText, colour: "red"}).subscribe( note => {
     //   this.store.dispatch({type: "ADD_NOTE_FROM_SERVER", payload: note})
     // });
   }
   
-  onChangeNoteText(newText: string, id: number){
+  onChangeNoteText(newText: string, note: Note){
     //client first - Let the reducer handle the mutation, then sync with the DB
     
     //Give the reducer a chance to create a new updated note
-    this.store.dispatch({type: "UPDATE_NOTE_TEXT", payload: {id, newText}});
+    this.store.dispatch({type: "UPDATE_NOTE_TEXT", payload: {id: note.id, newText}});
     
     //now synchronise the mutated state with the DB
     this.syncToServer();
@@ -51,12 +49,15 @@ export class NotesComponent implements OnInit {
   syncToServer(){
     this.store.getState().notes.forEach(note => {
       if(note.dirty === true){
+        console.log(`syncing note ${note.text} id:${note.id}`)
         //Update on the DB and dispatch a 'patch' event to reflect any changes that the DB might have made (e.g. audit timestamps)
         if(note.id){
+          console.log("sync chose to update");
           this.notesService.updateNote(note).subscribe( serverNote => {
             this.store.dispatch({type: "UPDATE_NOTE_FROM_SERVER", payload: {originalNote: note, serverNote}});
           });
         }else{
+          console.log("sync chose to add new");
           this.notesService.addNote(note).subscribe( serverNote => {
             this.store.dispatch({type: "UPDATE_NOTE_FROM_SERVER", payload: {originalNote: note, serverNote}});
           });          

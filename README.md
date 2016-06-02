@@ -28,3 +28,80 @@ $ ng serve
 ```
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
+
+## Adding Items
+I did a lot of thinking about the best way to Add items and tried a lot of approaches.
+Note that I avoided bringing in libraries like @ngrx/effects because I wanted to get the logic straight in my head first.
+
+### Server First (Server generates unique Id)
+This approach works well when the server is the source of the unique id.
+
+Note that this approach Mirrors the redux-thunk approach where the add action would be delayed in the action creator untill the async response returns.
+
+Logically, it goes like this
+1. Send a Post request to the server with the details of the new item
+2. When the Post returns, dispatch an 'ADD' action to the store which contains the new item from the server in the payload (with the server id)
+3. The reducer in response to 'ADD' action adds the server item to the list.
+
+Pros
+* Simplest approach
+* Reducer isn't poluted with server related actions
+* Model isn't polluted with metadata attributes like 'dirty'
+* Appropriate Affordance - It is impossible to attempt to change (or make it appear as if change is possible) untill the item has it's unique ID from the server so there are no race conditions around editing a newly added item.
+
+Cons
+* Responsiveness on Add is constrained by server responsiveness - The item doesn't appear on the UI untill the server returns.
+* The initial state of the item is determined outside the store so you can't apply any 'creation logic' in the store untill after the item is created on the server.
+
+### Store First then Sync (Server generates unique id)
+This approach doesn't make much sense unless you don't control the server and your application requires a lot of add operations or if a user action results in a lot of discreet add operations.
+
+1. Dispatch an add event to the store, the item is created with {dirty:true}
+Note here that I can't just Post the new note to the server because the store does not return me a reference to the item that was created as a part of this action. Instead, I need to now ...
+2. Invoke a 'sync' function that
+* spins through notes and if dirty
+* Either Posts or Puts the item to the server based on the presence of a server id {id:x}
+* when the add/update returns from the server, dispatch an 'UPDATE_FROM_SERVER' event which contains the new item from the server in the payload (with the server id)
+* the reducer in response to 'UPDATE_FROM_SERVER' swaps out the item with the server item.
+* updates to items without a server id are ignored or refused to avoid nasty race conditions.
+
+#### why disallow updates without a server id?
+No server id means that you may have already sent a Post request or maybe that Post request has already failed.
+either way, you don't know whether that item exists on the server or not.  If you attempt to Post the item in response
+to an update, it will likely treat the item as new and 'double insert'.  If you attempt to Put the item without the server id
+it will also fail because you are telling the backend to update an item that it doesn't think exists.
+
+Pros
+* Better responsiveness on add.
+
+Cons
+* Adds complexity with the dirty flag and figuring out add/update
+* Inappropriate affordance - if the user might expect to interact with or change the item immediately, you are showing them the item but making them wait before they can interact with it.
+
+### Store First then Sync (Client generates id)
+This approach only works if 
+* The Client can generate the id
+* The server will honour the uniqueness and indexability of that Id.
+* The server can decide on insert/update of the item based on the pre-existence of that item (i.e. Put/Post is irrelevant) 
+Usually this means you will need full control over server and client.
+
+1. Dispatch an add event to the store, the item is created with {dirty:true, id:"970c86.."}
+Note here that I can't just Post the new note to the server because the store does not return me a reference to the item that was created as a part of this action. Instead, I need to now ...
+2. Invoke a 'sync' function that
+* spins through items and if dirty:-
+* Either Posts/Puts the item to the server
+* when the Post/Put returns from the server, dispatch an 'UPDATE_FROM_SERVER' event which contains the new item from the server in the payload (with any server-mutated properties like audit timestamps)
+* the reducer in response to 'UPDATE_FROM_SERVER' swaps out the item with the server item based on the id.
+* updates to immediately added items are allowed.
+
+## Updating Items
+There is only one sensible approach here.  To allow different sorts of actions that might result in different types of state changes
+it only makes sense to drive these changes through the reducer and then 'sync' the changes to the server
+
+### Store First then Sync
+1. Dispatch ay type of 'updating' actionto the store, the reducer will change one or many items but must set the 'dirty' flag on any items that have change in respect of state that you want to persist to the server {dirty:true}
+2. Invoke a 'sync' function that
+* spins through items and if dirty:-
+* Puts the item to the server
+* when the Put returns from the server, dispatch an 'UPDATE_FROM_SERVER' event which contains the new item from the server in the payload
+* the reducer in response to 'UPDATE_FROM_SERVER' swaps out the item with the server item based on the id
