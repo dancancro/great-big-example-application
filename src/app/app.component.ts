@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NotesComponent } from './notes';
-import { NotesService } from './notes';
+import { NotesDataService } from './notes';
 
 @Component({
   moduleId: module.id,
@@ -8,7 +8,7 @@ import { NotesService } from './notes';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [NotesComponent],
-  providers: [NotesService]
+  providers: [NotesDataService]
 })
 export class AppComponent {
   title = 'Angular2 State Management Demo';

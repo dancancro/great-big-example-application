@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 import {HTTP_PROVIDERS} from '@angular/http';
 import { provideStore, Store } from '@ngrx/store';
 
-import { NotesService } from './notes.service';
+import { NotesDataService } from './services/notes.data.service';
 import { notes } from './notes.reducer';
 import { NotesComponent } from './notes.component';
 
@@ -22,7 +22,7 @@ describe('Component: Notes', () => {
   beforeEachProviders(() => [
     provideStore({notes}, {notes:[]}),
     ...HTTP_PROVIDERS, 
-    NotesService, 
+    NotesDataService, 
     NotesComponent]);
     
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {

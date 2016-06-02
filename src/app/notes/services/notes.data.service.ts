@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/from';
 
-import { Note } from './note.model';
+import { Note } from '../note.model';
 
 @Injectable()
-export class NotesService {
+export class NotesDataService {
     private API_ROOT: String = "http://localhost:3000";
     private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
     

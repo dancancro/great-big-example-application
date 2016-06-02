@@ -5,7 +5,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { Note } from './note.model'
 import { AppState } from './note.model';
-import { NotesService } from './notes.service';
+import { NotesDataService } from './services/notes.data.service';
 
 @Component({
   moduleId: module.id,
@@ -16,11 +16,11 @@ import { NotesService } from './notes.service';
 export class NotesComponent implements OnInit {
   store: Store<AppState>;
   notes: Observable<Note[]>;
-  notesService: NotesService;
+  notesDataService: NotesDataService;
 
-  constructor(store: Store<AppState>, notesService: NotesService) {
+  constructor(store: Store<AppState>, notesDataService: NotesDataService) {
     this.store = store;
-    this.notesService = notesService;
+    this.notesDataService = notesDataService;
     
     this.notes = store.select<Note[]>('notes');    
   }
@@ -31,7 +31,7 @@ export class NotesComponent implements OnInit {
     this.syncToServer();
     
     //** Server First **
-    // this.notesService.addNote({text: noteText, colour: "red"}).subscribe( note => {
+    // this.notesDataService.addNote({text: noteText, colour: "red"}).subscribe( note => {
     //   this.store.dispatch({type: "ADD_NOTE_FROM_SERVER", payload: note})
     // });
   }
@@ -53,12 +53,12 @@ export class NotesComponent implements OnInit {
         //Update on the DB and dispatch a 'patch' event to reflect any changes that the DB might have made (e.g. audit timestamps)
         if(note.id){
           console.log("sync chose to update");
-          this.notesService.updateNote(note).subscribe( serverNote => {
+          this.notesDataService.updateNote(note).subscribe( serverNote => {
             this.store.dispatch({type: "UPDATE_NOTE_FROM_SERVER", payload: {originalNote: note, serverNote}});
           });
         }else{
           console.log("sync chose to add new");
-          this.notesService.addNote(note).subscribe( serverNote => {
+          this.notesDataService.addNote(note).subscribe( serverNote => {
             this.store.dispatch({type: "UPDATE_NOTE_FROM_SERVER", payload: {originalNote: note, serverNote}});
           });          
         }
@@ -67,7 +67,7 @@ export class NotesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notesService.getNotes().mergeMap( notes => Observable.from(notes)).subscribe( note => {
+    this.notesDataService.getNotes().mergeMap( notes => Observable.from(notes)).subscribe( note => {
       console.log(`got note from db: ${JSON.stringify(note)}`)
       this.store.dispatch({type: "ADD_NOTE_FROM_SERVER", payload: note});
     });
