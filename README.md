@@ -29,6 +29,22 @@ $ ng serve
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
+## Service Summary
+To support many different approaches in the one proect, I have needed to introduce more structure than would normally be required.
+In a final implementation, you would probably only use one service implementation and skip the interface.
+* NotesDataService - This is a thin wrapper around the http functions.
+* NotesService - This is a service interface that the component will interact with. The following services implement this interface in various ways taking various approaches.
+
+### Illustrative Implementations
+* NotesServiceLocal - (todo) - Utilises a local object for state and has no interaction with the store or the backend.
+* NotesServiceStoreOnly - (todo) - Utilises an @ngrx/store for state management.  Has no interaction with the backend.
+
+### Production Ready Implementations
+* NotesServiceHttpOnly - (todo) - 'Old School' or 'Angular 1.0 style' implentation using only the http backend and local state mirroring a controller.
+* NotesServiceServerFirstOnAdd - (complete) - A practical and robust implementation usable in most 'real world' appliations where the server is the source of uniqueness.
+* NotesServiceStoreFirstOnAddClientId - (w.i.p) - A practical and robust implementation using client generated uuid's
+* NotesServiceStoreFirstOnAddServerId - (todo) - A complex implementation usable when your application is add-intensive but constrained to using server generated id's.
+
 ## Adding Items
 I did a lot of thinking about the best way to Add items and tried a lot of approaches.
 Note that I avoided bringing in libraries like @ngrx/effects because I wanted to get the logic straight in my head first.
@@ -105,3 +121,14 @@ it only makes sense to drive these changes through the reducer and then 'sync' t
 * Puts the item to the server
 * when the Put returns from the server, dispatch an 'UPDATE_FROM_SERVER' event which contains the new item from the server in the payload
 * the reducer in response to 'UPDATE_FROM_SERVER' swaps out the item with the server item based on the id
+
+#### A note on object equality
+You will notice that in the reducer, object equality is not used when handling the update from server (PATCH action) but rather am checking the equality of the id.
+This is done deliberately so as not to introduce a race condition.
+You may not have considered this but any change to the note between sending the http Post/Put and invoking the PATCH action will result in a new 
+object so an object equality check will always fail and effectively and 'orphan' the data returning from the server.
+
+#### A note on dirty and server based actions
+You will also notice that the reducer is concerned with the dirty flag and server based actions.
+This might seem like a cross concern for the reducer but the presence of a backend and the dirtiness of the data is intrinsic to the data model for the client
+and it should be indicated to the user to make it clear when the changes they are making have been persisted permanently.
