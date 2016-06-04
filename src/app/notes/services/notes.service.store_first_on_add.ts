@@ -12,7 +12,7 @@ import { NotesService } from './notes.service';
 import { NotesDataService } from './notes.data.service';
 
 @Injectable()
-export class NotesServiceStoreFirstOnAddClientId implements NotesService {
+export class NotesServiceStoreFirstOnAdd implements NotesService {
   store: Store<AppState>;
   notesDataService: NotesDataService;
 
