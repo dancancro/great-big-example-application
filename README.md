@@ -42,7 +42,7 @@ In a final implementation, you would probably only use one service implementatio
 ### Production Ready Implementations
 * NotesServiceHttpOnly - (todo) - 'Old School' or 'Angular 1.0 style' implentation using only the http backend and local state mirroring a controller.
 * NotesServiceServerFirstOnAdd - (complete) - A practical and robust implementation usable in most 'real world' appliations where the server is the source of uniqueness.
-* NotesServiceStoreFirstOnAddClientId - (w.i.p) - A practical and robust implementation using client generated uuid's
+* NotesServiceStoreFirstOnAddClientId - (complete) - A practical and robust implementation using client generated uuid's
 * NotesServiceStoreFirstOnAddServerId - (todo) - A complex implementation usable when your application is add-intensive but constrained to using server generated id's.
 
 ## Adding Items

@@ -42,7 +42,7 @@ export class NotesServiceServerFirstOnAdd implements NotesService {
   syncToServer() {
     this.store.getState().notes.forEach(note => {
       if (note.dirty === true) {
-        this.notesDataService.updateNote(note).subscribe(serverNote => {
+        this.notesDataService.updateNote(note).subscribe(note => {
           this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
         });
       }
