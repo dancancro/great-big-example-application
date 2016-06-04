@@ -6,6 +6,7 @@ import { NotesService } from './services/notes.service';
 
 //import { NotesServiceServerFirstOnAdd } from './services/notes.service.server_first_on_add';
 import { NotesServiceStoreFirstOnAdd } from './services/notes.service.store_first_on_add';
+import { NotesServiceHttpOnly } from './services/notes.service.http_only';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,7 @@ export class NotesComponent implements OnInit {
   notes: Observable<Note[]>;
   notesService: NotesService;
 
-  constructor(notesService: NotesServiceStoreFirstOnAdd) {
+  constructor(notesService: NotesServiceHttpOnly) {
     this.notesService = notesService;  
     this.notes = notesService.getNotes();    
   }

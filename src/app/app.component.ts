@@ -3,6 +3,7 @@ import { NotesComponent } from './notes';
 import { NotesDataService } from './notes';
 import { NotesServiceServerFirstOnAdd } from './notes';
 import { NotesServiceStoreFirstOnAdd } from './notes';
+import { NotesServiceHttpOnly } from './notes';
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,7 @@ import { NotesServiceStoreFirstOnAdd } from './notes';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [NotesComponent],
-  providers: [NotesDataService, NotesServiceServerFirstOnAdd, NotesServiceStoreFirstOnAdd]
+  providers: [NotesDataService, NotesServiceServerFirstOnAdd, NotesServiceStoreFirstOnAdd, NotesServiceHttpOnly]
 })
 export class AppComponent {
   title = 'Angular2 State Management Demo';

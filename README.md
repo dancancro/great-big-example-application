@@ -29,20 +29,15 @@ $ ng serve
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
-## Service Summary
+## Service & Component Summary
 To support many different approaches in the one proect, I have needed to introduce more structure than would normally be required.
 In a final implementation, you would probably only use one service implementation and skip the interface.
 * NotesDataService - This is a thin wrapper around the http functions.
 * NotesService - This is a service interface that the component will interact with. The following services implement this interface in various ways taking various approaches.
-
-### Illustrative Implementations
-* NotesServiceLocal - (todo) - Utilises a local object for state and has no interaction with the store or the backend.
-* NotesServiceStoreOnly - (todo) - Utilises an @ngrx/store for state management.  Has no interaction with the backend.
-
-### Production Ready Implementations
-* NotesServiceHttpOnly - (todo) - 'Old School' or 'Angular 1.0 style' implentation using only the http backend and local state mirroring a controller.
-* NotesServiceServerFirstOnAdd - (complete) - A practical and robust implementation usable in most 'real world' appliations where the server is the source of uniqueness.
-* NotesServiceStoreFirstOnAdd - (complete) - A practical and robust implementation using client generated uuid's
+* StatefulNotesComponent - (todo) - 'Old School' or 'Angular 1.0 style' implentation using the DataService and local state management directly in the component mirroring an Angular1 controller approach.
+* NotesComponent + NotesServiceHttpOnly - (complete) - This is not a reccomended aproach but illustrates the start of the approach of taking the data service and state management out of the component into a dedicated service.
+* NotesComponent + NotesServiceServerFirstOnAdd - (complete) - A practical and robust implementation utilising store + DataService.  Usable in most 'real world' appliations where the server is the source of uniqueness.
+* NotesComponent + NotesServiceStoreFirstOnAdd - (complete) - A practical and robust implementation using client generated uuid's
 
 ## Adding Items
 I did a lot of thinking about the best way to Add items and tried a lot of approaches.
