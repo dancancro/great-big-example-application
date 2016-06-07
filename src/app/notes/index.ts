@@ -1,5 +1,6 @@
-export { NotesComponent } from './notes.component';
-export { notes } from './notes.reducer';
+export { NotesComponent } from './components/notes.component';
+export { NotesControllerComponent } from './components/notes.controller.component';
+export { notes } from './reducers/notes.reducer';
 export { Note } from './note.model';
 export { NotesDataService } from './services/notes.data.service';
 export { NotesService } from './services/notes.service';

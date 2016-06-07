@@ -1,0 +1,5 @@
+<div>
+  <p><bold>{{note.text}}</bold>:{{note.colour}}:{{note.dirty}}:{{note.id}}</p>
+  <input #noteNewText [value]="note.text"/>
+  <button (click)="changeNoteText.emit(noteNewText.value)">Update Note</button>
+</div>

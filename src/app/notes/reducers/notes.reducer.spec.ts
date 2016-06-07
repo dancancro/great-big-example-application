@@ -32,7 +32,7 @@ describe('Reducer: Notes', () => {
     ];
         
     it('`should update the item`', () => {
-        let payload = {id: 2, newText: "new note 2"};
+        let payload = {id: 2, text: "new note 2"};
         let result = [ 
             initialState[0], 
             {
@@ -49,6 +49,5 @@ describe('Reducer: Notes', () => {
         expect(stateItems).toEqual(result);
     });  
 });
-
 
 

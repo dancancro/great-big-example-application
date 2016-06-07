@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NotesComponent } from './notes';
+import { NotesControllerComponent } from './notes';
 import { NotesDataService } from './notes';
 import { NotesServiceServerFirstOnAdd } from './notes';
 import { NotesServiceStoreFirstOnAdd } from './notes';
@@ -10,7 +11,7 @@ import { NotesServiceHttpOnly } from './notes';
   selector: 'my-app',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [NotesComponent],
+  directives: [NotesComponent, NotesControllerComponent],
   providers: [NotesDataService, NotesServiceServerFirstOnAdd, NotesServiceStoreFirstOnAdd, NotesServiceHttpOnly]
 })
 export class AppComponent {

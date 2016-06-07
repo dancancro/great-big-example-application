@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Note } from './note.model'
-import { NotesService } from './services/notes.service';
+import { Note } from '../note.model'
+import { NotesService } from '../services/notes.service';
+import { NoteComponent } from './note.component';
 
 //import { NotesServiceServerFirstOnAdd } from './services/notes.service.server_first_on_add';
-import { NotesServiceStoreFirstOnAdd } from './services/notes.service.store_first_on_add';
-import { NotesServiceHttpOnly } from './services/notes.service.http_only';
+import { NotesServiceStoreFirstOnAdd } from '../services/notes.service.store_first_on_add';
+//import { NotesServiceHttpOnly } from '../services/notes.service.http_only';
 
 @Component({
   moduleId: module.id,
   selector: 'app-notes',
   templateUrl: 'notes.component.html',
-  styleUrls: ['notes.component.css']
+  styleUrls: ['notes.component.css'],
+  directives: [NoteComponent]
 })
 export class NotesComponent implements OnInit {
   notes: Observable<Note[]>;
   notesService: NotesService;
 
-  constructor(notesService: NotesServiceHttpOnly) {
+  constructor(notesService: NotesServiceStoreFirstOnAdd) {
     this.notesService = notesService;  
     this.notes = notesService.getNotes();    
   }

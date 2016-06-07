@@ -34,10 +34,10 @@ To support many different approaches in the one proect, I have needed to introdu
 In a final implementation, you would probably only use one service implementation and skip the interface.
 * NotesDataService - This is a thin wrapper around the http functions.
 * NotesService - This is a service interface that the component will interact with. The following services implement this interface in various ways taking various approaches.
-* StatefulNotesComponent - (todo) - 'Old School' or 'Angular 1.0 style' implentation using the DataService and local state management directly in the component mirroring an Angular1 controller approach.
-* NotesComponent + NotesServiceHttpOnly - (complete) - This is not a reccomended aproach but illustrates the start of the approach of taking the data service and state management out of the component into a dedicated service.
-* NotesComponent + NotesServiceServerFirstOnAdd - (complete) - A practical and robust implementation utilising store + DataService.  Usable in most 'real world' appliations where the server is the source of uniqueness.
-* NotesComponent + NotesServiceStoreFirstOnAdd - (complete) - A practical and robust implementation using client generated uuid's
+* NotesControllerComponent - Angular 1.0 style implentation using the DataService and local state management directly in the component mirroring an Angular1 controller.
+* NotesComponent + NotesServiceHttpOnly - This is not a reccomended aproach but illustrates the start of the approach of taking the data service and state management out of the component into a dedicated service.
+* NotesComponent + NotesServiceServerFirstOnAdd - A practical and robust implementation utilising store + DataService.  Usable in most 'real world' appliations where the server is the source of uniqueness.
+* NotesComponent + NotesServiceStoreFirstOnAdd - A practical and robust implementation using client generated uuid's
 
 ## Adding Items
 I did a lot of thinking about the best way to Add items and tried a lot of approaches.

@@ -1,0 +1,5 @@
+<div>
+  <app-note *ngFor="let note of notes" [note]="note" (changeNoteText) = "onChangeNoteText($event, note)"></app-note>
+  <input #newNoteText placeholder="enter note text"/>
+  <button (click)="onAddNote(newNoteText.value); newNoteText.value='';">Add Note</button>
+</div>
