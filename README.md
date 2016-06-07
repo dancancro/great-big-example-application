@@ -1,6 +1,12 @@
-# Angular2 State Demo
+# Angular2 State & Data Demo
 
-Exploring State and Data management with @ngrx/store and http in an Angular2 demo
+Exploring approaches to State and Data management from controllers to @ngrx/store
+
+## What is it?
+This is a demonstration project that attempts to explore and illustrate the progression of approaches to data management from the 'Angular 1 Way', 
+through changes to http with observables all the way to the current state of the art utilising the flux/redux implementation @ngrx/store.  
+
+Also, While there are some other examples of using flux/redux/@ngrx/store with http, I didn't find any of them to be easy to understand.
 
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
@@ -23,18 +29,28 @@ $ npm i
 # Install typescript definitions
 $ typings install
 
-# Build the app
+# Run the backend server
+$npm run backend
+
+# Build and serve the app
 $ ng serve
+
+# Continuously run the tests
+$ ng test
+
 ```
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
+## Toggling the approaches
+This repo supports many different approaches in the one project. Using the various approaches requires some commenting out of stuff..
+* app.component.html - hide one or other of the app-x-notes tags
+* notes.component.ts - use whichever service implementation you want in the constructor, comment out the un-used imports for efficiency.
+
 ## Service & Component Summary
-To support many different approaches in the one proect, I have needed to introduce more structure than would normally be required.
-In a final implementation, you would probably only use one service implementation and skip the interface.
 * NotesDataService - This is a thin wrapper around the http functions.
-* NotesService - This is a service interface that the component will interact with. The following services implement this interface in various ways taking various approaches.
 * NotesControllerComponent - Angular 1.0 style implentation using the DataService and local state management directly in the component mirroring an Angular1 controller.
+* NotesService - This is a service interface that the component will interact with. The following services implement this interface in various ways taking various approaches.  You can probably skip this abstraction in a real project using only one approach.
 * NotesComponent + NotesServiceHttpOnly - This is not a reccomended aproach but illustrates the start of the approach of taking the data service and state management out of the component into a dedicated service.
 * NotesComponent + NotesServiceServerFirstOnAdd - A practical and robust implementation utilising store + DataService.  Usable in most 'real world' appliations where the server is the source of uniqueness.
 * NotesComponent + NotesServiceStoreFirstOnAdd - A practical and robust implementation using client generated uuid's
