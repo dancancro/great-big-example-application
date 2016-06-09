@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/take';
 
 import { Note } from '../note.model'
 import { AppState } from '../note.model';
@@ -40,12 +41,14 @@ export class NotesServiceServerFirstOnAdd implements NotesService {
   }
 
   syncToServer() {
-    this.store.getState().notes.forEach(note => {
-      if (note.dirty === true) {
-        this.notesDataService.updateNote(note).subscribe(note => {
-          this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
-        });
-      }
+    this.store.take(1).subscribe(appState => {
+      appState.notes.forEach(note => {
+        if (note.dirty === true) {
+          this.notesDataService.updateNote(note).subscribe(note => {
+            this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
+          });
+        }
+      });      
     });
   }
 }

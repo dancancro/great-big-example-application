@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/take';
 
 import 'node-uuid';
 declare let uuid; //this is a hack stop Typescript compilation problems when addressing the globally available uuid interface
@@ -42,13 +43,15 @@ export class NotesServiceStoreFirstOnAdd implements NotesService {
   }
 
   syncToServer() {
-    this.store.getState().notes.forEach(note => {
-      if (note.dirty === true) {
-        //json-server accepts a Post for a pre-existing id and updates it in place
-        this.notesDataService.addNote(note).subscribe(note => {
-          this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
-        });
-      }
+    this.store.take(1).subscribe(appState => {
+      appState.notes.forEach(note => {
+        if (note.dirty === true) {
+          //json-server accepts a Post for a pre-existing id and updates it in place
+          this.notesDataService.addNote(note).subscribe(note => {
+            this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
+          });
+        }
+      })
     });
   }
 }

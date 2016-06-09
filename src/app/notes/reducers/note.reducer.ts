@@ -1,8 +1,8 @@
-import { Action, Reducer } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 import { Note } from '../note.model';
 
-export const note: Reducer<Note> = (note: Note = null, action: Action) => {
+export const note = (note: Note = null, action: Action) => {
   switch(action.type){
     //Actions initiated by the user/front end
     case "ADD_NOTE":
