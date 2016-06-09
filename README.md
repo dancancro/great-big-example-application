@@ -15,6 +15,9 @@ You will also need to install the `typings` NPM package globally via `npm i -g t
 
 You will also need to install the `angular-cli` NPM package globally via `npm i -g angular-cli`.
 
+You will also need to install the `json-server` NPM package globally via `npm i -g json-server`.
+
+
 ## Make it go
 This is a standard angular-cli generated application so you can use all of the ng XXX commands to manage the application.
 
