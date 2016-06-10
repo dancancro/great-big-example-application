@@ -7,3 +7,5 @@ export { NotesService } from './services/notes.service';
 export { NotesServiceServerFirstOnAdd } from './services/notes.service.server_first_on_add';
 export { NotesServiceStoreFirstOnAdd } from './services/notes.service.store_first_on_add';
 export { NotesServiceHttpOnly } from './services/notes.service.http_only';
+export { NotesServiceStoreOnly } from './services/notes.service.store_only';
+export { NotesEffectsService } from './services/notes.effects.service';

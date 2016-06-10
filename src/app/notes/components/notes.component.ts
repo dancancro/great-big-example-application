@@ -8,7 +8,8 @@ import { NoteComponent } from './note.component';
 //Service implementations - only 1 can be used at a time
 //import { NotesServiceHttpOnly } from '../services/notes.service.http_only';
 //import { NotesServiceServerFirstOnAdd } from './services/notes.service.server_first_on_add';
-import { NotesServiceStoreFirstOnAdd } from '../services/notes.service.store_first_on_add';
+//import { NotesServiceStoreFirstOnAdd } from '../services/notes.service.store_first_on_add';
+import { NotesServiceStoreOnly } from '../services/notes.service.store_only';
 
 @Component({
   moduleId: module.id,
@@ -22,7 +23,7 @@ export class NotesComponent implements OnInit {
   notes: Observable<Note[]>;
   notesService: NotesService;
 
-  constructor(notesService: NotesServiceStoreFirstOnAdd) {
+  constructor(notesService: NotesServiceStoreOnly) {
     this.notesService = notesService;  
     this.notes = notesService.getNotes();    
   }

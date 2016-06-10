@@ -49,6 +49,10 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 This repo supports many different approaches in the one project. Using the various approaches requires some commenting out of stuff..
 * app.component.html - hide one or other of the app-x-notes tags
 * notes.component.ts - use whichever service implementation you want in the constructor, comment out the un-used imports for efficiency.
+* main.ts - comment out the runEffects call if you want to explore the non @ngrx/effects approaches
+
+## My Recommendation
+After stepping through all of these approaches, using the @ngrx/store + @ngrx/effects is an awesome combination.  It cleanly seperates state management and async orchestration and removes the need for dirty flags and the like.  I will be using this approach for non-toy apps where possible.
 
 ## Service & Component Summary
 * NotesDataService - This is a thin wrapper around the http functions.
@@ -57,6 +61,7 @@ This repo supports many different approaches in the one project. Using the vario
 * NotesComponent + NotesServiceHttpOnly - This is not a reccomended aproach but illustrates the start of the approach of taking the data service and state management out of the component into a dedicated service.
 * NotesComponent + NotesServiceServerFirstOnAdd - A practical and robust implementation utilising store + DataService.  Usable in most 'real world' appliations where the server is the source of uniqueness.
 * NotesComponent + NotesServiceStoreFirstOnAdd - A practical and robust implementation using client generated uuid's
+* NotesComponent + @ngrx/effects + NotesEffectsService + NotesServiceStoreOnly - An elegant implementation that uses @ngrx/effects.  NotesEffectsService is the service with the effects coded on it and does all of the orchestration of async backend calls with the NotesDataService.  NotesServiceStoreOnly is a clean store-only service implementation.
 
 ## Adding Items
 I did a lot of thinking about the best way to Add items and tried a lot of approaches.
@@ -120,3 +125,15 @@ object so an object equality check will always fail and effectively and 'orphan'
 You will also notice that the reducer is concerned with the dirty flag and server based actions.
 This might seem like a cross concern for the reducer but the presence of a backend and the dirtiness of the data is intrinsic to the data model for the client
 and it should be indicated to the user to make it clear when the changes they are making have been persisted permanently.
+
+## @ngrx/effects
+This approach completes the progression by leveraging an effects service.
+
+Pros
+* Cleanly seperates state mutation from async orchestration
+* No need for a dirty flag for serverId implementations because the payload contains the new or updated item instance (you don't need dirty flag to find it)
+* No need to access the store contents synchronously, everything is handled as a stream.
+
+Cons
+* More moving parts (effects service, effects in the bootstrap, an extra library).
+
