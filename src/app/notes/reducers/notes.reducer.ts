@@ -10,6 +10,7 @@ export const notes = (notes: Array<Note> = [], action: Action) => {
       return [...notes, note(null, action)]
     case "UPDATE_NOTE_TEXT":
     case "UPDATE_NOTE_FROM_SERVER":
+    case "UPDATE_NOTE_POSITION":
       return notes.map(_note => note(_note, action));
     default:
       return notes;

@@ -1,5 +1,12 @@
 <div>
-  <app-note *ngFor="let note of notes | async" [note]="note" (changeNoteText) = "onChangeNoteText($event, note)"></app-note>
-  <input #newNoteText placeholder="enter note text"/>
-  <button (click)="onAddNote(newNoteText.value); newNoteText.value='';">Add Note</button>
+  <add-button (add)="onAddNote('', $event)" addType="yellow"></add-button>
+  <add-button (add)="onAddNote('', $event)" addType="red"></add-button>
+  <add-button (add)="onAddNote('', $event)" addType="green"></add-button>
+  <add-button (add)="onAddNote('', $event)" addType="blue"></add-button>
+  <app-note 
+    *ngFor="let note of notes | async" 
+    [note]="note" 
+    (changeNoteText) = "onChangeNoteText($event, note)"
+    (changeNotePosition) = "onChangeNotePosition($event, note)"
+  ></app-note>
 </div>

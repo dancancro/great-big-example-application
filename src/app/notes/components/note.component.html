@@ -1,5 +1,11 @@
-<div>
-  <p><bold>{{note.text}}</bold>:{{note.colour}}:{{note.dirty}}:{{note.id}}</p>
-  <input #noteNewText [value]="note.text"/>
-  <button (click)="changeNoteText.emit(noteNewText.value)">Update Note</button>
-</div>
+<textarea 
+  #noteText 
+  [style.top.px] = "note.top"
+  [style.left.px] = "note.left"
+  (draggable)='changeNotePosition.emit($event)'
+  (blur)='changeNoteText.emit(noteText.value)' 
+  [disabled] = "note.dirty"
+  [ngClass] = "note.colour + '-note'"
+  >{{note.text}}</textarea>
+
+    

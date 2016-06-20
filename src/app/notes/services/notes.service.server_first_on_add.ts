@@ -29,8 +29,8 @@ export class NotesServiceServerFirstOnAdd implements NotesService {
     return this.store.select<Note[]>('notes');
   }
 
-  addNote(text: string): void {
-    this.notesDataService.addNote({ text: text, colour: "red" }).subscribe(note => {
+  addNote(text: string, colour: string, left: number, top: number): void {
+    this.notesDataService.addNote({ text: text, colour: colour, top: top, left: left }).subscribe(note => {
       this.store.dispatch({ type: "ADD_NOTE_FROM_SERVER", payload: note })
     });
   }
@@ -39,6 +39,11 @@ export class NotesServiceServerFirstOnAdd implements NotesService {
     this.store.dispatch({ type: "UPDATE_NOTE_TEXT", payload: { id: note.id, text: text } });
     this.syncToServer();
   }
+
+  changeNotePosition(left: number, top: number, note: Note): void {
+    this.store.dispatch({ type: "UPDATE_NOTE_POSITION", payload: { id: note.id, left: left, top: top } });
+    this.syncToServer();
+  }  
 
   syncToServer() {
     this.store.take(1).subscribe(appState => {

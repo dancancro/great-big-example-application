@@ -28,12 +28,16 @@ export class NotesServiceStoreOnly implements NotesService {
     return this.store.select<Note[]>('notes');
   }
 
-  addNote(text: string): void {
-    this.store.dispatch({ type: "ADD_NOTE", payload: { text: text, colour: "red", id:uuid.v1() } });
+  addNote(text: string, colour: string, left: number, top: number): void {
+    this.store.dispatch({ type: "ADD_NOTE", payload: { text: text, colour: colour, left: left, top: top, id:uuid.v1() } });
   }
   
   changeNoteText(text: string, note: Note): void {
     this.store.dispatch({ type: "UPDATE_NOTE_TEXT", payload: { id: note.id, text: text } });
+  }
+
+  changeNotePosition(left: number, top: number, note: Note): void {
+    this.store.dispatch({ type: "UPDATE_NOTE_POSITION", payload: { id: note.id, left: left, top: top } });
   }
   
 }

@@ -1,5 +1,6 @@
 export { NotesComponent } from './components/notes.component';
 export { NotesControllerComponent } from './components/notes.controller.component';
+export { AddButtonComponent } from './components/add.button.component';
 export { notes } from './reducers/notes.reducer';
 export { Note } from './note.model';
 export { NotesDataService } from './services/notes.data.service';

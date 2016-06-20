@@ -9,7 +9,13 @@ export const note = (note: Note = null, action: Action) => {
       return Object.assign({}, action.payload, {dirty: true});
     case "UPDATE_NOTE_TEXT":
       if(note.id === action.payload.id){
-        return Object.assign({}, note, {text: action.payload.text}, {dirty: true})
+        return Object.assign({}, note, {text: action.payload.text}, {dirty: (note.text != action.payload.text)})
+      } else {
+        return note;
+      }
+    case "UPDATE_NOTE_POSITION":
+      if(note.id === action.payload.id){
+        return Object.assign({}, note, {left: action.payload.left, top: action.payload.top}, {dirty: (note.left != action.payload.left || note.top != action.payload.top)})
       } else {
         return note;
       }

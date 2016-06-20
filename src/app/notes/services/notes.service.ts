@@ -3,7 +3,8 @@ import { Note } from '../note.model'
 
 export interface NotesService {
     getNotes(): Observable<Note[]>;
-    addNote(noteText: string): void;
-    changeNoteText(newText: string, note: Note): void;
+    addNote(text: string, colour: string, left: number, top: number): void;
+    changeNoteText(text: string, note: Note): void;
+    changeNotePosition(left: number, top: number, note: Note): void;
     initialise(): void;
 }

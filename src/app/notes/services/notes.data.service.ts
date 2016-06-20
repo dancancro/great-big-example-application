@@ -24,30 +24,10 @@ export class NotesDataService {
     }
     
     updateNote(note: Note): Observable<Note>{
-      console.log(`notes.service updating note ${note.id} using path ${this.API_ROOT}/notes/${note.id}`)
+      console.log(`NotesDataService updating note ${note.id} using path ${this.API_ROOT}/notes/${note.id} note:${JSON.stringify(note)}`)
       if(note.id){
         return this.http.put(`${this.API_ROOT}/notes/${note.id}`, JSON.stringify(note), this.JSON_HEADER)
           .map((response: Response) => response.json())
       }
     }
-    
-/*
-  createItem(item: Item) {
-    this.http.post(`${BASE_URL}`, JSON.stringify(item), HEADER)
-      .map(res => res.json())
-      .map(payload => ({ type: 'CREATE_ITEM', payload }))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  updateItem(item: Item) {
-    this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-      .subscribe(action => this.store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
-  }
-
-  deleteItem(item: Item) {
-    this.http.delete(`${BASE_URL}${item.id}`)
-      .subscribe(action => this.store.dispatch({ type: 'DELETE_ITEM', payload: item }));
-  }
-*/
-
 }

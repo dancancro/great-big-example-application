@@ -32,25 +32,42 @@ export class NotesServiceHttpOnly implements NotesService {
     return this.notesSource;
   }
 
-  addNote(text: string): void {
-    this.notesDataService.addNote({ text: text, colour: "red" }).subscribe(note => {
+  addNote(text: string, colour: string, left: number, top: number): void {
+    this.notesDataService.addNote({ text: text, colour: colour, top: top, left:left }).subscribe(note => {
       this.notes = [...this.notes, note];
       this.notesSource.next(this.notes)
     });
   }
 
   changeNoteText(text: string, note: Note): void {
-    this.notesDataService.updateNote(Object.assign({}, note, {text: text})).subscribe(updatedNote => {
-      this.notes = this.notes.map(existingNote => {
-        if(existingNote.id === updatedNote.id){
-          return updatedNote;
-        }else{
-          return existingNote;
-        }
+    if(text !== note.text){
+      this.notesDataService.updateNote(Object.assign({}, note, {text: text})).subscribe(updatedNote => {
+        this.notes = this.notes.map(existingNote => {
+          if(existingNote.id === updatedNote.id){
+            return updatedNote;
+          }else{
+            return existingNote;
+          }
+        });
+        
+        this.notesSource.next(this.notes);   
       });
-      
-      this.notesSource.next(this.notes);   
-    });
+    }
   }
 
+  changeNotePosition(left: number, top: number, note: Note): void {
+    if(note.left !== left || note.top != left){
+      this.notesDataService.updateNote(Object.assign({}, note, {left: left, top: top})).subscribe(updatedNote => {
+        this.notes = this.notes.map(existingNote => {
+          if(existingNote.id === updatedNote.id){
+            return updatedNote;
+          }else{
+            return existingNote;
+          }
+        });
+        
+        this.notesSource.next(this.notes);   
+      });
+    }
+  }  
 }

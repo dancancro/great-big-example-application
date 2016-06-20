@@ -17,17 +17,23 @@ describe('Reducer: Notes', () => {
         {
         "colour": "green",
         "text": "First Note from DB",
-        "id": 1
+        "id": 1,
+        "left": 200,
+        "top": 100
         },
         {
         "colour": "green",
         "text": "Second Note from DB",
-        "id": 2
+        "id": 2,
+        "left": 200,
+        "top": 100
         },
         {
         "colour": "green",
         "text": "Third Note from DB",
-        "id": 3
+        "id": 3,
+        "left": 200,
+        "top": 100
         }
     ];
         
@@ -39,6 +45,8 @@ describe('Reducer: Notes', () => {
                 "colour": "green",
                 "text": "new note 2",
                 "id": 2,
+                "left": 200,
+                "top": 100,
                 "dirty":true
             },
             initialState[2] 
