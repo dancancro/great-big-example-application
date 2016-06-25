@@ -9,11 +9,11 @@ import { NgClass } from '@angular/common';
   directives: [NgClass]
 })
 export class AddButtonComponent {
-  @Input() addType: string;
+  @Input() colour: string;
   @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
   onClick($event) {
     $event.preventDefault();
-    this.add.emit(this.addType);
+    this.add.emit(this.colour);
   }
 }

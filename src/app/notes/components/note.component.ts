@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Draggable } from '../../shared';
-import { Note } from '../note.model'
 
 @Component({
   moduleId: module.id,
@@ -11,7 +10,12 @@ import { Note } from '../note.model'
   directives: [Draggable, NgClass]
 })
 export class NoteComponent {
-  @Input() note: Note;
+  @Input() text: string;
+  @Input() top: number;
+  @Input() left: number;
+  @Input() colour: string;
+  @Input() disabled: boolean;
+  
   @Output() changeNoteText = new EventEmitter(false);
   @Output() changeNotePosition = new EventEmitter(false);
 

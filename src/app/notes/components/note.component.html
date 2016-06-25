@@ -1,11 +1,10 @@
 <textarea 
   #noteText 
-  [style.top.px] = "note.top"
-  [style.left.px] = "note.left"
-  (draggable)='changeNotePosition.emit($event)'
-  (blur)='changeNoteText.emit(noteText.value)' 
-  [disabled] = "note.dirty"
-  [ngClass] = "note.colour + '-note'"
-  >{{note.text}}</textarea>
+  [style.top.px] = "top"
+  [style.left.px] = "left"
+  (draggable)="changeNotePosition.emit($event)"
+  (blur)="changeNoteText.emit(noteText.value)" 
+  [disabled] = "disabled"
+  [ngClass] = "colour + '-note'">{{text}}</textarea>
 
     

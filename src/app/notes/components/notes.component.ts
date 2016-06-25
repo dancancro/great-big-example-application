@@ -1,48 +1,33 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
 
-import { Note } from '../note.model'
-import { NotesService } from '../services/notes.service';
 import { NoteComponent } from './note.component';
 import { AddButtonComponent } from './add.button.component';
-
-//Service implementations - only 1 can be used at a time
-//import { NotesServiceHttpOnly } from '../services/notes.service.http_only';
-//import { NotesServiceServerFirstOnAdd } from '../services/notes.service.server_first_on_add';
-//import { NotesServiceStoreFirstOnAdd } from '../services/notes.service.store_first_on_add';
-import { NotesServiceStoreOnly } from '../services/notes.service.store_only';
 
 @Component({
   moduleId: module.id,
   selector: 'app-notes',
   templateUrl: 'notes.component.html',
   styleUrls: ['notes.component.css'],
-  directives: [NoteComponent, AddButtonComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  directives: [NoteComponent, AddButtonComponent]
 })
 export class NotesComponent implements OnInit {
-  notes: Observable<Note[]>;
-  notesService: NotesService;
-
-  constructor(notesService: NotesServiceStoreOnly) {
-    this.notesService = notesService;  
-    this.notes = notesService.getNotes();    
+  
+  constructor() {}
+  
+  onAddNote(colour){
+    console.log(`adding note colour: ${colour}`);
   }
   
-  onAddNote(noteText, colour){
-    this.notesService.addNote(noteText, colour, 100, 150);
-  }
-  
-  onChangeNoteText(newText: string, note: Note){
-    this.notesService.changeNoteText(newText, note);
+  onChangeNoteText(newText: string){
+    console.log(`note text has changed to ${newText}`);
   }
 
-  onChangeNotePosition(newPosition: any, note: Note){
-    this.notesService.changeNotePosition(newPosition.left, newPosition.top, note);
+  onChangeNotePosition(newPosition: any){
+    console.log(`note has moved, new position is ${JSON.stringify(newPosition)}`);
   }
 
   ngOnInit() {
-    this.notesService.initialise();
+    console.log('onInit')
   }
 
 }
