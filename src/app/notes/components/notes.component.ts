@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NoteComponent } from './note.component';
 import { AddButtonComponent } from './add.button.component';
+import { Note } from '../../index';
 
 @Component({
   moduleId: module.id,
@@ -11,19 +12,34 @@ import { AddButtonComponent } from './add.button.component';
   directives: [NoteComponent, AddButtonComponent]
 })
 export class NotesComponent implements OnInit {
+  notes: Note[] = [];
   
   constructor() {}
   
   onAddNote(colour){
-    console.log(`adding note colour: ${colour}`);
+    this.notes.push({
+        "text": "",
+        "colour": colour,
+        "left": 200,
+        "top": 100
+      })
   }
   
-  onChangeNoteText(newText: string){
-    console.log(`note text has changed to ${newText}`);
+  onChangeNoteText(newText: string, note: Note){
+    this.notes.forEach((anote: Note) =>{
+      if(anote==note){
+        anote.text = newText;
+      }
+    })
   }
 
-  onChangeNotePosition(newPosition: any){
-    console.log(`note has moved, new position is ${JSON.stringify(newPosition)}`);
+  onChangeNotePosition(newPosition: any, note: Note){
+    this.notes.forEach((anote: Note) =>{
+      if(anote==note){
+        anote.left = newPosition.left;
+        anote.top = newPosition.top;
+      }
+    })
   }
 
   ngOnInit() {
