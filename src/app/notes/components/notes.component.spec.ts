@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 import {HTTP_PROVIDERS} from '@angular/http';
 import { provideStore, Store } from '@ngrx/store';
 
-//import { NotesDataService, NotesServiceServerFirstOnAdd, NotesServiceStoreFirstOnAdd, NotesServiceHttpOnly, NotesServiceStoreOnly, notes } from '../index'; //the 'index' is not necessary (you can just say from '../') but I like the explicitness
+import { NotesService } from '../services/notes.service';
 
 //Object under test
 import { NotesComponent } from './notes.component';
@@ -23,7 +23,7 @@ describe('Component: Notes', () => {
   beforeEachProviders(() => [
     //provideStore({notes}, {notes:[]}),
     //...HTTP_PROVIDERS, 
-    //NotesDataService, NotesServiceServerFirstOnAdd, NotesServiceStoreFirstOnAdd, NotesServiceHttpOnly, NotesServiceStoreOnly,
+    NotesService,
     NotesComponent]);
     
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {

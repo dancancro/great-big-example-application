@@ -1,49 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { NoteComponent } from './note.component';
 import { AddButtonComponent } from './add.button.component';
 import { Note } from '../../index';
+import { NotesService } from '../services/notes.service'
 
 @Component({
   moduleId: module.id,
   selector: 'app-notes',
   templateUrl: 'notes.component.html',
   styleUrls: ['notes.component.css'],
-  directives: [NoteComponent, AddButtonComponent]
+  directives: [NoteComponent, AddButtonComponent],
+  providers: [NotesService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotesComponent implements OnInit {
-  notes: Note[] = [];
+  $notes: Observable<Note[]>
+  notesService: NotesService;
   
-  constructor() {}
+  constructor(notesService: NotesService) {
+    this.notesService = notesService;
+    this.$notes = this.notesService.getNotes();
+  }
   
   onAddNote(colour){
-    this.notes.push({
-        "text": "",
-        "colour": colour,
-        "left": 200,
-        "top": 100
-      })
+    this.notesService.addNote("", colour, 200, 100);
   }
   
   onChangeNoteText(newText: string, note: Note){
-    this.notes.forEach((anote: Note) =>{
-      if(anote==note){
-        anote.text = newText;
-      }
-    })
+    this.notesService.changeNoteText(newText, note);
   }
 
   onChangeNotePosition(newPosition: any, note: Note){
-    this.notes.forEach((anote: Note) =>{
-      if(anote==note){
-        anote.left = newPosition.left;
-        anote.top = newPosition.top;
-      }
-    })
+    this.notesService.changeNotePosition(newPosition.left, newPosition.top, note);
   }
 
   ngOnInit() {
-    console.log('onInit')
+    this.notesService.initialise();
   }
 
 }
