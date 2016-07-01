@@ -5,3 +5,7 @@ export interface Note {
     top: number,
     id: string
 }
+
+export interface AppState {
+  notes: Note[];
+}
