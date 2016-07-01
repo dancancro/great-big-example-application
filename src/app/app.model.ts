@@ -2,5 +2,6 @@ export interface Note {
     text: string,
     colour: string,
     left: number,
-    top: number
+    top: number,
+    id: string
 }
