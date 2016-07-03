@@ -8,7 +8,7 @@
   [colour] = "note.colour"
   [left] = note.left
   [top] = note.top
-  [disabled] = false
+  [disabled] = note.dirty
   (changeNoteText) = "onChangeNoteText($event, note)"
   (changeNotePosition) = "onChangeNotePosition($event, note)"></app-note>
   {{$notes | async | json}}

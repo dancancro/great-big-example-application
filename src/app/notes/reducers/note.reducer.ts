@@ -5,17 +5,24 @@ import { Note } from '../../index';
 export const note = (note: Note = null, action: Action) => {
   switch(action.type){
     case "ADD_NOTE":
-      return Object.assign({}, action.payload);
+      return Object.assign({}, action.payload, {dirty: true});
     case "UPDATE_NOTE_TEXT":
-      console.log(`UPDATE_NOTE_TEXT note.id:${note.id} action.payload.id:${action.payload.id}`);
       if(note.id == action.payload.id){
-        return Object.assign({}, note, {text: action.payload.text})
+        return Object.assign({}, note, {text: action.payload.text}, {dirty: true})
       } else {
         return note;
       }
     case "UPDATE_NOTE_POSITION":
       if(note.id == action.payload.id){
-        return Object.assign({}, note, {left: action.payload.left, top: action.payload.top})
+        return Object.assign({}, note, {left: action.payload.left, top: action.payload.top}, {dirty: true})
+      } else {
+        return note;
+      }
+    case "ADD_NOTE_FROM_SERVER":
+      return Object.assign({}, action.payload, {dirty: false});
+    case "UPDATE_NOTE_FROM_SERVER":
+      if(note.id == action.payload.note.id){
+        return Object.assign({}, action.payload.note, {dirty: false})
       } else {
         return note;
       }

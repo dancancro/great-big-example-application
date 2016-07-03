@@ -3,7 +3,8 @@ export interface Note {
     colour: string,
     left: number,
     top: number,
-    id: string
+    id: string,
+    dirty: boolean
 }
 
 export interface AppState {
