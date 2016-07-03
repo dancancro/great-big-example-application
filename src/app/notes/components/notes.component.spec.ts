@@ -13,6 +13,7 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import { provideStore, Store } from '@ngrx/store';
 
 import { NotesService } from '../services/notes.service';
+import { notes } from '../reducers/notes.reducer';
 
 //Object under test
 import { NotesComponent } from './notes.component';
@@ -21,8 +22,8 @@ describe('Component: Notes', () => {
   let builder: TestComponentBuilder;
   
   beforeEachProviders(() => [
-    //provideStore({notes}, {notes:[]}),
-    //...HTTP_PROVIDERS, 
+    provideStore({notes}, {notes:[]}),
+    ...HTTP_PROVIDERS, 
     NotesService,
     NotesComponent]);
     

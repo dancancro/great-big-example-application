@@ -12,13 +12,9 @@ declare let uuid; //this is a hack stop Typescript compilation problems when add
 @Injectable()
 export class NotesService {
     store: Store<AppState>;
-    notesDataService: NotesDataService;
 
-    constructor(store: Store<AppState>, notesDataService: NotesDataService){
+    constructor(store: Store<AppState>){
         this.store = store;
-        this.notesDataService = notesDataService;
-
-        this.syncToServer();
     }
 
     getNotes(): Observable<Note[]>{
@@ -35,24 +31,7 @@ export class NotesService {
     }
     
     initialise(): void{
-        this.initialFetchFromServer();
+        this.store.dispatch({ type: "INIT_NOTES", payload: { } });
     }
 
-    initialFetchFromServer(){
-      this.notesDataService.getNotes().mergeMap(notes => Observable.from(notes)).subscribe(note => {
-        this.store.dispatch({ type: "ADD_NOTE_FROM_SERVER", payload: note });
-      });
-    }
-
-    syncToServer() {
-      this.getNotes().subscribe(notes => {
-        notes.forEach(note => {
-            if (note.dirty == true) {
-            this.notesDataService.addOrUpdateNote(note).subscribe(note => {
-                this.store.dispatch({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note } });
-            });
-            }
-        });
-      })  
-    }
 }

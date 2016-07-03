@@ -1,6 +1,6 @@
 # Angular2 State & Data Demo - Talk Version
 
-Exploring approaches to State and Data management from controllers to @ngrx/store
+Exploring approaches to State and Data management from controllers to @ngrx/store and @ngrx/effects
 
 ## What is it?
 This is a bare bones version of a demonstration project that attempts to explore and illustrate the progression of approaches to data management from the 'Angular 1 Way', 
@@ -47,5 +47,22 @@ $ ng test
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
-## The full Demo
-Can be found here
+## Tags
+This repo has been carefully constructed to progress from no state management, through simple 'toy' approaches, all the way to @ngrx/effects in 7 stages!
+You can use the tags to retrieve the repo at any point in this progression.  Note though that the tests may not run successfully in some of the intermediate stages.
+
+You can look at the code for each tag by creating a branch at a specific tag e.g. 
+```
+git checkout -b version5 v5.0
+```
+
+* v1.0 - talk.start() - Just the UI components, no state or data management at all
+* v2.0 - basic in-component state management with ref equality
+* v3.0 - introduce NotesService, async, Observables and ChangeDetection.onPush
+* v4.0 - Immutable state and Id
+* v5.0 - Introduce @ngrx/store
+* v6.0 - introduce HTTP and orchestration in the server
+* v7.0 - Introduce @ngrx/effects to replace http orchestration in the service
+
+## The Original Demo
+With a lot more documentation and some non-@ngrx, service only approaches that work.  Can be found here https://github.com/JavascriptMick/ng2-state-demo
