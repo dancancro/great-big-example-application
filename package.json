@@ -1,5 +1,5 @@
 {
-  "name": "ng2-state-demo",
+  "name": "ng2-state-talk",
   "version": "0.0.0",
   "description": "Exploring State and Data management with @ngrx/store and http in an Angular2 demo",
   "license": "MIT",
