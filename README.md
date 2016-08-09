@@ -1,8 +1,8 @@
 # Evolving State and Data Management with @ngrx/store and @ngrx/effects
 
-Exploring approaches to State and Data management from controllers to @ngrx/store and @ngrx/effects
+## Watch the Presentation
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/pjwVq8B-ZAw" frameborder="0" allowfullscreen></iframe>
+[![Watch the Presentation](http://img.youtube.com/vi/pjwVq8B-ZAw/0.jpg)](https://www.youtube.com/watch?v=pjwVq8B-ZAw "Watch the Presentation")
 
 ## What is it?
 This is a bare bones version of a demonstration project that attempts to explore and illustrate the progression of approaches to data management from the 'Angular 1 Way', 
