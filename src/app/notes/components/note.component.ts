@@ -1,13 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { Draggable } from '../../shared';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-note',
   templateUrl: 'note.component.html',
-  styleUrls: ['note.component.css'],
-  directives: [Draggable, NgClass]
+  styleUrls: ['note.component.css']
 })
 export class NoteComponent {
   @Input() text: string;

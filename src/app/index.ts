@@ -1,3 +1,3 @@
-export {environment} from './environment';
-export {AppComponent} from './app.component';
+export * from './app.component';
+export * from './app.module'
 export {Note, AppState} from './app.model'

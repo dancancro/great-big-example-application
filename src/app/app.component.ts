@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import { NotesComponent } from './notes';
-import { NotesDataService } from './notes/services/notes.data.service';
-
 
 @Component({
-  moduleId: module.id,
-  selector: 'my-app',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  directives: [NotesComponent],
-  providers: [NotesDataService]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angular2 State Management Demo';
+  title = 'app works!';
 }

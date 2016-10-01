@@ -6,8 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 import { Note, AppState } from '../../index';
 import { NotesDataService } from './notes.data.service';
 
-import 'node-uuid';
-declare let uuid; //this is a hack stop Typescript compilation problems when addressing the globally available uuid interface
+let uuid = require('node-uuid');
 
 @Injectable()
 export class NotesService {

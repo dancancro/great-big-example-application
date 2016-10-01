@@ -2,16 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { NoteComponent } from './note.component';
-import { AddButtonComponent } from './add.button.component';
 import { Note } from '../../index';
 import { NotesService } from '../services/notes.service'
 
 @Component({
-  moduleId: module.id,
   selector: 'app-notes',
   templateUrl: 'notes.component.html',
   styleUrls: ['notes.component.css'],
-  directives: [NoteComponent, AddButtonComponent],
   providers: [NotesService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
