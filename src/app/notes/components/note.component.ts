@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-note',

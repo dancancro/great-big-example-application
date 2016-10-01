@@ -9,7 +9,7 @@ import { NotesService } from '../services/notes.service'
   selector: 'app-notes',
   templateUrl: 'notes.component.html',
   styleUrls: ['notes.component.css'],
-  providers: [NotesService],
+  // providers: [NotesService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotesComponent implements OnInit {

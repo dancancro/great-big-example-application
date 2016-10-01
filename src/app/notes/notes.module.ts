@@ -9,6 +9,7 @@ import { NotesDataService } from './services/notes.data.service';
 import { NoteComponent } from './components/note.component';
 import { AddButtonComponent } from './components/add.button.component';
 import { Draggable } from '../shared';
+import { NotesService } from './services/notes.service'
 
 @NgModule({
   declarations: [
@@ -20,6 +21,6 @@ import { Draggable } from '../shared';
     HttpModule,
     EffectsModule.run(NotesEffectsService),
   ],
-  providers: [NotesDataService, Draggable]
+  providers: [NotesDataService, Draggable, NotesService]
 })
 export class NotesModule { }
