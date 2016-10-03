@@ -19,13 +19,17 @@ export class NotesEffectsService {
 
   @Effect() update$ = this.action$
     .ofType('UPDATE_NOTE_TEXT', 'UPDATE_NOTE_POSITION', 'ADD_NOTE')
-    .withLatestFrom(this.store.select('notes'))
-    .mergeMap(notes => Observable.from(notes))
-    .filter((note:Note) => {return (note.dirty==true)})
-    .switchMap((updatedNote:Note) => this.notesDataService.addOrUpdateNote(updatedNote)
-      .map((responseNote:Note) => ({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note: responseNote } }))
+    .withLatestFrom(this.store.select('notes'), (action, notes) => {
+      return notes
+      .filter((note:Note) => {
+        return (note.dirty==true)})
+      .map(note => {
+        return this.notesDataService.addOrUpdateNote(note)
+        .map((responseNote:Note) => {
+          return ({ type: "UPDATE_NOTE_FROM_SERVER", payload: { note: responseNote } })})
+      })})
       .catch(() => Observable.of({ type: "UPDATE_FAILED" }))
-    )
+    
 
   @Effect() init$ = this.action$
     .ofType('INIT_NOTES')

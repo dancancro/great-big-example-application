@@ -15,11 +15,15 @@ export class NotesDataService {
     
     getNotes(): Observable<Array<Note>> {
       return this.http.get(`${this.API_ROOT}/notes`)
-        .map((response: Response) => response.json());
+        .map((response: Response) => {
+          return response.json()});
     }
     
     addOrUpdateNote(note: Note): Observable<Note> {
+      debugger;   // pauses here
       return this.http.post(`${this.API_ROOT}/notes`, JSON.stringify(note), this.JSON_HEADER)
-        .map((response: Response) => response.json())
+        .map((response: Response) => {
+          debugger;  // does not pause here
+          return response.json()})
     }
 }
