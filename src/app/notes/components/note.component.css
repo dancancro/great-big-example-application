@@ -19,7 +19,7 @@ textarea  {
   font-smoothing:subpixel-antialiased;
   max-width:520px;
   max-height:250px;
-  position: absolute;
+  /*position: absolute;*/
 }
 
 textarea.yellow-note{

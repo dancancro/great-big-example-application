@@ -1,4 +1,4 @@
-import { NgModule, Directive, Input, Output, EventEmitter } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 

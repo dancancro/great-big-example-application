@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.16",
-    "name": "ng2-state-talk"
+    "version": "0.2.0",
+    "name": "ng2-state-demo"
   },
   "apps": [
     {

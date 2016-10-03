@@ -32,7 +32,7 @@
     "ts-helpers": "^1.1.1",
     "zone.js": "0.6.21",
     "@ngrx/core": "^1.0.0",
-    "@ngrx/effects": "2.0.0",
+    "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.0.0",
     "node-uuid": "^1.4.7"
   },
