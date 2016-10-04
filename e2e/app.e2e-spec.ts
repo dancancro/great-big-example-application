@@ -1,14 +1,14 @@
-import { Ng2StateDemoPage } from './app.po';
+import { MyPage } from './app.po';
 
 describe('ng2-state-demo App', function() {
-  let page: Ng2StateDemoPage;
+  let page: MyPage;
 
   beforeEach(() => {
-    page = new Ng2StateDemoPage();
+    page = new MyPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying Angular2 State Management Demo', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Angular2 State Management Demo');
   });
 });

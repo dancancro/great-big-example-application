@@ -1,52 +1,58 @@
-import {Directive, Output, EventEmitter, ElementRef, HostListener } from "@angular/core";
+import {Directive, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: "[draggable]",
+  selector: '[draggable]',
   host: {
-    "(mousedown)": "onMouseDown($event)",
-    "(mousemove)": "onMouseMove($event)",
-    "(mouseup)": "onMouseUp($event)"
+    '(mousedown)': 'onMouseDown($event)',
+    '(mousemove)': 'onMouseMove($event)',
+    '(mouseup)': 'onMouseUp($event)'
   }
 })
 export class Draggable {
-    _isDragging: boolean = false;
-    _originalClientX: number;
-    _originalClientY: number;
-    _originalTop: number;
-    _originalLeft: number;
-    _hasDragged: boolean = false;
+    isDragging: boolean = false;
+    originalClientX: number;
+    originalClientY: number;
+    originalTop: number;
+    originalLeft: number;
+    hasDragged: boolean = false;
 
     @Output('draggable') endDragEvent = new EventEmitter(false);
 
-    constructor(public element: ElementRef){
+    constructor(public element: ElementRef) {
       this.element.nativeElement.style.position = 'absolute';
     }
     onMouseDown($event) {
-      if ($event.target.style.position === "absolute" && $event.target.style.left && $event.target.style.top) {
-        this._hasDragged = false;
-        this._isDragging = true;
-        this._originalLeft = parseInt($event.target.style.left, 10);
-        this._originalTop = parseInt($event.target.style.top, 10);
-        this._originalClientX = $event.clientX;
-        this._originalClientY = $event.clientY;
+      if ($event.target.style.position === 'absolute'
+        && $event.target.style.left && $event.target.style.top) {
+        this.hasDragged = false;
+        this.isDragging = true;
+        this.originalLeft = parseInt($event.target.style.left, 10);
+        this.originalTop = parseInt($event.target.style.top, 10);
+        this.originalClientX = $event.clientX;
+        this.originalClientY = $event.clientY;
       }else {
-        console.log("draggable: Error! the annotated " + $event.target.nodeName + " element needs to be inline styled with position, top and left");
+        console.log('draggable: Error! the annotated ' + $event.target.nodeName
+          + ' element needs to be inline styled with position, top and left');
       }
     }
 
     onMouseMove($event) {
-      if (this._isDragging) {
-        this._hasDragged = true;
-        this.element.nativeElement.style.top  = (this._originalTop + ($event.clientY - this._originalClientY))  + 'px';
-        this.element.nativeElement.style.left = (this._originalLeft + ($event.clientX - this._originalClientX)) + 'px';
+      if (this.isDragging) {
+        this.hasDragged = true;
+        this.element.nativeElement.style.top  =
+          (this.originalTop + ($event.clientY - this.originalClientY))  + 'px';
+        this.element.nativeElement.style.left =
+          (this.originalLeft + ($event.clientX - this.originalClientX)) + 'px';
       }
     }
 
     onMouseUp($event) {
-      if (this._isDragging) {
-        this._isDragging = false;
-        if(this._hasDragged){
-          this.endDragEvent.emit({left: this._originalLeft + ($event.clientX - this._originalClientX), top: this._originalTop + ($event.clientY - this._originalClientY)});
+      if (this.isDragging) {
+        this.isDragging = false;
+        if (this.hasDragged) {
+          this.endDragEvent.emit({
+            left: this.originalLeft + ($event.clientX - this.originalClientX),
+            top: this.originalTop + ($event.clientY - this.originalClientY)});
         }
       }
     }

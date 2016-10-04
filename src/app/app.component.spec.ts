@@ -2,13 +2,12 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 
 describe('App: Ng2StateTalk', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      imports: [ AppModule ]
     });
   });
 
@@ -18,16 +17,16 @@ describe('App: Ng2StateTalk', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it('should have as title \'Angular2 State Management Demo\'', async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     let app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
+    expect(app.title).toEqual('Angular2 State Management Demo');
   }));
 
   it('should render title in a h1 tag', async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
+    expect(compiled.querySelector('h1').textContent).toContain('Angular2 State Management Demo');
   }));
 });

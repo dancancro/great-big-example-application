@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-// import { NgClass } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: "add-button",
-  templateUrl: 'add.button.component.html',
-  styleUrls: ['add.button.component.css']
+  selector: 'add-button',
+  templateUrl: 'add-button.component.html',
+  styleUrls: ['add-button.component.css']
 })
 export class AddButtonComponent {
   @Input() colour: string;
