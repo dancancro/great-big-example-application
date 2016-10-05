@@ -1,2 +1,2 @@
-export { Draggable } from './draggable';
+export { Draggable } from './draggable.directive';
 export { SharedModule } from './shared.module';
