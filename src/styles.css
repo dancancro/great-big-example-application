@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+/* Master Styles */
+
+/*
+@import "~@angular/material/core/theming/prebuilt/deeppurple-amber.css";
+@import '~basscss-basic/index.css';
+@import '~basscss-addons/modules/btn/index.css';
+@import '~basscss-addons/modules/btn-primary/index.css';
+@import '~basscss-addons/modules/background-colors/index.css';
+@import '~basscss-addons/modules/colors/index.css';
+@import '~basscss-addons/modules/forms/index.css';
+@import '~basscss-addons/modules/input-range/index.css';
+@import '~basscss-addons/modules/responsive-margin/index.css';
+@import '~basscss-addons/modules/responsive-padding/index.css';
+@import '~basscss-addons/modules/media-object/index.css';
+@import '~basscss-addons/modules/all/index.css';
+@import '~basscss-addons/modules/progress/index.css';
+@import '~basscss-addons/modules/lighten/index.css';
+@import '~basscss-addons/modules/background-images/index.css';
+@import '~basscss-addons/modules/darken/index.css';
+@import '~basscss-type-scale/index.css';
+@import '~basscss-typography/index.css';
+@import '~basscss-layout/index.css';
+@import '~basscss-align/index.css';
+@import '~basscss-margin/index.css';
+@import '~basscss-padding/index.css';
+@import '~basscss-grid/index.css';
+@import '~basscss-flexbox/index.css';
+@import '~basscss-position/index.css';
+@import '~basscss-border/index.css';
+@import '~basscss-hide/index.css';
+*/
+
+@import "@angular/material/core/theming/prebuilt/deeppurple-amber.css";
+@import 'basscss-basic';
+@import 'basscss-addons/modules/btn';
+@import 'basscss-addons/modules/btn-primary';
+@import 'basscss-addons/modules/background-colors';
+@import 'basscss-addons/modules/colors';
+@import 'basscss-addons/modules/forms';
+@import 'basscss-addons/modules/input-range';
+@import 'basscss-addons/modules/responsive-margin';
+@import 'basscss-addons/modules/responsive-padding';
+@import 'basscss-addons/modules/media-object';
+@import 'basscss-addons/modules/all';
+@import 'basscss-addons/modules/progress';
+@import 'basscss-addons/modules/lighten';
+@import 'basscss-addons/modules/background-images';
+@import 'basscss-addons/modules/darken';
+@import 'basscss-type-scale';
+@import 'basscss-typography';
+@import 'basscss-layout';
+@import 'basscss-align';
+@import 'basscss-margin';
+@import 'basscss-padding';
+@import 'basscss-grid';
+@import 'basscss-flexbox';
+@import 'basscss-position';
+@import 'basscss-border';
+@import 'basscss-hide';

@@ -1,0 +1,28 @@
+<div>
+      <a id="{{claim.id}}"></a>
+      <h3><a target="_top" href="http://www.bernierebuttals.org?objection={{claim.id}}">🔗</a> 
+      <span class ="claim-name" (click)="toggleRebuttals.emit({claim: claim})">{{claim.name}}</span></h3>
+      <span class="claim-block" *ngIf="claim.expanded">
+        <div [hidden]="!claim.imageLink" class="claim-graphic">
+             <a target="_blank" href="{{claim.imageLink}}">
+               <img src="{{claim.imageLink}}">
+             </a>
+             <br>{{claim.imageLabel}}
+        </div><br>
+        <ul class="container" [sortablejs]="claim.rebuttals" [sortablejsOptions]="options" (update)="reorderClaims.emit()">
+          <li *ngFor="let rebuttal of getRebuttals(claim)" [ngClass]="{touched: rebuttal.isTouched()}">
+            <debate-rebuttal 
+              [page]="page"
+              [claim]="claim"
+              [rebuttal]="rebuttal"
+              (cancel)="cancelRebuttal.emit(rebuttal)"
+              (makeEditable)="makeRebuttalEditable.emit(rebuttal)" 
+              (save)="saveRebuttal.emit(rebuttal)" 
+            ></debate-rebuttal>
+          </li>
+          <li><button class="btn btn-default btn-xs" title="Add" 
+            (click)="addRebuttal.emit(claim)" 
+            *ngIf="page.editable" [disabled]="claim.isAdding()">Add</button> </li>
+        </ul>
+      </span>
+</div>

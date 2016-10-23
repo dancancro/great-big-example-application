@@ -1,0 +1,163 @@
+.
+├── app
+│   ├── module.ts
+│   ├── page.css
+│   ├── page.html
+│   ├── page.spec.ts
+│   ├── page.ts
+│   ├── routing.ts
+│   ├── core
+│   │   ├── about
+│   │   │   └── page.ts
+│   │   ├── module.ts
+│   │   ├── routing.ts
+│   │   └── store
+│   │       ├── books
+│   │       │   ├── book.actions.ts
+│   │       │   ├── book.effects.ts
+│   │       │   ├── book.model.ts
+│   │       │   └── reducer.ts
+│   │       ├── claims
+│   │       │   ├── claim
+│   │       │   │   ├── actions.ts
+│   │       │   │   ├── model.ts
+│   │       │   │   └── reducer.ts
+│   │       │   ├── actions.ts
+│   │       │   └── reducer.ts
+│   │       ├── collection
+│   │       │   ├── actions.ts
+│   │       │   ├── effects.ts
+│   │       │   └── reducer.ts
+│   │       ├── counter
+│   │       │   ├── actions.test.ts
+│   │       │   ├── actions.ts
+│   │       │   ├── model.ts
+│   │       │   └── reducer.ts
+│   │       ├── debate
+│   │       │   ├── data.service.ts
+│   │       │   └── effects.ts
+│   │       ├── index.ts
+│   │       ├── layout
+│   │       │   ├── actions.ts
+│   │       │   └── reducer.ts
+│   │       ├── notes
+│   │       │   ├── note
+│   │       │   │   ├── actions.ts
+│   │       │   │   ├── model.ts
+│   │       │   │   └── reducer.ts
+│   │       │   ├── data.service.ts
+│   │       │   ├── actions.ts
+│   │       │   ├── effects.ts
+│   │       │   └── reducer.ts
+│   │       ├── rebuttals
+│   │       │   ├── rebuttal
+│   │       │   │   ├── actions.ts
+│   │       │   │   ├── model.ts
+│   │       │   │   └── reducer.ts
+│   │       │   ├── actions.ts
+│   │       │   └── reducer.ts
+│   │       ├── search
+│   │       │   └── reducer.ts
+│   │       └── session
+│   │           ├── actions.ts
+│   │           ├── model.ts
+│   │           └── reducer.ts
+│   ├── counter
+│   │   ├── component.ts
+│   │   ├── module.ts
+│   │   ├── page.ts
+│   │   └── routing.ts
+│   ├── debate
+│   │   ├── claim
+│   │   │   ├── component.css
+│   │   │   ├── component.html
+│   │   │   ├── component.spec.ts
+│   │   │   └── component.ts
+│   │   ├── module.ts
+│   │   ├── page.css
+│   │   ├── page.html
+│   │   ├── page.ts
+│   │   ├── routing.ts
+│   │   └── rebuttal
+│   │       ├── component.css
+│   │       ├── component.html
+│   │       ├── component.spec.ts
+│   │       └── component.ts
+│   ├── login
+│   │   ├── login-form
+│   │   │   ├── component.test.ts
+│   │   │   └── component.ts
+│   │   ├── login-modal
+│   │   │   ├── component.test.ts
+│   │   │   └── component.ts
+│   │   └── module.ts
+│   ├── notes
+│   │   ├── add-button
+│   │   │   ├── component.css
+│   │   │   ├── component.html
+│   │   │   └── component.ts
+│   │   ├── note
+│   │   │   ├── component.css
+│   │   │   ├── component.html
+│   │   │   ├── component.ts
+│   │   ├── module.ts
+│   │   ├── page.css
+│   │   ├── page.html
+│   │   ├── page.spec.ts
+│   │   ├── page.ts
+│   │   └── routing.ts
+│   └── shared
+│       ├── alert
+│       │   ├── component.test.ts
+│       │   └── component.ts
+│       ├── assets
+│       │   └── bernie-sanders-128.jpg
+│       ├── button
+│       │   ├── component.test.ts
+│       │   └── component.ts
+│       ├── container
+│       │   ├── component.test.ts
+│       │   └── component.ts
+│       ├── draggable
+│       │   └── directive.ts
+│       ├── form
+│       │   ├── component.ts
+│       │   └── test.ts
+│       ├── form-error
+│       │   ├── component.ts
+│       │   └── test.ts
+│       ├── form-group
+│       │   ├── component.ts
+│       │   └── test.ts
+│       ├── input
+│       │   ├── component.ts
+│       │   └── test.ts
+│       ├── label
+│       │   ├── component.ts
+│       │   └── test.ts
+│       ├── logo
+│       │   ├── component.test.ts
+│       │   ├── component.ts
+│       │   └── component.css
+│       ├── modal
+│       │   ├── component.test.ts
+│       │   ├── component.ts
+│       │   └── component.css
+│       ├── modal-content
+│       │   ├── component.test.ts
+│       │   └── component.ts
+│       ├── shared.module.ts
+│       ├── ui
+│       │   └── module.ts
+│       └── util.ts
+├── environments
+│   ├── environment.prod.ts
+│   └── environment.ts
+├── favicon.ico
+├── index.html
+├── main.ts
+├── polyfills.ts
+├── styles.css
+├── test.ts
+├── tsconfig.json
+└── typings.d.ts

@@ -5,30 +5,28 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 
-import { NotesDataService } from './services/notes.data.service';
-import { NotesEffectsService } from './services/notes.effects.service';
-import { NotesService } from './services/notes.service';
-import { NoteComponent } from './components/note.component';
-import { AddButtonComponent } from './components/add-button.component';
-import { NotesComponent } from './components/notes.component';
-import { routing }        from './notes.routing';
-import { SharedModule }        from '../shared/shared.module';
+import { DataService } from '../core/store/data.service';
+import { NoteEffects } from '../core/store/note/note.effects';
+import { NoteComponent } from './note.component';
+import { AddButtonComponent } from './add-button/add-button.component';
+import { NotesPage } from './notes.page';
+import { routing } from './notes.routing';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    NotesComponent,
-    NoteComponent,
-    AddButtonComponent
-  ],
   imports: [
     SharedModule,
     routing,
     HttpModule,
-    EffectsModule.run(NotesEffectsService)
+    EffectsModule.run(NoteEffects)
+  ],
+  declarations: [
+    NotesPage,
+    NoteComponent,
+    AddButtonComponent
   ],
   providers: [
-    NotesDataService,
-    NotesService
+    DataService
   ]
 })
 export class NotesModule { }

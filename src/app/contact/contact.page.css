@@ -1,0 +1,35 @@
+.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.alert {
+  padding: 15px;
+  margin: 8px 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.msg {
+  color: blue;
+  background-color: whitesmoke;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

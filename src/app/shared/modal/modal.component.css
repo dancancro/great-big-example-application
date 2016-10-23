@@ -1,0 +1,17 @@
+.modal {
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (--breakpoint-md) {
+
+  .modal {
+    height: auto;
+    margin: 4rem auto;
+    width: 75%;
+  }
+
+}
+
+@custom-media --breakpoint-md (min-width: 52em);

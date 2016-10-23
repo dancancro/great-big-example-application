@@ -1,16 +1,26 @@
-# Evolving State and Data Management with @ngrx/store and @ngrx/effects
+This project is an attempt by an unemployed non-student to infer from available demos what the codebase might
+look like for thee real-world, commercial SPAs that employed programmers work on every day. If it's easier to
+learn automechanics using a real car than a bicycle, a go-kart and a differential, then it's also easier
+to learn how to make a real application by getting your eyes on source code of a real application than a lot of
+simplified instructional material.
 
-## Watch the Presentation
+This is real in architecture but not content. It was not important for the application's features to be coherent or
+related. So I just combined the features of the following expert but small instructional apps that I used to
+learn all of this into one big app. I integrated/restructured/restyled their code according to the following
+priorities listed below in order of priority from highest to lowest. Disagreements in approach between two influences
+are resolved by the lower influence yielding to the higher one:
 
-[![Watch the Presentation](http://img.youtube.com/vi/pjwVq8B-ZAw/0.jpg)](https://www.youtube.com/watch?v=pjwVq8B-ZAw "Watch the Presentation")
+1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
+2. [Tour of Heroes Final Version](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
+3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
+4. [ngrx example app](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
+5. [ng2-state-talk](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+6. [rangle-starter - Angular 2 with TypeScript and Redux version](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
-## What is it?
-This is a bare bones version of a demonstration project that attempts to explore and illustrate the progression of approaches to data management from the 'Angular 1 Way', 
-through changes to http with observables all the way to the current state of the art utilising the flux/redux implementation @ngrx/store.  
-
-Also, While there are some other examples of using flux/redux/@ngrx/store with http, I didn't find any of them to be easy to understand.
-
-The intent of this repo is to be the basis for a presentation on the subject.
+In addition to the features from these demos, I added one of my own. I replaced
+[this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 
+contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
+and served as JSON by a Google script.
 
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
@@ -27,7 +37,7 @@ This is a standard angular-cli generated application so you can use all of the n
 
 ```
 # Download the code
-$ git clone https://github.com/JavascriptMick/ng2-state-demo.git
+$ git clone <ToDo>
 $ cd ng2-state-demo
 
 # Install dependencies
@@ -48,23 +58,3 @@ $ ng test
 ```
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
-
-## Tags
-This repo has been carefully constructed to progress from no state management, through simple 'toy' approaches, all the way to @ngrx/effects in 7 stages!
-You can use the tags to retrieve the repo at any point in this progression.  Note though that the tests may not run successfully in some of the intermediate stages.
-
-You can look at the code for each tag by creating a branch at a specific tag e.g. 
-```
-git checkout -b version5 v5.0
-```
-
-* v1.0 - talk.start() - Just the UI components, no state or data management at all
-* v2.0 - basic in-component state management with ref equality
-* v3.0 - introduce NotesService, async, Observables and ChangeDetection.onPush
-* v4.0 - Immutable state and Id
-* v5.0 - Introduce @ngrx/store
-* v6.0 - introduce HTTP and orchestration in the server
-* v7.0 - Introduce @ngrx/effects to replace http orchestration in the service
-
-## The Original Demo
-With a lot more documentation and some non-@ngrx, service only approaches that work.  Can be found here https://github.com/JavascriptMick/ng2-state-demo

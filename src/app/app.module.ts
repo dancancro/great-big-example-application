@@ -1,23 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from '@angular/material';
 
-import { AppComponent } from './app.component';
-import { NotesModule } from './notes/notes.module';
+/* App Root */
+import { AppPage } from './app.page';
+import { RioLoginModalComponent } from './login/login-modal/login-modal.component';
+import { RioLoginModule } from './login/login.module';
+import { SharedModule } from './shared/shared.module';
+
+/* Feature Modules */
 import { CoreModule } from './core/core.module';
-import { routing }        from './app.routing';
+
+/* Routing Module */
+import { routing } from './app.routing';
 
 @NgModule({
   imports: [
     BrowserModule,
-    NotesModule,  // If new Feature modules are loaded you don't have to add them.
-    CoreModule,   // NotesModule is here because it's designated first in app.routing
-    routing
+    CoreModule.forRoot({userName: 'Miss Marple'}),
+    routing,
+    RioLoginModule,
+    MaterialModule.forRoot(),
+    SharedModule
   ],
   declarations: [
-    AppComponent
+    AppPage
   ],
   bootstrap: [
-    AppComponent
+    AppPage
   ]
 })
 export class AppModule { }

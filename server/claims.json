@@ -1,0 +1,117 @@
+[
+    {
+        "name": "Bernie can't win the general election",
+        "id": 1,
+        "imageLink": "https://scontent-ord1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/761_1045542135487706_7943236650006385095_n.jpg?oh=55256661338f8198d252dc81e9eddeac&oe=579866F4",
+        "imageLabel": "Bernie is more electable",
+        "rebuttals": [
+            {
+                "longName": "Democrats lose when people are demoralized and then don't vote like in the last midterm elections. Excitement is the antidote. The Sanders campaign excites people more than the Clinton campaign.",
+                "shortName": "Excited Democrats vote",
+                "id": 1,
+                "date": "2016-01-10T05:00:00.000Z",
+                "expires": "",
+                "sortOrder": 1
+            },
+            {
+                "longName": "Bernie Sanders got 2100 write-in votes in the New Hampshire REPUBLICAN primary. almost a third of what Ben Carson got. ",
+                "shortName": "2100 write-ins",
+                "id": 4,
+                "date": "2016-02-12T05:00:00.000Z",
+                "expires": "",
+                "link": "http://www.dailykos.com/story/2016/2/12/1484373/-Crossover-Appeal-Bernie-Sanders-Wins-2-095-Write-In-Votes-in-Republican-Primary-Washington-Post",
+                "sortOrder": 2
+            },
+            {
+                "longName": "Hillary did not win in 2008. She is the same Hillary that people did not like back then.",
+                "shortName": "Hillary same as 2008",
+                "id": 15,
+                "date": "2016-01-05T05:00:00.000Z",
+                "expires": "",
+                "sortOrder": 4
+            }
+        ]
+    },
+    {
+        "name": "Polls say Americans would not vote for a Socialist",
+        "id": 3,
+        "imageLink": "https://img.washingtonpost.com/wp-apps/imrs.php?src=https://img.washingtonpost.com/news/rampage/wp-content/uploads/sites/27/2016/02/Screen-Shot-2016-02-05-at-9.48.33-AM-e1454683771116.png&w=1484",
+        "imageLabel": "Millenials prefer socialist to capitalist",
+        "rebuttals": [
+            {
+                "longName": "Did you go to public grade school? Did your parents, not you, pay for your private grade school? Have you traveled in a car from one place to another for free? You're someone who gets stuff without earning it. You're a socialist. ",
+                "shortName": "You're a socialist",
+                "id": 320,
+                "date": "2016-06-14T04:00:00.000Z",
+                "expires": "",
+                "sortOrder": 1
+            },
+            {
+                "longName": "Polls can be wrong as shown by NH and IA",
+                "shortName": "Polls < reality in NH & IA",
+                "id": 144,
+                "date": "",
+                "expires": "",
+                "sortOrder": 1
+            },
+            {
+                "longName": "Millenials have a higher opinion of socialism than capitalism",
+                "shortName": "Millenials prefer 'socialism'",
+                "id": 109,
+                "date": "",
+                "expires": "",
+                "link": "https://www.washingtonpost.com/news/rampage/wp/2016/02/05/millennials-have-a-higher-opinion-of-socialism-than-of-capitalism/",
+                "sortOrder": 2
+            }
+        ]
+    },
+    {
+        "name": "Bernie is too old",
+        "id": 5,
+        "imageLabel": "",
+        "rebuttals": [
+            {
+                "longName": "The statistical life expectancy of a 74-year-old man is 11.5 years. That does not take into account that a United States president has the absolute best health care humanly possible of anyone on earth in the history of the world.",
+                "shortName": "Bernie has 11 more years",
+                "id": 359,
+                "date": "2016-06-22T04:00:00.000Z",
+                "expires": "",
+                "link": "https://www.ssa.gov/cgi-bin/longevity.cgi",
+                "sortOrder": 1
+            },
+            {
+                "longName": "A president's VP shares his positions and values. When you elect a president you are ensuring that these positions be supported for the terms or lives of BOTH officers whichever is shorter.  Bernie dying in office and being succeeded by someone with the same values is a much better scenario than Hillary or Trump being in office and not dying.",
+                "shortName": "Vice Presidents share positions",
+                "id": 360,
+                "date": "2016-06-22T04:00:00.000Z",
+                "expires": "",
+                "sortOrder": 1
+            },
+            {
+                "longName": "Bernie \"runs the 25-year-old staffers into the ground\". He rides his bike every day",
+                "shortName": "Bernie energizer bunny",
+                "id": 300,
+                "date": "2016-05-30T04:00:00.000Z",
+                "expires": "",
+                "link": "https://www.yahoo.com/news/energizer-bernie-does-sanders-keep-000000095.html?nhp=1",
+                "sortOrder": 1
+            },
+            {
+                "longName": "He’s younger than three of the eight Supreme Court justices.",
+                "shortName": "Younger than 3 judges",
+                "id": 140,
+                "date": "2016-01-05T05:00:00.000Z",
+                "expires": "",
+                "sortOrder": 3
+            },
+            {
+                "longName": "FDR was paralyzed, and JFK had both Addison’s and Crohn’s diseases",
+                "shortName": "Unhealthy FDR and JFK",
+                "id": 141,
+                "date": "2016-01-05T05:00:00.000Z",
+                "expires": "",
+                "sortOrder": 3
+            }
+        ]
+    }
+]

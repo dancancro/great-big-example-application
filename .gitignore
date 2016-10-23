@@ -3,8 +3,6 @@
 # compiled output
 /dist
 /tmp
-/src/app/**/*.js
-/src/app/**/*.js.map
 
 # dependencies
 /node_modules
@@ -13,6 +11,10 @@
 # IDEs and editors
 /.idea
 /.vscode
+.project
+.classpath
+*.launch
+.settings/
 
 # misc
 /.sass-cache
@@ -29,3 +31,4 @@ testem.log
 
 #System Files
 .DS_Store
+Thumbs.db

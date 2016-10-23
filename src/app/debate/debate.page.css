@@ -1,0 +1,17 @@
+/* TODO: figure out how to make the top of this the bottom of the nav bar */
+.heading {
+  background-color: white;
+  font-size: 20px;
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  z-index: 1;
+}
+
+ul {
+  list-style: none;
+}
+
+.touched {
+  background-color: beige;
+}

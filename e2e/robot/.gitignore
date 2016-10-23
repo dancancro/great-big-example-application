@@ -1,0 +1,9 @@
+/libspecs/
+log.html
+output.xml
+report.html
+selenium-screenshot-*.png
+red.xml
+.project
+.pydevproject
+

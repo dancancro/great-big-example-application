@@ -1,0 +1,17 @@
+.drag-handle {
+  color: #5f9edf;
+  cursor: move;
+  cursor: -webkit-grabbing;  /* overrides 'move' */
+  display: inline-block;
+  font: bold 20px Sans-Serif;
+  margin-right: 10px;
+}
+
+input {
+  padding: 6px 12px;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}

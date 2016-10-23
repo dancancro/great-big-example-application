@@ -1,0 +1,51 @@
+.claim-name {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 80%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.claim-graphic {
+  font-weight: bold;
+  text-align: center;
+  width: 80%;
+}
+
+.touched {
+  background-color: Beige;
+}
+
+.gu-mirror {
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
+  filter: alpha(opacity=80);
+  margin: 0 !important;
+  opacity: 0.8;
+  position: fixed !important;
+  z-index: 9999 !important;
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+.gu-transit {
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+}
