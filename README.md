@@ -1,5 +1,5 @@
 This project is an attempt by an unemployed non-student to infer from available demos what the codebase might
-look like for thee real-world, commercial SPAs that employed programmers work on every day. If it's easier to
+look like for the real-world, commercial SPAs that employed programmers work on every day. If it's easier to
 learn automechanics using a real car than a bicycle, a go-kart and a differential, then it's also easier
 to learn how to make a real application by getting your eyes on source code of a real application than a lot of
 simplified instructional material.
