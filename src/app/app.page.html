@@ -2,7 +2,7 @@
   (onSubmit)="actions.loginUser($event)"
   [hasError]="hasError$ | async"
   [isPending]="isLoading$ | async"
-  *ngIf="false && loggedOut$ | async">
+  *ngIf="loggedOut$ | async">
 </rio-login-modal>
 <bc-layout>
   <bc-sidenav [open]="showSidenav$ | async">
