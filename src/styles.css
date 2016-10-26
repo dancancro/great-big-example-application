@@ -1,7 +1,7 @@
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
-@import './basscss-basic/index.css';
-@import './basscss-addons/modules/btn/index.css';
-@import './basscss-addons/modules/btn-primary/index.css';
+@import './basscss-basic';
+@import './basscss-addons/modules/btn';
+@import './basscss-addons/modules/btn-primary';
 /*
 @import '~basscss-addons/modules/background-colors/index.css';
 @import '~basscss-addons/modules/colors/index.css';
