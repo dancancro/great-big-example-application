@@ -5,7 +5,8 @@ export const ActionTypes = {
   OPEN_SIDENAV:     type('[Layout] Open Sidenav'),
   CLOSE_SIDENAV:    type('[Layout] Close Sidenav'),
   TOGGLE_EDITABLE:  type('[Layout] Toggle editable'),
-  TOGGLE_EXPANDED:  type('[Layout] Toggle expanded')
+  TOGGLE_EXPANDED:  type('[Layout] Toggle expanded'),
+  SET_MESSAGE:      type('[Layout] Set message')
 };
 
 
@@ -19,18 +20,21 @@ export class CloseSidenavAction implements Action {
 
 export class ToggleEditableAction implements Action {
   type = ActionTypes.TOGGLE_EDITABLE;
-
-  constructor() { }
 }
 
 export class ToggleExpandedAction implements Action {
   type = ActionTypes.TOGGLE_EXPANDED;
+}
 
-  constructor() { }
+export class SetMsgAction implements Action {
+  type = ActionTypes.SET_MESSAGE;
+
+  constructor(public payload: string) { }
 }
 
 export type Actions
   = OpenSidenavAction
   | CloseSidenavAction
   | ToggleEditableAction
-  | ToggleExpandedAction;
+  | ToggleExpandedAction
+  | SetMsgAction;

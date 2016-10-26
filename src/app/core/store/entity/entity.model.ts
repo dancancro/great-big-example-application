@@ -6,15 +6,15 @@ export interface Entities<T> {
   selectedEntityId?: string
 };
 
-export function initialEntities<T>(): Entities<T>
+export function initialEntities<T>(vals: any = {}): Entities<T>
 {
-  return {
+  return Object.assign({
   ids: [],
   entities: {},
   loaded: false,
   loading: false, 
   selectedEntityId: null
-  }
+  }, vals);
 };
 
 export interface IDs {

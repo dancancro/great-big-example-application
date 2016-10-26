@@ -11,6 +11,9 @@ import { Claim } from './Claim/claim.model';
 import { Rebuttal } from './rebuttal/rebuttal.model';
 import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
 import { Note } from './note/note.model';
+import { Contact } from './contact/contact.model';
+import { Crisis } from './crisis/crisis.model';
+import { Hero } from './hero/hero.model';
 
 @Injectable()
 export class DataService {
@@ -58,6 +61,36 @@ export class DataService {
 
     addOrUpdateNote(note: Note): Observable<Note> {
       return this.http.post(`${this.API_ROOT}/notes`, JSON.stringify(note), this.JSON_HEADER)
+        .map((response: Response) => response.json());
+    }
+
+    getContacts(): Observable<any> {
+      return this.http.get(`${this.API_ROOT}/contacts`)
+        .map((response: Response) => response.json());
+    }
+
+    addOrUpdateContact(contact: Contact): Observable<Contact> {
+      return this.http.post(`${this.API_ROOT}/contacts`, JSON.stringify(contact), this.JSON_HEADER)
+        .map((response: Response) => response.json());
+    }
+
+    getCrises(): Observable<any> {
+      return this.http.get(`${this.API_ROOT}/crises`)
+        .map((response: Response) => response.json());
+    }
+
+    addOrUpdateCrisis(crisis: Crisis): Observable<Crisis> {
+      return this.http.post(`${this.API_ROOT}/crises`, JSON.stringify(crisis), this.JSON_HEADER)
+        .map((response: Response) => response.json());
+    }
+
+    getHeroes(): Observable<any> {
+      return this.http.get(`${this.API_ROOT}/heroes`)
+        .map((response: Response) => response.json());
+    }
+
+    addOrUpdateHero(hero: Hero): Observable<Hero> {
+      return this.http.post(`${this.API_ROOT}/heroes`, JSON.stringify(hero), this.JSON_HEADER)
         .map((response: Response) => response.json());
     }
 

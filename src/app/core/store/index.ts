@@ -4,6 +4,8 @@ import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
+import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
+
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
 import { environment } from '../../../environments/environment.prod';
@@ -14,6 +16,9 @@ import { Layout } from './layout/layout.model';
 import { Counter } from './counter/counter.model';
 import { Session } from './session/session.model';
 import { User } from './user/user.model';
+import { Crisis } from './crisis/crisis.model';
+import { Contact } from './contact/contact.model';
+import { Hero } from './hero/hero.model';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -60,6 +65,9 @@ import * as fromClaimRebuttals from './claim-rebuttal/claim-rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
 import * as fromSession from './session/session.reducer';
 import * as fromUser from './user/user.reducer';
+import * as fromCrises from './crisis/crisis.reducer';
+import * as fromContacts from './contact/contact.reducer';
+import * as fromHeroes from './hero/hero.reducer';
 import { Entities, IDs } from './entity/entity.model';
 
 /**
@@ -79,6 +87,9 @@ export interface RootState {
   search: fromSearch.State;
   session: Session;
   user: User;
+  crises: Entities<Crisis>;
+  contacts: Entities<Contact>;
+  heroes: Entities<Hero>
 }
 
 
@@ -89,22 +100,32 @@ export interface RootState {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
+ 
 const reducers = {
-  books: fromBooks.reducer,
-  collection: fromCollection.reducer,
-  claims: fromClaims.reducer,
-  counter: fromCounter.reducer,
-  layout: fromLayout.reducer,
-  notes: fromNotes.reducer,
-  rebuttals: fromRebuttals.reducer,
-  router: fromRouter.routerReducer,
-  search: fromSearch.reducer,
-  session: fromSession.reducer,
-  user: fromUser.reducer
-};
+      books: fromBooks.reducer,
+      collection: fromCollection.reducer,
+      claims: fromClaims.reducer,
+      counter: fromCounter.reducer,
+      layout: fromLayout.reducer,
+      notes: fromNotes.reducer,
+      rebuttals: fromRebuttals.reducer,
+      router: fromRouter.routerReducer,
+      search: fromSearch.reducer,
+      session: fromSession.reducer,
+      user: fromUser.reducer,
+      crises: fromCrises.reducer,
+      heroes: fromHeroes.reducer,
+      contacts: fromContacts.reducer
+    }
 
-const developmentReducer = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer = combineReducers(reducers);
+const developmentReducer = composeReducers(
+  defaultFormReducer(),
+  compose(storeFreeze, combineReducers)(reducers)
+);
+const productionReducer = composeReducers(
+  defaultFormReducer(),
+  combineReducers(reducers)
+);
 
 export function reducer(state: any, action: any) {
   if (environment.production) {
@@ -224,6 +245,7 @@ export const getLayoutState = (state$: Observable<RootState>) =>
   state$.select(state => state.layout);
 
 export const getShowSidenav = compose(fromLayout.getShowSidenav, getLayoutState);
+export const getMsg = compose(fromLayout.getMsg, getLayoutState);
 export const getDebatePageState = compose(fromLayout.getDebatePageState, getLayoutState);
 
 
@@ -305,3 +327,63 @@ export const getClaimRebuttals = function (state$: Observable<RootState>) {
 export const getCounterState = (state$: Observable<RootState>) =>
   state$.select(state => state.counter);
 export const getCounterValue = compose(fromCounter.getValue, getCounterState);
+
+/**
+ * Crises Reducers
+ */
+
+export function getCrisesState(state$: Observable<RootState>) {
+  return state$.select(state => state.crises);
+}
+export const getCrisisEntities = compose(fromCrises.getCrisisEntities, getCrisesState);
+export const getCrisisIds = compose(fromCrises.getCrisisIds, getCrisesState);
+export const getCrises = function (state$: Observable<RootState>) {
+  return combineLatest<{ [id: string]: Crisis }, string[]>(
+    state$.let(getCrisisEntities),
+    state$.let(getCrisisIds)
+  )
+  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+};
+
+/**
+ * Contacts Reducers
+ */
+
+export function getContactsState(state$: Observable<RootState>) {
+  return state$.select(state => state.contacts);
+}
+export const getContactEntities = compose(fromContacts.getContactEntities, getContactsState);
+export const getContactIds = compose(fromContacts.getContactIds, getContactsState);
+export const getContacts = function (state$: Observable<RootState>) {
+  return combineLatest<{ [id: string]: Contact }, string[]>(
+    state$.let(getContactEntities),
+    state$.let(getContactIds)
+  )
+  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+};
+export const getContact = compose(fromContacts.getContact, getContactsState);
+
+/**
+ * Heroes Reducers
+ */
+
+export function getHeroesState(state$: Observable<RootState>) {
+  return state$.select(state => state.heroes);
+}
+export const getHeroEntities = compose(fromHeroes.getHeroEntities, getHeroesState);
+export const getHeroIds = compose(fromHeroes.getHeroIds, getHeroesState);
+export const getHeroes = function (state$: Observable<RootState>) {
+  return combineLatest<{ [id: string]: Hero }, string[]>(
+    state$.let(getHeroEntities),
+    state$.let(getHeroIds)
+  )
+  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+};
+export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesState);
+
+/**
+ * User Reducers
+ */
+export const getUserState = (state$: Observable<RootState>) =>
+  state$.select(state => state.user);
+export const getUserName = compose(fromUser.getFullName, getUserState);

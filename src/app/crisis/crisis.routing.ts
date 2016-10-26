@@ -3,7 +3,7 @@ import { Routes,
          RouterModule }        from '@angular/router';
 
 import { CrisisPage }    from './crisis.page';
-import { CrisisDetailComponent }  from './crisis-detail.component';
+import { CrisisDetailComponent }  from './crisis-detail/crisis-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full'},

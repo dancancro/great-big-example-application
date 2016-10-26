@@ -12,8 +12,8 @@ import { getRebuttalEntities } from '../../core/store';
 
 @Component({
     selector: 'debate-claim',
-    template: require('./claim.component.html'),
-    styles: [require('./claim.component.css')],
+    templateUrl: 'claim.component.html',
+    styleUrls: ['claim.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClaimComponent {

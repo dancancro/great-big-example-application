@@ -1,14 +1,24 @@
 import { NgModule }           from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 
+import { DataService } from '../core/store/data.service';
 import { SharedModule }       from '../shared/shared.module';
 import { ContactPage }        from './contact.page';
-import { ContactService }     from './contact.service';
 import { routing }            from './contact.routing';
+import { ContactEffects } from '../core/store/contact/contact.effects';
 
 @NgModule({
-  imports:      [ SharedModule, routing ],
-  declarations: [ ContactPage ],
-  providers:    [ ContactService ]
+  imports: [
+    SharedModule,
+    routing,
+    EffectsModule.run(ContactEffects)
+  ],
+  declarations: [
+    ContactPage
+  ],
+  providers: [
+    DataService
+  ]
 })
 export class ContactModule { }
 

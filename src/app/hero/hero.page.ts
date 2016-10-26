@@ -1,20 +1,22 @@
 // Exact copy except import UserService from core
 import { Component }   from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import { HeroService } from './hero.service';
 import { UserService } from '../core/user/user.service';
+import * as fromRoot from '../core/store/';
+import { Store } from '@ngrx/store';
 
 @Component({
   template: `
     <h2>Heroes of {{userName}}</h2>
     <router-outlet></router-outlet>
-  `,
-  providers: [ HeroService ]
+  `
 })
 export class HeroPage {
-  userName = '';
-  constructor(userService: UserService) {
-    this.userName = userService.userName;
+  userName$: Observable<string>;
+
+  constructor(private store: Store<fromRoot.RootState>) {
+    this.userName$ = this.store.let(fromRoot.getUserName);
   }
 }
 

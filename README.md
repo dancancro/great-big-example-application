@@ -1,14 +1,29 @@
-This project is an attempt by an unemployed non-student to infer from available demos what the codebase might
-look like for the real-world, commercial SPAs that employed programmers work on every day. If it's easier to
-learn automechanics using a real car than a bicycle, a go-kart and a differential, then it's also easier
-to learn how to make a real application by getting your eyes on source code of a real application than a lot of
-simplified instructional material.
+This project is an attempt by an unemployed non-college-student to infer from available demos what the codebase might
+look like for the real-world, commercial SPAs that employed programmers work on every day but can't share presumably
+because of intellectual property restrictions.
 
-This is real in architecture but not content. It was not important for the application's features to be coherent or
-related. So I just combined the features of the following expert but small instructional apps that I used to
-learn all of this into one big app. I integrated/restructured/restyled their code according to the following
-priorities listed below in order of priority from highest to lowest. Disagreements in approach between two influences
-are resolved by the lower influence yielding to the higher one:
+The rationale behind this is pretty simple. If it's easier and more sensible to learn automechanics by studying a
+real car than a bicycle, a go-kart and a differential, then it's also easier to learn how to make a real application
+by getting your eyes on source code of a real application than a lot of separate, simplified instructional material.
+And I've discovered that repeating the prevailing process doesn't help either. Building go-kart number 2, 3, 4 or 5
+isn't going to make you any better able to build real car number 1. It just makes you less sure about how to do that
+because it introduces conflicting advice.
+
+Hopefully when the project is done it will make the learning process for others much easier and prepare them to
+make real things rather than instructional ones. I expect it to reduce the time to implement your own real
+application from months to days.
+
+While this project's goal is to be real, I mean that its architecture and approaches are to be those of a real
+application, not the content. It is not important for the application's features to be coherent or related because
+your application will have its own features. So I just combined the features of the following expert but small
+instructional apps that I used to learn all of this into one big app. This has the extra benefit of giving you a
+second implementation of the same things. So if you're familiar with one implementation this will show you what to
+do to change it to the other one. A huge thanks to those who offered this up as
+learning material.
+
+To make this big app from the small ones, I took these projects and integrated/restructured/restyled their code
+according to the following priorities listed below in order of priority from highest to lowest. Disagreements in
+approach between two influences are resolved by the lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
 2. [Tour of Heroes Final Version](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google

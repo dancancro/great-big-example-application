@@ -3,8 +3,8 @@ import { Routes,
          RouterModule } from '@angular/router';
 
 import { HeroPage }       from './hero.page';
-import { HeroListComponent }   from './hero-list.component';
-import { HeroDetailComponent } from './hero-detail.component';
+import { HeroListComponent }   from './hero-list/hero-list.component';
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 const routes: Routes = [
   { path: '',

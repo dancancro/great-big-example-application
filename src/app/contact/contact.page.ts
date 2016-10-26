@@ -1,57 +1,56 @@
-// Exact copy except import UserService from core
-import { Component, OnInit }      from '@angular/core';
+import 'rxjs/add/operator/let';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
-import { Contact, ContactService } from './contact.service';
-import { UserService }             from '../core/user/user.service';
+import * as fromRoot from '../core/store';
+import { Contact } from '../core/store/contact/contact.model';
+import { User } from '../core/store/user/user.model';
+import * as contact from '../core/store/contact/contact.actions';
+import * as layout from '../core/store/layout/layout.actions';
+
+let uuid = require('node-uuid');
 
 @Component({
   selector: 'app-contact',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'contact.page.html',
   styleUrls: [ 'contact.page.css' ]
 })
-export class ContactPage implements OnInit {
-  contact:  Contact;
-  contacts: Contact[];
+export class ContactPage {
+  contact$:  Observable<Contact>;
+  contacts$: Observable<Contact[]>;
 
-  msg = 'Loading contacts ...';
-  userName = '';
+  msg$: Observable<string>;
+  userName$: Observable<string>;
 
-  constructor(private contactService: ContactService, userService: UserService) {
-    this.userName = userService.userName;
+  constructor(private store: Store<fromRoot.RootState>) {
+    this.userName$ = this.store.let(fromRoot.getUserName);
+    this.msg$ = this.store.let(fromRoot.getMsg);
+    this.contacts$ = store.let(fromRoot.getContacts);
+    this.contact$ = store.let(fromRoot.getContact);
   }
 
-  ngOnInit() {
-    this.contactService.getContacts().then(contacts => {
-      this.msg = '';
-      this.contacts = contacts;
-      this.contact = contacts[0];
-    });
-  }
-
-  next() {
-    let ix = 1 + this.contacts.indexOf(this.contact);
-    if (ix >= this.contacts.length) { ix = 0; }
-    this.contact = this.contacts[ix];
-  }
-
-  onSubmit() {
-    // POST-DEMO TODO: do something like save it
-    this.displayMessage('Saved ' + this.contact.name);
+  nextContact() {
+    this.store.dispatch(new contact.NextContactAction());
   }
 
   newContact() {
-    this.displayMessage('New contact');
-    this.contact = {id: 42, name: ''};
-    this.contacts.push(this.contact);
+    this.store.dispatch(new contact.AddContactAction({
+      id: uuid.v1(),
+      name: ''
+      }));
   }
 
-  /** Display a message briefly, then remove it. */
-  displayMessage(msg: string) {
-    this.msg = msg;
-    setTimeout(() => this.msg = '', 1500);
+  onSubmit() {
+    this.store.dispatch(new layout.SetMsgAction('Saved contact'))
+    setTimeout(() => this.store.dispatch(new layout.SetMsgAction(null)));
   }
+
 }
-
+/*
+It seems that in the book collection example, the container components deal only with observables, not the data emitted by them. The contained components do things with the actual data when it's passed to them from the containers and unpacked with the async pipe. Is that by design? Should container components not dig into the observables and touch the actual data?
+*/
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

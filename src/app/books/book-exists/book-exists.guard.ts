@@ -13,9 +13,9 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { GoogleBooksService } from '../core/store/book/google-books.service';
-import * as fromRoot from '../core/store';
-import * as book from '../core/store/book/book.actions';
+import { GoogleBooksService } from '../../core/store/book/google-books.service';
+import * as fromRoot from '../../core/store';
+import * as book from '../../core/store/book/book.actions';
 
 
 /**

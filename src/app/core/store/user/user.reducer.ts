@@ -27,3 +27,7 @@ export function getFirstName(state$: Observable<User>) {
 export function getLastName(state$: Observable<User>) {
   return state$.select(state => state.lastName);
 }
+
+export function getFullName(state$: Observable<User>) {
+  return state$.select(state => state.firstName + ' ' + state.lastName);
+}

@@ -15,7 +15,7 @@ let uuid = require('node-uuid');
   styleUrls: ['notes.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotesPage {
+export class NotesPage implements OnInit {
   notes$: Observable<Note[]>;
 
   constructor(private store: Store<fromRoot.RootState>) {

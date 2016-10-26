@@ -4,25 +4,34 @@
 // https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-module
 
 import {
-  ModuleWithProviders, NgModule,
-  Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
-import { DBModule } from '@ngrx/db';
-import { RouterStoreModule } from '@ngrx/router-store';
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf }                   from '@angular/core';
+import { CommonModule }        from '@angular/common';
+import { StoreModule }         from '@ngrx/store';
+import { DBModule }            from '@ngrx/db';
+import { RouterStoreModule }   from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule }      from '@angular/material';
+import {
+  provideReduxForms,
+  NgReduxForms }              from 'ng2-redux-form';
 
-import { BCNavigatorModule, bcNavComponents } from './navigator/bc-navigator/navigator.module';
-import { reducer } from './store';
-import { schema } from './store/db';
-import { SharedModule } from '../shared/shared.module';
-import { NotFoundPage } from './not-found/not-found.page';
-import { RioAboutPage } from './about/about.page';
-import { TitleComponent }    from './title/title.component';
-import { UserService }       from './user/user.service';
-import { UserServiceConfig } from './user/user.service';
-import { routing } from './core.routing';
+import {
+  BCNavigatorModule,
+  bcNavComponents }           from './navigator/bc-navigator/navigator.module';
+import { reducer }            from './store';
+import { schema }             from './store/db';
+import { SharedModule }       from '../shared/shared.module';
+import { NotFoundPage }       from './not-found/not-found.page';
+import { RioAboutPage }       from './about/about.page';
+import { TitleComponent }     from './title/title.component';
+import { UserService }        from './user/user.service';
+import { UserServiceConfig }  from './user/user.service';
+import { routing }            from './core.routing';
+
+const store = StoreModule.provideStore(reducer);
 
 @NgModule({
   imports: [
@@ -35,7 +44,7 @@ import { routing } from './core.routing';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.provideStore(reducer),
+    store,
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses
@@ -62,6 +71,7 @@ import { routing } from './core.routing';
     DBModule.provideDB(schema),
     BCNavigatorModule,
     SharedModule,
+    NgReduxForms,
     routing
   ],
   declarations: [
@@ -76,7 +86,8 @@ import { routing } from './core.routing';
     RioAboutPage
   ],
   providers: [
-    UserService
+    UserService,
+    provideReduxForms(store)
   ]
 
 })

@@ -2,7 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes,
          RouterModule } from '@angular/router';
 
-import { BookExistsGuard } from './book-exists.guard';
+import { BookExistsGuard } from './book-exists/book-exists.guard';
 import { FindBookPage } from './find-book.page';
 import { ViewBookPage } from './view-book.page';
 import { CollectionPage } from './collection.page';

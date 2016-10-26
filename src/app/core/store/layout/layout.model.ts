@@ -11,6 +11,7 @@ export interface DebatePageLayout {
 export interface Layout {
   booksPage: BooksPageLayout;
   debatePage: DebatePageLayout;
+  msg: string;
 }
 
 export const initialLayout: Layout = {
@@ -21,5 +22,6 @@ export const initialLayout: Layout = {
     editable: false,
     expanded: false,
     scrollY: 0
-  }
+  },
+  msg: ''
 };

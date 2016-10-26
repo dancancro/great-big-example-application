@@ -11,6 +11,7 @@ import * as sessionActions from './core/store/session/session.actions';
 @Component({
   selector: 'my-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [ ],
   templateUrl: 'app.page.html'
 })
 export class AppPage {

@@ -6,7 +6,6 @@ export const ActionTypes = {
   ADD_NOTE:                type('[Notes] Add Note'),
   ADD_NOTE_SUCCESS:        type('[Notes] Add Note Success'),
   ADD_NOTE_FAIL:           type('[Notes] Add Note Fail'),
-  UPDATE_NOTE:             type('[Notes] Update Note'),
   UPDATE_NOTE_SUCCESS:     type('[Notes] Update Note Success'),
   UPDATE_NOTE_FAIL:        type('[Notes] Update Note Fail'),
   LOAD:                    type('[Notes] Load'),

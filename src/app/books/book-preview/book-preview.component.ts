@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../core/store/book/book.model';
+import { Book } from '../../core/store/book/book.model';
 
 @Component({
   selector: 'bc-book-preview',

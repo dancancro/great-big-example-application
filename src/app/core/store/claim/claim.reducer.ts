@@ -66,7 +66,7 @@ export function reducer(state = initialEntities<Claim>(),
       return Object.assign({}, state, action.payload, {dirty: true});
     }
 
-    if(state.id !== action.payload.claim.id) {
+    if(!(<any>action).payload || !(<any>action).payload.claim || state.id !== (<any>action).payload.claim.id) {
       return state;
     }
 

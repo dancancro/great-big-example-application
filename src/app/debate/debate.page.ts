@@ -19,8 +19,8 @@ let uuid = require('node-uuid');
 
 @Component({
   selector: 'app-debate',
-  template: require('./debate.page.html'),
-  styles: [require('./debate.page.css')],
+  templateUrl: 'debate.page.html',
+  styleUrls: ['debate.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DebatePage {

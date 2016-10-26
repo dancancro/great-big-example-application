@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'rio-logo',
-  styles: [require('./logo.component.css')],
+  styleUrls: ['logo.component.css'],
   template: `
     <div className="flex items-center">
       <img

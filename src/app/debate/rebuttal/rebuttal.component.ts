@@ -7,8 +7,8 @@ import { Rebuttal } from '../../core/store/rebuttal/rebuttal.model';
 
 @Component({
     selector: 'debate-rebuttal',
-    template: require('./rebuttal.component.html'),
-    styles: [require('./rebuttal.component.css')],
+    templateUrl: 'rebuttal.component.html',
+    styles: ['rebuttal.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RebuttalComponent implements OnInit {

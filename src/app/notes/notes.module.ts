@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { DataService } from '../core/store/data.service';
 import { NoteEffects } from '../core/store/note/note.effects';
-import { NoteComponent } from './note.component';
+import { NoteComponent } from './note/note.component';
 import { AddButtonComponent } from './add-button/add-button.component';
 import { NotesPage } from './notes.page';
 import { routing } from './notes.routing';

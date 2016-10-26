@@ -1,15 +1,25 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule }              from '@angular/core';
+import { CommonModule }          from '@angular/common';
+import { EffectsModule }         from '@ngrx/effects';
 
-import { CrisisPage }    from './crisis.page';
-import { CrisisDetailComponent }  from './crisis-detail.component';
-import { CrisisService } from './crisis.service';
-import { routing }       from './crisis.routing';
+import { SharedModule }          from '../shared/shared.module';
+import { CrisisPage }            from './crisis.page';
+import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
+import { routing }               from './crisis.routing';
+import { CrisisEffects }         from '../core/store/crisis/crisis.effects';
+import { DataService }           from '../core/store/data.service';
 
 @NgModule({
-  imports:      [ CommonModule, routing ],
-  declarations: [ CrisisDetailComponent, CrisisPage ],
-  providers:    [ CrisisService ]
+  imports: [
+    SharedModule,
+    routing,
+    EffectsModule.run(CrisisEffects) ],
+  declarations: [
+    CrisisDetailComponent,
+    CrisisPage ],
+  providers: [
+    DataService
+  ]
 })
 export class CrisisModule {}
 
