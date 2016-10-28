@@ -12,5 +12,8 @@ module.exports = (app) => {
   const distPath = path.join(__dirname, '../dist');
   const indexFileName = 'index.html';
   app.use(express.static(distPath));
+
+console.log('__dirname: ' + __dirname)
+
   app.get('*', (req, res) => res.sendFile(path.join(distPath, indexFileName)));
 };

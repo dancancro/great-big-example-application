@@ -15,6 +15,8 @@ import { Contact } from './contact/contact.model';
 import { Crisis } from './crisis/crisis.model';
 import { Hero } from './hero/hero.model';
 
+const BASE_URL = '/api';
+
 @Injectable()
 export class DataService {
     result: Object;
@@ -26,7 +28,8 @@ export class DataService {
     postUrl: string = '/api/list';
     // getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbymzGKzgGkVo4kepy9zKIyDlxbnLbp-ivCvj8mVMClmWgr-V-g/exec?json=1' : '/objections.json';
     getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec?table=' : '/objections.json';
-    private API_ROOT: String = 'http://localhost:3000';
+    // private API_ROOT: String = 'http://localhost:3000';
+    private API_ROOT: String = 'http://localhost:4200';
     private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 
@@ -65,7 +68,7 @@ export class DataService {
     }
 
     getContacts(): Observable<any> {
-      return this.http.get(`${this.API_ROOT}/contacts`)
+      return this.http.get(`${BASE_URL}/contacts`)
         .map((response: Response) => response.json());
     }
 
@@ -95,7 +98,7 @@ export class DataService {
     }
 
     login(payload) {
-      return this.http.post(`${this.API_ROOT}/auth/login`, payload)
+      return this.http.post(`${BASE_URL}/auth/login`, payload, this.JSON_HEADER)
         .map((response: Response) => response.json());
     }
 }

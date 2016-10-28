@@ -59,6 +59,7 @@ export class AppPage {
 
 
   loginUser(credentials) {
+    console.log('logging in' + JSON.stringify(credentials))
     this.store.dispatch(new sessionActions.LoginUserAction(credentials));
   }
 

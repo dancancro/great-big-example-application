@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-@media (--breakpoint-md) {
+@media (min-width: 52em) {
 
   .modal {
     height: auto;
@@ -14,4 +14,3 @@
 
 }
 
-@custom-media --breakpoint-md (min-width: 52em);

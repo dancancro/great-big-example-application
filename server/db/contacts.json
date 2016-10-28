@@ -1,0 +1,50 @@
+[
+    {
+      "text": "Angular 2 Rocks!",
+      "colour": "red",
+      "left": 157,
+      "top": 56,
+      "id": 1,
+      "dirty": true
+    },
+    {
+      "text": "Thanks @robwormald & @MikeRyan52 for @ngrx.",
+      "colour": "blue",
+      "left": 667,
+      "top": 190,
+      "id": 2,
+      "dirty": true
+    },
+    {
+      "text": "And everybody from the angular, angular-cli, @ngrx/store and d@ngrx/effects gitter.im channels who answered my stoopid questions.",
+      "colour": "yellow",
+      "left": 1150,
+      "top": 57,
+      "id": 3,
+      "dirty": true
+    },
+    {
+      "text": "XXX",
+      "colour": "green",
+      "left": 1076,
+      "top": 306,
+      "id": "65f9f520-9657-11e6-a6e5-b9e89ea4aa15",
+      "dirty": true
+    },
+    {
+      "text": "something",
+      "colour": "green",
+      "left": 808,
+      "top": 42,
+      "id": "98ff9220-97cb-11e6-afd1-e76943f6c53d",
+      "dirty": true
+    },
+    {
+      "id": "397f3430-9ad8-11e6-b741-5bbd17db367c",
+      "text": "fdsfdsa",
+      "colour": "green",
+      "left": 334,
+      "top": 286,
+      "dirty": true
+    }
+  ]

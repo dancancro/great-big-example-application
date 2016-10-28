@@ -22,10 +22,10 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 authPassport.readUsers()
-  .then( (_users) => {
+  .then((_users) => {
     users = _users;
   })
-  .catch( (err) => {
+  .catch((err) => {
     throw err;
   });
 
@@ -41,23 +41,25 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
   (username, password, done) => {
     authPassport.authenticateUser(username, password, users)
-    .then( (authResult) => {
-      return done(null, authResult);
-    })
-    .then(null, (message) => {
-      return done(null, false, message);
-    });
+      .then((authResult) => {
+        return done(null, authResult);
+      })
+      .then(null, (message) => {
+        return done(null, false, message);
+      });
   }
 
 ));
 
-passport.serializeUser( (user, done) => {
+passport.serializeUser((user, done) => {
   done(null, user.meta.id);
 });
 
-passport.deserializeUser( (id, done) => {
+passport.deserializeUser((id, done) => {
   done(null, authPassport.getUserById(id, users));
 });
+
+// app.get('/api/abc', (req, res) => res.send('Hello world'));
 
 app.post('/api/auth/login',
   passport.authenticate('local'),
@@ -70,20 +72,20 @@ app.post('/api/auth/login',
 
 app.post('/api/list',
   (req, res) => {
-//    console.log('body:\n' + JSON.stringify(req.body));
+    //    console.log('body:\n' + JSON.stringify(req.body));
     console.log('orderings:\n' + JSON.stringify(req.body.orderings));
     console.log('edits:\n' + JSON.stringify(req.body.edits));
-    fs.readFile('objections.json', {encoding: 'utf-8'}, function(err,data){
-        if (!err){
-          // response.writeHead(200, {'Content-Type': 'text/html'});
-          // response.write(data);
-          // response.end();
-          // console.log('Data \n\n' + data)
-          res.setHeader('Content-Type', 'application/json');
-          res.status(200).send(data);
-        } else {
-          console.log(err);
-        }
+    fs.readFile('objections.json', { encoding: 'utf-8' }, function (err, data) {
+      if (!err) {
+        // response.writeHead(200, {'Content-Type': 'text/html'});
+        // response.write(data);
+        // response.end();
+        // console.log('Data \n\n' + data)
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(data);
+      } else {
+        console.log(err);
+      }
     });
   }
 );
