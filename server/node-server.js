@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const fs = require('fs')
+var path = require('path');
 let users;
 
 /**
@@ -19,7 +20,8 @@ let users;
  */
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080; // set in package.json to 3000. I don't know why 8080 is here'
+
 
 authPassport.readUsers()
   .then((_users) => {
@@ -59,7 +61,8 @@ passport.deserializeUser((id, done) => {
   done(null, authPassport.getUserById(id, users));
 });
 
-// app.get('/api/abc', (req, res) => res.send('Hello world'));
+// APIs
+
 
 app.post('/api/auth/login',
   passport.authenticate('local'),
@@ -68,27 +71,35 @@ app.post('/api/auth/login',
   }
 );
 
+app.get('/api/claims', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/claims.json'));
+});
+app.get('/api/rebuttals', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/rebuttals.json'));
+});
+app.get('/api/claim-rebuttals', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/claim-rebuttals.json'));
+});
+app.get('/api/contacts', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/contacts.json'));
+});
+app.get('/api/crises', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/crises.json'));
+});
+app.get('/api/heroes', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/heroes.json'));
+});
+app.get('/api/notes', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/notes.json'));
+});
+app.get('/api/users', function (req, res) {
+  res.sendFile(path.join(__dirname, '/db/users.json'));
+});
 
-
-app.post('/api/list',
-  (req, res) => {
-    //    console.log('body:\n' + JSON.stringify(req.body));
-    console.log('orderings:\n' + JSON.stringify(req.body.orderings));
-    console.log('edits:\n' + JSON.stringify(req.body.edits));
-    fs.readFile('objections.json', { encoding: 'utf-8' }, function (err, data) {
-      if (!err) {
-        // response.writeHead(200, {'Content-Type': 'text/html'});
-        // response.write(data);
-        // response.end();
-        // console.log('Data \n\n' + data)
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).send(data);
-      } else {
-        console.log(err);
-      }
-    });
-  }
-);
+// all other routes are handled by Angular
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../../dist/index.html'));
+});
 
 // API proxy logic: if you need to talk to a remote server from your client-side
 // app you can proxy it though here by editing ./proxy-config.js

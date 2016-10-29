@@ -19,86 +19,70 @@ const BASE_URL = '/api';
 
 @Injectable()
 export class DataService {
-    result: Object;
-    combined: any;
-    error: Object;
-    // getUrl: string = 'https://script.google.com/macros/s/AKfycbymzGKzgGkVo4kepy9zKIyDlxbnLbp-ivCvj8mVMClmWgr-V-g/exec?json=1';
-    // getUrl: string = '/objections.json';  // faster. use for dev
-    // postUrl: string = 'https://script.google.com/macros/s/AKfycbymzGKzgGkVo4kepy9zKIyDlxbnLbp-ivCvj8mVMClmWgr-V-g/exec';
-    postUrl: string = '/api/list';
-    // getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbymzGKzgGkVo4kepy9zKIyDlxbnLbp-ivCvj8mVMClmWgr-V-g/exec?json=1' : '/objections.json';
-    getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec?table=' : '/objections.json';
-    // private API_ROOT: String = 'http://localhost:3000';
-    private API_ROOT: String = 'http://localhost:4200';
-    private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+  postUrl: string = '/api/list';
+  getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec?table=' : '/objections.json';
 
+  private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
-    constructor(private http: Http) {
-    }
+  constructor(private http: Http) { }
 
-    getClaims(): Observable<Claim[]> {
-      return this.http.get(this.getUrl + 'claims') 
-        .map(response => {
-            return response.json();
-      });
-    }
+  login(payload) {
+    return this.http.post(`${BASE_URL}/auth/login`, payload, this.JSON_HEADER)
+      .map((response: Response) => response.json());
+  }
 
-    getRebuttals(): Observable<Rebuttal[]> {
-      return this.http.get(this.getUrl + 'rebuttals') 
-        .map(response => {
-          return response.json();
-        });
-    }
+  getClaims(): Observable<Claim[]> {
+    return this.http.get(`${BASE_URL}/claims`)
+      .map(response => { return response.json(); });
+  }
 
-    getClaimRebuttals(): Observable<ClaimRebuttal[]> {
-      return this.http.get(this.getUrl + 'claim-rebuttals') 
-        .map(response => {
-          return response.json();
-        });
-    }
+  getRebuttals(): Observable<Rebuttal[]> {
+    return this.http.get(`${BASE_URL}/rebuttals`)
+      .map((response: Response) => response.json());
+  }
 
-    getNotes(): Observable<any> {
-      return this.http.get(`${this.API_ROOT}/notes`)
-        .map((response: Response) => response.json());
-    }
+  getClaimRebuttals(): Observable<ClaimRebuttal[]> {
+    return this.http.get(`${BASE_URL}/claim-rebuttals`)
+      .map((response: Response) => response.json());
+  }
 
-    addOrUpdateNote(note: Note): Observable<Note> {
-      return this.http.post(`${this.API_ROOT}/notes`, JSON.stringify(note), this.JSON_HEADER)
-        .map((response: Response) => response.json());
-    }
+  getNotes(): Observable<any> {
+    return this.http.get(`${BASE_URL}/notes`)
+      .map((response: Response) => response.json());
+  }
 
-    getContacts(): Observable<any> {
-      return this.http.get(`${BASE_URL}/contacts`)
-        .map((response: Response) => response.json());
-    }
+  addOrUpdateNote(note: Note): Observable<Note> {
+    return this.http.post(`${BASE_URL}/notes`, JSON.stringify(note), this.JSON_HEADER)
+      .map((response: Response) => response.json());
+  }
 
-    addOrUpdateContact(contact: Contact): Observable<Contact> {
-      return this.http.post(`${this.API_ROOT}/contacts`, JSON.stringify(contact), this.JSON_HEADER)
-        .map((response: Response) => response.json());
-    }
+  getContacts(): Observable<any> {
+    return this.http.get(`${BASE_URL}/contacts`)
+      .map((response: Response) => response.json());
+  }
 
-    getCrises(): Observable<any> {
-      return this.http.get(`${this.API_ROOT}/crises`)
-        .map((response: Response) => response.json());
-    }
+  addOrUpdateContact(contact: Contact): Observable<Contact> {
+    return this.http.post(`${BASE_URL}/contact`, JSON.stringify(contact), this.JSON_HEADER)
+      .map((response: Response) => response.json());
+  }
 
-    addOrUpdateCrisis(crisis: Crisis): Observable<Crisis> {
-      return this.http.post(`${this.API_ROOT}/crises`, JSON.stringify(crisis), this.JSON_HEADER)
-        .map((response: Response) => response.json());
-    }
+  getCrises(): Observable<any> {
+    return this.http.get(`${BASE_URL}/crises`)
+      .map((response: Response) => response.json());
+  }
 
-    getHeroes(): Observable<any> {
-      return this.http.get(`${this.API_ROOT}/heroes`)
-        .map((response: Response) => response.json());
-    }
+  addOrUpdateCrisis(crisis: Crisis): Observable<Crisis> {
+    return this.http.post(`${BASE_URL}/crisis`, JSON.stringify(crisis), this.JSON_HEADER)
+      .map((response: Response) => response.json());
+  }
 
-    addOrUpdateHero(hero: Hero): Observable<Hero> {
-      return this.http.post(`${this.API_ROOT}/heroes`, JSON.stringify(hero), this.JSON_HEADER)
-        .map((response: Response) => response.json());
-    }
+  getHeroes(): Observable<any> {
+    return this.http.get(`${BASE_URL}/heroes`)
+      .map((response: Response) => response.json());
+  }
 
-    login(payload) {
-      return this.http.post(`${BASE_URL}/auth/login`, payload, this.JSON_HEADER)
-        .map((response: Response) => response.json());
-    }
+  addOrUpdateHero(hero: Hero): Observable<Hero> {
+    return this.http.post(`${BASE_URL}/hero`, JSON.stringify(hero), this.JSON_HEADER)
+      .map((response: Response) => response.json());
+  }
 }
