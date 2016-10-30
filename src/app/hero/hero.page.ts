@@ -1,10 +1,10 @@
 // Exact copy except import UserService from core
-import { Component }  from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { User }       from '../core/user/user.model';
-import * as fromRoot  from '../core/store/';
-import { Store }      from '@ngrx/store';
+import { User } from '../core/store/user/user.model';
+import * as fromRoot from '../core/store/';
+import { Store } from '@ngrx/store';
 
 @Component({
   template: `
