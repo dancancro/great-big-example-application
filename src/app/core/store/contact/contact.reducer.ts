@@ -8,8 +8,8 @@ import * as contact from './contact.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 
 // This reduces a set of contacts
-export function reducer(state = initialEntities<Contact>({selectedEntityId: 21}),
-                        action: contact.Actions ): Entities<Contact> {
+export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 }),
+  action: contact.Actions): Entities<Contact> {
   let entities = {};
   switch (action.type) {
     case contact.ActionTypes.ADD_CONTACT:
@@ -17,6 +17,9 @@ export function reducer(state = initialEntities<Contact>({selectedEntityId: 21})
     case contact.ActionTypes.LOAD_SUCCESS:
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = contactReducer(null, action);
+
+      console.log('payload: ' + action.payload)
+
       return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities: entities
@@ -34,7 +37,7 @@ export function reducer(state = initialEntities<Contact>({selectedEntityId: 21})
       if (ix >= state.ids.length) { ix = 0; }
       return Object.assign({}, state, {
         ids: Object.keys(entities),
-        entities: Object.assign({}, state.entities, {selectedEntityId: ix + ''})
+        entities: Object.assign({}, state.entities, { selectedEntityId: ix + '' })
       });
 
     default:
@@ -47,19 +50,19 @@ export function reducer(state = initialEntities<Contact>({selectedEntityId: 21})
     switch (action.type) {
 
       case contact.ActionTypes.ADD_CONTACT:
-        return Object.assign({}, action.payload, {dirty: true});
+        return Object.assign({}, action.payload, { dirty: true });
       case contact.ActionTypes.UPDATE_CONTACT:
         if (state.id == action.payload.id) {
-          return Object.assign({}, state, {text: action.payload.text}, {dirty: true});
+          return Object.assign({}, state, { text: action.payload.text }, { dirty: true });
         } else {
           return state;
         }
       case contact.ActionTypes.ADD_CONTACT_SUCCESS:
       case contact.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialContact, action.payload, {dirty: false});
+        return Object.assign({}, initialContact, action.payload, { dirty: false });
       case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
         if (state.id == action.payload.id) {
-          return Object.assign({}, action.payload, {dirty: false});
+          return Object.assign({}, action.payload, { dirty: false });
         } else {
           return state;
         }

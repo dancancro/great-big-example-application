@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
-
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
 import { environment } from '../../../environments/environment.prod';
@@ -120,11 +120,16 @@ const reducers = {
 
 const developmentReducer = composeReducers(
   defaultFormReducer(),
-  compose(storeFreeze, combineReducers)(reducers)
+  compose(
+    storeFreeze,
+    localStorageSync(['session'], true, Session),
+    combineReducers)(reducers)
 );
 const productionReducer = composeReducers(
   defaultFormReducer(),
-  combineReducers(reducers)
+  compose(
+    localStorageSync(['session'], true, Session),
+    combineReducers)(reducers)
 );
 
 export function reducer(state: any, action: any) {
@@ -384,6 +389,5 @@ export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesStat
 /**
  * User Reducers
  */
-export const getUserState = (state$: Observable<RootState>) =>
+export const getUser = (state$: Observable<RootState>) =>
   state$.select(state => state.user);
-export const getUserName = compose(fromUser.getFullName, getUserState);

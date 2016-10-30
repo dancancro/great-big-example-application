@@ -9,7 +9,7 @@ import { Entities, initialEntities } from '../entity/entity.model';
 
 // This reduces a set of heroes
 export function reducer(state = initialEntities<Hero>(),
-                        action: hero.Actions ): Entities<Hero> {
+  action: hero.Actions): Entities<Hero> {
   let entities = {};
   switch (action.type) {
     case hero.ActionTypes.ADD_HERO:
@@ -43,19 +43,19 @@ export function reducer(state = initialEntities<Hero>(),
     switch (action.type) {
 
       case hero.ActionTypes.ADD_HERO:
-        return Object.assign({}, action.payload, {dirty: true});
+        return Object.assign({}, action.payload, { dirty: true });
       case hero.ActionTypes.UPDATE_HERO:
         if (state.id == action.payload.id) {
-          return Object.assign({}, state, {text: action.payload.text}, {dirty: true});
+          return Object.assign({}, state, { text: action.payload.text }, { dirty: true });
         } else {
           return state;
         }
       case hero.ActionTypes.ADD_HERO_SUCCESS:
       case hero.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialHero, action.payload, {dirty: false});
+        return Object.assign({}, initialHero, action.payload, { dirty: false });
       case hero.ActionTypes.UPDATE_HERO_SUCCESS:
         if (state.id == action.payload.id) {
-          return Object.assign({}, action.payload, {dirty: false});
+          return Object.assign({}, action.payload, { dirty: false });
         } else {
           return state;
         }

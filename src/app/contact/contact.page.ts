@@ -1,5 +1,9 @@
 import 'rxjs/add/operator/let';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+    Component,
+    ChangeDetectionStrategy,
+    OnInit
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,45 +16,43 @@ import * as layout from '../core/store/layout/layout.actions';
 let uuid = require('node-uuid');
 
 @Component({
-  selector: 'app-contact',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'contact.page.html',
-  styleUrls: [ 'contact.page.css' ]
+    selector: 'app-contact',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: 'contact.page.html',
+    styleUrls: ['contact.page.css']
 })
-export class ContactPage {
-  contact$:  Observable<Contact>;
-  contacts$: Observable<Contact[]>;
+export class ContactPage implements OnInit {
+    contacts$: Observable<Contact[]>;
 
-  msg$: Observable<string>;
-  userName$: Observable<string>;
+    msg$: Observable<string>;
+    user$: Observable<User>;
 
-  constructor(private store: Store<fromRoot.RootState>) {
-    this.userName$ = this.store.let(fromRoot.getUserName);
-    this.msg$ = this.store.let(fromRoot.getMsg);
-    this.contacts$ = store.let(fromRoot.getContacts);
-    this.contact$ = store.let(fromRoot.getContact);
-  }
+    constructor(private store: Store<fromRoot.RootState>) {
+    }
 
-  nextContact() {
-    this.store.dispatch(new contact.NextContactAction());
-  }
+    ngOnInit() {
+        this.user$ = this.store.let(fromRoot.getUser);
+        this.msg$ = this.store.let(fromRoot.getMsg);
+        this.contacts$ = this.store.let(fromRoot.getContacts);
+    }
 
-  newContact() {
-    this.store.dispatch(new contact.AddContactAction({
-      id: uuid.v1(),
-      name: ''
-      }));
-  }
+    nextContact() {
+        this.store.dispatch(new contact.NextContactAction());
+    }
 
-  onSubmit() {
-    this.store.dispatch(new layout.SetMsgAction('Saved contact'))
-    setTimeout(() => this.store.dispatch(new layout.SetMsgAction(null)));
-  }
+    newContact() {
+        this.store.dispatch(new contact.AddContactAction({
+            id: uuid.v1(),
+            name: ''
+        }));
+    }
+
+    onSubmit() {
+        this.store.dispatch(new layout.SetMsgAction('Saved contact'))
+        setTimeout(() => this.store.dispatch(new layout.SetMsgAction(null)));
+    }
 
 }
-/*
-It seems that in the book collection example, the container components deal only with observables, not the data emitted by them. The contained components do things with the actual data when it's passed to them from the containers and unpacked with the async pipe. Is that by design? Should container components not dig into the observables and touch the actual data?
-*/
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

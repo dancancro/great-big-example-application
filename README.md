@@ -63,10 +63,10 @@ $ npm i
 $ typings install
 
 # Run the backend server
-$npm run backend
+$npm run dev:server
 
 # Build and serve the app
-$ ng serve
+$ npm run dev:client
 
 # Continuously run the tests
 $ ng test

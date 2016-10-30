@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Store }             from '@ngrx/store';
+import { Observable }        from 'rxjs/Observable';
 
-import * as fromRoot from '../core/store';
-import { Crisis }     from '../core/store/crisis/crisis.model';
+import * as fromRoot         from '../core/store';
+import { Crisis }            from '../core/store/crisis/crisis.model';
 
 @Component({
   template: `

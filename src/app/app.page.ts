@@ -11,7 +11,7 @@ import * as sessionActions from './core/store/session/session.actions';
 @Component({
   selector: 'my-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [ ],
+  styles: [],
   templateUrl: 'app.page.html'
 })
 export class AppPage {
@@ -24,7 +24,7 @@ export class AppPage {
   lastName$: Observable<string>;
   loggedIn$: Observable<boolean>;
   loggedOut$: Observable<boolean>;
-  
+
 
   constructor(private store: Store<fromRoot.RootState>) {
     /**
@@ -57,9 +57,7 @@ export class AppPage {
     this.store.dispatch(new layout.OpenSidenavAction());
   }
 
-
   loginUser(credentials) {
-    console.log('logging in' + JSON.stringify(credentials))
     this.store.dispatch(new sessionActions.LoginUserAction(credentials));
   }
 

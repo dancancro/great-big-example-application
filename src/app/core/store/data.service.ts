@@ -52,7 +52,7 @@ export class DataService {
   }
 
   addOrUpdateNote(note: Note): Observable<Note> {
-    return this.http.post(`${BASE_URL}/notes`, JSON.stringify(note), this.JSON_HEADER)
+    return this.http.post(`${BASE_URL}/note`, JSON.stringify(note), this.JSON_HEADER)
       .map((response: Response) => response.json());
   }
 

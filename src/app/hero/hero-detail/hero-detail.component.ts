@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute }    from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { Hero }    from '../../core/store/hero/hero.model';
+import { Hero } from '../../core/store/hero/hero.model';
 import * as fromRoot from '../../core/store';
 import * as hero from '../../core/store/hero/hero.actions';
 
 @Component({
   template: `
     <h3 highlight>Hero Detail</h3>
-    <div *ngIf="(hero$ | async).id" >
+    <div *ngIf="(hero$ | async)" >
       <div>Id: {{(hero$ | async).id}}</div><br>
       <label>Name:
         <input [value]="(hero$ | async).name">
@@ -24,12 +24,12 @@ export class HeroDetailComponent implements OnInit {
   hero$: Observable<Hero>;
 
   constructor(private route: ActivatedRoute,
-    private store: Store<fromRoot.RootState>) {}
+    private store: Store<fromRoot.RootState>) { }
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.params['id'], 10);
-    this.store.dispatch(new hero.SelectHeroAction(id));
     this.hero$ = this.store.let(fromRoot.getSelectedHero);
+    this.store.dispatch(new hero.SelectHeroAction({ id }));
   }
 }
 

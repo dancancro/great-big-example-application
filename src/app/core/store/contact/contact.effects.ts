@@ -20,30 +20,30 @@ import * as contact from './contact.actions';
 export class ContactEffects {
   constructor(private store: Store<Contact>,
     private dataService: DataService,
-    private action$: Actions) {}
+    private action$: Actions) { }
 
-@Effect()
-load$ = this.action$
-  .ofType(contact.ActionTypes.LOAD)
-  .startWith(new contact.LoadAction())
-  .switchMap(() =>
-    this.dataService.getContacts()
-    .mergeMap(fetchedContacts => Observable.from(fetchedContacts))
-    .map((fetchedContact: Contact) => new contact.LoadSuccessAction(fetchedContact))  // one action per contact
-    .catch(() => Observable.of(new contact.UpdateContactFailAction()))
-);
+  @Effect()
+  load$ = this.action$
+    .ofType(contact.ActionTypes.LOAD)
+    .startWith(new contact.LoadAction())
+    .switchMap(() =>
+      this.dataService.getContacts()
+        .mergeMap(fetchedContacts => Observable.from(fetchedContacts))
+        .map((fetchedContact: Contact) => new contact.LoadSuccessAction(fetchedContact))  // one action per contact
+        .catch(() => Observable.of(new contact.UpdateContactFailAction()))
+    );
 
-@Effect()
-update$ = this.action$
-.ofType(contact.ActionTypes.UPDATE_CONTACT,
-        contact.ActionTypes.ADD_CONTACT)
-.withLatestFrom(this.store.select('contacts'))
-.switchMap(([{}, contacts]) => 
-  Observable   // first element is action, but it isn't used
-    .from(contacts.ids)
-    .filter((id: string) => contacts.entities[id].dirty)
-    .switchMap((id: string) => this.dataService.addOrUpdateContact(contacts.entities[id]))
-    .map((responseContact: Contact) => new contact.UpdateContactSuccessAction(responseContact))
-);
+  @Effect()
+  update$ = this.action$
+    .ofType(contact.ActionTypes.UPDATE_CONTACT,
+    contact.ActionTypes.ADD_CONTACT)
+    .withLatestFrom(this.store.select('contacts'))
+    .switchMap(([{}, contacts]) =>
+      Observable   // first element is action, but it isn't used
+        .from(contacts.ids)
+        .filter((id: string) => contacts.entities[id].dirty)
+        .switchMap((id: string) => this.dataService.addOrUpdateContact(contacts.entities[id]))
+        .map((responseContact: Contact) => new contact.UpdateContactSuccessAction(responseContact))
+    );
 
 }

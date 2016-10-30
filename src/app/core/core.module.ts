@@ -27,8 +27,6 @@ import { SharedModule }       from '../shared/shared.module';
 import { NotFoundPage }       from './not-found/not-found.page';
 import { RioAboutPage }       from './about/about.page';
 import { TitleComponent }     from './title/title.component';
-import { UserService }        from './user/user.service';
-import { UserServiceConfig }  from './user/user.service';
 import { routing }            from './core.routing';
 
 const store = StoreModule.provideStore(reducer);
@@ -86,7 +84,6 @@ const store = StoreModule.provideStore(reducer);
     RioAboutPage
   ],
   providers: [
-    UserService,
     provideReduxForms(store)
   ]
 
@@ -98,14 +95,5 @@ export class CoreModule {
       throw new Error(
         'CoreModule is already loaded. Import it in the AppModule only');
     }
-  }
-
-  static forRoot(config: UserServiceConfig): ModuleWithProviders {
-    return {
-      ngModule: CoreModule,
-      providers: [
-        {provide: UserServiceConfig, useValue: config }
-      ]
-    };
   }
 }

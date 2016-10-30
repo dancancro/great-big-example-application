@@ -20,7 +20,7 @@ import { routing } from './app.routing';
 @NgModule({
   imports: [
     BrowserModule,
-    CoreModule.forRoot({userName: 'Miss Marple'}),
+    CoreModule,
     routing,
     RioLoginModule,
     MaterialModule.forRoot(),
