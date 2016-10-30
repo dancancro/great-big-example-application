@@ -100,35 +100,35 @@ export interface RootState {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
- 
+
 const reducers = {
-      books: fromBooks.reducer,
-      collection: fromCollection.reducer,
-      claims: fromClaims.reducer,
-      counter: fromCounter.reducer,
-      layout: fromLayout.reducer,
-      notes: fromNotes.reducer,
-      rebuttals: fromRebuttals.reducer,
-      router: fromRouter.routerReducer,
-      search: fromSearch.reducer,
-      session: fromSession.reducer,
-      user: fromUser.reducer,
-      crises: fromCrises.reducer,
-      heroes: fromHeroes.reducer,
-      contacts: fromContacts.reducer
-    }
+  books: fromBooks.reducer,
+  collection: fromCollection.reducer,
+  claims: fromClaims.reducer,
+  counter: fromCounter.reducer,
+  layout: fromLayout.reducer,
+  notes: fromNotes.reducer,
+  rebuttals: fromRebuttals.reducer,
+  router: fromRouter.routerReducer,
+  search: fromSearch.reducer,
+  session: fromSession.reducer,
+  user: fromUser.reducer,
+  crises: fromCrises.reducer,
+  heroes: fromHeroes.reducer,
+  contacts: fromContacts.reducer
+}
 
 const developmentReducer = composeReducers(
   defaultFormReducer(),
   compose(
     storeFreeze,
-    localStorageSync(['session'], true, Session),
+    localStorageSync(['session'], true),
     combineReducers)(reducers)
 );
 const productionReducer = composeReducers(
   defaultFormReducer(),
   compose(
-    localStorageSync(['session'], true, Session),
+    localStorageSync(['session'], true),
     combineReducers)(reducers)
 );
 
@@ -167,7 +167,7 @@ export function reducer(state: any, action: any) {
  * ```
  * 
  */
- export function getBooksState(state$: Observable<RootState>) {
+export function getBooksState(state$: Observable<RootState>) {
   return state$.select(state => state.books);
 }
 
@@ -186,9 +186,9 @@ export function reducer(state: any, action: any) {
  * observable. Each subscription to the resultant observable
  * is shared across all subscribers.
  */
- export const getBookEntities = compose(fromBooks.getBookEntities, getBooksState);
- export const getBookIds = compose(fromBooks.getBookIds, getBooksState);
- export const getSelectedBook = compose(fromBooks.getSelectedBook, getBooksState);
+export const getBookEntities = compose(fromBooks.getBookEntities, getBooksState);
+export const getBookIds = compose(fromBooks.getBookIds, getBooksState);
+export const getSelectedBook = compose(fromBooks.getSelectedBook, getBooksState);
 
 
 /**
@@ -196,7 +196,7 @@ export function reducer(state: any, action: any) {
  * reducer's and collection reducer's selectors.
  */
 export function getSearchState(state$: Observable<RootState>) {
- return state$.select(s => s.search);
+  return state$.select(s => s.search);
 }
 
 export const getSearchBookIds = compose(fromSearch.getBookIds, getSearchState);
@@ -214,7 +214,7 @@ export const getSearchResults = function (state$: Observable<RootState>) {
     state$.let(getBookEntities),
     state$.let(getSearchBookIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 
@@ -232,7 +232,7 @@ export const getBookCollection = function (state$: Observable<RootState>) {
     state$.let(getBookEntities),
     state$.let(getCollectionBookIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 export const isSelectedBookInCollection = function (state$: Observable<RootState>) {
@@ -240,7 +240,7 @@ export const isSelectedBookInCollection = function (state$: Observable<RootState
     state$.let(getCollectionBookIds),
     state$.let(getSelectedBook)
   )
-  .map(([ ids, selectedBook ]) => ids.indexOf(selectedBook.id) > -1);
+    .map(([ids, selectedBook]) => ids.indexOf(selectedBook.id) > -1);
 };
 
 /**
@@ -281,8 +281,9 @@ export const getNotes = function (state$: Observable<RootState>) {
     state$.let(getNoteEntities),
     state$.let(getNoteIds)
   )
-  .map(([ entities, ids ]) => {
-    return ids.map(id => entities[id])});
+    .map(([entities, ids]) => {
+      return ids.map(id => entities[id])
+    });
 };
 
 /**
@@ -298,8 +299,9 @@ export const getClaims = function (state$: Observable<RootState>) {
     state$.let(getClaimEntities),
     state$.let(getClaimIds)
   )
-  .map(([ entities, ids ]) => {
-    return ids.map(id => entities[id])});
+    .map(([entities, ids]) => {
+      return ids.map(id => entities[id])
+    });
 };
 export function getRebuttalsState(state$: Observable<RootState>) {
   return state$.select(state => state.rebuttals);
@@ -311,7 +313,7 @@ export const getRebuttals = function (state$: Observable<RootState>) {
     state$.let(getRebuttalEntities),
     state$.let(getRebuttalIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export function getClaimRebuttalsState(state$: Observable<RootState>) {
   return state$.select(state => state.claimRebuttals);
@@ -323,7 +325,7 @@ export const getClaimRebuttals = function (state$: Observable<RootState>) {
     state$.let(getClaimRebuttalEntities),
     state$.let(getClaimRebuttalIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 /**
@@ -347,7 +349,7 @@ export const getCrises = function (state$: Observable<RootState>) {
     state$.let(getCrisisEntities),
     state$.let(getCrisisIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 /**
@@ -364,7 +366,7 @@ export const getContacts = function (state$: Observable<RootState>) {
     state$.let(getContactEntities),
     state$.let(getContactIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export const getContact = compose(fromContacts.getContact, getContactsState);
 
@@ -382,7 +384,7 @@ export const getHeroes = function (state$: Observable<RootState>) {
     state$.let(getHeroEntities),
     state$.let(getHeroIds)
   )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
+    .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesState);
 
