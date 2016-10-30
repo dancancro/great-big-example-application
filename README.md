@@ -20,11 +20,11 @@ the features of the following expert but small instructional apps that I used to
 This has the additional benefit of giving you a second implementation of the same things. So if you're familiar with one
 implementation this will show you what to do to change it to the other one. 
 
-A huge thanks to those who offered this up as learning material to get folks started.
+A huge thanks to those who created the example demos from which I put together this amalgam. 
 
 To make this big app from the small ones, I took these projects and integrated/restructured/restyled their code
-according to the following guides listed below in order of priority from highest to lowest. Disagreements in
-approach between two influences are resolved by the lower influence yielding to the higher one:
+according to the following prioritization. Disagreements in approach between two influences are resolved by the
+lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
 2. [Tour of Heroes Final Version](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google

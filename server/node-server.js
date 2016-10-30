@@ -96,20 +96,17 @@ app.get('/api/users', function (req, res) {
   res.sendFile(path.join(__dirname, '/db/users.json'));
 });
 app.post('/api/note', function (req, res) {
-
-  console.log('REQ: ' + JSON.stringify(req));
-
-  let fileName = path.join(__dirname, '/db/contacts.json')
-  let reqNote = JSON.parse(req.note);
+  let fileName = path.join(__dirname, '/db/notes.json')
+  let reqNote = req.body;
   fs.readFile(fileName, (err, data) => {
     if (err) throw err;
-    let notes = JSON.parse(data);
-    notes = notes.map(note => note.id === reqNote.id ? reqNote : note)
-    fs.writeFile(fileName, JSON.stringify(notes), (err) => {
+    let dbNotes = JSON.parse(data);
+    dbNotes = dbNotes.map(note => note.id === reqNote.id ? reqNote : note)
+    fs.writeFile(fileName, JSON.stringify(dbNotes), (err) => {
       if (err) throw err;
       console.log('It\'s saved!');
     });
-    res.send(req.note)
+    res.send(JSON.stringify(req.body));
   });
 });
 
