@@ -1,3 +1,6 @@
+[Please click here to support the Standing Rock Sioux Tribe and their peaceful resistance to the Dakota Access Pipeline which threatens their only source of water.](http://www.powwows.com/2016/09/07/10-ways-can-help-standing-rock-sioux-fight-dakota-access-pipeline/) 
+
+
 This project is an attempt by an unemployed non-college-student to infer from available demos what the codebase might
 look like for the real-world, commercial SPAs that employed programmers work on every day but can't share actually or
 similarly presumably because of intellectual property restrictions.

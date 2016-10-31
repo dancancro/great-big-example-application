@@ -13,23 +13,24 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/startWith';
 
-import * as actions from './claim-rebuttal.actions';
+import * as claimRebuttal from './claim-rebuttal.actions';
 import { ClaimRebuttal } from '../claim-rebuttal/claim-rebuttal.model';
 import { DataService } from '../data.service';
 
 @Injectable()
 export class ClaimRebuttalEffects {
   constructor(private actions$: Actions,
-              private dataService: DataService) { }
+    private dataService: DataService) { }
 
   @Effect()
   loadData$: Observable<Action> = this.actions$
-    .ofType(actions.ActionTypes.LOAD)
-    .startWith(new actions.LoadAction())
-    .switchMap(() => 
+    .ofType(claimRebuttal.ActionTypes.LOAD)
+    .startWith(new claimRebuttal.LoadAction())
+    .switchMap(() =>
       this.dataService.getClaimRebuttals()
-      .map((response: ClaimRebuttal[]) =>
-        new actions.LoadSuccessAction(response))
-      .catch(error => of(new actions.LoadFailAction(error)))
+        .mergeMap(fetchedClaimRebuttals => Observable.from(fetchedClaimRebuttals))
+        .map((fetchedClaimRebuttal: ClaimRebuttal) => new claimRebuttal.LoadSuccessAction(fetchedClaimRebuttal))  // one action per crisis
+        .catch((error) => Observable.of(new claimRebuttal.LoadFailAction(error)))
     );
+
 }

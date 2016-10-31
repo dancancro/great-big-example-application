@@ -20,15 +20,16 @@ import { DataService } from '../data.service';
 @Injectable()
 export class RebuttalEffects {
   constructor(private actions$: Actions,
-              private dataService: DataService) { }
+    private dataService: DataService) { }
 
   @Effect()
   loadData$: Observable<Action> = this.actions$
     .ofType(rebuttals.ActionTypes.LOAD)
     .startWith(new rebuttals.LoadAction())
-    .switchMap(() => 
+    .switchMap(() =>
       this.dataService.getRebuttals()
-      .map((rebuttalsResponse: Rebuttal[]) => new rebuttals.LoadSuccessAction(rebuttalsResponse))
-      .catch(error => of(new rebuttals.LoadFailAction(error)))
+        .mergeMap(fetchedRebuttals => Observable.from(fetchedRebuttals))
+        .map((rebuttalsResponse: Rebuttal[]) => new rebuttals.LoadSuccessAction(rebuttalsResponse))
+        .catch(error => of(new rebuttals.LoadFailAction(error)))
     );
 }

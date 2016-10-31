@@ -9,27 +9,16 @@ import { Entities, initialEntities } from '../entity/entity.model';
 
 
 export function reducer(state = initialEntities<ClaimRebuttal>(),
-                        action: claimRebuttal.Actions ): Entities<ClaimRebuttal> {
+  action: claimRebuttal.Actions): Entities<ClaimRebuttal> {
   let entities = {};
 
   switch (action.type) {
-
-
     case claimRebuttal.ActionTypes.LOAD_SUCCESS: {
-      const claimRebuttals = action.payload;
-      const newClaimRebuttals = claimRebuttals.filter(claimRebuttal => !state.entities[claimRebuttal.id]);
-
-      const newClaimRebuttalIds = newClaimRebuttals.map(claim => claim.id);
-      const newClaimRebuttalEntities =
-        newClaimRebuttals.reduce((entities: { [id: string]: ClaimRebuttal }, claimRebuttal: ClaimRebuttal) => {
-            return Object.assign(entities, {
-              [claimRebuttal.id]: claimRebuttal
-            });
-      }, {});
-
-      return Object.assign({}, initialEntities(), {
-        ids: [ ...state.ids, ...newClaimRebuttalIds ],
-        entities: Object.assign({}, state.entities, newClaimRebuttalEntities)
+      entities = Object.assign({}, state.entities);
+      entities[action.payload.id] = action.payload;
+      return Object.assign({}, state, {
+        ids: Object.keys(entities),
+        entities: entities
       });
     }
 
