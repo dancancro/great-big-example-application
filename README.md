@@ -30,11 +30,11 @@ according to the following prioritization. Disagreements in approach between two
 lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
-2. [Tour of Heroes Final Version](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
+2. [Tour of Heroes - contacts, crises, heroes](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
-4. [ngrx example app](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
-5. [ng2-state-talk](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
-6. [rangle-starter - Angular 2 with TypeScript and Redux version](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+4. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
+5. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+6. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
 In addition to the features from these demos, I added one of my own. I replaced
 [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 

@@ -18,74 +18,71 @@ import * as layout from '../core/store/layout/layout.actions';
 let uuid = require('node-uuid');
 
 @Component({
-  selector: 'app-debate',
-  templateUrl: 'debate.page.html',
-  styleUrls: ['debate.page.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-debate',
+    templateUrl: 'debate.page.html',
+    styleUrls: ['debate.page.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DebatePage {
-  page$: Observable<DebatePageLayout>;
-  claims$: Observable<Claim[]>;
-  rebuttals$: Observable<Rebuttal[]>;
-  claimRebuttals$: Observable<ClaimRebuttal[]>;
-  loading$: Observable<boolean>;
+    page$: Observable<DebatePageLayout>;
+    claims$: Observable<Claim[]>;
+    rebuttals$: Observable<Rebuttal[]>;
+    loading$: Observable<boolean>;
 
-  private subscription: any;
-  options: SortablejsOptions = {
-    disabled: false
-  };
+    private subscription: any;
+    options: SortablejsOptions = {
+        disabled: false
+    };
 
-  constructor(private store: Store<fromRoot.RootState>) {
-    this.page$ = store.let(fromRoot.getDebatePageState);
-    this.claims$ = store.let(fromRoot.getClaims);
-    this.rebuttals$ = store.let(fromRoot.getRebuttals);
-    this.claimRebuttals$ = store.let(fromRoot.getClaimRebuttals);
-    this.loading$ = store.let(fromRoot.getSearchLoading);
-  }
+    constructor(private store: Store<fromRoot.RootState>) {
+        this.page$ = store.let(fromRoot.getDebatePageState);
+        this.claims$ = store.let(fromRoot.getDeepClaims);
+        this.loading$ = store.let(fromRoot.getSearchLoading);
+    }
 
-  toggleEditable() {
-    this.store.dispatch(new layout.ToggleEditableAction());
-  }
+    toggleEditable() {
+        this.store.dispatch(new layout.ToggleEditableAction());
+    }
 
-  toggleExpanded() {
-    this.store.dispatch(new layout.ToggleExpandedAction());
-  }
+    toggleExpanded() {
+        this.store.dispatch(new layout.ToggleExpandedAction());
+    }
 
-  addClaim() {
-    this.store.dispatch(new claims.AddClaimAction({
-      id: uuid.v1(),
-      rebuttalIds: [],
-      name: 'New claim',
-      expanded: false,
-      rebuttalsReordered: false
-    }))
-  }
+    addClaim() {
+        this.store.dispatch(new claims.AddClaimAction({
+            id: uuid.v1(),
+            rebuttalIds: [],
+            name: 'New claim',
+            expanded: false,
+            rebuttalsReordered: false
+        }))
+    }
 
-  saveAll() {
-    alert("Add save here");
-  }
+    saveAll() {
+        alert("Add save here");
+    }
 
-  addRebuttal(claim: Claim) {
-    this.store.dispatch(new claimActions.AddRebuttalAction(claim))
-  }
+    addRebuttal(claim: Claim) {
+        this.store.dispatch(new claimActions.AddRebuttalAction(claim))
+    }
 
-  toggleRebuttals(claim: Claim) {
-    this.store.dispatch(new claimActions.ToggleRebuttalsAction(claim));
-  }
+    toggleRebuttals(claim: Claim) {
+        this.store.dispatch(new claimActions.ToggleRebuttalsAction(claim));
+    }
 
-  reorderRebuttals(claim: Claim) {
-    this.store.dispatch(new claimActions.ReorderRebuttalsAction(claim));
-  }
+    reorderRebuttals(claim: Claim) {
+        this.store.dispatch(new claimActions.ReorderRebuttalsAction(claim));
+    }
 
-  cancelRebuttal(rebuttal: Rebuttal) {
-    this.store.dispatch(new rebuttalActions.CancelRebuttalAction(rebuttal));
-  }
+    cancelRebuttal(rebuttal: Rebuttal) {
+        this.store.dispatch(new rebuttalActions.CancelRebuttalAction(rebuttal));
+    }
 
-  saveRebuttal(rebuttal: Rebuttal) {
-    this.store.dispatch(new rebuttalActions.SaveRebuttalAction(rebuttal));
-  }
+    saveRebuttal(rebuttal: Rebuttal) {
+        this.store.dispatch(new rebuttalActions.SaveRebuttalAction(rebuttal));
+    }
 
-  makeRebuttalEditable(rebuttal: Rebuttal) {
-    this.store.dispatch(new rebuttalActions.MakeRebuttalEditableAction(rebuttal));
-  }
+    makeRebuttalEditable(rebuttal: Rebuttal) {
+        this.store.dispatch(new rebuttalActions.MakeRebuttalEditableAction(rebuttal));
+    }
 }

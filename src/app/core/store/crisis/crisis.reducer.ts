@@ -19,7 +19,9 @@ export function reducer(state = initialEntities<Crisis>(),
       entities[action.payload.id] = crisisReducer(null, action);
       return Object.assign({}, state, {
         ids: Object.keys(entities),
-        entities: entities
+        entities: entities,
+        loaded: true,
+        loading: false,
       });
     case crisis.ActionTypes.UPDATE_CRISIS:
     case crisis.ActionTypes.UPDATE_CRISIS_SUCCESS:

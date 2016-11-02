@@ -11,6 +11,17 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
   let entities = {};
   switch (action.type) {
 
+    case rebuttal.ActionTypes.LOAD_SUCCESS: {
+      entities = Object.assign({}, state.entities);
+      entities[action.payload.id] = singleReducer(null, action);
+      return Object.assign({}, state, {
+        ids: Object.keys(entities),
+        entities: entities,
+        loaded: true,
+        loading: false,
+      });
+    }
+
     case rebuttal.ActionTypes.MAKE_REBUTTAL_EDITABLE: {
 
     }
@@ -26,6 +37,9 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
       // case rebuttal.ActionTypes.CANCEL_REBUTTAL: {
 
       // }
+
+      case rebuttal.ActionTypes.LOAD_SUCCESS:
+        return Object.assign({}, initialRebuttal, action.payload, { dirty: false });
 
       case rebuttal.ActionTypes.SAVE_REBUTTAL: {
         if (state.id == action.payload.id) {

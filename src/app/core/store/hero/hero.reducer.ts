@@ -19,7 +19,9 @@ export function reducer(state = initialEntities<Hero>(),
       entities[action.payload.id] = heroReducer(null, action);
       return Object.assign({}, state, {
         ids: Object.keys(entities),
-        entities: entities
+        entities: entities,
+        loaded: true,
+        loading: false,
       });
     case hero.ActionTypes.UPDATE_HERO:
     case hero.ActionTypes.UPDATE_HERO_SUCCESS:

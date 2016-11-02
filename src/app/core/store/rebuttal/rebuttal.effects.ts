@@ -29,7 +29,7 @@ export class RebuttalEffects {
     .switchMap(() =>
       this.dataService.getRebuttals()
         .mergeMap(fetchedRebuttals => Observable.from(fetchedRebuttals))
-        .map((rebuttalsResponse: Rebuttal[]) => new rebuttals.LoadSuccessAction(rebuttalsResponse))
+        .map((fetchedRecord: Rebuttal) => new rebuttals.LoadSuccessAction(fetchedRecord))
         .catch(error => of(new rebuttals.LoadFailAction(error)))
     );
 }

@@ -4,15 +4,15 @@ import { Rebuttal } from './rebuttal.model';
 import { type } from '../../../shared/util';
 
 export const ActionTypes = {
-  LOAD:                 type('[Rebuttals] Load'),
-  LOAD_SUCCESS:         type('[Rebuttals] Load Success'),
-  LOAD_FAIL:            type('[Rebuttals] Load Fail'),
-  SAVE_ALL:             type('[Rebuttals] Save All'),
-  SAVE_ALL_SUCCESS:     type('[Rebuttals] Save All Success'),
-  SAVE_ALL_FAIL:        type('[Rebuttals] Save All Fail'),
-  CANCEL_REBUTTAL:         type('[Rebuttal] Cancel Rebuttal'),
-  SAVE_REBUTTAL:           type('[Rebuttal] Save Rebuttal'),
-  MAKE_REBUTTAL_EDITABLE:  type('[Rebuttal] Make Rebuttal Editable')
+  LOAD: type('[Rebuttals] Load'),
+  LOAD_SUCCESS: type('[Rebuttals] Load Success'),
+  LOAD_FAIL: type('[Rebuttals] Load Fail'),
+  SAVE_ALL: type('[Rebuttals] Save All'),
+  SAVE_ALL_SUCCESS: type('[Rebuttals] Save All Success'),
+  SAVE_ALL_FAIL: type('[Rebuttals] Save All Fail'),
+  CANCEL_REBUTTAL: type('[Rebuttal] Cancel Rebuttal'),
+  SAVE_REBUTTAL: type('[Rebuttal] Save Rebuttal'),
+  MAKE_REBUTTAL_EDITABLE: type('[Rebuttal] Make Rebuttal Editable')
 }
 
 export class LoadAction implements Action {
@@ -24,7 +24,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: Rebuttal[]) { };
+  constructor(public payload: Rebuttal) { };
 }
 
 export class LoadFailAction implements Action {
@@ -36,19 +36,19 @@ export class LoadFailAction implements Action {
 export class SaveAllAction implements Action {
   type = ActionTypes.SAVE_ALL;
 
-  constructor(public payload: {oldClaims: Rebuttal[], newClaims: Rebuttal[]}) { };
+  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
 }
 
 export class SaveAllSuccessAction implements Action {
   type = ActionTypes.SAVE_ALL_SUCCESS;
 
-  constructor(public payload: {oldClaims: Rebuttal[], newClaims: Rebuttal[]}) { };
+  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
 }
 
 export class SaveAllFailAction implements Action {
   type = ActionTypes.SAVE_ALL_FAIL;
 
-  constructor(public payload: {oldClaims: Rebuttal[], newClaims: Rebuttal[]}) { };
+  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
 }
 
 export class CancelRebuttalAction implements Action {
@@ -60,7 +60,7 @@ export class CancelRebuttalAction implements Action {
 export class SaveRebuttalAction implements Action {
   type = ActionTypes.SAVE_REBUTTAL;
 
-  constructor(public payload: any ) { };  // payload: {rebuttal, newRebuttal}
+  constructor(public payload: any) { };  // payload: {rebuttal, newRebuttal}
 }
 
 export class MakeRebuttalEditableAction implements Action {

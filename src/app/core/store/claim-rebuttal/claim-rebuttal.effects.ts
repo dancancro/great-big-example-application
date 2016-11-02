@@ -28,9 +28,8 @@ export class ClaimRebuttalEffects {
     .startWith(new claimRebuttal.LoadAction())
     .switchMap(() =>
       this.dataService.getClaimRebuttals()
-        .mergeMap(fetchedClaimRebuttals => Observable.from(fetchedClaimRebuttals))
-        .map((fetchedClaimRebuttal: ClaimRebuttal) => new claimRebuttal.LoadSuccessAction(fetchedClaimRebuttal))  // one action per crisis
+        .mergeMap(fetchedRecords => Observable.from(fetchedRecords))
+        .map((fetchedRecord: ClaimRebuttal) => new claimRebuttal.LoadSuccessAction(fetchedRecord))  // one action per record
         .catch((error) => Observable.of(new claimRebuttal.LoadFailAction(error)))
     );
-
 }

@@ -9,86 +9,86 @@ import { Entities, initialEntities } from '../entity/entity.model';
 
 
 export function reducer(state = initialEntities<Claim>(),
-                        action: claim.Actions ): Entities<Claim> {
-  let entities = {};
+    action: claim.Actions): Entities<Claim> {
+    let entities = {};
 
-  switch (action.type) {
+    switch (action.type) {
 
-    case claim.ActionTypes.ADD_CLAIM: {
-      return Object.assign({}, state, action.payload);
-    }
+        case claim.ActionTypes.ADD_CLAIM: {
+            return Object.assign({}, state, action.payload);
+        }
 
-    case claim.ActionTypes.LOAD_SUCCESS: {
-      const claims = action.payload;
-      const newClaims = claims.filter(claim => !state.entities[claim.id]);
-
-      const newClaimIds = newClaims.map(claim => claim.id);
-      const newClaimEntities =
-        newClaims.reduce((entities: { [id: string]: Claim }, claim: Claim) => {
-            return Object.assign(entities, {
-              [claim.id]: claim
+        case claim.ActionTypes.LOAD_SUCCESS: {
+            entities = Object.assign({}, state.entities);
+            entities[action.payload.id] = singleReducer(null, action);
+            return Object.assign({}, state, {
+                ids: Object.keys(entities),
+                entities: entities,
+                loaded: true,
+                loading: false,
             });
-      }, {});
+        }
 
-      return Object.assign({}, initialEntities(), {
-        ids: [ ...state.ids, ...newClaimIds ],
-        entities: Object.assign({}, state.entities, newClaimEntities),
-        selectedClaimId: state.selectedEntityId
-      });
+        case claim.ActionTypes.REORDER_REBUTTALS:
+        case claim.ActionTypes.ADD_REBUTTAL:
+        case claim.ActionTypes.TOGGLE_REBUTTALS: {
+            entities = Object.assign({}, state.entities);
+            entities[action.payload.id] = singleReducer(entities[action.payload.id], action);
+            let newState = Object.assign({}, state, {
+                entities: entities
+            });
+            return newState;
+        }
+
+        default: {
+            return state;
+        }
     }
 
-    case claim.ActionTypes.REORDER_REBUTTALS:
-    case claim.ActionTypes.ADD_REBUTTAL: {
-      entities = Object.assign({}, state.entities, singleReducer(null, action));
-      return Object.assign({}, initialEntities(), {
-        ids: Object.keys(entities),
-        entities: entities
-      });
+    // This reduces a single claim
+    function singleReducer(state: Claim = initialClaim,
+        action: claim.Actions): Claim {
+
+
+        switch (action.type) {
+
+            case claim.ActionTypes.LOAD_SUCCESS:
+                return Object.assign({}, initialClaim, action.payload, { dirty: false });
+
+            case claim.ActionTypes.ADD_REBUTTAL:
+                if (action.payload.id === state.id) {
+                    return Object.assign({}, state, { dirty: true });
+                } else {
+                    return state;
+                }
+
+            case claim.ActionTypes.TOGGLE_REBUTTALS:
+                if (action.payload.id === state.id) {
+                    return Object.assign({}, state, { expanded: !state.expanded });
+                } else {
+                    return state;
+                }
+
+            case claim.ActionTypes.REORDER_REBUTTALS:
+                if (action.payload.id === state.id) {
+                    return Object.assign({}, state, { rebuttalsReordered: true });
+                } else {
+                    return state;
+                }
+
+            default:
+                return state;
+
+        }
+
     }
-
-    case claim.ActionTypes.TOGGLE_REBUTTALS: {
-      return Object.assign({}, state, {
-        entities: state.ids.map(id =>
-          singleReducer(state.entities[id], action))
-      });
-    }
-
-    default: {
-      return state;
-    }
-  }
-
-  // This reduces a single claim
-  function singleReducer(state: Claim = initialClaim,
-                          action: claim.Actions ): Claim {
-
-    if (action.type == claim.ActionTypes.ADD_REBUTTAL) {
-      return Object.assign({}, state, action.payload, {dirty: true});
-    }
-
-    if(!(<any>action).payload || !(<any>action).payload.claim || state.id !== (<any>action).payload.claim.id) {
-      return state;
-    }
-
-    if (action.type == claim.ActionTypes.TOGGLE_REBUTTALS) {
-      return Object.assign({}, state, {expanded: !state.expanded});
-    }
-
-    if (action.type == claim.ActionTypes.REORDER_REBUTTALS) {
-      return Object.assign({}, state, {rebuttalsReordered: true});
-    }
-
-  }
-
-
 }
-
 
 
 export function getClaimEntities(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.entities);
+    return state$.select(state => state.entities);
 }
 
 export function getClaimIds(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.ids);
+    return state$.select(state => state.ids);
 }

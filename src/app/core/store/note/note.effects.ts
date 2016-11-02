@@ -20,31 +20,31 @@ import * as note from './note.actions';
 export class NoteEffects {
   constructor(private store: Store<Note>,
     private dataService: DataService,
-    private action$: Actions) {}
+    private action$: Actions) { }
 
-@Effect()
-load$ = this.action$
-  .ofType(note.ActionTypes.LOAD)
-  .startWith(new note.LoadAction())
-  .switchMap(() =>
-    this.dataService.getNotes()
-    .mergeMap(fetchedNotes => Observable.from(fetchedNotes))
-    .map((fetchedNote: Note) => new note.LoadSuccessAction(fetchedNote))  // one action per note
-    .catch(() => Observable.of(new note.UpdateNoteFailAction()))
-);
+  @Effect()
+  load$ = this.action$
+    .ofType(note.ActionTypes.LOAD)
+    .startWith(new note.LoadAction())
+    .switchMap(() =>
+      this.dataService.getNotes()
+        .mergeMap(fetchedNotes => Observable.from(fetchedNotes))
+        .map((fetchedNote: Note) => new note.LoadSuccessAction(fetchedNote))  // one action per note
+        .catch((error) => Observable.of(new note.LoadFailAction(error)))
+    );
 
-@Effect()
-update$ = this.action$
-.ofType(note.ActionTypes.UPDATE_NOTE_TEXT,
-        note.ActionTypes.UPDATE_NOTE_POSITION,
-        note.ActionTypes.ADD_NOTE)
-.withLatestFrom(this.store.select('notes'))
-.switchMap(([{}, notes]) => 
-  Observable   // first element is action, but it isn't used
-    .from(notes.ids)
-    .filter((id: string) => notes.entities[id].dirty)
-    .switchMap((id: string) => this.dataService.addOrUpdateNote(notes.entities[id]))
-    .map((responseNote: Note) => new note.UpdateNoteSuccessAction(responseNote))
-);
+  @Effect()
+  update$ = this.action$
+    .ofType(note.ActionTypes.UPDATE_NOTE_TEXT,
+    note.ActionTypes.UPDATE_NOTE_POSITION,
+    note.ActionTypes.ADD_NOTE)
+    .withLatestFrom(this.store.select('notes'))
+    .switchMap(([{}, notes]) =>
+      Observable   // first element is action, but it isn't used
+        .from(notes.ids)
+        .filter((id: string) => notes.entities[id].dirty)
+        .switchMap((id: string) => this.dataService.addOrUpdateNote(notes.entities[id]))
+        .map((responseNote: Note) => new note.UpdateNoteSuccessAction(responseNote))
+    );
 
 }

@@ -22,7 +22,9 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
 
       return Object.assign({}, state, {
         ids: Object.keys(entities),
-        entities: entities
+        entities: entities,
+        loaded: true,
+        loading: false,
       });
     case contact.ActionTypes.UPDATE_CONTACT:
     case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
