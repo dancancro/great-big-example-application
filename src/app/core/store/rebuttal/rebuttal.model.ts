@@ -8,7 +8,7 @@ export interface Rebuttal {
 
   // UI state
   editing: boolean;
-  originalId?: string;
+  original?: Rebuttal;
   isTouched: Function;
 }
 
@@ -22,7 +22,7 @@ export const initialRebuttal: Rebuttal = {
 
   // UI state
   editing: false,
-  originalId: null,
+  original: null,
   isTouched: function () {
     return this.original && (this.original.shortName !== this.shortName ||
       this.original.longName !== this.longName ||

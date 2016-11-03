@@ -58,8 +58,8 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
           longName: action.payload.newRebuttal.longName.value,
           link: action.payload.newRebuttal.link.value,
           comments: action.payload.newRebuttal.comments.value,
-          //          original: state.original || state }
-          original: state,
+          original: state.original || state,
+          // original: state,
           editing: false
         });
       }
