@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { SORTABLEJS_DIRECTIVES } from 'angular-sortablejs';
+import { SortablejsModule } from 'angular-sortablejs';
 import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -17,29 +17,31 @@ import { ClaimRebuttalEffects } from '../core/store/claim-rebuttal/claim-rebutta
 // import { RouteParamsService } from '../../services/route-params.service';
 
 @NgModule({
-    declarations: [
-        DebatePage,
-        ClaimComponent,
-        RebuttalComponent,
-        SORTABLEJS_DIRECTIVES,
-    ],
-    imports: [
-        SharedModule,
-        routing,
-        ReactiveFormsModule,
-        EffectsModule.run(ClaimEffects),
-        EffectsModule.run(RebuttalEffects),
-        EffectsModule.run(ClaimRebuttalEffects)
-    ],
-    // exports: [
-    //   ListComponent,
-    //   ObjectionComponent,
-    //   RebuttalComponent,
-    //   BrowserModule
-    // ],
-    providers: [
-        DataService,
-        //    RouteParamsService
-    ]
+  declarations: [
+    DebatePage,
+    ClaimComponent,
+    RebuttalComponent
+  ],
+  imports: [
+    SortablejsModule.forRoot({
+      disabled: false
+    }),
+    SharedModule,
+    routing,
+    ReactiveFormsModule,
+    EffectsModule.run(ClaimEffects),
+    EffectsModule.run(RebuttalEffects),
+    EffectsModule.run(ClaimRebuttalEffects)
+  ],
+  // exports: [
+  //   ListComponent,
+  //   ObjectionComponent,
+  //   RebuttalComponent,
+  //   BrowserModule
+  // ],
+  providers: [
+    DataService,
+    //    RouteParamsService
+  ]
 })
 export class DebateModule { }

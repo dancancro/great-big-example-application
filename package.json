@@ -1,6 +1,9 @@
 {
   "name": "great-big-angular2-example",
   "version": "0.0.0",
+  "engines": {
+    "node": "6.5.0"
+  },
   "description": "A fullstack, multi-feature Angular2/Redux app made from several single-feature apps",
   "license": "MIT",
   "angular-cli": {},
@@ -51,7 +54,7 @@
     "@ngrx/store": "^2.0.0",
     "@ngrx/store-devtools": "^3.1.0",
     "@types/hammerjs": "2.0.33",
-    "angular-sortablejs": "0.1.0",
+    "angular-sortablejs": "0.2.1",
     "autoprefixer": "^6.3.3",
     "autoprefixer-core": "^6.0.1",
     "awesome-typescript-loader": "^2.2.1",

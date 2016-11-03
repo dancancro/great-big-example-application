@@ -23,7 +23,7 @@
     </div>
   </div>
 </div>
-<ul id="claim-list" [sortablejs]="claims$ | async" [sortablejsOptions]="options">
+<ul id="claim-list" [sortablejs]="claims$ | async">
   <li *ngFor="let claim of claims$ | async">
     <debate-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (reorderClaims)="reorderClaims()" (toggleEditable)="toggleEditable()"
       (addRebuttal)="addRebuttal($event)" (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals($event)"
