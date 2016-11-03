@@ -338,14 +338,13 @@ export const getDeepClaims = function(state$: Observable<RootState>): Observable
         state$.let(getRebuttalEntities),
         state$.let(getClaimRebuttals),
         (claims, claimIds, rebuttals, claimRebuttals) => {
-            let deepClaims = claimIds.map(cid => {
-                return Object.assign(
+            return claimIds.map(cid =>
+                Object.assign(
                     {},
                     claims[cid],
                     { rebuttals: claimRebuttals.filter(cr => cr.claimId == cid).map(cr => rebuttals[cr.rebuttalId]) }
                 )
-            });
-            return deepClaims;
+            );
         }
     )
 };

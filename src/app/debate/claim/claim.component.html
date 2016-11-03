@@ -1,8 +1,8 @@
 <div>
-	<a id="{{claim.id}}"></a>
-	<h3><a target="_top" href="http://www.bernierebuttals.org?objection={{claim.id}}">🔗</a>
-		<span class="claim-name" (click)="toggleRebuttals.emit(claim)">{{claim.name}}</span></h3>
-	<span class="claim-block" *ngIf="claim.expanded">
+  <a id="{{claim.id}}"></a>
+  <h3><a target="_top" href="http://www.bernierebuttals.org?objection={{claim.id}}">🔗</a>
+    <span class="claim-name" (click)="toggleRebuttals.emit(claim)">{{claim.name}}</span></h3>
+  <span class="claim-block" *ngIf="claim.expanded">
         <div [hidden]="!claim.imageLink" class="claim-graphic">
              <a target="_blank" href="{{claim.imageLink}}">
                <img src="{{claim.imageLink}}">
@@ -22,7 +22,7 @@
           </li>
           <li><button class="btn btn-default btn-xs" title="Add" 
             (click)="addRebuttal.emit(claim)" 
-            *ngIf="page.editable" [disabled]="claim.isAdding()">Add</button> </li>
+            *ngIf="page.editable" [disabled]="claim.isAdding(claim.rebuttals)">Add</button> </li>
         </ul>
       </span>
 </div>

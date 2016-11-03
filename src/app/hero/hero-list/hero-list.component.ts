@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../core/store';
 
-import { Hero }    from '../../core/store/hero/hero.model';
+import { Hero } from '../../core/store/hero/hero.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +18,7 @@ import { Hero }    from '../../core/store/hero/hero.model';
 
 export class HeroListComponent implements OnInit {
   heroes$: Observable<Hero[]>
-  constructor(private store: Store<fromRoot.RootState>) {}
+  constructor(private store: Store<fromRoot.RootState>) { }
 
   ngOnInit() {
     this.heroes$ = this.store.let(fromRoot.getHeroes);

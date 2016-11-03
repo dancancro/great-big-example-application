@@ -2,25 +2,26 @@ import '@ngrx/core/add/operator/select';
 import { Observable } from 'rxjs/Observable';
 import * as layout from './layout.actions';
 import * as contact from '../contact/contact.actions';
-import { Layout, initialLayout } from './layout.model';
+import * as claim from '../claim/claim.actions';
+import { Layout, initialLayout, DebatePageLayout, initialDebatePage } from './layout.model';
 
 export function reducer(state = initialLayout, action: layout.Actions |
-                       contact.Actions): Layout {
+  contact.Actions | claim.Actions): Layout {
   switch (action.type) {
     case layout.ActionTypes.CLOSE_SIDENAV:
-      return Object.assign({}, state, { booksPage: {showSidenav: false}});
+      return Object.assign({}, state, { booksPage: { showSidenav: false } });
 
     case layout.ActionTypes.OPEN_SIDENAV:
-      return Object.assign({}, state, { booksPage: {showSidenav: true}});
+      return Object.assign({}, state, { booksPage: { showSidenav: true } });
 
-    case layout.ActionTypes.TOGGLE_EDITABLE:
+    case claim.ActionTypes.TOGGLE_EDITABLE:
       return Object.assign({}, state, {
-        debatePage: {editable: !state.debatePage.editable}
+        debatePage: Object.assign({}, initialDebatePage, { editable: action.payload })
       });
 
-    case layout.ActionTypes.TOGGLE_EXPANDED:
+    case claim.ActionTypes.TOGGLE_EXPANDED:
       return Object.assign({}, state, {
-        debatePage: {editable: !state.debatePage.expanded}
+        debatePage: Object.assign({}, initialDebatePage, { expanded: action.payload })
       });
 
     case contact.ActionTypes.LOAD:
@@ -43,14 +44,14 @@ export function reducer(state = initialLayout, action: layout.Actions |
   }
 }
 
-export function getShowSidenav(state$: Observable<Layout>) {
+export function getShowSidenav(state$: Observable<Layout>): Observable<boolean> {
   return state$.select(state => state.booksPage.showSidenav);
 }
 
-export function getDebatePageState(state$: Observable<Layout>) {
+export function getDebatePageState(state$: Observable<Layout>): Observable<DebatePageLayout> {
   return state$.select(state => state.debatePage);
 }
 
-export function getMsg(state$: Observable<Layout>) {
+export function getMsg(state$: Observable<Layout>): Observable<string> {
   return state$.select(state => state.msg);
 }

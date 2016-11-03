@@ -4,15 +4,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../core/store';
 import * as claimActions from '../core/store/claim/claim.actions';
 import * as rebuttalActions from '../core/store/rebuttal/rebuttal.actions';
 import * as claims from '../core/store/claim/claim.actions';
 import { DebatePageLayout } from '../core/store/layout/layout.model';
-import { Claim } from '../core/store/claim/claim.model';
+import { Claim, initialClaim } from '../core/store/claim/claim.model';
 import { Rebuttal } from '../core/store/rebuttal/rebuttal.model';
 import { ClaimRebuttal } from '../core/store/claim-rebuttal/claim-rebuttal.model';
+import * as claim from '../core/store/claim/claim.actions';
 import * as layout from '../core/store/layout/layout.actions';
 
 let uuid = require('node-uuid');
@@ -28,6 +30,9 @@ export class DebatePage {
     claims$: Observable<Claim[]>;
     rebuttals$: Observable<Rebuttal[]>;
     loading$: Observable<boolean>;
+    expanded: boolean;
+    editable: boolean;
+    pageSubscription: Subscription;
 
     private subscription: any;
     options: SortablejsOptions = {
@@ -38,24 +43,28 @@ export class DebatePage {
         this.page$ = store.let(fromRoot.getDebatePageState);
         this.claims$ = store.let(fromRoot.getDeepClaims);
         this.loading$ = store.let(fromRoot.getSearchLoading);
+        this.pageSubscription = this.page$.subscribe((page) => {
+            this.expanded = page.expanded
+            this.editable = page.editable
+        })
     }
 
     toggleEditable() {
-        this.store.dispatch(new layout.ToggleEditableAction());
+        this.store.dispatch(new claim.ToggleEditableAction(!this.editable));
     }
 
     toggleExpanded() {
-        this.store.dispatch(new layout.ToggleExpandedAction());
+        this.store.dispatch(new claim.ToggleExpandedAction(!this.expanded));
     }
 
     addClaim() {
-        this.store.dispatch(new claims.AddClaimAction({
+        this.store.dispatch(new claims.AddClaimAction(Object.assign({}, initialClaim, {
             id: uuid.v1(),
             rebuttalIds: [],
             name: 'New claim',
             expanded: false,
             rebuttalsReordered: false
-        }))
+        })))
     }
 
     saveAll() {
@@ -84,5 +93,9 @@ export class DebatePage {
 
     makeRebuttalEditable(rebuttal: Rebuttal) {
         this.store.dispatch(new rebuttalActions.MakeRebuttalEditableAction(rebuttal));
+    }
+
+    ngOnDestroy() {
+        this.pageSubscription.unsubscribe();
     }
 }

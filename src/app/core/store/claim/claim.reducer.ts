@@ -6,16 +6,39 @@ import { Observable } from 'rxjs/Observable';
 import { Claim, initialClaim } from './claim.model';
 import * as claim from './claim.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
+import * as layout from '../layout/layout.actions';
 
 
 export function reducer(state = initialEntities<Claim>(),
-    action: claim.Actions): Entities<Claim> {
+    action: claim.Actions | layout.Actions): Entities<Claim> {
     let entities = {};
 
     switch (action.type) {
 
         case claim.ActionTypes.ADD_CLAIM: {
             return Object.assign({}, state, action.payload);
+        }
+
+        case claim.ActionTypes.TOGGLE_EXPANDED: {
+            let id: string;
+            entities = Object.assign({}, state.entities);
+            for (id in entities) {
+                entities[id].expanded = action.payload;
+            }
+            return Object.assign({}, state, {
+                entities: entities
+            });
+        }
+
+        case claim.ActionTypes.TOGGLE_EDITABLE: {
+            let id: string;
+            entities = Object.assign({}, state.entities);
+            for (id in entities) {
+                entities[id].editable = action.payload;
+            }
+            return Object.assign({}, state, {
+                entities: entities
+            });
         }
 
         case claim.ActionTypes.LOAD_SUCCESS: {

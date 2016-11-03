@@ -15,26 +15,28 @@ export interface Layout {
   msg: string;
 }
 
+export const initialDebatePage: DebatePageLayout = {
+  editable: false,
+  expanded: false,
+  scrollY: 0,
+  isTouched: function (claims) {
+    let _touched = false;
+    claims.forEach(claim => {
+      claim.rebuttals.forEach(rebuttal => {
+        if (rebuttal.isTouched()) {
+          _touched = true;
+        }
+      });
+    });
+    return _touched;
+  }
+}
+
+
 export const initialLayout: Layout = {
   booksPage: {
     showSidenav: false
   },
-  debatePage: {
-    editable: false,
-    expanded: false,
-    scrollY: 0,
-    isTouched: function () {
-      let _touched = false;
-      // TODO make this a for loop with early exits
-      this.claims.forEach(claim => {
-        claim.rebuttals.forEach(rebuttal => {
-          if (rebuttal.isTouched()) {
-            _touched = true;
-          }
-        });
-      });
-      return _touched;
-    }
-  },
+  debatePage: initialDebatePage,
   msg: ''
-};
+}
