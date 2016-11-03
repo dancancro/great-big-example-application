@@ -16,12 +16,17 @@ export function reducer(state = initialLayout, action: layout.Actions |
 
     case claim.ActionTypes.TOGGLE_EDITABLE:
       return Object.assign({}, state, {
-        debatePage: Object.assign({}, initialDebatePage, { editable: action.payload })
+        debatePage: Object.assign({},
+          initialDebatePage, // this is so that the methods are not lost
+          state,
+          { editable: action.payload })
       });
 
     case claim.ActionTypes.TOGGLE_EXPANDED:
       return Object.assign({}, state, {
-        debatePage: Object.assign({}, initialDebatePage, { expanded: action.payload })
+        debatePage: Object.assign({}, initialDebatePage,
+          state,
+          { expanded: action.payload })
       });
 
     case contact.ActionTypes.LOAD:

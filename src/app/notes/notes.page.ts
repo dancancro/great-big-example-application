@@ -23,20 +23,19 @@ export class NotesPage implements OnInit {
 
   onAddNote(colour) {
     this.store.dispatch(new noteActions.AddNoteAction({
-      id: uuid.v1(),
       text: '',
       colour: colour,
       left: 200,
       top: 300
-      }));
+    }));
   }
 
   onChangeNoteText(newText: string, note: Note) {
-    this.store.dispatch(new noteActions.UpdateNoteTextAction({text: newText, id: note.id}));
+    this.store.dispatch(new noteActions.UpdateNoteTextAction({ text: newText, id: note.id }));
   }
 
   onChangeNotePosition(newPosition: any, note: Note) {
-    this.store.dispatch(new noteActions.UpdateNotePositionAction({id: note.id, left: newPosition.left, top: newPosition.top}));
+    this.store.dispatch(new noteActions.UpdateNotePositionAction({ id: note.id, left: newPosition.left, top: newPosition.top }));
   }
 
   ngOnInit() {

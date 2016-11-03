@@ -3,7 +3,7 @@
 import { Directive, ElementRef, Renderer } from '@angular/core';
 
 @Directive({ selector: '[highlight], input' })
-/** Highlight the attached element or an InputElement in gray */
+/** Highlight the attached element or an InputElement in light blue */
 export class HighlightDirective {
   constructor(renderer: Renderer, el: ElementRef) {
     renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'lightblue');

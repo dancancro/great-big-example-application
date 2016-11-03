@@ -1,15 +1,17 @@
-import { Component, Input, Output, EventEmitter, OnInit,
-         ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter, OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Claim } from '../../core/store/claim/claim.model';
 import { Rebuttal } from '../../core/store/rebuttal/rebuttal.model';
 
 @Component({
-    selector: 'debate-rebuttal',
-    templateUrl: 'rebuttal.component.html',
-    styles: ['rebuttal.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'debate-rebuttal',
+  templateUrl: 'rebuttal.component.html',
+  styleUrls: ['rebuttal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RebuttalComponent implements OnInit {
   @Input() page: any;
@@ -22,15 +24,15 @@ export class RebuttalComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      this.editForm = this.formBuilder.group({
-        shortName: [this.rebuttal.shortName, Validators.required],
-        longName: [this.rebuttal.longName, Validators.required],
-        link: this.rebuttal.link,
-        comments: this.rebuttal.comments
-      });
-    }
+    this.editForm = this.formBuilder.group({
+      shortName: [this.rebuttal.shortName, Validators.required],
+      longName: [this.rebuttal.longName, Validators.required],
+      link: this.rebuttal.link,
+      comments: this.rebuttal.comments
+    });
+  }
 
 }

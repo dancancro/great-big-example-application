@@ -15,9 +15,9 @@
               [page]="page"
               [claim]="claim"
               [rebuttal]="rebuttal"
-              (cancel)="cancelRebuttal.emit(rebuttal)"
-              (makeEditable)="makeRebuttalEditable.emit(rebuttal)" 
-              (save)="saveRebuttal.emit(rebuttal)" 
+              (cancel)="cancelRebuttal.emit($event)"
+              (makeEditable)="makeRebuttalEditable.emit($event)" 
+              (save)="saveRebuttal.emit($event)" 
             ></debate-rebuttal>
           </li>
           <li><button class="btn btn-default btn-xs" title="Add" 

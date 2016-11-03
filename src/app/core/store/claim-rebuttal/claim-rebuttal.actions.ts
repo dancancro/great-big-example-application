@@ -6,7 +6,7 @@ import { ClaimRebuttal } from './claim-rebuttal.model';
 import { type } from '../../../shared/util';
 
 export const ActionTypes = {
-  ADD_REBUTTAL: type('[ClaimRebuttal] Add Rebuttal to Claim'),
+  ASSOCIATE_REBUTTAL: type('[ClaimRebuttal] Associate a Rebuttal to Claim'),
   LOAD: type('[ClaimRebuttal] Load'),
   LOAD_SUCCESS: type('[ClaimRebuttal] Load Success'),
   LOAD_FAIL: type('[ClaimRebuttal] Load Fail'),
@@ -15,8 +15,8 @@ export const ActionTypes = {
   SAVE_ALL_FAIL: type('[ClaimRebuttal] Save All Fail')
 };
 
-export class AddRebuttalAction implements Action {
-  type = ActionTypes.ADD_REBUTTAL;
+export class AssociateRebuttalAction implements Action {
+  type = ActionTypes.ASSOCIATE_REBUTTAL;
 
   constructor(public payload: { claim: Claim, rebuttal: Rebuttal }) { };
 }
@@ -60,7 +60,7 @@ export class SaveAllFailAction implements Action {
 
 
 export type Actions
-  = AddRebuttalAction
+  = AssociateRebuttalAction
   | LoadAction
   | LoadSuccessAction
   | LoadFailAction

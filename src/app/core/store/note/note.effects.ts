@@ -40,7 +40,7 @@ export class NoteEffects {
     note.ActionTypes.ADD_NOTE)
     .withLatestFrom(this.store.select('notes'))
     .switchMap(([{}, notes]) =>
-      Observable   // first element is action, but it isn't used
+      Observable   // first element, {}, is action, but it isn't used
         .from(notes.ids)
         .filter((id: string) => notes.entities[id].dirty)
         .switchMap((id: string) => this.dataService.addOrUpdateNote(notes.entities[id]))

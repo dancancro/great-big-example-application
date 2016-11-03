@@ -101,7 +101,11 @@ app.post('/api/note', function (req, res) {
   fs.readFile(fileName, (err, data) => {
     if (err) throw err;
     let dbNotes = JSON.parse(data);
-    dbNotes = dbNotes.map(note => note.id === reqNote.id ? reqNote : note)
+    if (dbNotes.some(function (note) { return note.id === reqNote.id })) {
+      dbNotes = dbNotes.map(note => note.id === reqNote.id ? reqNote : note)
+    } else {
+      dbNotes.push(reqNote);
+    }
     fs.writeFile(fileName, JSON.stringify(dbNotes), (err) => {
       if (err) throw err;
       console.log('It\'s saved!');
