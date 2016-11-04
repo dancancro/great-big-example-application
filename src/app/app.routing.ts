@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: 'contacts', loadChildren: 'app/contact/contact.module#ContactModule' },
   { path: 'crisis', loadChildren: 'app/crisis/crisis.module#CrisisModule' },
   { path: 'heroes', loadChildren: 'app/hero/hero.module#HeroModule' },
-  { path: '**', redirectTo: '/core/not-found', pathMatch: 'full' }
+  { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
