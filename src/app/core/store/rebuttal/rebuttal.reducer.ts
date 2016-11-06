@@ -11,6 +11,7 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
   let entities = {};
   switch (action.type) {
 
+    // add one entity
     case rebuttal.ActionTypes.LOAD_SUCCESS: {
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = singleReducer(null, action);
@@ -22,13 +23,9 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
       });
     }
 
+    // operate on one entity
     case rebuttal.ActionTypes.SAVE_REBUTTAL:
-      entities = Object.assign({}, state.entities);
-      entities[action.payload.rebuttal.id] = singleReducer(entities[action.payload.rebuttal.id], action);
-      return Object.assign({}, state, {
-        entities: entities
-      });
-    case rebuttal.ActionTypes.CANCEL_REBUTTAL:
+    case rebuttal.ActionTypes.CANCEL_CHANGES:
     case rebuttal.ActionTypes.MAKE_REBUTTAL_EDITABLE: {
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = singleReducer(entities[action.payload.id], action);
@@ -48,16 +45,16 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
       case rebuttal.ActionTypes.LOAD_SUCCESS:
         return Object.assign({}, initialRebuttal, action.payload, { dirty: false });
 
-      case rebuttal.ActionTypes.CANCEL_REBUTTAL:
+      case rebuttal.ActionTypes.CANCEL_CHANGES:
         return Object.assign({}, state, { editing: false });
 
       case rebuttal.ActionTypes.SAVE_REBUTTAL: {
+        let newRebuttal = action.payload.newRebuttal;
         return Object.assign({}, state, {
-          id: action.payload.rebuttal.id,
-          shortName: action.payload.newRebuttal.shortName.value,
-          longName: action.payload.newRebuttal.longName.value,
-          link: action.payload.newRebuttal.link.value,
-          comments: action.payload.newRebuttal.comments.value,
+          shortName: newRebuttal.shortName.value,
+          longName: newRebuttal.longName.value,
+          link: newRebuttal.link.value,
+          comments: newRebuttal.comments.value,
           original: state.original || state,
           // original: state,
           editing: false

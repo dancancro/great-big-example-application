@@ -21,11 +21,9 @@ import { getRebuttalEntities } from '../../core/store';
 export class ClaimComponent {
   @Input() page: any;  //Observable<DebatePage>
   @Input() claim: Claim;
-  // @Input() rebuttals: Rebuttal[];
-  // @Input() claimRebuttals: ClaimRebuttal[];
 
   @Output() toggleRebuttals = new EventEmitter();
-  @Output() reorderObjections = new EventEmitter();
+  @Output() moveRebuttal = new EventEmitter();
   @Output() cancelRebuttal = new EventEmitter();
   @Output() saveRebuttal = new EventEmitter();
   @Output() makeRebuttalEditable = new EventEmitter();

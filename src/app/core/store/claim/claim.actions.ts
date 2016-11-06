@@ -9,7 +9,7 @@ export const ActionTypes = {
   LOAD_SUCCESS: type('[Claims] Load Success'),
   LOAD_FAIL: type('[Claims] Load Fail'),
   REORDER_CLAIMS: type('[Claims] Reorder claims'),
-  TOGGLE_EXPANDED: type('[Claims] Toggle expanded'),
+  TOGGLE_ALL_REBUTTALS: type('[Claims] Toggle expanded'),
   TOGGLE_EDITABLE: type('[Claims] Toggle editable'),
   SEEK_CLAIM: type('[Claims] Seek claim'),
   SAVE_ALL: type('[Claims] Save All'),
@@ -43,14 +43,8 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }; // payload: error
 }
 
-export class ReorderClaimsAction implements Action {
-  type = ActionTypes.REORDER_CLAIMS;
-
-  constructor(public payload: string) { };
-}
-
-export class ToggleExpandedAction implements Action {
-  type = ActionTypes.TOGGLE_EXPANDED;
+export class ToggleAllRebuttalsAction implements Action {
+  type = ActionTypes.TOGGLE_ALL_REBUTTALS;
 
   constructor(public payload: boolean) { };
 }
@@ -97,6 +91,12 @@ export class ReorderRebuttalsAction implements Action {
   constructor(public payload: Claim) { };
 }
 
+export class ReorderClaimsAction implements Action {
+  type = ActionTypes.REORDER_CLAIMS;
+
+  constructor(public payload: string[]) { } // payload: id[] 
+}
+
 
 
 export type Actions
@@ -105,11 +105,12 @@ export type Actions
   | LoadSuccessAction
   | LoadFailAction
   | ReorderClaimsAction
-  | ToggleExpandedAction
+  | ToggleAllRebuttalsAction
   | ToggleEditableAction
   | SeekClaimAction
   | SaveAllAction
   | SaveAllSuccessAction
   | SaveAllFailAction
   | ToggleRebuttalsAction
-  | ReorderRebuttalsAction;
+  | ReorderRebuttalsAction
+  | ReorderClaimsAction;

@@ -107,7 +107,7 @@ app.post('/api/note', function (req, res) {
       dbNotes.push(reqNote);
     }
     fs.writeFile(fileName, JSON.stringify(dbNotes), (err) => {
-      if (err) throw err;
+      if (err) throw err;    // TODO: send the unchanged version back and revert the change
       console.log('It\'s saved!');
     });
     res.send(JSON.stringify(req.body));

@@ -55,7 +55,7 @@ export class DebatePage {
   }
 
   toggleExpanded() {
-    this.store.dispatch(new claim.ToggleExpandedAction(!this.expanded));
+    this.store.dispatch(new claim.ToggleAllRebuttalsAction(!this.expanded));
   }
 
   addClaim() {
@@ -73,6 +73,7 @@ export class DebatePage {
   }
 
   addRebuttal(claim: Claim) {
+    // either create a new Rebuttal or pick an existing one
     this.store.dispatch(new claimRebuttalActions.AssociateRebuttalAction({ claim: claim, rebuttal: initialRebuttal }))
   }
 
@@ -84,19 +85,31 @@ export class DebatePage {
     this.store.dispatch(new claimActions.ReorderRebuttalsAction(claim));
   }
 
-  cancelRebuttal(rebuttal: Rebuttal) {
-    this.store.dispatch(new rebuttalActions.CancelRebuttalAction(rebuttal));
+  cancelRebuttal({claim, rebuttal}) {
+    if (rebuttal.isNew) {
+      // TODO: delete the rebuttal record if necessary
+      console.log('rebuttal: ' + JSON.stringify(rebuttal))
+      this.store.dispatch(new claimRebuttalActions.DisassociateRebuttalAction({ claim, rebuttal }));
+    } else {
+      this.store.dispatch(new rebuttalActions.CancelRebuttalAction(rebuttal));
+    }
   }
 
-  saveRebuttal({rebuttal, newRebuttal}) {
-
-    // console.log('new rebuttal: ' + JSON.stringify(newRebuttal));
-
-    this.store.dispatch(new rebuttalActions.SaveRebuttalAction({ rebuttal, newRebuttal }));
+  saveRebuttal({id, newRebuttal}) {
+    this.store.dispatch(new rebuttalActions.SaveRebuttalAction({ id, newRebuttal }));
   }
 
   makeRebuttalEditable(rebuttal: Rebuttal) {
     this.store.dispatch(new rebuttalActions.MakeRebuttalEditableAction(rebuttal));
+  }
+
+  moveRebuttal(claim: Claim, event) {
+    this.store.dispatch(new claimRebuttalActions.ReorderRebuttalsAction({ claim, rebuttals: event.rebuttals }));
+  }
+
+  moveClaim(event) {
+    let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id)
+    this.store.dispatch(new claimActions.ReorderClaimsAction(claimIds));
   }
 
   ngOnDestroy() {

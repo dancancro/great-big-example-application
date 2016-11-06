@@ -22,7 +22,7 @@ export function reducer(state = initialLayout, action: layout.Actions |
           { editable: action.payload })
       });
 
-    case claim.ActionTypes.TOGGLE_EXPANDED:
+    case claim.ActionTypes.TOGGLE_ALL_REBUTTALS:
       return Object.assign({}, state, {
         debatePage: Object.assign({}, initialDebatePage,
           state,

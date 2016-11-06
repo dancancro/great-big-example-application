@@ -35,7 +35,7 @@ import { ClaimRebuttalEffects } from '../core/store/claim-rebuttal/claim-rebutta
   ],
   // exports: [
   //   ListComponent,
-  //   ObjectionComponent,
+  //   ClaimComponent,
   //   RebuttalComponent,
   //   BrowserModule
   // ],

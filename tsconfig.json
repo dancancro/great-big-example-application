@@ -9,9 +9,11 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "removeComments": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "inlineSourceMap": true,
-    "types": ["hammerjs"]
+    "types": [
+      "hammerjs"
+    ]
   },
   "awesomeTypescriptLoaderOptions": {
     "useBabel": true,

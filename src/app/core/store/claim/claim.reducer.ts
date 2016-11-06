@@ -19,7 +19,8 @@ export function reducer(state = initialEntities<Claim>(),
       return Object.assign({}, state, action.payload);
     }
 
-    case claim.ActionTypes.TOGGLE_EXPANDED: {
+    // make the same change to every entity
+    case claim.ActionTypes.TOGGLE_ALL_REBUTTALS: {
       let id: string;
       entities = Object.assign({}, state.entities);
       for (id in entities) {
@@ -30,17 +31,10 @@ export function reducer(state = initialEntities<Claim>(),
       });
     }
 
-    case claim.ActionTypes.TOGGLE_EDITABLE: {
-      let id: string;
-      entities = Object.assign({}, state.entities);
-      for (id in entities) {
-        entities[id].editable = action.payload;
-      }
-      return Object.assign({}, state, {
-        entities: entities
-      });
-    }
+    case claim.ActionTypes.REORDER_CLAIMS:
+      return Object.assign({}, state, { ids: action.payload });
 
+    // add one entity
     case claim.ActionTypes.LOAD_SUCCESS: {
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = singleReducer(null, action);
@@ -52,6 +46,7 @@ export function reducer(state = initialEntities<Claim>(),
       });
     }
 
+    // change one entity
     case claim.ActionTypes.REORDER_REBUTTALS:
     case claim.ActionTypes.TOGGLE_REBUTTALS: {
       entities = Object.assign({}, state.entities);

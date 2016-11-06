@@ -14,11 +14,11 @@ export function reducer(state = initialEntities<Note>(),
   let entities = {};
   switch (action.type) {
 
-    case note.ActionTypes.ADD_NOTE:
-    case note.ActionTypes.ADD_NOTE_SUCCESS:
+    case note.ActionTypes.ADD_NOTE:                  // dispatched in notes.page.ts
+    case note.ActionTypes.ADD_NOTE_SUCCESS:          // dispatched by note.effects.ts
     case note.ActionTypes.LOAD_SUCCESS:
       entities = Object.assign({}, state.entities);
-      let newNote = noteReducer(null, action);   // set the newNote.id if necessary
+      let newNote = noteReducer(null, action);       // set the newNote.id if necessary
       entities[newNote.id] = newNote;
       return {
         ids: Object.keys(entities),

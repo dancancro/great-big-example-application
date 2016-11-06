@@ -7,6 +7,8 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
 import { localStorageSync } from 'ngrx-store-localstorage';
+let uuid = require('node-uuid');
+
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
 import { environment } from '../../../environments/environment.prod';
@@ -330,7 +332,7 @@ export const getClaimRebuttals = function (state$: Observable<RootState>): Obser
     .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
-// Many-to-Many Join, Denormalization
+// Many-to-Many Join, Denormalization with sorted sub array
 export const getDeepClaims = function (state$: Observable<RootState>): Observable<Claim[]> {
   return combineLatest(
     state$.let(getClaimEntities),
@@ -338,13 +340,21 @@ export const getDeepClaims = function (state$: Observable<RootState>): Observabl
     state$.let(getRebuttalEntities),
     state$.let(getClaimRebuttals),
     (claims, claimIds, rebuttals, claimRebuttals) => {
-      return claimIds.map(cid =>
-        Object.assign(
-          {},
-          claims[cid],
-          { rebuttals: claimRebuttals.filter(cr => cr.claimId == cid).map(cr => rebuttals[cr.rebuttalId] || Object.assign({}, initialRebuttal, { editing: true })) } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one. "|| initialRebuttal" makes this an outer join
-        )
-      );
+      return claimIds
+        // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
+        .map(cid =>
+          Object.assign(
+            {},
+            claims[cid],
+            {
+              rebuttals:
+              claimRebuttals
+                .filter(cr => cr.claimId == cid)
+                .sort((a, b) => a.sortOrder - b.sortOrder)
+                .map(cr => rebuttals[cr.rebuttalId] || Object.assign({}, initialRebuttal, { editing: true, isNew: true }))
+            } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one. "|| initialRebuttal" makes this an outer join
+          )
+        );
     }
   )
 };

@@ -10,7 +10,8 @@ export const ActionTypes = {
   SAVE_ALL: type('[Rebuttals] Save All'),
   SAVE_ALL_SUCCESS: type('[Rebuttals] Save All Success'),
   SAVE_ALL_FAIL: type('[Rebuttals] Save All Fail'),
-  CANCEL_REBUTTAL: type('[Rebuttal] Cancel Rebuttal'),
+  CANCEL_CHANGES: type('[Rebuttal] Cancel Rebuttal'),
+  DELETE_REBUTTAL: type('[Rebuttal] Delete Rebuttal'),
   SAVE_REBUTTAL: type('[Rebuttal] Save Rebuttal'),
   MAKE_REBUTTAL_EDITABLE: type('[Rebuttal] Make Rebuttal Editable')
 }
@@ -52,7 +53,7 @@ export class SaveAllFailAction implements Action {
 }
 
 export class CancelRebuttalAction implements Action {
-  type = ActionTypes.CANCEL_REBUTTAL;
+  type = ActionTypes.CANCEL_CHANGES;
 
   constructor(public payload: Rebuttal) { };
 }
@@ -60,7 +61,7 @@ export class CancelRebuttalAction implements Action {
 export class SaveRebuttalAction implements Action {
   type = ActionTypes.SAVE_REBUTTAL;
 
-  constructor(public payload: any) { };  // payload: {rebuttal, newRebuttal}
+  constructor(public payload: any) { };  // payload: {id, newRebuttal}
 }
 
 export class MakeRebuttalEditableAction implements Action {

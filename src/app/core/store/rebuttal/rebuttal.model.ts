@@ -8,6 +8,7 @@ export interface Rebuttal {
 
   // UI state
   editing: boolean;
+  isNew?: boolean;
   original?: Rebuttal;
   isTouched: Function;
 }
@@ -19,6 +20,7 @@ export const initialRebuttal: Rebuttal = {
   longName: null,
   link: null,
   comments: null,
+  isNew: false,
 
   // UI state
   editing: false,
