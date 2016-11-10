@@ -23,7 +23,7 @@ export class ClaimComponent {
   @Input() claim: Claim;
 
   @Output() toggleRebuttals = new EventEmitter();
-  @Output() moveRebuttal = new EventEmitter();
+  @Output() reorderRebuttals = new EventEmitter();
   @Output() cancelRebuttal = new EventEmitter();
   @Output() saveRebuttal = new EventEmitter();
   @Output() makeRebuttalEditable = new EventEmitter();

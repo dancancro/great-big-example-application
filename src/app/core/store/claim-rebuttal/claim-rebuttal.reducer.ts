@@ -21,11 +21,6 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
     case claimRebuttal.ActionTypes.DISASSOCIATE_REBUTTAL: {
       entities = Object.assign({}, state.entities);
       entities[id] = undefined;
-
-      console.log('(<any>action.payload).claim.id' + (<any>action.payload).claim.id)
-      console.log('(<any>action.payload).rebuttal.id' + (<any>action.payload).rebuttal.id)
-      console.log('ids ' + state.ids.map(id => '{' + state.entities[id].claimId + ', ' + state.entities[id].rebuttalId + '}'))
-
       var index = state.ids.findIndex(crid =>
         state.entities[crid].claimId === (<any>action.payload).claim.id &&
         state.entities[crid].rebuttalId === (<any>action.payload).rebuttal.id);  // TODO: fix this typecast 
@@ -41,10 +36,9 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
     // update all claimRebuttals for a claim
     case claimRebuttal.ActionTypes.REORDER_REBUTTALS: {
       entities = Object.assign({}, state.entities);
-      for (let i = 0; i < action.payload.rebuttals.length; i++) {
-        let cr = claimRebuttalFor(state.entities, action.payload.claim.id, action.payload.rebuttals[i].id);
+      for (let i = 0; i < action.payload.rebuttalIds.length; i++) {
+        let cr = claimRebuttalFor(state.entities, action.payload.claim.id, action.payload.rebuttalIds[i]);
         entities[cr.id].sortOrder = i;
-        console.log('crid: ' + cr.id + ' rebuttal: ' + action.payload.rebuttals[i].shortName + ' ' + cr.sortOrder);
       }
       return Object.assign({}, state, { entities });  // we don't care about order of entire claimRebuttal array so don't update ids
     }
@@ -84,8 +78,10 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
   };
 
   function claimRebuttalFor(entities, claimId, rebuttalId) {
+
     for (let id in entities) {
-      if (entities[id].claimId === claimId && entities[id].rebuttalId === rebuttalId) {
+      if (entities[id].claimId == claimId && entities[id].rebuttalId == rebuttalId) {  // TODO: one of these is a string and one is a number. figure that out
+
         return entities[id];
       }
     }

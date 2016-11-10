@@ -88,7 +88,7 @@ export class ToggleRebuttalsAction implements Action {
 export class ReorderRebuttalsAction implements Action {
   type = ActionTypes.REORDER_REBUTTALS;
 
-  constructor(public payload: Claim) { };
+  constructor(public payload: any) { }; // payload: { claim, rebuttals }
 }
 
 export class ReorderClaimsAction implements Action {

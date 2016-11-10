@@ -81,10 +81,6 @@ export class DebatePage {
     this.store.dispatch(new claimActions.ToggleRebuttalsAction(claim));
   }
 
-  reorderRebuttals(claim: Claim) {
-    this.store.dispatch(new claimActions.ReorderRebuttalsAction(claim));
-  }
-
   cancelRebuttal({claim, rebuttal}) {
     if (rebuttal.isNew) {
       // TODO: delete the rebuttal record if necessary
@@ -103,14 +99,23 @@ export class DebatePage {
     this.store.dispatch(new rebuttalActions.MakeRebuttalEditableAction(rebuttal));
   }
 
-  moveRebuttal(claim: Claim, event) {
-    this.store.dispatch(new claimRebuttalActions.ReorderRebuttalsAction({ claim, rebuttals: event.rebuttals }));
+  reorderRebuttals(claim, event) {
+    let rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter(li => li.id).map(li => li.id);
+    this.store.dispatch(new claimRebuttalActions.ReorderRebuttalsAction({claim, rebuttalIds}));
   }
 
-  moveClaim(event) {
-    let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id)
-    this.store.dispatch(new claimActions.ReorderClaimsAction(claimIds));
-  }
+  reorderClaims(event) {
+    // TODO: There's gotta be a better way
+    // This is called when the claims are reordered AND when the rebuttals for a claim are reordered.
+    // We need to ignore the second of these
+
+    try {
+      let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id);
+      this.store.dispatch(new claimActions.ReorderClaimsAction(claimIds));
+      } catch(err) {
+
+      }
+    }
 
   ngOnDestroy() {
     this.pageSubscription.unsubscribe();

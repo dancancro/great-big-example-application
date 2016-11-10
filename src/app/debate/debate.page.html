@@ -1,34 +1,34 @@
 <div class="heading">
-	<div class="row">
-		<div class="block mx-auto">
-			<button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All
+  <div class="row">
+    <div class="block mx-auto">
+      <button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All
     </button>
-			<button *ngIf="(page$ | async).expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All
+      <button *ngIf="(page$ | async).expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All
     </button>
-			<button *ngIf="!(page$ | async).editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
-				(click)="toggleEditable()">
+      <button *ngIf="!(page$ | async).editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
+        (click)="toggleEditable()">
           Contribute Mode
    </button>
-			<button *ngIf="(page$ | async).editable && (page$ | async).isTouched((claims$ | async))" class="btn btn-default touched"
-				title="Save changes" (click)="saveAll()">
+      <button *ngIf="(page$ | async).editable && (page$ | async).isTouched((claims$ | async))" class="btn btn-default touched"
+        title="Save changes" (click)="saveAll()">
           Save Changes 
    </button>
-			<button *ngIf="(page$ | async).editable && !(page$ | async).isTouched((claims$ | async))" class="btn btn-default" title="Read only mode"
-				(click)="toggleEditable()">
+      <button *ngIf="(page$ | async).editable && !(page$ | async).isTouched((claims$ | async))" class="btn btn-default" title="Read only mode"
+        (click)="toggleEditable()">
           Read-Only Mode 
    </button>
-			<button *ngIf="(page$ | async).editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
+      <button *ngIf="(page$ | async).editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
             Add Claim
     </button>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
-<ul id="claim-list" [sortablejs]="claims$ | async" (update)="moveClaim($event)">
-	<li *ngFor="let claim of claims$ | async">
-		<debate-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
-			(toggleRebuttals)="toggleRebuttals($event)" (moveRebuttal)="moveRebuttal(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-			(saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></debate-claim>
-	</li>
+<ul id="claim-list" [sortablejs]="claims$ | async" (update)="reorderClaims($event)">
+  <li *ngFor="let claim of claims$ | async">
+    <debate-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
+      (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
+      (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></debate-claim>
+  </li>
 </ul>
 
 <br><br><br><br><br><br><br><br><br><br><br>
