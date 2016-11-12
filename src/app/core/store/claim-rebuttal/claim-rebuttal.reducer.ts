@@ -20,10 +20,10 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
     // delete one entity
     case claimRebuttal.ActionTypes.DISASSOCIATE_REBUTTAL: {
       entities = Object.assign({}, state.entities);
-      entities[id] = undefined;
-      var index = state.ids.findIndex(crid =>
-        state.entities[crid].claimId === (<any>action.payload).claim.id &&
-        state.entities[crid].rebuttalId === (<any>action.payload).rebuttal.id);  // TODO: fix this typecast 
+      var index = state.ids.findIndex(crid => {
+        return state.entities[crid].claimId == (<any>action.payload).claim.id &&       // TODO: fix id string/number problem
+          state.entities[crid].rebuttalId == (<any>action.payload).rebuttal.id;  // TODO: fix this typecast 
+      })
       if (index > -1) {
         ids = state.ids.splice(index, 1);
       }
@@ -70,7 +70,9 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
       case claimRebuttal.ActionTypes.LOAD_SUCCESS:
         return Object.assign({}, initialClaimRebuttal, action.payload, { dirty: false });
       case claimRebuttal.ActionTypes.ASSOCIATE_REBUTTAL: {
-        return Object.assign({}, initialClaimRebuttal, { claimId: action.payload.claim.id, rebuttalId: uuid.v1(), dirty: false });  // TODO: this needs to create a rebuttal record and set isNew to true
+        // TODO: this needs to create a rebuttal record and set isNew to true
+        return Object.assign({}, initialClaimRebuttal,
+          { claimId: action.payload.claim.id, rebuttalId: action.payload.rebuttal.id, dirty: false });
       }
       default:
         return state;

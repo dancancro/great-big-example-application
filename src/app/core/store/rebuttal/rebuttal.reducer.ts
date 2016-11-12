@@ -38,12 +38,12 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
       return state;
   }
 
-  function singleReducer(state: Rebuttal = initialRebuttal,
+  function singleReducer(state: Rebuttal = initialRebuttal(),
     action: rebuttal.Actions): Rebuttal {
     switch (action.type) {
 
       case rebuttal.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialRebuttal, action.payload, { dirty: false });
+        return Object.assign({}, initialRebuttal(), action.payload, { dirty: false });
 
       case rebuttal.ActionTypes.CANCEL_CHANGES:
         return Object.assign({}, state, { editing: false });

@@ -43,7 +43,7 @@
     "@angular/core": "^2.1.0",
     "@angular/forms": "^2.1.0",
     "@angular/http": "^2.1.0",
-    "@angular/material": "^2.0.0-alpha.9-3",
+    "@angular/material": "^2.0.0-alpha.10",
     "@angular/platform-browser": "^2.1.0",
     "@angular/platform-browser-dynamic": "^2.1.0",
     "@angular/router": "^3.0.0",

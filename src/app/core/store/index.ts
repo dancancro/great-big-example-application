@@ -351,8 +351,8 @@ export const getDeepClaims = function (state$: Observable<RootState>): Observabl
               claimRebuttals
                 .filter(cr => cr.claimId == cid)
                 .sort((a, b) => a.sortOrder - b.sortOrder)
-                .map(cr => rebuttals[cr.rebuttalId] || Object.assign({}, initialRebuttal, { editing: true, isNew: true }))
-            } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one. "|| initialRebuttal" makes this an outer join
+                .map(cr => rebuttals[cr.rebuttalId])
+            } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
           )
         );
     }

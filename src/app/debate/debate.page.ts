@@ -74,7 +74,8 @@ export class DebatePage {
 
   addRebuttal(claim: Claim) {
     // either create a new Rebuttal or pick an existing one
-    this.store.dispatch(new claimRebuttalActions.AssociateRebuttalAction({ claim: claim, rebuttal: initialRebuttal }))
+    this.store.dispatch(new claimRebuttalActions.AssociateRebuttalAction(
+      { claim: claim, rebuttal: initialRebuttal({ id: uuid.v1(), editing: true, isNew: true }) }))
   }
 
   toggleRebuttals(claim: Claim) {
@@ -101,7 +102,7 @@ export class DebatePage {
 
   reorderRebuttals(claim, event) {
     let rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter(li => li.id).map(li => li.id);
-    this.store.dispatch(new claimRebuttalActions.ReorderRebuttalsAction({claim, rebuttalIds}));
+    this.store.dispatch(new claimRebuttalActions.ReorderRebuttalsAction({ claim, rebuttalIds }));
   }
 
   reorderClaims(event) {
@@ -112,10 +113,10 @@ export class DebatePage {
     try {
       let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id);
       this.store.dispatch(new claimActions.ReorderClaimsAction(claimIds));
-      } catch(err) {
+    } catch (err) {
 
-      }
     }
+  }
 
   ngOnDestroy() {
     this.pageSubscription.unsubscribe();
