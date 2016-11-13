@@ -1,10 +1,10 @@
-import { RealAngular2AppPage } from './app.po';
+import { GreatBigAngular2ExamplePage } from './app.po';
 
-describe('ç App', function() {
-  let page: RealAngular2AppPage;
+describe('great-big-angular2-example App', function() {
+  let page: GreatBigAngular2ExamplePage;
 
   beforeEach(() => {
-    page = new RealAngular2AppPage();
+    page = new GreatBigAngular2ExamplePage();
   });
 
   it('should display message saying app works', () => {

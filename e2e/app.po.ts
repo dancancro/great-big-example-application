@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class RealAngular2AppPage {
+export class GreatBigAngular2ExamplePage {
   navigateTo() {
     return browser.get('/');
   }

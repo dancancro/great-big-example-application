@@ -7,34 +7,33 @@ import {
   ModuleWithProviders,
   NgModule,
   Optional,
-  SkipSelf }                   from '@angular/core';
-import { CommonModule }        from '@angular/common';
-import { StoreModule }         from '@ngrx/store';
-import { DBModule }            from '@ngrx/db';
-import { RouterStoreModule }   from '@ngrx/router-store';
+  SkipSelf
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
+import { DBModule } from '@ngrx/db';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MaterialModule }      from '@angular/material';
-import {
-  provideReduxForms,
-  NgReduxForms }              from 'ng2-redux-form';
+import { MaterialModule } from '@angular/material';
 
 import {
   BCNavigatorModule,
-  bcNavComponents }           from './navigator/bc-navigator/navigator.module';
-import { reducer }            from './store';
-import { schema }             from './store/db';
-import { SharedModule }       from '../shared/shared.module';
-import { NotFoundPage }       from './not-found/not-found.page';
-import { RioAboutPage }       from './about/about.page';
-import { TitleComponent }     from './title/title.component';
-import { routing }            from './core.routing';
+  bcNavComponents
+} from './navigator/bc-navigator/navigator.module';
+import { reducer } from './store';
+import { schema } from './store/db';
+import { SharedModule } from '../shared/shared.module';
+import { NotFoundPage } from './not-found/not-found.page';
+import { RioAboutPage } from './about/about.page';
+import { TitleComponent } from './title/title.component';
+import { routing } from './core.routing';
 
 const store = StoreModule.provideStore(reducer);
 
 @NgModule({
   imports: [
     CommonModule,
-//    MaterialModule.forRoot(),
+    //    MaterialModule.forRoot(),
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of
@@ -69,7 +68,6 @@ const store = StoreModule.provideStore(reducer);
     DBModule.provideDB(schema),
     BCNavigatorModule,
     SharedModule,
-    NgReduxForms,
     routing
   ],
   declarations: [
@@ -83,14 +81,12 @@ const store = StoreModule.provideStore(reducer);
     NotFoundPage,
     RioAboutPage
   ],
-  providers: [
-    provideReduxForms(store)
-  ]
+  providers: []
 
 })
 export class CoreModule {
 
-  constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
     if (parentModule) {
       throw new Error(
         'CoreModule is already loaded. Import it in the AppModule only');
