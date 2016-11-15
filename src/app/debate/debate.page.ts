@@ -73,7 +73,10 @@ export class DebatePage {
   }
 
   addRebuttal(claim: Claim) {
-    // either create a new Rebuttal or pick an existing one
+    // claims & rebuttals have a many-to-many relationship
+    // to create a new, blank rebuttal for this claim
+    // create an instance of rebuttal and an instance of the join record claimRebuttal 
+    // and dispatch actions to each respective reducer
     let newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
     let newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
     this.store.dispatch(new rebuttalActions.AddRebuttalAction(newRebuttal));
