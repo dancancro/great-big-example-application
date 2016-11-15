@@ -25,9 +25,12 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
           state.entities[crid].rebuttalId == (<any>action.payload).rebuttal.id;  // TODO: fix this typecast 
       })
       if (index > -1) {
+        delete entities[state.ids[index]];
         ids = state.ids.splice(index, 1);
+      } else {
+        console.log('no record')
       }
-      return Object.assign({}, initialClaimRebuttal, state, {
+      return Object.assign({}, state, {
         ids: ids,
         entities: entities
       });
@@ -50,7 +53,7 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
       id = id || uuid.v1();               // get a new id here
       entities = Object.assign({}, state.entities);
       entities[id] = claimRebuttalReducer(null, action);
-      return Object.assign({}, initialClaimRebuttal, state, {
+      return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities: entities,
         loaded: true,
@@ -64,15 +67,13 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
     }
   }
 
-  function claimRebuttalReducer(state: ClaimRebuttal = initialClaimRebuttal,
+  function claimRebuttalReducer(state: ClaimRebuttal = initialClaimRebuttal(),
     action: claimRebuttal.Actions): ClaimRebuttal {
     switch (action.type) {
       case claimRebuttal.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialClaimRebuttal, action.payload, { dirty: false });
+        return Object.assign({}, initialClaimRebuttal(), action.payload, { dirty: false });
       case claimRebuttal.ActionTypes.ASSOCIATE_REBUTTAL: {
-        // TODO: this needs to create a rebuttal record and set isNew to true
-        return Object.assign({}, initialClaimRebuttal,
-          { claimId: action.payload.claim.id, rebuttalId: action.payload.rebuttal.id, dirty: false });
+        return Object.assign({}, initialClaimRebuttal(), action.payload);
       }
       default:
         return state;

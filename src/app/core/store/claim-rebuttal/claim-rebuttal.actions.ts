@@ -20,7 +20,7 @@ export const ActionTypes = {
 export class AssociateRebuttalAction implements Action {
   type = ActionTypes.ASSOCIATE_REBUTTAL;
 
-  constructor(public payload: { claim: Claim, rebuttal: Rebuttal }) { };
+  constructor(public payload: ClaimRebuttal) { };
 }
 
 export class DisassociateRebuttalAction implements Action {

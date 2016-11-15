@@ -5,9 +5,11 @@ export interface ClaimRebuttal {
   sortOrder: number
 }
 
-export const initialClaimRebuttal: ClaimRebuttal = {
-  id: null,
-  claimId: null,
-  rebuttalId: null,
-  sortOrder: 0
-};
+export function initialClaimRebuttal(vals: any = {}): ClaimRebuttal {
+  return Object.assign({
+    id: null,
+    claimId: null,
+    rebuttalId: null,
+    sortOrder: 0
+  }, vals);
+}

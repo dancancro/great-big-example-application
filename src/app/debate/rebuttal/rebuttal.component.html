@@ -2,16 +2,16 @@
   <span class="drag-handle">☰</span>
 <button class="btn btn-default btn-xs" title="edit" (click)="makeEditable.emit(rebuttal)" *ngIf="!rebuttal.editing">✎</button>
 <button class="btn btn-default btn-xs" title="save" (click)="save.emit({ id: rebuttal.id, newRebuttal: {shortName: editForm.controls.shortName, longName: editForm.controls.longName, link: editForm.controls.link, comments: editForm.controls.comments} })"
-	*ngIf="rebuttal.editing">💾</button>
+  *ngIf="rebuttal.editing">💾</button>
 <button class="btn btn-default btn-xs" title="cancel" (click)="cancel.emit({claim: claim, rebuttal: rebuttal})" *ngIf="rebuttal.editing">❌</button>
 </span>
 
 <form [formGroup]="editForm" *ngIf="rebuttal.editing">
-	<input placeholder="Short Name" formControlName="shortName" class="form-control block col-12 mb1 input">
-	<p *ngIf="editForm.controls.shortName.errors">This field is required!</p>
-	<textarea placeholder="Long Name" formControlName="longName" class="form-control block col-12 mb1 textarea"></textarea>
-	<input placeholder="Link" formControlName="link" type="url" class="form-control block col-12 mb1 input">
-	<textarea placeholder="Comments" *ngIf="rebuttal.isNew" formControlName="comments" class="form-control block col-12 mb1 input"></textarea>
+  <input placeholder="Short Name" formControlName="shortName" class="form-control block col-12 mb1 input">
+  <p *ngIf="editForm.controls.shortName.errors">This field is required!</p>
+  <textarea placeholder="Long Name" formControlName="longName" class="form-control block col-12 mb1 textarea"></textarea>
+  <input placeholder="Link" formControlName="link" type="url" class="form-control block col-12 mb1 input">
+  <textarea placeholder="Comments" *ngIf="rebuttal.isNew" formControlName="comments" class="form-control block col-12 mb1 input"></textarea>
 </form>
 
 <span *ngIf="!rebuttal.editing">

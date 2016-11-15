@@ -23,7 +23,7 @@ export const initialDebatePage: DebatePageLayout = {
     let _touched = false;
     claims.forEach(claim => {
       claim.rebuttals.forEach(rebuttal => {
-        if (rebuttal.isTouched()) {
+        if (rebuttal && rebuttal.isTouched()) {
           _touched = true;
         }
       });

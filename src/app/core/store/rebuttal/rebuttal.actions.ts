@@ -13,7 +13,8 @@ export const ActionTypes = {
   CANCEL_CHANGES: type('[Rebuttal] Cancel Rebuttal'),
   DELETE_REBUTTAL: type('[Rebuttal] Delete Rebuttal'),
   SAVE_REBUTTAL: type('[Rebuttal] Save Rebuttal'),
-  MAKE_REBUTTAL_EDITABLE: type('[Rebuttal] Make Rebuttal Editable')
+  MAKE_REBUTTAL_EDITABLE: type('[Rebuttal] Make Rebuttal Editable'),
+  ADD_REBUTTAL: type('[Rebuttal] Add Rebuttal')
 }
 
 export class LoadAction implements Action {
@@ -70,6 +71,12 @@ export class MakeRebuttalEditableAction implements Action {
   constructor(public payload: Rebuttal) { };
 }
 
+export class AddRebuttalAction implements Action {
+  type = ActionTypes.ADD_REBUTTAL;
+
+  constructor(public payload: Rebuttal) { };
+}
+
 
 export type Actions
   = LoadAction
@@ -80,4 +87,5 @@ export type Actions
   | SaveAllFailAction
   | CancelRebuttalAction
   | SaveRebuttalAction
-  | MakeRebuttalEditableAction;
+  | MakeRebuttalEditableAction
+  | AddRebuttalAction;

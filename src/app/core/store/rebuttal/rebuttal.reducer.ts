@@ -12,6 +12,7 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
   switch (action.type) {
 
     // add one entity
+    case rebuttal.ActionTypes.ADD_REBUTTAL:
     case rebuttal.ActionTypes.LOAD_SUCCESS: {
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = singleReducer(null, action);
@@ -42,6 +43,7 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
     action: rebuttal.Actions): Rebuttal {
     switch (action.type) {
 
+      case rebuttal.ActionTypes.ADD_REBUTTAL:
       case rebuttal.ActionTypes.LOAD_SUCCESS:
         return Object.assign({}, initialRebuttal(), action.payload, { dirty: false });
 

@@ -77,21 +77,21 @@ import { Entities, IDs } from './entity/entity.model';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface RootState {
-  books: Entities<Book>;
-  claimRebuttals: Entities<ClaimRebuttal>;
-  claims: Entities<Claim>;
-  collection: IDs;
-  contacts: Entities<Contact>;
-  counter: Counter;
-  crises: Entities<Crisis>;
-  heroes: Entities<Hero>
-  layout: Layout;
-  notes: Entities<Note>;
-  rebuttals: Entities<Rebuttal>;
-  router: fromRouter.RouterState;
-  search: fromSearch.State;
-  session: Session;
-  user: User;
+    books: Entities<Book>;
+    claimRebuttals: Entities<ClaimRebuttal>;
+    claims: Entities<Claim>;
+    collection: IDs;
+    contacts: Entities<Contact>;
+    counter: Counter;
+    crises: Entities<Crisis>;
+    heroes: Entities<Hero>
+    layout: Layout;
+    notes: Entities<Note>;
+    rebuttals: Entities<Rebuttal>;
+    router: fromRouter.RouterState;
+    search: fromSearch.State;
+    session: Session;
+    user: User;
 }
 
 
@@ -104,21 +104,21 @@ export interface RootState {
  */
 
 const reducers = {
-  books: fromBooks.reducer,
-  claims: fromClaims.reducer,
-  claimRebuttals: fromClaimRebuttals.reducer,
-  contacts: fromContacts.reducer,
-  collection: fromCollection.reducer,
-  counter: fromCounter.reducer,
-  crises: fromCrises.reducer,
-  heroes: fromHeroes.reducer,
-  layout: fromLayout.reducer,
-  notes: fromNotes.reducer,
-  rebuttals: fromRebuttals.reducer,
-  router: fromRouter.routerReducer,
-  search: fromSearch.reducer,
-  session: fromSession.reducer,
-  user: fromUser.reducer
+    books: fromBooks.reducer,
+    claims: fromClaims.reducer,
+    claimRebuttals: fromClaimRebuttals.reducer,
+    contacts: fromContacts.reducer,
+    collection: fromCollection.reducer,
+    counter: fromCounter.reducer,
+    crises: fromCrises.reducer,
+    heroes: fromHeroes.reducer,
+    layout: fromLayout.reducer,
+    notes: fromNotes.reducer,
+    rebuttals: fromRebuttals.reducer,
+    router: fromRouter.routerReducer,
+    search: fromSearch.reducer,
+    session: fromSession.reducer,
+    user: fromUser.reducer
 }
 
 const developmentReducer = compose(
@@ -130,11 +130,11 @@ const productionReducer = compose(
     combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
-  } else {
-    return developmentReducer(state, action);
-  }
+    if (environment.production) {
+        return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
+    }
 }
 
 
@@ -165,7 +165,7 @@ export function reducer(state: any, action: any) {
  * 
  */
 export function getBooksState(state$: Observable<RootState>) {
-  return state$.select(state => state.books);
+    return state$.select(state => state.books);
 }
 
 /**
@@ -193,7 +193,7 @@ export const getSelectedBook = compose(fromBooks.getSelectedBook, getBooksState)
  * reducer's and collection reducer's selectors.
  */
 export function getSearchState(state$: Observable<RootState>) {
-  return state$.select(s => s.search);
+    return state$.select(s => s.search);
 }
 
 export const getSearchBookIds = compose(fromSearch.getBookIds, getSearchState);
@@ -206,45 +206,45 @@ export const getSearchLoading = compose(fromSearch.getLoading, getSearchState);
  * Some selector functions create joins across parts of state. This selector
  * composes the search result IDs to return an array of books in the store.
  */
-export const getSearchResults = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Book }, string[]>(
-    state$.let(getBookEntities),
-    state$.let(getSearchBookIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getSearchResults = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Book }, string[]>(
+        state$.let(getBookEntities),
+        state$.let(getSearchBookIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 
 
 export function getCollectionState(state$: Observable<RootState>) {
-  return state$.select(s => s.collection);
+    return state$.select(s => s.collection);
 }
 
 export const getCollectionLoaded = compose(fromCollection.getLoaded, getCollectionState);
 export const getCollectionLoading = compose(fromCollection.getLoading, getCollectionState);
 export const getCollectionBookIds = compose(fromCollection.getBookIds, getCollectionState);
 
-export const getBookCollection = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Book }, string[]>(
-    state$.let(getBookEntities),
-    state$.let(getCollectionBookIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getBookCollection = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Book }, string[]>(
+        state$.let(getBookEntities),
+        state$.let(getCollectionBookIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
-export const isSelectedBookInCollection = function (state$: Observable<RootState>) {
-  return combineLatest<string[], Book>(
-    state$.let(getCollectionBookIds),
-    state$.let(getSelectedBook)
-  )
-    .map(([ids, selectedBook]) => ids.indexOf(selectedBook.id) > -1);
+export const isSelectedBookInCollection = function(state$: Observable<RootState>) {
+    return combineLatest<string[], Book>(
+        state$.let(getCollectionBookIds),
+        state$.let(getSelectedBook)
+    )
+        .map(([ids, selectedBook]) => ids.indexOf(selectedBook.id) > -1);
 };
 
 /**
  * Layout Reducers
  */
 export const getLayoutState = (state$: Observable<RootState>) =>
-  state$.select(state => state.layout);
+    state$.select(state => state.layout);
 
 export const getShowSidenav = compose(fromLayout.getShowSidenav, getLayoutState);
 export const getMsg = compose(fromLayout.getMsg, getLayoutState);
@@ -255,7 +255,7 @@ export const getDebatePageState = compose(fromLayout.getDebatePageState, getLayo
  * Session Reducers
  */
 export const getSessionState = (state$: Observable<RootState>) =>
-  state$.select(state => state.session);
+    state$.select(state => state.session);
 
 export const hasError = compose(fromSession.hasError, getSessionState);
 export const isLoading = compose(fromSession.isLoading, getSessionState);
@@ -268,110 +268,112 @@ export const loggedOut = compose(fromSession.loggedOut, getSessionState);
  * Notes Reducers
  */
 export function getNotesState(state$: Observable<RootState>) {
-  return state$.select(state => state.notes);
+    return state$.select(state => state.notes);
 }
 export const getNoteEntities = compose(fromNotes.getNoteEntities, getNotesState);
 export const getNoteIds = compose(fromNotes.getNoteIds, getNotesState);
 
-export const getNotes = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Note }, string[]>(
-    state$.let(getNoteEntities),
-    state$.let(getNoteIds)
-  )
-    .map(([entities, ids]) => {
-      return ids.map(id => entities[id])
-    });
+export const getNotes = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Note }, string[]>(
+        state$.let(getNoteEntities),
+        state$.let(getNoteIds)
+    )
+        .map(([entities, ids]) => {
+            return ids.map(id => entities[id])
+        });
 };
 
 /**
  * Claims Reducers
  */
 export function getClaimsState(state$: Observable<RootState>) {
-  return state$.select(state => state.claims);
+    return state$.select(state => state.claims);
 }
 export const getClaimEntities = compose(fromClaims.getClaimEntities, getClaimsState);
 export const getClaimIds = compose(fromClaims.getClaimIds, getClaimsState);
-export const getClaims = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Claim }, string[]>(
-    state$.let(getClaimEntities),
-    state$.let(getClaimIds)
-  )
-    .map(([entities, ids]) => {
-      return ids.map(id => entities[id])
-    });
+export const getClaims = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Claim }, string[]>(
+        state$.let(getClaimEntities),
+        state$.let(getClaimIds)
+    )
+        .map(([entities, ids]) => {
+            return ids.map(id => entities[id])
+        });
 };
 export function getRebuttalsState(state$: Observable<RootState>) {
-  return state$.select(state => state.rebuttals);
+    return state$.select(state => state.rebuttals);
 }
 export const getRebuttalEntities = compose(fromRebuttals.getRebuttalEntities, getRebuttalsState);
 export const getRebuttalIds = compose(fromRebuttals.getRebuttalIds, getRebuttalsState);
-export const getRebuttals = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Rebuttal }, string[]>(
-    state$.let(getRebuttalEntities),
-    state$.let(getRebuttalIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getRebuttals = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Rebuttal }, string[]>(
+        state$.let(getRebuttalEntities),
+        state$.let(getRebuttalIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export function getClaimRebuttalsState(state$: Observable<RootState>) {
-  return state$.select(state => state.claimRebuttals);
+    return state$.select(state => state.claimRebuttals);
 }
 export const getClaimRebuttalEntities = compose(fromClaimRebuttals.getClaimRebuttalEntities, getClaimRebuttalsState);
 export const getClaimRebuttalIds = compose(fromClaimRebuttals.getClaimRebuttalIds, getClaimRebuttalsState);
-export const getClaimRebuttals = function (state$: Observable<RootState>): Observable<ClaimRebuttal[]> {
-  return combineLatest<{ [id: string]: ClaimRebuttal }, string[]>(
-    state$.let(getClaimRebuttalEntities),
-    state$.let(getClaimRebuttalIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getClaimRebuttals = function(state$: Observable<RootState>): Observable<ClaimRebuttal[]> {
+    return combineLatest<{ [id: string]: ClaimRebuttal }, string[]>(
+        state$.let(getClaimRebuttalEntities),
+        state$.let(getClaimRebuttalIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 // Many-to-Many Join, Denormalization with sorted sub array
-export const getDeepClaims = function (state$: Observable<RootState>): Observable<Claim[]> {
-  return combineLatest(
-    state$.let(getClaimEntities),
-    state$.let(getClaimIds),
-    state$.let(getRebuttalEntities),
-    state$.let(getClaimRebuttals),
-    (claims, claimIds, rebuttals, claimRebuttals) => {
-      return claimIds
-        // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
-        .map(cid =>
-          Object.assign(
-            {},
-            claims[cid],
-            {
-              rebuttals:
-              claimRebuttals
-                .filter(cr => cr.claimId == cid)
-                .sort((a, b) => a.sortOrder - b.sortOrder)
-                .map(cr => rebuttals[cr.rebuttalId])
-            } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
-          )
-        );
-    }
-  )
+export const getDeepClaims = function(state$: Observable<RootState>): Observable<Claim[]> {
+    return combineLatest(
+        state$.let(getClaimEntities),
+        state$.let(getClaimIds),
+        state$.let(getRebuttalEntities),
+        state$.let(getClaimRebuttals),
+        (claims, claimIds, rebuttals, claimRebuttals) => {
+            return claimIds
+                // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
+                .map(cid =>
+                    Object.assign(
+                        {},
+                        claims[cid],
+                        {
+                            rebuttals:
+                            claimRebuttals
+                                .filter(cr => cr.claimId == cid)
+                                .sort((a, b) => a.sortOrder - b.sortOrder)
+                                .map(cr => {
+                                    return rebuttals[cr.rebuttalId];
+                                })
+                        } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+                    )
+                );
+        }
+    )
 };
 
-export const isTouched = function (state$: Observable<RootState>) {
-  let _touched = false;
-  // TODO make this a for loop with early exits
-  getClaims(state$).forEach(claims => {
-    claims.forEach(claim => {
-      claim.rebuttals.forEach(rebuttal => {
-        if (rebuttal.isTouched()) {
-          _touched = true;
-        }
-      });
-    });
-  });
-  return _touched;
-}
+// export const isTouched = function (state$: Observable<RootState>) {
+//   let _touched = false;
+//   // TODO make this a for loop with early exits
+//   getClaims(state$).forEach(claims => {
+//     claims.forEach(claim => {
+//       claim.rebuttals.forEach(rebuttal => {
+//         if (rebuttal.isTouched()) {
+//           _touched = true;
+//         }
+//       });
+//     });
+//   });
+//   return _touched;
+// }
 
 /**
  * Counter Reducers
  */
 export const getCounterState = (state$: Observable<RootState>) =>
-  state$.select(state => state.counter);
+    state$.select(state => state.counter);
 export const getCounterValue = compose(fromCounter.getValue, getCounterState);
 
 /**
@@ -379,16 +381,16 @@ export const getCounterValue = compose(fromCounter.getValue, getCounterState);
  */
 
 export function getCrisesState(state$: Observable<RootState>) {
-  return state$.select(state => state.crises);
+    return state$.select(state => state.crises);
 }
 export const getCrisisEntities = compose(fromCrises.getCrisisEntities, getCrisesState);
 export const getCrisisIds = compose(fromCrises.getCrisisIds, getCrisesState);
-export const getCrises = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Crisis }, string[]>(
-    state$.let(getCrisisEntities),
-    state$.let(getCrisisIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getCrises = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Crisis }, string[]>(
+        state$.let(getCrisisEntities),
+        state$.let(getCrisisIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 
 /**
@@ -396,16 +398,16 @@ export const getCrises = function (state$: Observable<RootState>) {
  */
 
 export function getContactsState(state$: Observable<RootState>) {
-  return state$.select(state => state.contacts);
+    return state$.select(state => state.contacts);
 }
 export const getContactEntities = compose(fromContacts.getContactEntities, getContactsState);
 export const getContactIds = compose(fromContacts.getContactIds, getContactsState);
-export const getContacts = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Contact }, string[]>(
-    state$.let(getContactEntities),
-    state$.let(getContactIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getContacts = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Contact }, string[]>(
+        state$.let(getContactEntities),
+        state$.let(getContactIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export const getContact = compose(fromContacts.getContact, getContactsState);
 
@@ -414,16 +416,16 @@ export const getContact = compose(fromContacts.getContact, getContactsState);
  */
 
 export function getHeroesState(state$: Observable<RootState>) {
-  return state$.select(state => state.heroes);
+    return state$.select(state => state.heroes);
 }
 export const getHeroEntities = compose(fromHeroes.getHeroEntities, getHeroesState);
 export const getHeroIds = compose(fromHeroes.getHeroIds, getHeroesState);
-export const getHeroes = function (state$: Observable<RootState>) {
-  return combineLatest<{ [id: string]: Hero }, string[]>(
-    state$.let(getHeroEntities),
-    state$.let(getHeroIds)
-  )
-    .map(([entities, ids]) => ids.map(id => entities[id]));
+export const getHeroes = function(state$: Observable<RootState>) {
+    return combineLatest<{ [id: string]: Hero }, string[]>(
+        state$.let(getHeroEntities),
+        state$.let(getHeroIds)
+    )
+        .map(([entities, ids]) => ids.map(id => entities[id]));
 };
 export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesState);
 
@@ -431,4 +433,4 @@ export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesStat
  * User Reducers
  */
 export const getUser = (state$: Observable<RootState>) =>
-  state$.select(state => state.user);
+    state$.select(state => state.user);

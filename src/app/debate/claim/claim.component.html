@@ -24,6 +24,6 @@
           <li><button class="btn btn-default btn-xs" title="Add" 
             (click)="addRebuttal.emit(claim)" 
             *ngIf="page.editable" [disabled]="claim.isAdding(claim.rebuttals)">Add</button> </li>
-        </ul>{{ claim.rebuttals | json }}
+        </ul>
       </span>
 </div>

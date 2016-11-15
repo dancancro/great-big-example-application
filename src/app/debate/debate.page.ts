@@ -14,7 +14,7 @@ import * as claims from '../core/store/claim/claim.actions';
 import { DebatePageLayout } from '../core/store/layout/layout.model';
 import { Claim, initialClaim } from '../core/store/claim/claim.model';
 import { Rebuttal, initialRebuttal } from '../core/store/rebuttal/rebuttal.model';
-import { ClaimRebuttal } from '../core/store/claim-rebuttal/claim-rebuttal.model';
+import { ClaimRebuttal, initialClaimRebuttal } from '../core/store/claim-rebuttal/claim-rebuttal.model';
 import * as claim from '../core/store/claim/claim.actions';
 import * as layout from '../core/store/layout/layout.actions';
 
@@ -74,8 +74,10 @@ export class DebatePage {
 
   addRebuttal(claim: Claim) {
     // either create a new Rebuttal or pick an existing one
-    this.store.dispatch(new claimRebuttalActions.AssociateRebuttalAction(
-      { claim: claim, rebuttal: initialRebuttal({ id: uuid.v1(), editing: true, isNew: true }) }))
+    let newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
+    let newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
+    this.store.dispatch(new rebuttalActions.AddRebuttalAction(newRebuttal));
+    this.store.dispatch(new claimRebuttalActions.AssociateRebuttalAction(newClaimRebuttal))
   }
 
   toggleRebuttals(claim: Claim) {
