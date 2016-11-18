@@ -9,10 +9,9 @@ import * as claimRebuttal from './claim-rebuttal.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 
 
-export function reducer(state = initialEntities<ClaimRebuttal>(),
+export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this one we just need Entities.entities, not Entities.ids
   action: claimRebuttal.Actions): Entities<ClaimRebuttal> {
   let entities = {};
-  let ids = [];
   let id: string;
 
   switch (action.type) {
@@ -20,18 +19,14 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
     // delete one entity
     case claimRebuttal.ActionTypes.DISASSOCIATE_REBUTTAL: {
       entities = Object.assign({}, state.entities);
-      var index = state.ids.findIndex(crid => {
+      var crid = Object.keys(entities).find(crid => {
         return state.entities[crid].claimId == (<any>action.payload).claim.id &&       // TODO: fix id string/number problem
           state.entities[crid].rebuttalId == (<any>action.payload).rebuttal.id;  // TODO: fix this typecast 
       })
-      if (index > -1) {
-        delete entities[state.ids[index]];
-        ids = state.ids.splice(index, 1);
-      } else {
-        console.log('no record')
+      if (crid) {
+        delete entities[crid];
       }
       return Object.assign({}, state, {
-        ids: ids,
         entities: entities
       });
     }
@@ -48,13 +43,11 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),
 
     // operate on one entity
     case claimRebuttal.ActionTypes.LOAD_SUCCESS:
-      id = action.payload.id;
     case claimRebuttal.ActionTypes.ASSOCIATE_REBUTTAL: {
-      id = id || uuid.v1();               // get a new id here
+      id = action.payload.id;
       entities = Object.assign({}, state.entities);
       entities[id] = claimRebuttalReducer(null, action);
       return Object.assign({}, state, {
-        ids: Object.keys(entities),
         entities: entities,
         loaded: true,
         loading: false,
@@ -96,6 +89,5 @@ export function getClaimRebuttalEntities(state$: Observable<Entities<ClaimRebutt
   return state$.select(state => state.entities);
 }
 
-export function getClaimRebuttalIds(state$: Observable<Entities<ClaimRebuttal>>) {
-  return state$.select(state => state.ids);
-}
+// We don't care about the ids. I tried it with them but after reducing a delete action 
+// with `delete entity` and ids.splice, there were x entities and x+1 ids in the selector. I don't know why so I just got rid of ids
