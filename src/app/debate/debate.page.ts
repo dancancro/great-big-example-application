@@ -61,10 +61,7 @@ export class DebatePage {
   addClaim() {
     this.store.dispatch(new claims.AddClaimAction(Object.assign({}, initialClaim, {
       id: uuid.v1(),
-      rebuttalIds: [],
-      name: 'New claim',
-      expanded: false,
-      rebuttalsReordered: false
+      name: 'New claim'
     })))
   }
 
