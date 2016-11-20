@@ -59,10 +59,13 @@ export class DebatePage {
   }
 
   addClaim() {
-    this.store.dispatch(new claims.AddClaimAction(Object.assign({}, initialClaim, {
-      id: uuid.v1(),
-      name: 'New claim'
-    })))
+    let newClaim = prompt("New claim");
+    if (newClaim) {
+      this.store.dispatch(new claims.AddClaimAction(Object.assign({}, initialClaim, {
+        id: uuid.v1(),
+        name: newClaim
+      })))
+    }
   }
 
   saveAll() {
