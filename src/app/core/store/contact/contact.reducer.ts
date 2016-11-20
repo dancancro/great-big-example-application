@@ -17,15 +17,14 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
     case contact.ActionTypes.LOAD_SUCCESS:
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = contactReducer(null, action);
-
-      console.log('payload: ' + action.payload)
-
       return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities: entities,
+        selectedEntityId: action.payload.id,
         loaded: true,
-        loading: false,
+        loading: false
       });
+
     case contact.ActionTypes.UPDATE_CONTACT:
     case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
       entities = Object.assign({}, state.entities);
@@ -34,13 +33,11 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
         ids: Object.keys(entities),
         entities: entities
       });
+
     case contact.ActionTypes.NEXT_CONTACT:
       let ix = 1 + state.ids.indexOf(state.selectedEntityId);
       if (ix >= state.ids.length) { ix = 0; }
-      return Object.assign({}, state, {
-        ids: Object.keys(entities),
-        entities: Object.assign({}, state.entities, { selectedEntityId: ix + '' })
-      });
+      return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
 
     default:
       return state;
@@ -55,7 +52,7 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
         return Object.assign({}, action.payload, { dirty: true });
       case contact.ActionTypes.UPDATE_CONTACT:
         if (state.id == action.payload.id) {
-          return Object.assign({}, state, { text: action.payload.text }, { dirty: true });
+          return Object.assign({}, state, action.payload, { dirty: true });
         } else {
           return state;
         }
@@ -84,5 +81,7 @@ export function getContactIds(state$: Observable<Entities<Contact>>) {
 }
 
 export function getContact(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.entities[state.selectedEntityId]);
+  return state$.select(state => {
+    return state.entities[state.selectedEntityId]
+  });
 }

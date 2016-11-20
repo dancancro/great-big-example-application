@@ -90,7 +90,6 @@ export class DebatePage {
   cancelRebuttal({claim, rebuttal}) {
     if (rebuttal.isNew) {
       // TODO: delete the rebuttal record if necessary
-      console.log('rebuttal: ' + JSON.stringify(rebuttal))
       this.store.dispatch(new claimRebuttalActions.DisassociateRebuttalAction({ claim, rebuttal }));
     } else {
       this.store.dispatch(new rebuttalActions.CancelRebuttalAction(rebuttal));

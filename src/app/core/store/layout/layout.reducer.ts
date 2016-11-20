@@ -34,14 +34,9 @@ export function reducer(state = initialLayout, action: layout.Actions |
         msg: 'Loading contacts ...'
       });
 
-    case layout.ActionTypes.SET_MESSAGE:
-      return Object.assign({}, state, {
-        msg: action.payload
-      });
-
     case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
       return Object.assign({}, state, {
-        msg: 'Saved ' + this.contact.name
+        msg: 'Saved ' + action.payload.name
       });
 
     default:

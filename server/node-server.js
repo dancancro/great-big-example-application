@@ -71,48 +71,44 @@ app.post('/api/auth/login',
   }
 );
 
-app.get('/api/claims', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/claims.json'));
-});
-app.get('/api/rebuttals', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/rebuttals.json'));
-});
-app.get('/api/claim-rebuttals', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/claim-rebuttals.json'));
-});
-app.get('/api/contacts', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/contacts.json'));
-});
-app.get('/api/crises', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/crises.json'));
-});
-app.get('/api/heroes', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/heroes.json'));
-});
-app.get('/api/notes', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/notes.json'));
-});
-app.get('/api/users', function (req, res) {
-  res.sendFile(path.join(__dirname, '/db/users.json'));
-});
-app.post('/api/note', function (req, res) {
-  let fileName = path.join(__dirname, '/db/notes.json')
-  let reqNote = req.body;
-  fs.readFile(fileName, (err, data) => {
-    if (err) throw err;
-    let dbNotes = JSON.parse(data);
-    if (dbNotes.some(function (note) { return note.id === reqNote.id })) {
-      dbNotes = dbNotes.map(note => note.id === reqNote.id ? reqNote : note)
-    } else {
-      dbNotes.push(reqNote);
-    }
-    fs.writeFile(fileName, JSON.stringify(dbNotes), (err) => {
-      if (err) throw err;    // TODO: send the unchanged version back and revert the change
-      console.log('It\'s saved!');
+app.get('/api/claims', getRecords('claim'));
+app.get('/api/rebuttals', getRecords('rebuttal'));
+app.get('/api/claim-rebuttals', getRecords('claim-rebuttal'));
+app.get('/api/contacts', getRecords('contact'));
+app.post('/api/contact', saveARecord('contact'));
+app.get('/api/crises', getRecords('crisis'));
+app.get('/api/heroes', getRecords('hero'));
+app.get('/api/notes', getRecords('note'));
+app.get('/api/users', getRecords('user'));
+app.post('/api/note', saveARecord('note'));
+
+function getRecords(table) {
+  return function (req, res) {
+    res.sendFile(path.join(__dirname, '/db/' + table + '.json'));
+  }
+}
+
+function saveARecord(table) {
+  return function (req, res) {
+    let fileName = path.join(__dirname, '/db/' + table + '.json')
+    let reqRecord = req.body;
+    fs.readFile(fileName, (err, data) => {
+      if (err) throw err;
+      let dbRecords = JSON.parse(data);
+      if (dbRecords.some(function (record) { return record.id === reqRecord.id })) {
+        dbRecords = dbRecords.map(record => record.id === reqRecord.id ? reqRecord : record)
+      } else {
+        dbRecords.push(reqRecord);
+      }
+      fs.writeFile(fileName, JSON.stringify(dbRecords), (err) => {
+        if (err) throw err;    // TODO: send the unchanged version back and revert the change
+        console.log('It\'s saved!');
+      });
+      res.send(JSON.stringify(req.body));
     });
-    res.send(JSON.stringify(req.body));
-  });
-});
+  }
+}
+
 
 // all other routes are handled by Angular
 app.get('/*', function (req, res) {

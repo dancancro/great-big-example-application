@@ -8,7 +8,7 @@ const readFile = denodeify(fs.readFile);
 module.exports = {
 
   readUsers: () => {
-    return readFile('./server/db/users.json')
+    return readFile('./server/db/user.json')
       .then(userFileData => {
         return JSON.parse(userFileData);
       })

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DataService } from '../core/store/data.service';
 import { SharedModule } from '../shared/shared.module';
@@ -11,7 +12,8 @@ import { ContactEffects } from '../core/store/contact/contact.effects';
   imports: [
     SharedModule,
     routing,
-    EffectsModule.run(ContactEffects)
+    EffectsModule.run(ContactEffects),
+    ReactiveFormsModule
   ],
   declarations: [
     ContactPage

@@ -12,7 +12,7 @@ And I've discovered that repeating the prevailing process doesn't help either. B
 get you started without too much anxiety, but building go-kart number 2, 3, 4 or 5 isn't going to make you any better
 able to build real car number 1. It just makes you less sure about how to do that because it introduces conflicting advice.
 
-Hopefully when the project is done it will make the learning process for others much easier and prepare them to
+Hopefully, when the project is done it will make the learning process for others much easier and prepare them to
 make real things rather than instructional ones. I expect it to reduce the time to implement your own real
 application from months to days.
 
@@ -48,8 +48,6 @@ You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nod
 You will also need to install the `typings` NPM package globally via `npm i -g typings`.
 
 You will also need to install the `angular-cli` NPM package globally via `npm i -g angular-cli`.
-
-You will also need to install the `json-server` NPM package globally via `npm i -g json-server`.
 
 
 ## Make it go

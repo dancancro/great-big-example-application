@@ -7,7 +7,7 @@
     </button>
       <button *ngIf="!(page$ | async).editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
         (click)="toggleEditable()">
-          Contribute Mode
+          Edit Mode
    </button>
       <button *ngIf="(page$ | async).editable && (page$ | async).isTouched((claims$ | async))" class="btn btn-default touched"
         title="Save changes" (click)="saveAll()">

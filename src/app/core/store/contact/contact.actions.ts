@@ -3,16 +3,16 @@ import { Contact } from './contact.model';
 import { type } from '../../../shared/util';
 
 export const ActionTypes = {
-  ADD_CONTACT:             type('[Contacts] Add Contact'),
-  ADD_CONTACT_SUCCESS:     type('[Contacts] Add Contact Success'),
-  ADD_CONTACT_FAIL:        type('[Contacts] Add Contact Fail'),
-  UPDATE_CONTACT:          type('[Contacts] Update Contact'),
-  UPDATE_CONTACT_SUCCESS:  type('[Contacts] Update Contact Success'),
-  UPDATE_CONTACT_FAIL:     type('[Contacts] Update Contact Fail'),
-  LOAD:                    type('[Contacts] Load'),
-  LOAD_SUCCESS:            type('[Contacts] Load Success'),
-  LOAD_FAIL:               type('[Contacts] Load Fail'),
-  NEXT_CONTACT:            type('[Contacts] Get Next'),
+  ADD_CONTACT: type('[Contacts] Add Contact'),
+  ADD_CONTACT_SUCCESS: type('[Contacts] Add Contact Success'),
+  ADD_CONTACT_FAIL: type('[Contacts] Add Contact Fail'),
+  UPDATE_CONTACT: type('[Contacts] Update Contact'),
+  UPDATE_CONTACT_SUCCESS: type('[Contacts] Update Contact Success'),
+  UPDATE_CONTACT_FAIL: type('[Contacts] Update Contact Fail'),
+  LOAD: type('[Contacts] Load'),
+  LOAD_SUCCESS: type('[Contacts] Load Success'),
+  LOAD_FAIL: type('[Contacts] Load Fail'),
+  NEXT_CONTACT: type('[Contacts] Get Next'),
 };
 
 export class AddContactSuccessAction implements Action {
@@ -63,7 +63,7 @@ export class AddContactAction implements Action {
 export class UpdateContactAction implements Action {
   type = ActionTypes.UPDATE_CONTACT;
 
-  constructor(public payload: any) { }
+  constructor(public payload: Contact) { }
 }
 
 export class NextContactAction implements Action {
