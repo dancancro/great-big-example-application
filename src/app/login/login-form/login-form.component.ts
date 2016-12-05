@@ -27,7 +27,7 @@ import {
 
       <rio-form-group
         testid="login-username">
-        <rio-label qaid="qa-uname-label">Username</rio-label>
+        <rio-label qaid="qa-uname-label">Username</rio-label> "admin"
         <rio-input
           qaid="qa-uname-input"
           inputType='text'
@@ -42,7 +42,7 @@ import {
 
       <rio-form-group
         testid="login-password">
-        <rio-label qaid="qa-password-label">Password</rio-label>
+        <rio-label qaid="qa-password-label">Password</rio-label> "superuser"
         <rio-input
           qaid="qa-password-input"
           inputType='password'
@@ -59,13 +59,13 @@ import {
         testid="login-submit">
         <rio-button
           qaid="qa-login-button"
-          className="mr1"
+          className="md-raised-button"
           type="submit">
           Login
         </rio-button>
         <rio-button
           qaid="qa-clear-button"
-          className="bg-red"
+          className="md-raised-button"
           type="reset"
           (onClick)="reset()">
           Clear

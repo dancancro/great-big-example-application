@@ -13,8 +13,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         </rio-login-form>
       </rio-modal-content>
     </rio-modal>
-  `,
-  styleUrls: ['login-modal.component.css']
+  `
 })
 export class RioLoginModalComponent {
   @Input() isPending: boolean;

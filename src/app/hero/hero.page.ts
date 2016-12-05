@@ -10,7 +10,8 @@ import { Store } from '@ngrx/store';
   template: `
     <h2>Heroes of {{(user$ | async).fullName()}}</h2>
     <router-outlet></router-outlet>
-  `
+  `,
+  styleUrls: ['hero.page.css']
 })
 export class HeroPage {
   user$: Observable<User>;

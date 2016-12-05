@@ -30,7 +30,8 @@ according to the following prioritization. Disagreements in approach between two
 lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
-2. [Tour of Heroes - contacts, crises, heroes](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
+2. [Tour of Heroes - Module version](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
+3. [Tour of Heroes - Routing version](https://angular.io/resources/live-examples/router/ts/plnkr.html) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 4. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 5. [redux-orm-primer - todo app](https://github.com/tommikaikkonen/redux-orm-primer) by [@tommikaikkonen](https://github.com/tommikaikkonen)

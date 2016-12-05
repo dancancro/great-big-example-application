@@ -12,6 +12,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const fs = require('fs')
 var path = require('path');
 let users;
+var request = require("request");
 
 /**
  * Heroku-friendly production http server.
@@ -83,9 +84,22 @@ app.get('/api/users', getRecords('user'));
 app.post('/api/note', saveARecord('note'));
 
 function getRecords(table) {
-  return function (req, res) {
-    res.sendFile(path.join(__dirname, '/db/' + table + '.json'));
-  }
+  const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec';
+
+  switch(table) {
+    case 'claim':
+    case 'claim-rebuttal':
+    case 'rebuttal':
+      return function(req, res) {
+        request(`${GOOGLE_SHEET_API}?table=${table}`, function(error, response, body) {
+          res.send(body);
+        });
+      }
+    default:
+      return function (req, res) {
+        res.sendFile(path.join(__dirname, '/db/' + table + '.json'));
+      }
+    }
 }
 
 function saveARecord(table) {

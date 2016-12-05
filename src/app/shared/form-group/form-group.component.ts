@@ -11,5 +11,5 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class RioFormGroupComponent {
-    @Input() testid: string;
+  @Input() testid: string;
 };

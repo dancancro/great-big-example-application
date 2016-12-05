@@ -9,4 +9,4 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class RioModalContentComponent {};
+export class RioModalContentComponent { };

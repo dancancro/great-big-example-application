@@ -1,13 +1,14 @@
 // Exact copy of app/title.component.ts except import UserService from shared
 import { Component, Input } from '@angular/core';
-import { Store }            from '@ngrx/store';
-import { Observable }       from 'rxjs/Observable';
-import { User }             from '../store/user/user.model';
-import * as fromRoot        from '../store';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../store/user/user.model';
+import * as fromRoot from '../store';
 
 @Component({
   selector: 'app-title',
   templateUrl: 'title.component.html',
+  styleUrls: ['../../../assets/styles/basscss.css']
 })
 export class TitleComponent {
   @Input() subtitle = '';
@@ -17,7 +18,7 @@ export class TitleComponent {
   constructor(private store: Store<fromRoot.RootState>) { }
 
   ngOnInit() {
-    this.user$ = this.store.let(fromRoot.getUser);    
+    this.user$ = this.store.let(fromRoot.getUser);
   }
 }
 

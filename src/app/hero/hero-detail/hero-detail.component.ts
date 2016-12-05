@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -9,28 +9,45 @@ import * as hero from '../../core/store/hero/hero.actions';
 
 @Component({
   template: `
-    <h3 highlight>Hero Detail</h3>
-    <div *ngIf="(hero$ | async)" >
-      <div>Id: {{(hero$ | async).id}}</div><br>
-      <label>Name:
-        <input [value]="(hero$ | async).name">
-      </label>
+  <h2>HEROES</h2>
+  <div *ngIf="hero">
+    <h3>"{{hero.name}}"</h3>
+    <div>
+      <label>Id: </label>{{hero.id}}</div>
+    <div>
+      <label>Name: </label>
+      <input [(ngModel)]="hero.name" placeholder="name"/>
     </div>
-    <br>
-    <a routerLink="../">Hero List</a>
+    <p>
+      <button (click)="gotoHeroes()">Back</button>
+    </p>
+  </div>
   `
 })
 export class HeroDetailComponent implements OnInit {
   hero$: Observable<Hero>;
+  hero: Hero;
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private store: Store<fromRoot.RootState>) { }
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.params['id'], 10);
     this.hero$ = this.store.let(fromRoot.getSelectedHero);
+    this.hero$.subscribe(hero => this.hero = hero);
     this.store.dispatch(new hero.SelectHeroAction({ id }));
   }
+
+
+  gotoHeroes() {
+    let heroId = this.hero ? this.hero.id : null;
+    // Pass along the hero id if available
+    // so that the HeroList component can select that hero.
+    this.router.navigate(['/heroes'], { queryParams: { id: heroId, foo: 'foo' } });
+  }
+
 }
 
 
