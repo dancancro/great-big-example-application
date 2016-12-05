@@ -102,8 +102,8 @@
   },
   "devDependencies": {
     "@types/jasmine": "^2.2.30",
+    "@types/node": "6.0.51",
     "@types/node-uuid": "0.0.28",
-    "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.19-3",
     "codelyzer": "1.0.0-beta.1",
     "jasmine-core": "2.4.1",

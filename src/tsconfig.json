@@ -20,7 +20,8 @@
       "../node_modules/@types"
     ],
     "types": [
-      "hammerjs"
+      "hammerjs",
+      "node"
     ]
   },
   "awesomeTypescriptLoaderOptions": {

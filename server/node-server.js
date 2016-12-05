@@ -86,12 +86,12 @@ app.post('/api/note', saveARecord('note'));
 function getRecords(table) {
   const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec';
 
-  switch(table) {
+  switch (table) {
     case 'claim':
     case 'claim-rebuttal':
     case 'rebuttal':
-      return function(req, res) {
-        request(`${GOOGLE_SHEET_API}?table=${table}`, function(error, response, body) {
+      return function (req, res) {
+        request(`${GOOGLE_SHEET_API}?table=${table}`, function (error, response, body) {
           res.send(body);
         });
       }
@@ -99,7 +99,7 @@ function getRecords(table) {
       return function (req, res) {
         res.sendFile(path.join(__dirname, '/db/' + table + '.json'));
       }
-    }
+  }
 }
 
 function saveARecord(table) {
