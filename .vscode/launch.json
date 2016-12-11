@@ -5,15 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch via NPM",
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "/Users/Dan/.nvm/versions/node/v6.5.0/bin/npm",
-      "args": [
-        "run",
-        "dev"
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-server"
       ],
-      "cwd": "${workspaceRoot}"
+      "port": 5858
     }
   ]
 }

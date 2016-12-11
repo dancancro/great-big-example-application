@@ -13,6 +13,7 @@ const fs = require('fs')
 var path = require('path');
 let users;
 var request = require("request");
+const packageJson = require('package-json');
 
 /**
  * Heroku-friendly production http server.
@@ -83,6 +84,8 @@ app.get('/api/notes', getRecords('note'));
 app.get('/api/users', getRecords('user'));
 app.post('/api/note', saveARecord('note'));
 
+app.get('/api/deps/:package', getDependencies());
+
 function getRecords(table) {
   const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec';
 
@@ -116,13 +119,22 @@ function saveARecord(table) {
       }
       fs.writeFile(fileName, JSON.stringify(dbRecords), (err) => {
         if (err) throw err;    // TODO: send the unchanged version back and revert the change
-        console.log('It\'s saved!');
+        console.log('Its saved!');
       });
       res.send(JSON.stringify(req.body));
     });
   }
 }
 
+function getDependencies() {
+  return function (req, res) {
+    let pkg = req.params.package;
+    console.log('package: ' + pkg);
+    packageJson(pkg, 'latest').then(json => {
+      res.send(json);
+    });
+  }
+}
 
 // all other routes are handled by Angular
 app.get('/*', function (req, res) {

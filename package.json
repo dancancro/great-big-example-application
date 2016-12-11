@@ -8,15 +8,11 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
     "xbackend": "json-server --watch server/db/db.json --port 3001",
-    "xlint": "npm run lint-ts && npm run lint-js && npm run lint-css",
-    "xtest": "karma start --singleRun true",
-    "xpree2e": "webdriver-manager update",
-    "xe2e": "protractor",
+    "lint": "npm run lint-ts && npm run lint-js && npm run lint-css",
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack",
     "clean": "rimraf dist/",
@@ -34,7 +30,8 @@
     "pretest": "rimraf coverage/ & npm run lint",
     "posttest": "npm run cover",
     "test:watch": "karma start --singleRun false",
-    "typings": "rimraf typings/ && typings install"
+    "typings": "rimraf typings/ && typings install",
+    "debug-server": "cross-env NODE_ENV=development PORT=3000 nodemon --nolazy --debug-brk=5858 server/node-server.js"
   },
   "private": true,
   "dependencies": {
@@ -85,6 +82,7 @@
     "ngrx-store-localstorage": "0.1.5",
     "node-uuid": "^1.4.7",
     "nodemon": "^1.9.2",
+    "package-json": "2.4.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "postcss-cssnext": "^2.4.0",
@@ -114,6 +112,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
+    "osascript": "1.2.0",
     "protractor": "4.0.9",
     "style-loader": "^0.13.1",
     "ts-node": "1.2.1",
