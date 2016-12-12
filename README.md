@@ -6,7 +6,7 @@ look like for the real-world, commercial SPAs that you don't get to see until yo
 
 The rationale behind this is pretty simple. People need to learn how to make real applications before they get a job.
 If it's easier and more sensible to learn real automechanics by studying a real car than a bicycle, a go-kart and a
-differential, then it's also easier to learn how to make a real application by getting your eyes on source code of a
+differential, then it makes more sense to learn how to make a real application by getting your eyes on source code of a
 real application than a lot of separate, simplified instructional material. And I've discovered that repeating the
 prevailing process doesn't help either. Building go-kart number 1 is great to get you started without too much anxiety,
 but building go-kart number 2, 3, 4 or 5 isn't going to make you any better able to build real car number 1. It just

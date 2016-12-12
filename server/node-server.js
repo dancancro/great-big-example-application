@@ -129,9 +129,8 @@ function saveARecord(table) {
 function getDependencies() {
   return function (req, res) {
     let pkg = req.params.package;
-    console.log('package: ' + pkg);
     packageJson(pkg, 'latest').then(json => {
-      res.send(json);
+      res.send(json.dependencies)
     });
   }
 }

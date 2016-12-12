@@ -9,11 +9,11 @@ import { Book } from './book.model';
 export class GoogleBooksService {
   private API_PATH: string = 'https://www.googleapis.com/books/v1/volumes';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   searchBooks(queryTitle: string): Observable<Book[]> {
     return this.http.get(`${this.API_PATH}?q=${queryTitle}`)
-      .map(res => res.json().items);
+      .map(res => res.json().items || []);
   }
 
   retrieveBook(volumeId: string): Observable<Book> {
