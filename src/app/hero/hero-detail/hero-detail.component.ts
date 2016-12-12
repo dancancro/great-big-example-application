@@ -35,7 +35,7 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.params['id'], 10);
-    this.hero$ = this.store.let(fromRoot.getSelectedHero);
+    this.hero$ = this.store.select(fromRoot.getSelectedHero);
     this.hero$.subscribe(hero => this.hero = hero);
     this.store.dispatch(new hero.SelectHeroAction({ id }));
   }

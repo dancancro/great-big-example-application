@@ -1,11 +1,9 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
 import * as collection from './collection.actions';
 import { IDs, initialIDs } from '../entity/entity.model';
 
 export function reducer(state = initialIDs(),
-                        action: collection.Actions ):IDs {
+  action: collection.Actions): IDs {
   switch (action.type) {
     case collection.ActionTypes.LOAD: {
       return Object.assign({}, state, {
@@ -32,7 +30,7 @@ export function reducer(state = initialIDs(),
       }
 
       return Object.assign({}, state, {
-        ids: [ ...state.ids, book.id ]
+        ids: [...state.ids, book.id]
       });
     }
 
@@ -52,14 +50,8 @@ export function reducer(state = initialIDs(),
 }
 
 
-export function getLoaded(state$: Observable<IDs>) {
-  return state$.select(s => s.loaded);
-}
+export const getLoaded = (state: IDs) => state.loaded;
 
-export function getLoading(state$: Observable<IDs>) {
-  return state$.select(s => s.loading);
-}
+export const getLoading = (state: IDs) => state.loading;
 
-export function getBookIds(state$: Observable<IDs>) {
-  return state$.select(s => s.ids);
-}
+export const getIds = (state: IDs) => state.ids;

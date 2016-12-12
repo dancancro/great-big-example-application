@@ -78,10 +78,6 @@ export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Ac
   }
 };
 
-export function getRebuttalEntities(state$: Observable<Entities<Rebuttal>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Rebuttal>) => state.entities;
 
-export function getRebuttalIds(state$: Observable<Entities<Rebuttal>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Rebuttal>) => state.ids;

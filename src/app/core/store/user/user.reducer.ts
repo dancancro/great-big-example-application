@@ -6,24 +6,21 @@ import { User, initialUser } from './user.model';
 export function reducer(state = initialUser, action: session.Actions): User {
   switch (action.type) {
 
-  case session.ActionTypes.LOGIN_USER_SUCCESS:
-    return Object.assign({}, state, {
-      firstName: action.payload.profile.firstName,
-      lastName: action.payload.profile.lastName
-    });
+    case session.ActionTypes.LOGIN_USER_SUCCESS:
+      return Object.assign({}, state, {
+        firstName: action.payload.profile.firstName,
+        lastName: action.payload.profile.lastName
+      });
 
-  case session.ActionTypes.LOGOUT_USER:
-    return initialUser;
+    case session.ActionTypes.LOGOUT_USER:
+      return initialUser;
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 
-export function getFirstName(state$: Observable<User>) {
-  return state$.select(state => state.firstName);
-}
+export const getFirstName = (state: User) => state.firstName;
 
-export function getLastName(state$: Observable<User>) {
-  return state$.select(state => state.lastName);
-}
+export const getLastName = (state: User) => state.lastName;
+

@@ -1,7 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
 
 import { Contact, initialContact } from './contact.model';
 import * as contact from './contact.actions';
@@ -72,16 +69,13 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
 
 };
 
-export function getContactEntities(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Contact>) => state.entities;
 
-export function getContactIds(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Contact>) => state.ids;
 
-export function getContact(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => {
-    return state.entities[state.selectedEntityId]
-  });
-}
+export const getSelectedId = (state: Entities<Contact>) => state.selectedEntityId;
+
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});
+

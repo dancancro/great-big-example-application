@@ -29,7 +29,7 @@ export class CrisisPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.crises$ = this.store.let(fromRoot.getCrises);
+    this.crises$ = this.store.select(fromRoot.getCrises);
     this.sub = this.route
       .params
       .subscribe(params => {

@@ -30,7 +30,7 @@ export class RioCounterPage {
   value$: Observable<number>;
 
   constructor(private store: Store<fromRoot.RootState>) {
-    this.value$ = store.let(fromRoot.getCounterValue);
+    this.value$ = store.select(fromRoot.getCounterValue);
   }
 
   increment() {

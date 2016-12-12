@@ -1,8 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { createSelector } from 'reselect';
 
 import { Book } from './book.model';
 import * as book from './book.actions';
@@ -10,7 +6,7 @@ import * as collection from '../collection/collection.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 
 export function reducer(state = initialEntities<Book>(),
-                        action: book.Actions | collection.Actions ): Entities<Book> {
+  action: book.Actions | collection.Actions): Entities<Book> {
   switch (action.type) {
     case book.ActionTypes.SEARCH_COMPLETE:
     case collection.ActionTypes.LOAD_SUCCESS: {
@@ -25,7 +21,7 @@ export function reducer(state = initialEntities<Book>(),
       }, {});
 
       return {
-        ids: [ ...state.ids, ...newBookIds ],
+        ids: [...state.ids, ...newBookIds],
         entities: Object.assign({}, state.entities, newBookEntities),
         selectedEntityId: state.selectedEntityId
       };
@@ -39,7 +35,7 @@ export function reducer(state = initialEntities<Book>(),
       }
 
       return {
-        ids: [ ...state.ids, book.id ],
+        ids: [...state.ids, book.id],
         entities: Object.assign({}, state.entities, {
           [book.id]: book
         }),
@@ -70,30 +66,16 @@ export function reducer(state = initialEntities<Book>(),
  * use-case.
  */
 
-export function getBookEntities(state$: Observable<Entities<Book>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Book>) => state.entities;
 
-export function getBookIds(state$: Observable<Entities<Book>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Book>) => state.ids;
 
-export function getSelectedBookId(state$: Observable<Entities<Book>>) {
-  return state$.select(state => state.selectedEntityId);
-}
+export const getSelectedId = (state: Entities<Book>) => state.selectedEntityId;
 
-export function getSelectedBook(state$: Observable<Entities<Book>>) {
-  return combineLatest<{ [id: string]: Book }, string>(
-    state$.let(getBookEntities),
-    state$.let(getSelectedBookId)
-  )
-  .map(([ entities, selectedBookId ]) => entities[selectedBookId]);
-}
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});
 
-export function getAllBooks(state$: Observable<Entities<Book>>) {
-  return combineLatest<{ [id: string]: Book }, string[]>(
-    state$.let(getBookEntities),
-    state$.let(getBookIds)
-  )
-  .map(([ entities, ids ]) => ids.map(id => entities[id]));
-}
+export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
+  return ids.map(id => entities[id]);
+});

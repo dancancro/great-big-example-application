@@ -1,7 +1,5 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
+
 
 import { Hero, initialHero } from './hero.model';
 import * as hero from './hero.actions';
@@ -68,14 +66,12 @@ export function reducer(state = initialEntities<Hero>(),
 
 };
 
-export function getHeroEntities(state$: Observable<Entities<Hero>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Hero>) => state.entities;
 
-export function getHeroIds(state$: Observable<Entities<Hero>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Hero>) => state.ids;
 
-export function getSelectedHero(state$: Observable<Entities<Hero>>) {
-  return state$.select(state => state.entities[state.selectedEntityId]);
-}
+export const getSelectedId = (state: Entities<Hero>) => state.selectedEntityId;
+
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});

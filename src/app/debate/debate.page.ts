@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/let';
-import 'rxjs/add/operator/take';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -41,12 +39,12 @@ export class DebatePage {
   };
 
   constructor(private store: Store<fromRoot.RootState>) {
-    this.page$ = store.let(fromRoot.getDebatePageState);
-    this.claims$ = store.let(fromRoot.getDeepClaims);
-    this.loading$ = store.let(fromRoot.getSearchLoading);
+    this.page$ = store.select(fromRoot.getDebatePageState);
+    this.claims$ = store.select(fromRoot.getDeepClaims);
+    this.loading$ = store.select(fromRoot.getSearchLoading);
     this.pageSubscription = this.page$.subscribe((page) => {
-      this.expanded = page.expanded
-      this.editable = page.editable
+      this.expanded = page.expanded;
+      this.editable = page.editable;
     })
   }
 

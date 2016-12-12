@@ -28,7 +28,7 @@ export class HeroListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.heroes$ = this.store.let(fromRoot.getHeroes);
+    this.heroes$ = this.store.select(fromRoot.getHeroes);
   }
 
 

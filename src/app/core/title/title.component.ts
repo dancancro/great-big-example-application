@@ -6,20 +6,20 @@ import { User } from '../store/user/user.model';
 import * as fromRoot from '../store';
 
 @Component({
-  selector: 'app-title',
-  templateUrl: 'title.component.html',
-  styleUrls: ['../../../assets/styles/basscss.css']
+    selector: 'app-title',
+    templateUrl: 'title.component.html',
+    styleUrls: ['../../../assets/styles/basscss.css']
 })
 export class TitleComponent {
-  @Input() subtitle = '';
-  title = 'Combined Angular 2 + ngrx Demo App';
-  user$: Observable<User>;
+    @Input() subtitle = '';
+    title = 'Combined Angular 2 + ngrx Demo App';
+    user$: Observable<User>;
 
-  constructor(private store: Store<fromRoot.RootState>) { }
+    constructor(private store: Store<fromRoot.RootState>) { }
 
-  ngOnInit() {
-    this.user$ = this.store.let(fromRoot.getUser);
-  }
+    ngOnInit() {
+        this.user$ = this.store.select(fromRoot.getUserState);
+    }
 }
 
 

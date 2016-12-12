@@ -94,11 +94,6 @@ export function reducer(state = initialEntities<Claim>(),
   }
 }
 
+export const getEntities = (state: Entities<Claim>) => state.entities;
 
-export function getClaimEntities(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.entities);
-}
-
-export function getClaimIds(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Claim>) => state.ids;

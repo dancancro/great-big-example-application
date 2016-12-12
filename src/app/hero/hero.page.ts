@@ -17,7 +17,7 @@ export class HeroPage {
   user$: Observable<User>;
 
   constructor(private store: Store<fromRoot.RootState>) {
-    this.user$ = this.store.let(fromRoot.getUser);
+    this.user$ = this.store.select(fromRoot.getUserState);
   }
 }
 

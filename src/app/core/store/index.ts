@@ -1,7 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/let';
-import 'rxjs/add/observable/forkJoin';
+import { createSelector } from 'reselect';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
@@ -23,7 +20,7 @@ import { Contact } from './contact/contact.model';
 import { Hero } from './hero/hero.model';
 
 /**
- * The compose function is one of our most handy tools. In basic terms, you give
+ * The createSelector function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
  * takes a value and chains it through every composed function, returning
  * the output.
@@ -97,9 +94,9 @@ export interface RootState {
 
 /**
  * Because metareducers take a reducer function and return a new reducer,
- * we can use our compose helper to chain them together. Here we are
+ * we can use our createSelector helper to chain them together. Here we are
  * using combineReducers to make our top level reducer, and then
- * wrapping that in storeLogger. Remember that compose applies
+ * wrapping that in storeLogger. Remember that createSelector applies
  * the result from right to left.
  */
 
@@ -121,11 +118,11 @@ const reducers = {
     user: fromUser.reducer
 }
 
-const developmentReducer = compose(
+const developmentReducer = createSelector(
     storeFreeze,
     localStorageSync(['session'], true),
     combineReducers)(reducers);
-const productionReducer = compose(
+const productionReducer = createSelector(
     localStorageSync(['session'], true),
     combineReducers)(reducers);
 
@@ -143,37 +140,26 @@ export function reducer(state: any, action: any) {
  * returns a function that maps from the larger state tree into a smaller
  * piece of state. This selector simply selects the `books` state.
  *
- * Selectors are used with the `let` operator. They take an input observable
- * and return a new observable. Here's how you would use this selector:
+ * Selectors are used with the `select` operator.
  *
  * ```ts
  * class MyComponent {
- * 	constructor(state$: Observable<State>) {
- * 	  this.booksState$ = state$.let(getBooksState);
+ * 	constructor(state$: Observable<RootState>) {
+ * 	  this.booksState$ = state$.select(getBooksState);
  * 	}
  * }
- * ```
  * 
- * Note that this is equivalent to:
- * ```ts
- * class MyComponent {
- * 	constructor(state$: Observable<State>) {
- * 	  this.booksState$ = getBooksState(state$);
- * 	}
- * }
  * ```
  * 
  */
-export function getBooksState(state$: Observable<RootState>) {
-    return state$.select(state => state.books);
-}
+export const getBooksState = (state: RootState) => state.books;
 
 /**
  * Every reducer module exports selector functions, however child reducers
  * have no knowledge of the overall state tree. To make them useable, we
  * need to make new selectors that wrap them.
  *
- * Once again our compose function comes in handy. From right to left, we
+ * Once again our createSelector function comes in handy. From right to left, we
  * first select the books state then we pass the state to the book
  * reducer's getBooks selector, finally returning an observable
  * of search results.
@@ -183,154 +169,104 @@ export function getBooksState(state$: Observable<RootState>) {
  * observable. Each subscription to the resultant observable
  * is shared across all subscribers.
  */
-export const getBookEntities = compose(fromBooks.getBookEntities, getBooksState);
-export const getBookIds = compose(fromBooks.getBookIds, getBooksState);
-export const getSelectedBook = compose(fromBooks.getSelectedBook, getBooksState);
+export const getBookEntities = createSelector(getBooksState, fromBooks.getEntities);
+export const getBookIds = createSelector(getBooksState, fromBooks.getIds);
+export const getSelectedBookId = createSelector(getBooksState, fromBooks.getSelectedId);
+export const getSelectedBook = createSelector(getBooksState, fromBooks.getSelected);
 
 
 /**
- * Just like with the books selectors, we also have to compose the search
+ * Just like with the books selectors, we also have to createSelector the search
  * reducer's and collection reducer's selectors.
  */
-export function getSearchState(state$: Observable<RootState>) {
-    return state$.select(s => s.search);
-}
-
-export const getSearchBookIds = compose(fromSearch.getBookIds, getSearchState);
-export const getSearchStatus = compose(fromSearch.getStatus, getSearchState);
-export const getSearchQuery = compose(fromSearch.getQuery, getSearchState);
-export const getSearchLoading = compose(fromSearch.getLoading, getSearchState);
+export const getSearchState = (state: RootState) => state.search;
+export const getSearchBookIds = createSelector(getSearchState, fromSearch.getIds);
+export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
+export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoading);
 
 
 /**
  * Some selector functions create joins across parts of state. This selector
  * composes the search result IDs to return an array of books in the store.
  */
-export const getSearchResults = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Book }, string[]>(
-        state$.let(getBookEntities),
-        state$.let(getSearchBookIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
+export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
+    return searchIds.map(id => books[id]);
+});
 
-
-
-export function getCollectionState(state$: Observable<RootState>) {
-    return state$.select(s => s.collection);
-}
-
-export const getCollectionLoaded = compose(fromCollection.getLoaded, getCollectionState);
-export const getCollectionLoading = compose(fromCollection.getLoading, getCollectionState);
-export const getCollectionBookIds = compose(fromCollection.getBookIds, getCollectionState);
-
-export const getBookCollection = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Book }, string[]>(
-        state$.let(getBookEntities),
-        state$.let(getCollectionBookIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
-
-export const isSelectedBookInCollection = function(state$: Observable<RootState>) {
-    return combineLatest<string[], Book>(
-        state$.let(getCollectionBookIds),
-        state$.let(getSelectedBook)
-    )
-        .map(([ids, selectedBook]) => ids.indexOf(selectedBook.id) > -1);
-};
+export const getCollectionState = (state: RootState) => state.collection;
+export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
+export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
+export const getCollectionBookIds = createSelector(getCollectionState, fromCollection.getIds);
+export const getBookCollection = createSelector(getBookEntities, getCollectionBookIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
+export const isSelectedBookInCollection = createSelector(getCollectionBookIds, getSelectedBookId, (ids, selected) => {
+    return ids.indexOf(selected) > -1;
+});
 
 /**
  * Layout Reducers
  */
-export const getLayoutState = (state$: Observable<RootState>) =>
-    state$.select(state => state.layout);
-
-export const getShowSidenav = compose(fromLayout.getShowSidenav, getLayoutState);
-export const getMsg = compose(fromLayout.getMsg, getLayoutState);
-export const getDebatePageState = compose(fromLayout.getDebatePageState, getLayoutState);
+export const getLayoutState = (state: RootState) => state.layout;
+export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
+export const getMsg = createSelector(getLayoutState, fromLayout.getMsg);
+export const getDebatePageState = createSelector(getLayoutState, fromLayout.getDebatePageState);
 
 
 /**
  * Session Reducers
  */
-export const getSessionState = (state$: Observable<RootState>) =>
-    state$.select(state => state.session);
-
-export const hasError = compose(fromSession.hasError, getSessionState);
-export const isLoading = compose(fromSession.isLoading, getSessionState);
-export const getFirstName = compose(fromUser.getFirstName, getSessionState);
-export const getLastName = compose(fromUser.getLastName, getSessionState);
-export const loggedIn = compose(fromSession.loggedIn, getSessionState);
-export const loggedOut = compose(fromSession.loggedOut, getSessionState);
+export const getSessionState = (state: RootState) => state.session;
+export const hasError = createSelector(getSessionState, fromSession.hasError);
+export const isLoading = createSelector(getSessionState, fromSession.isLoading);
+export const loggedIn = createSelector(getSessionState, fromSession.loggedIn);
+export const loggedOut = createSelector(getSessionState, fromSession.loggedOut);
 
 /**
  * Notes Reducers
  */
-export function getNotesState(state$: Observable<RootState>) {
-    return state$.select(state => state.notes);
-}
-export const getNoteEntities = compose(fromNotes.getNoteEntities, getNotesState);
-export const getNoteIds = compose(fromNotes.getNoteIds, getNotesState);
-
-export const getNotes = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Note }, string[]>(
-        state$.let(getNoteEntities),
-        state$.let(getNoteIds)
-    )
-        .map(([entities, ids]) => {
-            return ids.map(id => entities[id])
-        });
-};
+export const getNotesState = (state: RootState) => state.notes;
+export const getNoteEntities = createSelector(getNotesState, fromNotes.getEntities);
+export const getNoteIds = createSelector(getNotesState, fromNotes.getIds);
+export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
 
 /**
  * Claims Reducers
  */
-export function getClaimsState(state$: Observable<RootState>) {
-    return state$.select(state => state.claims);
-}
-export const getClaimEntities = compose(fromClaims.getClaimEntities, getClaimsState);
-export const getClaimIds = compose(fromClaims.getClaimIds, getClaimsState);
-export const getClaims = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Claim }, string[]>(
-        state$.let(getClaimEntities),
-        state$.let(getClaimIds)
-    )
-        .map(([entities, ids]) => {
-            return ids.map(id => entities[id])
-        });
-};
-export function getRebuttalsState(state$: Observable<RootState>) {
-    return state$.select(state => state.rebuttals);
-}
-export const getRebuttalEntities = compose(fromRebuttals.getRebuttalEntities, getRebuttalsState);
-export const getRebuttalIds = compose(fromRebuttals.getRebuttalIds, getRebuttalsState);
-export const getRebuttals = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Rebuttal }, string[]>(
-        state$.let(getRebuttalEntities),
-        state$.let(getRebuttalIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
-export function getClaimRebuttalsState(state$: Observable<RootState>) {
-    return state$.select(state => state.claimRebuttals);
-}
-export const getClaimRebuttalEntities = compose(fromClaimRebuttals.getClaimRebuttalEntities, getClaimRebuttalsState);
-export const getClaimRebuttals = function(state$: Observable<RootState>): Observable<ClaimRebuttal[]> {
-    return state$.let(getClaimRebuttalEntities)
-        .map(entities =>
-            Object.keys(entities)
-                .map(id => entities[id])
-        );
-};
+export const getClaimsState = (state: RootState) => state.claims;
+export const getClaimEntities = createSelector(getClaimsState, fromClaims.getEntities);
+export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
+export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
+
+/**
+ * Rebuttal Reducers
+ */
+export const getRebuttalsState = (state: RootState) => state.rebuttals;
+export const getRebuttalEntities = createSelector(getRebuttalsState, fromRebuttals.getEntities);
+export const getRebuttalIds = createSelector(getRebuttalsState, fromRebuttals.getIds);
+export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
+
+
+export const getClaimRebuttalsState = (state: RootState) => state.claimRebuttals;
+export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
+export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
+export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
 
 // Many-to-Many Join, Denormalization with sorted sub array
 export const getDeepClaims = function(state$: Observable<RootState>): Observable<Claim[]> {
     return combineLatest(
-        state$.let(getClaimEntities),
-        state$.let(getClaimIds),
-        state$.let(getRebuttalEntities),
-        state$.let(getClaimRebuttals),
+        state$.select(getClaimEntities),
+        state$.select(getClaimIds),
+        state$.select(getRebuttalEntities),
+        state$.select(getClaimRebuttals),
         (claims, claimIds, rebuttals, claimRebuttals) => {
             return claimIds
                 // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
@@ -371,66 +307,48 @@ export const getDeepClaims = function(state$: Observable<RootState>): Observable
 /**
  * Counter Reducers
  */
-export const getCounterState = (state$: Observable<RootState>) =>
-    state$.select(state => state.counter);
-export const getCounterValue = compose(fromCounter.getValue, getCounterState);
+export const getCounterState = (state: RootState) => state.counter;
+export const getCounterValue = createSelector(getCounterState, fromCounter.getValue);
 
 /**
  * Crises Reducers
  */
-
-export function getCrisesState(state$: Observable<RootState>) {
-    return state$.select(state => state.crises);
-}
-export const getCrisisEntities = compose(fromCrises.getCrisisEntities, getCrisesState);
-export const getCrisisIds = compose(fromCrises.getCrisisIds, getCrisesState);
-export const getSelectedCrisis = compose(fromCrises.getSelectedCrisis, getCrisesState);
-export const getCrises = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Crisis }, string[]>(
-        state$.let(getCrisisEntities),
-        state$.let(getCrisisIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
-
+export const getCrisesState = (state: RootState) => state.crises;
+export const getCrisisEntities = createSelector(getCrisesState, fromCrises.getEntities);
+export const getCrisisIds = createSelector(getCrisesState, fromCrises.getIds);
+export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSelected);
+export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
 /**
  * Contacts Reducers
  */
 
-export function getContactsState(state$: Observable<RootState>) {
-    return state$.select(state => state.contacts);
-}
-export const getContactEntities = compose(fromContacts.getContactEntities, getContactsState);
-export const getContactIds = compose(fromContacts.getContactIds, getContactsState);
-export const getContacts = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Contact }, string[]>(
-        state$.let(getContactEntities),
-        state$.let(getContactIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
-export const getContact = compose(fromContacts.getContact, getContactsState);
+export const getContactsState = (state: RootState) => state.contacts;
+export const getContactEntities = createSelector(getContactsState, fromContacts.getEntities);
+export const getContactIds = createSelector(getContactsState, fromContacts.getIds);
+export const getSelectedContact = createSelector(getContactsState, fromContacts.getSelected);
+export const getContacts = createSelector(getContactEntities, getContactIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
+export const getContact = createSelector(getContactsState, fromContacts.getSelected);
 
 /**
  * Heroes Reducers
  */
+export const getHeroesState = (state: RootState) => state.heroes;
+export const getHeroEntities = createSelector(getHeroesState, fromHeroes.getEntities);
+export const getHeroIds = createSelector(getHeroesState, fromHeroes.getIds);
+export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSelected);
+export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
+    return ids.map(id => entities[id]);
+});
 
-export function getHeroesState(state$: Observable<RootState>) {
-    return state$.select(state => state.heroes);
-}
-export const getHeroEntities = compose(fromHeroes.getHeroEntities, getHeroesState);
-export const getHeroIds = compose(fromHeroes.getHeroIds, getHeroesState);
-export const getHeroes = function(state$: Observable<RootState>) {
-    return combineLatest<{ [id: string]: Hero }, string[]>(
-        state$.let(getHeroEntities),
-        state$.let(getHeroIds)
-    )
-        .map(([entities, ids]) => ids.map(id => entities[id]));
-};
-export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesState);
+
 
 /**
  * User Reducers
  */
-export const getUser = (state$: Observable<RootState>) =>
-    state$.select(state => state.user);
+export const getUserState = (state: RootState) => state.user;
+export const getFirstName = createSelector(getUserState, fromUser.getFirstName);
+export const getLastName = createSelector(getUserState, fromUser.getLastName);

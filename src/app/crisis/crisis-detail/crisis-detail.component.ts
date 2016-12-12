@@ -41,7 +41,7 @@ export class CrisisDetailComponent implements OnInit {
     private dialogService: DialogService) { }
 
   ngOnInit() {
-    this.crisis$ = this.store.let(fromRoot.getSelectedCrisis);
+    this.crisis$ = this.store.select(fromRoot.getSelectedCrisis);
     this.sub = combineLatest(
       this.crisis$,
       this.route.params)

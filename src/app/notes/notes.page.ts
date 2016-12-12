@@ -39,7 +39,7 @@ export class NotesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.notes$ = this.store.let(fromRoot.getNotes);
+    this.notes$ = this.store.select(fromRoot.getNotes);
     // probably don't need this.
     // this.store.dispatch(new noteActions.InitializeAction());
   }

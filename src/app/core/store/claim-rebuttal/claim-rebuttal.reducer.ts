@@ -84,10 +84,9 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this o
   }
 };
 
+export const getEntities = (state: Entities<ClaimRebuttal>) => state.entities;
 
-export function getClaimRebuttalEntities(state$: Observable<Entities<ClaimRebuttal>>) {
-  return state$.select(state => state.entities);
-}
+export const getIds = (state: Entities<ClaimRebuttal>) => state.ids;
 
 // We don't care about the ids. I tried it with them but after reducing a delete action 
 // with `delete entity` and ids.splice, there were x entities and x+1 ids in the selector. I don't know why so I just got rid of ids

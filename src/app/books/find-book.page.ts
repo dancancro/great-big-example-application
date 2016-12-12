@@ -23,9 +23,9 @@ export class FindBookPage {
   loading$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.RootState>) {
-    this.searchQuery$ = store.let(fromRoot.getSearchQuery).take(1);
-    this.books$ = store.let(fromRoot.getSearchResults);
-    this.loading$ = store.let(fromRoot.getSearchLoading);
+    this.searchQuery$ = store.select(fromRoot.getSearchQuery).take(1);
+    this.books$ = store.select(fromRoot.getSearchResults);
+    this.loading$ = store.select(fromRoot.getSearchLoading);
   }
 
   search(query: string) {

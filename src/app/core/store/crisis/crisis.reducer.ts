@@ -1,7 +1,6 @@
-import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { Crisis, initialCrisis } from './crisis.model';
@@ -68,22 +67,12 @@ export function reducer(state = initialEntities<Crisis>(),
 
 };
 
-export function getCrisisEntities(state$: Observable<Entities<Crisis>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Crisis>) => state.entities;
 
-export function getCrisisIds(state$: Observable<Entities<Crisis>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Crisis>) => state.ids;
 
-export function getSelectedCrisisId(state$: Observable<Entities<Crisis>>) {
-  return state$.select(state => state.selectedEntityId);
-}
+export const getSelectedId = (state: Entities<Crisis>) => state.selectedEntityId;
 
-export function getSelectedCrisis(state$: Observable<Entities<Crisis>>) {
-  return combineLatest<{ [id: string]: Crisis }, string>(
-    state$.let(getCrisisEntities),
-    state$.let(getSelectedCrisisId)
-  )
-    .map(([entities, selectedCrisisId]) => entities[selectedCrisisId]);
-}
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});
