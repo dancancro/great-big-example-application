@@ -261,33 +261,57 @@ export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getCla
 });
 
 // Many-to-Many Join, Denormalization with sorted sub array
-export const getDeepClaims = function(state$: Observable<RootState>): Observable<Claim[]> {
-    return combineLatest(
-        state$.select(getClaimEntities),
-        state$.select(getClaimIds),
-        state$.select(getRebuttalEntities),
-        state$.select(getClaimRebuttals),
-        (claims, claimIds, rebuttals, claimRebuttals) => {
-            return claimIds
-                // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
-                .map(cid =>
-                    Object.assign(
-                        {},
-                        claims[cid],
-                        {
-                            rebuttals:
-                            claimRebuttals
-                                .filter(cr => cr.claimId == cid)
-                                .sort((a, b) => a.sortOrder - b.sortOrder)
-                                .map(cr => {
-                                    return rebuttals[cr.rebuttalId];
-                                })
-                        } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
-                    )
-                );
-        }
-    )
-};
+export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRebuttalEntities, getClaimRebuttals,
+    (claims, claimIds, rebuttals, claimRebuttals) => {
+        return claimIds
+            // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
+            .map(cid =>
+                Object.assign(
+                    {},
+                    claims[cid],
+                    {
+                        rebuttals:
+                        claimRebuttals
+                            .filter(cr => cr.claimId == cid)
+                            .sort((a, b) => a.sortOrder - b.sortOrder)
+                            .map(cr => {
+                                return rebuttals[cr.rebuttalId];
+                            })
+                    } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+                )
+            );
+
+    });
+
+
+
+// export const getDeepClaims = function(state$: Observable<RootState>): Observable<Claim[]> {
+//     return combineLatest(
+//         state$.select(getClaimEntities),
+//         state$.select(getClaimIds),
+//         state$.select(getRebuttalEntities),
+//         state$.select(getClaimRebuttals),
+//         (claims, claimIds, rebuttals, claimRebuttals) => {
+//             return claimIds
+//                 // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
+//                 .map(cid =>
+//                     Object.assign(
+//                         {},
+//                         claims[cid],
+//                         {
+//                             rebuttals:
+//                             claimRebuttals
+//                                 .filter(cr => cr.claimId == cid)
+//                                 .sort((a, b) => a.sortOrder - b.sortOrder)
+//                                 .map(cr => {
+//                                     return rebuttals[cr.rebuttalId];
+//                                 })
+//                         } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+//                     )
+//                 );
+//         }
+//     )
+// };
 
 // export const isTouched = function (state$: Observable<RootState>) {
 //   let _touched = false;
@@ -343,8 +367,6 @@ export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSele
 export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
     return ids.map(id => entities[id]);
 });
-
-
 
 /**
  * User Reducers
