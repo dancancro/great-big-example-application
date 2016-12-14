@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/let';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
