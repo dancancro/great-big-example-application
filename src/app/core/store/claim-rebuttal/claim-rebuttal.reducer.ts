@@ -19,15 +19,19 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this o
     // delete one entity
     case claimRebuttal.ActionTypes.DISASSOCIATE_REBUTTAL: {
       entities = Object.assign({}, state.entities);
+      let ids = state.ids;
       var crid = Object.keys(entities).find(crid => {
         return state.entities[crid].claimId == (<any>action.payload).claim.id &&       // TODO: fix id string/number problem
           state.entities[crid].rebuttalId == (<any>action.payload).rebuttal.id;  // TODO: fix this typecast 
       })
       if (crid) {
         delete entities[crid];
+        let i = ids.findIndex(id => id == crid);
+        ids = [...ids.splice(0, i), ...ids.splice(i + 1)];
       }
       return Object.assign({}, state, {
-        entities: entities
+        entities: entities,
+        ids: ids
       });
     }
 
@@ -48,6 +52,7 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this o
       entities = Object.assign({}, state.entities);
       entities[id] = claimRebuttalReducer(null, action);
       return Object.assign({}, state, {
+        ids: Object.keys(entities),
         entities: entities,
         loaded: true,
         loading: false,
@@ -87,6 +92,3 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this o
 export const getEntities = (state: Entities<ClaimRebuttal>) => state.entities;
 
 export const getIds = (state: Entities<ClaimRebuttal>) => state.ids;
-
-// We don't care about the ids. I tried it with them but after reducing a delete action 
-// with `delete entity` and ids.splice, there were x entities and x+1 ids in the selector. I don't know why so I just got rid of ids

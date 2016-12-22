@@ -120,7 +120,7 @@ const reducers = {
 
 const developmentReducer = compose(
   storeFreeze,
-  //    localStorageSync(['session'], true),
+  localStorageSync(['session'], true),
   combineReducers)(reducers);
 const productionReducer = compose(
   localStorageSync(['session'], true),
@@ -252,7 +252,9 @@ export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, 
   return ids.map(id => entities[id]);
 });
 
-
+/**
+ * ClaimRebuttal Reducers
+ */
 export const getClaimRebuttalsState = (state: RootState) => state.claimRebuttals;
 export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
 export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
@@ -283,35 +285,6 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
 
   });
 
-
-
-// export const getDeepClaims = function(state$: Observable<RootState>): Observable<Claim[]> {
-//     return combineLatest(
-//         state$.select(getClaimEntities),
-//         state$.select(getClaimIds),
-//         state$.select(getRebuttalEntities),
-//         state$.select(getClaimRebuttals),
-//         (claims, claimIds, rebuttals, claimRebuttals) => {
-//             return claimIds
-//                 // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
-//                 .map(cid =>
-//                     Object.assign(
-//                         {},
-//                         claims[cid],
-//                         {
-//                             rebuttals:
-//                             claimRebuttals
-//                                 .filter(cr => cr.claimId == cid)
-//                                 .sort((a, b) => a.sortOrder - b.sortOrder)
-//                                 .map(cr => {
-//                                     return rebuttals[cr.rebuttalId];
-//                                 })
-//                         } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
-//                     )
-//                 );
-//         }
-//     )
-// };
 
 // export const isTouched = function (state$: Observable<RootState>) {
 //   let _touched = false;
