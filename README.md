@@ -86,11 +86,10 @@ $ ng test
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
+## Demonstrations and Features
 
-
-|  Demonstrations and Features | This one | Rangle-starter | Angular-CLI | ngrx example | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  **Developer Experience** | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
 |  :------ | :------: | :------: | :------: | :------: | :------: |
-|  **Developer Experience** |  |  |  |  |  |
 |  Immutable data | Y | Y |  | Y | Y |
 |  Centralized actions and mutations | Y | Y |  | Y | Y |
 |  Async bound JSON data (RxJS + Angular 2 async pipe) | Y |  |  | Y |  |
@@ -110,11 +109,11 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 |  Deploy on GitHub pages | Y |  | Y | Y |  |
 |  Style checking (ESLint, TSLint) | Y | Y | Y | Y | Y |
 |  Testing |  | Y |  | Y | Y |
-|  Use tomorrow's CSS today |  | Y |  |  |  |
+|  [Use tomorrow's CSS today](https://www.npmjs.com/package/postcss-cssnext) |  | Y |  |  |  |
 |  Debug server-side code | Y |  |  |  |  |
 |  Docker deployment |  | Y |  |  | Y |
 |   |  |  |  |  |  |
-|  **User Experience** |  |  |  |  |  |
+|  **User Experience** | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
 |  Local storage | Y | Y |  | Y |  |
 |  Validation | Y | Y |  |  |  |
 |  Authentication | Y | Y |  |  |  |
@@ -128,7 +127,7 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 |  Cross-platform Desktop |  |  |  |  | Y |
 
 
-# File Structure
+## File Structure
 ```
 ├── app
 │   ├── app.module.ts
