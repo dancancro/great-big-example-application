@@ -88,40 +88,44 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 
 
-|  Demonstrations and Features | This one | Rangle-starter | Angular-CLI | ngrx example |
-|  :------ | :------: | :------: | :------: | :------: |
-|  **Developer Experience** |  |  |  |  |
-|  Immutable data | Y | Y |  | Y |
-|  Centralized actions and mutations | Y | Y |  | Y |
-|  Async bound JSON data (RxJS + Angular 2 async pipe) | Y |  |  | Y |
-|  Many-to-many data | Y |  |  |  |
-|  Feature module with nested/coupled, logic-free components | Y |  |  | Y |
-|  Inter-component communication with events | Y |  |  | Y |
-|  Rewind/playback (Redux dev tools) | Y | Y |  | Y |
-|  State inspection (Redux dev tools) | Y | Y |  | Y |
-|  Compartmentalized CSS (Angular 2) | Y | Y | Y | Y |
-|  Routing (Angular 2) | Y | Y | Y | Y |
-|  Build, source mapping, hot reloading, minification, bundling (Webpack) | Y | Y | Y | Y |
-|  Type safety (Typescript) | Y | Y | Y | Y |
-|  Derived, computed attributes | Y |  |  |  |
-|  Update your code as starter code evolves | Y |  | Y | Y |
-|  Ahead of time compilation (Angular 2) | Y | Y | Y | Y |
-|  Lazy loading (Angular 2) | Y | Y | Y | Y |
-|  Deploy on GitHub pages | Y |  | Y | Y |
-|  Style checking (ESLint, TSLint) | Y | Y | Y | Y |
-|  Testing |  | Y |  | Y |
-|  Use tomorrow's CSS today |  | Y |  |  |
-|  Debug server-side code | Y |  |  |  |
-|   |  |  |  |  |
-|  **User Experience** |  |  |  |  |
-|  Local storage | Y | Y |  | Y |
-|  Validation | Y | Y |  |  |
-|  Authentication (rangle-starter + Passport) | Y | Y |  |  |
-|  Responsive styling | Y | Y |  | Y |
-|  Editable lists | Y |  |  |  |
-|  Drag and drop | Y |  |  |  |
-|  Single-record save | Y |  |  | Y |
-|  Tree-level save | Y |  |  |  |
+|  Demonstrations and Features | This one | Rangle-starter | Angular-CLI | ngrx example | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  :------ | :------: | :------: | :------: | :------: | :------: |
+|  **Developer Experience** |  |  |  |  |  |
+|  Immutable data | Y | Y |  | Y | Y |
+|  Centralized actions and mutations | Y | Y |  | Y | Y |
+|  Async bound JSON data (RxJS + Angular 2 async pipe) | Y |  |  | Y |  |
+|  Many-to-many data | Y |  |  |  |  |
+|  Feature module with nested/coupled, logic-free components | Y |  |  | Y |  |
+|  Inter-component communication with events | Y |  |  | Y |  |
+|  Rewind/playback (Redux dev tools) | Y | Y |  | Y | Y |
+|  State inspection (Redux dev tools) | Y | Y |  | Y | Y |
+|  Compartmentalized CSS (Angular 2) | Y | Y | Y | Y | Y |
+|  Routing (Angular 2) | Y | Y | Y | Y | Y |
+|  Build, source mapping, hot reloading, minification, bundling | Y | Y | Y | Y | Y |
+|  Type safety (Typescript) | Y | Y | Y | Y | Y |
+|  Derived, computed attributes | Y |  |  |  |  |
+|  Update your code as starter code evolves | Y |  | Y | Y |  |
+|  Ahead of time compilation (Angular 2) | Y | Y | Y | Y | Y |
+|  Lazy loading (Angular 2) | Y | Y | Y | Y |  |
+|  Deploy on GitHub pages | Y |  | Y | Y |  |
+|  Style checking (ESLint, TSLint) | Y | Y | Y | Y | Y |
+|  Testing |  | Y |  | Y | Y |
+|  Use tomorrow's CSS today |  | Y |  |  |  |
+|  Debug server-side code | Y |  |  |  |  |
+|  Docker deployment |  | Y |  |  | Y |
+|   |  |  |  |  |  |
+|  **User Experience** |  |  |  |  |  |
+|  Local storage | Y | Y |  | Y |  |
+|  Validation | Y | Y |  |  |  |
+|  Authentication | Y | Y |  |  |  |
+|  Responsive styling | Y | Y |  | Y |  |
+|  Editable lists | Y |  |  |  |  |
+|  Drag and drop | Y |  |  |  |  |
+|  Single-record save | Y |  |  | Y |  |
+|  Tree-level save | Y |  |  |  |  |
+|  Internationalization |  |  |  |  | Y |
+|  Native mobile |  |  |  |  | Y |
+|  Cross-platform Desktop |  |  |  |  | Y |
 
 
 # File Structure
