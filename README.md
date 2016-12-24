@@ -129,283 +129,410 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 ## File Structure
 ```
-├── app
-│   ├── app.module.ts
-│   ├── app.page.css
-│   ├── app.page.html
-│   ├── app.page.spec.ts
-│   ├── app.page.ts
-│   ├── app.routing.ts
-│   ├── books
-│   │   ├── README.md
-│   │   ├── add-commas
-│   │   │   └── add-commas.pipe.ts
-│   │   ├── book-authors
-│   │   │   └── book-authors.component.ts
-│   │   ├── book-detail
-│   │   │   └── book-detail.component.ts
-│   │   ├── book-exists
-│   │   │   └── book-exists.guard.ts
-│   │   ├── book-preview
-│   │   │   ├── book-preview-list.component.ts
-│   │   │   └── book-preview.component.ts
-│   │   ├── book-search
-│   │   │   └── book-search.component.ts
-│   │   ├── books.module.ts
-│   │   ├── books.routing.ts
-│   │   ├── collection.page.ts
-│   │   ├── ellipsis
-│   │   │   └── ellipsis.pipe.ts
-│   │   ├── find-book.page.ts
-│   │   ├── selected-book.page.ts
-│   │   └── view-book.page.ts
-│   ├── contact
-│   │   ├── contact.module.ts
-│   │   ├── contact.page.css
-│   │   ├── contact.page.html
-│   │   ├── contact.page.ts
-│   │   └── contact.routing.ts
-│   ├── core
-│   │   ├── about
-│   │   │   └── about.page.ts
-│   │   ├── core.module.ts
-│   │   ├── core.routing.ts
-│   │   ├── exception.service.ts
-│   │   ├── logger.service.ts
-│   │   ├── navigator
-│   │   │   ├── bc-navigator
+.
+├── README.md
+├── angular-cli.json
+├── assets
+├── config
+│   ├── environment.dev.ts
+│   ├── environment.js
+│   ├── environment.prod.ts
+│   ├── karma-test-shim.js
+│   ├── karma.conf.js
+│   └── protractor.conf.js
+├── e2e
+│   ├── app.e2e-spec.ts
+│   ├── app.po.ts
+│   ├── robot
+│   │   ├── exec
+│   │   │   ├── readme.md
+│   │   │   ├── run_all_on_browserstack_desktop_ie.bash
+│   │   │   ├── run_all_on_browserstack_desktop_safari.bash
+│   │   │   ├── run_all_on_browserstack_device_android.bash
+│   │   │   ├── run_all_on_browserstack_device_ios.bash
+│   │   │   ├── run_all_on_local_chrome.bash
+│   │   │   ├── run_smoke_on_local_chrome.bash
+│   │   │   └── run_template.bash
+│   │   ├── resources
+│   │   │   ├── dev_test
+│   │   │   │   ├── curl_tests
+│   │   │   │   │   └── check_url_status.robot
+│   │   │   │   └── readme.md
+│   │   │   ├── features
+│   │   │   │   ├── counter
+│   │   │   │   │   ├── rs_counter.robot
+│   │   │   │   │   ├── rs_counter_decrement.robot
+│   │   │   │   │   └── rs_counter_increment.robot
+│   │   │   │   ├── login
+│   │   │   │   │   ├── controls
+│   │   │   │   │   │   └── login_submit.robot
+│   │   │   │   │   ├── error_field
+│   │   │   │   │   │   └── login_error_field.robot
+│   │   │   │   │   ├── loading_field
+│   │   │   │   │   │   └── login_loading_field.robot
+│   │   │   │   │   ├── password
+│   │   │   │   │   │   └── login_password.robot
+│   │   │   │   │   ├── rs_login.robot
+│   │   │   │   │   └── username
+│   │   │   │   │       └── login_username.robot
+│   │   │   │   ├── navigation_bar
+│   │   │   │   │   ├── rs_navigation_bar.robot
+│   │   │   │   │   ├── rs_navigation_bar_logout.robot
+│   │   │   │   │   └── rs_navigation_bar_user_profile.robot
+│   │   │   │   └── reusable_components
+│   │   │   └── lib
+│   │   │       ├── browser
+│   │   │       │   ├── rs_browser.robot
+│   │   │       │   └── rs_browserstack.robot
+│   │   │       └── curl
+│   │   │           └── curl.py
+│   │   ├── results
+│   │   └── tests
+│   │       ├── bugs
+│   │       ├── check_for_dead_links
+│   │       │   └── check_for_dead_links.robot
+│   │       └── stories
+│   │           ├── us101112
+│   │           │   ├── ac0_general_tests.robot
+│   │           │   ├── ac1_able_to_increment.robot
+│   │           │   └── ac2_able_to_decrement.robot
+│   │           ├── us1234
+│   │           │   ├── ac1_able_to_login_with_valid_credentials.robot
+│   │           │   ├── ac2_unable_to_login_with_invalid_credentials.robot
+│   │           │   └── ac3_able_to_reset_login_form.robot
+│   │           └── us5678
+│   │               ├── ac1_able_to_logout.robot
+│   │               ├── ac2_navigator_shows_user_profile.robot
+│   │               └── ac3_able_to_navigate_to_links.robot
+│   └── tsconfig.json
+├── filestructure.md
+├── karma.conf.js
+├── nodemon.json
+├── package.json
+├── protractor.conf.js
+├── proxy.conf.json
+├── public
+├── server
+│   ├── README.md
+│   ├── auth-passport.js
+│   ├── db
+│   │   ├── claim-rebuttal.json
+│   │   ├── claim.json
+│   │   ├── contact.json
+│   │   ├── crisis.json
+│   │   ├── hero.json
+│   │   ├── note.json
+│   │   ├── rebuttal.json
+│   │   └── user.json
+│   ├── node-app-server.js
+│   ├── node-proxy.js
+│   ├── node-server.js
+│   ├── proxy-config.js
+│   └── webpack-dev-proxy.js
+├── src
+│   ├── app
+│   │   ├── app.module.ts
+│   │   ├── app.page.css
+│   │   ├── app.page.html
+│   │   ├── app.page.spec.ts
+│   │   ├── app.page.ts
+│   │   ├── app.routing.ts
+│   │   ├── books
+│   │   │   ├── README.md
+│   │   │   ├── add-commas
+│   │   │   │   └── add-commas.pipe.ts
+│   │   │   ├── book-authors
+│   │   │   │   └── book-authors.component.ts
+│   │   │   ├── book-detail
+│   │   │   │   └── book-detail.component.ts
+│   │   │   ├── book-exists
+│   │   │   │   └── book-exists.guard.ts
+│   │   │   ├── book-preview
+│   │   │   │   ├── book-preview-list.component.ts
+│   │   │   │   └── book-preview.component.ts
+│   │   │   ├── book-search
+│   │   │   │   └── book-search.component.ts
+│   │   │   ├── books.module.ts
+│   │   │   ├── books.routing.ts
+│   │   │   ├── collection.page.ts
+│   │   │   ├── ellipsis
+│   │   │   │   └── ellipsis.pipe.ts
+│   │   │   ├── find-book.page.ts
+│   │   │   ├── selected-book.page.ts
+│   │   │   └── view-book.page.ts
+│   │   ├── contact
+│   │   │   ├── contact.module.ts
+│   │   │   ├── contact.page.css
+│   │   │   ├── contact.page.html
+│   │   │   ├── contact.page.ts
+│   │   │   └── contact.routing.ts
+│   │   ├── core
+│   │   │   ├── about
+│   │   │   │   └── about.page.ts
+│   │   │   ├── core.module.ts
+│   │   │   ├── core.routing.ts
+│   │   │   ├── exception.service.ts
+│   │   │   ├── logger.service.ts
+│   │   │   ├── navigator
 │   │   │   │   ├── layout.component.ts
 │   │   │   │   ├── nav-item.component.ts
 │   │   │   │   ├── navigator.module.ts
 │   │   │   │   ├── sidenav.component.ts
 │   │   │   │   └── toolbar.component.ts
-│   │   │   └── navigator.module.ts
-│   │   ├── not-found
-│   │   │   └── not-found.page.ts
-│   │   ├── spinner.component.ts
-│   │   ├── store
-│   │   │   ├── book
-│   │   │   │   ├── book.actions.ts
-│   │   │   │   ├── book.effects.ts
-│   │   │   │   ├── book.model.ts
-│   │   │   │   ├── book.reducer.ts
-│   │   │   │   └── google-books.service.ts
+│   │   │   ├── not-found
+│   │   │   │   └── not-found.page.ts
+│   │   │   ├── spinner.component.ts
+│   │   │   ├── store
+│   │   │   │   ├── book
+│   │   │   │   │   ├── book.actions.ts
+│   │   │   │   │   ├── book.effects.ts
+│   │   │   │   │   ├── book.model.ts
+│   │   │   │   │   ├── book.reducer.ts
+│   │   │   │   │   └── google-books.service.ts
+│   │   │   │   ├── claim
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── claim.actions.ts
+│   │   │   │   │   ├── claim.effects.ts
+│   │   │   │   │   ├── claim.model.ts
+│   │   │   │   │   └── claim.reducer.ts
+│   │   │   │   ├── claim-rebuttal
+│   │   │   │   │   ├── claim-rebuttal.actions.ts
+│   │   │   │   │   ├── claim-rebuttal.effects.ts
+│   │   │   │   │   ├── claim-rebuttal.model.ts
+│   │   │   │   │   └── claim-rebuttal.reducer.ts
+│   │   │   │   ├── collection
+│   │   │   │   │   ├── collection.actions.ts
+│   │   │   │   │   ├── collection.effects.ts
+│   │   │   │   │   └── collection.reducer.ts
+│   │   │   │   ├── contact
+│   │   │   │   │   ├── contact.actions.ts
+│   │   │   │   │   ├── contact.effects.ts
+│   │   │   │   │   ├── contact.model.ts
+│   │   │   │   │   └── contact.reducer.ts
+│   │   │   │   ├── counter
+│   │   │   │   │   ├── counter.actions.test.ts
+│   │   │   │   │   ├── counter.actions.ts
+│   │   │   │   │   ├── counter.model.ts
+│   │   │   │   │   └── counter.reducer.ts
+│   │   │   │   ├── crisis
+│   │   │   │   │   ├── crisis.actions.ts
+│   │   │   │   │   ├── crisis.effects.ts
+│   │   │   │   │   ├── crisis.model.ts
+│   │   │   │   │   └── crisis.reducer.ts
+│   │   │   │   ├── data.service.ts
+│   │   │   │   ├── db.ts
+│   │   │   │   ├── entity
+│   │   │   │   │   └── entity.model.ts
+│   │   │   │   ├── hero
+│   │   │   │   │   ├── hero.actions.ts
+│   │   │   │   │   ├── hero.effects.ts
+│   │   │   │   │   ├── hero.model.ts
+│   │   │   │   │   └── hero.reducer.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── layout
+│   │   │   │   │   ├── layout.actions.ts
+│   │   │   │   │   ├── layout.model.ts
+│   │   │   │   │   └── layout.reducer.ts
+│   │   │   │   ├── note
+│   │   │   │   │   ├── note.actions.ts
+│   │   │   │   │   ├── note.effects.ts
+│   │   │   │   │   ├── note.model.ts
+│   │   │   │   │   └── note.reducer.ts
+│   │   │   │   ├── rebuttal
+│   │   │   │   │   ├── rebuttal.actions.ts
+│   │   │   │   │   ├── rebuttal.effects.ts
+│   │   │   │   │   ├── rebuttal.model.ts
+│   │   │   │   │   └── rebuttal.reducer.ts
+│   │   │   │   ├── search
+│   │   │   │   │   └── search.reducer.ts
+│   │   │   │   ├── session
+│   │   │   │   │   ├── session.actions.ts
+│   │   │   │   │   ├── session.effects.ts
+│   │   │   │   │   ├── session.model.ts
+│   │   │   │   │   └── session.reducer.ts
+│   │   │   │   └── user
+│   │   │   │       ├── user.model.ts
+│   │   │   │       └── user.reducer.ts
+│   │   │   └── title
+│   │   │       ├── title.component.html
+│   │   │       └── title.component.ts
+│   │   ├── counter
+│   │   │   ├── README.md
+│   │   │   ├── counter.component.css
+│   │   │   ├── counter.component.ts
+│   │   │   ├── counter.module.ts
+│   │   │   ├── counter.page.ts
+│   │   │   └── counter.routing.ts
+│   │   ├── crisis
+│   │   │   ├── crisis-detail
+│   │   │   │   └── crisis-detail.component.ts
+│   │   │   ├── crisis.module.ts
+│   │   │   ├── crisis.page.css
+│   │   │   ├── crisis.page.ts
+│   │   │   └── crisis.routing.ts
+│   │   ├── debate
+│   │   │   ├── README.md
 │   │   │   ├── claim
-│   │   │   │   ├── README.md
-│   │   │   │   ├── claim.actions.ts
-│   │   │   │   ├── claim.effects.ts
-│   │   │   │   ├── claim.model.ts
-│   │   │   │   └── claim.reducer.ts
-│   │   │   ├── claim-rebuttal
-│   │   │   │   ├── claim-rebuttal.actions.ts
-│   │   │   │   ├── claim-rebuttal.effects.ts
-│   │   │   │   ├── claim-rebuttal.model.ts
-│   │   │   │   └── claim-rebuttal.reducer.ts
-│   │   │   ├── collection
-│   │   │   │   ├── collection.actions.ts
-│   │   │   │   ├── collection.effects.ts
-│   │   │   │   └── collection.reducer.ts
-│   │   │   ├── contact
-│   │   │   │   ├── contact.actions.ts
-│   │   │   │   ├── contact.effects.ts
-│   │   │   │   ├── contact.model.ts
-│   │   │   │   └── contact.reducer.ts
-│   │   │   ├── counter
-│   │   │   │   ├── counter.actions.test.ts
-│   │   │   │   ├── counter.actions.ts
-│   │   │   │   ├── counter.model.ts
-│   │   │   │   └── counter.reducer.ts
-│   │   │   ├── crisis
-│   │   │   │   ├── crisis.actions.ts
-│   │   │   │   ├── crisis.effects.ts
-│   │   │   │   ├── crisis.model.ts
-│   │   │   │   └── crisis.reducer.ts
-│   │   │   ├── data.service.ts
-│   │   │   ├── db.ts
-│   │   │   ├── entity
-│   │   │   │   └── entity.model.ts
-│   │   │   ├── hero
-│   │   │   │   ├── hero.actions.ts
-│   │   │   │   ├── hero.effects.ts
-│   │   │   │   ├── hero.model.ts
-│   │   │   │   └── hero.reducer.ts
-│   │   │   ├── index.ts
-│   │   │   ├── layout
-│   │   │   │   ├── layout.actions.ts
-│   │   │   │   ├── layout.model.ts
-│   │   │   │   └── layout.reducer.ts
+│   │   │   │   ├── claim.component.css
+│   │   │   │   ├── claim.component.html
+│   │   │   │   ├── claim.component.spec.ts
+│   │   │   │   └── claim.component.ts
+│   │   │   ├── debate.module.ts
+│   │   │   ├── debate.page.css
+│   │   │   ├── debate.page.html
+│   │   │   ├── debate.page.ts
+│   │   │   ├── debate.routing.ts
+│   │   │   └── rebuttal
+│   │   │       ├── rebuttal.component.css
+│   │   │       ├── rebuttal.component.html
+│   │   │       ├── rebuttal.component.spec.ts
+│   │   │       └── rebuttal.component.ts
+│   │   ├── hero
+│   │   │   ├── hero-detail
+│   │   │   │   └── hero-detail.component.ts
+│   │   │   ├── hero-list
+│   │   │   │   ├── hero-list.component.css
+│   │   │   │   └── hero-list.component.ts
+│   │   │   ├── hero.module.ts
+│   │   │   ├── hero.page.css
+│   │   │   ├── hero.page.ts
+│   │   │   └── hero.routing.ts
+│   │   ├── index.ts
+│   │   ├── login
+│   │   │   ├── login-form
+│   │   │   │   ├── login-form.component.css
+│   │   │   │   ├── login-form.component.test.ts
+│   │   │   │   └── login-form.component.ts
+│   │   │   ├── login-modal
+│   │   │   │   ├── login-modal.component.test.ts
+│   │   │   │   └── login-modal.component.ts
+│   │   │   └── login.module.ts
+│   │   ├── notes
+│   │   │   ├── README.md
+│   │   │   ├── add-button
+│   │   │   │   ├── add-button.component.css
+│   │   │   │   ├── add-button.component.html
+│   │   │   │   └── add-button.component.ts
 │   │   │   ├── note
-│   │   │   │   ├── note.actions.ts
-│   │   │   │   ├── note.effects.ts
-│   │   │   │   ├── note.model.ts
-│   │   │   │   └── note.reducer.ts
-│   │   │   ├── rebuttal
-│   │   │   │   ├── rebuttal.actions.ts
-│   │   │   │   ├── rebuttal.effects.ts
-│   │   │   │   ├── rebuttal.model.ts
-│   │   │   │   └── rebuttal.reducer.ts
-│   │   │   ├── search
-│   │   │   │   └── search.reducer.ts
-│   │   │   ├── session
-│   │   │   │   ├── session.actions.ts
-│   │   │   │   ├── session.effects.ts
-│   │   │   │   ├── session.model.ts
-│   │   │   │   └── session.reducer.ts
-│   │   │   └── user
-│   │   │       ├── user.model.ts
-│   │   │       └── user.reducer.ts
-│   │   └── title
-│   │       ├── title.component.html
-│   │       └── title.component.ts
-│   ├── counter
-│   │   ├── README.md
-│   │   ├── counter.component.css
-│   │   ├── counter.component.ts
-│   │   ├── counter.module.ts
-│   │   ├── counter.page.ts
-│   │   └── counter.routing.ts
-│   ├── crisis
-│   │   ├── crisis-detail
-│   │   │   └── crisis-detail.component.ts
-│   │   ├── crisis.module.ts
-│   │   ├── crisis.page.css
-│   │   ├── crisis.page.ts
-│   │   └── crisis.routing.ts
-│   ├── debate
-│   │   ├── README.md
-│   │   ├── claim
-│   │   │   ├── claim.component.css
-│   │   │   ├── claim.component.html
-│   │   │   ├── claim.component.spec.ts
-│   │   │   └── claim.component.ts
-│   │   ├── debate.module.ts
-│   │   ├── debate.page.css
-│   │   ├── debate.page.html
-│   │   ├── debate.page.ts
-│   │   ├── debate.routing.ts
-│   │   └── rebuttal
-│   │       ├── rebuttal.component.css
-│   │       ├── rebuttal.component.html
-│   │       ├── rebuttal.component.spec.ts
-│   │       └── rebuttal.component.ts
-│   ├── hero
-│   │   ├── hero-detail
-│   │   │   └── hero-detail.component.ts
-│   │   ├── hero-list
-│   │   │   ├── hero-list.component.css
-│   │   │   └── hero-list.component.ts
-│   │   ├── hero.module.ts
-│   │   ├── hero.page.css
-│   │   ├── hero.page.ts
-│   │   └── hero.routing.ts
-│   ├── index.ts
-│   ├── login
-│   │   ├── login-form
-│   │   │   ├── login-form.component.css
-│   │   │   ├── login-form.component.test.ts
-│   │   │   └── login-form.component.ts
-│   │   ├── login-modal
-│   │   │   ├── login-modal.component.test.ts
-│   │   │   └── login-modal.component.ts
-│   │   └── login.module.ts
-│   ├── notes
-│   │   ├── README.md
-│   │   ├── add-button
-│   │   │   ├── add-button.component.css
-│   │   │   ├── add-button.component.html
-│   │   │   └── add-button.component.ts
-│   │   ├── note
-│   │   │   ├── note.component.css
-│   │   │   ├── note.component.html
-│   │   │   └── note.component.ts
-│   │   ├── notes.module.ts
-│   │   ├── notes.page.css
-│   │   ├── notes.page.html
-│   │   ├── notes.page.spec.ts
-│   │   ├── notes.page.ts
-│   │   └── notes.routing.ts
-│   └── shared
-│       ├── alert
-│       │   ├── alert.component.test.ts
-│       │   ├── alert.component.ts
-│       │   └── index.ts
-│       ├── assets
-│       │   └── bernie-sanders-128.jpg
-│       ├── awesome
-│       │   └── awesome.pipe.ts
-│       ├── button
-│       │   ├── button.component.test.ts
-│       │   ├── button.component.ts
-│       │   └── index.ts
-│       ├── container
-│       │   ├── container.component.test.ts
-│       │   └── container.component.ts
-│       ├── dialog
-│       │   └── dialog.service.ts
-│       ├── draggable
-│       │   └── draggable.directive.ts
-│       ├── form
-│       │   ├── form.component.ts
-│       │   ├── form.test.ts
-│       │   └── index.ts
-│       ├── form-error
-│       │   ├── form-error.component.ts
-│       │   └── form-error.test.ts
-│       ├── form-group
-│       │   ├── form-group.component.ts
-│       │   └── form-group.test.ts
-│       ├── highlight
-│       │   └── highlight.directive.ts
-│       ├── input
-│       │   ├── input.component.ts
-│       │   └── input.test.ts
-│       ├── label
-│       │   ├── label.component.ts
-│       │   └── label.test.ts
-│       ├── logo
-│       │   ├── index.ts
-│       │   ├── logo.component.css
-│       │   ├── logo.component.test.ts
-│       │   └── logo.component.ts
-│       ├── modal
-│       │   ├── modal.component.css
-│       │   ├── modal.component.test.ts
-│       │   └── modal.component.ts
-│       ├── modal-content
-│       │   ├── modal-content.component.test.ts
-│       │   └── modal-content.component.ts
-│       ├── shared.module.ts
-│       └── util.ts
-├── assets
-│   ├── bernie-app.png
-│   ├── bernie-sanders-128.jpg
-│   ├── bernie-spreadsheet.png
-│   ├── collection.png
-│   ├── counter.png
-│   ├── notes.png
-│   ├── rangleio-logo.svg
-│   └── styles
-│       ├── align.css
-│       ├── background-colors.css
-│       ├── basscss.css
-│       ├── colors.css
-│       ├── flexbox.css
-│       ├── grid.css
-│       ├── hero-styles.css
-│       ├── hide.css
-│       ├── index.css
-│       ├── media-object.css
-│       ├── position.css
-│       ├── responsive-margin.css
-│       └── responsive-padding.css
-├── environments
-│   ├── environment.prod.ts
-│   └── environment.ts
-├── favicon.ico
-├── index.html
-├── main.ts
-├── polyfills.ts
-├── test.ts
-├── tsconfig.json
-└── typings.d.ts
+│   │   │   │   ├── note.component.css
+│   │   │   │   ├── note.component.html
+│   │   │   │   └── note.component.ts
+│   │   │   ├── notes.module.ts
+│   │   │   ├── notes.page.css
+│   │   │   ├── notes.page.html
+│   │   │   ├── notes.page.spec.ts
+│   │   │   ├── notes.page.ts
+│   │   │   └── notes.routing.ts
+│   │   └── shared
+│   │       ├── alert
+│   │       │   ├── alert.component.test.ts
+│   │       │   ├── alert.component.ts
+│   │       │   └── index.ts
+│   │       ├── assets
+│   │       │   └── bernie-sanders-128.jpg
+│   │       ├── awesome
+│   │       │   └── awesome.pipe.ts
+│   │       ├── button
+│   │       │   ├── button.component.test.ts
+│   │       │   ├── button.component.ts
+│   │       │   └── index.ts
+│   │       ├── container
+│   │       │   ├── container.component.test.ts
+│   │       │   └── container.component.ts
+│   │       ├── dialog
+│   │       │   └── dialog.service.ts
+│   │       ├── draggable
+│   │       │   └── draggable.directive.ts
+│   │       ├── form
+│   │       │   ├── form.component.ts
+│   │       │   ├── form.test.ts
+│   │       │   └── index.ts
+│   │       ├── form-error
+│   │       │   ├── form-error.component.ts
+│   │       │   └── form-error.test.ts
+│   │       ├── form-group
+│   │       │   ├── form-group.component.ts
+│   │       │   └── form-group.test.ts
+│   │       ├── highlight
+│   │       │   └── highlight.directive.ts
+│   │       ├── input
+│   │       │   ├── input.component.ts
+│   │       │   └── input.test.ts
+│   │       ├── label
+│   │       │   ├── label.component.ts
+│   │       │   └── label.test.ts
+│   │       ├── logo
+│   │       │   ├── index.ts
+│   │       │   ├── logo.component.css
+│   │       │   ├── logo.component.test.ts
+│   │       │   └── logo.component.ts
+│   │       ├── modal
+│   │       │   ├── modal.component.css
+│   │       │   ├── modal.component.test.ts
+│   │       │   └── modal.component.ts
+│   │       ├── modal-content
+│   │       │   ├── modal-content.component.test.ts
+│   │       │   └── modal-content.component.ts
+│   │       ├── shared.module.ts
+│   │       └── util.ts
+│   ├── assets
+│   │   ├── bernie-app.png
+│   │   ├── bernie-sanders-128.jpg
+│   │   ├── bernie-spreadsheet.png
+│   │   ├── collection.png
+│   │   ├── counter.png
+│   │   ├── notes.png
+│   │   ├── rangleio-logo.svg
+│   │   └── styles
+│   │       ├── align.css
+│   │       ├── background-colors.css
+│   │       ├── basscss.css
+│   │       ├── colors.css
+│   │       ├── flexbox.css
+│   │       ├── grid.css
+│   │       ├── hero-styles.css
+│   │       ├── hide.css
+│   │       ├── index.css
+│   │       ├── media-object.css
+│   │       ├── position.css
+│   │       ├── responsive-margin.css
+│   │       └── responsive-padding.css
+│   ├── environments
+│   │   ├── environment.prod.ts
+│   │   └── environment.ts
+│   ├── favicon.ico
+│   ├── file_structure
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── test.ts
+│   ├── tsconfig.json
+│   └── typings.d.ts
+├── tslint.json
+├── typings
+│   ├── globals
+│   │   ├── angular-protractor
+│   │   │   ├── index.d.ts
+│   │   │   └── typings.json
+│   │   ├── assertion-error
+│   │   │   ├── index.d.ts
+│   │   │   └── typings.json
+│   │   ├── jasmine
+│   │   │   ├── index.d.ts
+│   │   │   └── typings.json
+│   │   └── selenium-webdriver
+│   │       ├── index.d.ts
+│   │       └── typings.json
+│   ├── index.d.ts
+│   └── modules
+│       ├── node-uuid
+│       │   ├── index.d.ts
+│       │   └── typings.json
+│       ├── react
+│       │   ├── index.d.ts
+│       │   └── typings.json
+│       └── react-dom
+│           ├── index.d.ts
+│           └── typings.json
+└── typings.json
 ```
