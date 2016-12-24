@@ -205,8 +205,8 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 │   │               ├── ac2_navigator_shows_user_profile.robot
 │   │               └── ac3_able_to_navigate_to_links.robot
 │   └── tsconfig.json
-├── filestructure.md
 ├── karma.conf.js
+├── node_modules
 ├── nodemon.json
 ├── package.json
 ├── protractor.conf.js
