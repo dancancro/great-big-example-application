@@ -1,18 +1,31 @@
-import {NgModule}      from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '@angular/material';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { BCNavigatorModule, bcNavComponents } from './bc-navigator/navigator.module';
-import { RioNavigatorModule, rioNavComponents } from './rio-navigator/navigator.module';
+import { LayoutComponent } from './layout.component';
+import { NavItemComponent } from './nav-item.component';
+import { SidenavComponent } from './sidenav.component';
+import { ToolbarComponent } from './toolbar.component';
 
-export const navComponents = [
-    ...bcNavComponents,
-//    ...rioNavComponents
+
+export const bcNavComponents = [
+  LayoutComponent,
+  NavItemComponent,
+  SidenavComponent,
+  ToolbarComponent
 ];
+
 
 @NgModule({
   imports: [
-    BCNavigatorModule,
- //   RioNavigatorModule
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    RouterModule
   ],
-  exports: navComponents
+  declarations: bcNavComponents,
+  exports: bcNavComponents
 })
 export class NavigatorModule { }
