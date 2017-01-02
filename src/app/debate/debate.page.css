@@ -1,17 +1,29 @@
-/* TODO: figure out how to make the top of this the bottom of the nav bar */
-.heading {
-  background-color: white;
-  font-size: 20px;
-  position: fixed;
-  top: 90px;
-  width: 100%;
-  z-index: 1;
-}
-
 ul {
   list-style: none;
 }
 
 .touched {
   background-color: beige;
+}
+
+.subheader {
+  background: green;
+  height: 30px;
+  width: 100%;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  z-index: 1;
+}
+
+.content-container {
+  margin-top: 80px;
+}
+
+[id]:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -80px; 
+  height: 80px; 
+  visibility: hidden; 
 }

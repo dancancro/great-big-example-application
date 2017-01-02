@@ -1,7 +1,6 @@
 <rio-login-modal (onSubmit)="loginUser($event)" [hasError]="hasError$ | async" [isPending]="isLoading$ | async" *ngIf="loggedOut$ | async">
 </rio-login-modal>
 <bc-layout>
-  <rio-logo></rio-logo>
   <bc-sidenav [open]="showSidenav$ | async">
     <bc-nav-item (activate)="closeSidenav()" routerLink="/books" icon="book" hint="View your book collection">
       My Collection
@@ -31,11 +30,8 @@
       About
     </bc-nav-item>
   </bc-sidenav>
-  <bc-toolbar (openMenu)="openSidenav()">
+  <bc-toolbar (openMenu)="openSidenav()" class="header">
     <app-title [subtitle]="subtitle"></app-title>
-    <bc-nav-item *ngIf="loggedIn$ | async">
-      {{ firstName$ | async }} {{ lastName$ | async }}
-    </bc-nav-item>
     <rio-button className="bg-red white" (click)="logoutUser()" [hidden]="loggedOut$ | async">
       Logout
     </rio-button>

@@ -10,7 +10,8 @@ differential, then it makes more sense to learn how to make a real application b
 real application than a lot of separate, simplified instructional material. And I've discovered that repeating the
 prevailing process doesn't help either. Building go-kart number 1 is great to get you started without too much anxiety,
 but building go-kart number 2, 3, 4 or 5 isn't going to make you any better able to build real car number 1. It just
-makes you less sure about how to do that because it introduces conflicting advice.
+makes you less sure about how to do that because it introduces conflicting advice. It's as productive as running the
+first mile of a marathon over and over and over.
 
 Hopefully, when the project is done it will make the learning process for others much easier and prepare them to
 make real things rather than instructional ones. I expect it to reduce the time to implement your own real
@@ -88,43 +89,87 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 ## Demonstrations and Features
 
-|  **Developer Experience** | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
-|  :------ | :------: | :------: | :------: | :------: | :------: |
-|  Immutable data | Y | Y |  | Y | Y |
-|  Centralized actions and mutations | Y | Y |  | Y | Y |
-|  Async bound JSON data (RxJS + Angular 2 async pipe) | Y |  |  | Y |  |
-|  Many-to-many data | Y |  |  |  |  |
-|  Feature module with nested/coupled, logic-free components | Y |  |  | Y |  |
-|  Inter-component communication with events | Y |  |  | Y |  |
-|  Rewind/playback (Redux dev tools) | Y | Y |  | Y | Y |
-|  State inspection (Redux dev tools) | Y | Y |  | Y | Y |
-|  Compartmentalized CSS (Angular 2) | Y | Y | Y | Y | Y |
-|  Routing (Angular 2) | Y | Y | Y | Y | Y |
-|  Build, source mapping, hot reloading, minification, bundling | Y | Y | Y | Y | Y |
-|  Type safety (Typescript) | Y | Y | Y | Y | Y |
-|  Derived, computed attributes | Y |  |  |  |  |
-|  Update your code as starter code evolves | Y |  | Y | Y |  |
-|  Ahead of time compilation (Angular 2) | Y | Y | Y | Y | Y |
-|  Lazy loading (Angular 2) | Y | Y | Y | Y |  |
-|  Deploy on GitHub pages | Y |  | Y | Y |  |
-|  Style checking (ESLint, TSLint) | Y | Y | Y | Y | Y |
-|  Testing |  | Y |  | Y | Y |
-|  [Use tomorrow's CSS today](https://www.npmjs.com/package/postcss-cssnext) |  | Y |  |  |  |
-|  Debug server-side code | Y |  |  |  |  |
-|  Docker deployment |  | Y |  |  | Y |
-|   |  |  |  |  |  |
-|  **User Experience** | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
-|  Local storage | Y | Y |  | Y |  |
-|  Validation | Y | Y |  |  |  |
-|  Authentication | Y | Y |  |  |  |
-|  Responsive styling | Y | Y |  | Y |  |
-|  Editable lists | Y |  |  |  |  |
-|  Drag and drop | Y |  |  |  |  |
-|  Single-record save | Y |  |  | Y |  |
-|  Tree-level save | Y |  |  |  |  |
-|  Internationalization |  |  |  |  | Y |
-|  Native mobile |  |  |  |  | Y |
-|  Cross-platform Desktop |  |  |  |  | Y |
+|  **Developer Experience** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  :------ | :------: | :------: | :------: | :------: | :------: | :------: |
+|  Ahead of time compilation | Y | Y | Y | Y | Y | Y |
+|  Async bound JSON data | Y | Y |  |  | Y |  |
+|  Build, source mapping, hot reloading, minification, bundling | Y | Y | Y | Y | Y | Y |
+|  Centralized actions and state management | Y | Y | Y |  | Y | Y |
+|  Code Coverage | Y |  |  |  |  | Y |
+|  Compartmentalized CSS | Y | Y | Y | Y | Y | Y |
+|  Continuous Integration | Y | Y |  |  |  | Y |
+|  Debug server-side code | Y | Y |  |  |  |  |
+|  Deploy on GitHub pages | Y | Y |  | Y | Y |  |
+|  Derived, computed attributes | Y | Y |  |  |  |  |
+|  Docker deployment | Y |  | Y |  |  | Y |
+|  E2E Testing | Y |  | Y |  |  | Y |
+|  Feature module with nested/coupled, logic-free components | Y | Y |  |  | Y |  |
+|  Immutable data | Y | Y | Y |  | Y | Y |
+|  Inter-component communication with events | Y | Y |  |  | Y |  |
+|  Lazy loading | Y | Y | Y | Y | Y |  |
+|  Many-to-many data | Y | Y |  |  |  |  |
+|  Rewind/playback | Y | Y | Y |  | Y | Y |
+|  Routing | Y | Y | Y | Y | Y | Y |
+|  State inspection | Y | Y | Y |  | Y | Y |
+|  Style checking | Y | Y | Y | Y | Y | Y |
+|  Type safety | Y | Y | Y | Y | Y | Y |
+|  Unit Testing | Y |  | Y |  |  | Y |
+|  Update your code as starter code evolves | Y | Y |  | Y | Y |  |
+|  [Use tomorrow's CSS today](https://www.npmjs.com/package/postcss-cssnext) | Y |  | Y |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|   |  |  |  |  |  |  |
+|  **User Experience** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  Analytics | Y |  |  |  |  | Y |
+|  Authentication | Y | Y | Y |  |  |  |
+|  Cross-platform Desktop | Y |  |  |  |  | Y |
+|  Drag and drop | Y | Y |  |  |  |  |
+|  Editable lists | Y | Y |  |  |  |  |
+|  External API calls | Y | Y |  |  | Y |  |
+|  Internationalization | Y |  |  |  |  | Y |
+|  Local storage | Y | Y | Y |  | Y |  |
+|  Native mobile | Y |  |  |  |  | Y |
+|  Responsive styling | Y | Y | Y |  | Y |  |
+|  Single-record save | Y | Y |  |  | Y |  |
+|  Tree-level save | Y | Y |  |  |  |  |
+|  Validation | Y | Y | Y |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|   |  |  |  |  |  |  |
+|  **Concepts and Practices** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  Core Module | Y | Y |  |  |  | [Y](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/frameworks/core/core.module.ts) |
+|  Shared Module | Y | Y |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|   |  |  |  |  |  |  |
+|  **Libraries** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  Build | Webpack | Webpack | Webpack | Webpack | Webpack | SystemJS + Gulp |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
+|  ?????? | Y |  |  |  |  |  |
 
 
 ## File Structure

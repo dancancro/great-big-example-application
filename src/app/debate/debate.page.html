@@ -1,4 +1,4 @@
-<div class="heading">
+<div class="subheader">
   <div class="row">
     <div class="block mx-auto">
       <button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All
@@ -23,13 +23,15 @@
     </div>
   </div>
 </div>
-<ul id="claim-list" [sortablejs]="claims$ | async" (update)="reorderClaims($event)">
-  <li *ngFor="let claim of claims$ | async">
-    <debate-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
-      (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-      (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></debate-claim>
-  </li>
-</ul>
+<section class="content-container">
+  <ul id="claim-list" [sortablejs]="claims$ | async" (update)="reorderClaims($event)">
+    <li *ngFor="let claim of claims$ | async">
+      <debate-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
+        (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
+        (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></debate-claim>
+    </li>
+  </ul>
+</section>
 
 <br><br><br><br><br><br><br><br><br><br><br>
 <!--
