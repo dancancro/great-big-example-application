@@ -3,6 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/takeLast';
+import 'rxjs/add/operator/combineLatest';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../core/store';
 import * as claimActions from '../core/store/claim/claim.actions';
@@ -32,20 +37,39 @@ export class DebatePage {
   expanded: boolean;
   editable: boolean;
   pageSubscription: Subscription;
+  claimsSubscription: Subscription;
 
   private subscription: any;
   options: SortablejsOptions = {
     disabled: false
   };
 
-  constructor(private store: Store<fromRoot.RootState>) {
+  constructor(private store: Store<fromRoot.RootState>,
+    private route: ActivatedRoute, ) {
     this.page$ = store.select(fromRoot.getDebatePageState);
     this.claims$ = store.select(fromRoot.getDeepClaims);
     this.loading$ = store.select(fromRoot.getSearchLoading);
     this.pageSubscription = this.page$.subscribe((page) => {
       this.expanded = page.expanded;
       this.editable = page.editable;
-    })
+    });
+
+    // this.claims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
+    // this.claims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
+
+    // this.claims$.subscribe(claim => {
+    //   console.log('claims')
+    // });
+
+    // this.claimsSubscription = combineLatest(
+    //   this.claims$,
+    //   this.route.params)
+    //   .subscribe(([claims, params]) => {
+    //     let id = +params['claimId'];
+    //     if (id && claims && claims.length > 0 && claims.find(claim => claim.id === id)) {
+    //       console.log('found');
+    //     }
+    //   });
   }
 
   toggleEditable() {

@@ -235,7 +235,7 @@ export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, i
 /**
  * Claims Reducers
  */
-export const getClaimsState = (state: RootState) => state.claims;
+export const getClaimsState = (state: RootState): Entities<Claim> => state.claims;
 export const getClaimEntities = createSelector(getClaimsState, fromClaims.getEntities);
 export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
@@ -245,7 +245,7 @@ export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities
 /**
  * Rebuttal Reducers
  */
-export const getRebuttalsState = (state: RootState) => state.rebuttals;
+export const getRebuttalsState = (state: RootState): Entities<Rebuttal> => state.rebuttals;
 export const getRebuttalEntities = createSelector(getRebuttalsState, fromRebuttals.getEntities);
 export const getRebuttalIds = createSelector(getRebuttalsState, fromRebuttals.getIds);
 export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, (entities, ids) => {
@@ -255,7 +255,7 @@ export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, 
 /**
  * ClaimRebuttal Reducers
  */
-export const getClaimRebuttalsState = (state: RootState) => state.claimRebuttals;
+export const getClaimRebuttalsState = (state: RootState): Entities<ClaimRebuttal> => state.claimRebuttals;
 export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
 export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
 export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
