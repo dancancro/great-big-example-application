@@ -4,14 +4,11 @@
 This project is an attempt by an unemployed non-college-student to infer from available demos what the codebase might
 look like for the real-world, commercial SPAs that you don't get to see until you are hired by a real company.
 
-The rationale behind this is pretty simple. People need to learn how to make real applications before they get a job.
-If it's easier and more sensible to learn real automechanics by studying a real car than a bicycle, a go-kart and a
-differential, then it makes more sense to learn how to make a real application by getting your eyes on source code of a
-real application than a lot of separate, simplified instructional material. And I've discovered that repeating the
-prevailing process doesn't help either. Building go-kart number 1 is great to get you started without too much anxiety,
-but building go-kart number 2, 3, 4 or 5 isn't going to make you any better able to build real car number 1. It just
-makes you less sure about how to do that because it introduces conflicting advice. It's as productive as running the
-first mile of a marathon over and over and over.
+It took way too long for me to find this but I recently came across this other,
+[great example Angular app](https://github.com/born2net/Angular-kitchen-sink). Do check it out. It was made by experts,
+not beginners.
+
+The rationale behind this is pretty simple. Code examples are better than docs.
 
 Hopefully, when the project is done it will make the learning process for others much easier and prepare them to
 make real things rather than instructional ones. I expect it to reduce the time to implement your own real
@@ -35,13 +32,12 @@ lower influence yielding to the higher one:
 3. [Tour of Heroes - Routing version](https://angular.io/resources/live-examples/router/ts/plnkr.html) by Google
 4. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 5. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
-6. [redux-orm-primer - todo app](https://github.com/tommikaikkonen/redux-orm-primer) by [@tommikaikkonen](https://github.com/tommikaikkonen)
-7. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
-8. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+6. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+7. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
 In addition to the features from these demos, I added one of my own. I replaced
 
-9. [this other project](http://www.bernierebuttals.org) 
+8. [this other project](http://www.bernierebuttals.org) 
 
 which was made with JQuery and Google Scripts. The data is 
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
@@ -89,87 +85,59 @@ Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 ## Demonstrations and Features
 
-|  **Developer Experience** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
-|  :------ | :------: | :------: | :------: | :------: | :------: | :------: |
-|  Ahead of time compilation | Y | Y | Y | Y | Y | Y |
-|  Async bound JSON data | Y | Y |  |  | Y |  |
-|  Build, source mapping, hot reloading, minification, bundling | Y | Y | Y | Y | Y | Y |
-|  Centralized actions and state management | Y | Y | Y |  | Y | Y |
-|  Code Coverage | Y |  |  |  |  | Y |
-|  Compartmentalized CSS | Y | Y | Y | Y | Y | Y |
-|  Continuous Integration | Y | Y |  |  |  | Y |
-|  Debug server-side code | Y | Y |  |  |  |  |
-|  Deploy on GitHub pages | Y | Y |  | Y | Y |  |
-|  Derived, computed attributes | Y | Y |  |  |  |  |
-|  Docker deployment | Y |  | Y |  |  | Y |
-|  E2E Testing | Y |  | Y |  |  | Y |
-|  Feature module with nested/coupled, logic-free components | Y | Y |  |  | Y |  |
-|  Immutable data | Y | Y | Y |  | Y | Y |
-|  Inter-component communication with events | Y | Y |  |  | Y |  |
-|  Lazy loading | Y | Y | Y | Y | Y |  |
-|  Many-to-many data | Y | Y |  |  |  |  |
-|  Rewind/playback | Y | Y | Y |  | Y | Y |
-|  Routing | Y | Y | Y | Y | Y | Y |
-|  State inspection | Y | Y | Y |  | Y | Y |
-|  Style checking | Y | Y | Y | Y | Y | Y |
-|  Type safety | Y | Y | Y | Y | Y | Y |
-|  Unit Testing | Y |  | Y |  |  | Y |
-|  Update your code as starter code evolves | Y | Y |  | Y | Y |  |
-|  [Use tomorrow's CSS today](https://www.npmjs.com/package/postcss-cssnext) | Y |  | Y |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|   |  |  |  |  |  |  |
-|  **User Experience** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
-|  Analytics | Y |  |  |  |  | Y |
-|  Authentication | Y | Y | Y |  |  |  |
-|  Cross-platform Desktop | Y |  |  |  |  | Y |
-|  Drag and drop | Y | Y |  |  |  |  |
-|  Editable lists | Y | Y |  |  |  |  |
-|  External API calls | Y | Y |  |  | Y |  |
-|  Internationalization | Y |  |  |  |  | Y |
-|  Local storage | Y | Y | Y |  | Y |  |
-|  Native mobile | Y |  |  |  |  | Y |
-|  Responsive styling | Y | Y | Y |  | Y |  |
-|  Single-record save | Y | Y |  |  | Y |  |
-|  Tree-level save | Y | Y |  |  |  |  |
-|  Validation | Y | Y | Y |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|   |  |  |  |  |  |  |
-|  **Concepts and Practices** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
-|  Core Module | Y | Y |  |  |  | [Y](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/frameworks/core/core.module.ts) |
-|  Shared Module | Y | Y |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|   |  |  |  |  |  |  |
+| **Developer Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[angular2-redux-starter](https://github.com/rangle/angular2-redux-starter)|[angular-cli](https://github.com/angular/angular-cli)|[ngrx example app](https://github.com/ngrx/example-app)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
+|:------ | :------: | :------: | :------: | :------: | :------: |
+[Authentication](https://github.com/born2net/Angular-kitchen-sink/blob/7260a89a3f968243e642b20c9fd6775ba59eaf41/src/services/DefaultAuthService.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/session/session.effects.ts#L26)|[X](https://github.com/rangle/angular2-redux-example/blob/master/src/epics/session.epics.ts#L20)| | | |
+[Client-side unit tests](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts "")| |[X](https://github.com/rangle/angular2-redux-example/blob/master/src/components/button/button.component.test.ts)| | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/components/app.component.spec.ts)|
+[Code coverage reporting (?)](http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and "Generate reports that tell you how much of your code is being tested")|[X](http://mochajs.org/)|X|[X](http://mochajs.org/)|[X](http://mochajs.org/)| |
+[Command line interface (CLI)](https://github.com/Hashnode/mern-cli "")|X|X|X|X| |
+[Components communicate with events](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11 "")|X| | |X| |
+[Core Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-12 "")|[**X**](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts)| | | | |
+CSS style checking|**X**| | | | |
+[Deployment automation, to a mobile native executable](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")| | | | |[**X**](https://github.com/NathanWalker/angular-seed-advanced#electron-app)|
+[Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")| |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile)| | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml)|
+[Deployment automation, using Github Pages](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli)| |[X](https://github.com/angular/angular-cli)|[X](https://github.com/angular/angular-cli)| |
+[End-to-end tests (?)](https://github.com/born2net/Angular-kitchen-sink/tree/master/e2e "end-to-end tests    Protractor is recommended over karma e2e.  See http://karma-runner.github.io/0.10/intro/faq.html    Protractor \"runs atop\" WebDriver which \"runs atop\" Selenium")| |[X](https://github.com/rangle/angular2-redux-example/tree/master/e2e/robot)| |X|[X](https://github.com/NathanWalker/angular-seed-advanced/tree/master/src/e2e)|
+[Error handling, Server-side logging](http://mean.io/network#features-menu "")|[X](http://expressjs.com/guide/error-handling.html)|[X](http://expressjs.com/guide/error-handling.html)| | |[X](http://expressjs.com/guide/error-handling.html)|
+In-memory server-side database|[X](http://expressjs.com/guide/database-integration.html)|[X](http://expressjs.com/guide/database-integration.html)| | |[X](http://expressjs.com/guide/database-integration.html)|
+[JavaScript 5 best practices, Doesn't use JQuery (?)](https://github.com/gocardless/angularjs-style-guide#anti-patterns "You should use directives instead")| |[X](https://www.airpair.com/js/javascript-framework-comparison)|[X](https://www.airpair.com/js/javascript-framework-comparison)| |[X](https://www.airpair.com/js/javascript-framework-comparison)|
+[Live Retest (?)](https://github.com/meanjs/mean/pull/157 "Tests automatically run any time you save a change. Does not require rebuilding the distributions")| | |[**X**](http://mochajs.org/)| | |
+[Local storage](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/services/LocalStorage.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123)|X| |X| |
+[Persistent data storage (?)](http://hammerprinciple.com/databases "See link for a good explanation of NoSQL options and solutions to normalization issues")|[X](http://expressjs.com/guide/database-integration.html)|[X](http://expressjs.com/guide/database-integration.html)| | |[X](http://expressjs.com/guide/database-integration.html)|
+[Separation of smart containers and dumb components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "")|X| | |X| |
+[Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")|X| |X|X| |
+[Shared Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-10 "")|[**X**](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/shared/shared.module.ts)| | | | |
+[Single source of truth, central state management (?)](http://www.reddit.com/r/javascript/comments/2uvz0x/whats_so_great_about_reactjs/ "only one piece of the application flow is tasked with mutating state data")|X|X| |X|X|
+State inspection tools|X|X| |X|X|
+[Style guide for code](https://github.com/Swiip/generator-gulp-angular/pull/469 "")|[**X**](https://angular.io/docs/ts/latest/guide/style-guide.html)| | | | |
+[There is a book about it](http://www.amazon.com/MEAN-Web-Development-Amos-Haviv-ebook/dp/B00NXWI1BM/ref=dp_kinw_strp_1 "")| |[**X**](http://angular-2-training-book.rangle.io/)| | | |
+[Time travel, undo (?)](http://redux.js.org/docs/recipes/ImplementingUndoHistory.html "You can move forward and backward through a series of state changes")|X|X| |X|X|
+[Update generated code in an existing app](https://jhipster.github.io/upgrading-an-application/ "")|[X](https://github.com/angular/angular-cli#updating-angular-cli)| |[X](https://github.com/angular/angular-cli#updating-angular-cli)|[X](https://github.com/angular/angular-cli#updating-angular-cli)| |
+|  | | | | |
+| **User Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[angular2-redux-starter](https://github.com/rangle/angular2-redux-starter)|[angular-cli](https://github.com/angular/angular-cli)|[ngrx example app](https://github.com/ngrx/example-app)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
+[Account Management, login/logout](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/entry/EntryPanel.ts "")|X|[X](https://github.com/rangle/angular2-redux-example/tree/master/src/components/login)| | | |
+[Analytics](https://github.com/NathanWalker/angular-seed-advanced "")|[X](https://www.google.com/analytics)| |[X](https://www.google.com/analytics)|[X](https://www.google.com/analytics)|[X](https://github.com/NathanWalker/angular-seed-advanced)|
+[Asynchronously loaded data example](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32)| | |X|X|
+[Derived, computed properties](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/models/ServerModel.js#L35 "")|[**X**](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/claim/claim.model.ts#L27-L29)| | | | |
+[External, 3rd party, API interaction](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts "")|X| | |X| |
+[Full-stack CRUD (?)](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "CRUD = Create,Read,Update, Delete    The example demonstrates creating, reading, updating and deleting from a database through a web page user interface.  It includes seed data and does not require a lot of work to get the app connected to a database")|**X**| | | | |
+[Full-stack CRUD, with Create, Update and Delete](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|**X**| | | | |
+[Full-stack CRUD, with Create, Update and Delete, individual records](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|**X**| | | | |
+Full-stack CRUD, with Create, Update and Delete, whole data structures|**X**| | | | |
+[Full-stack CRUD, with Read](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|**X**| | | | |
+[Grid, Editable](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/debate "")|[**X**](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/debate)| | | | |
+[i18n, localization (?)](https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358#.4auugsg27 "Internationalization or localization    Text for different languages are stored in separate places and used to fill in placeholders in the view depending on the user's preferences")|[X](https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358#.4auugsg27)| |[X](https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358#.4auugsg27)|[X](https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358#.4auugsg27)|X|
+[Many-to-many data](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/index.ts#L265 "")|[**X**](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/index.ts#L265)| | | | |
+[Navigation bar](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/app.page.html "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/app.page.html)| | |[X](https://github.com/ngrx/example-app/blob/master/src/app/containers/app.ts#L15)| |
+[Panels, draggable](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts "")|**X**| | | | |
+[Responsive styles](https://github.com/dancancro/great-big-angular2-example/blob/166ae9353bd6ff34badbc045b2044cf417c6d8c5/src/assets/styles/flexbox.css#L4 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/166ae9353bd6ff34badbc045b2044cf417c6d8c5/src/assets/styles/flexbox.css#L4)|[X](https://github.com/rangle/angular2-redux-example/blob/2c541e5ce057111c32464ccee3624ab50d84f084/src/components/modal/modal.css#L7)| | | |
+[Search, actually works with backend API](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/books/book-search/book-search.component.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/books/book-search/book-search.component.ts)| | |[X](https://github.com/ngrx/example-app/blob/master/src/app/components/book-search.ts)| |
 |  **Libraries** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
 |  Build | Webpack | Webpack | Webpack | Webpack | Webpack | SystemJS + Gulp |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
-|  ?????? | Y |  |  |  |  |  |
+|  ?????? | ? |  |  |  |  |  |
+|  ?????? | ? |  |  |  |  |  |
+|  ?????? | ? |  |  |  |  |  |
+|  ?????? | ? |  |  |  |  |  |
 
 
 ## File Structure
