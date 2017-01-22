@@ -135,17 +135,18 @@ function getDependencies() {
   }
 }
 
-// all other routes are handled by Angular
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../../dist/index.html'));
-});
-
 // API proxy logic: if you need to talk to a remote server from your client-side
 // app you can proxy it though here by editing ./proxy-config.js
+// just there to let you pipe any 3rd party server requests from the browser through your own backend so you avoid CORS issues
 nodeProxy(app);
 
 // Serve the distributed assets and allow HTML5 mode routing. NB: must be last.
 nodeAppServer(app);
+
+// all other routes are handled by Angular
+// app.get('/*', function (req, res) {
+//   res.sendFile(path.join(__dirname, '/../../dist/index.html'));
+// });
 
 // Start up the server.
 app.listen(PORT, (err) => {
