@@ -31,7 +31,7 @@
     "test:watch": "karma start --singleRun false",
     "typings": "rimraf typings/ && typings install",
     "debug-server": "cross-env NODE_ENV=development PORT=3000 nodemon --nolazy --debug-brk=5858 server/node-server.js",
-    "postinstall": "ng build --prod --aot"
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
