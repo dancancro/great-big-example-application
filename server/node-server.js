@@ -144,9 +144,9 @@ nodeProxy(app);
 nodeAppServer(app);
 
 // all other routes are handled by Angular
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, '/../../dist/index.html'));
-// });
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../../dist/index.html'));
+});
 
 // Start up the server.
 app.listen(PORT, (err) => {

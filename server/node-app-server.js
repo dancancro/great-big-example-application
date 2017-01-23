@@ -18,5 +18,5 @@ module.exports = (app) => {
   // this says "if node doesn't recognize the URL path, serve index.html"
   // this is what allows deep linking to application routes to work
   // it provides the same functionality as webpack-dev-server's 'apiHistoryFallback'
-  app.get('*', (req, res) => res.sendFile(path.join(distPath, indexFileName)));
+  //  app.get('*', (req, res) => res.sendFile(path.join(distPath, indexFileName)));
 };
