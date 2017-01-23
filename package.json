@@ -123,10 +123,10 @@
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
     "tslint-loader": "^2.1.0",
-    "typescript": "~2.0.3",
+    "typescript": "2.0.0",
     "webdriver-manager": "10.2.5",
     "webpack": "2.1.0-beta.22",
-    "webpack-dev-server": "^2.1.0-beta.12",
+    "webpack-dev-server": "^2.2.0",
     "webpack-hot-middleware": "^2.12.2",
     "webpack-split-by-path": "^0.1.0-beta.1"
   }

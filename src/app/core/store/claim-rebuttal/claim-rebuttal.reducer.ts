@@ -21,8 +21,8 @@ export function reducer(state = initialEntities<ClaimRebuttal>(),  // For this o
       entities = Object.assign({}, state.entities);
       let ids = state.ids;
       var crid = Object.keys(entities).find(crid => {
-        return state.entities[crid].claimId == (<any>action.payload).claim.id &&       // TODO: fix id string/number problem
-          state.entities[crid].rebuttalId == (<any>action.payload).rebuttal.id;  // TODO: fix this typecast 
+        return state.entities[crid].claimId == (<any>action).payload.claim.id &&       // TODO: fix id string/number problem
+          state.entities[crid].rebuttalId == (<any>action).payload.rebuttal.id;  // TODO: fix this typecast 
       })
       if (crid) {
         delete entities[crid];
