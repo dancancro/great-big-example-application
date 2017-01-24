@@ -132,12 +132,12 @@ Full-stack CRUD, with Create, Update and Delete, whole data structures|**X**| | 
 [Panels, draggable](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts "")|**X**| | | | |
 [Responsive styles](https://github.com/dancancro/great-big-angular2-example/blob/166ae9353bd6ff34badbc045b2044cf417c6d8c5/src/assets/styles/flexbox.css#L4 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/166ae9353bd6ff34badbc045b2044cf417c6d8c5/src/assets/styles/flexbox.css#L4)|[X](https://github.com/rangle/angular2-redux-example/blob/2c541e5ce057111c32464ccee3624ab50d84f084/src/components/modal/modal.css#L7)| | | |
 [Search, actually works with backend API](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/books/book-search/book-search.component.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/books/book-search/book-search.component.ts)| | |[X](https://github.com/ngrx/example-app/blob/master/src/app/components/book-search.ts)| |
-|  **Libraries** | A Commercial Application | This one | [Rangle-starter](https://www.npmjs.com/package/rangle-starter) | [Angular-CLI](https://github.com/angular/angular-cli/tree/master/packages/angular-cli/blueprints/ng2/files/__path__) | [ngrx example](https://github.com/ngrx/example-app) | [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) |
+|  **Libraries** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[angular2-redux-starter](https://github.com/rangle/angular2-redux-starter)|[angular-cli](https://github.com/angular/angular-cli)|[ngrx example app](https://github.com/ngrx/example-app)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
 |  Build | Webpack | Webpack | Webpack | Webpack | Webpack | SystemJS + Gulp |
-|  ?????? | ? |  |  |  |  |  |
-|  ?????? | ? |  |  |  |  |  |
-|  ?????? | ? |  |  |  |  |  |
-|  ?????? | ? |  |  |  |  |  |
+|  ?????? |  |  |  |  |  |  |
+|  ?????? |  |  |  |  |  |  |
+|  ?????? |  |  |  |  |  |  |
+|  ?????? |  |  |  |  |  |  |
 
 
 ## File Structure
