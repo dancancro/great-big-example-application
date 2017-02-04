@@ -83,6 +83,9 @@ $ ng test
 
 Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
+## Special Heroku instruction
+Set Config var NPM_CONFIG_PRODUCT to false on the Settings tab of your app admin page.
+
 ## Demonstrations and Features
 
 | **Developer Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[angular2-redux-starter](https://github.com/rangle/angular2-redux-starter)|[angular-cli](https://github.com/angular/angular-cli)|[ngrx example app](https://github.com/ngrx/example-app)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
