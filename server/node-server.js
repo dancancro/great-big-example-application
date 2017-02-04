@@ -4,7 +4,6 @@ const express = require('express');
 const winston = require('winston');
 const helmet = require('helmet');
 const nodeProxy = require('./node-proxy');
-const nodeAppServer = require('./node-app-server');
 const authPassport = require('./auth-passport');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -23,6 +22,8 @@ const packageJson = require('package-json');
 
 const app = express();
 const PORT = process.env.PORT || 8080; // set in package.json to 3000. I don't know why 8080 is here'
+const distPath = path.join(__dirname, '../dist');
+const indexFileName = 'index.html';
 
 
 authPassport.readUsers()
@@ -140,13 +141,9 @@ function getDependencies() {
 // just there to let you pipe any 3rd party server requests from the browser through your own backend so you avoid CORS issues
 nodeProxy(app);
 
-// Serve the distributed assets and allow HTML5 mode routing. NB: must be last.
-nodeAppServer(app);
-
 // all other routes are handled by Angular
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../../dist/index.html'));
-});
+app.use(express.static(distPath));
+app.get('*', (req, res) => res.sendFile(path.join(distPath, indexFileName)));
 
 // Start up the server.
 app.listen(PORT, (err) => {
