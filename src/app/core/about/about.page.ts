@@ -13,7 +13,7 @@ import { RioContainerComponent } from '../../shared/container/container.componen
         to make large ones. Being unemployed it wasn't possible for me to see
         how big apps are made.
       </p>
-      <p><a href="https://github.com/dancancro/great-big-angular2-example">Source Code</a>
+      <p><a href="https://github.com/dancancro/great-big-angular2-example">Source Code</a></p>
     </rio-container>
   `
 })
