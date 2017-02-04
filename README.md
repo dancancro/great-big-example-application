@@ -47,8 +47,6 @@ and served as JSON by a Google script.
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
 
-You will also need to install the `typings` NPM package globally via `npm i -g typings`.
-
 You will also need to install the `angular-cli` NPM package globally via `npm i -g angular-cli`.
 
 
@@ -61,10 +59,7 @@ $ git clone https://github.com/dancancro/great-big-angular2-example.git
 $ cd great-big-angular2-example
 
 # Install dependencies
-$ npm i
-
-# Install typescript definitions
-$ typings install
+$ npm install
 
 # Run the backend server in debug mode
 Select Launch via NPM from VSCode debug menu. Click DEBUG.
@@ -114,6 +109,7 @@ Dedicated/searchable user group for questions, response time mostly under a day|
 [Deployment automation, to a mobile native executable](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")| | | | |[**X**](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")|
 [Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")| | |[X](https://github.com/jhipster/generator-jhipster/blob/master/Dockerfile "")|[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml "")|
 [Deployment automation, using Github Pages](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")| | | |
+[Deployment automation, using Heroku (?)](https://github.com/jhipster/generator-jhipster/issues/1288 "Generates a dist folder that is deployment ready for heroku.com    Heroku is an interface to Amazon's US East EC2 region")|[X](http://great-big-angular2-example.herokuapp.com "")| |[X](https://github.com/jhipster/generator-jhipster/issues/1288 "")| | |
 [Development build, html page processing, inject references automatically (?)](https://www.npmjs.com/package/gulp-inject "Just put your javascript files in the right place and references to them will be automatically inserted into the html files at build time.  Or they will be concatenated and a reference to the concatenated file will be put into the html files")| | |**X**| | |
 [End-to-end tests (?)](https://github.com/born2net/Angular-kitchen-sink/tree/master/e2e "end-to-end tests    Protractor is recommended over karma e2e.  See http://karma-runner.github.io/0.10/intro/faq.html    Protractor \"runs atop\" WebDriver which \"runs atop\" Selenium")| |[X](https://github.com/born2net/Angular-kitchen-sink/tree/master/e2e "")|X|[X](https://github.com/rangle/angular2-redux-example/tree/master/e2e/robot "")|[X](https://github.com/NathanWalker/angular-seed-advanced/tree/master/src/e2e "")|
 [FEATURE (a.k.a. module, entity) generator (?)](https://github.com/DaftMonk/generator-angular-fullstack/issues/524 "The whole nine yards for a feature - view, business layer, routing, configuration, controller")| | |**X**| | |
