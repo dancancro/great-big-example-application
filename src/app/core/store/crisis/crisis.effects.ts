@@ -41,9 +41,9 @@ export class CrisisEffects {
     .withLatestFrom(this.store.select('crises'))
     .switchMap(([{}, crises]) =>
       Observable   // first element is action, but it isn't used
-        .from(crises.ids)
-        .filter((id: string) => crises.entities[id].dirty)
-        .switchMap((id: string) => this.dataService.addOrUpdateCrisis(crises.entities[id]))
+        .from((<any>crises).ids)
+        .filter((id: string) => (<any>crises).entities[id].dirty)
+        .switchMap((id: string) => this.dataService.addOrUpdateCrisis((<any>crises).entities[id]))
         .map((responseCrisis: Crisis) => new crisis.UpdateCrisisSuccessAction(responseCrisis))
     );
 

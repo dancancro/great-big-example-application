@@ -20,30 +20,30 @@ import * as hero from './hero.actions';
 export class HeroEffects {
   constructor(private store: Store<Hero>,
     private dataService: DataService,
-    private action$: Actions) {}
+    private action$: Actions) { }
 
-@Effect()
-load$ = this.action$
-  .ofType(hero.ActionTypes.LOAD)
-  .startWith(new hero.LoadAction())
-  .switchMap(() =>
-    this.dataService.getHeroes()
-    .mergeMap(fetchedHeros => Observable.from(fetchedHeros))
-    .map((fetchedHero: Hero) => new hero.LoadSuccessAction(fetchedHero))  // one action per hero
-    .catch(() => Observable.of(new hero.UpdateHeroFailAction()))
-);
+  @Effect()
+  load$ = this.action$
+    .ofType(hero.ActionTypes.LOAD)
+    .startWith(new hero.LoadAction())
+    .switchMap(() =>
+      this.dataService.getHeroes()
+        .mergeMap(fetchedHeros => Observable.from(fetchedHeros))
+        .map((fetchedHero: Hero) => new hero.LoadSuccessAction(fetchedHero))  // one action per hero
+        .catch(() => Observable.of(new hero.UpdateHeroFailAction()))
+    );
 
-@Effect()
-update$ = this.action$
-.ofType(hero.ActionTypes.UPDATE_HERO,
-        hero.ActionTypes.ADD_HERO)
-.withLatestFrom(this.store.select('heros'))
-.switchMap(([{}, heros]) => 
-  Observable   // first element is action, but it isn't used
-    .from(heros.ids)
-    .filter((id: string) => heros.entities[id].dirty)
-    .switchMap((id: string) => this.dataService.addOrUpdateHero(heros.entities[id]))
-    .map((responseHero: Hero) => new hero.UpdateHeroSuccessAction(responseHero))
-);
+  @Effect()
+  update$ = this.action$
+    .ofType(hero.ActionTypes.UPDATE_HERO,
+    hero.ActionTypes.ADD_HERO)
+    .withLatestFrom(this.store.select('heros'))
+    .switchMap(([{}, heros]) =>
+      Observable   // first element is action, but it isn't used
+        .from((<any>heros).ids)
+        .filter((id: string) => (<any>heros).entities[id].dirty)
+        .switchMap((id: string) => this.dataService.addOrUpdateHero((<any>heros).entities[id]))
+        .map((responseHero: Hero) => new hero.UpdateHeroSuccessAction(responseHero))
+    );
 
 }

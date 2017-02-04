@@ -23,9 +23,7 @@ import { ClaimRebuttalEffects } from '../core/store/claim-rebuttal/claim-rebutta
     RebuttalComponent
   ],
   imports: [
-    SortablejsModule.forRoot({
-      disabled: false
-    }),
+    SortablejsModule,
     SharedModule,
     routing,
     ReactiveFormsModule,

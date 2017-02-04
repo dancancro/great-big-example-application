@@ -15,6 +15,7 @@ import 'rxjs/add/operator/startWith';
 import { Note } from './note.model';
 import { DataService } from '../data.service';
 import * as note from './note.actions';
+import { Entities } from '../entity/entity.model';
 
 @Injectable()
 export class NoteEffects {
@@ -41,9 +42,9 @@ export class NoteEffects {
     .withLatestFrom(this.store.select('notes'))
     .switchMap(([{}, notes]) =>
       Observable   // first element, {}, is action, but it isn't used
-        .from(notes.ids)
-        .filter((id: string) => notes.entities[id].dirty)
-        .switchMap((id: string) => this.dataService.addOrUpdateNote(notes.entities[id]))
+        .from((<any>notes).ids)
+        .filter((id: string) => (<any>notes).entities[id].dirty)
+        .switchMap((id: string) => this.dataService.addOrUpdateNote((<any>notes).entities[id]))
         .map((responseNote: Note) => new note.UpdateNoteSuccessAction(responseNote))
     );
 

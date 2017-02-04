@@ -8,7 +8,7 @@ import * as sessionActions from './core/store/session/session.actions';
 
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['app.page.css'],
   templateUrl: 'app.page.html'

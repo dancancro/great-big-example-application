@@ -1,4 +1,3 @@
-// Exact copy of app/title.component.ts except import UserService from shared
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -6,20 +5,20 @@ import { User } from '../store/user/user.model';
 import * as fromRoot from '../store';
 
 @Component({
-    selector: 'app-title',
-    templateUrl: 'title.component.html',
-    styleUrls: ['../../../assets/styles/basscss.css']
+  selector: 'app-title',
+  templateUrl: 'title.component.html',
+  styles: ['../../../styles.scss']
 })
 export class TitleComponent {
-    @Input() subtitle = '';
-    title = 'Combined Angular 2 + ngrx Demo App';
-    user$: Observable<User>;
+  @Input() subtitle = '';
+  title = 'Combined Angular 2 + ngrx Demo App';
+  user$: Observable<User>;
 
-    constructor(private store: Store<fromRoot.RootState>) { }
+  constructor(private store: Store<fromRoot.RootState>) { }
 
-    ngOnInit() {
-        this.user$ = this.store.select(fromRoot.getUserState);
-    }
+  ngOnInit() {
+    this.user$ = this.store.select(fromRoot.getUserState);
+  }
 }
 
 
