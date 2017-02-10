@@ -1,48 +1,61 @@
-/*
-  beforeEach,
-import {
-  beforeEachProviders,
-  describe,
-  expect,
-  it,
-  inject,
-} from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component } from '@angular/core';
+/* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ObjectionComponent } from './objection.component';
+import { DebugElement } from '@angular/core';
+import { SortablejsModule } from 'angular-sortablejs';
 
-describe('Component: Objection', () => {
-  let builder: TestComponentBuilder;
+import { addMatchers, click } from '../../shared/test';
+import { ClaimComponent } from './claim.component';
+import { RebuttalComponent } from '../rebuttal/rebuttal.component';
+import { SharedModule } from '../../shared/shared.module';
+import { initialClaim, Claim } from '../../core/store/claim/claim.model';
 
-  beforeEachProviders(() => [ObjectionComponent]);
-  beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
-    builder = tcb;
+beforeEach(addMatchers);
+
+describe('ClaimComponent', () => {
+  let comp: ClaimComponent;
+  let expectedClaim: any;
+  let expectedPage: any;
+  let fixture: ComponentFixture<ClaimComponent>;
+  let claimEl: DebugElement;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        ClaimComponent, RebuttalComponent
+      ],
+      imports: [
+        SortablejsModule,
+        SharedModule
+      ]
+    })
+      .compileComponents(); // compile template and css
   }));
 
-  it('should inject the component', inject([ObjectionComponent],
-      (component: ObjectionComponent) => {
-    expect(component).toBeTruthy();
-  }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ClaimComponent);
+    comp = fixture.componentInstance;
+    claimEl = fixture.debugElement.query(By.css('.claim-block')); // find an element
 
-  it('should create the component', inject([], () => {
-    return builder.createAsync(ObjectionComponentTestController)
-      .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(ObjectionComponent));
-        expect(query).toBeTruthy();
-        expect(query.componentInstance).toBeTruthy();
-      });
-  }));
+
+    // pretend that it was wired to something that supplied a hero
+    expectedClaim = {
+      id: 123,
+      name: 'Test Claim',
+      rebuttalsReordered: false,
+      expanded: false,
+      isAdding: function (rebuttals) {
+        return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
+      }
+    };
+    expectedPage = {
+      editable: false,
+    };
+    comp.claim = expectedClaim;
+    fixture.detectChanges(); // trigger initial data binding
+  });
+
+  it('should create', () => {
+    expect(comp).toBeTruthy();
+  });
 });
-
-@Component({
-  selector: 'test',
-  template: `
-    <app-objection></app-objection>
-  `,
-  directives: [ObjectionComponent]
-})
-class ObjectionComponentTestController {
-}
-
-*/

@@ -6,7 +6,7 @@ import * as fromRoot from '../core/store';
 import { Note } from '../core/store/note/note.model';
 import * as noteActions from '../core/store/note/note.actions';
 
-let uuid = require('node-uuid');
+let uuid = require('uuid');
 
 @Component({
     selector: 'app-notes',

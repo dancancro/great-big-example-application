@@ -19,7 +19,8 @@
     ],
     "types": [
       "hammerjs",
-      "node"
+      "node",
+      "jasmine"
     ]
   },
   "exclude": [

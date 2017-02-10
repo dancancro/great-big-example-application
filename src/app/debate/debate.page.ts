@@ -21,7 +21,7 @@ import { ClaimRebuttal, initialClaimRebuttal } from '../core/store/claim-rebutta
 import * as claim from '../core/store/claim/claim.actions';
 import * as layout from '../core/store/layout/layout.actions';
 
-let uuid = require('node-uuid');
+let uuid = require('uuid');
 
 @Component({
   selector: 'app-debate',

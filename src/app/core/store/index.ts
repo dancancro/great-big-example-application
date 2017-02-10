@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-let uuid = require('node-uuid');
+let uuid = require('uuid');
 
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';

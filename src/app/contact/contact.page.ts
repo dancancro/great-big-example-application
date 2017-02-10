@@ -10,7 +10,7 @@ import { User } from '../core/store/user/user.model';
 import * as contact from '../core/store/contact/contact.actions';
 import * as layout from '../core/store/layout/layout.actions';
 
-let uuid = require('node-uuid');
+let uuid = require('uuid');
 
 @Component({
     selector: 'app-contact',

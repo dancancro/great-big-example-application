@@ -1,6 +1,7 @@
 import { GreatBigAngular2ExamplePage } from './app.po';
+import { browser, element, by } from 'protractor';
 
-describe('great-big-angular2-example App', function() {
+describe('great-big-angular2-example App', function () {
   let page: GreatBigAngular2ExamplePage;
 
   beforeEach(() => {
@@ -9,6 +10,6 @@ describe('great-big-angular2-example App', function() {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Login');
   });
 });

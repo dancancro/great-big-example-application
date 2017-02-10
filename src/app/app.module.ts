@@ -10,18 +10,16 @@ import { AppPage } from './app.page';
 import { RioLoginModalComponent } from './login/login-modal/login-modal.component';
 import { RioLoginModule } from './login/login.module';
 import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
-
-/* Routing Module */
-import { routing } from './app.routing';
 
 @NgModule({
   imports: [
     BrowserModule,
     CoreModule,
-    routing,
+    AppRoutingModule,
     RioLoginModule,
     MaterialModule.forRoot(),
     SharedModule

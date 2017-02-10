@@ -1,7 +1,7 @@
 import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-let uuid = require('node-uuid');
+let uuid = require('uuid');
 
 import { Note, initialNote } from './note.model';
 import * as note from './note.actions';

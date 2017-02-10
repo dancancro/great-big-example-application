@@ -17,8 +17,8 @@ import { RioFormGroupComponent } from './form-group/form-group.component';
 import { RioLabelComponent } from './label/label.component';
 import { RioModalComponent } from './modal/modal.component';
 import { RioModalContentComponent } from './modal-content/modal-content.component';
-import { AwesomePipe }         from './awesome/awesome.pipe';
-import { HighlightDirective }  from './highlight/highlight.directive';
+import { AwesomePipe } from './awesome/awesome.pipe';
+import { HighlightDirective } from './highlight/highlight.directive';
 import { MaterialModule } from '@angular/material';
 
 export const components = [
@@ -42,7 +42,7 @@ export const components = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-//    MaterialModule
+    //    MaterialModule
   ],
   declarations: [
     ...components
@@ -50,6 +50,7 @@ export const components = [
   exports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     ...components
   ]
