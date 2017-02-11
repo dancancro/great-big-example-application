@@ -9,7 +9,7 @@ cache:
 dist: trusty
 
 node_js:
-  - '5.6.0'
+  - '7.5.0'
 
 branches:
   only:
