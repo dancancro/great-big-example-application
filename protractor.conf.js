@@ -14,19 +14,19 @@ exports.config = {
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
-  framework: 'jasmine',
+  framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000,
-    print: function() {}
+    print: function () { }
   },
   useAllAngular2AppRoots: true,
-  beforeLaunch: function() {
+  beforeLaunch: function () {
     require('ts-node').register({
       project: 'e2e'
     });
   },
-  onPrepare: function() {
+  onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
   }
 };
