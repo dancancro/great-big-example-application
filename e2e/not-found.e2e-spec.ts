@@ -1,7 +1,7 @@
 
 import { browser, element, by } from 'protractor';
 
-describe('Home', () => {
+describe('Not found', () => {
 
   beforeEach(async () => {
     return await browser.get('/fdsjafkldsafasff');
