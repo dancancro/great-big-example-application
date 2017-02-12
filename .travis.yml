@@ -27,7 +27,7 @@ before_install:
 
 script:
  - ng test --watch false
- - npm run prod:server
+ - npm run prod:server &
  - npm run prod:client &
  - npm run e2e
 
