@@ -7,7 +7,7 @@ look like for the real-world, commercial SPAs that you don't get to see until yo
 
 The rationale behind this is pretty simple...
 
-    1. Code examples are better than docs and lessons, and 
+    1. Code examples are better than docs, lessons and Gitter, and 
     2. If you want a job making commercial-grade code, you should study commercial-grade code,
     not tutorial-grade code
 
@@ -31,8 +31,8 @@ lower influence yielding to the higher one:
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
 2. [Tour of Heroes](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
-4. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
-5. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
+4. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
+5. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
 6. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
 7. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
@@ -54,6 +54,10 @@ You will also need to install the `angular-cli` NPM package globally via `npm i 
 If you want to debug server-side code, install [Visual Studio Code](https://code.visualstudio.com/). This project has the configuration to
 use VS Code for debugging.
 
+If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker.
+
+Install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
+
 
 ## Make it go
 This is a standard angular-cli generated application so you can use all of the ng XXX commands to manage the application.
@@ -69,9 +73,7 @@ $ npm install
 # Run the backend server in debug mode
 Select Launch via NPM from VSCode debug menu. Click DEBUG.
 
-or
-
-# Run the backend server without debugging
+# Or run the backend server without debugging
 $npm run dev:server
 
 # Build and serve the app
@@ -98,16 +100,13 @@ Set Config var NPM_CONFIG_PRODUCT to false on the Settings tab of your app admin
 [Code coverage reporting (?)](http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and "Generate reports that tell you how much of your code is being tested")|[X](http://mochajs.org/ ",")|[X](http://mochajs.org/ "")|[X](http://mochajs.org/ "")|X| |
 [Command line interface (CLI)](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|X| |
 [Components communicate with events](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/debate/debate.page.html#L9 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11 "")|X| | |
-[Continuous integration (CI) (?)](http://www.letscodejavascript.com/v3/episodes/lessons_learned/1 "\"No code sits unintegrated for more than a couple hours.  At the end of every development episode, the code is integrated with the latest release and all the tests must run at 100%\"  - Kent Beck    1) Integrate others' changes into your local code and build locally  2) Build on a separate machine.  3) Publish known-good code.  Start new task.    Continuously merges and tests working copies from multiple developers to prevent integration problems later.  Used for projects hosted on Github")|X| | | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/.travis.yml "")|
 [Core Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-12 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts "")| | | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/core.module.ts "")|
 CSS style checking|**X**| | | | |
 [Deployment automation, to a mobile native executable](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")| | | | |[**X**](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")|
-[Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")| | | |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml "")|
+[Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/docker-compose.yml "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml "")|
 [Deployment automation, using Heroku (?)](https://github.com/jhipster/generator-jhipster/issues/1288 "Generates a dist folder that is deployment ready for heroku.com    Heroku is an interface to Amazon's US East EC2 region")|[X](http://great-big-angular2-example.herokuapp.com "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/server/node-server.js#L15 "")| |
 [Error handling, Client-side logging](http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm "")| | | |X|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/services/log.service.ts "")|
-[Error handling, Server-side logging](http://mean.io/network#features-menu "")|[X](http://expressjs.com/guide/error-handling.html "")| | |[X](http://expressjs.com/guide/error-handling.html "")|[X](http://expressjs.com/guide/error-handling.html "")|
 In-memory server-side database| |**X**| | | |
-[JavaScript 5 best practices, Doesn't use JQuery (?)](https://github.com/gocardless/angularjs-style-guide#anti-patterns "You should use directives instead")|[X](https://www.airpair.com/js/javascript-framework-comparison "")|[X](https://www.airpair.com/js/javascript-framework-comparison "")| |[X](https://www.airpair.com/js/javascript-framework-comparison "")|[X](https://www.airpair.com/js/javascript-framework-comparison "")|
 [Local storage](https://github.com/jhipster/jhipster-sample-app/blob/5bec9d09ac1fc523fcea5cb97769153b7e97aaf2/src/main/webapp/app/blocks/config/localstorage.config.js "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/services/LocalStorage.ts "")|X|X| |
 [Production build, generate docs (?)](https://github.com/yeoman/yeoman/issues/152 "By reading comments in your code or maintaining separate docs:  https://github.com/millermedeiros/mdoc    examples:  ngDoc  YUIdoc")| |[**X**](http://typedoc.org/ "")| | | |
 [Separation of smart containers and dumb components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "")|X| |X| | |
@@ -128,7 +127,7 @@ In-memory server-side database| |**X**| | | |
 [External, 3rd party, API interaction](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/book/google-books.service.ts "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts "")|X| | |
 [Footer](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")| |[**X**](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")| | | |
 [Front-end CRUD](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/components/home/home.component.html "")|
-[Full-stack CRUD (?)](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "CRUD = Create,Read,Update, Delete    The example demonstrates creating, reading, updating and deleting from a database through a web page user interface.  It includes seed data and does not require a lot of work to get the app connected to a database")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
+[Full-stack CRUD (?)](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "CRUD = Create,Read,Update, Delete    The example demonstrates creating, reading, updating and deleting from a backend file system or database through a web page user interface.  It includes seed data and does not require a lot of work to get the app connected to a database")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete, individual records](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete, whole data structures](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts "")|[**X**](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts "")| | | | |
@@ -152,8 +151,8 @@ Documentation generators | |typedoc | | |
 Frontend Frameworks |AngularJS 2.0 |AngularJS 2.0 |AngularJS 2.0 |AngularJS 2.0 |AngularJS 2.0
 Languages |JS ES5, JS ES6 (ES2015), JSX (opt), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), JSX (opt), Python, Typescript |JS ES5, JS ES6 (ES2015), Typescript
 Linters |codelyzer, ESLint, stylelint, tslint | |codelyzer, tslint |ESLint |tslint
-Loaders |Webpack |Webpack |Webpack |Webpack |SystemJS
-Misc |Angular Style Guide, Helmet, nodemon, Redux, redux-devtools, RxJS |Angular Material, Immutable, Redux, redux-devtools, RxJS |Redux, redux-devtools, RxJS (opt) |autoprefixer, cssnano, Helmet, nodemon, Redux, redux-devtools, redux-logging, RxJS |cssnano, Electron, Redux, redux-devtools, RxJS
+Loaders/Bundlers |Webpack |Webpack |Webpack |Webpack |SystemJS
+Misc |Angular Style Guide, Helmet, nodemon, Redux, redux-devtools, RxJS |Immutable, Redux, redux-devtools, RxJS |Redux, redux-devtools, RxJS (opt) |autoprefixer, cssnano, Helmet, nodemon, Redux, redux-devtools, redux-logging, RxJS |cssnano, Electron, Redux, redux-devtools, RxJS
 Package Managers |npm |npm |npm |npm |npm
 Routers |Angular Component Router |Angular Component Router |Angular Component Router |Angular Component Router |Angular Component Router
 Runtime Environments |Node |Node |Node |Node |NativeScript, Node
@@ -163,12 +162,15 @@ Test assertion libraries |Chai, Jasmine, Mocha |Chai, Jasmine, Mocha |Chai, Jasm
 Test coverage reporters |Istanbul | | |Istanbul |
 Test runners |Karma | |Karma, Protractor |Karma, Robot |Karma
 Transpilers |libsass |libsass |libsass |libsass |
+Widget collections | |Angular Material | | |
 
 ## File Structure
 ```
 .
 ├── README.md
 ├── angular-cli.json
+├── docker-compose.production.yml
+├── docker-compose.yml
 ├── e2e
 │   ├── about.e2e-spec.ts
 │   ├── app.e2e-spec.ts
@@ -238,7 +240,6 @@ Transpilers |libsass |libsass |libsass |libsass |
 │   └── tsconfig.json
 ├── karma.conf.js
 ├── nodemon.json
-├── npm-debug.log
 ├── package.json
 ├── protractor.conf.js
 ├── proxy.conf.json
