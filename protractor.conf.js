@@ -28,5 +28,6 @@ exports.config = {
   },
   onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
-  }
+  },
+  getPageTimeout: 40000
 };
