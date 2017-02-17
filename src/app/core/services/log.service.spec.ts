@@ -2,7 +2,7 @@
 import { TestBed } from '@angular/core/testing';
 
 // app
-import { t } from '../../shared/test/index';
+import { t } from '../../shared/test/util';
 
 // module
 import { Config, ConsoleService, LogService } from '../index';

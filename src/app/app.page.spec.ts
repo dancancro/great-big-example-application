@@ -6,17 +6,17 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouterOutletStubComponent } from './shared/test';
-import { RouterLinkStubDirective } from './shared/test';
-import { RouterStub } from './shared/test';
+import { RouterOutletStubComponent } from './shared/test/util';
+import { RouterLinkStubDirective } from './shared/test/util';
+import { RouterStub } from './shared/test/util';
 import { TitleComponent } from './core/title/title.component';
 
 // libs
 import { StoreModule } from '@ngrx/store';
 
 // app
-import { t } from './shared/test/index';
-import { TEST_CORE_PROVIDERS, TEST_HTTP_PROVIDERS } from './shared/test/index';
+import { t } from './shared/test/util';
+import { TEST_CORE_PROVIDERS, TEST_HTTP_PROVIDERS } from './shared/test/util';
 
 // module
 
@@ -209,7 +209,7 @@ describe('AppPage & NO_ERRORS_SCHEMA', () => {
 // Tricky because we are disabling the router and its configuration
 // Better to use RouterTestingModule
 import { AppModule } from './app.module';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRouting } from './app-routing.module';
 
 describe('AppPage & AppModule', () => {
 
@@ -229,7 +229,7 @@ describe('AppPage & AppModule', () => {
       // Doing so removes Router declarations; add the Router stubs
       .overrideModule(AppModule, {
         remove: {
-          imports: [AppRoutingModule]
+          imports: [AppRouting]
         },
         add: {
           declarations: [RouterLinkStubDirective, RouterOutletStubComponent]

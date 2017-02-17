@@ -22,7 +22,7 @@ import { ViewBookPage } from './view-book.page';
 import { BookEffects } from '../core/store/book/book.effects';
 import { CollectionEffects } from '../core/store/collection/collection.effects';
 import { SharedModule } from '../shared/shared.module';
-import { routing } from './books.routing';
+import { BooksRouting } from './books.routing';
 
 export const COMPONENTS = [
   BookAuthorsComponent,
@@ -42,12 +42,12 @@ export const COMPONENTS = [
 @NgModule({
   imports: [
     SharedModule,
-    routing,
+    BooksRouting,
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
     RouterModule,
-//    NavigatorModule,
+    //    NavigatorModule,
     EffectsModule.run(BookEffects),
     EffectsModule.run(CollectionEffects),
   ],

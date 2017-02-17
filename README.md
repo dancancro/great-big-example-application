@@ -7,9 +7,14 @@ look like for the real-world, commercial SPAs that you don't get to see until yo
 
 The rationale behind this is pretty simple...
 
-    1. Code examples are better than docs, lessons and Gitter, and 
+    1. Code examples are better than docs, lessons and Gitter Q&A.
     2. If you want a job making commercial-grade code, you should study commercial-grade code,
-    not tutorial-grade code
+    not tutorial-grade code. Anything you learn in a tutorial must sadly be judged with 
+    trepidation becauase it's probably been simplified and isn't the right way.
+    3. If you want to know how fast a big Angular app will build, run and test before investing the time to 
+    learn Angular - and you should - then you need source code for a big app before you even write Hello World.
+    4. If you want to know the complexity limits a technology will place on your app before you
+    commit to using it, there's no better way than to see a complex example made with that technology.
 
 Hopefully, when the project is done it will make the learning process for others much easier and prepare them to
 make real things rather than instructional ones. I expect it to reduce the time to implement your own real
@@ -45,6 +50,33 @@ contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdN
 and served as JSON by a Google script.
 
 See the [Angular Change log](https://angular.io/docs/ts/latest/guide/change-log.html) for updates.
+
+## My Innovations
+
+Nobody can resist introducing improvements when there's no obvious case against doing so. So you will see a couple of practices in
+this project that came from my head rather than the sources of expertise from which the project was assembled. If you can think of 
+reasons not to do these things, please let me know.
+
+1. I have put the Redux store reducers in `app/core/store` separate from the feature directories located under `app`. This agrees with 
+the traditional relational database structure that has tables together in one place and referenced by UI artifacts in another place. This is the
+recommended practice with Redux.
+2. As much as practical I created directories named with the first word of their contained files. So the files in a directory are not
+a mixture of unrelated concerns.
+3. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a `@Component`
+class that fills the page and might have a router-outlet and route configurations. A "guard" is understood to be an `@Injectable` "service" class that
+returns a boolean. A "routing" is a `@NgModule` class that contains route configurations. So I memorize this simple lexicon, and drop the
+redundant, less-clear words from the names. For example, I use the name `app.page.ts` rather than `app.component.ts` or `app-page.component.ts`.
+I use `auth.guard.ts` instead of `auth-guard.service.ts`. I use `books.routing.ts` instead of `books-routing.module.ts`.
+
+| A | is a class decorated with | that | Example file name | Example class name |
+|:--- | :--- | :--- | :--- | :--- |
+| page | @Component | more or less fills the screen - a "smart" component | app.page.ts | AppPage |
+| component | @Component | has to be contained by a page or other components - a "dumb" component | login.component.ts | LoginComponent |
+| guard | @Injectable | returns a boolean and [does whatever an Angular guard does](https://angular.io/docs/ts/latest/guide/router.html#!#guards) | auth.guard.ts | AuthGuard |
+| service | @Injectable | provides a service or data | auth.service.ts | AuthService |
+| routing | @NgModule | contains route configurations | books.routing.ts | BooksRouting |
+| module | @NgModule | associates related components and providers | books.module.ts | BooksModule |
+
 
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 

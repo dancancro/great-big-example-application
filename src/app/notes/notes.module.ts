@@ -10,13 +10,13 @@ import { NoteEffects } from '../core/store/note/note.effects';
 import { NoteComponent } from './note/note.component';
 import { AddButtonComponent } from './add-button/add-button.component';
 import { NotesPage } from './notes.page';
-import { routing } from './notes.routing';
+import { NotesRouting } from './notes-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     SharedModule,
-    routing,
+    NotesRouting,
     HttpModule,
     EffectsModule.run(NoteEffects)
   ],

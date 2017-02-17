@@ -1,0 +1,21 @@
+<h2 highlight>{{title}}</h2>
+
+<div class="grid grid-pad">
+  <dashboard-hero *ngFor="let hero of heroes" class="col-1-4" [hero]=hero (selected)="gotoHero($event)">
+  </dashboard-hero>
+</div>
+
+<p>
+  <h2 highlight>Crises</h2>
+
+  <div class="grid grid-pad">
+    <dashboard-crisis *ngFor="let crisis of crises" class="col-1-4" [crisis]=crisis (selected)="gotoCrisis($event)">
+    </dashboard-crisis>
+  </div>
+
+
+  <!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

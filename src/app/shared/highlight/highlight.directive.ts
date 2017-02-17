@@ -1,14 +1,20 @@
-/* tslint:disable */
-// Exact copy of contact/highlight.directive except for color and message
-import { Directive, ElementRef, Renderer } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
-@Directive({ selector: '[highlight], input' })
-/** Highlight the attached element or an InputElement in light blue */
-export class HighlightDirective {
-  constructor(renderer: Renderer, el: ElementRef) {
-    renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'lightblue');
-    // console.log(
-    //   `* Shared highlight called for ${el.nativeElement.tagName}`);
+@Directive({ selector: '[highlight]' })
+/** Set backgroundColor for the attached element to highlight color
+ *  and set the element's customProperty to true */
+export class HighlightDirective implements OnChanges {
+
+  defaultColor =  'rgb(211, 211, 211)'; // lightgray
+
+  @Input('highlight') bgColor: string;
+
+  constructor(private el: ElementRef) {
+    el.nativeElement.style.customProperty = true;
+  }
+
+  ngOnChanges() {
+    this.el.nativeElement.style.backgroundColor = this.bgColor || this.defaultColor;
   }
 }
 

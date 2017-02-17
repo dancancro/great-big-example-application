@@ -1,13 +1,19 @@
-import { ModuleWithProviders } from '@angular/core';
-import { RouterModule }        from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ContactPage }    from './contact.page';
+import { ContactPage } from './contact.page';
 
-export const routing: ModuleWithProviders = RouterModule.forChild([
-  { path: '', component: ContactPage}
-]);
+const routes: Routes = [
+  { path: '', component: ContactPage }
+];
 
+export const routedComponents = [ContactPage];
 
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ContactRouting { }
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

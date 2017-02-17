@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // libs
-import { Angulartics2, Angulartics2Segment} from 'angulartics2';
+import { Angulartics2, Angulartics2Segment } from 'angulartics2';
 
 // app
-import { t } from '../../test/index';
+import { t } from '../../test/util';
 
 // module
 import { AnalyticsService, Analytics } from '../index';
@@ -28,13 +28,13 @@ export function main() {
     t.describe('AnalyticsService', () => {
 
       t.describe('api works', () => {
-        t.it('track', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('track', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           analyticsService.devMode(false);
           t.spyOn(segment, 'eventTrack');
           analyticsService.track('click', { category: 'TEST', label: 'Testing' });
           t.e(segment.eventTrack).toHaveBeenCalledWith('click', { category: 'TEST', label: 'Testing' });
         }));
-        t.it('track devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('track devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(segment, 'eventTrack');
 
           // dev mode: shouldn't track anything
@@ -42,25 +42,25 @@ export function main() {
           analyticsService.track('click', { category: 'TEST', label: 'Testing' });
           t.e(segment.eventTrack).not.toHaveBeenCalled();
         }));
-        t.it('pageTrack', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('pageTrack', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(segment, 'pageTrack');
-          analyticsService.pageTrack('/testing', { });
+          analyticsService.pageTrack('/testing', {});
           t.e(segment.pageTrack).toHaveBeenCalledWith('/testing', {});
         }));
-        t.it('pageTrack devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('pageTrack devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(segment, 'pageTrack');
 
           // dev mode: shouldn't track anything
           analyticsService.devMode(true);
-          analyticsService.pageTrack('/testing', { });
+          analyticsService.pageTrack('/testing', {});
           t.e(segment.pageTrack).not.toHaveBeenCalled();
         }));
-        t.it('identify', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('identify', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(segment, 'setUserProperties');
           analyticsService.identify({ userId: 1, name: 'Test', email: 'name@domain.com' });
           t.e(segment.setUserProperties).toHaveBeenCalledWith({ userId: 1, name: 'Test', email: 'name@domain.com' });
         }));
-        t.it('identify devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('identify devMode: ON', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(segment, 'setUserProperties');
 
           // dev mode: shouldn't track anything
@@ -74,7 +74,7 @@ export function main() {
     t.describe('Analytics (Base Class)', () => {
 
       t.describe('should allow descendants to track actions', () => {
-        t.it('track', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService:any, segment:any) => {
+        t.it('track', t.inject([AnalyticsService, Angulartics2Segment], (analyticsService: any, segment: any) => {
           t.spyOn(analyticsService, 'track');
           let analytics = new TestAnalytics(analyticsService);
           analytics.category = 'TEST';

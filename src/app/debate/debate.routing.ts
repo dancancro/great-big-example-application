@@ -1,8 +1,5 @@
-import { ModuleWithProviders } from '@angular/core';
-import {
-  Routes,
-  RouterModule
-} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { DebatePage } from './debate.page';
 
@@ -11,4 +8,10 @@ const routes: Routes = [
   { path: ':claimId', component: DebatePage }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routedComponents = [DebatePage];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class DebateRouting { }

@@ -1,5 +1,5 @@
 // app
-import { t } from '../../shared/test/index';
+import { t } from '../../shared/test/util';
 
 // module
 import { Config } from './config';

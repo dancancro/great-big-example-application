@@ -14,5 +14,5 @@ import { Component } from '@angular/core';
   `
 })
 export class RioLogoComponent {
-  private LogoImage = require('../assets/bernie-sanders-128.jpg');
+  private LogoImage = require('../../../assets/bernie-sanders-128.jpg');
 };

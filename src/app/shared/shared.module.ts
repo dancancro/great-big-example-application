@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
+
 import { Draggable } from './draggable/draggable.directive';
 import { RioAlertComponent } from './alert/alert.component';
 import { RioButtonComponent } from './button/button.component';
@@ -19,7 +21,11 @@ import { RioModalComponent } from './modal/modal.component';
 import { RioModalContentComponent } from './modal-content/modal-content.component';
 import { AwesomePipe } from './awesome/awesome.pipe';
 import { HighlightDirective } from './highlight/highlight.directive';
-import { MaterialModule } from '@angular/material';
+import { TitleCasePipe } from './title-case/title-case.pipe';
+import { TwainComponent } from './twain/twain.component';
+import { TwainService } from './twain/twain.service';
+import { BannerComponent } from './banner/banner.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 export const components = [
   Draggable,
@@ -34,7 +40,12 @@ export const components = [
   RioLabelComponent,
   RioModalComponent,
   RioModalContentComponent,
-  AwesomePipe, HighlightDirective
+  AwesomePipe,
+  HighlightDirective,
+  TitleCasePipe,
+  TwainComponent,
+  BannerComponent,
+  WelcomeComponent
 ];
 
 @NgModule({
@@ -53,6 +64,9 @@ export const components = [
     ReactiveFormsModule,
     MaterialModule,
     ...components
+  ],
+  providers: [
+    TwainService
   ]
 })
 export class SharedModule { }

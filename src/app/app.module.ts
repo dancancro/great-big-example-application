@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from '@angular/material';
+import { Router } from '@angular/router';
 
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
 
 /* App Root */
 import { AppPage } from './app.page';
-import { RioLoginModalComponent } from './login/login-modal/login-modal.component';
-import { RioLoginModule } from './login/login.module';
+import { RioLoginModalComponent } from './core/auth/login/login-modal/login-modal.component';
+import { LoginModule } from './core/auth/login/login.module';
 import { SharedModule } from './shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRouting } from './app.routing';
 
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
@@ -19,8 +20,8 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     CoreModule,
-    AppRoutingModule,
-    RioLoginModule,
+    AppRouting,
+    LoginModule,
     MaterialModule.forRoot(),
     SharedModule
   ],

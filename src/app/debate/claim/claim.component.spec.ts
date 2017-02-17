@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SortablejsModule } from 'angular-sortablejs';
 
-import { addMatchers, click } from '../../shared/test';
+import { addMatchers, click } from '../../shared/test/util';
 import { ClaimComponent } from './claim.component';
 import { RebuttalComponent } from '../rebuttal/rebuttal.component';
 import { SharedModule } from '../../shared/shared.module';

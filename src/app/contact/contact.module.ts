@@ -5,13 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../core/store/data.service';
 import { SharedModule } from '../shared/shared.module';
 import { ContactPage } from './contact.page';
-import { routing } from './contact.routing';
+import { ContactRouting } from './contact.routing';
 import { ContactEffects } from '../core/store/contact/contact.effects';
 
 @NgModule({
   imports: [
     SharedModule,
-    routing,
+    ContactRouting,
     EffectsModule.run(ContactEffects),
     ReactiveFormsModule
   ],

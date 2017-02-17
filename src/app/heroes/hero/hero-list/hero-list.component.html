@@ -1,0 +1,11 @@
+<h2 highlight="gold">My Heroes</h2>
+<ul class="items">
+  <li *ngFor="let hero of heroes | async" [class.selected]="isSelected(hero)" (click)="onSelect(hero)">
+    <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+  </li>
+</ul>
+<!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

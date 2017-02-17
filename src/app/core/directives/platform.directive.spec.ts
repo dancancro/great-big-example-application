@@ -3,12 +3,12 @@ import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 // app
-import { t } from '../../shared/test/index';
+import { t } from '../../shared/test/util';
 
 // module
 import { PlatformDirective } from './platform.directive';
 import { WindowService } from '../../core/index';
-import { WindowMock } from '../../shared/test/index';
+import { WindowMock } from '../../shared/test/util';
 
 const testModuleConfig = () => {
   TestBed.configureTestingModule({

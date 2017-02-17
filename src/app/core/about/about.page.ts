@@ -15,6 +15,7 @@ import { RioContainerComponent } from '../../shared/container/container.componen
       </p>
       <p><a href="https://github.com/dancancro/great-big-angular2-example">Source Code</a></p>
     </rio-container>
+    <twain-quote></twain-quote>
   `
 })
 export class RioAboutPage { }
