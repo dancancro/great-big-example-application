@@ -83,9 +83,10 @@ That's it. It shouldn't be too hard to remember these, and in return you will ha
 
 ## Blocking Angular bugs
 
-| Issue | Description |
-| :-- | :-- |
-| 
+| Issue | Description | Features |
+| :-- | :-- | :-- |
+| [14480](https://github.com/angular/angular/issues/14480) | Angular 2 relative pathing from siblings doesn't work | Compose Message box on Crisis Center and login success routing |
+
 ## Prerequisites
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
 
