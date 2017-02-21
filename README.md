@@ -1,11 +1,17 @@
 [Please click here to support the Standing Rock Sioux Tribe and their peaceful resistance to the Dakota Access Pipeline which threatens their only source of water.](http://www.powwows.com/2016/09/07/10-ways-can-help-standing-rock-sioux-fight-dakota-access-pipeline/) 
 
+
+[![Build Status](https://travis-ci.org/dancancro/great-big-angular2-example.svg?branch=master)](https://travis-ci.org/dancancro/great-big-angular2-example)
+[![Dependency Status](https://david-dm.org/dancancro/great-big-angular2-example.svg)](https://david-dm.org/dancancro/great-big-angular2-example)
+
+
 [Live Demo](http://great-big-angular2-example.herokuapp.com)
 
 ## Background and Motivation
 
 This project is an attempt by an unemployed non-college-student to infer from available demos what the codebase might
-look like for the real-world, commercial SPAs that you don't get to see until you are hired by a real company.
+look like for the real-world, commercial codebases that you don't get to see until you are hired by a real company and
+sign and NDA.
 
 The rationale behind this is pretty simple...
 
@@ -25,12 +31,8 @@ Hopefully, when the project is done it will make the learning process for others
 make real things rather than instructional ones. I expect it to reduce the time to implement your own real
 application from months to days.
 
-While this project's goal is to be real, I mean that its architecture and approaches are to be those of a real
-application, not the content. It is not important for the application's features to be coherent or related because
-your application will have its own features. These features just show you how to make your own. So I just combined
-the features of the following expert but small instructional apps that I used to learn all of this into one big app.
-This has the additional benefit of giving you a second implementation of the same things. So if you're familiar with one
-implementation this will show you what to do to change it to the other one. 
+Coming from different demos, the features of the app are not related to each other and it won't make any sense
+to have them together but the point is just to demonstrate how things should work technically, so that's okay.
 
 A huge thanks to those who created the example demos from which I put together this amalgam. 
 
@@ -39,7 +41,7 @@ according to the following prioritization. Disagreements in approach between two
 lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
-2. [Tour of Heroes](https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html) by Google
+2. [Tour of Heroes (ngModules, Routing, App Specs versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 4. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 5. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
@@ -65,9 +67,11 @@ of expertise from which the project was assembled. If you can think of reasons n
 1. I have put the Redux store reducers in `app/core/store` separate from the feature directories located under `app`. This agrees with 
 the traditional relational database structure that has tables together in one place and referenced by UI artifacts in another place. This is the
 recommended practice with Redux.
-2. As much as practical I created directories named with the first word of their contained files. So the files in a directory are not
-a mixture of unrelated concerns.
-3. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a `@Component`
+2. As much as practical the names of files in a directory begin with the directory name. I did this to prevent directories from having a mixture of 
+unrelated concerns. If a directory in a source demo had files for two different things, I created more directories. I thought about 
+removing that part of the file name, `src/app/app.page.ts` -> `src/app/page.ts`, for the sake of DRY, and I might still do that, but I'm 
+undecided on whether it would cause confusion to see many files in an editor with the same name.
+3. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a smart `@Component`
 class that fills the page and might have a router-outlet and route configurations. A "guard" is understood to be an `@Injectable` "service" class that
 returns a boolean. A "routing" is a `@NgModule` class that contains route configurations. So I memorize this simple lexicon, and drop the
 redundant, less-clear words from the names. For example, I use the name `app.page.ts` rather than `app.component.ts` or `app-page.component.ts`.
@@ -99,9 +103,8 @@ You will also need to install the `angular-cli` NPM package globally via `npm i 
 If you want to debug server-side code, install [Visual Studio Code](https://code.visualstudio.com/). This project has the configuration to
 use VS Code for debugging.
 
-If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker.
-
-Install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
+If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker, and 
+install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
 
 
 ## Make it go
@@ -130,7 +133,8 @@ $ ng test
 
 ```
 
-Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
+Then navigate to [http://localhost:4200](http://localhost:4200) in your browser. If you get stuck on anything, no matter how little, 
+please let me know. I know how the little things are what cause the problems and I don't want you to have any problems.
 
 ## Special Heroku instruction
 

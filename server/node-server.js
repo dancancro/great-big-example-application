@@ -21,7 +21,7 @@ const packageJson = require('package-json');
  */
 
 const app = express();
-const PORT = process.env.PORT || 8080; // set in package.json to 3000. I don't know why 8080 is here'
+const PORT = process.env.PORT || 8080; // set in package.json to 3100. I don't know why 8080 is here'
 const distPath = path.join(__dirname, '../dist');
 const indexFileName = 'index.html';
 
