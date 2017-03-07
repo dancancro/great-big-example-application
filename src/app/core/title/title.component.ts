@@ -6,7 +6,7 @@ import * as fromRoot from '../store';
 
 @Component({
   selector: 'app-title',
-  templateUrl: 'title.component.html',
+  templateUrl: './title.component.html',
   styles: ['../../../styles.scss']
 })
 export class TitleComponent {

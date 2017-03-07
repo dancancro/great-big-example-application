@@ -4,94 +4,44 @@ import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 
 import { Claim, initialClaim } from './claim.model';
-import * as claim from './claim.actions';
+import * as claimActions from './claim.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
-import * as layout from '../layout/layout.actions';
+import * as layoutActions from '../layout/layout.actions';
 
 
-export function reducer(state = initialEntities<Claim>(),
-  action: claim.Actions | layout.Actions): Entities<Claim> {
+export function reducer(state = initialEntities<Claim>({}, 'Claim', claimActions, initialClaim),
+  action: claimActions.Actions | layoutActions.Actions): Entities<Claim> {
   let entities = {};
 
+  let edits = {};
   switch (action.type) {
+    case state.actionTypes.ReorderRebuttals:
+      edits = { rebuttalsReordered: true }; break;
+    case state.actionTypes.ToggleRebuttals:
+      edits = { expanded: !action.payload.expanded }; break;
+    default:
+      edits = {};
+  }
+  action.payload && (action.payload = Object.assign(action.payload, edits));
 
+  switch (action.type) {
+    case state.actionTypes.Add:
+    case state.actionTypes.AddSuccess:
+    case state.actionTypes.LoadSuccess:
+      return state.addLoadEntity(action);
     // make the same change to every entity
-    case claim.ActionTypes.TOGGLE_ALL_REBUTTALS: {
-      let id: string;
-      entities = Object.assign({}, state.entities);
-      for (id in entities) {
-        entities[id].expanded = action.payload;
-      }
-      return Object.assign({}, state, {
-        entities: entities
-      });
-    }
-
-    case claim.ActionTypes.REORDER_CLAIMS:
+    case state.actionTypes.ToggleAllRebuttals:
+      return state.updateAllEntities(action);
+    case state.actionTypes.ReorderClaims:
       return Object.assign({}, state, { ids: action.payload });
-
-    // add one entity
-    case claim.ActionTypes.ADD_CLAIM:
-    case claim.ActionTypes.LOAD_SUCCESS: {
-      entities = Object.assign({}, state.entities);
-      entities[action.payload.id] = singleReducer(null, action);
-      return Object.assign({}, state, {
-        ids: Object.keys(entities),
-        entities: entities,
-        loaded: true,
-        loading: false,
-      });
-    }
-
-    // change one entity
-    case claim.ActionTypes.REORDER_REBUTTALS:
-    case claim.ActionTypes.TOGGLE_REBUTTALS: {
-      entities = Object.assign({}, state.entities);
-      entities[action.payload.id] = singleReducer(entities[action.payload.id], action);
-      let newState = Object.assign({}, state, {
-        entities: entities
-      });
-      return newState;
-    }
-
+    case state.actionTypes.ReorderRebuttals:
+    case state.actionTypes.ToggleRebuttals:
+      return state.updateEntity(action);
     default: {
       return state;
     }
   }
 
-  // This reduces a single claim
-  function singleReducer(state: Claim = initialClaim,
-    action: claim.Actions): Claim {
-
-
-    switch (action.type) {
-
-      case claim.ActionTypes.ADD_CLAIM:
-        return Object.assign({}, action.payload, { dirty: true });
-
-      case claim.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialClaim, action.payload, { dirty: false });
-
-      case claim.ActionTypes.TOGGLE_REBUTTALS:
-        if (action.payload.id === state.id) {
-          return Object.assign({}, state, { expanded: !state.expanded });
-        } else {
-          return state;
-        }
-
-      case claim.ActionTypes.REORDER_REBUTTALS:
-        if (action.payload.id === state.id) {
-          return Object.assign({}, state, { rebuttalsReordered: true });
-        } else {
-          return state;
-        }
-
-      default:
-        return state;
-
-    }
-
-  }
 }
 
 export const getEntities = (state: Entities<Claim>) => state.entities;

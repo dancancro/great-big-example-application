@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
-  LOGIN_USER:            type('[Session] Login User'),
-  LOGIN_USER_SUCCESS:    type('[Session] Login User Success'),
-  LOGIN_USER_FAIL:       type('[Session] Login User Fail'),
-  LOGOUT_USER:           type('[Session] Logout User')
+  LOGIN_USER: type('[Session] Login User'),
+  LOGIN_USER_SUCCESS: type('[Session] Login User Success'),
+  LOGIN_USER_FAIL: type('[Session] Login User Fail'),
+  LOGOUT_USER: type('[Session] Logout User')
 };
 
 interface Credentials {

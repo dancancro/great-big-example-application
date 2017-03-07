@@ -1,35 +1,21 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
-import { Database } from '@ngrx/db';
-import { Observable } from 'rxjs/Observable';
-import { defer } from 'rxjs/observable/defer';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/startWith';
+import { Store } from '@ngrx/store';
+import { Actions, Effect } from '@ngrx/effects';
 
-import * as rebuttals from '../rebuttal/rebuttal.actions';
-import { Rebuttal } from '../rebuttal/rebuttal.model';
-import { DataService } from '../data.service';
+import { Rebuttal } from './rebuttal.model';
+import { EntityEffects } from '../entity/entity.effects';
+import * as actions from './rebuttal.actions';
+import { entityNames } from '../util';
 
 @Injectable()
 export class RebuttalEffects {
-  constructor(private actions$: Actions,
-    private dataService: DataService) { }
-
   @Effect()
-  loadData$: Observable<Action> = this.actions$
-    .ofType(rebuttals.ActionTypes.LOAD)
-    .startWith(new rebuttals.LoadAction())
-    .switchMap(() =>
-      this.dataService.getRebuttals()
-        .mergeMap(fetchedRebuttals => Observable.from(fetchedRebuttals))
-        .map((fetchedRecord: Rebuttal) => new rebuttals.LoadSuccessAction(fetchedRecord))
-        .catch(error => of(new rebuttals.LoadFailAction(error)))
-    );
+  protected load$ = this.entityEffects.load$(this.action$, entityNames.REBUTTAL, actions, 'rebuttals');
+
+  constructor(
+    private store: Store<Rebuttal>,
+    private action$: Actions,
+    protected entityEffects: EntityEffects<Rebuttal>
+  ) { }
 }
+

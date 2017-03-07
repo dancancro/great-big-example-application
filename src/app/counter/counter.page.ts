@@ -24,7 +24,7 @@ import { Counter } from '../core/store/counter/counter.model';
       </rio-counter>
     </rio-container>
   `,
-  styleUrls: ['counter.component.css']
+  styleUrls: ['./counter.component.css']
 })
 export class RioCounterPage {
   value$: Observable<number>;

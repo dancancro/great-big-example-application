@@ -8,8 +8,8 @@ import { Book } from '../../core/store/book/book.model';
       <md-card>
         <md-card-title-group>
           <img md-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
-          <md-card-title>{{ title }}</md-card-title>
-          <md-card-subtitle *ngIf="subtitle">{{ subtitle }}</md-card-subtitle>
+          <md-card-title>{{ title | bcEllipsis:35 }}</md-card-title>
+          <md-card-subtitle *ngIf="subtitle">{{ subtitle | bcEllipsis:40 }}</md-card-subtitle>
         </md-card-title-group>
         <md-card-content>
           <p *ngIf="description">{{ description | bcEllipsis }}</p>
@@ -26,8 +26,19 @@ import { Book } from '../../core/store/book/book.model';
       height: 300px;
       margin: 15px;
     }
+    @media only screen and (max-width: 768px) {
+       md-card {
+         margin: 15px 0 !important;
+       }
+     }
+     md-card:hover {
+       box-shadow: 3px 3px 16px -2px rgba(0, 0, 0, .5);
+     }
     md-card-title {
       margin-right: 10px;
+    }
+    md-card-title-group {
+       margin: 0;
     }
     a {
       color: inherit;
@@ -39,7 +50,7 @@ import { Book } from '../../core/store/book/book.model';
       margin-left: 5px;
     }
     md-card-content {
-      margin-top: 15px;
+      margin: 15px 0 0;
     }
     span {
       display: inline-block;

@@ -7,6 +7,3 @@ export * from './interfaces/index';
 
 // services
 export * from './services/index';
-
-// directives
-export * from './directives/index';

@@ -1,18 +1,22 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { CrisisService } from '../../model/crisis.service';
-import { Crisis } from '../../model';
+import { Crisis } from '../../../core/store/crisis/crisis.model';
+import * as fromRoot from '../../../core/store';
+import * as actions from '../../../core/store/hero/hero.actions';
+import { entityNames } from '../../../core/store/util'
 
 @Component({
   template: `
     <ul class="items">
-      <li *ngFor="let crisis of crises | async"
+      <li *ngFor="let crisis of crises$ | async"
         (click)="onSelect(crisis)"
-        [class.selected]="isSelected(crisis)">
+        [class.selected]="crisis === (selectedCrisis$ | async)">
           <span class="badge">{{ crisis.id }}</span>
           {{ crisis.name }}
       </li>
@@ -23,32 +27,31 @@ import { Crisis } from '../../model';
   styleUrls: ['./crisis-list.component.css']
 })
 export class CrisisListComponent implements OnInit {
-  crises: Observable<Crisis[]>;
-  selectedId: number;
+  crises$: Observable<Crisis[]>;
+  selectedCrisis$: Observable<Crisis>;
+  routeSub: Subscription;
 
   constructor(
-    private service: CrisisService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<fromRoot.RootState>,
   ) { }
 
-  isSelected(crisis: Crisis) {
-    return crisis.id === this.selectedId;
-  }
-
   ngOnInit() {
-    this.crises = this.route.params
-      .switchMap((params: Params) => {
-        this.selectedId = +params['id'];
-        return this.service.getCrises();
-      });
+    this.crises$ = this.store.select(fromRoot.getCrises);
+    this.routeSub = this.route.params
+      .subscribe((params: Params) => {
+        this.store.dispatch(new actions.Select({ id: +params['id'] }, entityNames.HERO));
+      })
   }
 
   onSelect(crisis: Crisis) {
-    this.selectedId = crisis.id;
-
     // Navigate with relative link
     this.router.navigate([crisis.id], { relativeTo: this.route });
+  }
+
+  ngOnDestroy() {
+    this.routeSub && this.routeSub.unsubscribe();
   }
 }
 

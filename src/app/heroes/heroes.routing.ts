@@ -22,13 +22,17 @@ const routes: Routes = [
       {
         path: 'crisis-center',
         loadChildren: 'app/heroes/crisis-center/crisis-center.module#CrisisCenterModule',
-        data: { preload: true }
+        data: { preload: true },
+        canLoad: [AuthGuard]
       },
       {
         path: 'dashboard',
         loadChildren: 'app/heroes/dashboard/dashboard.module#DashboardModule'
       },
-      { path: 'hero/:id', component: HeroDetailComponent },
+      {
+        path: 'hero/:id', component: HeroDetailComponent,
+        canLoad: [AuthGuard]
+      },
       { path: 'list', loadChildren: 'app/heroes/hero/hero.module#HeroModule' },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]

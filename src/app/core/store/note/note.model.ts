@@ -4,7 +4,6 @@ export interface Note {
   left: number,
   top: number,
   id?: string,
-  dirty?: boolean
 }
 
 
@@ -13,6 +12,5 @@ export const initialNote: Note = {
   colour: null,
   left: 0,
   top: 0,
-  id: null,
-  dirty: false
+  id: null
 };

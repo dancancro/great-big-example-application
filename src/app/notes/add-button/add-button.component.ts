@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'add-button',
-  templateUrl: 'add-button.component.html',
-  styleUrls: ['add-button.component.css']
+  templateUrl: './add-button.component.html',
+  styleUrls: ['./add-button.component.css']
 })
 export class AddButtonComponent {
   @Input() colour: string;

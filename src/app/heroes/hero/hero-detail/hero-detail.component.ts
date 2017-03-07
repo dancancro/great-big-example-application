@@ -1,11 +1,16 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 import { slideInDownAnimation } from '../../../shared/animations';
-
-import { Hero, HeroService } from '../../model';
-import { HeroDetailService } from './hero-detail.service';
+import { Hero } from '../../../core/store/hero/hero.model';
+import * as fromRoot from '../../../core/store';
+import * as actions from '../../../core/store/hero/hero.actions';
+import { entityNames } from '../../../core/store/util'
 
 @Component({
   selector: 'app-hero-detail',
@@ -18,28 +23,35 @@ export class HeroDetailComponent implements OnInit {
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
 
+  hero$: Observable<Hero>
   hero: Hero;
+  heroSub: Subscription;
+  routeSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private heroDetailService: HeroDetailService
-  ) { }
+    private store: Store<fromRoot.RootState>,
+    private location: Location) { }
 
-  ngOnInit() {
-    this.route.params
-      // (+) converts string 'id' to a number
-      .switchMap((params: Params) => this.heroDetailService.getHero(+params['id']))
-      .subscribe((hero: Hero) => this.hero = hero);
+  ngOnInit(): void {
+    this.hero$ = this.store.select(fromRoot.getSelectedHero);
+    this.heroSub = this.hero$.subscribe(hero => this.hero = hero);
+    this.routeSub = this.route.params
+      .subscribe((params: Params) => {
+        this.store.dispatch(new actions.Select({ id: +params['id'] }, entityNames.HERO));
+      })
   }
 
   save(): void {
-    this.heroDetailService.saveHero(this.hero).then(() => this.gotoList());
+    //    this.heroDetailService.saveHero(this.hero).toPromise().then(() => this.gotoList());
+    this.store.dispatch(new actions.Update(this.hero, entityNames.HERO));
+    this.goBack();
   }
 
-  cancel() { this.gotoList(); }
+  cancel(): void { this.goBack(); }
 
-  gotoList() {
+  gotoList(): void {
     let heroId = this.hero ? this.hero.id : null;
     // Pass along the hero id if available
     // so that the HeroList component can select that hero.
@@ -47,6 +59,16 @@ export class HeroDetailComponent implements OnInit {
 
     // TODO: it should take you back to where you were, wherever that was
     this.router.navigate(['/heroes/list', { id: heroId, foo: 'foo' }]);
+  }
+
+  goBack(): void {
+    // this.location.back();  //TODO: This takes you back to the home page
+    this.gotoList();
+  }
+
+  ngOnDestroy(): void {
+    this.heroSub && this.heroSub.unsubscribe();
+    this.routeSub && this.routeSub.unsubscribe();
   }
 }
 

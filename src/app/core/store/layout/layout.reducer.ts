@@ -1,41 +1,51 @@
 import { createSelector } from 'reselect';
-import * as layout from './layout.actions';
-import * as contact from '../contact/contact.actions';
-import * as claim from '../claim/claim.actions';
-import { Layout, initialLayout, DebatePageLayout, initialDebatePage } from './layout.model';
+import * as layoutActions from './layout.actions';
+import * as contactActions from '../contact/contact.actions';
+import * as claimActions from '../claim/claim.actions';
+import { Layout, initialLayout, BerniePageLayout, initialBerniePage } from './layout.model';
 
-export function reducer(state = initialLayout, action: layout.Actions |
-  contact.Actions | claim.Actions): Layout {
+export function reducer(state: Layout = initialLayout({}, 'Layout', layoutActions, initialLayout), action: layoutActions.Actions | contactActions.Actions | claimActions.Actions): Layout {
+
+  // console.log(JSON.stringify(action))
+
+
   switch (action.type) {
-    case layout.ActionTypes.CLOSE_SIDENAV:
+    case state.actionTypes.CloseSidenav:
       return Object.assign({}, state, { booksPage: { showSidenav: false } });
 
-    case layout.ActionTypes.OPEN_SIDENAV:
+    case state.actionTypes.OpenSidenav:
       return Object.assign({}, state, { booksPage: { showSidenav: true } });
 
-    case claim.ActionTypes.TOGGLE_EDITABLE:
+    case state.actionTypes.SearchForHero:
       return Object.assign({}, state, {
-        debatePage: Object.assign({},
-          initialDebatePage, // this is so that the methods are not lost
-          state,
-          { editable: action.payload })
+        heroesDashboardPage: Object.assign({},
+          state.heroesDashboardPage,
+          { heroSearchTerm: (<any>action).payload.term })
       });
 
-    case claim.ActionTypes.TOGGLE_ALL_REBUTTALS:
+    case state.actionTypes.ToggleEditable:
       return Object.assign({}, state, {
-        debatePage: Object.assign({}, initialDebatePage,
+        berniePage: Object.assign({},
+          initialBerniePage, // this is so that the methods are not lost
           state,
-          { expanded: action.payload })
+          { editable: (<any>action).payload })
       });
 
-    case contact.ActionTypes.LOAD:
+    case state.actionTypes.ToggleAllRebuttals:
+      return Object.assign({}, state, {
+        berniePage: Object.assign({}, initialBerniePage,
+          state,
+          { expanded: (<any>action).payload })
+      });
+
+    case state.actionTypes.Load:
       return Object.assign({}, state, {
         msg: 'Loading contacts ...'
       });
 
-    case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
+    case state.actionTypes.UpdateSuccess:
       return Object.assign({}, state, {
-        msg: 'Saved ' + action.payload.name
+        msg: 'Saved ' + (<any>action).payload.name
       });
 
     default:
@@ -45,6 +55,8 @@ export function reducer(state = initialLayout, action: layout.Actions |
 
 export const getShowSidenav = (state: Layout) => state.booksPage.showSidenav;
 
-export const getDebatePageState = (state: Layout) => state.debatePage;
+export const getBerniePageState = (state: Layout) => state.berniePage;
 
 export const getMsg = (state: Layout) => state.msg;
+
+export const getHeroSearchTerm = (state: Layout) => state.heroesDashboardPage.heroSearchTerm;

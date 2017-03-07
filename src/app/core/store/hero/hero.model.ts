@@ -1,10 +1,11 @@
 export interface Hero {
-    id: string,
-    name: string
+  id: string,
+  name: string,
+  clone: Function
 }
 
-
-export const initialHero = {
-    id: null,
-    name: null
+export const initialHero: Hero = {
+  id: null,
+  name: null,
+  clone: function () { return Object.assign({}, { id: this.id, name: this.name }) }
 };

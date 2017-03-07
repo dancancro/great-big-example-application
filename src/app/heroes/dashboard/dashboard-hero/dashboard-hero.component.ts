@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Hero } from '../../model';
+import { Hero } from '../../../core/store/hero/hero.model';
 
 @Component({
   selector: 'dashboard-hero',

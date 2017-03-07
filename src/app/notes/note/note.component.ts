@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-note',
-  templateUrl: 'note.component.html',
-  styleUrls: ['note.component.css']
+  templateUrl: './note.component.html',
+  styleUrls: ['./note.component.css']
 })
 export class NoteComponent {
   @Input() text: string;
@@ -15,7 +15,7 @@ export class NoteComponent {
   @Output() changeNoteText = new EventEmitter(false);
   @Output() changeNotePosition = new EventEmitter(false);
 
-  constructor() {}
+  constructor() { }
 
   handleChangeNotePosition(newPosition) {
     if (newPosition.left != this.left || newPosition.top != this.top) {

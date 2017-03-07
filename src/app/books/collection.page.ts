@@ -10,6 +10,9 @@ import { Book } from '../core/store/book/book.model';
   selector: 'bc-collection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+  <br>
+  <br>
+  <br>
     <md-card>
       <md-card-title>My Collection</md-card-title>
     </md-card>
@@ -19,7 +22,7 @@ import { Book } from '../core/store/book/book.model';
   /**
    * Container components are permitted to have just enough styles
    * to bring the view together. If the number of styles grow,
-   * consider breaking them out into presentational 
+   * consider breaking them out into presentational
    * components.
    */
   styles: [`

@@ -140,8 +140,14 @@ nav a.active {
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
-}
-
+  box-sizing: border-box;
+ }
+ 
+ html {
+   -webkit-font-smoothing: antialiased;
+   -ms-overflow-style: none;
+   overflow: auto;
+ }
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

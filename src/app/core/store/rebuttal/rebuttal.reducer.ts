@@ -4,80 +4,42 @@ import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 
 import { Rebuttal, initialRebuttal } from './rebuttal.model';
-import * as rebuttal from './rebuttal.actions';
+import * as actions from './rebuttal.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 
-export function reducer(state = initialEntities<Rebuttal>(), action: rebuttal.Actions): Entities<Rebuttal> {
-  let entities = {};
+export function reducer(state: Entities<Rebuttal> = initialEntities<Rebuttal>({},
+  'Rebuttal', actions, initialRebuttal), action: actions.Actions): Entities<Rebuttal> {
+
+  let edits = {};
   switch (action.type) {
+    case state.actionTypes.MakeRebuttalEditable:
+      edits = { editing: true }; break;
+    case state.actionTypes.CancelChanges:
+    case state.actionTypes.SaveRebuttal:
+      edits = { editing: false }; break;
+    default:
+      edits = {};
+  }
+  action.payload && (action.payload = Object.assign(action.payload, edits));
 
-    // add one entity
-    case rebuttal.ActionTypes.ADD_REBUTTAL:
-    case rebuttal.ActionTypes.LOAD_SUCCESS: {
-      entities = Object.assign({}, state.entities);
-      entities[action.payload.id] = singleReducer(null, action);
-      return Object.assign({}, state, {
-        ids: Object.keys(entities),
-        entities: entities,
-        loaded: true,
-        loading: false,
-      });
-    }
-
-    // operate on one entity
-    case rebuttal.ActionTypes.SAVE_REBUTTAL:
-    case rebuttal.ActionTypes.CANCEL_CHANGES:
-    case rebuttal.ActionTypes.MAKE_REBUTTAL_EDITABLE: {
-      entities = Object.assign({}, state.entities);
-      entities[action.payload.id] = singleReducer(entities[action.payload.id], action);
-      return Object.assign({}, state, {
-        entities: entities
-      });
-    }
-
+  switch (action.type) {
+    case state.actionTypes.Add:
+    case state.actionTypes.AddSuccess:
+    case state.actionTypes.LoadSuccess:
+      return state.addLoadEntity(action);
+    case state.actionTypes.MakeRebuttalEditable:
+    case state.actionTypes.SaveRebuttal:
+    case state.actionTypes.CancelChanges:
+      return state.updateEntity(action);
     default:
       return state;
   }
+  // checkout https://github.com/omnidan/redux-undo for undo features
 
-  function singleReducer(state: Rebuttal = initialRebuttal(),
-    action: rebuttal.Actions): Rebuttal {
-    switch (action.type) {
+}
 
-      case rebuttal.ActionTypes.ADD_REBUTTAL:
-      case rebuttal.ActionTypes.LOAD_SUCCESS:
-        return Object.assign({}, initialRebuttal(), action.payload, { dirty: false });
-
-      case rebuttal.ActionTypes.CANCEL_CHANGES:
-        return Object.assign({}, state, { editing: false });
-
-      case rebuttal.ActionTypes.SAVE_REBUTTAL: {
-        let newRebuttal = action.payload.newRebuttal;
-        return Object.assign({}, state, {
-          shortName: newRebuttal.shortName.value,
-          longName: newRebuttal.longName.value,
-          link: newRebuttal.link.value,
-          comments: newRebuttal.comments.value,
-          original: state.original || state,
-          // original: state,
-          editing: false
-        });
-      }
-
-      case rebuttal.ActionTypes.MAKE_REBUTTAL_EDITABLE: {
-        if (state.id == action.payload.id) {
-          return Object.assign({}, state, { editing: true });
-        } else {
-          return state;
-        }
-      }
-
-      default: {
-        return state;
-      }
-    }
-  }
-};
-
-export const getEntities = (state: Entities<Rebuttal>) => state.entities;
+export const getEntities = (state: Entities<Rebuttal>) => {
+  return state.entities;
+}
 
 export const getIds = (state: Entities<Rebuttal>) => state.ids;

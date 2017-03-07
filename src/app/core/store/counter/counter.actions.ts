@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   INCREMENT_COUNTER:           type('[Counter] Increment Counter'),

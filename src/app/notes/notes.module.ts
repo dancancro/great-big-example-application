@@ -5,13 +5,14 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DataService } from '../core/store/data.service';
+import { DataService } from '../core/services/data.service';
 import { NoteEffects } from '../core/store/note/note.effects';
 import { NoteComponent } from './note/note.component';
 import { AddButtonComponent } from './add-button/add-button.component';
 import { NotesPage } from './notes.page';
 import { NotesRouting } from './notes-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { EntityEffects } from '../core/store/entity/entity.effects';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { SharedModule } from '../shared/shared.module';
     AddButtonComponent
   ],
   providers: [
-    DataService
+    DataService,
+    EntityEffects
   ]
 })
 export class NotesModule { }

@@ -1,24 +1,30 @@
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from '../../core/services/in-memory-data.service';
+
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { SharedModule } from '../../shared/shared.module';
 import { routedComponents, DashboardRouting } from './dashboard.routing';
 import { DashboardHeroComponent } from './dashboard-hero/dashboard-hero.component';
 import { DashboardCrisisComponent } from './dashboard-crisis/dashboard-crisis.component';
-import { HeroService, CrisisService } from '../model';
 
 @NgModule({
   imports: [
     SharedModule,
-    DashboardRouting
+    DashboardRouting,
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
   declarations: [
     routedComponents,
     DashboardHeroComponent,
-    DashboardCrisisComponent
+    DashboardCrisisComponent,
+    HeroSearchComponent
   ],
   providers: [
-    HeroService,
-    CrisisService
   ]
 })
 export class DashboardModule { }

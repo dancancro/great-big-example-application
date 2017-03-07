@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
-    FormBuilder,
-    FormGroup,
-    FormControl,
-    Validators
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
 } from '@angular/forms';
 
 @Component({
-    selector: 'rio-login-form',
-    template: `
+  selector: 'rio-login-form',
+  template: `
     <rio-form
       [group]="group"
       (onSubmit)="handleSubmit()">
@@ -117,51 +117,51 @@ import {
 
 
   `,
-    styleUrls: ['login-form.component.css']
+  styleUrls: ['./login-form.component.css']
 })
 export class RioLoginFormComponent {
-    @Input() isPending: boolean;
-    @Input() hasError: boolean;
-    @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
+  @Input() isPending: boolean;
+  @Input() hasError: boolean;
+  @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
 
-    // needed to be public to allow access from fixture tests
-    username: FormControl;
-    password: FormControl;
-    group: FormGroup;
+  // needed to be public to allow access from fixture tests
+  username: FormControl;
+  password: FormControl;
+  group: FormGroup;
 
-    constructor(private builder: FormBuilder) {
-        this.reset();
+  constructor(private builder: FormBuilder) {
+    this.reset();
+  }
+
+  showNameWarning() {
+    return this.username.touched
+      && !this.username.valid
+      && this.username.hasError('required');
+  }
+
+  showPasswordWarning() {
+    return this.password.touched
+      && !this.password.valid
+      && this.password.hasError('required');
+  }
+
+  handleSubmit() {
+    this.password.markAsTouched();
+    this.username.markAsTouched();
+
+    if (this.password.value && this.username.value) {
+      this.onSubmit.emit(this.group.value);
     }
+  }
 
-    showNameWarning() {
-        return this.username.touched
-            && !this.username.valid
-            && this.username.hasError('required');
-    }
-
-    showPasswordWarning() {
-        return this.password.touched
-            && !this.password.valid
-            && this.password.hasError('required');
-    }
-
-    handleSubmit() {
-        this.password.markAsTouched();
-        this.username.markAsTouched();
-
-        if (this.password.value && this.username.value) {
-            this.onSubmit.emit(this.group.value);
-        }
-    }
-
-    reset() {
-        this.username = new FormControl('', Validators.required);
-        this.password = new FormControl('', Validators.required);
-        this.hasError = false;
-        this.isPending = false;
-        this.group = this.builder.group({
-            username: this.username,
-            password: this.password
-        });
-    }
+  reset() {
+    this.username = new FormControl('', Validators.required);
+    this.password = new FormControl('', Validators.required);
+    this.hasError = false;
+    this.isPending = false;
+    this.group = this.builder.group({
+      username: this.username,
+      password: this.password
+    });
+  }
 };

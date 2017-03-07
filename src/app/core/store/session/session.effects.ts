@@ -15,20 +15,20 @@ import 'rxjs/add/operator/startWith';
 
 import * as session from '../session/session.actions';
 import { Session } from '../session/session.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 
 @Injectable()
 export class SessionEffects {
   constructor(private actions$: Actions,
-              private dataService: DataService) { }
+    private dataService: DataService) { }
 
   @Effect()
   login$: Observable<Action> = this.actions$
     .ofType(session.ActionTypes.LOGIN_USER)
     .switchMap((action: Action, index: number) =>
       this.dataService.login(action.payload)
-      .map((loginResponse: any) =>
-        new session.LoginUserSuccessAction(loginResponse.meta))
-      .catch(error => of(new session.LoginUserFailAction(error)))
+        .map((loginResponse: any) =>
+          new session.LoginUserSuccessAction(loginResponse.meta))
+        .catch(error => of(new session.LoginUserFailAction(error)))
     );
 }

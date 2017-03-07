@@ -32,7 +32,7 @@ import { TitleComponent } from './title/title.component';
 import { routing } from './core.routing';
 
 // module
-import { CORE_DIRECTIVES } from './directives/index';
+import { PlatformDirective } from './platform/platform.directive';
 import { CORE_PROVIDERS } from './services/index';
 import { Config } from './utils/index';
 import { AuthModule } from './auth/auth.module';
@@ -91,7 +91,7 @@ const store = StoreModule.provideStore(reducer);
     routing
   ],
   declarations: [
-    CORE_DIRECTIVES,
+    PlatformDirective,
     NotFoundPage,
     RioAboutPage,
     TitleComponent
@@ -105,7 +105,7 @@ const store = StoreModule.provideStore(reducer);
     FormsModule,
     RouterModule,
     HttpModule,
-    CORE_DIRECTIVES
+    PlatformDirective
   ],
   providers: [
     CORE_PROVIDERS
