@@ -27,7 +27,7 @@ import { NavigatorModule } from './core/navigator/navigator.module';
 const config: Route[] = [
   { path: '', redirectTo: 'core', pathMatch: 'full' },
   { path: 'notes', loadChildren: 'app/notes/notes.module#NotesModule' },
-  { path: 'debate', loadChildren: 'app/debate/debate.module#DebateModule' },
+  { path: 'bernie', loadChildren: 'app/bernie/bernie.module#BernieModule' },
   { path: 'books', loadChildren: 'app/books/books.module#BooksModule' },
   { path: 'counter', loadChildren: 'app/counter/counter.module#CounterModule' },
   { path: 'contacts', loadChildren: 'app/contact/contact.module#ContactModule' },

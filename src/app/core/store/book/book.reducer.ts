@@ -20,11 +20,11 @@ export function reducer(state = initialEntities<Book>(),
         });
       }, {});
 
-      return {
+      return Object.assign({}, state, {
         ids: [...state.ids, ...newBookIds],
         entities: Object.assign({}, state.entities, newBookEntities),
         selectedEntityId: state.selectedEntityId
-      };
+      });
     }
 
     case book.ActionTypes.LOAD: {
@@ -34,21 +34,21 @@ export function reducer(state = initialEntities<Book>(),
         return state;
       }
 
-      return {
+      return Object.assign({}, state, {
         ids: [...state.ids, book.id],
         entities: Object.assign({}, state.entities, {
           [book.id]: book
         }),
         selectedEntityId: state.selectedEntityId
-      };
+      });
     }
 
     case book.ActionTypes.SELECT: {
-      return {
+      return Object.assign({}, state, {
         ids: state.ids,
         entities: state.entities,
         selectedEntityId: action.payload
-      };
+      });
     }
 
     default: {

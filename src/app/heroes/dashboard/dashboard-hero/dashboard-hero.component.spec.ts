@@ -7,7 +7,7 @@ import { DebugElement } from '@angular/core';
 
 import { addMatchers, click } from '../../../shared/test/util';
 
-import { Hero } from '../../model/hero';
+import { Hero, initialHero } from '../../../core/store/hero/hero.model';
 import { DashboardHeroComponent } from './dashboard-hero.component';
 
 beforeEach(addMatchers);
@@ -34,7 +34,7 @@ describe('DashboardHeroComponent when tested directly', () => {
     heroEl = fixture.debugElement.query(By.css('.hero')); // find hero element
 
     // pretend that it was wired to something that supplied a hero
-    expectedHero = new Hero(42, 'Test Name');
+    expectedHero = Object.assign({}, initialHero, { id: '42', name: 'Test Name' });
     comp.hero = expectedHero;
     fixture.detectChanges(); // trigger initial data binding
   });
@@ -102,7 +102,7 @@ import { Component } from '@angular/core';
     <dashboard-hero  [hero]="hero"  (selected)="onSelected($event)"></dashboard-hero>`
 })
 class TestHostComponent {
-  hero = new Hero(42, 'Test Name');
+  hero = Object.assign({}, initialHero, { id: '42', name: 'Test Name' });
   selectedHero: Hero;
   onSelected(hero: Hero) { this.selectedHero = hero; }
 }

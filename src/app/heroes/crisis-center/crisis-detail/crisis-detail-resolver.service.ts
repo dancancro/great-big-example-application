@@ -4,17 +4,18 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 
-import { Crisis } from '../../model/crisis';
-import { CrisisService } from '../../model/crisis.service';
+import { DataService } from '../../../core/services/data.service';
+import { Crisis } from '../../../core/store/crisis/crisis.model';
+import { entityNames } from '../../../core/store/util';
 
 @Injectable()
 export class CrisisDetailResolver implements Resolve<Crisis> {
-  constructor(private cs: CrisisService, private router: Router) { }
+  constructor(private ds: DataService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Crisis> {
     let id = route.params['id'];
 
-    return this.cs.getCrisis(id).then(crisis => {
+    return this.ds.getEntity(id, 'crisis').toPromise().then(crisis => {
       if (crisis) {
         return crisis;
       } else { // id not found

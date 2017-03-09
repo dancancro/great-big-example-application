@@ -9,7 +9,7 @@ import { RioLoginModalComponent } from './login-modal/login-modal.component';
 import { LoginComponent } from './login.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { SessionEffects } from '../../../core/store/session/session.effects';
-import { DataService } from '../../../core/store/data.service';
+import { DataService } from '../../../core/services/data.service';
 import { LoginRouting } from './login.routing';
 
 @NgModule({

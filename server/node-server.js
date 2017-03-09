@@ -81,9 +81,11 @@ app.get('/api/contacts', getRecords('contact'));
 app.post('/api/contact', saveARecord('contact'));
 app.get('/api/crises', getRecords('crisis'));
 app.get('/api/heroes', getRecords('hero'));
+app.get('/api/crisis/:id', getRecord('crisis'));
 app.get('/api/notes', getRecords('note'));
 app.get('/api/users', getRecords('user'));
 app.post('/api/note', saveARecord('note'));
+app.post('/api/hero', saveARecord('hero'));
 
 app.get('/api/deps/:package', getDependencies());
 
@@ -103,6 +105,19 @@ function getRecords(table) {
       return function (req, res) {
         res.sendFile(path.join(__dirname, '/db/' + table + '.json'));
       }
+  }
+}
+
+function getRecord(table) {
+  return function (req, res) {
+    let id = req.params['id'];
+    let fileName = path.join(__dirname, '/db/' + table + '.json')
+    fs.readFile(fileName, (err, data) => {
+      if (err) throw err;
+      let dbRecords = JSON.parse(data);
+      let record = dbRecords.find(record => record.id === +id);
+      res.send(JSON.stringify(record));
+    })
   }
 }
 

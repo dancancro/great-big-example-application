@@ -1,21 +1,29 @@
+import { getActionTypes } from '../util';
+
 export interface BooksPageLayout {
   showSidenav: boolean;
 };
 
-export interface DebatePageLayout {
+export interface BerniePageLayout {
   editable: boolean;
   expanded: boolean;
   scrollY: number;
   isTouched: Function;
 };
 
-export interface Layout {
-  booksPage: BooksPageLayout;
-  debatePage: DebatePageLayout;
-  msg: string;
+export interface HeroesDashboardLayout {
+  heroSearchTerm: string
 }
 
-export const initialDebatePage: DebatePageLayout = {
+export interface Layout {
+  booksPage: BooksPageLayout;
+  berniePage: BerniePageLayout;
+  heroesDashboardPage: HeroesDashboardLayout;
+  msg: string;
+  actionTypes: any;
+}
+
+export const initialBerniePage: BerniePageLayout = {
   editable: false,
   expanded: false,
   scrollY: 0,
@@ -32,11 +40,20 @@ export const initialDebatePage: DebatePageLayout = {
   }
 }
 
+export const initialHeroesDashboardPage = {
+  heroSearchTerm: ''
+}
 
-export const initialLayout: Layout = {
-  booksPage: {
-    showSidenav: false
-  },
-  debatePage: initialDebatePage,
-  msg: ''
+
+export function initialLayout(vals: any = {}, entityTypeName?: string, actionNames?: any, initialEntity?): Layout {
+
+  return {
+    booksPage: {
+      showSidenav: false
+    },
+    berniePage: initialBerniePage,
+    heroesDashboardPage: initialHeroesDashboardPage,
+    msg: '',
+    actionTypes: getActionTypes(entityTypeName, actionNames),
+  }
 }

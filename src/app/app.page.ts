@@ -3,15 +3,16 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from './core/store/';
-import * as layout from './core/store/layout/layout.actions';
+import * as layoutActions from './core/store/layout/layout.actions';
 import * as sessionActions from './core/store/session/session.actions';
+import { entityNames } from './core/store/util'
 
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['app.page.css'],
-  templateUrl: 'app.page.html'
+  styleUrls: ['./app.page.css'],
+  templateUrl: './app.page.html'
 })
 export class AppPage {
   showSidenav$: Observable<boolean>;
@@ -43,14 +44,14 @@ export class AppPage {
     /**
      * All state updates are handled through dispatched actions in 'container'
      * components. This provides a clear, reproducible history of state
-     * updates and user interaction through the life of our 
+     * updates and user interaction through the life of our
      * application.
      */
-    this.store.dispatch(new layout.CloseSidenavAction());
+    this.store.dispatch(new layoutActions.CloseSidenav());
   }
 
   openSidenav() {
-    this.store.dispatch(new layout.OpenSidenavAction());
+    this.store.dispatch(new layoutActions.OpenSidenav(null, entityNames.LAYOUT));
   }
 
   loginUser(credentials) {

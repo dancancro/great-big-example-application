@@ -4,6 +4,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 let uuid = require('uuid');
+import 'rxjs/add/operator/filter';
 
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
@@ -148,9 +149,9 @@ export function reducer(state: any, action: any) {
  * 	  this.booksState$ = state$.select(getBooksState);
  * 	}
  * }
- * 
+ *
  * ```
- * 
+ *
  */
 export const getBooksState = (state: RootState) => state.books;
 
@@ -163,7 +164,7 @@ export const getBooksState = (state: RootState) => state.books;
  * first select the books state then we pass the state to the book
  * reducer's getBooks selector, finally returning an observable
  * of search results.
- * 
+ *
  * Share memoizes the selector functions and published the result. This means
  * every time you call the selector, you will get back the same result
  * observable. Each subscription to the resultant observable
@@ -210,7 +211,8 @@ export const isSelectedBookInCollection = createSelector(getCollectionBookIds, g
 export const getLayoutState = (state: RootState) => state.layout;
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getMsg = createSelector(getLayoutState, fromLayout.getMsg);
-export const getDebatePageState = createSelector(getLayoutState, fromLayout.getDebatePageState);
+export const getBerniePageState = createSelector(getLayoutState, fromLayout.getBerniePageState);
+export const getHeroSearchTerm = createSelector(getLayoutState, fromLayout.getHeroSearchTerm);
 
 
 /**
@@ -317,6 +319,12 @@ export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSe
 export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });
+// A selector that takes a parameter (id)
+export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => {
+  // return crisisList.filter(c => c.id === id);
+  return crisisList.ids.map(id => crisisList.entities[id]).filter(c => c.id === id);
+});
+
 /**
  * Contacts Reducers
  */
@@ -340,7 +348,9 @@ export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSele
 export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });
-
+export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
+  return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+});
 /**
  * User Reducers
  */

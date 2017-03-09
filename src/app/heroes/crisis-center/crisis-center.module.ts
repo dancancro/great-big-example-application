@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 
 import { DialogService } from '../../shared/dialog/dialog.service';
-import { CrisisService } from '../model/crisis.service';
 import { CrisisCenterPage } from './crisis-center.page';
 import { CrisisListComponent } from './crisis-list/crisis-list.component';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
 import { CrisisCenterRouting } from './crisis-center.routing';
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
+import { CrisisEffects } from '../../core/store/crisis/crisis.effects';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    EffectsModule.run(CrisisEffects),
     CrisisCenterRouting
   ],
   declarations: [
@@ -25,7 +27,6 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
     ComposeMessageComponent
   ],
   providers: [
-    CrisisService,
     DialogService
   ]
 })

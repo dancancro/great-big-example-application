@@ -31,11 +31,11 @@ export class ViewBookPage implements OnDestroy {
   constructor(private store: Store<fromRoot.RootState>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
       .select<string>('id')
-      .map(id => new book.SelectAction(id))
+      .map(id => new book.Select(id))
       .subscribe(store);
   }
 
   ngOnDestroy() {
-    this.actionsSubscription.unsubscribe();
+    this.actionsSubscription && this.actionsSubscription.unsubscribe();
   }
 }

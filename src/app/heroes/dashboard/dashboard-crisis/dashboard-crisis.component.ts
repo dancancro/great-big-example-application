@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Crisis } from '../../model';
+import { Crisis } from '../../../core/store/crisis/crisis.model';
 
 @Component({
   selector: 'dashboard-crisis',

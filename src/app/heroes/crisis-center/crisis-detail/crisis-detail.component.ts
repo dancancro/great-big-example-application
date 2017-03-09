@@ -2,8 +2,8 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { slideInDownAnimation } from '../../../shared/animations';
-import { Crisis } from '../../model/crisis';
 import { DialogService } from '../../../shared/dialog/dialog.service';
+import { Crisis } from '../../../core/store/crisis/crisis.model';
 
 @Component({
   template: `

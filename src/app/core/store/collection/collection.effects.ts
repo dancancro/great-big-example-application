@@ -42,11 +42,11 @@ export class CollectionEffects {
   @Effect()
   loadCollection$: Observable<Action> = this.actions$
     .ofType(collection.ActionTypes.LOAD)
-    .startWith(new collection.LoadAction())
+    .startWith(new collection.Load())
     .switchMap(() => this.db.query('books')
-        .toArray()
-        .map((books: Book[]) => new collection.LoadSuccessAction(books))
-        .catch(error => of(new collection.LoadFailAction(error)))
+      .toArray()
+      .map((books: Book[]) => new collection.LoadSuccess(books))
+      .catch(error => of(new collection.LoadFail(error)))
     );
 
   @Effect()
@@ -54,7 +54,7 @@ export class CollectionEffects {
     .ofType(collection.ActionTypes.ADD_BOOK)
     .map((action: collection.AddBookAction) => action.payload)
     .mergeMap(book =>
-      this.db.insert('books', [ book ])
+      this.db.insert('books', [book])
         .map(() => new collection.AddBookSuccessAction(book))
         .catch(() => of(new collection.AddBookFailAction(book)))
     );
@@ -65,7 +65,7 @@ export class CollectionEffects {
     .ofType(collection.ActionTypes.REMOVE_BOOK)
     .map((action: collection.RemoveBookAction) => action.payload)
     .mergeMap(book =>
-      this.db.executeWrite('books', 'delete', [ book.id ])
+      this.db.executeWrite('books', 'delete', [book.id])
         .map(() => new collection.RemoveBookSuccessAction(book))
         .catch(() => of(new collection.RemoveBookFailAction(book)))
     );

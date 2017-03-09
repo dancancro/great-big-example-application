@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 import { Book } from '../book/book.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 
 export const ActionTypes = {
-  ADD_BOOK:             type('[Collection] Add Book'),
-  ADD_BOOK_SUCCESS:     type('[Collection] Add Book Success'),
-  ADD_BOOK_FAIL:        type('[Collection] Add Book Fail'),
-  REMOVE_BOOK:          type('[Collection] Remove Book'),
-  REMOVE_BOOK_SUCCESS:  type('[Collection] Remove Book Success'),
-  REMOVE_BOOK_FAIL:     type('[Collection] Remove Book Fail'),
-  LOAD:                 type('[Collection] Load'),
-  LOAD_SUCCESS:         type('[Collection] Load Success'),
-  LOAD_FAIL:            type('[Collection] Load Fail'),
+  ADD_BOOK: type('[Collection] Add Book'),
+  ADD_BOOK_SUCCESS: type('[Collection] Add Book Success'),
+  ADD_BOOK_FAIL: type('[Collection] Add Book Fail'),
+  REMOVE_BOOK: type('[Collection] Remove Book'),
+  REMOVE_BOOK_SUCCESS: type('[Collection] Remove Book Success'),
+  REMOVE_BOOK_FAIL: type('[Collection] Remove Book Fail'),
+  LOAD: type('[Collection] Load'),
+  LOAD_SUCCESS: type('[Collection] Load Success'),
+  LOAD_FAIL: type('[Collection] Load Fail'),
 };
 
 
@@ -62,19 +62,19 @@ export class RemoveBookFailAction implements Action {
 /**
  * Load Collection Actions
  */
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { }
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Book[]) { }
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
@@ -88,6 +88,6 @@ export type Actions
   | RemoveBookAction
   | RemoveBookSuccessAction
   | RemoveBookFailAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction;
+  | Load
+  | LoadSuccess
+  | LoadFail;

@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { AdminPage } from './admin.page';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { ManageCrisesComponent } from './manage-crises/manage-crises.component';
-import { ManageHeroesComponent } from './manage-heroes/manage-heroes.component';
 import { AdminRouting } from './admin.routing';
+import { CrisisCenterModule } from '../crisis-center/crisis-center.module';
+import { HeroModule } from '../hero/hero.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    AdminRouting
+    AdminRouting,
+    CrisisCenterModule,
+    HeroModule
   ],
   declarations: [
     AdminPage,
     AdminDashboardComponent,
-    ManageCrisesComponent,
-    ManageHeroesComponent
   ]
 })
 export class AdminModule { }

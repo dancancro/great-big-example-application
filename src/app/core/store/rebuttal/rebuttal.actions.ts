@@ -1,91 +1,42 @@
 import { Action } from '@ngrx/store';
-
 import { Rebuttal } from './rebuttal.model';
-import { type } from '../../../shared/util';
 
-export const ActionTypes = {
-  LOAD: type('[Rebuttals] Load'),
-  LOAD_SUCCESS: type('[Rebuttals] Load Success'),
-  LOAD_FAIL: type('[Rebuttals] Load Fail'),
-  SAVE_ALL: type('[Rebuttals] Save All'),
-  SAVE_ALL_SUCCESS: type('[Rebuttals] Save All Success'),
-  SAVE_ALL_FAIL: type('[Rebuttals] Save All Fail'),
-  CANCEL_CHANGES: type('[Rebuttal] Cancel Rebuttal'),
-  DELETE_REBUTTAL: type('[Rebuttal] Delete Rebuttal'),
-  SAVE_REBUTTAL: type('[Rebuttal] Save Rebuttal'),
-  MAKE_REBUTTAL_EDITABLE: type('[Rebuttal] Make Rebuttal Editable'),
-  ADD_REBUTTAL: type('[Rebuttal] Add Rebuttal')
+import * as entityActions from '../entity/entity.actions';
+import { entityNames, BaseAction } from '../util';
+
+// Special actions
+export class CancelRebuttal extends BaseAction<Rebuttal> {
+  _name = 'CancelRebuttal';
+  constructor(payload: Rebuttal) {
+    super(payload, entityNames.REBUTTAL)
+  }
 }
 
-export class LoadAction implements Action {
-  type = ActionTypes.LOAD;
-
-  constructor() { };
+export class SaveRebuttal extends BaseAction<Rebuttal> {
+  _name = 'SaveRebuttal';
+  constructor(payload: Rebuttal) {
+    super(payload, entityNames.REBUTTAL)
+  }
 }
 
-export class LoadSuccessAction implements Action {
-  type = ActionTypes.LOAD_SUCCESS;
-
-  constructor(public payload: Rebuttal) { };
+export class MakeRebuttalEditable extends BaseAction<Rebuttal> {
+  _name = 'MakeRebuttalEditable';
+  constructor(payload: Rebuttal) {
+    super(payload, entityNames.REBUTTAL)
+  }
 }
 
-export class LoadFailAction implements Action {
-  type = ActionTypes.LOAD_FAIL;
-
-  constructor(public payload: Rebuttal[]) { };
+export class AddRebuttal extends BaseAction<Rebuttal> {
+  _name = 'AddRebuttal';
 }
 
-export class SaveAllAction implements Action {
-  type = ActionTypes.SAVE_ALL;
+// Common actions
+export * from '../entity/entity.actions';
 
-  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
-}
-
-export class SaveAllSuccessAction implements Action {
-  type = ActionTypes.SAVE_ALL_SUCCESS;
-
-  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
-}
-
-export class SaveAllFailAction implements Action {
-  type = ActionTypes.SAVE_ALL_FAIL;
-
-  constructor(public payload: { oldClaims: Rebuttal[], newClaims: Rebuttal[] }) { };
-}
-
-export class CancelRebuttalAction implements Action {
-  type = ActionTypes.CANCEL_CHANGES;
-
-  constructor(public payload: Rebuttal) { };
-}
-
-export class SaveRebuttalAction implements Action {
-  type = ActionTypes.SAVE_REBUTTAL;
-
-  constructor(public payload: any) { };  // payload: {id, newRebuttal}
-}
-
-export class MakeRebuttalEditableAction implements Action {
-  type = ActionTypes.MAKE_REBUTTAL_EDITABLE;
-
-  constructor(public payload: Rebuttal) { };
-}
-
-export class AddRebuttalAction implements Action {
-  type = ActionTypes.ADD_REBUTTAL;
-
-  constructor(public payload: Rebuttal) { };
-}
-
-
-export type Actions
-  = LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
-  | SaveAllAction
-  | SaveAllSuccessAction
-  | SaveAllFailAction
-  | CancelRebuttalAction
-  | SaveRebuttalAction
-  | MakeRebuttalEditableAction
-  | AddRebuttalAction;
+// Action types
+export type Actions =
+  entityActions.Actions<Rebuttal>
+  | CancelRebuttal
+  | SaveRebuttal
+  | MakeRebuttalEditable
+  | AddRebuttal;
