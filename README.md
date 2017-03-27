@@ -178,7 +178,7 @@ to
 
 I agree. That's why I created utility functions to hold all the common code and got rid of plural names to enable generic handling, 
 and I replaced static action type definitions with dynamic functions that combine slice nouns and action verbs. It also turns out that most of 
-the tricky RxJS code is also boilerplate code that now resides inside functions that you don't have to mess most of the time. So you
+the tricky RxJS code is also boilerplate code that now resides inside functions that you don't have to mess with most of the time. So you
 should be able to get productive on an app that uses Observables without first having to be an expert at them, which is hard.
 
 That's a pretty big benefit. What could be seen as costs of doing that?
@@ -187,13 +187,6 @@ That's a pretty big benefit. What could be seen as costs of doing that?
 > Given that most Redux apps are done with React and React doesn't have any static type checking at all, I decided that was a small 
 price to pay. You can also mix this approach and the other one if you really want to. Use the general, un-type-checked, CRUD stuff for
 ordinary parts of your app (most of it), and use hard-coded, specialty action types when you really need TypeScript's compiler to help you.
-
-2) Using only generic action classes like `LoadSuccess` instead of `SearchComplete`, the dispatch calls in your components will be 
-more explicit and refer to details of the store.
-> I see this as a plus in most cases. Otherwise you have extraneous levels of abstraction and you have to look into three files to see exactly 
-what's going on. In most cases, the same person is writing the component, action and reducer files, so what's the point in hiding details 
-in one of them from the other? Now you can get the whole story by reading one line of code. You should decouple things when the need arises, 
-but you can overdo it too.
 
 Here's some code from the ngrx example app that gives you type checking for the action types. You won't get these checks using my approach.
 ```
@@ -208,6 +201,13 @@ export function reducer(state: Entities<Book> = initialEntities<Book>({}, slices
 That gives us two checks: `action.type` must be a string value among the union of `string` values of the `type` properties of the classes that `action` can be. If any
 of the case values are not among this union of string values, Typescript will point that out to you.
 And same with `action.payload`. It must be an object with the structure of the payload property of one of the classes that `action` can be.
+
+2) Using only generic action classes like `LoadSuccess` instead of `SearchComplete`, the dispatch calls in your components will be 
+more explicit and refer to details of the store.
+> I see this as a plus in most cases. Otherwise you have extraneous levels of abstraction and you have to look into three files to see exactly 
+what's going on. In most cases, the same person is writing the component, action and reducer files, so what's the point in hiding details 
+in one of them from the other? Now you can get the whole story by reading one line of code. You should decouple things when the need arises, 
+but you can overdo it too.
 
 ## 2) Why isn't the `server` directory under /src? It contains source code.
 
