@@ -2,18 +2,18 @@ import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
-import * as counter from './counter.actions';
-import * as session from '../session/session.actions';
-import { Counter, initialCounter } from './counter.model';
 
-export function reducer(state = initialCounter, action: counter.Actions | session.Actions): Counter {
+import { Counter, initialCounter } from './counter.model';
+import { typeFor, slices } from '../util';
+import * as functions from '../slice/slice.functions';
+import { actions, SliceAction } from '../slice/slice.actions';
+import * as SliceActions from '../slice/slice.actions';
+
+export function reducer(state: Counter = initialCounter, action: SliceAction): Counter {
   switch (action.type) {
-    case counter.ActionTypes.INCREMENT_COUNTER:
-      return { value: state.value + 1 };
-    case counter.ActionTypes.DECREMENT_COUNTER:
-      return { value: state.value - 1 };
-    case session.ActionTypes.LOGOUT_USER:
-      return initialCounter;
+    case typeFor(slices.COUNTER, actions.UPDATE):
+      let x = functions.update(state, action);
+      return x;
     default:
       return state;
   }

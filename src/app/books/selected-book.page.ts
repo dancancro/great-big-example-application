@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../core/store';
-import * as collection from '../core/store/collection/collection.actions';
+import * as IDActions from '../core/store/id/id.actions';
 import { Book } from '../core/store/book/book.model';
-
+import { slices } from '../core/store/util';
 
 @Component({
   selector: 'bc-selected-book-page',
@@ -29,10 +29,10 @@ export class SelectedBookPage {
   }
 
   addToCollection(book: Book) {
-    this.store.dispatch(new collection.AddBookAction(book));
+    this.store.dispatch(new IDActions.Add(slices.COLLECTION, book));
   }
 
   removeFromCollection(book: Book) {
-    this.store.dispatch(new collection.RemoveBookAction(book));
+    this.store.dispatch(new IDActions.Delete(slices.COLLECTION, book));
   }
 }

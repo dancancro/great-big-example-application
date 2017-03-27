@@ -6,10 +6,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as fromRoot from '../core/store';
 import { Contact } from '../core/store/contact/contact.model';
-import { User } from '../core/store/user/user.model';
-import * as actions from '../core/store/contact/contact.actions';
-import * as layout from '../core/store/layout/layout.actions';
-import { entityNames } from '../core/store/util'
+import { User } from '../core/store/session/session.model';
+import * as EntityActions from '../core/store/entity/entity.actions';
+import { slices } from '../core/store/util';
 
 let uuid = require('uuid');
 
@@ -43,19 +42,19 @@ export class ContactPage implements OnInit {
   }
 
   nextContact() {
-    this.store.dispatch(new actions.Next());
+    this.store.dispatch(new EntityActions.SelectNext<Contact>(slices.CONTACT));
   }
 
   newContact() {
-    this.store.dispatch(new actions.Add({
+    this.store.dispatch(new EntityActions.Add(slices.CONTACT, {
       id: uuid.v1(),
       name: ''
-    }, entityNames.CONTACT));
+    }));
   }
 
   onSubmit() {
-    this.store.dispatch(new actions.Update(
-      this.contactForm.value, entityNames.CONTACT));
+    this.store.dispatch(new EntityActions.Update(slices.CONTACT,
+      this.contactForm.value));
   }
 
 }

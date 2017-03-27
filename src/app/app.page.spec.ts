@@ -26,13 +26,14 @@ import { NavigatorModule } from './core/navigator/navigator.module';
 
 const config: Route[] = [
   { path: '', redirectTo: 'core', pathMatch: 'full' },
-  { path: 'notes', loadChildren: 'app/notes/notes.module#NotesModule' },
   { path: 'bernie', loadChildren: 'app/bernie/bernie.module#BernieModule' },
   { path: 'books', loadChildren: 'app/books/books.module#BooksModule' },
-  { path: 'counter', loadChildren: 'app/counter/counter.module#CounterModule' },
   { path: 'contacts', loadChildren: 'app/contact/contact.module#ContactModule' },
+  { path: 'counter', loadChildren: 'app/counter/counter.module#CounterModule' },
   { path: 'crisis', loadChildren: 'app/crisis/crisis.module#CrisisModule' },
   { path: 'heroes', loadChildren: 'app/hero/hero.module#HeroModule' },
+  { path: 'notes', loadChildren: 'app/notes/notes.module#NotesModule' },
+  { path: 'wiki', loadChildren: 'app/wiki/wiki.module#WikiModule' },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 

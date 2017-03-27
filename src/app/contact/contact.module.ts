@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ContactPage } from './contact.page';
 import { ContactRouting } from './contact.routing';
 import { ContactEffects } from '../core/store/contact/contact.effects';
-import { EntityEffects } from '../core/store/entity/entity.effects';
 
 @NgModule({
   imports: [
@@ -20,8 +19,7 @@ import { EntityEffects } from '../core/store/entity/entity.effects';
     ContactPage
   ],
   providers: [
-    DataService,
-    EntityEffects
+    DataService
   ]
 })
 export class ContactModule { }

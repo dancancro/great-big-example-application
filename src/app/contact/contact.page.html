@@ -1,4 +1,4 @@
-<h2>Contacts of {{(user$ | async).fullName()}}</h2>
+<h2>Contacts of {{(user$ | async).fullName}}</h2>
 <div *ngIf="(msg$ | async)" class="msg">{{(msg$ | async)}}</div>
 
 <form *ngIf="contact$ | async" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
@@ -15,7 +15,7 @@
 </form>
 
 
-<!-- 
+<!--
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license

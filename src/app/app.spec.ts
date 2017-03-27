@@ -181,7 +181,7 @@ class Page {
   constructor() {
     router.events.forEach(e => this.recordedEvents.push(e));
     const links = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
-    this.aboutLinkDe = links[7];
+    this.aboutLinkDe = links[8];
     this.dashboardLinkDe = links[0];
     this.heroesLinkDe = links[1];
     const buttons = fixture.debugElement.queryAll(By.css('button'));

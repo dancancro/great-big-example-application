@@ -1,47 +1,26 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
-
 import { Claim, initialClaim } from './claim.model';
-import * as claimActions from './claim.actions';
+import { actions, EntityAction } from '../entity/entity.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
-import * as layoutActions from '../layout/layout.actions';
+import * as functions from '../entity/entity.functions';
+import { slices } from '../util';
+import { typeFor } from '../util';
 
 
-export function reducer(state = initialEntities<Claim>({}, 'Claim', claimActions, initialClaim),
-  action: claimActions.Actions | layoutActions.Actions): Entities<Claim> {
-  let entities = {};
-
-  let edits = {};
+export function reducer(state = initialEntities<Claim>({}, slices.CLAIM, actions, initialClaim),
+  action: EntityAction<Claim>): Entities<Claim> {
   switch (action.type) {
-    case state.actionTypes.ReorderRebuttals:
-      edits = { rebuttalsReordered: true }; break;
-    case state.actionTypes.ToggleRebuttals:
-      edits = { expanded: !action.payload.expanded }; break;
-    default:
-      edits = {};
-  }
-  action.payload && (action.payload = Object.assign(action.payload, edits));
-
-  switch (action.type) {
-    case state.actionTypes.Add:
-    case state.actionTypes.AddSuccess:
-    case state.actionTypes.LoadSuccess:
-      return state.addLoadEntity(action);
-    // make the same change to every entity
-    case state.actionTypes.ToggleAllRebuttals:
-      return state.updateAllEntities(action);
-    case state.actionTypes.ReorderClaims:
-      return Object.assign({}, state, { ids: action.payload });
-    case state.actionTypes.ReorderRebuttals:
-    case state.actionTypes.ToggleRebuttals:
-      return state.updateEntity(action);
+    case typeFor(slices.CLAIM, actions.ADD):
+    case typeFor(slices.CLAIM, actions.ADD_SUCCESS):
+    case typeFor(slices.CLAIM, actions.LOAD_SUCCESS):
+      return functions.addLoadEntity<Claim>(state, <any>action);
+    case typeFor(slices.CLAIM, actions.UPDATE_EACH):
+      return functions.updateEach<Claim>(state, <any>action);
+    case typeFor(slices.CLAIM, actions.UPDATE):
+      return functions.update<Claim>(state, <any>action);
     default: {
       return state;
     }
   }
-
 }
 
 export const getEntities = (state: Entities<Claim>) => state.entities;

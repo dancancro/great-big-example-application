@@ -14,8 +14,6 @@ export interface Claim {
   rebuttalsReordered: boolean;
   expanded: boolean;
 
-  // methods
-  isAdding: Function;
 };
 
 
@@ -23,8 +21,6 @@ export const initialClaim: Claim = {
   id: null,
   name: null,
   rebuttalsReordered: false,
-  expanded: false,
-  isAdding: function (rebuttals) {
-    return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
-  }
+  expanded: false
+
 };

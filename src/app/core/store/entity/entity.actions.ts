@@ -1,71 +1,78 @@
+import { Action } from '@ngrx/store';
 
-import { typeFor, BaseAction } from '../util';
+import { typeFor } from '../util';
 
-// These string values need to match the action class names
-export const ActionNames = {
-  ADD: 'Add',
-  ADD_SUCCESS: 'AddSuccess',
-  UPDATE: 'Update',
-  UPDATE_SUCCESS: 'UpdateSuccess',
-  ADD_UPDATE_FAIL: 'AddUpdateFail',
-  LOAD: 'Load',
-  LOAD_SUCCESS: 'LoadSuccess',
-  LOAD_FAIL: 'LoadFail',
-  SELECT: 'Select',
-  DELETE: 'Delete'
+export const actions = {
+  ADD: 'ADD',
+  ADD_SUCCESS: 'ADD_SUCCESS',
+  ADD_UPDATE_FAIL: 'ADD_UPDATE_FAIL',
+  DELETE: 'DELETE',
+  LOAD: 'LOAD',
+  LOAD_FAIL: 'LOAD_FAIL',
+  LOAD_SUCCESS: 'LOAD_SUCCESS',
+  SELECT: 'SELECT',
+  SELECT_NEXT: 'SELECT_NEXT',
+  UPDATE: 'UPDATE',
+  UPDATE_EACH: 'UPDATE_EACH',
+  UPDATE_SUCCESS: 'UPDATE_SUCCESS'
 }
 
-export class Add<T> extends BaseAction<T> {
-  _name: string = ActionNames.ADD;
+export class EntityAction<T> implements Action {
+  _actionName: string = '';
+  get type() {
+    return typeFor(this.slice, this._actionName)
+  }
+  constructor(public slice: string, public payload: any) { }
 }
 
-export class AddSuccess<T> extends BaseAction<T> {
-  _name: string = ActionNames.ADD_SUCCESS;
+export class Add<T> extends EntityAction<T> {
+  _actionName: string = actions.ADD;
 }
 
-export class Update<T> extends BaseAction<T> {
-  _name: string = ActionNames.UPDATE;
+export class AddSuccess<T> extends EntityAction<T> {
+  _actionName: string = actions.ADD_SUCCESS;
 }
 
-export class UpdateSuccess<T> extends BaseAction<T> {
-  _name: string = ActionNames.UPDATE_SUCCESS;
+export class AddUpdateFail<T> extends EntityAction<T> {
+  _actionName: string = actions.ADD_UPDATE_FAIL;
 }
 
-export class AddUpdateFail<T> extends BaseAction<T> {
-  _name: string = ActionNames.ADD_UPDATE_FAIL;
+export class Delete<T> extends EntityAction<T> {
+  _actionName: string = actions.DELETE;
 }
 
-export class Load<T> extends BaseAction<T> {
-  _name: string = ActionNames.LOAD;
+export class LoadFail<T> extends EntityAction<T> {
+  _actionName: string = actions.LOAD_FAIL;
 }
 
-export class LoadSuccess<T> extends BaseAction<T> {
-  _name: string = ActionNames.LOAD_SUCCESS;
+export class LoadSuccess<T> extends EntityAction<T> {
+  _actionName: string = actions.LOAD_SUCCESS;
 }
 
-export class LoadFail<T> extends BaseAction<T> {
-  _name: string = ActionNames.LOAD_FAIL;
+export class Update<T> extends EntityAction<T> {
+  _actionName: string = actions.UPDATE;
 }
 
-export class Select<T> extends BaseAction<T> {
-  _name: string = ActionNames.SELECT;
+export class UpdateEach<T> extends EntityAction<T> {
+  _actionName: string = actions.UPDATE_EACH;
 }
 
-export class Delete<T> extends BaseAction<T> {
-  _name: string = ActionNames.DELETE;
+export class UpdateSuccess<T> extends EntityAction<T> {
+  _actionName: string = actions.UPDATE_SUCCESS;
 }
 
-// export function getActionTypes<T>(entityType: string, actionName): string {
-//   return type(`[${entityType}] ${actionName}`)
-// }
+export class Load<T> extends EntityAction<T> {
+  _actionName: string = actions.LOAD;
+}
 
-export type Actions<T>
-  = Add<T>
-  | AddSuccess<T>
-  | Update<T>
-  | UpdateSuccess<T>
-  | Load<T>
-  | LoadSuccess<T>
-  | LoadFail<T>
-  | Select<T>
-  | Delete<T>;
+export class Select<T> extends EntityAction<T> {
+  _actionName: string = actions.SELECT;
+}
+
+export class SelectNext<T> extends EntityAction<T> {
+  _actionName: string = actions.SELECT_NEXT;
+  constructor(public slice: string) {
+    super(null, slice);
+  }
+}
+

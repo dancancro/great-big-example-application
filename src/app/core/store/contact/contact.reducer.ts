@@ -1,30 +1,29 @@
 import { createSelector } from 'reselect';
 
 import { Contact, initialContact } from './contact.model';
-import * as actions from './contact.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
+import { slices } from '../util';
+import * as functions from '../entity/entity.functions';
+import { typeFor } from '../util';
+import { actions, EntityAction } from '../entity/entity.actions';
 
-export function reducer(state: Entities<Contact> = initialEntities<Contact>({ selectedEntityId: 21 }, 'Contact', actions, initialContact),
-  action: actions.Actions): Entities<Contact> {
-
-  // console.log(JSON.stringify(action))
+export function reducer(state: Entities<Contact> = initialEntities<Contact>({}, slices.CONTACT, actions, initialContact),
+  action: EntityAction<Contact>): Entities<Contact> {
 
   switch (action.type) {
-    case state.actionTypes.Add:
-    case state.actionTypes.AddSuccess:
-    case state.actionTypes.LoadSuccess:
-      return state.addLoadEntity(action);
-    case state.actionTypes.Update:
-    case state.actionTypes.UpdateSuccess:
-      return state.updateEntity(action);
-    case state.actionTypes.Delete:
-      return state.deleteEntity(action);
-    case state.actionTypes.Select:
-      return state.selectEntity(action);
-    case state.actionTypes.Next:
-      let ix = 1 + state.ids.indexOf(state.selectedEntityId);
-      if (ix >= state.ids.length) { ix = 0; }
-      return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
+    case typeFor(slices.CONTACT, actions.ADD):
+    case typeFor(slices.CONTACT, actions.ADD_SUCCESS):
+    case typeFor(slices.CONTACT, actions.LOAD_SUCCESS):
+      return functions.addLoadEntity<Contact>(state, <any>action);
+    case typeFor(slices.CONTACT, actions.UPDATE):
+    case typeFor(slices.CONTACT, actions.UPDATE_SUCCESS):
+      return functions.update<Contact>(state, <any>action);
+    case typeFor(slices.CONTACT, actions.DELETE):
+      return functions.deleteEntity<Contact>(state, <any>action);
+    case typeFor(slices.CONTACT, actions.SELECT):
+      return functions.select<Contact>(state, <any>action);
+    case typeFor(slices.CONTACT, actions.SELECT_NEXT):
+      return functions.selectNext<Contact>(state, <any>action);
     default:
       return state;
   }

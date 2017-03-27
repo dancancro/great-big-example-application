@@ -1,56 +1,25 @@
 import { createSelector } from 'reselect';
 
-import { Book } from './book.model';
-import * as book from './book.actions';
-import * as collection from '../collection/collection.actions';
+import { Book, initialBook } from './book.model';
 import { Entities, initialEntities } from '../entity/entity.model';
+import { slices } from '../util';
+import * as functions from '../entity/entity.functions';
+import { typeFor } from '../util';
+import { actions } from '../entity/entity.actions';
+import { EntityAction } from '../entity/entity.actions';
+import { IDAction } from '../id/id.actions';
 
-export function reducer(state = initialEntities<Book>(),
-  action: book.Actions | collection.Actions): Entities<Book> {
+export function reducer(state: Entities<Book> = initialEntities<Book>({}, slices.BOOK, actions, initialBook),
+  action: EntityAction<Book> | IDAction): Entities<Book> {
+  // console.log(`${action.type}`);
   switch (action.type) {
-    case book.ActionTypes.SEARCH_COMPLETE:
-    case collection.ActionTypes.LOAD_SUCCESS: {
-      const books = action.payload;
-      const newBooks = books.filter(book => !state.entities[book.id]);
-
-      const newBookIds = newBooks.map(book => book.id);
-      const newBookEntities = newBooks.reduce((entities: { [id: string]: Book }, book: Book) => {
-        return Object.assign(entities, {
-          [book.id]: book
-        });
-      }, {});
-
-      return Object.assign({}, state, {
-        ids: [...state.ids, ...newBookIds],
-        entities: Object.assign({}, state.entities, newBookEntities),
-        selectedEntityId: state.selectedEntityId
-      });
-    }
-
-    case book.ActionTypes.LOAD: {
-      const book = action.payload;
-
-      if (state.ids.indexOf(book.id) > -1) {
-        return state;
-      }
-
-      return Object.assign({}, state, {
-        ids: [...state.ids, book.id],
-        entities: Object.assign({}, state.entities, {
-          [book.id]: book
-        }),
-        selectedEntityId: state.selectedEntityId
-      });
-    }
-
-    case book.ActionTypes.SELECT: {
-      return Object.assign({}, state, {
-        ids: state.ids,
-        entities: state.entities,
-        selectedEntityId: action.payload
-      });
-    }
-
+    case typeFor(slices.SEARCH, actions.LOAD_SUCCESS):
+    case typeFor(slices.COLLECTION, actions.LOAD_SUCCESS):
+      return functions.union(state, <any>action);
+    case typeFor(slices.BOOK, actions.LOAD):
+      return functions.addLoadEntity<Book>(state, <any>action);
+    case typeFor(slices.BOOK, actions.SELECT):
+      return functions.select<Book>(state, <any>action);
     default: {
       return state;
     }

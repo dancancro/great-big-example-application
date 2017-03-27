@@ -15,7 +15,6 @@ import { HeroModule } from './hero/hero.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HeroEffects } from '../core/store/hero/hero.effects';
 import { CrisisEffects } from '../core/store/crisis/crisis.effects';
-import { EntityEffects } from '../core/store/entity/entity.effects';
 
 @NgModule({
   imports: [
@@ -30,7 +29,7 @@ import { EntityEffects } from '../core/store/entity/entity.effects';
     SharedModule,
   ],
   declarations: [HeroesPage],
-  providers: [TwainService, UserService, EntityEffects]
+  providers: [TwainService, UserService]
 })
 export class HeroesModule { }
 

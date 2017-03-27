@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../store/user/user.model';
+import { User } from '../store/session/session.model';
 import * as fromRoot from '../store';
 
 @Component({

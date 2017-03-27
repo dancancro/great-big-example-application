@@ -10,16 +10,14 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../core/store';
-import * as claimActions from '../core/store/claim/claim.actions';
-import * as claimRebuttalActions from '../core/store/claim-rebuttal/claim-rebuttal.actions';
-import * as rebuttalActions from '../core/store/rebuttal/rebuttal.actions';
 import { BerniePageLayout } from '../core/store/layout/layout.model';
 import { Claim, initialClaim } from '../core/store/claim/claim.model';
 import { Rebuttal, initialRebuttal } from '../core/store/rebuttal/rebuttal.model';
 import { ClaimRebuttal, initialClaimRebuttal } from '../core/store/claim-rebuttal/claim-rebuttal.model';
-import * as claim from '../core/store/claim/claim.actions';
-import * as layout from '../core/store/layout/layout.actions';
-import { entityNames } from '../core/store/util'
+import { Entities } from '../core/store/entity/entity.model';
+import * as EntityActions from '../core/store/entity/entity.actions';
+import * as SliceActions from '../core/store/slice/slice.actions';
+import { slices } from '../core/store/util';
 
 let uuid = require('uuid');
 
@@ -31,15 +29,16 @@ let uuid = require('uuid');
 })
 export class BerniePage {
   page$: Observable<BerniePageLayout>;
+  pageSub: Subscription;
   claims$: Observable<Claim[]>;
   rebuttals$: Observable<Rebuttal[]>;
   loading$: Observable<boolean>;
   expanded: boolean;
   editable: boolean;
-  pageSub: Subscription;
-  claimsSub: Subscription;
+  claimRebuttals$: Observable<Entities<ClaimRebuttal>>;
+  claimRebuttalsSub: Subscription;
+  claimRebuttals: Entities<ClaimRebuttal>;
 
-  private subscription: any;
   options: SortablejsOptions = {
     disabled: false
   };
@@ -48,11 +47,14 @@ export class BerniePage {
     private route: ActivatedRoute, ) {
     this.page$ = store.select(fromRoot.getBerniePageState);
     this.claims$ = store.select(fromRoot.getDeepClaims);
+    this.claimRebuttals$ = store.select(fromRoot.getClaimRebuttalsState);
     this.loading$ = store.select(fromRoot.getSearchLoading);
     this.pageSub = this.page$.subscribe((page) => {
       this.expanded = page.expanded;
       this.editable = page.editable;
     });
+    this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
+
 
     // this.claims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
     // this.claims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
@@ -73,20 +75,22 @@ export class BerniePage {
   }
 
   toggleEditable() {
-    this.store.dispatch(new claim.ToggleEditable(!this.editable));
+    this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'editable'], !this.editable));
   }
 
   toggleExpanded() {
-    this.store.dispatch(new claim.ToggleAllRebuttals(!this.expanded));
+    let expanded = this.expanded;
+    this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'expanded'], !expanded));
+    this.store.dispatch(new EntityActions.UpdateEach(slices.CLAIM, { expanded: !expanded }));
   }
 
   addClaim() {
     let newClaim = prompt("New claim");
     if (newClaim) {
-      this.store.dispatch(new claimActions.Add(Object.assign({}, initialClaim, {
+      this.store.dispatch(new EntityActions.Add(slices.CLAIM, {
         id: uuid.v1(),
         name: newClaim
-      }), entityNames.CLAIM))
+      }));
     }
   }
 
@@ -101,34 +105,40 @@ export class BerniePage {
     // and dispatch actions to each respective reducer
     let newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
     let newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
-    this.store.dispatch(new rebuttalActions.Add(newRebuttal, entityNames.REBUTTAL));
-    this.store.dispatch(new claimRebuttalActions.AssociateRebuttal(newClaimRebuttal))
+    this.store.dispatch(new EntityActions.Add(slices.REBUTTAL, newRebuttal));
+    this.store.dispatch(new EntityActions.Add(slices.CLAIM_REBUTTAL, newClaimRebuttal))
   }
-
   toggleRebuttals(claim: Claim) {
-    this.store.dispatch(new claimActions.ToggleRebuttals(claim));
+    this.store.dispatch(new EntityActions.Update(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
   }
 
-  cancelRebuttal({claim, rebuttal}) {
+  cancelRebuttal({claimRebuttalId, rebuttal}) {
     if (rebuttal.isNew) {
       // TODO: delete the rebuttal record if necessary
-      this.store.dispatch(new claimRebuttalActions.DisassociateRebuttal({ claim, rebuttal }));
+      this.store.dispatch(new EntityActions.Delete(slices.CLAIM_REBUTTAL, claimRebuttalId));
     } else {
-      this.store.dispatch(new rebuttalActions.CancelRebuttal(rebuttal));
+      this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: false }));
     }
   }
 
-  saveRebuttal({id, newRebuttal}) {
-    this.store.dispatch(new rebuttalActions.SaveRebuttal(newRebuttal));
+  saveRebuttal(newRebuttal) {
+    this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, Object.assign({}, newRebuttal, { editing: false })));
   }
 
   makeRebuttalEditable(rebuttal: Rebuttal) {
-    this.store.dispatch(new rebuttalActions.MakeRebuttalEditable(rebuttal));
+    this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: true }));
   }
 
   reorderRebuttals(claim, event) {
     let rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter(li => li.id).map(li => li.id);
-    this.store.dispatch(new claimRebuttalActions.ReorderRebuttals({ claim, rebuttalIds }));
+    let crs = Object.assign({}, this.claimRebuttals); // TODO I'm not sure if this is necessary
+    for (let id in this.claimRebuttals.entities) {
+      let cr = this.claimRebuttals.entities[id];
+      if (cr.claimId === claim.id && rebuttalIds[cr.rebuttalId]) {
+        cr.sortOrder = rebuttalIds.indexOf(cr.rebuttalId)
+      }
+    }
+    this.store.dispatch(new SliceActions.Update(slices.CLAIM_REBUTTAL, [], crs));
   }
 
   reorderClaims(event) {
@@ -138,7 +148,7 @@ export class BerniePage {
 
     try {
       let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id);
-      this.store.dispatch(new claimActions.ReorderClaims(claimIds));
+      this.store.dispatch(new SliceActions.Update(slices.CLAIM, ['ids'], claimIds));
     } catch (err) {
 
     }
@@ -146,6 +156,6 @@ export class BerniePage {
 
   ngOnDestroy() {
     this.pageSub && this.pageSub.unsubscribe();
-    this.claimsSub && this.claimsSub.unsubscribe();
+    this.claimRebuttalsSub && this.claimRebuttalsSub.unsubscribe();
   }
 }

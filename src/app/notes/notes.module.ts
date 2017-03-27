@@ -10,9 +10,8 @@ import { NoteEffects } from '../core/store/note/note.effects';
 import { NoteComponent } from './note/note.component';
 import { AddButtonComponent } from './add-button/add-button.component';
 import { NotesPage } from './notes.page';
-import { NotesRouting } from './notes-routing.module';
+import { NotesRouting } from './notes.routing';
 import { SharedModule } from '../shared/shared.module';
-import { EntityEffects } from '../core/store/entity/entity.effects';
 
 @NgModule({
   imports: [
@@ -27,8 +26,7 @@ import { EntityEffects } from '../core/store/entity/entity.effects';
     AddButtonComponent
   ],
   providers: [
-    DataService,
-    EntityEffects
+    DataService
   ]
 })
 export class NotesModule { }

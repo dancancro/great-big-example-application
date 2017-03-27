@@ -1,39 +1,20 @@
-import { Observable } from 'rxjs/Observable';
-
-import * as session from './session.actions';
 import { Session, initialSession } from './session.model';
+import * as functions from '../slice/slice.functions';
+import { typeFor, slices } from '../util';
+import { actions, SliceAction } from '../slice/slice.actions';
 
-export function reducer(state = initialSession, action: session.Actions): Session {
+export function reducer(state: Session = initialSession(), action: SliceAction): Session {
+  let o = {};
   switch (action.type) {
 
-    case session.ActionTypes.LOGIN_USER:
-      return Object.assign({}, state, {
-        token: null,
-        userId: null,
-        hasError: false,
-        isLoading: true,
-      });
-
-    case session.ActionTypes.LOGIN_USER_SUCCESS:
-      return Object.assign({}, state, {
-        token: action.payload.token,
-        // user: UserFactory(action.payload.profile),
-        user: action.payload.profile,
-        hasError: false,
-        isLoading: false,
-      });
-
-    case session.ActionTypes.LOGIN_USER_FAIL:
-      return Object.assign({}, state, {
-        token: null,
-        userId: null,
-        hasError: true,
-        isLoading: false,
-      });
-
-    case session.ActionTypes.LOGOUT_USER:
-      return initialSession;
-
+    case typeFor(slices.SESSION, actions.LOAD):
+      return functions.load(state, action);
+    case typeFor(slices.SESSION, actions.LOAD_SUCCESS):
+      return functions.loadSuccess(state, action);
+    case typeFor(slices.SESSION, actions.LOAD_FAIL):
+      return functions.loadFail(state);
+    case typeFor(slices.SESSION, actions.UPDATE):
+      return functions.update(state, action);
     default:
       return state;
   }
@@ -41,8 +22,19 @@ export function reducer(state = initialSession, action: session.Actions): Sessio
 
 export const hasError = (state: Session) => state.hasError;
 
-export const isLoading = (state: Session) => state.isLoading;
+export const isLoading = (state: Session) => state.loading;
 
 export const loggedIn = (state: Session) => !!state.token;
 
 export const loggedOut = (state: Session) => !state.token;
+
+export const getFirstName = (state: Session) => state.user.firstName;
+
+export const getLastName = (state: Session) => state.user.lastName;
+
+export const getUser = (state: Session) =>
+  Object.assign({},
+    state.user,
+    { fullName: state.user.firstName + ' ' + state.user.lastName });
+
+

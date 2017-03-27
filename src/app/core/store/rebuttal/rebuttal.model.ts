@@ -7,10 +7,10 @@ export interface Rebuttal {
   comments?: string;
 
   // UI state
+  dirty: boolean;
   editing: boolean;
   isNew?: boolean;
   original?: Rebuttal;
-  isTouched: Function;
 }
 
 export function initialRebuttal(vals: any = {}): Rebuttal {
@@ -24,13 +24,14 @@ export function initialRebuttal(vals: any = {}): Rebuttal {
     isNew: false,
 
     // UI state
+    dirty: false,
     editing: false,
-    original: null,
-    isTouched: function () {
-      return this.original && (this.original.shortName !== this.shortName ||
-        this.original.longName !== this.longName ||
-        this.original.link !== this.link ||
-        (this.original.comments || '') !== (this.comments || ''));
-    }
+    original: null
+    // isTouched: function () {
+    //   return this.original && (this.original.shortName !== this.shortName ||
+    //     this.original.longName !== this.longName ||
+    //     this.original.link !== this.link ||
+    //     (this.original.comments || '') !== (this.comments || ''));
+    // }
   }, vals);
 }

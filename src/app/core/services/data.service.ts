@@ -29,20 +29,20 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  getEntities(branch: string): Observable<any[]> {
-    return this.http.get(`${BASE_URL}/${branch}`)
+  getEntities(table: string): Observable<any[]> {
+    return this.http.get(`${BASE_URL}/${table}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getEntity(id: number | string, entityName: string): Observable<any> {
+  getEntity(id: number | string, table: string): Observable<any> {
     return this.http
-      .get(`${BASE_URL}/${entityName}/${id}`)
+      .get(`${BASE_URL}/${table}/${id}`)
       .map((r: Response) => r.json());
   }
 
-  addOrUpdateEntity(entity: any, entityName): Observable<any> {
-    return this.http.post(`${BASE_URL}/${entityName}`, this.prepareRecord(entity), this.JSON_HEADER)
+  addOrUpdate(entity: any, table): Observable<any> {
+    return this.http.post(`${BASE_URL}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
       .map(this.extractData)
       .catch(this.handleError);
   }

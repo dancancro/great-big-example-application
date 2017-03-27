@@ -11,21 +11,20 @@ import { Subject } from 'rxjs/Subject';
 import { WikipediaService } from './wikipedia.service';
 
 @Component({
-  moduleId: module.id,
-  selector: 'my-wiki-smart',
+  selector: 'app-wiki-smart',
+  styleUrls: ['./wiki.css'],
   template: `
     <h1>Smarter Wikipedia Demo</h1>
     <p>Search when typing stops</p>
     <input #term (keyup)="search(term.value)"/>
     <ul>
       <li *ngFor="let item of items | async">{{item}}</li>
-    </ul>`,
-  providers: [ WikipediaService ]
+    </ul>`
 })
 export class WikiSmartComponent implements OnInit {
   items: Observable<string[]>;
 
-  constructor (private wikipediaService: WikipediaService) {}
+  constructor(private wikipediaService: WikipediaService) { }
 
   private searchTermStream = new Subject<string>();
   search(term: string) { this.searchTermStream.next(term); }

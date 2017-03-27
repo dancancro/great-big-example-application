@@ -1,30 +1,22 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 import { Database } from '@ngrx/db';
 import { Observable } from 'rxjs/Observable';
 import { defer } from 'rxjs/observable/defer';
-import { of } from 'rxjs/observable/of';
 
-import * as collection from './collection.actions';
-import { Book } from '../book/book.model';
-
+import { slices } from '../util';
+import * as functions from '../id/id.functions';
 
 @Injectable()
 export class CollectionEffects {
-  constructor(private actions$: Actions, private db: Database) { }
+  constructor(private actions$: Actions,
+    private db: Database) { }
 
   /**
    * This effect does not yield any actions back to the store. Set
    * `dispatch` to false to hint to @ngrx/effects that it should
    * ignore any elements of this effect stream.
-   * 
+   *
    * The `defer` observable accepts an observable factory function
    * that is called when the observable is subscribed to.
    * Wrapping the database open call in `defer` makes
@@ -40,33 +32,15 @@ export class CollectionEffects {
    * the effect immediately on startup.
    */
   @Effect()
-  loadCollection$: Observable<Action> = this.actions$
-    .ofType(collection.ActionTypes.LOAD)
-    .startWith(new collection.Load())
-    .switchMap(() => this.db.query('books')
-      .toArray()
-      .map((books: Book[]) => new collection.LoadSuccess(books))
-      .catch(error => of(new collection.LoadFail(error)))
-    );
+  private loadCollection$ = functions.loadFromLocal$(this.actions$, slices.COLLECTION,
+    this.db, 'books');
 
   @Effect()
-  addBookToCollection$: Observable<Action> = this.actions$
-    .ofType(collection.ActionTypes.ADD_BOOK)
-    .map((action: collection.AddBookAction) => action.payload)
-    .mergeMap(book =>
-      this.db.insert('books', [book])
-        .map(() => new collection.AddBookSuccessAction(book))
-        .catch(() => of(new collection.AddBookFailAction(book)))
-    );
-
+  private addBookToCollection$ = functions.addToLocal$(this.actions$, slices.COLLECTION,
+    this.db, 'books')
 
   @Effect()
-  removeBookFromCollection$: Observable<Action> = this.actions$
-    .ofType(collection.ActionTypes.REMOVE_BOOK)
-    .map((action: collection.RemoveBookAction) => action.payload)
-    .mergeMap(book =>
-      this.db.executeWrite('books', 'delete', [book.id])
-        .map(() => new collection.RemoveBookSuccessAction(book))
-        .catch(() => of(new collection.RemoveBookFailAction(book)))
-    );
+  private removeBookFromCollection$ = functions.deleteFromLocal$(this.actions$, slices.COLLECTION,
+    this.db, 'books')
+
 }

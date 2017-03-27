@@ -15,7 +15,7 @@ import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
 import { Layout } from './layout/layout.model';
 import { Counter } from './counter/counter.model';
 import { Session } from './session/session.model';
-import { User } from './user/user.model';
+import { User } from './session/session.model';
 import { Crisis } from './crisis/crisis.model';
 import { Contact } from './contact/contact.model';
 import { Hero } from './hero/hero.model';
@@ -64,7 +64,6 @@ import * as fromRebuttals from './rebuttal/rebuttal.reducer';
 import * as fromClaimRebuttals from './claim-rebuttal/claim-rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
 import * as fromSession from './session/session.reducer';
-import * as fromUser from './user/user.reducer';
 import * as fromCrises from './crisis/crisis.reducer';
 import * as fromContacts from './contact/contact.reducer';
 import * as fromHeroes from './hero/hero.reducer';
@@ -75,21 +74,20 @@ import { Entities, IDs } from './entity/entity.model';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface RootState {
-  books: Entities<Book>;
-  claimRebuttals: Entities<ClaimRebuttal>;
-  claims: Entities<Claim>;
+  book: Entities<Book>;
+  claimRebuttal: Entities<ClaimRebuttal>;
+  claim: Entities<Claim>;
   collection: IDs;
-  contacts: Entities<Contact>;
+  contact: Entities<Contact>;
   counter: Counter;
-  crises: Entities<Crisis>;
-  heroes: Entities<Hero>
+  crisis: Entities<Crisis>;
+  hero: Entities<Hero>
   layout: Layout;
-  notes: Entities<Note>;
-  rebuttals: Entities<Rebuttal>;
+  note: Entities<Note>;
+  rebuttal: Entities<Rebuttal>;
   router: fromRouter.RouterState;
-  search: fromSearch.State;
+  search: IDs;
   session: Session;
-  user: User;
 }
 
 
@@ -102,21 +100,20 @@ export interface RootState {
  */
 
 const reducers = {
-  books: fromBooks.reducer,
-  claims: fromClaims.reducer,
-  claimRebuttals: fromClaimRebuttals.reducer,
-  contacts: fromContacts.reducer,
+  book: fromBooks.reducer,
+  claim: fromClaims.reducer,
+  claimRebuttal: fromClaimRebuttals.reducer,
+  contact: fromContacts.reducer,
   collection: fromCollection.reducer,
   counter: fromCounter.reducer,
-  crises: fromCrises.reducer,
-  heroes: fromHeroes.reducer,
+  crisis: fromCrises.reducer,
+  hero: fromHeroes.reducer,
   layout: fromLayout.reducer,
-  notes: fromNotes.reducer,
-  rebuttals: fromRebuttals.reducer,
+  note: fromNotes.reducer,
+  rebuttal: fromRebuttals.reducer,
   router: fromRouter.routerReducer,
   search: fromSearch.reducer,
-  session: fromSession.reducer,
-  user: fromUser.reducer
+  session: fromSession.reducer
 }
 
 const developmentReducer = compose(
@@ -153,7 +150,7 @@ export function reducer(state: any, action: any) {
  * ```
  *
  */
-export const getBooksState = (state: RootState) => state.books;
+export const getBooksState = (state: RootState) => state.book;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -182,7 +179,6 @@ export const getSelectedBook = createSelector(getBooksState, fromBooks.getSelect
  */
 export const getSearchState = (state: RootState) => state.search;
 export const getSearchBookIds = createSelector(getSearchState, fromSearch.getIds);
-export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
 export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoading);
 
 
@@ -206,28 +202,31 @@ export const isSelectedBookInCollection = createSelector(getCollectionBookIds, g
 });
 
 /**
- * Layout Reducers
+ * Layout Selectors
  */
 export const getLayoutState = (state: RootState) => state.layout;
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getMsg = createSelector(getLayoutState, fromLayout.getMsg);
 export const getBerniePageState = createSelector(getLayoutState, fromLayout.getBerniePageState);
 export const getHeroSearchTerm = createSelector(getLayoutState, fromLayout.getHeroSearchTerm);
-
+export const getSearchQuery = createSelector(getLayoutState, fromLayout.getQuery);
 
 /**
- * Session Reducers
+ * Session Selectors
  */
 export const getSessionState = (state: RootState) => state.session;
 export const hasError = createSelector(getSessionState, fromSession.hasError);
 export const isLoading = createSelector(getSessionState, fromSession.isLoading);
 export const loggedIn = createSelector(getSessionState, fromSession.loggedIn);
 export const loggedOut = createSelector(getSessionState, fromSession.loggedOut);
+export const getFirstName = createSelector(getSessionState, fromSession.getFirstName);
+export const getLastName = createSelector(getSessionState, fromSession.getLastName);
+export const getUserState = createSelector(getSessionState, fromSession.getUser);
 
 /**
- * Notes Reducers
+ * Notes Selectors
  */
-export const getNotesState = (state: RootState) => state.notes;
+export const getNotesState = (state: RootState) => state.note;
 export const getNoteEntities = createSelector(getNotesState, fromNotes.getEntities);
 export const getNoteIds = createSelector(getNotesState, fromNotes.getIds);
 export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, ids) => {
@@ -235,19 +234,33 @@ export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, i
 });
 
 /**
- * Claims Reducers
+ * Claims Selectors
  */
-export const getClaimsState = (state: RootState): Entities<Claim> => state.claims;
+export const getClaimsState = (state: RootState): Entities<Claim> => state.claim;
 export const getClaimEntities = createSelector(getClaimsState, fromClaims.getEntities);
 export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });
+export const getBerniePage = createSelector(getBerniePageState, getClaims, (berniePage, claims) => {
+
+  let _dirty = false;
+  claims.forEach(claim => {
+    claim.rebuttals.forEach(rebuttal => {
+      if (rebuttal && rebuttal.dirty) {
+        _dirty = true;
+      }
+    });
+  });
+
+  return Object.assign({}, berniePage, { dirty: _dirty })
+
+});
 
 /**
- * Rebuttal Reducers
+ * Rebuttal Selectors
  */
-export const getRebuttalsState = (state: RootState): Entities<Rebuttal> => state.rebuttals;
+export const getRebuttalsState = (state: RootState): Entities<Rebuttal> => state.rebuttal;
 export const getRebuttalEntities = createSelector(getRebuttalsState, fromRebuttals.getEntities);
 export const getRebuttalIds = createSelector(getRebuttalsState, fromRebuttals.getIds);
 export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, (entities, ids) => {
@@ -255,9 +268,9 @@ export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, 
 });
 
 /**
- * ClaimRebuttal Reducers
+ * ClaimRebuttal Selectors
  */
-export const getClaimRebuttalsState = (state: RootState): Entities<ClaimRebuttal> => state.claimRebuttals;
+export const getClaimRebuttalsState = (state: RootState): Entities<ClaimRebuttal> => state.claimRebuttal;
 export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
 export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
 export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
@@ -279,9 +292,23 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
               .filter(cr => cr.claimId == cid)
               .sort((a, b) => a.sortOrder - b.sortOrder)
               .map(cr => {
-                return rebuttals[cr.rebuttalId];
+                // return rebuttals[cr.rebuttalId];
+                return {
+                  claimRebuttalId: cr.id,
+                  id: rebuttals[cr.rebuttalId].id,
+                  shortName: rebuttals[cr.rebuttalId].shortName,
+                  longName: rebuttals[cr.rebuttalId].longName,
+                  comments: rebuttals[cr.rebuttalId].comments,
+                  editing: rebuttals[cr.rebuttalId].editing,
+                  isNew: rebuttals[cr.rebuttalId].isNew,
+                  // isTouched: rebuttals[cr.rebuttalId].isTouched,
+                  link: rebuttals[cr.rebuttalId].link
+                };
               })
-          } // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+          }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+          {
+            adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  //TODO Why can id be null?
+          }
         )
       );
 
@@ -304,15 +331,15 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
 // }
 
 /**
- * Counter Reducers
+ * Counter Selectors
  */
 export const getCounterState = (state: RootState) => state.counter;
 export const getCounterValue = createSelector(getCounterState, fromCounter.getValue);
 
 /**
- * Crises Reducers
+ * Crises Selectors
  */
-export const getCrisesState = (state: RootState) => state.crises;
+export const getCrisesState = (state: RootState) => state.crisis;
 export const getCrisisEntities = createSelector(getCrisesState, fromCrises.getEntities);
 export const getCrisisIds = createSelector(getCrisesState, fromCrises.getIds);
 export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSelected);
@@ -326,10 +353,10 @@ export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => 
 });
 
 /**
- * Contacts Reducers
+ * Contacts Selectors
  */
 
-export const getContactsState = (state: RootState) => state.contacts;
+export const getContactsState = (state: RootState) => state.contact;
 export const getContactEntities = createSelector(getContactsState, fromContacts.getEntities);
 export const getContactIds = createSelector(getContactsState, fromContacts.getIds);
 export const getSelectedContact = createSelector(getContactsState, fromContacts.getSelected);
@@ -339,9 +366,9 @@ export const getContacts = createSelector(getContactEntities, getContactIds, (en
 export const getContact = createSelector(getContactsState, fromContacts.getSelected);
 
 /**
- * Heroes Reducers
+ * Heroes Selectors
  */
-export const getHeroesState = (state: RootState) => state.heroes;
+export const getHeroesState = (state: RootState) => state.hero;
 export const getHeroEntities = createSelector(getHeroesState, fromHeroes.getEntities);
 export const getHeroIds = createSelector(getHeroesState, fromHeroes.getIds);
 export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSelected);
@@ -351,9 +378,3 @@ export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, 
 export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
   return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
 });
-/**
- * User Reducers
- */
-export const getUserState = (state: RootState) => state.user;
-export const getFirstName = createSelector(getUserState, fromUser.getFirstName);
-export const getLastName = createSelector(getUserState, fromUser.getLastName);

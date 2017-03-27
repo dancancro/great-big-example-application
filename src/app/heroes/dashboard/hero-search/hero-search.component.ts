@@ -15,8 +15,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Hero } from '../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../core/store';
-import * as actions from '../../../core/store/layout/layout.actions';
-import { entityNames } from '../../../core/store/util';
+import { slices } from '../../../core/store/util';
+import * as SliceActions from '../../../core/store/slice/slice.actions';
 
 @Component({
   selector: 'hero-search',
@@ -43,7 +43,7 @@ export class HeroSearchComponent implements OnInit, OnDestroy {
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .subscribe(term => {
-        this.store.dispatch(new actions.SearchForHero({ term }));
+        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['heroesDashboardPage', 'heroSearchTerm'], term));
       })
   }
 

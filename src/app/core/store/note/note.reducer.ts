@@ -1,24 +1,27 @@
 import { createSelector } from 'reselect';
 
 import { Note, initialNote } from './note.model';
-import * as actions from './note.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
+import { slices } from '../util';
+import * as functions from '../entity/entity.functions';
+import { typeFor } from '../util';
+import { actions, EntityAction } from '../entity/entity.actions';
 
-export function reducer(state: Entities<Note> = initialEntities<Note>({}, 'Note', actions, initialNote),
-  action: actions.Actions): Entities<Note> {
+export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices.NOTE, actions, initialNote),
+  action: EntityAction<Note>): Entities<Note> {
 
   switch (action.type) {
-    case state.actionTypes.Add:
-    case state.actionTypes.AddSuccess:
-    case state.actionTypes.LoadSuccess:
-      return state.addLoadEntity(action);
-    case state.actionTypes.Update:
-    case state.actionTypes.UpdateSuccess:
-      return state.updateEntity(action);
-    case state.actionTypes.Delete:
-      return state.deleteEntity(action);
-    case state.actionTypes.Select:
-      return state.selectEntity(action);
+    case typeFor(slices.NOTE, actions.ADD):
+    case typeFor(slices.NOTE, actions.ADD_SUCCESS):
+    case typeFor(slices.NOTE, actions.LOAD_SUCCESS):
+      return functions.addLoadEntity<Note>(state, <any>action);
+    case typeFor(slices.NOTE, actions.UPDATE):
+    case typeFor(slices.NOTE, actions.UPDATE_SUCCESS):
+      return functions.update<Note>(state, <any>action);
+    case typeFor(slices.NOTE, actions.DELETE):
+      return functions.deleteEntity<Note>(state, <any>action);
+    case typeFor(slices.NOTE, actions.SELECT):
+      return functions.select<Note>(state, <any>action);
     default:
       return state;
   }

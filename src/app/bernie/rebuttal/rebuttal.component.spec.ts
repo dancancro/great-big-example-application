@@ -43,10 +43,10 @@ describe('RebuttalComponent', () => {
       id: 123,
       name: 'Test Rebuttal',
       rebuttalsReordered: false,
-      expanded: false,
-      isAdding: function (rebuttals) {
-        return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
-      }
+      expanded: false
+      // isAdding: function (rebuttals) {
+      //   return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
+      // }
     };
     expectedRebuttal = {
       id: 234,
@@ -56,13 +56,13 @@ describe('RebuttalComponent', () => {
       comments: 'Some comments',
       isNew: false,
       editing: false,
-      original: null,
-      isTouched: function () {
-        return this.original && (this.original.shortName !== this.shortName ||
-          this.original.longName !== this.longName ||
-          this.original.link !== this.link ||
-          (this.original.comments || '') !== (this.comments || ''));
-      }
+      original: null
+      // isTouched: function () {
+      //   return this.original && (this.original.shortName !== this.shortName ||
+      //     this.original.longName !== this.longName ||
+      //     this.original.link !== this.link ||
+      //     (this.original.comments || '') !== (this.comments || ''));
+      // }
     };
     expectedPage = {
       editable: true,

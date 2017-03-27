@@ -6,16 +6,17 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../core/store';
-import * as book from '../core/store/book/book.actions';
+import * as EntityActions from '../core/store/entity/entity.actions';
+import { slices } from '../core/store/util';
 
 /**
- * Note: Container components are also reusable. Whether or not 
+ * Note: Container components are also reusable. Whether or not
  * a component is a presentation component or a container
  * component is an implementation detail.
- * 
+ *
  * The View Book Page's responsibility is to map router params
  * to a 'Select' book action. Actually showing the selected
- * book remains a responsibility of the 
+ * book remains a responsibility of the
  * SelectedBookPageComponent
  */
 @Component({
@@ -31,7 +32,7 @@ export class ViewBookPage implements OnDestroy {
   constructor(private store: Store<fromRoot.RootState>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
       .select<string>('id')
-      .map(id => new book.Select(id))
+      .map(id => new EntityActions.Select(slices.BOOK, id))
       .subscribe(store);
   }
 

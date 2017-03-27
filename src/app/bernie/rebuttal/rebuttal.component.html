@@ -3,7 +3,8 @@
 <button class="btn btn-default btn-xs" title="edit" (click)="makeEditable.emit(rebuttal)" *ngIf="!rebuttal.editing">✎</button>
 <button class="btn btn-default btn-xs" title="save" (click)="save.emit({id: rebuttal.id, shortName: editForm.controls.shortName.value, longName: editForm.controls.longName.value, link: editForm.controls.link.value, comments: editForm.controls.comments.value})"
   *ngIf="rebuttal.editing">💾</button>
-<button class="btn btn-default btn-xs cancel" title="cancel" (click)="cancel.emit({claim: claim, rebuttal: rebuttal})" *ngIf="rebuttal.editing">❌</button>
+<button class="btn btn-default btn-xs cancel" title="cancel" (click)="cancel.emit({claimRebuttalId: claimRebuttalId, rebuttal: rebuttal})"
+  *ngIf="rebuttal.editing">❌</button>
 </span>
 
 <form [formGroup]="editForm" *ngIf="rebuttal.editing">

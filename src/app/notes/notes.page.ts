@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../core/store';
 import { Note } from '../core/store/note/note.model';
-import * as actions from '../core/store/note/note.actions';
-import { entityNames } from '../core/store/util'
+import { slices } from '../core/store/util'
+import * as EntityActions from '../core/store/entity/entity.actions';
 
 let uuid = require('uuid');
 
@@ -22,20 +22,20 @@ export class NotesPage implements OnInit {
   }
 
   onAddNote(colour) {
-    this.store.dispatch(new actions.Add({
+    this.store.dispatch(new EntityActions.Add(slices.NOTE, {
       text: '',
       colour: colour,
       left: 200,
       top: 300
-    }, entityNames.NOTE));
+    }));
   }
 
   onChangeNoteText(newText: string, note: Note) {
-    this.store.dispatch(new actions.Update({ text: newText, id: note.id }, entityNames.NOTE));
+    this.store.dispatch(new EntityActions.Update(slices.NOTE, { text: newText, id: note.id }));
   }
 
   onChangeNotePosition(newPosition: any, note: Note) {
-    this.store.dispatch(new actions.Update({ id: note.id, left: newPosition.left, top: newPosition.top }, entityNames.NOTE));
+    this.store.dispatch(new EntityActions.Update(slices.NOTE, { id: note.id, left: newPosition.left, top: newPosition.top }));
   }
 
   ngOnInit() {

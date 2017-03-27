@@ -9,8 +9,8 @@ import { Location } from '@angular/common';
 import { slideInDownAnimation } from '../../../shared/animations';
 import { Hero } from '../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../core/store';
-import * as actions from '../../../core/store/hero/hero.actions';
-import { entityNames } from '../../../core/store/util'
+import { slices } from '../../../core/store/util'
+import * as EntityActions from '../../../core/store/entity/entity.actions';
 
 @Component({
   selector: 'app-hero-detail',
@@ -39,13 +39,12 @@ export class HeroDetailComponent implements OnInit {
     this.heroSub = this.hero$.subscribe(hero => this.hero = hero);
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
-        this.store.dispatch(new actions.Select({ id: +params['id'] }, entityNames.HERO));
+        this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
       })
   }
 
   save(): void {
-    //    this.heroDetailService.saveHero(this.hero).toPromise().then(() => this.gotoList());
-    this.store.dispatch(new actions.Update(this.hero, entityNames.HERO));
+    this.store.dispatch(new EntityActions.Update(slices.HERO, this.hero));
     this.goBack();
   }
 

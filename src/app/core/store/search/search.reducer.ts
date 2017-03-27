@@ -1,56 +1,21 @@
-import { createSelector } from 'reselect';
-import * as book from '../book/book.actions';
+import { IDs, initialIDs } from '../id/id.model';
+import { slices } from '../util';
+import { actions, IDAction } from '../id/id.actions';
+import { typeFor } from '../util';
+import * as functions from '../id/id.functions';
 
-
-export interface State {
-  ids: string[];
-  loading: boolean;
-  query: string;
-};
-
-const initialState: State = {
-  ids: [],
-  loading: false,
-  query: ''
-};
-
-export function reducer(state = initialState, action: book.Actions): State {
+export function reducer(state = initialIDs(), action: IDAction): IDs {
   switch (action.type) {
-    case book.ActionTypes.SEARCH: {
-      const query = action.payload;
-
-      if (query === '') {
-        return {
-          ids: [],
-          loading: false,
-          query
-        };
-      }
-
-      return Object.assign({}, state, {
-        query,
-        loading: true
-      });
-    }
-
-    case book.ActionTypes.SEARCH_COMPLETE: {
-      const books = action.payload;
-
-      return {
-        ids: books.map(book => book.id),
-        loading: false,
-        query: state.query
-      };
-    }
-
+    case typeFor(slices.SEARCH, actions.LOAD):
+      return functions.addLoadID(state, action);
+    case typeFor(slices.SEARCH, actions.LOAD_SUCCESS):
+      return functions.updateIDs(state, action);
     default: {
       return state;
     }
   }
 }
 
-export const getIds = (state: State) => state.ids;
+export const getIds = (state: IDs) => state.ids;
 
-export const getQuery = (state: State) => state.query;
-
-export const getLoading = (state: State) => state.loading;
+export const getLoading = (state: IDs) => state.loading;

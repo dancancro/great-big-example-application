@@ -1,21 +1,9 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { Database } from '@ngrx/db';
-import { Observable } from 'rxjs/Observable';
-import { defer } from 'rxjs/observable/defer';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/startWith';
 
-import * as session from '../session/session.actions';
-import { Session } from '../session/session.model';
 import { DataService } from '../../services/data.service';
+import * as functions from '../slice/slice.functions';
+import { slices } from '../util';
 
 @Injectable()
 export class SessionEffects {
@@ -23,12 +11,12 @@ export class SessionEffects {
     private dataService: DataService) { }
 
   @Effect()
-  login$: Observable<Action> = this.actions$
-    .ofType(session.ActionTypes.LOGIN_USER)
-    .switchMap((action: Action, index: number) =>
-      this.dataService.login(action.payload)
-        .map((loginResponse: any) =>
-          new session.LoginUserSuccessAction(loginResponse.meta))
-        .catch(error => of(new session.LoginUserFailAction(error)))
-    );
+  login$ = functions.loadFromRemote$(this.actions$, slices.SESSION, this.dataService, 'login', this.transform)
+
+  transform({meta}) {
+    return {
+      token: meta.token,
+      user: { firstName: meta.profile.firstName, lastName: meta.profile.lastName }
+    };
+  }
 }

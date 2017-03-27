@@ -8,8 +8,8 @@ import { Store } from '@ngrx/store';
 
 import { Hero } from '../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../core/store';
-import * as actions from '../../../core/store/hero/hero.actions';
-import { entityNames } from '../../../core/store/util'
+import { slices } from '../../../core/store/util'
+import * as EntityActions from '../../../core/store/entity/entity.actions';
 
 let uuid = require('uuid');
 
@@ -38,18 +38,18 @@ export class HeroListComponent implements OnInit, OnDestroy {
       this.maxHeroId = +heroes.reduce((prev, current, index, array) => { return +current.id > +prev.id ? current : prev }, { id: '0' }).id);
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
-        this.store.dispatch(new actions.Select({ id: +params['id'] }, entityNames.HERO));
+        this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
       })
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.store.dispatch(new actions.Add({ id: this.maxHeroId + 1, name }, entityNames.HERO));
+    this.store.dispatch(new EntityActions.Add(slices.HERO, { id: this.maxHeroId + 1, name }));
   }
 
   delete(hero: Hero): void {
-    this.store.dispatch(new actions.Delete(hero, entityNames.HERO));
+    this.store.dispatch(new EntityActions.Delete(slices.HERO, hero));
   }
 
   onSelect(hero: Hero) {

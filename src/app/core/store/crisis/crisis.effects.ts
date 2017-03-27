@@ -3,21 +3,21 @@ import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { Crisis } from './crisis.model';
-import { EntityEffects } from '../entity/entity.effects';
-import * as actions from './crisis.actions';
-import { entityNames } from '../util';
+import { slices } from '../util';
+import { DataService } from '../../services/data.service';
+import * as functions from '../entity/entity.functions';
 
 @Injectable()
 export class CrisisEffects {
   @Effect()
-  protected load$ = this.entityEffects.load$(this.action$, entityNames.CRISIS, actions, 'crises');
+  private loadFromRemote$ = functions.loadFromRemote$(this.actions$, slices.CRISIS, this.dataService);
   @Effect()
-  protected update$ = this.entityEffects.update$(this.action$, entityNames.CRISIS, actions, 'crises', this.store);
+  private updateToRemote$ = functions.updateToRemote$(this.actions$, slices.CRISIS, this.dataService, this.store);
 
   constructor(
     private store: Store<Crisis>,
-    private action$: Actions,
-    protected entityEffects: EntityEffects<Crisis>
+    private actions$: Actions,
+    private dataService: DataService
   ) { }
 }
 

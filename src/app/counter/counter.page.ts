@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../core/store';
-import * as counter from '../core/store/counter/counter.actions';
 import { Counter } from '../core/store/counter/counter.model';
+import { slices } from '../core/store/util';
+import * as SliceActions from '../core/store/slice/slice.actions';
 
 
 @Component({
@@ -34,10 +35,10 @@ export class RioCounterPage {
   }
 
   increment() {
-    this.store.dispatch(new counter.IncrementCounterAction());
+    this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value + 1));
   }
 
   decrement() {
-    this.store.dispatch(new counter.DecrementCounterAction());
+    this.store.dispatch(new SliceActions.Update(slices.COUNTER, ['value'], (state) => state.value - 1));
   }
 }

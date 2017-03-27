@@ -14,14 +14,8 @@ import { BernieRouting } from './bernie.routing';
 import { ClaimEffects } from '../core/store/claim/claim.effects';
 import { RebuttalEffects } from '../core/store/rebuttal/rebuttal.effects';
 import { ClaimRebuttalEffects } from '../core/store/claim-rebuttal/claim-rebuttal.effects';
-import { EntityEffects } from '../core/store/entity/entity.effects';
 
 @NgModule({
-  declarations: [
-    BerniePage,
-    ClaimComponent,
-    RebuttalComponent
-  ],
   imports: [
     SortablejsModule,
     SharedModule,
@@ -31,9 +25,13 @@ import { EntityEffects } from '../core/store/entity/entity.effects';
     EffectsModule.run(RebuttalEffects),
     EffectsModule.run(ClaimRebuttalEffects)
   ],
+  declarations: [
+    BerniePage,
+    ClaimComponent,
+    RebuttalComponent
+  ],
   providers: [
-    DataService,
-    EntityEffects
+    DataService
   ]
 })
 export class BernieModule { }

@@ -43,10 +43,10 @@ describe('ClaimComponent', () => {
       id: 123,
       name: 'Test Claim',
       rebuttalsReordered: false,
-      expanded: false,
-      isAdding: function (rebuttals) {
-        return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
-      }
+      expanded: false
+      // isAdding: function (rebuttals) {
+      //   return rebuttals.find((rebuttal) => rebuttal.editing && (rebuttal.id === null)) !== undefined;
+      // }
     };
     expectedPage = {
       editable: false,

@@ -1,48 +1,23 @@
 import { createSelector } from 'reselect';
-import * as collection from './collection.actions';
-import { IDs, initialIDs } from '../entity/entity.model';
+import { IDs, initialIDs } from '../id/id.model';
+import { slices, typeFor } from '../util';
+import * as functions from '../id/id.functions';
+import { actions } from '../id/id.actions';
+import { IDAction } from '../id/id.actions';
 
 export function reducer(state = initialIDs(),
-  action: collection.Actions): IDs {
+  action: IDAction): IDs {
   switch (action.type) {
-    case collection.ActionTypes.LOAD: {
-      return Object.assign({}, state, {
-        loading: true
-      });
-    }
-
-    case collection.ActionTypes.LOAD_SUCCESS: {
-      const books = action.payload;
-
-      return {
-        loaded: true,
-        loading: false,
-        ids: books.map(book => book.id)
-      };
-    }
-
-    case collection.ActionTypes.ADD_BOOK_SUCCESS:
-    case collection.ActionTypes.REMOVE_BOOK_FAIL: {
-      const book = action.payload;
-
-      if (state.ids.indexOf(book.id) > -1) {
-        return state;
-      }
-
-      return Object.assign({}, state, {
-        ids: [...state.ids, book.id]
-      });
-    }
-
-    case collection.ActionTypes.REMOVE_BOOK_SUCCESS:
-    case collection.ActionTypes.ADD_BOOK_FAIL: {
-      const book = action.payload;
-
-      return Object.assign({}, state, {
-        ids: state.ids.filter(id => id !== book.id)
-      });
-    }
-
+    case typeFor(slices.COLLECTION, actions.LOAD):
+      return functions.addLoadID(state, action);
+    case typeFor(slices.COLLECTION, actions.LOAD_SUCCESS):
+      return functions.updateIDs(state, action);
+    case typeFor(slices.COLLECTION, actions.ADD_SUCCESS):
+    case typeFor(slices.COLLECTION, actions.DELETE_FAIL):
+      functions.addID(state, action);
+    case typeFor(slices.COLLECTION, actions.DELETE_SUCCESS):
+    case typeFor(slices.COLLECTION, actions.ADD_FAIL):
+      functions.deleteID(state, action);
     default: {
       return state;
     }

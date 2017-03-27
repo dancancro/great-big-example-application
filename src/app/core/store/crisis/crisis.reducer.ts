@@ -1,26 +1,28 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
 import { createSelector } from 'reselect';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { Crisis, initialCrisis } from './crisis.model';
-import * as actions from './crisis.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
+import { slices } from '../util';
+import * as functions from '../entity/entity.functions';
+import { typeFor } from '../util';
+import { actions, EntityAction } from '../entity/entity.actions';
 
-export function reducer(state: Entities<Crisis> = initialEntities<Crisis>({}, 'Crisis', actions, initialCrisis),
-  action: actions.Actions): Entities<Crisis> {
+export function reducer(state: Entities<Crisis> =
+  initialEntities<Crisis>({}, slices.CRISIS, actions, initialCrisis),
+  action: EntityAction<Crisis>): Entities<Crisis> {
   switch (action.type) {
-    case state.actionTypes.Add:
-    case state.actionTypes.AddSuccess:
-    case state.actionTypes.LoadSuccess:
-      return state.addLoadEntity(action);
-    case state.actionTypes.Update:
-    case state.actionTypes.UpdateSuccess:
-      return state.updateEntity(action);
-    case state.actionTypes.Delete:
-      return state.deleteEntity(action);
-    case state.actionTypes.Select:
-      return state.selectEntity(action);
+    case typeFor(slices.CRISIS, actions.ADD):
+    case typeFor(slices.CRISIS, actions.ADD_SUCCESS):
+    case typeFor(slices.CRISIS, actions.LOAD):
+    case typeFor(slices.CRISIS, actions.LOAD_SUCCESS):
+      return functions.addLoadEntity<Crisis>(state, <any>action);
+    case typeFor(slices.CRISIS, actions.UPDATE):
+    case typeFor(slices.CRISIS, actions.UPDATE_SUCCESS):
+      return functions.update<Crisis>(state, <any>action);
+    case typeFor(slices.CRISIS, actions.DELETE):
+      return functions.deleteEntity<Crisis>(state, <any>action);
+    case typeFor(slices.CRISIS, actions.SELECT):
+      return functions.select<Crisis>(state, <any>action);
     default:
       return state;
   }

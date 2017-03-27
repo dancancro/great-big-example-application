@@ -9,12 +9,10 @@
         (click)="toggleEditable()">
           Edit Mode
    </button>
-      <button *ngIf="(page$ | async).editable && (page$ | async).isTouched((claims$ | async))" class="btn btn-default touched"
-        title="Save changes" (click)="saveAll()">
+      <button *ngIf="(page$ | async).editable && (page$ | async).dirty" class="btn btn-default touched" title="Save changes" (click)="saveAll()">
           Save Changes
    </button>
-      <button *ngIf="(page$ | async).editable && !(page$ | async).isTouched((claims$ | async))" class="btn btn-default" title="Read only mode"
-        (click)="toggleEditable()">
+      <button *ngIf="(page$ | async).editable && !(page$ | async).dirty" class="btn btn-default" title="Read only mode" (click)="toggleEditable()">
           Read-Only Mode
    </button>
       <button *ngIf="(page$ | async).editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
@@ -42,4 +40,5 @@
       +      '</script>';
     }
     -->
-Unaffiliated with any campaign. Made by volunteers with optimism for a better future
+<p>This page still gives me problems in Chrome. I have better luck with Opera</p>
+<p>Unaffiliated with any campaign. Made by volunteers with optimism for a better future</p>

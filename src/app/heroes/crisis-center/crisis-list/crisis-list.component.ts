@@ -8,8 +8,8 @@ import { Store } from '@ngrx/store';
 
 import { Crisis } from '../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../core/store';
-import * as actions from '../../../core/store/hero/hero.actions';
-import { entityNames } from '../../../core/store/util'
+import { slices } from '../../../core/store/util'
+import * as EntityActions from '../../../core/store/entity/entity.actions';
 
 @Component({
   template: `
@@ -41,7 +41,7 @@ export class CrisisListComponent implements OnInit {
     this.crises$ = this.store.select(fromRoot.getCrises);
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
-        this.store.dispatch(new actions.Select({ id: +params['id'] }, entityNames.HERO));
+        this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
       })
   }
 

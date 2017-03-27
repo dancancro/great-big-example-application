@@ -6,7 +6,7 @@ import {
 
 import { DataService } from '../../../core/services/data.service';
 import { Crisis } from '../../../core/store/crisis/crisis.model';
-import { entityNames } from '../../../core/store/util';
+import { slices } from '../../../core/store/util';
 
 @Injectable()
 export class CrisisDetailResolver implements Resolve<Crisis> {
