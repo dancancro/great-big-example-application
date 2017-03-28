@@ -2,14 +2,14 @@
 [![Build Status](https://travis-ci.org/dancancro/great-big-angular2-example.svg?branch=master)](https://travis-ci.org/dancancro/great-big-angular2-example)
 [![Dependency Status](https://david-dm.org/dancancro/great-big-angular2-example.svg)](https://david-dm.org/dancancro/great-big-angular2-example)
 
-## [Call your congressman and tell them to vote NO on HJ Res 86 - If passed this would let ISPs sell your information to anybody who wants it](https://medium.freecodecamp.com/how-to-set-up-a-vpn-in-5-minutes-for-free-and-why-you-urgently-need-one-d5cdba361907)
+## [Call your congressman and tell them to vote NO on HJ Res 34 - If passed this would let ISPs sell your information to anybody who wants it](https://www.congress.gov/bill/115th-congress/senate-joint-resolution/34/text)
 
 [Live Demo](http://great-big-angular2-example.herokuapp.com)
 
 # Background and Motivation
 
 This project is my attempt to infer from available demos what the codebase might look like for the real-world, 
-commercial codebases that you don't get to see until you are hired by a real company and sign and NDA.
+commercial codebases that you don't get to see until you are hired by a real company and sign an NDA.
 
 The rationale behind this is pretty simple...
 
@@ -80,8 +80,8 @@ code for a given slice into the same directory as one of the features that uses 
 
 2. As much as practical the names of files in a directory begin with the directory name. I did this to prevent directories from having a mixture of 
 unrelated concerns. If a directory in a source demo had files for two different things, I created more directories. I thought about 
-removing that part of the file name, `src/app/app.page.ts` -> `src/app/page.ts`, for the sake of DRY, and I might still do that, but I'm 
-undecided on whether it would cause confusion to see many files in an editor with the same name.
+removing that part of the file name, `src/app/app.page.ts` -> `src/app/page.ts`, for the sake of DRY, but that makes it too confusing when
+you are working on multiple files with the same names and different directories.
 
 3. I noticed a lot of duplication and boilerplate of identical CRUD code for each of my types of entities. So I made utility functions and 
 the related actions and models for each of three types of store slice - [entities](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/core/store/entity), [id lists](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/core/store/id), and [slices](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/core/store/slice) (everything else).
