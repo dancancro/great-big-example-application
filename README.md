@@ -4,6 +4,9 @@
 
 [Live Demo](http://great-big-angular2-example.herokuapp.com)
 
+You can see what's newest [here](https://github.com/dancancro/great-big-angular2-example/branches) by looking
+for the branch with the most recent commit and most commits ahead of master.
+
 # Background and Motivation
 
 This project is my attempt to infer from available demos what the codebase might look like for the real-world, 
