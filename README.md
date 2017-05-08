@@ -72,16 +72,17 @@ lower authority yielding to the higher one:
 4. [Redux Docs](http://redux.js.org/) Redux.org
 5. [JHipster Example](https://github.com/jhipster/jhipster-sample-app-ng2) by [@jdubois](https://github.com/jdubois) and the community
 6. [JHipster Example 2](https://github.com/mraible/jhipster4-demo) by [@mraible](https://github.com/mraible)
-7. [FAMN example](https://github.com/implustech/famn) by [@implustech](https://github.com/implustech)
+7. [scalable-architecture-demo - P2P Typing Game](https://github.com/mgechev/scalable-architecture-demo) by [@mgechev](https://github.com/mgechev)
 8. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 9. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by [@mgechev](https://github.com/mgechev) + [@NathanWalker](https://github.com/NathanWalker) + community
-10. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
-11. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop](https://github.com/eddyystop)
-12. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+10. [FAMN example](https://github.com/implustech/famn) by [@implustech](https://github.com/implustech)
+11. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+12. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop](https://github.com/eddyystop)
+13. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
 In addition to the features from these demos, I added one of my own. I replaced
 
-13. [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 
+14. [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
 and served as JSON by a Google script.
 
