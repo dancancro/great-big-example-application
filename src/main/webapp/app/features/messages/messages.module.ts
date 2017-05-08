@@ -30,6 +30,6 @@ import { MessagesService } from './messages.service';
     ],
     providers: [MessagesService]
 })
-export class MessageModule {
+export class MessagesModule {
     constructor() { }
 }
