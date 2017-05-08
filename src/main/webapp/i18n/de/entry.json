@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "entry" : {
+            "home": {
+                "title": "Entries",
+                "createLabel": "Entry erstellen",
+                "createOrEditLabel": "Entry erstellen oder bearbeiten",
+                "search": "Suche nach Entry"
+            },
+            "created": "Entry erstellt mit ID {{ param }}",
+            "updated": "Entry aktualisiert mit ID {{ param }}",
+            "deleted": "Entry gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Entry {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Entry"
+            },
+            "title": "Title",
+            "content": "Content",
+            "date": "Date",
+            "blog": "Blog",
+            "tag": "Tag"
+        }
+    }
+}

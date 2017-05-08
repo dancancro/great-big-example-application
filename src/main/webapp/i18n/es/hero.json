@@ -1,0 +1,22 @@
+{
+    "greatBigExampleApplicationApp": {
+        "hero" : {
+            "home": {
+                "title": "Heroes",
+                "createLabel": "Crear nuevo Hero",
+                "createOrEditLabel": "Crear o editar Hero",
+                "search": "Search for Hero"
+            },
+            "created": "Un nuevo Hero ha sido creado con el identificador {{ param }}",
+            "updated": "Un Hero ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Hero ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Hero {{ id }}?"
+            },
+            "detail": {
+                "title": "Hero"
+            },
+            "name": "Name"
+        }
+    }
+}

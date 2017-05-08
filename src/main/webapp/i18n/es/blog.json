@@ -1,0 +1,24 @@
+{
+    "greatBigExampleApplicationApp": {
+        "blog" : {
+            "home": {
+                "title": "Blogs",
+                "createLabel": "Crear nuevo Blog",
+                "createOrEditLabel": "Crear o editar Blog",
+                "search": "Search for Blog"
+            },
+            "created": "Un nuevo Blog ha sido creado con el identificador {{ param }}",
+            "updated": "Un Blog ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Blog ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Blog {{ id }}?"
+            },
+            "detail": {
+                "title": "Blog"
+            },
+            "name": "Name",
+            "handle": "Handle",
+            "user": "User"
+        }
+    }
+}

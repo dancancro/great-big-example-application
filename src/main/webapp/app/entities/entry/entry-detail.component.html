@@ -1,0 +1,45 @@
+
+<div *ngIf="entry">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.entry.detail.title">Entry</span> {{entry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.title">Title</span></dt>
+        <dd>
+            <span>{{entry.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.content">Content</span></dt>
+        <dd>
+            <span>{{entry.content}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.date">Date</span></dt>
+        <dd>
+            <span>{{entry.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.blog">Blog</span></dt>
+        <dd>
+            <div *ngIf="entry.blog">
+                <a [routerLink]="['/blog', entry.blog?.id]">{{entry.blog?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.tag">Tag</span></dt>
+        <dd>
+            <span *ngFor="let tag of entry.tags; let last = last">
+                <a [routerLink]="['/tag', tag?.id ]">{{tag.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'entry/'+ entry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

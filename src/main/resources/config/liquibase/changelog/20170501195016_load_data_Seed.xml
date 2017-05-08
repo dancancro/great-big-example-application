@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Tag.
+    -->
+    <changeSet id="20170430002849-1" author="jhipster">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/claim.csv"
+                  separator=","
+                  tableName="claim">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/claim-rebuttal.csv"
+                  separator=","
+                  tableName="claim_rebuttal">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/rebuttal.csv"
+                  separator=","
+                  tableName="rebuttal">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/hero.csv"
+                  separator=","
+                  tableName="hero">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/crisis.csv"
+                  separator=","
+                  tableName="crisis">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/contact.csv"
+                  separator=","
+                  tableName="contact">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/note.csv"
+                  separator=","
+                  tableName="note">
+        </loadData>
+
+    </changeSet>
+</databaseChangeLog>

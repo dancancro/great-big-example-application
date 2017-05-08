@@ -1,0 +1,67 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myRebuttalLabel" jhiTranslate="greatBigExampleApplicationApp.rebuttal.home.createOrEditLabel">Create or edit a Rebuttal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rebuttal.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="rebuttal.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.longName" for="field_longName">Long Name</label>
+            <input type="text" class="form-control" name="longName" id="field_longName"
+                [(ngModel)]="rebuttal.longName"
+            minlength="20" maxlength="1200" />
+            <div [hidden]="!(editForm.controls.longName?.dirty && editForm.controls.longName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.longName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 20 }">
+                   This field is required to be at least 20 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.longName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 1200 }">
+                   This field cannot be longer than 1200 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.shortName" for="field_shortName">Short Name</label>
+            <input type="text" class="form-control" name="shortName" id="field_shortName"
+                [(ngModel)]="rebuttal.shortName"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="rebuttal.date"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.expires" for="field_expires">Expires</label>
+            <div class="d-flex">
+                <input id="field_expires" type="datetime-local" class="form-control" name="expires" [(ngModel)]="rebuttal.expires"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.link" for="field_link">Link</label>
+            <input type="text" class="form-control" name="link" id="field_link"
+                [(ngModel)]="rebuttal.link"
+             />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

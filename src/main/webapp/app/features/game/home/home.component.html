@@ -1,0 +1,16 @@
+<h1>Hello there!</h1>
+
+<h3>Single player</h3>
+
+You can either play <strong (click)="startSinglePlayerGame()">single player</strong>.
+
+<h3>Multi-player</h3>
+
+Enter your name for a new game: <input type="text" [(ngModel)]="name"><button (click)="startMultiPlayerGame()">Start!</button><br><br>Enter name of the partner: <input type="text" [(ngModel)]="partner"><button (click)="joinGame()">Join!</button>
+
+<div *ngIf="hasGames() | async">
+    <h2>Your statistics:</h2>
+    <ul *ngFor="let game of game.games$ | async">
+        <li>{{ game.get('text') }} - {{ game.get('time') }}</li>
+    </ul>
+</div>

@@ -1,0 +1,82 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "org.exampleapps.greatbig",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.3.0",
+    "baseName": "GreatBigExampleApplication",
+    "packageName": "org.exampleapps.greatbig",
+    "packageFolder": "org/exampleapps/greatbig",
+    "serverPort": "8090",
+    "authenticationType": "jwt",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": false,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSocialSignIn": true,
+    "jwtSecretKey": "7c10615c946ddf4de8dd2fbf6469aeb8eb4c48c6",
+    "clientFramework": "angular2",
+    "useSass": false,
+    "clientPackageManager": "yarn",
+    "applicationType": "monolith",
+    "testFrameworks": [
+      "gatling",
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-nav-element",
+        "version": "1.2.2"
+      },
+      {
+        "name": "generator-jhipster-bootstrap-material-design",
+        "version": "3.5.1"
+      },
+      {
+        "name": "generator-jhipster-swagger2markup",
+        "version": "1.2.0"
+      },
+      {
+        "name": "generator-jhipster-entity-audit",
+        "version": "2.4.0"
+      },
+      {
+        "name": "generator-jhipster-darktheme",
+        "version": "0.0.7"
+      },
+      {
+        "name": "generator-jhipster-bootswatch",
+        "version": "1.0.2"
+      },
+      {
+        "name": "generator-jhipster-material",
+        "version": "0.0.0"
+      },
+      {
+        "name": "generator-jhipster-fortune",
+        "version": "0.0.2"
+      },
+      {
+        "name": "generator-jhipster-google-analytics",
+        "version": "0.0.1"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "fr",
+      "de",
+      "es"
+    ],
+    "herokuAppName": "great-big-angular-example"
+  }
+}

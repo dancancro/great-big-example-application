@@ -1,0 +1,7 @@
+version: '2'
+services:
+    greatbigexampleapplication-sonar:
+        image: sonarqube:6.2-alpine
+        ports:
+            - 9010:9010
+            - 9092:9092

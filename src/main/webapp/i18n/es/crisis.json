@@ -1,0 +1,22 @@
+{
+    "greatBigExampleApplicationApp": {
+        "crisis" : {
+            "home": {
+                "title": "Crises",
+                "createLabel": "Crear nuevo Crisis",
+                "createOrEditLabel": "Crear o editar Crisis",
+                "search": "Search for Crisis"
+            },
+            "created": "Un nuevo Crisis ha sido creado con el identificador {{ param }}",
+            "updated": "Un Crisis ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Crisis ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Crisis {{ id }}?"
+            },
+            "detail": {
+                "title": "Crisis"
+            },
+            "name": "Name"
+        }
+    }
+}

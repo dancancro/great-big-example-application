@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { Store, Action } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+
+import { buildP2PCommand } from './index';
+import { PROGRESS, COMPLETE } from './command-builders/game-p2p.commands';
+import { WebRTCGateway } from '../gateways/webrtc.gateway';
+import { AsyncService } from '../../../../core/services/base.async-service';
+import { RPCCommand } from '../commands/rpc.command';
+import { JsonPayload } from '../../../../core/commands/payloads/json.command.payload';
+import { P2PGameActions } from '../actions/action-creators/p2p-game.action-creators';
+
+@Injectable()
+export class GameP2PService extends AsyncService {
+    constructor(private rtcGateway: WebRTCGateway, private store: Store<any>) {
+        super();
+        rtcGateway.dataStream
+            .map((data: any) => JSON.parse(data.toString()))
+            .subscribe((command: any) => {
+                switch (command.method) {
+                    case PROGRESS:
+                        store.dispatch(P2PGameActions.partnerProgress(command.payload.text));
+                        break;
+                    case COMPLETE:
+                        store.dispatch(P2PGameActions.partnerCompleted());
+                        break;
+                }
+            });
+    }
+
+    process(action: Action) {
+        let baseCommand = new RPCCommand();
+        baseCommand.payload = new JsonPayload();
+        baseCommand.gateway = this.rtcGateway;
+        let commandBuilder = buildP2PCommand(action);
+        if (!commandBuilder) {
+            console.warn('This command is not supported');
+            return Observable.create((obs: Observer<any>) => obs.complete());
+        } else {
+            return commandBuilder(baseCommand).invoke();
+        }
+    }
+}

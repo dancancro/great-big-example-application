@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "note" : {
+            "home": {
+                "title": "Notes",
+                "createLabel": "Note erstellen",
+                "createOrEditLabel": "Note erstellen oder bearbeiten",
+                "search": "Suche nach Note"
+            },
+            "created": "Note erstellt mit ID {{ param }}",
+            "updated": "Note aktualisiert mit ID {{ param }}",
+            "deleted": "Note gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Note {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Note"
+            },
+            "text": "Text",
+            "colour": "Colour",
+            "left": "Left",
+            "top": "Top"
+        }
+    }
+}

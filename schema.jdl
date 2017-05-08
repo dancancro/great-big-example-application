@@ -1,0 +1,57 @@
+DEFAULT_MIN_LENGTH = 20
+DEFAULT_MAX_LENGTH = 1200
+
+entity Hero {
+	name String required
+}
+
+entity Crisis {
+	name String required
+}
+
+entity Claim {
+    name String required,
+    imageLabel String,
+    imageLink String
+}
+
+entity Contact {
+    name String required
+}
+
+entity Note {
+    id String,
+    text String,
+    colour String,
+    left Integer,
+    top Integer
+}
+
+entity Rebuttal {
+    longName String minlength(DEFAULT_MIN_LENGTH) maxlength(DEFAULT_MAX_LENGTH),
+    shortName String,
+    date ZonedDateTime,
+    expires ZonedDateTime,
+    link String
+}
+
+entity ClaimRebuttal {
+  claimId Long,
+  rebuttalId Long,
+  sortOrder Integer
+}
+
+entity Tag {
+	name String required minlength(2)
+}
+
+relationship ManyToOne {
+	Blog{user(login)} to User,
+	Entry{blog(name)} to Blog
+}
+
+relationship ManyToMany {
+	Entry{tag(name)} to Tag{entry}
+}
+
+paginate Entry, Tag with infinite-scroll

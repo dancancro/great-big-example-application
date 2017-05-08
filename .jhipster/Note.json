@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "text",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "colour",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "left",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "top",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170501195010",
+    "entityTableName": "note",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "rebuttal" : {
+            "home": {
+                "title": "Rebuttals",
+                "createLabel": "Créer un nouveau Rebuttal",
+                "createOrEditLabel": "Créer ou éditer un Rebuttal",
+                "search": "Recherche pour Rebuttal"
+            },
+            "created": "Un nouveau Rebuttal a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rebuttal avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rebuttal avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rebuttal {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rebuttal"
+            },
+            "longName": "Long Name",
+            "shortName": "Short Name",
+            "date": "Date",
+            "expires": "Expires",
+            "link": "Link"
+        }
+    }
+}

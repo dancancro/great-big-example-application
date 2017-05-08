@@ -1,0 +1,32 @@
+<section [hidden]="partnerCompleted() | async">
+  <div [hidden]="!gameEnabled">
+    <section [hidden]="!won">
+      <h1>You won!</h1>
+    </section>
+    <section [hidden]="won">
+      <jhi-game [text]="text" (end)="gameCompleted($event)"></jhi-game>
+      <div>
+        <h2>Partner progress...</h2>
+        <div style="border: 1px solid black;">
+          {{ partnerText() | async }}
+        </div>
+      </div>
+    </section>
+  </div>
+  <div [hidden]="gameEnabled">
+    <h1>Howdy!</h1>
+    <section>
+      Type the text on top of the textarea as fast as possible!
+      <br><br>
+      <section [hidden]="!playerJoined">
+        Starting in...{{timeLeft}} sec.
+      </section>
+      <section [hidden]="playerJoined">
+        Waiting for another player...
+      </section>
+    </section>
+  </div>
+</section>
+<section [hidden]="!(partnerCompleted() | async)">
+  <h2>Your partner won...</h2>
+</section>

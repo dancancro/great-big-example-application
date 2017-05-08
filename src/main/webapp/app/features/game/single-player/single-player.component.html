@@ -1,0 +1,19 @@
+<div [hidden]="!gamePlayed">
+  <jhi-game *ngIf="gameEnabled" [text]="text" (end)="gameCompleted($event)"></jhi-game>
+  <div [hidden]="gameEnabled">
+    <h1>Completed!</h1>
+    <section>
+      Congratulations! You completed the game for {{time}} ms!
+      <br><br>
+      <button (click)="start()">Again</button>
+    </section>
+  </div>
+</div>
+<div [hidden]="gamePlayed">
+  <h1>Howdy!</h1>
+  <section>
+    Type the text on top of the textarea as fast as possible!
+    <br><br>
+    <button (click)="start()">Start</button>
+  </section>
+</div>

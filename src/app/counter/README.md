@@ -1,1 +1,0 @@
-![Image](../../assets/counter.png?raw=true)

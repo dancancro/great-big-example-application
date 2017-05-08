@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "note" : {
+            "home": {
+                "title": "Notes",
+                "createLabel": "Créer un nouveau Note",
+                "createOrEditLabel": "Créer ou éditer un Note",
+                "search": "Recherche pour Note"
+            },
+            "created": "Un nouveau Note a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Note avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Note avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Note {{ id }} ?"
+            },
+            "detail": {
+                "title": "Note"
+            },
+            "text": "Text",
+            "colour": "Colour",
+            "left": "Left",
+            "top": "Top"
+        }
+    }
+}

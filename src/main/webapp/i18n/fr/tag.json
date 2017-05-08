@@ -1,0 +1,23 @@
+{
+    "greatBigExampleApplicationApp": {
+        "tag" : {
+            "home": {
+                "title": "Tags",
+                "createLabel": "Créer un nouveau Tag",
+                "createOrEditLabel": "Créer ou éditer un Tag",
+                "search": "Recherche pour Tag"
+            },
+            "created": "Un nouveau Tag a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Tag avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Tag avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Tag {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tag"
+            },
+            "name": "Name",
+            "entry": "Entry"
+        }
+    }
+}

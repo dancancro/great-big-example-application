@@ -1,0 +1,23 @@
+{
+    "greatBigExampleApplicationApp": {
+        "tag" : {
+            "home": {
+                "title": "Tags",
+                "createLabel": "Crear nuevo Tag",
+                "createOrEditLabel": "Crear o editar Tag",
+                "search": "Search for Tag"
+            },
+            "created": "Un nuevo Tag ha sido creado con el identificador {{ param }}",
+            "updated": "Un Tag ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Tag ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Tag {{ id }}?"
+            },
+            "detail": {
+                "title": "Tag"
+            },
+            "name": "Name",
+            "entry": "Entry"
+        }
+    }
+}

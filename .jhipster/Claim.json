@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "imageLabel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageLink",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170501195008",
+    "entityTableName": "claim",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
