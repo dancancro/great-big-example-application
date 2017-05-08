@@ -36,7 +36,8 @@ The rationale behind this is pretty simple and logical...
     not tutorial-grade code. Anything you learn in a tutorial must be approached with caution 
     because corners have probably been cut, it's probably been simplified and it probably doesn't 
     show you the exact way anyone does it on a real job. The difference between exact and almost 
-    exact is huge. Tutorials show you how you *can* use a feature of the technology but often they 
+    exact is the difference between ten stones balanced on top of each other and those stones lying on
+    the ground. Tutorials show you how you *can* use a feature of the technology but often they 
     do so in situations when in real life you would not do things that way. This can cost a lot of 
     time. It's just as important to know when to use a technology's features as it is to know how.
 
@@ -51,6 +52,10 @@ The rationale behind this is pretty simple and logical...
     a complete application with all of its edge cases to show you what needs to be accommodated. 
     By containing many edge cases, a big application will quickly answer the common learner's question:
     "Why isn't this done the easy way I think it should be done?", or "What if we tried X instead?"
+
+I've had a maddeningly troublesome time making the case for software development educators to provide 
+a single, giant example app for their students akin to what they make for their clients and employers. 
+So here's one from unemployed me.
 
 # How did this great big app happen?
 Coming from different demos, the features of the app are not related to each other and it won't make any sense

@@ -77,9 +77,8 @@ public class NoteResourceIntTest {
         MockitoAnnotations.initMocks(this);
         NoteResource noteResource = new NoteResource(noteRepository, noteSearchRepository);
         this.restNoteMockMvc = MockMvcBuilders.standaloneSetup(noteResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter).build();
+                .setCustomArgumentResolvers(pageableArgumentResolver).setControllerAdvice(exceptionTranslator)
+                .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -89,11 +88,7 @@ public class NoteResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Note createEntity(EntityManager em) {
-        Note note = new Note()
-            .text(DEFAULT_TEXT)
-            .colour(DEFAULT_COLOUR)
-            .left(DEFAULT_LEFT)
-            .top(DEFAULT_TOP);
+        Note note = new Note().text(DEFAULT_TEXT).colour(DEFAULT_COLOUR).left(DEFAULT_LEFT).top(DEFAULT_TOP);
         return note;
     }
 
@@ -109,10 +104,8 @@ public class NoteResourceIntTest {
         int databaseSizeBeforeCreate = noteRepository.findAll().size();
 
         // Create the Note
-        restNoteMockMvc.perform(post("/api/notes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(note)))
-            .andExpect(status().isCreated());
+        restNoteMockMvc.perform(post("/api/notes").contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(note))).andExpect(status().isCreated());
 
         // Validate the Note in the database
         List<Note> noteList = noteRepository.findAll();
@@ -134,13 +127,11 @@ public class NoteResourceIntTest {
         int databaseSizeBeforeCreate = noteRepository.findAll().size();
 
         // Create the Note with an existing ID
-        note.setId(1L);
+        note.setId("A");
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restNoteMockMvc.perform(post("/api/notes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(note)))
-            .andExpect(status().isBadRequest());
+        restNoteMockMvc.perform(post("/api/notes").contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(note))).andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
         List<Note> noteList = noteRepository.findAll();
@@ -154,14 +145,13 @@ public class NoteResourceIntTest {
         noteRepository.saveAndFlush(note);
 
         // Get all the noteList
-        restNoteMockMvc.perform(get("/api/notes?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(note.getId().intValue())))
-            .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())))
-            .andExpect(jsonPath("$.[*].colour").value(hasItem(DEFAULT_COLOUR.toString())))
-            .andExpect(jsonPath("$.[*].left").value(hasItem(DEFAULT_LEFT)))
-            .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP)));
+        restNoteMockMvc.perform(get("/api/notes?sort=id,desc")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(note.getId())))
+                .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())))
+                .andExpect(jsonPath("$.[*].colour").value(hasItem(DEFAULT_COLOUR.toString())))
+                .andExpect(jsonPath("$.[*].left").value(hasItem(DEFAULT_LEFT)))
+                .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP)));
     }
 
     @Test
@@ -171,22 +161,19 @@ public class NoteResourceIntTest {
         noteRepository.saveAndFlush(note);
 
         // Get the note
-        restNoteMockMvc.perform(get("/api/notes/{id}", note.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(note.getId().intValue()))
-            .andExpect(jsonPath("$.text").value(DEFAULT_TEXT.toString()))
-            .andExpect(jsonPath("$.colour").value(DEFAULT_COLOUR.toString()))
-            .andExpect(jsonPath("$.left").value(DEFAULT_LEFT))
-            .andExpect(jsonPath("$.top").value(DEFAULT_TOP));
+        restNoteMockMvc.perform(get("/api/notes/{id}", note.getId())).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value(note.getId()))
+                .andExpect(jsonPath("$.text").value(DEFAULT_TEXT.toString()))
+                .andExpect(jsonPath("$.colour").value(DEFAULT_COLOUR.toString()))
+                .andExpect(jsonPath("$.left").value(DEFAULT_LEFT)).andExpect(jsonPath("$.top").value(DEFAULT_TOP));
     }
 
     @Test
     @Transactional
     public void getNonExistingNote() throws Exception {
         // Get the note
-        restNoteMockMvc.perform(get("/api/notes/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restNoteMockMvc.perform(get("/api/notes/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
@@ -199,16 +186,10 @@ public class NoteResourceIntTest {
 
         // Update the note
         Note updatedNote = noteRepository.findOne(note.getId());
-        updatedNote
-            .text(UPDATED_TEXT)
-            .colour(UPDATED_COLOUR)
-            .left(UPDATED_LEFT)
-            .top(UPDATED_TOP);
+        updatedNote.text(UPDATED_TEXT).colour(UPDATED_COLOUR).left(UPDATED_LEFT).top(UPDATED_TOP);
 
-        restNoteMockMvc.perform(put("/api/notes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedNote)))
-            .andExpect(status().isOk());
+        restNoteMockMvc.perform(put("/api/notes").contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(updatedNote))).andExpect(status().isOk());
 
         // Validate the Note in the database
         List<Note> noteList = noteRepository.findAll();
@@ -232,10 +213,8 @@ public class NoteResourceIntTest {
         // Create the Note
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
-        restNoteMockMvc.perform(put("/api/notes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(note)))
-            .andExpect(status().isCreated());
+        restNoteMockMvc.perform(put("/api/notes").contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(note))).andExpect(status().isCreated());
 
         // Validate the Note in the database
         List<Note> noteList = noteRepository.findAll();
@@ -251,9 +230,8 @@ public class NoteResourceIntTest {
         int databaseSizeBeforeDelete = noteRepository.findAll().size();
 
         // Get the note
-        restNoteMockMvc.perform(delete("/api/notes/{id}", note.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+        restNoteMockMvc.perform(delete("/api/notes/{id}", note.getId()).accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
 
         // Validate Elasticsearch is empty
         boolean noteExistsInEs = noteSearchRepository.exists(note.getId());
@@ -272,14 +250,13 @@ public class NoteResourceIntTest {
         noteSearchRepository.save(note);
 
         // Search the note
-        restNoteMockMvc.perform(get("/api/_search/notes?query=id:" + note.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(note.getId().intValue())))
-            .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())))
-            .andExpect(jsonPath("$.[*].colour").value(hasItem(DEFAULT_COLOUR.toString())))
-            .andExpect(jsonPath("$.[*].left").value(hasItem(DEFAULT_LEFT)))
-            .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP)));
+        restNoteMockMvc.perform(get("/api/_search/notes?query=id:" + note.getId())).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(note.getId())))
+                .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())))
+                .andExpect(jsonPath("$.[*].colour").value(hasItem(DEFAULT_COLOUR.toString())))
+                .andExpect(jsonPath("$.[*].left").value(hasItem(DEFAULT_LEFT)))
+                .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP)));
     }
 
     @Test
