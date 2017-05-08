@@ -1,28 +1,27 @@
-import { Injectable } from '@angular/core'
-import { Response } from '@angular/http'
-import { Observable } from 'rxjs/Observable'
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { SocketService } from '../../core/services/socket.service';
-import 'rxjs/add/observable/fromPromise'
-
+import 'rxjs/add/observable/fromPromise';
 
 @Injectable()
 export class MessagesService {
-    public resource$: Observable<any>
-    private observable
-    private socketMessagesService
+    public resource$: Observable<any>;
+    private observable;
+    private socketMessagesService;
 
     constructor(private socketService: SocketService) {
         // this.socketMessagesService = socketService.getService('messages')
 
         // this.item$ is a public observable for components to subscribe
-        this.resource$ = new Observable(observable => this.observable = observable)
+        this.resource$ = new Observable((observable) => this.observable = observable);
 
-        this.socketMessagesService.on('created', res => {
+        this.socketMessagesService.on('created', (res) => {
             this.observable.next({
                 type: 'created',
                 messages: res
-            })
-        })
+            });
+        });
 
     }
 
@@ -31,28 +30,27 @@ export class MessagesService {
             query: {
                 $sort: { createdAt: -1 }
             }
-        }).then(res => {
+        }).then((res) => {
             this.observable.next({
                 type: 'find',
                 messages: res.data
-            })
-        })
+            });
+        });
     }
 
     createMessage(data) {
         Observable.fromPromise(this.socketMessagesService.create(data))
-            .catch(this.handleError)
+            .catch(this.handleError);
     }
 
-
     handleError(err: Response | any) {
-        err = err instanceof Response ? err.json() : err.toString()
-        console.error(err)
-        return Observable.throw(err)
+        err = err instanceof Response ? err.json() : err.toString();
+        console.error(err);
+        return Observable.throw(err);
     }
 
     off() {
-        this.socketMessagesService.removeAllListeners('created')
+        this.socketMessagesService.removeAllListeners('created');
     }
 
 }

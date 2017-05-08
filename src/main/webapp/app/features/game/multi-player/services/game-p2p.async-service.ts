@@ -31,10 +31,10 @@ export class GameP2PService extends AsyncService {
     }
 
     process(action: Action) {
-        let baseCommand = new RPCCommand();
+        const baseCommand = new RPCCommand();
         baseCommand.payload = new JsonPayload();
         baseCommand.gateway = this.rtcGateway;
-        let commandBuilder = buildP2PCommand(action);
+        const commandBuilder = buildP2PCommand(action);
         if (!commandBuilder) {
             console.warn('This command is not supported');
             return Observable.create((obs: Observer<any>) => obs.complete());

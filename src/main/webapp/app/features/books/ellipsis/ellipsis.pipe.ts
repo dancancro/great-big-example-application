@@ -1,9 +1,8 @@
 import { Pipe } from '@angular/core';
 
-
 @Pipe({ name: 'bcEllipsis' })
 export class EllipsisPipe {
-  transform(str: string, strLength: number = 250) {
+  transform(str: string, strLength = 250) {
     const withoutHtml = str.replace(/(<([^>]+)>)/ig, '');
 
     if (str.length >= strLength) {

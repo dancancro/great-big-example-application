@@ -5,10 +5,9 @@ import { GreatBigExampleApplicationTestModule } from '../../../../test.module';
 import { PasswordResetInitComponent } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.component';
 import { PasswordResetInit } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service';
 
-
 describe('Component Tests', () => {
 
-    describe('PasswordResetInitComponent', function () {
+    describe('PasswordResetInitComponent', function() {
         let fixture: ComponentFixture<PasswordResetInitComponent>;
         let comp: PasswordResetInitComponent;
 
@@ -38,7 +37,7 @@ describe('Component Tests', () => {
             comp.ngOnInit();
         });
 
-        it('should define its initial state', function () {
+        it('should define its initial state', function() {
             expect(comp.success).toBeUndefined();
             expect(comp.error).toBeUndefined();
             expect(comp.errorEmailNotExists).toBeUndefined();
@@ -47,8 +46,8 @@ describe('Component Tests', () => {
 
         it('sets focus after the view has been initialized',
             inject([ElementRef], (elementRef: ElementRef) => {
-                let element = fixture.nativeElement;
-                let node = {
+                const element = fixture.nativeElement;
+                const node = {
                     focus() {}
                 };
 

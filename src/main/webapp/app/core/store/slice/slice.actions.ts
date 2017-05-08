@@ -7,12 +7,12 @@ export const actions = {
   LOAD_FAIL: 'LOAD_FAIL',
   LOAD_SUCCESS: 'LOAD_SUCCESS',
   UPDATE: 'UPDATE'
-}
+};
 
 export class SliceAction implements Action {
-  _actionName: string = '';
+  _actionName = '';
   get type() {
-    return typeFor(this.slice, this._actionName)
+    return typeFor(this.slice, this._actionName);
   }
 
   constructor(public slice: string, public payload: any) { }

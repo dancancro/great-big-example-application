@@ -30,6 +30,6 @@ export function reducer(state: Entities<Rebuttal> = initialEntities<Rebuttal>({}
 
 export const getEntities = (state: Entities<Rebuttal>) => {
   return state.entities;
-}
+};
 
 export const getIds = (state: Entities<Rebuttal>) => state.ids;

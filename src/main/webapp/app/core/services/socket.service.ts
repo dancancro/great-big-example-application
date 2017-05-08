@@ -10,7 +10,6 @@ import { WindowRef } from '../../shared/services/window.service';
 import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
 import * as EntityActions from '../store/entity/entity.actions';
 
-
 // const io = require('socket.io-client');
 // const hooks = require('feathers-hooks');
 
@@ -30,8 +29,8 @@ export class SocketService {
     listenerObserver: Observer<any>;
     alreadyConnectedOnce = false;
     private subscription: Subscription;
-    public resource$: Observable<any>
-    private observable
+    public resource$: Observable<any>;
+    private observable;
 
     constructor(
         private router: Router,
@@ -42,7 +41,7 @@ export class SocketService {
     ) {
         this.connection = this.createConnection();
         this.listener = this.createListener();
-        this.resource$ = new Observable(observable => this.observable = observable)
+        this.resource$ = new Observable((observable) => this.observable = observable);
     }
 
     connect(service: string, data: any) {
@@ -69,26 +68,25 @@ export class SocketService {
             }
 
             this.subscribe(service);
-            this.listener.subscribe(res => {
+            this.listener.subscribe((res) => {
                 switch (res.type) {
                     case 'find':
                         this.store.dispatch({
                             type: 'MESSAGE_INIT',
                             payload: res.messages
-                        })
-                        break
+                        });
+                        break;
                     case 'created':
                         // this.store.dispatch({
                         //   type: 'MESSAGE_UPDATE',
                         //   payload: res.messages
                         // })
                         //       this.messageService.findMessages()
-                        break
+                        break;
                     default:
-                        break
+                        break;
                 }
-            })
-
+            });
 
         });
     }

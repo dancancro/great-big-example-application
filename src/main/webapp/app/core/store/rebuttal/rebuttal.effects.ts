@@ -18,4 +18,3 @@ export class RebuttalEffects {
     private dataService: RESTService
   ) { }
 }
-

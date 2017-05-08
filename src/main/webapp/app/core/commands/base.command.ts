@@ -15,13 +15,13 @@ export interface CommandResult {
 }
 
 export abstract class Command {
-    static _id: number = 0;
+    static _id = 0;
     protected _state: CommandState;
     protected _payload: CommandPayload;
     protected _commands: Command[] = [];
     protected _method: any;
     protected _gateway: Gateway;
-    protected _id: number = 0;
+    protected _id = 0;
 
     constructor(payload?: CommandPayload) {
         this._payload = payload;
@@ -72,7 +72,7 @@ export abstract class Command {
     invoke(context?: Command): Observable<CommandResult> {
         context = context || this;
         context.state = CommandState.EXECUTING;
-        let result = Observable.create((observer: Observer<CommandResult>) => {
+        const result = Observable.create((observer: Observer<CommandResult>) => {
             this._gateway.send(context).subscribe((response: Observer<any>) => {
                 context.state = CommandState.INVOKED;
                 observer.next({

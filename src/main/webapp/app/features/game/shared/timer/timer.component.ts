@@ -7,7 +7,7 @@ import { Observer } from 'rxjs/Observer';
     template: '<div>{{ timer | async }} sec.</div>'
 })
 export class TimerComponent {
-    time: number = 0;
+    time = 0;
     timer: Observable<number>;
     private interval: any;
     private observer: Observer<number>;

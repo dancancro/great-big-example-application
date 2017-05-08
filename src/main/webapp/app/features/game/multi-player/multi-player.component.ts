@@ -54,15 +54,15 @@ const providers: Provider[] = [
     providers
 })
 export class MultiPlayerComponent {
-    timeLeft: number = 3;
-    playerJoined: boolean = false;
-    won: boolean = false;
+    timeLeft = 3;
+    playerJoined = false;
+    won = false;
     @ViewChild(GameComponent) game: GameComponent;
 
     private _timer: any;
     private text = GAME_TEXT;
-    private gameEnabled: boolean = false;
-    private gamePlayed: boolean = false;
+    private gameEnabled = false;
+    private gamePlayed = false;
 
     constructor(private gateway: WebRTCGateway, private zone: NgZone, private p2pModel: P2PGameModel) {
         this.gateway.connectionEvents.filter((e: boolean) => e)

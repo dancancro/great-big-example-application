@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../../core/store';
-import { slices } from '../../../../core/store/util'
+import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
 @Component({
@@ -42,7 +42,7 @@ export class CrisisListComponent implements OnInit {
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
         this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
-      })
+      });
   }
 
   onSelect(crisis: Crisis) {
@@ -54,7 +54,6 @@ export class CrisisListComponent implements OnInit {
     this.routeSub && this.routeSub.unsubscribe();
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

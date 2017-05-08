@@ -5,7 +5,6 @@ import * as functions from '../entity/entity.functions';
 import { slices } from '../util';
 import { typeFor } from '../util';
 
-
 export function reducer(state = initialEntities<Claim>({}, slices.CLAIM, actions, initialClaim),
   action: EntityAction<Claim>): Entities<Claim> {
   switch (action.type) {

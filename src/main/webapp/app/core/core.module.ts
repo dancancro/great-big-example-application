@@ -1,26 +1,25 @@
-import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core'
+import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
-import { HttpModule } from '@angular/http'
-import { MaterialModule } from '@angular/material'
-import { FlexLayoutModule } from '@angular/flex-layout'
-import { RouterModule } from '@angular/router'
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr'
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
+import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
 import { reducer } from './store';
 
 /**
  * Import ngrx
  */
-import { compose } from '@ngrx/core/compose'
-import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor'
+import { compose } from '@ngrx/core/compose';
+import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { DBModule } from '@ngrx/db';
-
 
 /**
  * Import toplevel component/providers/directives/pipes
@@ -34,20 +33,20 @@ import { customHttpProvider } from '../blocks/interceptor/http.provider';
 
 // Reset the root state for HMR
 function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
-    return function (state, action) {
+    return function(state, action) {
         if (action.type === 'SET_ROOT_STATE') {
-            return action.payload
+            return action.payload;
         }
-        return reducer(state, action)
-    }
+        return reducer(state, action);
+    };
 }
 
 const rootReducer = compose(stateSetter, combineReducers)({
     reducer
-})
+});
 const store = StoreModule.provideStore(reducer);
 
-let imports = [
+const imports = [
     // BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -92,7 +91,7 @@ let imports = [
      * service available.
      */
     DBModule.provideDB(schema),
-]
+];
 
 // Enable HMR and ngrx/devtools in hot reload mode
 if (process.env === 'dev') imports.push(...[
@@ -103,7 +102,7 @@ if (process.env === 'dev') imports.push(...[
         })
     }),
     StoreLogMonitorModule,
-])
+]);
 
 @NgModule({
     imports,
@@ -127,34 +126,34 @@ export class CoreModule {
         }
     }
     hmrOnInit(store) {
-        if (!store || !store.rootState) return
+        if (!store || !store.rootState) return;
 
         // restore state
         if (store.rootState) {
             this.store.dispatch({
                 type: 'SET_ROOT_STATE',
                 payload: store.rootState
-            })
+            });
         }
 
         // restore input values
-        if ('restoreInputValues' in store) { store.restoreInputValues() }
-        this.appRef.tick()
-        Object.keys(store).forEach(prop => delete store[prop])
+        if ('restoreInputValues' in store) { store.restoreInputValues(); }
+        this.appRef.tick();
+        Object.keys(store).forEach((prop) => delete store[prop]);
     }
     hmrOnDestroy(store) {
-        const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement)
-        this.store.subscribe(s => store.rootState = s)
+        const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
+        this.store.subscribe((s) => store.rootState = s);
         // recreate elements
-        store.disposeOldHosts = createNewHosts(cmpLocation)
+        store.disposeOldHosts = createNewHosts(cmpLocation);
         // save input values
-        store.restoreInputValues = createInputTransfer()
+        store.restoreInputValues = createInputTransfer();
         // remove styles
-        removeNgStyles()
+        removeNgStyles();
     }
     hmrAfterDestroy(store) {
         // display new elements
-        store.disposeOldHosts()
-        delete store.disposeOldHosts
+        store.disposeOldHosts();
+        delete store.disposeOldHosts;
     }
 }

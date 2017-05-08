@@ -7,7 +7,7 @@ import { ProfileService } from '../profiles/profile.service'; // FIXME barrel do
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
 import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
-import { FeatureMeta, FeaturesService } from '../../features/features.service'
+import { FeatureMeta, FeaturesService } from '../../features/features.service';
 
 @Component({
   selector: 'jhi-navbar',

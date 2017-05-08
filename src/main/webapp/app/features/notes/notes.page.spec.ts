@@ -39,8 +39,8 @@ describe('Component: Notes', () => {
       TestBed
         .compileComponents()
         .then(() => {
-          let fixture = TestBed.createComponent(NotesComponentTestController);
-          let query = fixture.debugElement.query(By.directive(NotesPage));
+          const fixture = TestBed.createComponent(NotesComponentTestController);
+          const query = fixture.debugElement.query(By.directive(NotesPage));
           expect(query).toBeTruthy();
           expect(query.componentInstance).toBeTruthy();
         });
@@ -55,4 +55,3 @@ describe('Component: Notes', () => {
 })
 class NotesComponentTestController {
 }
-

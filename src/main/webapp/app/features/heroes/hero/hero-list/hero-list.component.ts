@@ -8,10 +8,10 @@ import { Store } from '@ngrx/store';
 
 import { Hero } from '../../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../../core/store';
-import { slices } from '../../../../core/store/util'
+import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
-let uuid = require('uuid');
+const uuid = require('uuid');
 
 @Component({
   selector: 'app-hero-list',
@@ -23,7 +23,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
   selectedHero$: Observable<Hero>;
   routeSub: Subscription;
   heroesSub: Subscription;
-  maxHeroId: number = 0;
+  maxHeroId = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,12 +34,12 @@ export class HeroListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.heroes$ = this.store.select(fromRoot.getHeroes);
     this.selectedHero$ = this.store.select(fromRoot.getSelectedHero);
-    this.heroesSub = this.heroes$.subscribe(heroes =>
-      this.maxHeroId = +heroes.reduce((prev, current, index, array) => { return +current.id > +prev.id ? current : prev }, { id: '0' }).id);
+    this.heroesSub = this.heroes$.subscribe((heroes) =>
+      this.maxHeroId = +heroes.reduce((prev, current, index, array) => +current.id > +prev.id ? current : prev, { id: '0' }).id);
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
         this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
-      })
+      });
   }
 
   add(name: string): void {
@@ -61,7 +61,6 @@ export class HeroListComponent implements OnInit, OnDestroy {
     this.heroesSub && this.heroesSub.unsubscribe();
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

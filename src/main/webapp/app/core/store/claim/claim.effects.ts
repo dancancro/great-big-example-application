@@ -18,4 +18,3 @@ export class ClaimEffects {
     private dataService: RESTService
   ) { }
 }
-

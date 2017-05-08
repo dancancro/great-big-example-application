@@ -22,7 +22,7 @@ export class JsonPayload extends CommandPayload {
         if (!this.payloads.length) {
             return currentSerialized;
         } else {
-            const serialized = this.payloads.map(c => c.serialize()).concat(currentSerialized).join(',');
+            const serialized = this.payloads.map((c) => c.serialize()).concat(currentSerialized).join(',');
             return `[${serialized}]`;
         }
     }

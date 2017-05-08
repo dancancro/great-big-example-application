@@ -8,7 +8,6 @@ import { LoginModalService } from '../../../../../../main/webapp/app/shared';
 import { Register } from '../../../../../../main/webapp/app/account/register/register.service';
 import { RegisterComponent } from '../../../../../../main/webapp/app/account/register/register.component';
 
-
 describe('Component Tests', () => {
 
     describe('RegisterComponent', () => {
@@ -47,7 +46,7 @@ describe('Component Tests', () => {
             comp.ngOnInit();
         });
 
-        it('should ensure the two passwords entered match', function () {
+        it('should ensure the two passwords entered match', function() {
             comp.registerAccount.password = 'password';
             comp.confirmPassword = 'non-matching';
 

@@ -12,10 +12,9 @@ export class TwainComponent  implements OnInit {
   constructor(private twainService: TwainService) { }
 
   ngOnInit(): void {
-    this.twainService.getQuote().then(quote => this.quote = quote);
+    this.twainService.getQuote().then((quote) => this.quote = quote);
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

@@ -15,8 +15,8 @@ import * as fromRoot from '../../../core/store';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  heroes$: Observable<Hero[]>
-  crises$: Observable<Crisis[]>
+  heroes$: Observable<Hero[]>;
+  crises$: Observable<Crisis[]>;
   heroesSub: Subscription;
   title: string;
 
@@ -28,20 +28,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.heroes$ = this.store.select(fromRoot.getHeroes).take(5);
     this.crises$ = this.store.select(fromRoot.getCrises).take(5);
-    this.heroesSub = this.heroes$.subscribe(heroes => {
-      let cnt = heroes.length;
+    this.heroesSub = this.heroes$.subscribe((heroes) => {
+      const cnt = heroes.length;
       this.title = cnt === 0 ? 'No Heroes' :
         cnt === 1 ? 'Top Hero' : `Top ${cnt} Heroes`;
-    })
+    });
   }
 
   gotoHero(hero: Hero) {
-    let url = `/features/heroes/hero/${hero.id}`;
+    const url = `/features/heroes/hero/${hero.id}`;
     this.router.navigateByUrl(url);
   }
 
   gotoCrisis(crisis: Crisis) {
-    let url = `/features/heroes/crisis-center/${crisis.id}`;
+    const url = `/features/heroes/crisis-center/${crisis.id}`;
     this.router.navigateByUrl(url);
   }
 

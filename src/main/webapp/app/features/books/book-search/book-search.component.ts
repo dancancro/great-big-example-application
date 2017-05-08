@@ -3,7 +3,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 
-
 @Component({
   selector: 'bc-book-search',
   template: `
@@ -47,7 +46,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
   `]
 })
 export class BookSearchComponent {
-  @Input() query: string = '';
+  @Input() query = '';
   @Input() searching = false;
   @Output() search = new EventEmitter<string>();
 }

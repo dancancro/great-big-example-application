@@ -17,7 +17,7 @@ export const WS_CONFIG = new OpaqueToken('ws-config');
 export class WebSocketGateway extends Gateway {
     private endpoint: string;
     private ws: WebSocket;
-    private connected: boolean = false;
+    private connected = false;
     private reconnectTimeout: any;
 
     constructor( @Inject(WS_CONFIG) private config: WebSocketGatewayConfig) {

@@ -4,7 +4,7 @@ import { typeFor, slices } from '../util';
 import { actions, SliceAction } from '../slice/slice.actions';
 
 export function reducer(state: Session = initialSession(), action: SliceAction): Session {
-  let o = {};
+  const o = {};
   switch (action.type) {
 
     case typeFor(slices.SESSION, actions.LOAD):
@@ -36,5 +36,3 @@ export const getUser = (state: Session) =>
   Object.assign({},
     state.user,
     { fullName: state.user.firstName + ' ' + state.user.lastName });
-
-

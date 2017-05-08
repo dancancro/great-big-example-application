@@ -29,7 +29,7 @@ const endpoints = {
     hero: 'heroes',
     note: 'notes',
     rebuttal: 'rebuttals'
-}
+};
 
 @Injectable()
 export class RESTService {
@@ -77,7 +77,7 @@ export class RESTService {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        let obj = (res && res.json()) || res.data || res;
+        const obj = (res && res.json()) || res.data || res;
         if (!obj) {
             return {};
         }

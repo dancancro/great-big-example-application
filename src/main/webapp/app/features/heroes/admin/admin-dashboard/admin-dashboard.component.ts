@@ -36,15 +36,14 @@ export class AdminDashboardComponent implements OnInit {
     // Capture the session ID if available
     this.sessionId = this.route
       .queryParams
-      .map(params => params['session_id'] || 'None');
+      .map((params) => params['session_id'] || 'None');
 
     // Capture the fragment if available
     this.token = this.route
       .fragment
-      .map(fragment => fragment || 'None');
+      .map((fragment) => fragment || 'None');
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

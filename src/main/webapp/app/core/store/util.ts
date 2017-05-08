@@ -10,7 +10,7 @@ import { Action } from '@ngrx/store';
  * are unique.
  */
 
-let typeCache: { [label: string]: boolean } = {};
+const typeCache: { [label: string]: boolean } = {};
 
 export function type<T>(label: T | ''): T {
   if (typeCache[<string>label]) {
@@ -22,7 +22,7 @@ export function type<T>(label: T | ''): T {
   return <T>label;
 }
 
-let typeForCache: { [slice: string]: { [action: string]: string } } = {};
+const typeForCache: { [slice: string]: { [action: string]: string } } = {};
 
 export function typeFor(slice, action) {
   if (typeForCache[slice] && typeForCache[slice][action]) {
@@ -31,10 +31,9 @@ export function typeFor(slice, action) {
     typeForCache[slice] = typeForCache[slice] || {};
     typeForCache[slice][action] = `[${slice}] ${action}`;
     type(typeForCache[slice][action]);
-    return typeForCache[slice][action]
+    return typeForCache[slice][action];
   }
 }
-
 
 export const slices = {
   BOOK: 'book',
@@ -50,4 +49,4 @@ export const slices = {
   REBUTTAL: 'rebuttal',
   SEARCH: 'search',
   SESSION: 'session'
-}
+};

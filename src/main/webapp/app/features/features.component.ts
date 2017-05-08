@@ -23,17 +23,16 @@ import { Observable } from 'rxjs/Rx';
   // encapsulation: ViewEncapsulation.None
 })
 export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
-  static SIDE_MENU_BREAKPOINT: string = 'gt-md';
+  static SIDE_MENU_BREAKPOINT = 'gt-md';
 
-  site: string = 'MANF';
+  site = 'MANF';
   version: string;
   modules: FeatureMeta[] = [];
 
-  @ViewChild('menu') private menu: MdSidenav
+  @ViewChild('menu') private menu: MdSidenav;
 
   private _subscription = null;
   private user = undefined;
-
 
   constructor(private http: Http,
     // private changeDetectorRef: ChangeDetectorRef,
@@ -43,7 +42,7 @@ export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
     private _router: Router,
     private _moduleService: FeaturesService) {
     // Remove loading class to unset default styles
-    renderer.setElementClass(element.nativeElement, 'loading', false)
+    renderer.setElementClass(element.nativeElement, 'loading', false);
   }
 
   ngOnInit() {

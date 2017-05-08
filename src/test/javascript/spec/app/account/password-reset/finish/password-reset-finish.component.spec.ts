@@ -7,7 +7,6 @@ import { PasswordResetFinishComponent } from '../../../../../../../main/webapp/a
 import { PasswordResetFinish } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
 
-
 describe('Component Tests', () => {
 
     describe('PasswordResetFinishComponent', () => {
@@ -48,7 +47,7 @@ describe('Component Tests', () => {
             comp = fixture.componentInstance;
         });
 
-        it('should define its initial state', function () {
+        it('should define its initial state', function() {
             comp.ngOnInit();
 
             expect(comp.keyMissing).toBeFalsy();
@@ -58,8 +57,8 @@ describe('Component Tests', () => {
 
         it('sets focus after the view has been initialized',
             inject([ElementRef], (elementRef: ElementRef) => {
-                let element = fixture.nativeElement;
-                let node = {
+                const element = fixture.nativeElement;
+                const node = {
                     focus() {}
                 };
 

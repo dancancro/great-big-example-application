@@ -44,4 +44,4 @@ export const features = [
         id: 'wiki',
         link: 'wiki'
     }
-]
+];

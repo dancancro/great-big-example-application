@@ -20,4 +20,3 @@ export class CrisisEffects {
     private dataService: RESTService
   ) { }
 }
-

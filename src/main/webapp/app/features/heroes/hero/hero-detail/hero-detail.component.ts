@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 import { slideInDownAnimation } from '../../../../shared/animations';
 import { Hero } from '../../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../../core/store';
-import { slices } from '../../../../core/store/util'
+import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
 @Component({
@@ -23,7 +23,7 @@ export class HeroDetailComponent implements OnInit {
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
 
-  hero$: Observable<Hero>
+  hero$: Observable<Hero>;
   hero: Hero;
   heroSub: Subscription;
   routeSub: Subscription;
@@ -36,11 +36,11 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.hero$ = this.store.select(fromRoot.getSelectedHero);
-    this.heroSub = this.hero$.subscribe(hero => this.hero = hero);
+    this.heroSub = this.hero$.subscribe((hero) => this.hero = hero);
     this.routeSub = this.route.params
       .subscribe((params: Params) => {
         this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
-      })
+      });
   }
 
   save(): void {
@@ -51,7 +51,7 @@ export class HeroDetailComponent implements OnInit {
   cancel(): void { this.goBack(); }
 
   gotoList(): void {
-    let heroId = this.hero ? this.hero.id : null;
+    const heroId = this.hero ? this.hero.id : null;
     // Pass along the hero id if available
     // so that the HeroList component can select that hero.
     // Include a junk 'foo' property for fun.
@@ -70,7 +70,6 @@ export class HeroDetailComponent implements OnInit {
     this.routeSub && this.routeSub.unsubscribe();
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

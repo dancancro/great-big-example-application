@@ -3,9 +3,9 @@ import { Http, Response } from '@angular/http';
 import { features } from './features.meta';
 
 export interface FeatureMeta {
-    id: string
-    link: string,
-    readme?: string
+    id: string;
+    link: string;
+    readme?: string;
 }
 
 @Injectable()

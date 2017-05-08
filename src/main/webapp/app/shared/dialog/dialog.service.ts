@@ -11,12 +11,11 @@ export class DialogService {
    * Returns promise resolving to `true`=confirm or `false`=cancel
    */
   confirm(message?: string) {
-    return new Promise<boolean>(resolve => {
+    return new Promise<boolean>((resolve) => {
       return resolve(window.confirm(message || 'Is it OK?'));
     });
   };
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

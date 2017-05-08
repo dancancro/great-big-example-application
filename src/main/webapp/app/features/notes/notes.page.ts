@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../core/store';
 import { Note } from '../../core/store/note/note.model';
-import { slices } from '../../core/store/util'
+import { slices } from '../../core/store/util';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 
-let uuid = require('uuid');
+const uuid = require('uuid');
 
 @Component({
   selector: 'app-notes',
@@ -25,7 +25,7 @@ export class NotesPage implements OnInit {
     this.store.dispatch(new EntityActions.Add(slices.NOTE, {
       id: uuid.v1(),
       text: '',
-      colour: colour,
+      colour,
       left: 200,
       top: 300
     }));

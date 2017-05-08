@@ -13,9 +13,9 @@ export class CrisisDetailResolver implements Resolve<Crisis> {
   constructor(private ds: RESTService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Crisis> {
-    let id = route.params['id'];
+    const id = route.params['id'];
 
-    return this.ds.getEntity(id, 'crisis').toPromise().then(crisis => {
+    return this.ds.getEntity(id, 'crisis').toPromise().then((crisis) => {
       if (crisis) {
         return crisis;
       } else { // id not found
@@ -25,7 +25,6 @@ export class CrisisDetailResolver implements Resolve<Crisis> {
     });
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

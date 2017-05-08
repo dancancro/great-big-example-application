@@ -1,11 +1,10 @@
 export interface Note {
-  text: string,
-  colour: string,
-  left: number,
-  top: number,
-  id?: string,
+  text: string;
+  colour: string;
+  left: number;
+  top: number;
+  id?: string;
 }
-
 
 export const initialNote: Note = {
   text: null,

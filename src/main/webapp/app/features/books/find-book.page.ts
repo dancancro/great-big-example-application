@@ -28,6 +28,6 @@ export class FindBookPage {
   }
 
   search(query: string) {
-    this.store.dispatch(new idActions.Load(slices.SEARCH, query))
+    this.store.dispatch(new idActions.Load(slices.SEARCH, query));
   }
 }

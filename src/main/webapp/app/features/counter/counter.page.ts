@@ -7,7 +7,6 @@ import { Counter } from '../../core/store/counter/counter.model';
 import { slices } from '../../core/store/util';
 import * as SliceActions from '../../core/store/slice/slice.actions';
 
-
 @Component({
   selector: 'counter-page',
   changeDetection: ChangeDetectionStrategy.OnPush,

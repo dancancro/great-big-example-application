@@ -24,7 +24,6 @@ export function reducer(state = initialIDs(),
   }
 }
 
-
 export const getLoaded = (state: IDs) => state.loaded;
 
 export const getLoading = (state: IDs) => state.loading;

@@ -32,7 +32,7 @@ export function updateIDs(state: IDs, action: IDActions.Add | IDActions.Load): I
   return Object.assign({}, state, {
     loaded: true,
     loading: false,
-    ids: entities.map(entity => entity.id)
+    ids: entities.map((entity) => entity.id)
   });
 };
 
@@ -52,10 +52,9 @@ export function deleteID(state: IDs, action: IDActions.DeleteSuccess
   const entity = action.payload;
 
   return Object.assign({}, state, {
-    ids: state.ids.filter(id => id !== entity.id)
+    ids: state.ids.filter((id) => id !== entity.id)
   });
 };
-
 
 /**
  * Effects
@@ -67,7 +66,7 @@ export function loadFromLocal$<T>(actions$: Actions, slice: string, db, localSto
     .switchMap(() => db.query(localStoreKey)
       .toArray()
       .map((entities: T[]) => new IDActions.LoadSuccess(slice, entities))
-      .catch(error => of(new IDActions.LoadFail(slice, error)))
+      .catch((error) => of(new IDActions.LoadFail(slice, error)))
     );
 }
 
@@ -85,7 +84,7 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService, d
     .ofType(typeFor(slice, actions.LOAD))
     .debounceTime(300)
     .map(toPayload)
-    .switchMap(query => {
+    .switchMap((query) => {
       if (query === '') {
         return empty();
       }
@@ -94,7 +93,7 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService, d
 
       return dataService[dataGetter](query)  // TODO: make this more general
         .takeUntil(nextSearch$)
-        .map(entities => new IDActions.LoadSuccess(slice, entities))
+        .map((entities) => new IDActions.LoadSuccess(slice, entities))
         .catch(() => of(new IDActions.LoadSuccess(slice, [])));
     });
 }
@@ -104,7 +103,7 @@ export function addToLocal$(actions$: Actions, slice: string, db, localStoreKey:
     .ofType(typeFor(slice, actions.ADD))
     .map((action) =>
       action.payload)
-    .mergeMap(entity =>
+    .mergeMap((entity) =>
       db.insert(localStoreKey, [entity])
         .map(() => new IDActions.AddSuccess(slice, entity))
         .catch(() => of(new IDActions.AddFail(slice, entity)))
@@ -114,11 +113,9 @@ export function deleteFromLocal$(actions$: Actions, slice: string, db, localStor
   return actions$
     .ofType(typeFor(slice, actions.DELETE))
     .map(toPayload)
-    .mergeMap(entity =>
+    .mergeMap((entity) =>
       db.executeWrite(localStoreKey, 'delete', [entity.id])
         .map(() => new IDActions.DeleteSuccess(slice, entity))
         .catch(() => of(new IDActions.DeleteFail(slice, entity)))
     );
 }
-
-

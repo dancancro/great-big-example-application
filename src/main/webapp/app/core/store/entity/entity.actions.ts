@@ -15,12 +15,12 @@ export const actions = {
   UPDATE: 'UPDATE',
   UPDATE_EACH: 'UPDATE_EACH',
   UPDATE_SUCCESS: 'UPDATE_SUCCESS'
-}
+};
 
 export class EntityAction<T> implements Action {
-  _actionName: string = '';
+  _actionName = '';
   get type() {
-    return typeFor(this.slice, this._actionName)
+    return typeFor(this.slice, this._actionName);
   }
   constructor(public slice: string, public payload: any) { }
 }
@@ -75,4 +75,3 @@ export class SelectNext<T> extends EntityAction<T> {
     super(null, slice);
   }
 }
-

@@ -20,7 +20,7 @@ export class TwainService {
   // Imaginary todo: get quotes from a remote quote service
   // returns quote after delay simulating server latency
   getQuote(): Promise<string> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout( () => resolve(this.nextQuote()), 500 );
     });
   }
@@ -30,7 +30,6 @@ export class TwainService {
     return quotes[ this.next++ ];
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

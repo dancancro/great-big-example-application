@@ -54,7 +54,7 @@ describe('CollectionEffects', () => {
 
       runner.queue(new IDActions.Load(slices.COLLECTION));
 
-      collectionEffects.loadCollection$.subscribe(result => {
+      collectionEffects.loadCollection$.subscribe((result) => {
         expect(result).toEqual(expectedResult);
       });
     });
@@ -69,7 +69,7 @@ describe('CollectionEffects', () => {
 
       runner.queue(new IDActions.Load(slices.COLLECTION));
 
-      collectionEffects.loadCollection$.subscribe(result => {
+      collectionEffects.loadCollection$.subscribe((result) => {
         expect(result).toEqual(expectedResult);
       });
     });
@@ -86,7 +86,7 @@ describe('CollectionEffects', () => {
 
       runner.queue(new IDActions.Add(slices.COLLECTION, book));
 
-      collectionEffects.addBookToCollection$.subscribe(result => {
+      collectionEffects.addBookToCollection$.subscribe((result) => {
         expect(result).toEqual(expectedResult);
         expect(db.insert).toHaveBeenCalledWith('books', [book]);
       });
@@ -102,7 +102,7 @@ describe('CollectionEffects', () => {
 
       runner.queue(new IDActions.Add(slices.COLLECTION, book));
 
-      collectionEffects.addBookToCollection$.subscribe(result => {
+      collectionEffects.addBookToCollection$.subscribe((result) => {
         expect(result).toEqual(expectedResult);
         expect(db.insert).toHaveBeenCalledWith('books', [book]);
       });
@@ -119,7 +119,7 @@ describe('CollectionEffects', () => {
 
         runner.queue(new IDActions.Delete(slices.COLLECTION, book));
 
-        collectionEffects.removeBookFromCollection$.subscribe(result => {
+        collectionEffects.removeBookFromCollection$.subscribe((result) => {
           expect(result).toEqual(expectedResult);
           expect(db.executeWrite).toHaveBeenCalledWith('books', 'delete', ['111']);
         });
@@ -135,7 +135,7 @@ describe('CollectionEffects', () => {
 
         runner.queue(new IDActions.Delete(slices.COLLECTION, book));
 
-        collectionEffects.removeBookFromCollection$.subscribe(result => {
+        collectionEffects.removeBookFromCollection$.subscribe((result) => {
           expect(result).toEqual(expectedResult);
           expect(db.executeWrite).toHaveBeenCalledWith('books', 'delete', ['111']);
         });

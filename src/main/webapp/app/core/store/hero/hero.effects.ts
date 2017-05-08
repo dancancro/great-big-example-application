@@ -22,4 +22,3 @@ export class HeroEffects {
     private dataService: RESTService
   ) { }
 }
-

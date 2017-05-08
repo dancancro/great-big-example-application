@@ -24,7 +24,7 @@ describe('Component: Button', () => {
         spyOn(fixture.componentInstance, 'handleClick');
         fixture.componentInstance.qaid = 'button-1';
         fixture.detectChanges();
-        let compiled = fixture.debugElement.nativeElement;
+        const compiled = fixture.debugElement.nativeElement;
         compiled.querySelector('#button-1').click();
         expect(fixture.componentInstance.handleClick).toHaveBeenCalled();
       });
@@ -34,10 +34,10 @@ describe('Component: Button', () => {
   it('should emit event when handleClick is invoked',
     async(inject([], () => {
       fixture.whenStable().then(() => {
-        fixture.componentInstance.onClick.subscribe(c => {
+        fixture.componentInstance.onClick.subscribe((c) => {
           expect(c.data).toEqual('test data');
         });
-        let testEvent = { data: 'test data' };
+        const testEvent = { data: 'test data' };
         fixture.componentInstance.handleClick(testEvent);
       });
     }))
@@ -49,7 +49,7 @@ describe('Component: Button', () => {
         fixture.componentInstance.qaid = 'button-1';
         fixture.componentInstance.className = 'test-class';
         fixture.detectChanges();
-        let compiled = fixture.debugElement.nativeElement;
+        const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('#button-1')
           .getAttribute('class').split(' ')).toContain('test-class');
       });

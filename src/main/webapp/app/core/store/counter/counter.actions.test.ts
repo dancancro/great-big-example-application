@@ -1,4 +1,4 @@
-/* 
+/*
 import { CounterActions } from './counter.actions';
 import { NgRedux } from 'ng2-redux';
 

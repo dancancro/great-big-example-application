@@ -66,7 +66,7 @@ describe('TwainComponent', () => {
     expect(el.textContent).toBe(testQuote);
   }));
 
-  it('should show quote after getQuote promise (done)', done => {
+  it('should show quote after getQuote promise (done)', (done) => {
     fixture.detectChanges();
 
     // get the spy promise and wait for it to resolve
@@ -77,7 +77,6 @@ describe('TwainComponent', () => {
     });
   });
 });
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

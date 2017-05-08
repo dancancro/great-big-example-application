@@ -10,7 +10,7 @@ import { User } from '../../core/store/session/session.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
 
-let uuid = require('uuid');
+const uuid = require('uuid');
 
 @Component({
   selector: 'app-contact',
@@ -33,11 +33,11 @@ export class ContactPage implements OnInit {
     this.user$ = this.store.select(fromRoot.getUserState);
     this.msg$ = this.store.select(fromRoot.getMsg);
     this.contact$ = this.store.select(fromRoot.getContact);
-    this.contact$.subscribe(contact => {
+    this.contact$.subscribe((contact) => {
       this.contactForm = this.formBuilder.group({
         name: [contact ? contact.name : '', Validators.required],  // TODO: fix this hack
         id: [contact ? contact.id : '', Validators.required]  // TODO: fix this hack
-      })
+      });
     });
   }
 

@@ -22,4 +22,3 @@ export class NoteEffects {
     private dataService: RESTService
   ) { }
 }
-

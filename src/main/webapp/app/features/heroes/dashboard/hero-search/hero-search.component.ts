@@ -42,13 +42,13 @@ export class HeroSearchComponent implements OnInit, OnDestroy {
     this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
-      .subscribe(term => {
+      .subscribe((term) => {
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['heroesDashboardPage', 'heroSearchTerm'], term));
-      })
+      });
   }
 
   gotoDetail(hero: Hero): void {
-    let link = ['/features/heroes/hero', hero.id];
+    const link = ['/features/heroes/hero', hero.id];
     this.router.navigate(link);
   }
 
@@ -56,7 +56,6 @@ export class HeroSearchComponent implements OnInit, OnDestroy {
     this.searchTermsSub && this.searchTermsSub.unsubscribe();
   }
 }
-
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

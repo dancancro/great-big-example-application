@@ -7,7 +7,7 @@ import { DialogService } from '../../../../shared/dialog/dialog.service';
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../../core/store';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
-import { slices } from '../../../../core/store/util'
+import { slices } from '../../../../core/store/util';
 
 @Component({
   template: `
@@ -72,7 +72,7 @@ export class CrisisDetailComponent implements OnInit {
   }
 
   gotoCrises() {
-    let crisisId = this.crisis ? this.crisis.id : null;
+    const crisisId = this.crisis ? this.crisis.id : null;
     // Pass along the crisis id if available
     // so that the CrisisListComponent can select that crisis.
     // Add a totally useless `foo` parameter for kicks.
@@ -80,7 +80,6 @@ export class CrisisDetailComponent implements OnInit {
     this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

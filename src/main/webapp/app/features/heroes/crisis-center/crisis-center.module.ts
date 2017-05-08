@@ -29,7 +29,6 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
 })
 export class CrisisCenterModule { }
 
-
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

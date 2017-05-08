@@ -290,7 +290,7 @@ function sharedModuleSetup() {
 
 /////////// Helpers /////
 
-// Create the HeroDetailComponent, initialize it, set test variables 
+// Create the HeroDetailComponent, initialize it, set test variables
 function createComponent() {
   fixture = TestBed.createComponent(HeroDetailComponent);
   comp = fixture.componentInstance;
@@ -334,7 +334,6 @@ class Page {
 }
 
 */
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

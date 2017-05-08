@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Book } from '../../../core/store/book/book.model';
 
-
 @Component({
   selector: 'bc-book-detail',
   template: `
@@ -70,7 +69,6 @@ export class BookDetailComponent {
   @Input() inCollection: boolean;
   @Output() add = new EventEmitter<Book>();
   @Output() remove = new EventEmitter<Book>();
-
 
   /**
    * Tip: Utilize getters to keep templates clean

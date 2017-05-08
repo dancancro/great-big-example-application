@@ -9,6 +9,6 @@ import { AsyncService } from '../../services/base.async-service';
 export abstract class Model {
     constructor(private services: AsyncService[]) { }
     protected performAsyncAction(action: Action) {
-        return Observable.merge.apply(Observable, (this.services || []).map(s => s.process(action)));
+        return Observable.merge.apply(Observable, (this.services || []).map((s) => s.process(action)));
     }
 }

@@ -5,7 +5,6 @@ import { GoogleBooksService } from '../../../features/books/services/google-book
 import { slices } from '../util';
 import * as functions from '../id/id.functions';
 
-
 @Injectable()
 export class BookEffects {
     constructor(private actions$: Actions,

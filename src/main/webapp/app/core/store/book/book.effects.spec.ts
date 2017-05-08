@@ -3,8 +3,8 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { BookEffects } from './book.effects';
 import { GoogleBooksService } from '../../../features/books/services/google-books.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/throw'
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 // import { SearchAction, SearchComplete } from './book.actions';
 import { Book } from './book.model';
@@ -48,7 +48,7 @@ describe('BookEffects', () => {
             runner.queue(new IDActions.Load(slices.SEARCH, 'query'));
 
             let result = null;
-            bookEffects.search$.subscribe(_result => result = _result);
+            bookEffects.search$.subscribe((_result) => result = _result);
             tick(299); // test de-bounce
             expect(result).toBe(null);
             tick(300);
@@ -62,7 +62,7 @@ describe('BookEffects', () => {
             runner.queue(new IDActions.Load(slices.SEARCH, 'query'));
 
             let result = null;
-            bookEffects.search$.subscribe(_result => result = _result);
+            bookEffects.search$.subscribe((_result) => result = _result);
             tick(299); // test de-bounce
             expect(result).toBe(null);
             tick(300);

@@ -6,15 +6,15 @@ export interface NavLayout {
 
 export const initialNavLayout = {
   showSidenav: false
-}
+};
 
 export interface BooksPageLayout {
-  query: string
+  query: string;
 };
 
 export const initialBooksPageLayout = {
   query: ''
-}
+};
 
 export interface BerniePageLayout {
   editable: boolean;
@@ -38,18 +38,18 @@ export const initialBerniePageLayout: BerniePageLayout = {
   //   });
   //   return _touched;
   // }
-}
+};
 
 export interface HeroesDashboardLayout {
-  heroSearchTerm: string
+  heroSearchTerm: string;
 }
 
 export const initialHeroesDashboardPageLayout = {
   heroSearchTerm: ''
-}
+};
 
 export interface Layout {
-  nav: NavLayout,
+  nav: NavLayout;
   booksPage: BooksPageLayout;
   berniePage: BerniePageLayout;
   heroesDashboardPage: HeroesDashboardLayout;
@@ -63,5 +63,5 @@ export function initialLayout() {
     berniePage: initialBerniePageLayout,
     heroesDashboardPage: initialHeroesDashboardPageLayout,
     msg: ''
-  }
+  };
 }

@@ -19,7 +19,7 @@ import * as EntityActions from '../../core/store/entity/entity.actions';
 import * as SliceActions from '../../core/store/slice/slice.actions';
 import { slices } from '../../core/store/util';
 
-let uuid = require('uuid');
+const uuid = require('uuid');
 
 @Component({
   selector: 'app-bernie',
@@ -55,7 +55,6 @@ export class BerniePage {
     });
     this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
 
-
     // this.claims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
     // this.claims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
 
@@ -79,13 +78,13 @@ export class BerniePage {
   }
 
   toggleExpanded() {
-    let expanded = this.expanded;
+    const expanded = this.expanded;
     this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'expanded'], !expanded));
     this.store.dispatch(new EntityActions.UpdateEach(slices.CLAIM, { expanded: !expanded }));
   }
 
   addClaim() {
-    let newClaim = prompt("New claim");
+    const newClaim = prompt('New claim');
     if (newClaim) {
       this.store.dispatch(new EntityActions.Add(slices.CLAIM, {
         id: uuid.v1(),
@@ -95,7 +94,7 @@ export class BerniePage {
   }
 
   saveAll() {
-    alert("Add save here");
+    alert('Add save here');
   }
 
   addRebuttal(claim: Claim) {
@@ -103,10 +102,10 @@ export class BerniePage {
     // to create a new, blank rebuttal for this claim
     // create an instance of rebuttal and an instance of the join record claimRebuttal
     // and dispatch actions to each respective reducer
-    let newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
-    let newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
+    const newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
+    const newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
     this.store.dispatch(new EntityActions.Add(slices.REBUTTAL, newRebuttal));
-    this.store.dispatch(new EntityActions.Add(slices.CLAIM_REBUTTAL, newClaimRebuttal))
+    this.store.dispatch(new EntityActions.Add(slices.CLAIM_REBUTTAL, newClaimRebuttal));
   }
   toggleRebuttals(claim: Claim) {
     this.store.dispatch(new EntityActions.Update(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
@@ -130,12 +129,12 @@ export class BerniePage {
   }
 
   reorderRebuttals(claim, event) {
-    let rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter(li => li.id).map(li => li.id);
-    let crs = Object.assign({}, this.claimRebuttals); // TODO I'm not sure if this is necessary
-    for (let id in this.claimRebuttals.entities) {
-      let cr = this.claimRebuttals.entities[id];
+    const rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter((li) => li.id).map((li) => li.id);
+    const crs = Object.assign({}, this.claimRebuttals); // TODO I'm not sure if this is necessary
+    for (const id in this.claimRebuttals.entities) {
+      const cr = this.claimRebuttals.entities[id];
       if (cr.claimId === claim.id && rebuttalIds[cr.rebuttalId]) {
-        cr.sortOrder = rebuttalIds.indexOf(cr.rebuttalId)
+        cr.sortOrder = rebuttalIds.indexOf(cr.rebuttalId);
       }
     }
     this.store.dispatch(new SliceActions.Update(slices.CLAIM_REBUTTAL, [], crs));
@@ -147,7 +146,7 @@ export class BerniePage {
     // We need to ignore the second of these
 
     try {
-      let claimIds = Array.prototype.slice.call(event.srcElement.children).map(li => li.children[0].children[0].children[0].id);
+      const claimIds = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
       this.store.dispatch(new SliceActions.Update(slices.CLAIM, ['ids'], claimIds));
     } catch (err) {
 

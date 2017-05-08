@@ -45,7 +45,6 @@ describe('Component Tests', () => {
             service = fixture.debugElement.injector.get(BlogService);
         });
 
-
         describe('OnInit', () => {
             it('Should call load all on init', () => {
             // GIVEN
@@ -57,7 +56,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.blog).toEqual(jasmine.objectContaining({id:10}));
+            expect(comp.blog).toEqual(jasmine.objectContaining({id: 10}));
             });
         });
     });

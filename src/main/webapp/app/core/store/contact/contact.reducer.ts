@@ -38,4 +38,3 @@ export const getSelectedId = (state: Entities<Contact>) => state.selectedEntityI
 export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
   return entities[selectedId];
 });
-

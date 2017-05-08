@@ -9,12 +9,12 @@ import {Directive, Output, EventEmitter, ElementRef } from '@angular/core';
   }
 })
 export class Draggable {
-    isDragging: boolean = false;
+    isDragging = false;
     originalClientX: number;
     originalClientY: number;
     originalTop: number;
     originalLeft: number;
-    hasDragged: boolean = false;
+    hasDragged = false;
 
     @Output('draggable') endDragEvent = new EventEmitter(false);
 

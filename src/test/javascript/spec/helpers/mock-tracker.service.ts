@@ -7,5 +7,5 @@ export class MockTrackerService extends SpyObject {
         super(JhiTrackerService);
     }
 
-    connect () {}
+    connect() {}
 }

@@ -34,9 +34,9 @@ export class MessagesPage implements OnInit, OnDestroy {
 
             //connect and subscribe to websocket
             this.messageSubscription = this.message$.subscribe((messages: any[]) => {
-                this.messages = messages
-                this.createDataSource()
-            })
+                this.messages = messages;
+                this.createDataSource();
+            });
         });
 
         // connect to redux store
@@ -50,12 +50,12 @@ export class MessagesPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.messageSubscription.unsubscribe()
+        this.messageSubscription.unsubscribe();
         this.socketService.unsubscribe();
     }
 
     onGridReady() {
-        this.gridOptions.api.sizeColumnsToFit()
+        this.gridOptions.api.sizeColumnsToFit();
         //   this.messageService.findMessages()
     }
 
@@ -77,24 +77,24 @@ export class MessagesPage implements OnInit, OnDestroy {
                 headerName: 'Updated Time',
                 field: 'updatedAt'
             }
-        ]
+        ];
     }
 
     createDataSource() {
-        if (!this.gridOptions) return
-        let dataSource = {
+        if (!this.gridOptions) return;
+        const dataSource = {
             rowCount: -1,
-            getRows: params => {
-                let rowsThisPage = this.messages.slice(params.startRow, params.endRow)
-                let lastRow = -1
+            getRows: (params) => {
+                const rowsThisPage = this.messages.slice(params.startRow, params.endRow);
+                let lastRow = -1;
                 if (this.messages.length <= params.endRow) {
-                    lastRow = this.messages.length
+                    lastRow = this.messages.length;
                 }
-                params.successCallback(rowsThisPage, this.messages.length)
+                params.successCallback(rowsThisPage, this.messages.length);
             }
-        }
+        };
 
-        this.gridOptions.api.setDatasource(dataSource)
+        this.gridOptions.api.setDatasource(dataSource);
     }
 
     createMessage() {

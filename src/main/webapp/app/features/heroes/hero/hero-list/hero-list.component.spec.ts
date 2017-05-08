@@ -120,10 +120,10 @@ class Page {
   // Hero line elements
   heroRows: HTMLLIElement[];
 
-  // Highlighted element 
+  // Highlighted element
   highlightDe: DebugElement;
 
-  // Spy on router navigate method 
+  // Spy on router navigate method
   navSpy: jasmine.Spy;
 
   constructor() {
@@ -139,7 +139,6 @@ class Page {
 }
 
 */
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

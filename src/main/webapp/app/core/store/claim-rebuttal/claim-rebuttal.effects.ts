@@ -18,4 +18,3 @@ export class ClaimRebuttalEffects {
     private dataService: RESTService
   ) { }
 }
-

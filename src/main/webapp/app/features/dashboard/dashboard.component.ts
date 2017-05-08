@@ -1,6 +1,5 @@
-import { Component } from '@angular/core'
-import { TodoComponent } from '../../shared/widgets'
-
+import { Component } from '@angular/core';
+import { TodoComponent } from '../../shared/widgets';
 
 @Component({
     selector: 'dashboard-module',
@@ -11,6 +10,6 @@ export class DashboardComponent {
     constructor() { }
 
     ngOnInit() {
-        console.log('This is dashboard module')
+        console.log('This is dashboard module');
     }
 }

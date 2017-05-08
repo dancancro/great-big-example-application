@@ -12,12 +12,12 @@ export const actions = {
   LOAD: 'LOAD',
   LOAD_FAIL: 'LOAD_FAIL',
   LOAD_SUCCESS: 'LOAD_SUCCESS'
-}
+};
 
 export class IDAction implements Action {
-  _actionName: string = '';
+  _actionName = '';
   get type() {
-    return typeFor(this.slice, this._actionName)
+    return typeFor(this.slice, this._actionName);
   }
   constructor(public slice: string, public payload: any) { }
 }
@@ -37,7 +37,7 @@ export class AddFail extends IDAction {
 export class Load extends IDAction {
   _actionName: string = actions.LOAD;
   constructor(public slice: string, query: string = null) {
-    super(slice, query)
+    super(slice, query);
   }
 }
 
@@ -60,4 +60,3 @@ export class DeleteSuccess extends IDAction {
 export class DeleteFail extends IDAction {
   _actionName: string = actions.DELETE_FAIL;
 }
-

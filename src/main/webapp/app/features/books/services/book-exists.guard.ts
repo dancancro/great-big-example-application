@@ -18,7 +18,6 @@ import * as fromRoot from '../../../core/store';
 import { slices } from '../../../core/store/util';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
 
-
 /**
  * Guards are hooks into the route resolution process, providing an opportunity
  * to inform the router's navigation process whether the route should continue
@@ -39,7 +38,7 @@ export class BookExistsGuard implements CanActivate {
    */
   waitForCollectionToLoad(): Observable<boolean> {
     return this.store.select(fromRoot.getCollectionLoaded)
-      .filter(loaded => loaded)
+      .filter((loaded) => loaded)
       .take(1);
   }
 
@@ -49,7 +48,7 @@ export class BookExistsGuard implements CanActivate {
    */
   hasBookInStore(id: string): Observable<boolean> {
     return this.store.select(fromRoot.getBookEntities)
-      .map(entities => !!entities[id])
+      .map((entities) => !!entities[id])
       .take(1);
   }
 
@@ -59,9 +58,9 @@ export class BookExistsGuard implements CanActivate {
    */
   hasBookInApi(id: string): Observable<boolean> {
     return this.googleBooks.retrieveBook(id)
-      .map(bookEntity => new EntityActions.Load(slices.BOOK, bookEntity))
-      .do(action => this.store.dispatch(action))
-      .map(book => !!book)
+      .map((bookEntity) => new EntityActions.Load(slices.BOOK, bookEntity))
+      .do((action) => this.store.dispatch(action))
+      .map((book) => !!book)
       .catch(() => {
         this.router.navigate(['/404']);
         return of(false);
@@ -75,7 +74,7 @@ export class BookExistsGuard implements CanActivate {
    */
   hasBook(id: string): Observable<boolean> {
     return this.hasBookInStore(id)
-      .switchMap(inStore => {
+      .switchMap((inStore) => {
         if (inStore) {
           return of(inStore);
         }

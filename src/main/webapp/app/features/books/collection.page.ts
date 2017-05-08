@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import * as fromRoot from '../../core/store';
 import { Book } from '../../core/store/book/book.model';
 
-
 @Component({
   selector: 'bc-collection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,

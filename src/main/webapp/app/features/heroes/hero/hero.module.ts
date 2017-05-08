@@ -17,7 +17,6 @@ import { routedComponents, HeroRouting } from './hero.routing';
 })
 export class HeroModule { }
 
-
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

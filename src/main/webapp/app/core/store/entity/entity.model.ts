@@ -19,7 +19,7 @@ export function initialEntities<T>(vals: any = {}, slice: string, actionNames: a
     loaded: false,
     loading: false,
     selectedEntityId: null,
-    slice: slice,
-    initialEntity: initialEntity,
+    slice,
+    initialEntity,
   }, vals);
 };

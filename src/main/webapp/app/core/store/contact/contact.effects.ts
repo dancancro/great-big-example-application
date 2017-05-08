@@ -22,4 +22,3 @@ export class ContactEffects {
     private dataService: RESTService
   ) { }
 }
-

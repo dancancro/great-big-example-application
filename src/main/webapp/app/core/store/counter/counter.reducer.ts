@@ -12,12 +12,11 @@ import * as SliceActions from '../slice/slice.actions';
 export function reducer(state: Counter = initialCounter, action: SliceAction): Counter {
   switch (action.type) {
     case typeFor(slices.COUNTER, actions.UPDATE):
-      let x = functions.update(state, action);
+      const x = functions.update(state, action);
       return x;
     default:
       return state;
   }
 }
-
 
 export const getValue = (state: Counter) => state.value;

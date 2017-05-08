@@ -19,10 +19,9 @@ export class CounterEffects {
       if (!action.payload.token) {
         return new SliceActions.Update(slices.COUNTER, [], initialCounter);
       } else {
-        return empty()
+        return empty();
       }
     });
-
 
   constructor(
     private store: Store<Counter>,

@@ -31,7 +31,7 @@ describe('ClaimRebuttal e2e test', () => {
         });
     });
 
-    it('should load create ClaimRebuttal dialog', function () {
+    it('should load create ClaimRebuttal dialog', function() {
         element(by.css('button.create-claim-rebuttal')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.claimRebuttal.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('ClaimRebuttal e2e test', () => {
         });
     });
 
-    afterAll(function () {
+    afterAll(function() {
         accountMenu.click();
         logout.click();
     });

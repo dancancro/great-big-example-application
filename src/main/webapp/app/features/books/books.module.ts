@@ -38,7 +38,6 @@ export const COMPONENTS = [
     ViewBookPage
 ];
 
-
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedModule,

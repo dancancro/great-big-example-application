@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CanDeactivateGuard } from '../../shared/can-deactivate/can-deactivate.guard';
 import { SelectivePreloadingStrategy } from '../../shared/selective-preloading-strategy';
-import { DashboardComponent } from './dashboard.component'
+import { DashboardComponent } from './dashboard.component';
 import { UserRouteAccessService } from '../../shared';
 
 const routes: Routes = [
@@ -18,7 +18,7 @@ const routes: Routes = [
         },
         canActivate: [UserRouteAccessService]
     }
-]
+];
 
 @NgModule({
     imports: [

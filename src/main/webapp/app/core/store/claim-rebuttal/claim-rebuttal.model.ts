@@ -1,8 +1,8 @@
 export interface ClaimRebuttal {
-  id: string,
-  claimId: string,
-  rebuttalId: string,
-  sortOrder: number
+  id: string;
+  claimId: string;
+  rebuttalId: string;
+  sortOrder: number;
 }
 
 export function initialClaimRebuttal(vals: any = {}): ClaimRebuttal {

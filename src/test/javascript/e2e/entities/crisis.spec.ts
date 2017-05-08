@@ -31,7 +31,7 @@ describe('Crisis e2e test', () => {
         });
     });
 
-    it('should load create Crisis dialog', function () {
+    it('should load create Crisis dialog', function() {
         element(by.css('button.create-crisis')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.crisis.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Crisis e2e test', () => {
         });
     });
 
-    afterAll(function () {
+    afterAll(function() {
         accountMenu.click();
         logout.click();
     });

@@ -21,7 +21,6 @@ import { HeroModule } from '../hero/hero.module';
 })
 export class AdminModule { }
 
-
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

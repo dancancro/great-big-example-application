@@ -37,10 +37,10 @@ export class CollectionEffects {
 
   @Effect()
   private addBookToCollection$ = functions.addToLocal$(this.actions$, slices.COLLECTION,
-    this.db, 'books')
+    this.db, 'books');
 
   @Effect()
   private removeBookFromCollection$ = functions.deleteFromLocal$(this.actions$, slices.COLLECTION,
-    this.db, 'books')
+    this.db, 'books');
 
 }

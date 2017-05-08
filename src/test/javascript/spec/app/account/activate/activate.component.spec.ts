@@ -36,7 +36,7 @@ describe('Component Tests', () => {
         }));
 
         beforeEach(() => {
-            let fixture = TestBed.createComponent(ActivateComponent);
+            const fixture = TestBed.createComponent(ActivateComponent);
             comp = fixture.componentInstance;
         });
 

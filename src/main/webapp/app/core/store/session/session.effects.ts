@@ -11,7 +11,7 @@ export class SessionEffects {
         private dataService: RESTService) { }
 
     @Effect()
-    login$ = functions.loadFromRemote$(this.actions$, slices.SESSION, this.dataService, 'login', this.transform)
+    login$ = functions.loadFromRemote$(this.actions$, slices.SESSION, this.dataService, 'login', this.transform);
 
     transform({ meta }) {
         return {

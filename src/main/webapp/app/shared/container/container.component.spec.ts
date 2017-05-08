@@ -57,13 +57,13 @@ describe('Component: Container', () => {
           },
         ];
 
-        size_class.map(item => {
+        size_class.map((item) => {
           fixture.componentInstance.size = item.size;
           fixture.detectChanges();
           expect(compiled.querySelector('div')
             .getAttribute('class').split(' ')).toContain(item.class);
-          allMaxWidthClasses.filter(bg_class => bg_class !== item.class)
-            .map(bg_class_excluded => {
+          allMaxWidthClasses.filter((bg_class) => bg_class !== item.class)
+            .map((bg_class_excluded) => {
               expect(compiled.querySelector('div')
                 .getAttribute('class').split(' '))
                 .not.toContain(bg_class_excluded);
@@ -89,4 +89,3 @@ describe('Component: Container', () => {
     }));
   });
 });
-

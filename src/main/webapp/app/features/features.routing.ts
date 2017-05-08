@@ -22,7 +22,7 @@ const routes: Routes = [
             { path: 'wiki', loadChildren: './wiki/wiki.module#WikiModule' }
         ]
     },
-]
+];
 
 @NgModule({
     // imports: [RouterModule],

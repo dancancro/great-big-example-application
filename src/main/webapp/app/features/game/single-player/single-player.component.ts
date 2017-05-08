@@ -25,9 +25,9 @@ export class SinglePlayerComponent {
     @ViewChild(GameComponent) game: GameComponent;
     text = GAME_TEXT;
 
-    private gameEnabled: boolean = false;
+    private gameEnabled = false;
     private time: number;
-    private gamePlayed: boolean = false;
+    private gamePlayed = false;
 
     gameCompleted(time: number) {
         this.time = time;

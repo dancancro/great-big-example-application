@@ -24,7 +24,7 @@ export class WebRTCGateway extends Gateway {
     private peer: any;
     private partner: any;
     private name: any;
-    private connected: boolean = false;
+    private connected = false;
 
     constructor(private _provider: RoomConfig, private _ws: WebSocketGateway) {
         super();
@@ -115,7 +115,7 @@ export class WebRTCGateway extends Gateway {
     }
 
     private signal(data: any) {
-        let command = new SignalingCommand();
+        const command = new SignalingCommand();
         command.payload = new JsonPayload();
         command.payload.setData(data);
         this._ws.send(command);

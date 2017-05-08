@@ -45,7 +45,6 @@ const routes: Routes = [
     }
 ];
 
-
 @NgModule({
     imports: [
         RouterModule.forChild(routes)
@@ -59,7 +58,6 @@ const routes: Routes = [
     ]
 })
 export class HeroesRouting { }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

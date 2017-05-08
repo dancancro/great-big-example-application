@@ -48,14 +48,11 @@ describe('Http-RESTService (mockBackend)', () => {
       expect(service instanceof RESTService).toBe(true);
     }));
 
-
-
   it('can instantiate service with "new"', inject([Http, AppConfig], (http: Http, config: AppConfig) => {
     expect(http).not.toBeNull('http should be provided');
-    let service = new RESTService(http, config);
+    const service = new RESTService(http, config);
     expect(service instanceof RESTService).toBe(true, 'new service should be ok');
   }));
-
 
   it('can provide the mockBackend as XHRBackend',
     inject([XHRBackend], (backend: MockBackend) => {
@@ -72,7 +69,7 @@ describe('Http-RESTService (mockBackend)', () => {
       backend = be;
       service = new RESTService(http, config);
       fakeHeroes = makeHeroData();
-      let options = new ResponseOptions({ status: 200, body: { data: fakeHeroes } });
+      const options = new ResponseOptions({ status: 200, body: { data: fakeHeroes } });
       response = new Response(options);
     }));
 
@@ -97,7 +94,6 @@ describe('Http-RESTService (mockBackend)', () => {
     //     })
     //     .toPromise();
     // })));
-
 
     // it('should be OK returning no heroes', async(inject([], () => {
     //   let resp = new Response(new ResponseOptions({ status: 200, body: { data: [] } }));
@@ -126,7 +122,6 @@ describe('Http-RESTService (mockBackend)', () => {
     // })));
   });
 });
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

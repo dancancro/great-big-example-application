@@ -7,11 +7,11 @@ import 'rxjs/add/operator/map';
 export class WikipediaService {
   constructor(private jsonp: Jsonp) {}
 
-  search (term: string) {
+  search(term: string) {
 
-    let wikiUrl = 'http://en.wikipedia.org/w/api.php';
+    const wikiUrl = 'http://en.wikipedia.org/w/api.php';
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.set('search', term); // the user's search value
     params.set('action', 'opensearch');
     params.set('format', 'json');
@@ -20,10 +20,9 @@ export class WikipediaService {
     // TODO: Add error handling
     return this.jsonp
                .get(wikiUrl, { search: params })
-               .map(response => <string[]> response.json()[1]);
+               .map((response) => <string[]> response.json()[1]);
   }
 }
-
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

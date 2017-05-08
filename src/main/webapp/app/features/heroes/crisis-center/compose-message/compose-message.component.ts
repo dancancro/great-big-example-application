@@ -14,7 +14,7 @@ export class ComposeMessageComponent {
   @HostBinding('style.position') position = 'absolute';
 
   details: string;
-  sending: boolean = false;
+  sending = false;
 
   constructor(private router: Router) { }
 
@@ -38,7 +38,6 @@ export class ComposeMessageComponent {
     this.router.navigate([{ outlets: { popup: null } }]);
   }
 }
-
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

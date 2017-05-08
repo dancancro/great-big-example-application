@@ -35,9 +35,9 @@ export function loadSuccess(state, action): any {
 }
 
 export function update(state: any, action: SliceAction): any {
-  let obj = [state];
-  let path = action.payload.path;
-  let val = action.payload.val;
+  const obj = [state];
+  const path = action.payload.path;
+  const val = action.payload.val;
 
   if (!path || !path.length) {
     return merge({}, state, evaluate(val, state));
@@ -50,7 +50,7 @@ export function update(state: any, action: SliceAction): any {
   let result = {};
   let start = 0;
 
-  if ((typeof val === "object") && (val !== null)) {
+  if ((typeof val === 'object') && (val !== null)) {
     result = val;
     start = path.length;
 
@@ -70,14 +70,12 @@ export function update(state: any, action: SliceAction): any {
 }
 
 function evaluate(val, state) {
-  if (typeof val === "function") {
+  if (typeof val === 'function') {
     return val(state);
   }
 
   return val;
 }
-
-
 
 /**
  * Effects
@@ -90,6 +88,6 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService, d
         .map(transform)
         .map((responseSlice: any) =>
           new ActionClasses.LoadSuccess(slice, responseSlice))
-        .catch(error => of(new ActionClasses.LoadFail(slice, error)))
-    )
+        .catch((error) => of(new ActionClasses.LoadFail(slice, error)))
+    );
 }
