@@ -12,7 +12,7 @@
 
 eureka:
     instance:
-        hostname: great-big-angular-example.herokuapp.com
+        hostname: great-big-example-application.herokuapp.com
         non-secure-port: 80
         prefer-ip-address: false
     client:

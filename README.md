@@ -1,8 +1,8 @@
 
-[![Build Status](https://travis-ci.org/dancancro/great-big-angular-example.svg?branch=master)](https://travis-ci.org/dancancro/great-big-angular-example)
-[![Dependency Status](https://david-dm.org/dancancro/great-big-angular-example.svg)](https://david-dm.org/dancancro/great-big-angular-example)
+[![Build Status](https://travis-ci.org/dancancro/great-big-example-application.svg?branch=master)](https://travis-ci.org/dancancro/great-big-example-application)
+[![Dependency Status](https://david-dm.org/dancancro/great-big-example-application.svg)](https://david-dm.org/dancancro/great-big-example-application)
 
-## [Live Demo on Heroku](https://great-big-angular-example.herokuapp.com/)
+## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
 
 # Background and Motivation
 
@@ -98,7 +98,7 @@ removing that part of the file name, `src/app/app.page.ts` -> `src/app/page.ts`,
 you are working on multiple files with the same names and different directories.
 
 3. I noticed a lot of duplication and boilerplate of identical CRUD code for each of my types of entities. So I made utility functions and 
-the related actions and models for each of three types of store slice - [entities](https://github.com/dancancro/great-big-angular-example/tree/master/src/app/core/store/entity), [id lists](https://github.com/dancancro/great-big-angular-example/tree/master/src/app/core/store/id), and [slices](https://github.com/dancancro/great-big-angular-example/tree/master/src/app/core/store/slice) (everything else).
+the related actions and models for each of three types of store slice - [entities](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/core/store/entity), [id lists](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/core/store/id), and [slices](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/core/store/slice) (everything else).
 
 4. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a smart `@Component`
 class that fills the page and might have a router-outlet and route configurations. A "guard" is understood to be an `@Injectable` "service" class that
