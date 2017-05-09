@@ -1,4 +1,4 @@
 id,text,colour,jhi_left,jhi_top
-"1","Angular 2 Rocks!","red",200,100
-"2","Thanks @robwormald & @MikeRyan52 for @ngrx.","blue",300,200
-"3","And everybody from the angular, angular-cli, @ngrx/store and @ngrx/effects gitter.im channels who answered my stoopid questions.","yellow",400,300
+"A1","Angular 2 Rocks!","red",200,100
+"A2","Thanks @robwormald & @MikeRyan52 for @ngrx.","blue",300,200
+"A3","And everybody from the angular, angular-cli, @ngrx/store and @ngrx/effects gitter.im channels who answered my stoopid questions.","yellow",400,300
