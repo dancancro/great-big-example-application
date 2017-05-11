@@ -23,7 +23,7 @@ import { MessagesService } from './messages.service';
         FormsModule,
         MessagesRouting,
         MaterialModule.forRoot(),
-        FlexLayoutModule.forRoot(),
+        FlexLayoutModule,
         AgGridModule.withComponents([])
     ],
     providers: [MessagesService]

@@ -129,13 +129,13 @@ const developmentReducer = compose(
     // reduxMulti,                // Dispatch multiple actions
     // reduxPromiseMiddleware(),
     // storeFreeze,
-    localStorageSync(['session'], true),
+    localStorageSync({ keys: ['session'] }),
     combineReducers)(reducers);
 const productionReducer = compose(
     // reduxThunk,               // Thunk middleware for Redux
     // reduxMulti,               // Dispatch multiple actions
     // reduxPromiseMiddleware(),
-    localStorageSync(['session'], true),
+    localStorageSync({ keys: ['session'] }),
     combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {

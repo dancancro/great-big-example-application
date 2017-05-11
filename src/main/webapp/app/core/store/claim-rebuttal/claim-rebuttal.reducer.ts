@@ -12,23 +12,24 @@ import { slices, typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<ClaimRebuttal> = initialEntities<ClaimRebuttal>({},
-  slices.CLAIM_REBUTTAL, actions, initialClaimRebuttal),
-  action: EntityAction<ClaimRebuttal>): Entities<ClaimRebuttal> {
-  const entities = {};
+    slices.CLAIM_REBUTTAL, actions, initialClaimRebuttal),
+    action: EntityAction<ClaimRebuttal>): Entities<ClaimRebuttal> {
+    const entities = {};
 
-  switch (action.type) {
-    case typeFor(slices.CLAIM_REBUTTAL, actions.ADD):
-    case typeFor(slices.CLAIM_REBUTTAL, actions.ADD_SUCCESS):
-    case typeFor(slices.CLAIM_REBUTTAL, actions.LOAD_SUCCESS):
-      return entityFunctions.addLoadEntity<ClaimRebuttal>(state, <any>action);
-    case typeFor(slices.CLAIM_REBUTTAL, actions.DELETE):
-      return entityFunctions.deleteEntity<ClaimRebuttal>(state, <any>action);
-    case typeFor(slices.CLAIM_REBUTTAL, actions.UPDATE):
-      return sliceFunctions.update(state, <any>action); //  TODO This could be a problem. We are only updating the CR slice... for now...
-    default: {
-      return state;
+    switch (action.type) {
+        case typeFor(slices.CLAIM_REBUTTAL, actions.ADD_SUCCESS):
+            return entityFunctions.addSuccess<ClaimRebuttal>(state, <any>action);
+        case typeFor(slices.CLAIM_REBUTTAL, actions.ADD_TEMP):
+        case typeFor(slices.CLAIM_REBUTTAL, actions.LOAD_SUCCESS):
+            return entityFunctions.addToStore<ClaimRebuttal>(state, <any>action);
+        case typeFor(slices.CLAIM_REBUTTAL, actions.DELETE):
+            return entityFunctions.deleteEntity<ClaimRebuttal>(state, <any>action);
+        case typeFor(slices.CLAIM_REBUTTAL, actions.UPDATE):
+            return sliceFunctions.update(state, <any>action); //  TODO This could be a problem. We are only updating the CR slice... for now...
+        default: {
+            return state;
+        }
     }
-  }
 
 };
 

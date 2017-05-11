@@ -27,7 +27,7 @@ import { VersionService } from '../shared/index';
         CommonModule,
         FeaturesRouting,
         MaterialModule.forRoot(),
-        FlexLayoutModule.forRoot()
+        FlexLayoutModule
     ],
     providers: [
         VersionService,

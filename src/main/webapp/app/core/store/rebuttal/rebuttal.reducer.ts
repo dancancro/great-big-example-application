@@ -11,25 +11,26 @@ import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<Rebuttal> = initialEntities<Rebuttal>({},
-  slices.REBUTTAL, actions, initialRebuttal), action: EntityAction<Rebuttal>): Entities<Rebuttal> {
+    slices.REBUTTAL, actions, initialRebuttal), action: EntityAction<Rebuttal>): Entities<Rebuttal> {
 
-  switch (action.type) {
-    case typeFor(slices.REBUTTAL, actions.ADD):
-    case typeFor(slices.REBUTTAL, actions.ADD_SUCCESS):
-    case typeFor(slices.REBUTTAL, actions.LOAD_SUCCESS):
-      return functions.addLoadEntity<Rebuttal>(state, <any>action);
-    case typeFor(slices.REBUTTAL, actions.UPDATE):
-      return functions.update<Rebuttal>(state, <any>action);
-    default: {
-      return state;
+    switch (action.type) {
+        case typeFor(slices.REBUTTAL, actions.ADD_SUCCESS):
+            return functions.addSuccess<Rebuttal>(state, <any>action);
+        case typeFor(slices.REBUTTAL, actions.ADD_TEMP):
+        case typeFor(slices.REBUTTAL, actions.LOAD_SUCCESS):
+            return functions.addToStore<Rebuttal>(state, <any>action);
+        case typeFor(slices.REBUTTAL, actions.UPDATE):
+            return functions.update<Rebuttal>(state, <any>action);
+        default: {
+            return state;
+        }
     }
-  }
-  // checkout https://github.com/omnidan/redux-undo for undo features
+    // checkout https://github.com/omnidan/redux-undo for undo features
 
 }
 
 export const getEntities = (state: Entities<Rebuttal>) => {
-  return state.entities;
+    return state.entities;
 };
 
 export const getIds = (state: Entities<Rebuttal>) => state.ids;
