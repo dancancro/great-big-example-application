@@ -15,9 +15,9 @@ export * from './login/login.component';
 export * from './login/login.service';
 export * from './login/login-modal.service';
 export * from './constants/pagination.constants';
-export * from './user/account.model';
-export * from './user/user.model';
-export * from './user/user.service';
+export * from '../core/store/account/account.model'; // moved to core
+export * from '../core/store/user/user.model'; // moved to core
+export * from '../core/services/user.service'; // moved to core
 export * from './social/social.service';
 export * from './social/social.component';
 export * from './shared-libs.module';

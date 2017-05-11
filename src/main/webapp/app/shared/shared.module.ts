@@ -8,7 +8,6 @@ import {
     AuthService,
     AuthServerProvider,
     AccountService,
-    UserService,
     StateStorageService,
     LoginService,
     LoginModalService,
@@ -80,7 +79,6 @@ export const components = [
         AuthServerProvider,
         SocialService,
         AuthService,
-        UserService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],

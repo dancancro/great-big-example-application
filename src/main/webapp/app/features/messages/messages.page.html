@@ -1,19 +1,49 @@
 <md-card>
-  <!--<md-toolbar color="accent">Messages</md-toolbar>-->
-  <md-card-title> Messages - Websocket based</md-card-title>
-  <md-card-content>
-    <ag-grid-angular #messageGrid style="width: 100%; height: 500px;" class="ag-material" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
-      enableColResize enableSorting enableFilter rowHeight="46" rowSelection="multiple" paginationPageSize="5" rowModelType="pagination"
-      (gridReady)="onGridReady()">
-    </ag-grid-angular>
-  </md-card-content>
-  <div fxLayout fxLayoutAlign="space-between">
-    <md-input-container>
-      <input mdInput placeholder="Email" [(ngModel)]="email">
-    </md-input-container>
-    <md-input-container fxFlex="70">
-      <input mdInput placeholder="Message" [(ngModel)]="message">
-    </md-input-container>
-    <button md-button color="accent" (click)="createMessage()">Send</button>
-  </div>
+    <!--<md-toolbar color="accent">Messages</md-toolbar>-->
+    <md-card-title> Messages - Websocket based</md-card-title>
+    <md-card-content>
+        <ngx-datatable class="material" [rows]="messages" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Email">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    {{column.email}}
+                </ng-template>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <strong>{{value}}</strong>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Message">
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                    <span (click)="sort()">{{column.message}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Created Time">
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                    <span (click)="sort()">{{column.createdAt}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Updated Time">
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                    <span (click)="sort()">{{column.updatedAt}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </md-card-content>
+    <div fxLayout fxLayoutAlign="space-between">
+        <md-input-container>
+            <input mdInput placeholder="Email" [(ngModel)]="email">
+        </md-input-container>
+        <md-input-container fxFlex="70">
+            <input mdInput placeholder="Message" [(ngModel)]="message">
+        </md-input-container>
+        <button md-button color="accent" (click)="createMessage()">Send</button>
+    </div>
 </md-card>

@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as fromRoot from '../../core/store';
 import { Contact } from '../../core/store/contact/contact.model';
-import { User } from '../../core/store/session/session.model';
+import { User } from '../../core/store/user/user.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
 import { Entities } from '../../core/store/entity/entity.model';

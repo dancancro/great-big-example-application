@@ -17,7 +17,7 @@ import { Layout } from './layout/layout.model';
 import { Note } from './note/note.model';
 import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
 import { Session } from './session/session.model';
-import { User } from './session/session.model';
+import { User } from './user/user.model';
 
 /**
  * The createSelector function is one of our most handy tools. In basic terms, you give

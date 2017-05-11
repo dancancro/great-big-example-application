@@ -8,7 +8,8 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Blog } from './blog.model';
 import { BlogPopupService } from './blog-popup.service';
 import { BlogService } from './blog.service';
-import { User, UserService } from '../../shared';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/store/user/user.model';
 
 @Component({
     selector: 'jhi-blog-dialog',
@@ -56,7 +57,7 @@ export class BlogDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Blog) {
-        this.eventManager.broadcast({ name: 'blogListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'blogListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -92,11 +93,11 @@ export class BlogPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private blogPopupService: BlogPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.blogPopupService
                     .open(BlogDialogComponent, params['id']);
             } else {

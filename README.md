@@ -25,16 +25,19 @@ a typical product/project sales page. See below for a sample slice of it.
 # But why one great big app?
 
 "There are already lots of little example apps!!" (written in all different styles) 
-"That is how software development is _always_ taught!!"
+"Software development is _always_ taught using lots of inconsistent simple examples!!"
 "Approaches are a matter of personal preference and shouldn't be imposed" (on beginners who don't have 
 strong opinions yet)
+
 "Bloated!!"
 
 There's a strange resistance to using big examples to educate instead of small ones. The rationale behind 
 a big example is pretty simple:
 
     1. Real, complete code examples are better than docs, lessons and Gitter Q&A. And MUCH better 
-    than ellipses (...).
+    than ellipses (...). Real code answers every question, not just what experts using these other sources
+    elect to answer. Moreover, it's much easier to copy and modify a thing, no matter how complex, than 
+    to synthesize a thing, no matter how simple, out of nothing.
 
     2. If you want a job making commercial-grade code, you should study commercial-grade code,
     not tutorial-grade code. Anything you learn in a tutorial must be approached with caution 
@@ -62,10 +65,10 @@ a single, giant example app for their students akin to what they make for their 
 So here's one from unemployed me.
 
 # How did this great big app happen?
+
+This application has been constructed by combining open source demos into one big application.
 Coming from different demos, the features of the app are not related to each other and it won't make any sense
 to have them together but the point is just to demonstrate how things should work technically, so that's okay.
-
-This application has been constructed through inference by combining open source demos into one big application.
 I took these projects and integrated/restructured/restyled their code according to the following prioritization. 
 Disagreements in approach between two influences are resolved by the
 lower authority yielding to the higher one:
