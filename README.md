@@ -137,6 +137,8 @@ Before you can build this project, you must install and configure the following 
 
 1. [Node.js][]: We use Node to run a development web server and build the project.
    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+   Be sure to use an [LTS version of node](https://github.com/nodejs/LTS) nvm is handy for managing different
+   versions of node.
 2. [Yarn][]: We use Yarn to manage Node dependencies.
    Depending on your system, you can install Yarn either from source or as a pre-packaged bundle.
 
@@ -201,8 +203,6 @@ will generate few files:
     update src/main/webapp/app/app.module.ts
 
 ## Building for production
-
-Edit pom.xml by setting node.version to the one you get when you run `node -v`.
 
 To optimize the GreatBigExampleApplication application for production, run:
 
