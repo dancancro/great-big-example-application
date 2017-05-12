@@ -31,17 +31,17 @@ export class MessagesPage implements OnInit, OnDestroy {
             this.socketService.connect('message', {});
 
             //subscribe to websocket
+
+            // connect to redux store
+            this.message$ = this.store.select('message');
             this.messageSubscription = this.message$.subscribe((messages: any[]) => {
                 this.messages = messages;
             });
         });
-
-        // connect to redux store
-        this.message$ = this.store.select('message');
     }
 
     ngOnDestroy() {
-        this.messageSubscription.unsubscribe();
+        // this.messageSubscription.unsubscribe();
         this.socketService.unsubscribe();
     }
 

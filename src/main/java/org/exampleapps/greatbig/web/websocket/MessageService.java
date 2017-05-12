@@ -42,19 +42,19 @@ public class MessageService implements ApplicationListener<SessionDisconnectEven
             Principal principal) {
         messageDTO.setUserLogin(SecurityUtils.getCurrentUserLogin());
         messageDTO.setUserLogin(principal.getName());
-        messageDTO.setSessionId(stompHeaderAccessor.getSessionId());
-        messageDTO.setIpAddress(stompHeaderAccessor.getSessionAttributes().get(IP_ADDRESS).toString());
+        // messageDTO.setSessionId(stompHeaderAccessor.getSessionId());
+        // messageDTO.setIpAddress(stompHeaderAccessor.getSessionAttributes().get(IP_ADDRESS).toString());
         Instant instant = Instant.ofEpochMilli(Calendar.getInstance().getTimeInMillis());
-        messageDTO.setTime(dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault())));
-        log.debug("Sending user tracking data {}", messageDTO);
+        messageDTO.setCreatedAt(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault()));
+        log.debug("Saving message {}", messageDTO);
         return messageDTO;
     }
 
     @Override
     public void onApplicationEvent(SessionDisconnectEvent event) {
         MessageDTO messageDTO = new MessageDTO();
-        messageDTO.setSessionId(event.getSessionId());
-        messageDTO.setPage("logout");
+        // messageDTO.setSessionId(event.getSessionId());
+        // messageDTO.setPage("logout");
         messagingTemplate.convertAndSend("/topic/message", messageDTO);
     }
 }

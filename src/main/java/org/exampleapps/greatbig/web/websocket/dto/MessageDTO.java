@@ -1,27 +1,27 @@
 package org.exampleapps.greatbig.web.websocket.dto;
 
+import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
- * DTO for storing a user's message.
+ * A DTO for the Message entity.
  */
 public class MessageDTO {
 
-    private String sessionId;
+    private Long id;
 
     private String userLogin;
 
-    private String ipAddress;
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
+    private String email;
 
-    private String page;
+    private String message;
 
-    private String time;
+    private ZonedDateTime createdAt;
 
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
+    private ZonedDateTime updatedAt;
 
     public String getUserLogin() {
         return userLogin;
@@ -31,33 +31,49 @@ public class MessageDTO {
         this.userLogin = userLogin;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public Long getId() {
+        return id;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getPage() {
-        return page;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getTime() {
-        return time;
+    public String getMessage() {
+        return message;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
-        return "MessageDTO{" + "sessionId='" + sessionId + '\'' + ", userLogin='" + userLogin + '\'' + ", ipAddress='"
-                + ipAddress + '\'' + ", page='" + page + '\'' + ", time='" + time + '\'' + '}';
+        return "MessageDTO{" + "id=" + id + ", email='" + email + "'" + ", message='" + message + "'" + ", createdAt='"
+                + createdAt + "'" + ", updatedAt='" + updatedAt + "'" + '}';
     }
 }

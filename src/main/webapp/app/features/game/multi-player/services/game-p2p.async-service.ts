@@ -8,7 +8,7 @@ import { buildP2PCommand } from './index';
 import { PROGRESS, COMPLETE } from './command-builders/game-p2p.commands';
 import { WebRTCGateway } from '../gateways/webrtc.gateway';
 import { AsyncService } from '../../../../core/services/base.async-service';
-import { RPCCommand } from '../commands/rpc.command';
+import { RPCCommand } from '../../../../core/commands/rpc.command';
 import { JsonPayload } from '../../../../core/commands/payloads/json.command.payload';
 import { P2PGameActions } from '../actions/action-creators/p2p-game.action-creators';
 

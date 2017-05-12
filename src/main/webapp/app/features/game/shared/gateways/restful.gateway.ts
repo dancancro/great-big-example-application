@@ -6,9 +6,9 @@ import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/merge';
 
-import { GAME_TEXT } from '../../features/game/config/config';
-import { RestfulCommand } from '../commands/restful.command';
-import { Gateway } from './base.gateway';
+import { GAME_TEXT } from '../../config/config';
+import { RestfulCommand } from '../../../../core/commands/restful.command';
+import { Gateway } from '../../../../core/gateways/base.gateway';
 
 // Mocking backend validation behavior.
 @Injectable()

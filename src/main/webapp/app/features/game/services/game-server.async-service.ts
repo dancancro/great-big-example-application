@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 
-import { RestfulGateway } from '../../../core/gateways/restful.gateway';
+import { RestfulGateway } from '../shared/gateways/restful.gateway';
 import { AsyncService } from '../../../core/services/base.async-service';
 import { RestfulCommand } from '../../../core/commands/restful.command';
 

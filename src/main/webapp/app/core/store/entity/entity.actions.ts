@@ -33,12 +33,16 @@ export class EntityAction<T> implements Action {
 
 
 export class Add<T> extends EntityAction<T> {
+    constructor(public slice: string, payload: any = {}) {
+        super(slice, Object.assign({}, { dirty: true }, payload));
+    }
     // If the payload contains the temp ID value, that means
     // we want the server to assign and ID value, so drop the ID field
     payloadForPost() {
         let newPayload = Object.assign({}, this.payload);
         if (this.payload.id === TEMP) {
             delete newPayload.id;
+            delete newPayload.dirty;
         }
         return newPayload;
     }
@@ -84,6 +88,10 @@ export class DeleteTemp<T> extends EntityAction<T> {
     actionName: string = actions.DELETE_TEMP;
 }
 
+export class Load<T> extends EntityAction<T> {
+    actionName: string = actions.LOAD;
+}
+
 export class LoadFail<T> extends EntityAction<T> {
     actionName: string = actions.LOAD_FAIL;
 }
@@ -102,10 +110,6 @@ export class UpdateEach<T> extends EntityAction<T> {
 
 export class UpdateSuccess<T> extends EntityAction<T> {
     actionName: string = actions.UPDATE_SUCCESS;
-}
-
-export class Load<T> extends EntityAction<T> {
-    actionName: string = actions.LOAD;
 }
 
 export class Select<T> extends EntityAction<T> {

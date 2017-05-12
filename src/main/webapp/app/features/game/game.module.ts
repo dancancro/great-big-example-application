@@ -8,7 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TimerComponent } from './shared/timer/timer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { GameModel } from '../../core/store/game/game.model';
-import { RestfulGateway } from '../../core/gateways/restful.gateway';
+import { RestfulGateway } from './shared/gateways/restful.gateway';
 import { HomeComponent } from './home/home.component';
 import { GamePage } from './game.page';
 import { RoomConfig } from './config/config';

@@ -142,7 +142,7 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
             }
         case typeFor(state.slice, actions.ADD_SUCCESS):
             // entity could be an client-side-created object with client side state not returned by
-            // the server. If so, preserve this state.
+            // the server. If so, preserve this state by having entity as part of this
             return Object.assign({}, state.initialEntity, entity, action.payload, { dirty: false });
         case typeFor(state.slice, actions.LOAD_SUCCESS):
             return Object.assign({}, state.initialEntity, action.payload, { dirty: false });

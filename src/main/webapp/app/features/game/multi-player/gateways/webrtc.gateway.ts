@@ -26,19 +26,19 @@ export class WebRTCGateway extends Gateway {
     private name: any;
     private connected = false;
 
-    constructor(private _provider: RoomConfig, private _ws: WebSocketGateway) {
+    constructor(private provider: RoomConfig, private ws: WebSocketGateway) {
         super();
-        if (this._provider.isInitiator) {
-            this.name = this._provider.name;
+        if (this.provider.isInitiator) {
+            this.name = this.provider.name;
         } else {
             this.name = `${Math.round(Math.random() * 1000)}-${Date.now()}`;
-            this.partner = this._provider.name;
+            this.partner = this.provider.name;
         }
 
-        const jsonStream = this._ws.dataStream
+        const jsonStream = this.ws.dataStream
             .map((data: any) => JSON.parse(data));
 
-        if (this._provider.isInitiator) {
+        if (this.provider.isInitiator) {
             jsonStream.filter((data: any) => {
                 return data.type === 'start' && data.target === this.name;
             })
@@ -66,7 +66,7 @@ export class WebRTCGateway extends Gateway {
         }).subscribe((data: any) => {
             this.peer.signal(data.data);
         });
-        this._ws.connectionEvents.filter((e: boolean) => e)
+        this.ws.connectionEvents.filter((e: boolean) => e)
             .subscribe(() => {
                 this.signal({
                     type: 'init',
@@ -86,7 +86,7 @@ export class WebRTCGateway extends Gateway {
     }
 
     private addHandlers() {
-        this.peer = new (Peer as any)({ initiator: this._provider.isInitiator });
+        this.peer = new (Peer as any)({ initiator: this.provider.isInitiator });
         this.peer.on('signal', (data: any) => {
             this.signal({
                 type: 'signal',
@@ -118,6 +118,6 @@ export class WebRTCGateway extends Gateway {
         const command = new SignalingCommand();
         command.payload = new JsonPayload();
         command.payload.setData(data);
-        this._ws.send(command);
+        this.ws.send(command);
     }
 }

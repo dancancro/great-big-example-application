@@ -1,5 +1,5 @@
-import { Command } from '../../../../core/commands/base.command';
-import { CommandPayload } from '../../../../core/commands/payloads/base.command.payload';
+import { Command } from './base.command';
+import { CommandPayload } from './payloads/base.command.payload';
 
 export class RPCCommand extends Command {
     protected _method: string;
