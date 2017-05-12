@@ -10,7 +10,7 @@ import { WebRTCGateway } from '../gateways/webrtc.gateway';
 import { AsyncService } from '../../../../core/services/base.async-service';
 import { RPCCommand } from '../../../../core/commands/rpc.command';
 import { JsonPayload } from '../../../../core/commands/payloads/json.command.payload';
-import { P2PGameActions } from '../actions/action-creators/p2p-game.action-creators';
+import { P2PGameActions } from '../../../../core/store/p2p-game/p2p-game.action-creators';
 
 @Injectable()
 export class GameP2PService extends AsyncService {

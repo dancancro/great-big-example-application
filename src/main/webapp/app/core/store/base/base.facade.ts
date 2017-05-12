@@ -6,7 +6,7 @@ import 'rxjs/add/operator/mergeAll';
 
 import { AsyncService } from '../../services/base.async-service';
 
-export abstract class Model {
+export abstract class BaseFacade {
     constructor(private services: AsyncService[]) { }
     protected performAsyncAction(action: Action) {
         return Observable.merge.apply(Observable, (this.services || []).map((s) => s.process(action)));

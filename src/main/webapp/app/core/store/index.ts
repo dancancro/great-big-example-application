@@ -12,7 +12,6 @@ import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
 import { Contact } from './contact/contact.model';
 import { Counter } from './counter/counter.model';
 import { Hero } from './hero/hero.model';
-import { GameModel } from './game/game.model';
 import { Layout } from './layout/layout.model';
 import { Note } from './note/note.model';
 import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
@@ -83,7 +82,6 @@ export interface RootState {
     contact: Entities<Contact>;
     counter: Counter;
     crisis: Entities<Crisis>;
-    game: GameModel;
     hero: Entities<Hero>;
     layout: Layout;
     message: any;

@@ -3,7 +3,7 @@ import {
     AfterViewInit
 } from '@angular/core';
 import { TimerComponent } from '../timer/timer.component';
-import { GameModel } from '../../../../core/store/game/game.model';
+import { GameFacade } from '../../../../core/store/game/game.facade';
 
 import 'rxjs/add/operator/scan';
 
@@ -42,7 +42,7 @@ export class GameComponent implements AfterViewInit {
     @Output() end: EventEmitter<number> = new EventEmitter<number>();
     @Output() change: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private model: GameModel, private renderer: Renderer) { }
+    constructor(private model: GameFacade, private renderer: Renderer) { }
 
     ngAfterViewInit() {
         setTimeout(() => {

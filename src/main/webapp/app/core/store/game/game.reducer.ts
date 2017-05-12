@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 
 import { initialGame } from './game.model';
 import { COMPLETE_GAME, INVALID_GAME, START_GAME, GAME_PROGRESS } from './game.actions';
-import { PARTNER_PROGRESS, PARTNER_COMPLETED } from '../../../features/game/multi-player/actions/p2p-game.actions';
+import { PARTNER_PROGRESS, PARTNER_COMPLETED } from '../p2p-game/p2p-game.actions';
 
 export const gamesReducer = (state: any = initialGame.get('games'), action: Action) => {
     switch (action.type) {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { GameModel } from '../../../core/store/game/game.model';
+import { GameFacade } from '../../../core/store/game/game.facade';
 import { RoomConfig } from '../config/config';
 
 import 'rxjs/add/operator/scan';
@@ -21,7 +21,7 @@ export class HomeComponent {
     partner: string;
     name: string;
 
-    constructor(private game: GameModel,
+    constructor(private game: GameFacade,
         private roomConfig: RoomConfig,
         private router: Router,
         private route: ActivatedRoute) { }

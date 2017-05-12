@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { GameComponent } from '../shared/game/game.component';
 import { AsyncService } from '../../../core/services/base.async-service';
 import { GameServer } from '../services/game-server.async-service';
-import { GameModel } from '../../../core/store/game/game.model';
+import { GameFacade } from '../../../core/store/game/game.facade';
 import { GAME_TEXT } from '../config/config';
 
 @Component({
@@ -18,7 +18,7 @@ import { GAME_TEXT } from '../config/config';
         // introducing the WebRTC async service.
         { provide: AsyncService, multi: true, useClass: GameServer },
 
-        GameModel
+        GameFacade
     ]
 })
 export class SinglePlayerComponent {

@@ -7,8 +7,8 @@ import { WebSocketGateway, WebSocketGatewayConfig, WS_CONFIG } from '../../../co
 import { WS_PORT, WS_SECURE, WS_HOST, GAME_TEXT } from '../config/config';
 import { GameComponent } from '../shared/game/game.component';
 import { AsyncService } from '../../../core/services/base.async-service';
-import { GameModel } from '../../../core/store/game/game.model';
-import { P2PGameModel } from '../../../core/store/p2p-game/p2p-game.model';
+import { GameFacade } from '../../../core/store/game/game.facade';
+import { P2PGameFacade } from '../../../core/store/p2p-game/p2p-game.facade';
 import { GameServer } from '../services/game-server.async-service';
 import { GameP2PService } from './services/game-p2p.async-service';
 
@@ -42,9 +42,9 @@ const providers: Provider[] = [
     { provide: WebRTCGateway, useExisting: Gateway },
     { provide: WS_CONFIG, useValue: WSConfig },
 
-    GameModel,
+    GameFacade,
     WebSocketGateway,
-    P2PGameModel
+    P2PGameFacade
 ];
 
 @Component({
@@ -64,7 +64,7 @@ export class MultiPlayerComponent {
     private gameEnabled = false;
     private gamePlayed = false;
 
-    constructor(private gateway: WebRTCGateway, private zone: NgZone, private p2pModel: P2PGameModel) {
+    constructor(private gateway: WebRTCGateway, private zone: NgZone, private p2pModel: P2PGameFacade) {
         this.gateway.connectionEvents.filter((e: boolean) => e)
             .subscribe(() => {
                 this.playerJoined = true;
