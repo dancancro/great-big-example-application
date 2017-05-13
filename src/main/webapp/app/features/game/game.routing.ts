@@ -1,11 +1,12 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 import { HomeComponent } from './home/home.component';
 import { SinglePlayerComponent } from './single-player/single-player.component';
 import { MultiPlayerComponent } from './multi-player/multi-player.component';
 import { UserRouteAccessService } from '../../shared';
 
-export const routes: Routes = [
+const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
@@ -43,3 +44,9 @@ export const routes: Routes = [
         canActivate: [UserRouteAccessService]
     }
 ];
+
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
+})
+export class GameRouting { }

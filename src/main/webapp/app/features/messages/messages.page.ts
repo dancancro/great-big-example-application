@@ -15,8 +15,8 @@ export class MessagesPage implements OnInit, OnDestroy {
     private message$: Observable<any>;
     private messageSubscription: any;
     public messages = [];
-    public email: string = 'anonymous';
-    public message: string = '';
+    public email = 'anonymous';
+    public message = '';
 
     constructor(
         private store: Store<any>,

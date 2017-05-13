@@ -14,7 +14,7 @@ import { GamePage } from './game.page';
 import { RoomConfig } from './config/config';
 import { SinglePlayerModule } from './single-player/single-player.module';
 import { MultiPlayerModule } from './multi-player/multi-player.module';
-import { routes } from './game.routes';
+import { GameRouting } from './game.routing';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { GameSharedModule } from './shared/shared.module';
 
@@ -25,7 +25,7 @@ import { GameSharedModule } from './shared/shared.module';
         GreatBigExampleApplicationSharedModule,
         GameSharedModule,
         MultiPlayerModule,
-        RouterModule.forChild(routes),
+        GameRouting,
         SinglePlayerModule],
     declarations: [
         GamePage,

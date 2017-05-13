@@ -31,7 +31,6 @@ export class EntityAction<T> implements Action {
 
 }
 
-
 export class Add<T> extends EntityAction<T> {
     constructor(public slice: string, payload: any = {}) {
         super(slice, Object.assign({}, { dirty: true }, payload));
@@ -39,7 +38,7 @@ export class Add<T> extends EntityAction<T> {
     // If the payload contains the temp ID value, that means
     // we want the server to assign and ID value, so drop the ID field
     payloadForPost() {
-        let newPayload = Object.assign({}, this.payload);
+        const newPayload = Object.assign({}, this.payload);
         if (this.payload.id === TEMP) {
             delete newPayload.id;
             delete newPayload.dirty;

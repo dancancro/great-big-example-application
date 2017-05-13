@@ -33,7 +33,7 @@ export function addToStore<T>(state: Entities<T>, action: EntityActions.Add<T> |
  */
 export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
-    let optimisticObject = entities[EntityActions.TEMP] || null;
+    const optimisticObject = entities[EntityActions.TEMP] || null;
     entities[action.payload.id] = reduceOne(state, optimisticObject, action);
     entities[EntityActions.TEMP] && delete entities[EntityActions.TEMP];
     return Object.assign({}, state, {
@@ -51,9 +51,9 @@ export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<
 export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete<T> | EntityActions.DeleteTemp<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
     delete entities[action.payload.id];
-    let idx = state.ids.indexOf(action.payload.id);
-    let lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null
-    let newIdx = idx > 0 ? idx - 1 : lastIdx;
+    const idx = state.ids.indexOf(action.payload.id);
+    const lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null
+    const newIdx = idx > 0 ? idx - 1 : lastIdx;
     const selectedEntityId = idx === -1 ? state.selectedEntityId : state.ids[newIdx];
     const i = state.ids.findIndex((id) => id == action.payload.id);
     const ids = [...state.ids.slice(0, i), ...state.ids.slice(i + 1)];

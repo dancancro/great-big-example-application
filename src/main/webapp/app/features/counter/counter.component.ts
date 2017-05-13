@@ -11,7 +11,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         -
       </jhi-button>
 
-      <div 
+      <div
         data-testid="counter-result"
         class="flex-auto flex-center center h1">
         {{ value }}
