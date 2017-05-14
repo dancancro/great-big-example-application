@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 @Component({
-  selector: 'app-heroes',
+  selector: 'gba-heroes',
   styleUrls: ['./heroes.page.scss'],
   templateUrl: './heroes.page.html'
 })

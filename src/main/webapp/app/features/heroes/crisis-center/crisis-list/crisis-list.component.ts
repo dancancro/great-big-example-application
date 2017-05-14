@@ -12,7 +12,7 @@ import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
 @Component({
-  template: `
+    template: `
     <ul class="items">
       <li *ngFor="let crisis of crises$ | async"
         (click)="onSelect(crisis)"
@@ -24,35 +24,35 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
     <router-outlet></router-outlet>
   `,
-  styleUrls: ['./crisis-list.component.scss']
+    styleUrls: ['./crisis-list.component.scss']
 })
 export class CrisisListComponent implements OnInit {
-  crises$: Observable<Crisis[]>;
-  selectedCrisis$: Observable<Crisis>;
-  routeSub: Subscription;
+    crises$: Observable<Crisis[]>;
+    selectedCrisis$: Observable<Crisis>;
+    routeSub: Subscription;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store<fromRoot.RootState>,
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private store: Store<fromRoot.RootState>,
+    ) { }
 
-  ngOnInit() {
-    this.crises$ = this.store.select(fromRoot.getCrises);
-    this.routeSub = this.route.params
-      .subscribe((params: Params) => {
-        this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
-      });
-  }
+    ngOnInit() {
+        this.crises$ = this.store.select(fromRoot.getCrises);
+        this.routeSub = this.route.params
+            .subscribe((params: Params) => {
+                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
+            });
+    }
 
-  onSelect(crisis: Crisis) {
-    // Navigate with relative link
-    this.router.navigate([crisis.id], { relativeTo: this.route });
-  }
+    onSelect(crisis: Crisis) {
+        // Navigate with relative link
+        this.router.navigate([crisis.id], { relativeTo: this.route });
+    }
 
-  ngOnDestroy() {
-    this.routeSub && this.routeSub.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.routeSub && this.routeSub.unsubscribe();
+    }
 }
 
 /*

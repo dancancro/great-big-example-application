@@ -22,7 +22,7 @@ import { slices } from '../../core/store/util';
 const uuid = require('uuid');
 
 @Component({
-  selector: 'app-bernie',
+  selector: 'gba-bernie',
   templateUrl: './bernie.page.html',
   styleUrls: ['./bernie.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -111,7 +111,7 @@ export class BerniePage {
     this.store.dispatch(new EntityActions.Update(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
   }
 
-  cancelRebuttal({claimRebuttalId, rebuttal}) {
+  cancelRebuttal({ claimRebuttalId, rebuttal }) {
     if (rebuttal.isNew) {
       // TODO: delete the rebuttal record if necessary
       this.store.dispatch(new EntityActions.Delete(slices.CLAIM_REBUTTAL, claimRebuttalId));

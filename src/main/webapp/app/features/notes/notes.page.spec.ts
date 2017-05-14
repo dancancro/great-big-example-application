@@ -50,7 +50,7 @@ describe('Component: Notes', () => {
 @Component({
   selector: 'notes-test',
   template: `
-    <app-notes></app-notes>
+    <gba-notes></gba-notes>
   `
 })
 class NotesComponentTestController {

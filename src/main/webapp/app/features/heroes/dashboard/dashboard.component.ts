@@ -10,7 +10,7 @@ import { Crisis } from '../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../core/store';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'gba-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

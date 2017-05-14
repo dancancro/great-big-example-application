@@ -10,7 +10,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 import { slices } from '../../../../core/store/util';
 
 @Component({
-  template: `
+    template: `
   <div *ngIf="crisis">
     <h3>"{{ editName }}"</h3>
     <div>
@@ -25,60 +25,59 @@ import { slices } from '../../../../core/store/util';
     </p>
   </div>
   `,
-  styles: ['input {width: 20em}'],
-  animations: [slideInDownAnimation]
+    styles: ['input {width: 20em}'],
+    animations: [slideInDownAnimation]
 })
 export class CrisisDetailComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
+    @HostBinding('@routeAnimation') routeAnimation = true;
+    @HostBinding('style.display') display = 'block';
 
-  crisis: Crisis;
-  editName: string;
+    crisis: Crisis;
+    editName: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store<fromRoot.RootState>,
-    public dialogService: DialogService
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private store: Store<fromRoot.RootState>,
+        public dialogService: DialogService
+    ) { }
 
-  ngOnInit() {
-    this.route.data
-      .subscribe((data: { crisis: Crisis }) => {
-        this.editName = data.crisis.name;
-        this.crisis = data.crisis;
-      });
-  }
-
-  cancel() {
-    this.gotoCrises();
-  }
-
-  save() {
-    this.crisis.name = this.editName;
-    this.store.dispatch(new EntityActions.Update(slices.CRISIS, this.crisis));
-    this.gotoCrises();
-  }
-
-  canDeactivate(): Promise<boolean> | boolean {
-    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (!this.crisis || this.crisis.name === this.editName) {
-      return true;
+    ngOnInit() {
+        this.route.data
+            .subscribe((data: { crisis: Crisis }) => {
+                this.editName = data.crisis.name;
+                this.crisis = data.crisis;
+            });
     }
-    // Otherwise ask the user with the dialog service and return its
-    // promise which resolves to true or false when the user decides
-    return this.dialogService.confirm('Discard changes?');
-  }
 
-  gotoCrises() {
-    const crisisId = this.crisis ? this.crisis.id : null;
-    // Pass along the crisis id if available
-    // so that the CrisisListComponent can select that crisis.
-    // Add a totally useless `foo` parameter for kicks.
-    // Relative navigation back to the crises
-    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
-  }
+    cancel() {
+        this.gotoCrises();
+    }
+
+    save() {
+        this.crisis.name = this.editName;
+        this.store.dispatch(new EntityActions.Update(slices.CRISIS, this.crisis));
+        this.gotoCrises();
+    }
+
+    canDeactivate(): Promise<boolean> | boolean {
+        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+        if (!this.crisis || this.crisis.name === this.editName) {
+            return true;
+        }
+        // Otherwise ask the user with the dialog service and return its
+        // promise which resolves to true or false when the user decides
+        return this.dialogService.confirm('Discard changes?');
+    }
+
+    gotoCrises() {
+        const crisisId = this.crisis ? this.crisis.id : null;
+        // Pass along the crisis id if available
+        // so that the CrisisListComponent can select that crisis.
+        // Add a totally useless `foo` parameter for kicks.
+        // Relative navigation back to the crises
+        this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
+    }
 }
 
 /*

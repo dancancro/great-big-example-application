@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { WikipediaService } from './wikipedia.service';
 
 @Component({
-  selector: 'app-wiki',
+  selector: 'gba-wiki',
   styleUrls: ['wiki.scss'],
   template: `
     <h1>Wikipedia Demo</h1>

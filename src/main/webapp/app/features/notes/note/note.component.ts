@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-note',
+  selector: 'gba-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
