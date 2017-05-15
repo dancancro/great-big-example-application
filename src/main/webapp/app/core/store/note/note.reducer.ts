@@ -19,8 +19,10 @@ export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices
             return functions.addToStore<Note>(state, <any>action);
         case typeFor(slices.NOTE, actions.UPDATE):
         case typeFor(slices.NOTE, actions.UPDATE_SUCCESS):
-            return functions.update<Note>(state, <any>action);
         case typeFor(slices.NOTE, actions.DELETE):
+        case typeFor(slices.NOTE, actions.DELETE_FAIL):
+            return functions.update<Note>(state, <any>action);
+        case typeFor(slices.NOTE, actions.DELETE_SUCCESS):
             return functions.deleteEntity<Note>(state, <any>action);
         case typeFor(slices.NOTE, actions.SELECT):
             return functions.select<Note>(state, <any>action);
@@ -31,4 +33,4 @@ export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices
 
 export const getEntities = (state: Entities<Note>) => state.entities;
 
-export const getIds = (state: Entities<Note>) => state.ids;
+export const getIds = (state: Entities<Note>) => state.ids.filter(id => !state.entities[id].deleteMe);

@@ -47,15 +47,20 @@ export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<
 /*
  * Delete the property from state.entities, the element from state.ids and
  * if the one being deleted is the selectedEntity, then select a different one.
+ *
+ * Only delete pessimistically
  */
 export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete<T> | EntityActions.DeleteTemp<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
-    delete entities[action.payload.id];
-    const idx = state.ids.indexOf(action.payload.id);
+
+    let id = action.payload.id;
+
+    delete entities[id];
+    const idx = state.ids.indexOf(id);
     const lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null
     const newIdx = idx > 0 ? idx - 1 : lastIdx;
     const selectedEntityId = idx === -1 ? state.selectedEntityId : state.ids[newIdx];
-    const i = state.ids.findIndex((id) => id == action.payload.id);
+    const i = state.ids.findIndex((findId) => findId == id);
     const ids = [...state.ids.slice(0, i), ...state.ids.slice(i + 1)];
     return Object.assign({}, state, { entities, ids, selectedEntityId });
 };
@@ -108,7 +113,8 @@ export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T
 
 export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
-    entities[action.payload.id] = reduceOne(state, entities[action.payload.id], action);
+    let id = action.payload.id;
+    entities[id] = reduceOne(state, entities[id], action);
     return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities
@@ -130,18 +136,17 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
     // console.log('reduceOne entity:' + JSON.stringify(entity) + ' ' + action.type)
     switch (action.type) {
 
-        case typeFor(state.slice, actions.ADD):
         case typeFor(state.slice, actions.ADD_TEMP):
         case typeFor(state.slice, actions.ADD_OPTIMISTICALLY):
             return Object.assign({}, state.initialEntity, action.payload, { dirty: true });
+        case typeFor(state.slice, actions.DELETE):
+            return Object.assign({}, entity, action.payload, { deleteMe: true });
+        case typeFor(state.slice, actions.DELETE_FAIL):
+            return Object.assign({}, entity, action.payload, { deleteMe: false });
         case typeFor(state.slice, actions.UPDATE):
-            if (entity['id'] == action.payload.id) {
-                return Object.assign({}, entity, action.payload, { dirty: true });
-            } else {
-                return entity;
-            }
+            return Object.assign({}, entity, action.payload, { dirty: true });
         case typeFor(state.slice, actions.ADD_SUCCESS):
-            // entity could be an client-side-created object with client side state not returned by
+            // entity could be a client-side-created object with client-side state not returned by
             // the server. If so, preserve this state by having entity as part of this
             return Object.assign({}, state.initialEntity, entity, action.payload, { dirty: false });
         case typeFor(state.slice, actions.LOAD_SUCCESS):
@@ -178,17 +183,27 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService): 
         );
 }
 
+// This way looks at the store for the new entity, not the action.payload
+// I got that from the notes demo. I don't know if that's necessary in cases of failures
+//
+// export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+//     return actions$
+//         .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
+//         .withLatestFrom(store.select(slice))
+//         .switchMap(([action, entities]) =>
+//             Observable
+//                 .from((<any>entities).ids)
+//                 .filter((id: string) => (<any>entities).entities[id].dirty)
+//                 .switchMap((id: string) => dataService.add(action.payloadForPost(), slice))
+//                 .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity))
+//         );
+// }
+
 export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
-        .withLatestFrom(store.select(slice))
-        .switchMap(([action, entities]) =>
-            Observable
-                .from((<any>entities).ids)
-                .filter((id: string) => (<any>entities).entities[id].dirty)
-                .switchMap((id: string) => dataService.add(action.payloadForPost(), slice))
-                .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity))
-        );
+        .switchMap((action) => dataService.add(action.payloadForPost(), slice))
+        .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity));
 }
 
 export function updateToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
@@ -207,11 +222,10 @@ export function updateToRemote$(actions$: Actions, slice: string, dataService, s
 export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.DELETE))
-        .withLatestFrom(store.select(slice))
-        .switchMap(([{ }, entities]) =>  // first element is action, but it isn't used
-            Observable
-                .from((<any>entities).ids)
-                .switchMap((id: string) => dataService.remove((<any>entities).entities[id], slice))
-                .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
-        );
+        .switchMap((action) => dataService.remove(action.payload, slice))
+        .map((responseEntity) => new EntityActions.DeleteSuccess(slice, responseEntity))
+        .catch((err) => {
+            console.log(err);
+            return Observable.of(new EntityActions.DeleteFail(slice, err));
+        })
 }

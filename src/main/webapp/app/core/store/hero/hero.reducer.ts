@@ -15,11 +15,14 @@ export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices
             return functions.addSuccess<Hero>(state, <any>action);
         case typeFor(slices.HERO, actions.ADD_TEMP):
         case typeFor(slices.HERO, actions.LOAD_SUCCESS):
+        case typeFor(slices.HERO, actions.DELETE_FAIL):
             return functions.addToStore<Hero>(state, <any>action);
         case typeFor(slices.HERO, actions.UPDATE):
         case typeFor(slices.HERO, actions.UPDATE_SUCCESS):
-            return functions.update<Hero>(state, <any>action);
         case typeFor(slices.HERO, actions.DELETE):
+        case typeFor(slices.HERO, actions.DELETE_FAIL):
+            return functions.update<Hero>(state, <any>action);
+        case typeFor(slices.HERO, actions.DELETE_SUCCESS):
             return functions.deleteEntity<Hero>(state, <any>action);
         case typeFor(slices.HERO, actions.SELECT):
             return functions.select<Hero>(state, <any>action);
@@ -30,7 +33,7 @@ export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices
 
 export const getEntities = (state: Entities<Hero>) => state.entities;
 
-export const getIds = (state: Entities<Hero>) => state.ids;
+export const getIds = (state: Entities<Hero>) => state.ids.filter(id => !state.entities[id].deleteMe);
 
 export const getSelectedId = (state: Entities<Hero>) => state.selectedEntityId;
 

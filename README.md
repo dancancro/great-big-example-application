@@ -1,6 +1,5 @@
 
 [![Build Status](https://travis-ci.org/dancancro/great-big-example-application.svg?branch=master)](https://travis-ci.org/dancancro/great-big-example-application)
-[![Dependency Status](https://david-dm.org/dancancro/great-big-example-application.svg)](https://david-dm.org/dancancro/great-big-example-application)
 
 ## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
 
@@ -41,7 +40,7 @@ Here are some I thought of:
     2. To make something new as an expert would do it, it's much easier to copy and modify a thing
     made by experts, no matter how complex, than to synthesize the missing details removed for the 
     sake of simplicity, out of nothing, no matter how simple. To do the latter requires extensive 
-    studying through a hodgepodge of inconsistent resources with inconsistent contexts. To do the 
+    studying through a menagerie of inconsistent resources with inconsistent contexts. To do the 
     former takes a few searches, a few replacements and a little bug fixing.
 
     3. If you want a job making commercial-grade code, you should study commercial-grade code,
@@ -102,6 +101,28 @@ contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdN
 and served as JSON by a Google script.
 
 A huge thanks to those who created the example demos from which I put together this amalgam. 
+
+### Home Screen
+![Image](./docs/images/home.png?raw=true)
+### Bernie Rebuttals
+![Image](./docs/images/bernie-app.png?raw=true)
+### Book Collection
+![Image](./docs/images/collection.png?raw=true)
+### Counter
+![Image](./docs/images/counter.png?raw=true)
+### Entities
+![Image](./docs/images/entities.png?raw=true)
+### Typing Speed Game
+![Image](./docs/images/game.png?raw=true)
+### Tour of Heroes Dashboard
+![Image](./docs/images/heroes_dashboard.png?raw=true)
+### Tour of Heroes List
+![Image](./docs/images/heroes_list.png?raw=true)
+### Drag, Drop and Edit Notes
+![Image](./docs/images/notes.png?raw=true)
+### To Do List
+![Image](./docs/images/to_dos.png?raw=true)
+
 
 # My Innovations
 
@@ -499,4 +520,4 @@ Widget collections |Angular Material |Angular Material | | |
 
 See any mistakes? [Help improve this data](https://docs.google.com/forms/d/e/1FAIpQLSeo2fG1YwFbGF_p9zor7Tu_KHPGF6tIt5EWoZGcosGLytC_EQ/viewform)
 
-# [File Structure](https://github.com/dancancro/great-big-example-application/FILE_STRUCTURE.md)
+# [File Structure](https://github.com/dancancro/great-big-example-application/blob/master/docs/FILE_STRUCTURE.md)

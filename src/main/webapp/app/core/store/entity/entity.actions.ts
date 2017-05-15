@@ -6,9 +6,11 @@ export const actions = {
     ADD: 'ADD',
     ADD_OPTIMISTICALLY: 'ADD_OPTIMISTICALLY',
     ADD_SUCCESS: 'ADD_SUCCESS',
-    ADD_TEMP: 'ADD_TEMP', // Use for adding to a list without using a popup
+    ADD_TEMP: 'ADD_TEMP', // Use for adding to a blank to the store so users can fill in before submitting to server
     ADD_UPDATE_FAIL: 'ADD_UPDATE_FAIL',
     DELETE: 'DELETE',
+    DELETE_FAIL: 'DELETE_FAIL',
+    DELETE_SUCCESS: 'DELETE_SUCCESS',
     DELETE_TEMP: 'DELETE_TEMP',
     LOAD: 'LOAD',
     LOAD_FAIL: 'LOAD_FAIL',
@@ -23,7 +25,7 @@ export const actions = {
 export const TEMP = 'TEMP_ID_VALUE';
 
 export class EntityAction<T> implements Action {
-    actionName = '';
+    protected actionName = '';
     constructor(public slice: string, public payload: any) { }
     get type() {
         return typeFor(this.slice, this.actionName);
@@ -45,7 +47,7 @@ export class Add<T> extends EntityAction<T> {
         }
         return newPayload;
     }
-    actionName: string = actions.ADD;
+    protected actionName: string = actions.ADD;
 }
 
 export class AddTemp<T> extends EntityAction<T> {
@@ -53,7 +55,7 @@ export class AddTemp<T> extends EntityAction<T> {
         super(slice, Object.assign({}, { id: TEMP }, payload));
     }
 
-    actionName: string = actions.ADD_TEMP;
+    protected actionName: string = actions.ADD_TEMP;
 }
 
 /**
@@ -64,59 +66,66 @@ export class AddOptimistically<T> extends Add<T> {
     constructor(public slice: string, payload: any = {}) {
         super(slice, Object.assign({}, { id: TEMP }, payload));
     }
-    actionName: string = actions.ADD_OPTIMISTICALLY;
+    protected actionName: string = actions.ADD_OPTIMISTICALLY;
 }
 
 export class AddSuccess<T> extends EntityAction<T> {
-    actionName: string = actions.ADD_SUCCESS;
+    protected actionName: string = actions.ADD_SUCCESS;
 }
 
 export class AddUpdateFail<T> extends EntityAction<T> {
-    actionName: string = actions.ADD_UPDATE_FAIL;
+    protected actionName: string = actions.ADD_UPDATE_FAIL;
 }
 
 export class Delete<T> extends EntityAction<T> {
-    actionName: string = actions.DELETE;
+    protected actionName: string = actions.DELETE;
+}
+
+export class DeleteFail<T> extends EntityAction<T> {
+    protected actionName: string = actions.DELETE_FAIL;
+}
+
+export class DeleteSuccess<T> extends EntityAction<T> {
+    protected actionName: string = actions.DELETE_SUCCESS;
 }
 
 export class DeleteTemp<T> extends EntityAction<T> {
     constructor(public slice: string) {
         super(slice, { id: TEMP })
     }
-
-    actionName: string = actions.DELETE_TEMP;
+    protected actionName: string = actions.DELETE_TEMP;
 }
 
 export class Load<T> extends EntityAction<T> {
-    actionName: string = actions.LOAD;
+    protected actionName: string = actions.LOAD;
 }
 
 export class LoadFail<T> extends EntityAction<T> {
-    actionName: string = actions.LOAD_FAIL;
+    protected actionName: string = actions.LOAD_FAIL;
 }
 
 export class LoadSuccess<T> extends EntityAction<T> {
-    actionName: string = actions.LOAD_SUCCESS;
+    protected actionName: string = actions.LOAD_SUCCESS;
 }
 
 export class Update<T> extends EntityAction<T> {
-    actionName: string = actions.UPDATE;
+    protected actionName: string = actions.UPDATE;
 }
 
 export class UpdateEach<T> extends EntityAction<T> {
-    actionName: string = actions.UPDATE_EACH;
+    protected actionName: string = actions.UPDATE_EACH;
 }
 
 export class UpdateSuccess<T> extends EntityAction<T> {
-    actionName: string = actions.UPDATE_SUCCESS;
+    protected actionName: string = actions.UPDATE_SUCCESS;
 }
 
 export class Select<T> extends EntityAction<T> {
-    actionName: string = actions.SELECT;
+    protected actionName: string = actions.SELECT;
 }
 
 export class SelectNext<T> extends EntityAction<T> {
-    actionName: string = actions.SELECT_NEXT;
+    protected actionName: string = actions.SELECT_NEXT;
     constructor(public slice: string) {
         super(null, slice);
     }

@@ -2,11 +2,11 @@
 <br>
 <br>
 <div>
-  <add-button (add)="onAddNote($event)" colour="yellow"></add-button>
-  <add-button (add)="onAddNote($event)" colour="red"></add-button>
-  <add-button (add)="onAddNote($event)" colour="green"></add-button>
-  <add-button (add)="onAddNote($event)" colour="blue"></add-button>
-  <gba-note *ngFor="let note of notes$ | async" [text]="note.text" [colour]="note.colour" [left]=note.left [top]=note.top [disabled]=note.dirty
-    (changeNoteText)="onChangeNoteText($event, note)" (changeNotePosition)="onChangeNotePosition($event, note)"></gba-note>
-  {{notes$ | async | json}}
+    <add-button (add)="onAddNote($event)" colour="yellow"></add-button>
+    <add-button (add)="onAddNote($event)" colour="red"></add-button>
+    <add-button (add)="onAddNote($event)" colour="green"></add-button>
+    <add-button (add)="onAddNote($event)" colour="blue"></add-button>
+    <gba-note *ngFor="let note of notes$ | async" [text]="note.text" [colour]="note.colour" [left]=note.left [top]=note.top [disabled]=note.dirty
+        (changeNoteText)="onChangeNoteText($event, note)" (changeNotePosition)="onChangeNotePosition($event, note)" (deleteNote)="onDelete(note)"></gba-note>
+    {{notes$ | async | json}}
 </div>

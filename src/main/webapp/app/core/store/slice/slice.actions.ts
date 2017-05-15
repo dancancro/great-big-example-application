@@ -10,7 +10,7 @@ export const actions = {
 };
 
 export class SliceAction implements Action {
-    actionName = '';
+    protected actionName = '';
     get type() {
         return typeFor(this.slice, this.actionName);
     }
@@ -19,19 +19,19 @@ export class SliceAction implements Action {
 }
 
 export class Load extends SliceAction {
-    actionName: string = actions.LOAD;
+    protected actionName: string = actions.LOAD;
 }
 
 export class LoadFail extends SliceAction {
-    actionName: string = actions.LOAD_FAIL;
+    protected actionName: string = actions.LOAD_FAIL;
 }
 
 export class LoadSuccess extends SliceAction {
-    actionName: string = actions.LOAD_SUCCESS;
+    protected actionName: string = actions.LOAD_SUCCESS;
 }
 
 export class Update extends SliceAction {
-    actionName: string = actions.UPDATE;
+    protected sactionName: string = actions.UPDATE;
     constructor(public slice: string, public path: string[], public val: any) {
         super(slice, { path, val });
     }

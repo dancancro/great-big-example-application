@@ -74,10 +74,10 @@ export class RESTService {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        const obj = (res && res.json()) || res.data || res;
-        if (!obj) {
-            return {};
-        }
+        const obj =
+            (res && !!res._body && res.json()) ||
+            res.data ||
+            { id: res.url.match(/[^\/]+$/)[0] };
 
         return obj;
     }
@@ -93,6 +93,8 @@ export class RESTService {
             errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
-        return Observable.throw(errMsg);
+        let id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
+
+        return Observable.throw({ errMsg, id });
     }
 }

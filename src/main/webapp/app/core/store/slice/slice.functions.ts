@@ -10,7 +10,7 @@ import * as ActionClasses from './slice.actions';
 
 const merge = require('lodash/merge');
 
-export function load(state: {}, action: ActionClasses.Load): any {
+export function load(state: {}, action: SliceAction): any {
     return merge({}, state, {
         hasError: false,
         loaded: false,

@@ -1,7 +1,7 @@
-![Image](../../../../../../github_images/bernie-spreadsheet.png?raw=true)
+![Image](../../../../../../docs/images/bernie-spreadsheet.png?raw=true)
 
 
-![Image](../../../../../../github_images/bernie-app.png?raw=true)
+![Image](../../../../../../docs/images/bernie-app.png?raw=true)
 
 Work in Progress
 
