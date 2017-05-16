@@ -18,7 +18,9 @@ overwhelming starting point option overload. Hopefully this will persuade a few 
 that energy instead into improving what already exists. To this end I have made, over the course of 
 the past 4 years, [the world's biggest, most detailed database of web technology selling points](https://docs.google.com/spreadsheets/d/1nMv8TqUx3gUoC3M6BRPB4E4FMTSYGT_OLERguXGjePc/edit#gid=1404564369) so 
 things could be compared easily in broad daylight without the hype and selective disclosure of
-a typical product/project sales page. See below for a sample slice of it.
+a typical product/project sales page. See 
+[below](https://github.com/dancancro/great-big-example-application#demonstrations-and-features) 
+for a sample slice of it.
 
 
 # But why one great big app?
@@ -74,7 +76,7 @@ and employers. So here's this attempt at one from unemployed me. No NDA needed t
 # How did this great big app happen?
 
 This application has been constructed by combining small open source demos into one big application. It's 
-basically a structure that would have been had all the tutorial experts worked together instead of separately.s
+basically a structure that would have been had all the tutorial experts worked together instead of separately.
 Coming from different demos, the features of the app are not related to each other and it won't make any sense
 to have them together but the point is just to demonstrate how things should work technically, so that's okay.
 I took these projects and integrated/restructured/restyled their code according to the following prioritization. 

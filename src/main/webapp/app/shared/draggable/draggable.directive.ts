@@ -11,13 +11,13 @@ export class DraggableDirective {
     originalLeft: number;
     hasDragged = false;
 
-    @Output() endDragEvent = new EventEmitter();
+    @Output('jhiDraggable') endDragEvent = new EventEmitter();
 
     constructor(public element: ElementRef) {
         this.element.nativeElement.style.position = 'absolute';
     }
 
-    @HostListener('mousedown')
+    @HostListener('mousedown', ['$event'])
     onMouseDown($event) {
         if ($event.target.style.position === 'absolute'
             && $event.target.style.left && $event.target.style.top) {
@@ -33,7 +33,7 @@ export class DraggableDirective {
         }
     }
 
-    @HostListener('mousemove')
+    @HostListener('mousemove', ['$event'])
     onMouseMove($event) {
         if (this.isDragging) {
             this.hasDragged = true;
@@ -44,7 +44,7 @@ export class DraggableDirective {
         }
     }
 
-    @HostListener('mouseup')
+    @HostListener('mouseup', ['$event'])
     onMouseUp($event) {
         if (this.isDragging) {
             this.isDragging = false;
