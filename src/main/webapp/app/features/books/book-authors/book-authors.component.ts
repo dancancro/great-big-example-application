@@ -3,23 +3,23 @@ import { Component, Input } from '@angular/core';
 import { Book } from '../../../core/store/book/book.model';
 
 @Component({
-  selector: 'bc-book-authors',
-  template: `
+    selector: 'jhi-book-authors',
+    template: `
     <h5 md-subheader>Written By:</h5>
     <span>
       {{ authors | bcAddCommas }}
     </span>
   `,
-  styles: [`
+    styles: [`
     h5 {
       margin-bottom: 5px;
     }
   `]
 })
 export class BookAuthorsComponent {
-  @Input() book: Book;
+    @Input() book: Book;
 
-  get authors() {
-    return this.book.volumeInfo.authors;
-  }
+    get authors() {
+        return this.book.volumeInfo.authors;
+    }
 }

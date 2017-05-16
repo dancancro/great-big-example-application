@@ -4,8 +4,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'bc-book-search',
-  template: `
+    selector: 'jhi-book-search',
+    template: `
     <md-card>
       <md-card-title>Find a Book</md-card-title>
       <md-card-content>
@@ -16,7 +16,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
       </md-card-content>
     </md-card>
   `,
-  styles: [`
+    styles: [`
     md-card-title,
     md-card-content {
       display: flex;
@@ -46,7 +46,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
   `]
 })
 export class BookSearchComponent {
-  @Input() query = '';
-  @Input() searching = false;
-  @Output() search = new EventEmitter<string>();
+    @Input() query = '';
+    @Input() searching = false;
+    @Output() search = new EventEmitter<string>();
 }

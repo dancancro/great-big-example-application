@@ -4,39 +4,40 @@ import { Router } from '@angular/router';
 import { slideInDownAnimation } from '../../../../shared/animations';
 
 @Component({
-  templateUrl: './compose-message.component.html',
-  styles: [':host { position: relative; bottom: 10%; }'],
-  animations: [slideInDownAnimation]
+    templateUrl: './compose-message.component.html',
+    styles: [':host { position: relative; bottom: 10%; }'],
+    animations: [slideInDownAnimation]
 })
 export class ComposeMessageComponent {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
+    @HostBinding('@routeAnimation') routeAnimation = true;
+    @HostBinding('style.display') display = 'block';
+    @HostBinding('style.position') position = 'absolute';
 
-  details: string;
-  sending = false;
+    details: string;
+    sending = false;
+    message: string;
 
-  constructor(private router: Router) { }
+    constructor(private router: Router) { }
 
-  send() {
-    this.sending = true;
-    this.details = 'Sending Message...';
+    send() {
+        this.sending = true;
+        this.details = 'Sending Message...';
 
-    setTimeout(() => {
-      this.sending = false;
-      this.closePopup();
-    }, 1000);
-  }
+        setTimeout(() => {
+            this.sending = false;
+            this.closePopup();
+        }, 1000);
+    }
 
-  cancel() {
-    this.closePopup();
-  }
+    cancel() {
+        this.closePopup();
+    }
 
-  closePopup() {
-    // Providing a `null` value to the named outlet
-    // clears the contents of the named outlet
-    this.router.navigate([{ outlets: { popup: null } }]);
-  }
+    closePopup() {
+        // Providing a `null` value to the named outlet
+        // clears the contents of the named outlet
+        this.router.navigate([{ outlets: { popup: null } }]);
+    }
 }
 
 /*

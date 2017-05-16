@@ -10,44 +10,44 @@ import { Crisis } from '../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../core/store';
 
 @Component({
-  selector: 'gba-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'jhi-hero-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  heroes$: Observable<Hero[]>;
-  crises$: Observable<Crisis[]>;
-  heroesSub: Subscription;
-  title: string;
+    heroes$: Observable<Hero[]>;
+    crises$: Observable<Crisis[]>;
+    heroesSub: Subscription;
+    title: string;
 
-  constructor(
-    private store: Store<fromRoot.RootState>,
-    private router: Router
-  ) { }
+    constructor(
+        private store: Store<fromRoot.RootState>,
+        private router: Router
+    ) { }
 
-  ngOnInit() {
-    this.heroes$ = this.store.select(fromRoot.getHeroes).take(5);
-    this.crises$ = this.store.select(fromRoot.getCrises).take(5);
-    this.heroesSub = this.heroes$.subscribe((heroes) => {
-      const cnt = heroes.length;
-      this.title = cnt === 0 ? 'No Heroes' :
-        cnt === 1 ? 'Top Hero' : `Top ${cnt} Heroes`;
-    });
-  }
+    ngOnInit() {
+        this.heroes$ = this.store.select(fromRoot.getHeroes).take(5);
+        this.crises$ = this.store.select(fromRoot.getCrises).take(5);
+        this.heroesSub = this.heroes$.subscribe((heroes) => {
+            const cnt = heroes.length;
+            this.title = cnt === 0 ? 'No Heroes' :
+                cnt === 1 ? 'Top Hero' : `Top ${cnt} Heroes`;
+        });
+    }
 
-  gotoHero(hero: Hero) {
-    const url = `/features/heroes/hero/${hero.id}`;
-    this.router.navigateByUrl(url);
-  }
+    gotoHero(hero: Hero) {
+        const url = `/features/heroes/hero/${hero.id}`;
+        this.router.navigateByUrl(url);
+    }
 
-  gotoCrisis(crisis: Crisis) {
-    const url = `/features/heroes/crisis-center/${crisis.id}`;
-    this.router.navigateByUrl(url);
-  }
+    gotoCrisis(crisis: Crisis) {
+        const url = `/features/heroes/crisis-center/${crisis.id}`;
+        this.router.navigateByUrl(url);
+    }
 
-  ngOnDestroy() {
-    this.heroesSub && this.heroesSub.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.heroesSub && this.heroesSub.unsubscribe();
+    }
 }
 
 /*

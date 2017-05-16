@@ -6,7 +6,7 @@ import { Observer } from 'rxjs/Observer';
 
 import { buildP2PCommand } from './index';
 import { PROGRESS, COMPLETE } from './command-builders/game-p2p.commands';
-import { WebRTCGateway } from '../gateways/webrtc.gateway';
+import { WebRTCGateway } from '../../../../core/gateways/webrtc.gateway';
 import { AsyncService } from '../../../../core/services/base.async-service';
 import { RPCCommand } from '../../../../core/commands/rpc.command';
 import { JsonPayload } from '../../../../core/commands/payloads/json.command.payload';

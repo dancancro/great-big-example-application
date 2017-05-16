@@ -34,6 +34,7 @@ export class EntityAction<T> implements Action {
 }
 
 export class Add<T> extends EntityAction<T> {
+    protected actionName: string = actions.ADD;
     constructor(public slice: string, payload: any = {}) {
         super(slice, Object.assign({}, { dirty: true }, payload));
     }
@@ -47,15 +48,13 @@ export class Add<T> extends EntityAction<T> {
         }
         return newPayload;
     }
-    protected actionName: string = actions.ADD;
 }
 
 export class AddTemp<T> extends EntityAction<T> {
+    protected actionName: string = actions.ADD_TEMP;
     constructor(public slice: string, payload: any = {}) {
         super(slice, Object.assign({}, { id: TEMP }, payload));
     }
-
-    protected actionName: string = actions.ADD_TEMP;
 }
 
 /**
@@ -63,10 +62,10 @@ export class AddTemp<T> extends EntityAction<T> {
  * submit to the server
  */
 export class AddOptimistically<T> extends Add<T> {
+    protected actionName: string = actions.ADD_OPTIMISTICALLY;
     constructor(public slice: string, payload: any = {}) {
         super(slice, Object.assign({}, { id: TEMP }, payload));
     }
-    protected actionName: string = actions.ADD_OPTIMISTICALLY;
 }
 
 export class AddSuccess<T> extends EntityAction<T> {
@@ -90,10 +89,10 @@ export class DeleteSuccess<T> extends EntityAction<T> {
 }
 
 export class DeleteTemp<T> extends EntityAction<T> {
+    protected actionName: string = actions.DELETE_TEMP;
     constructor(public slice: string) {
         super(slice, { id: TEMP })
     }
-    protected actionName: string = actions.DELETE_TEMP;
 }
 
 export class Load<T> extends EntityAction<T> {

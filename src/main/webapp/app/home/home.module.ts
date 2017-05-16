@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../shared';
 
-import { HOME_ROUTE, HomeComponent } from './';
+import { HOME_ROUTE, HomePage } from './';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { HOME_ROUTE, HomeComponent } from './';
     RouterModule.forRoot([HOME_ROUTE], { useHash: true })
   ],
   declarations: [
-    HomeComponent,
+    HomePage,
   ],
   entryComponents: [
   ],

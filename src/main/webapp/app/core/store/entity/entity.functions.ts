@@ -53,14 +53,14 @@ export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<
 export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete<T> | EntityActions.DeleteTemp<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
 
-    let id = action.payload.id;
+    const id = action.payload.id;
 
     delete entities[id];
     const idx = state.ids.indexOf(id);
     const lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null
     const newIdx = idx > 0 ? idx - 1 : lastIdx;
     const selectedEntityId = idx === -1 ? state.selectedEntityId : state.ids[newIdx];
-    const i = state.ids.findIndex((findId) => findId == id);
+    const i = state.ids.findIndex((findId) => findId === id);
     const ids = [...state.ids.slice(0, i), ...state.ids.slice(i + 1)];
     return Object.assign({}, state, { entities, ids, selectedEntityId });
 };
@@ -98,8 +98,8 @@ export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T
     let newEntities = entities.filter((entity) => !state.entities[entity.id]);
 
     const newEntityIds = newEntities.map((entity) => entity.id);
-    newEntities = newEntities.reduce((entities: { [id: string]: T }, entity: T) => {
-        return Object.assign(entities, {
+    newEntities = newEntities.reduce((ents: { [id: string]: T }, entity: T) => {
+        return Object.assign(ents, {
             [entity['id']]: entity
         });
     }, {});
@@ -113,7 +113,7 @@ export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T
 
 export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
-    let id = action.payload.id;
+    const id = action.payload.id;
     entities[id] = reduceOne(state, entities[id], action);
     return Object.assign({}, state, {
         ids: Object.keys(entities),
@@ -122,9 +122,8 @@ export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): 
 };
 
 export function updateEach<T>(state: Entities<T>, action: any): Entities<T> {
-    let id: string;
     const entities = Object.assign({}, state.entities);
-    for (id in entities) {
+    for (const id of Object.keys(entities)) {
         entities[id] = Object.assign(entities[id], action.payload);
     }
     return Object.assign({}, state, {
@@ -152,7 +151,7 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
         case typeFor(state.slice, actions.LOAD_SUCCESS):
             return Object.assign({}, state.initialEntity, action.payload, { dirty: false });
         case typeFor(state.slice, actions.UPDATE_SUCCESS):
-            if (entity['id'] == action.payload.id) {
+            if (entity['id'] === action.payload.id) {
                 return Object.assign({}, entity, { dirty: false });
             } else {
                 return entity;

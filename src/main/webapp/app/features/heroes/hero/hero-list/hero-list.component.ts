@@ -14,7 +14,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 const uuid = require('uuid');
 
 @Component({
-    selector: 'gba-hero-list',
+    selector: 'jhi-hero-list',
     templateUrl: './hero-list.component.html',
     styleUrls: ['./hero-list.component.scss']
 })

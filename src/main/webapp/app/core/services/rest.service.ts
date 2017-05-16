@@ -93,7 +93,7 @@ export class RESTService {
             errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
-        let id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
+        const id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
 
         return Observable.throw({ errMsg, id });
     }

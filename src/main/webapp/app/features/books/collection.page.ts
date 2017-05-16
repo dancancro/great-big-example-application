@@ -6,9 +6,9 @@ import * as fromRoot from '../../core/store';
 import { Book } from '../../core/store/book/book.model';
 
 @Component({
-  selector: 'bc-collection-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'jhi-collection-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
   <br>
   <br>
   <br>
@@ -16,15 +16,15 @@ import { Book } from '../../core/store/book/book.model';
       <md-card-title>My Collection</md-card-title>
     </md-card>
 
-    <bc-book-preview-list [books]="books$ | async"></bc-book-preview-list>
+    <jhi-book-preview-list [books]="books$ | async"></jhi-book-preview-list>
   `,
-  /**
-   * Container components are permitted to have just enough styles
-   * to bring the view together. If the number of styles grow,
-   * consider breaking them out into presentational
-   * components.
-   */
-  styles: [`
+    /**
+     * Container components are permitted to have just enough styles
+     * to bring the view together. If the number of styles grow,
+     * consider breaking them out into presentational
+     * components.
+     */
+    styles: [`
     md-card-title {
       display: flex;
       justify-content: center;
@@ -32,9 +32,9 @@ import { Book } from '../../core/store/book/book.model';
   `]
 })
 export class CollectionPage {
-  books$: Observable<Book[]>;
+    books$: Observable<Book[]>;
 
-  constructor(store: Store<fromRoot.RootState>) {
-    this.books$ = store.select(fromRoot.getBookCollection);
-  }
+    constructor(store: Store<fromRoot.RootState>) {
+        this.books$ = store.select(fromRoot.getBookCollection);
+    }
 }

@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Book } from '../../../core/store/book/book.model';
 
 @Component({
-  selector: 'bc-book-preview',
-  template: `
+    selector: 'jhi-book-preview',
+    template: `
     <a [routerLink]="['/features/books/book', id]">
       <md-card>
         <md-card-title-group>
@@ -15,12 +15,12 @@ import { Book } from '../../../core/store/book/book.model';
           <p *ngIf="description">{{ description | bcEllipsis }}</p>
         </md-card-content>
         <md-card-footer>
-          <bc-book-authors [book]="book"></bc-book-authors>
+          <jhi-book-authors [book]="book"></jhi-book-authors>
         </md-card-footer>
       </md-card>
     </a>
   `,
-  styles: [`
+    styles: [`
     md-card {
       width: 400px;
       height: 300px;
@@ -62,29 +62,29 @@ import { Book } from '../../../core/store/book/book.model';
   `]
 })
 export class BookPreviewComponent {
-  @Input() book: Book;
+    @Input() book: Book;
 
-  get id() {
-    return this.book.id;
-  }
-
-  get title() {
-    return this.book.volumeInfo.title;
-  }
-
-  get subtitle() {
-    return this.book.volumeInfo.subtitle;
-  }
-
-  get description() {
-    return this.book.volumeInfo.description;
-  }
-
-  get thumbnail(): string | boolean {
-    if (this.book.volumeInfo.imageLinks) {
-      return this.book.volumeInfo.imageLinks.smallThumbnail;
+    get id() {
+        return this.book.id;
     }
 
-    return false;
-  }
+    get title() {
+        return this.book.volumeInfo.title;
+    }
+
+    get subtitle() {
+        return this.book.volumeInfo.subtitle;
+    }
+
+    get description() {
+        return this.book.volumeInfo.description;
+    }
+
+    get thumbnail(): string | boolean {
+        if (this.book.volumeInfo.imageLinks) {
+            return this.book.volumeInfo.imageLinks.smallThumbnail;
+        }
+
+        return false;
+    }
 }

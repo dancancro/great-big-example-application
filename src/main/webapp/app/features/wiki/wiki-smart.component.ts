@@ -11,7 +11,7 @@ import { Subject } from 'rxjs/Subject';
 import { WikipediaService } from './wikipedia.service';
 
 @Component({
-  selector: 'gba-wiki-smart',
+  selector: 'jhi-wiki-smart',
   styleUrls: ['./wiki.scss'],
   template: `
     <h1>Smarter Wikipedia Demo</h1>

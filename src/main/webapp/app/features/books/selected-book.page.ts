@@ -8,15 +8,15 @@ import { Book } from '../../core/store/book/book.model';
 import { slices } from '../../core/store/util';
 
 @Component({
-  selector: 'bc-selected-book-page',
+  selector: 'jhi-selected-book-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-book-detail
+    <jhi-book-detail
       [book]="book$ | async"
       [inCollection]="isSelectedBookInCollection$ | async"
       (add)="addToCollection($event)"
       (remove)="removeFromCollection($event)">
-    </bc-book-detail>
+    </jhi-book-detail>
   `
 })
 export class SelectedBookPage {

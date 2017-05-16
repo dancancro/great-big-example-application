@@ -26,7 +26,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
   `,
     styleUrls: ['./crisis-list.component.scss']
 })
-export class CrisisListComponent implements OnInit {
+export class CrisisListComponent implements OnInit, OnDestroy {
     crises$: Observable<Crisis[]>;
     selectedCrisis$: Observable<Crisis>;
     routeSub: Subscription;

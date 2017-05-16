@@ -44,7 +44,6 @@ function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
 const rootReducer = compose(stateSetter, combineReducers)({
     reducer
 });
-const store = StoreModule.provideStore(reducer);
 
 const imports = [
     // BrowserModule,
@@ -66,7 +65,7 @@ const imports = [
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    store,
+    StoreModule.provideStore(reducer),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses
@@ -94,15 +93,17 @@ const imports = [
 ];
 
 // Enable HMR and ngrx/devtools in hot reload mode
-if (process.env === 'dev') imports.push(...[
-    StoreDevtoolsModule.instrumentStore({
-        monitor: useLogMonitor({
-            visible: false,
-            position: 'right'
-        })
-    }),
-    StoreLogMonitorModule,
-]);
+if (process.env === 'dev') {
+    imports.push(...[
+        StoreDevtoolsModule.instrumentStore({
+            monitor: useLogMonitor({
+                visible: false,
+                position: 'right'
+            })
+        }),
+        StoreLogMonitorModule,
+    ]);
+}
 
 @NgModule({
     imports,
@@ -126,7 +127,9 @@ export class CoreModule {
         }
     }
     hmrOnInit(store) {
-        if (!store || !store.rootState) return;
+        if (!store || !store.rootState) {
+            return;
+        }
 
         // restore state
         if (store.rootState) {

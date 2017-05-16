@@ -298,7 +298,7 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
                     {
                         rebuttals:
                         claimRebuttals
-                            .filter((cr) => cr.claimId == cid)
+                            .filter((cr) => cr.claimId === cid)
                             .sort((a, b) => a.sortOrder - b.sortOrder)
                             .map((cr) => {
                                 // return rebuttals[cr.rebuttalId];
@@ -316,7 +316,7 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
                             })
                     }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
                     {
-                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  //TODO Why can id be null?
+                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  // TODO Why can id be null?
                     }
                 )
             );
@@ -357,7 +357,7 @@ export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entiti
 // A selector that takes a parameter (id)
 export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => {
     // return crisisList.filter(c => c.id === id);
-    return crisisList.ids.map((id) => crisisList.entities[id]).filter((c) => c.id === id);
+    return crisisList.ids.map((crisisId) => crisisList.entities[crisisId]).filter((c) => c.id === id);
 });
 
 /**

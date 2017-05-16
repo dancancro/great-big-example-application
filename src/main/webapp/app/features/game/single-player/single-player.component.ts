@@ -2,9 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 
 import { GameComponent } from '../shared/game/game.component';
 import { AsyncService } from '../../../core/services/base.async-service';
-import { GameServer } from '../services/game-server.async-service';
+import { RestfulServer } from '../../../core/services/restful-server.service';
 import { GameFacade } from '../../../core/store/game/game.facade';
 import { GAME_TEXT } from '../config/config';
+import { RestfulGateway } from '../../../core/gateways/restful.gateway';
 
 @Component({
     selector: 'jhi-single',
@@ -12,11 +13,11 @@ import { GAME_TEXT } from '../config/config';
     styleUrls: ['single-player.component.css'],
     providers: [
 
-        // Notice how in single player mode we use only the GameServer
+        // Notice how in single player mode we use only the RestfulServer
         // AsyncService by having a multi-provider.
         // In MultiPlayerComponent we override the multi-provider by
         // introducing the WebRTC async service.
-        { provide: AsyncService, multi: true, useClass: GameServer },
+        { provide: AsyncService, multi: true, useClass: RestfulServer },
 
         GameFacade
     ]
@@ -25,9 +26,9 @@ export class SinglePlayerComponent {
     @ViewChild(GameComponent) game: GameComponent;
     text = GAME_TEXT;
 
-    private gameEnabled = false;
-    private time: number;
-    private gamePlayed = false;
+    gameEnabled = false;
+    time: number;
+    gamePlayed = false;
 
     gameCompleted(time: number) {
         this.time = time;

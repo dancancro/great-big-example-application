@@ -42,11 +42,11 @@ export class GameComponent implements AfterViewInit {
     @Output() end: EventEmitter<number> = new EventEmitter<number>();
     @Output() change: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private model: GameFacade, private renderer: Renderer) { }
+    constructor(private facade: GameFacade, private renderer: Renderer) { }
 
     ngAfterViewInit() {
         setTimeout(() => {
-            this.model.startGame();
+            this.facade.startGame();
             this.timer.start();
             this.renderer.invokeElementMethod(this.textArea.nativeElement, 'focus', []);
         }, 0);
@@ -54,11 +54,11 @@ export class GameComponent implements AfterViewInit {
 
     changeHandler(data: string) {
         if (this.text === data) {
-            this.model.completeGame(data, this.timer.time);
+            this.facade.completeGame(data, this.timer.time);
             this.end.emit(this.timer.time);
             this.timer.reset();
         } else {
-            this.model.onProgress(data, this.timer.time);
+            this.facade.onProgress(data, this.timer.time);
             if (this.text.indexOf(data) !== 0) {
                 this.renderer.setElementClass(this.gameContainer.nativeElement, 'wrong', true);
             } else {
@@ -75,7 +75,7 @@ export class GameComponent implements AfterViewInit {
     }
 
     invalid() {
-        return this.model.game$
+        return this.facade.game$
             .scan((accum: boolean, current: any) => {
                 return (current && current.get('invalid')) || accum;
             }, false);

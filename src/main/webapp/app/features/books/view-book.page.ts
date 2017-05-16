@@ -20,23 +20,23 @@ import { slices } from '../../core/store/util';
  * SelectedBookPageComponent
  */
 @Component({
-  selector: 'bc-view-book-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <bc-selected-book-page></bc-selected-book-page>
+    selector: 'jhi-view-book-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
+    <jhi-selected-book-page></jhi-selected-book-page>
   `
 })
 export class ViewBookPage implements OnDestroy {
-  actionsSubscription: Subscription;
+    actionsSubscription: Subscription;
 
-  constructor(private store: Store<fromRoot.RootState>, route: ActivatedRoute) {
-    this.actionsSubscription = route.params
-      .select<string>('id')
-      .map((id) => new EntityActions.Select(slices.BOOK, id))
-      .subscribe(store);
-  }
+    constructor(private store: Store<fromRoot.RootState>, route: ActivatedRoute) {
+        this.actionsSubscription = route.params
+            .select<string>('id')
+            .map((id) => new EntityActions.Select(slices.BOOK, id))
+            .subscribe(store);
+    }
 
-  ngOnDestroy() {
-    this.actionsSubscription && this.actionsSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.actionsSubscription && this.actionsSubscription.unsubscribe();
+    }
 }

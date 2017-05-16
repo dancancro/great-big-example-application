@@ -33,4 +33,4 @@ export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices
 
 export const getEntities = (state: Entities<Note>) => state.entities;
 
-export const getIds = (state: Entities<Note>) => state.ids.filter(id => !state.entities[id].deleteMe);
+export const getIds = (state: Entities<Note>) => state.ids.filter((id) => !state.entities[id].deleteMe);

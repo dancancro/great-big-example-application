@@ -15,12 +15,12 @@ import { Entities } from '../../core/store/entity/entity.model';
 const uuid = require('uuid');
 
 @Component({
-    selector: 'gba-contact',
+    selector: 'jhi-contact',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './contact.page.html',
     styleUrls: ['./contact.page.scss']
 })
-export class ContactPage implements OnInit {
+export class ContactPage implements OnInit, OnDestroy {
     contact$: Observable<Contact>;
 
     msg$: Observable<string>;
@@ -73,7 +73,7 @@ export class ContactPage implements OnInit {
     }
 
     ngOnDestroy() {
-        if (this.contactForm.value.id == EntityActions.TEMP) {
+        if (this.contactForm.value.id === EntityActions.TEMP) {
             this.store.dispatch(new EntityActions.DeleteTemp(slices.CONTACT));
         }
         this.contactSub && this.contactSub.unsubscribe();

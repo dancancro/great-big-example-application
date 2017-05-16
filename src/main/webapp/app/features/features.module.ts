@@ -12,31 +12,31 @@ import { CoreModule } from '../core/core.module';
  * Import toplevel component/providers/directives/pipes
  */
 import { FeaturesComponent } from './features.component';
-import { HomeComponent } from './home/home.component';
+import { HomePage } from './home/home.page';
 
 import { VersionService } from '../shared/index';
 
 @NgModule({
-    declarations: [
-        FeaturesComponent,
-        HomeComponent,
-    ],
-    imports: [
-        // HttpModule,
-        // CoreModule,
-        CommonModule,
-        FeaturesRouting,
-        MaterialModule.forRoot(),
-        FlexLayoutModule
-    ],
-    providers: [
-        VersionService,
-        FeaturesService
-        // SocketService,
-        // AuthGuard
-    ]
+  declarations: [
+    FeaturesComponent,
+    HomePage,
+  ],
+  imports: [
+    // HttpModule,
+    // CoreModule,
+    CommonModule,
+    FeaturesRouting,
+    MaterialModule.forRoot(),
+    FlexLayoutModule
+  ],
+  providers: [
+    VersionService,
+    FeaturesService
+    // SocketService,
+    // AuthGuard
+  ]
 })
 
 export class FeaturesModule {
-    constructor() { }
+  constructor() { }
 }

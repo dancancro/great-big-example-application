@@ -7,7 +7,7 @@ import { SocketService } from '../../core/services/socket.service';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 
 @Component({
-    selector: 'message',
+    selector: 'jhi-messages-page',
     templateUrl: 'messages.page.html'
 })
 
@@ -25,12 +25,12 @@ export class MessagesPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        //authenticate
+        // authenticate
         this.principal.identity().then((account) => {
-            //connect to websocket
+            // connect to websocket
             this.socketService.connect('message', {});
 
-            //subscribe to websocket
+            // subscribe to websocket
 
             // connect to redux store
             this.message$ = this.store.select('message');

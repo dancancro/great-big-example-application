@@ -33,7 +33,7 @@ export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices
 
 export const getEntities = (state: Entities<Hero>) => state.entities;
 
-export const getIds = (state: Entities<Hero>) => state.ids.filter(id => !state.entities[id].deleteMe);
+export const getIds = (state: Entities<Hero>) => state.ids.filter((id) => !state.entities[id].deleteMe);
 
 export const getSelectedId = (state: Entities<Hero>) => state.selectedEntityId;
 

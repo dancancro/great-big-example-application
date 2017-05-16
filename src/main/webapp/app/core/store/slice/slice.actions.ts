@@ -31,7 +31,7 @@ export class LoadSuccess extends SliceAction {
 }
 
 export class Update extends SliceAction {
-    protected sactionName: string = actions.UPDATE;
+    protected actionName: string = actions.UPDATE;
     constructor(public slice: string, public path: string[], public val: any) {
         super(slice, { path, val });
     }

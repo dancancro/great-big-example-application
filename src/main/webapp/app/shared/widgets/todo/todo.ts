@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'todo-cmp',
+    selector: 'jhi-todo',
     templateUrl: './todo.html'
 })
 

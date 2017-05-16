@@ -4,7 +4,7 @@ import 'rxjs/add/operator/share';
 
 import { Command } from '../commands/base.command';
 
-export abstract class Gateway {
+export abstract class BaseGateway {
     dataStream: Observable<any>;
     connectionEvents: Observable<boolean>;
     protected emitter: Observer<any>;

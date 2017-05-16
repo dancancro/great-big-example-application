@@ -7,11 +7,10 @@ import * as functions from '../id/id.functions';
 
 @Injectable()
 export class BookEffects {
-    constructor(private actions$: Actions,
-        private googleBooks: GoogleBooksService) { }
-
     @Effect()
     private search$ = functions.loadFromRemote$(this.actions$, slices.SEARCH,
         this.googleBooks, 'searchBooks');
 
+    constructor(private actions$: Actions,
+        private googleBooks: GoogleBooksService) { }
 }
