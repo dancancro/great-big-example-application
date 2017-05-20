@@ -12,54 +12,54 @@ import { NoteDeletePopupComponent } from './note-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const noteRoute: Routes = [
-  {
-    path: 'note',
-    component: NoteComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.note.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'note/:id',
-    component: NoteDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.note.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'note',
+        component: NoteComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'note/:id',
+        component: NoteDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const notePopupRoute: Routes = [
-  {
-    path: 'note-new',
-    component: NotePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+    {
+        path: 'note-new',
+        component: NotePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'note/:id/edit',
-    component: NotePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+    {
+        path: 'note/:id/edit',
+        component: NotePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'note/:id/delete',
-    component: NoteDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.note.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'note/:id/delete',
+        component: NoteDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.note.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

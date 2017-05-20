@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { Crisis } from './crisis.model';
 import { CrisisService } from './crisis.service';
@@ -13,16 +13,14 @@ import { CrisisService } from './crisis.service';
 export class CrisisDetailComponent implements OnInit, OnDestroy {
 
     crisis: Crisis;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
         private crisisService: CrisisService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['crisis']);
     }
 
     ngOnInit() {
@@ -47,6 +45,9 @@ export class CrisisDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInCrises() {
-        this.eventSubscriber = this.eventManager.subscribe('crisisListModification', (response) => this.load(this.crisis.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'crisisListModification',
+            (response) => this.load(this.crisis.id)
+        );
     }
 }

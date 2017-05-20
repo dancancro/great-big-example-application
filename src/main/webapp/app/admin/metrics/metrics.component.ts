@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiMetricsMonitoringModalComponent } from './metrics-modal.component';
 import { JhiMetricsService } from './metrics.service';
 
 @Component({
     selector: 'jhi-metrics',
-    templateUrl: './metrics.component.html',
+    templateUrl: './metrics.component.html'
 })
 export class JhiMetricsMonitoringComponent implements OnInit {
     metrics: any = {};
     cachesStats: any = {};
     servicesStats: any = {};
     updatingMetrics = true;
-    JCACHE_KEY: string ;
+    JCACHE_KEY: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private modalService: NgbModal,
         private metricsService: JhiMetricsService
     ) {
         this.JCACHE_KEY = 'jcache.statistics';
-        this.jhiLanguageService.setLocations(['metrics']);
     }
 
     ngOnInit() {
@@ -69,6 +66,13 @@ export class JhiMetricsMonitoringComponent implements OnInit {
                 // Left blank intentionally, nothing to do here
             });
         });
+    }
+
+    filterNaN(input) {
+        if (isNaN(input)) {
+            return 0;
+        }
+        return input;
     }
 
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { ProfileService } from '../profiles/profile.service'; // FIXME barrel doesn't work here
+import { ProfileService } from '../profiles/profile.service';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
 import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
@@ -26,20 +26,20 @@ export class NavbarComponent implements OnInit {
   version: string;
   features: FeatureMeta[] = [];
 
-  constructor(
+    constructor(
     private _featuresService: FeaturesService,
-    private loginService: LoginService,
-    private languageHelper: JhiLanguageHelper,
-    private languageService: JhiLanguageService,
-    private principal: Principal,
-    private loginModalService: LoginModalService,
-    private profileService: ProfileService,
-    private router: Router
-  ) {
-    this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
-    this.isNavbarCollapsed = true;
-    this.languageService.addLocation('home');
-  }
+        private loginService: LoginService,
+        private languageHelper: JhiLanguageHelper,
+        private languageService: JhiLanguageService,
+        private principal: Principal,
+        private loginModalService: LoginModalService,
+        private profileService: ProfileService,
+        private router: Router
+    ) {
+        this.version = VERSION ? 'v' + VERSION : '';
+        this.isNavbarCollapsed = true;
+        this.languageService.addLocation('home');
+    }
 
   ngOnInit() {
     this.languageHelper.getAll().then((languages) => {

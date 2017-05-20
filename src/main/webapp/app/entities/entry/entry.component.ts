@@ -28,7 +28,6 @@ export class EntryComponent implements OnInit, OnDestroy {
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private entryService: EntryService,
         private alertService: AlertService,
         private dataUtils: DataUtils,
@@ -46,7 +45,6 @@ export class EntryComponent implements OnInit, OnDestroy {
         this.predicate = 'id';
         this.reverse = true;
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['entry']);
     }
 
     loadAll() {

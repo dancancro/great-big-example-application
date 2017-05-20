@@ -25,10 +25,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="content" type="longblob">
-                <constraints nullable="false" />
-            </column>
-            <column name="content_content_type" type="varchar(255)">
+            <column name="content" type="clob">
                 <constraints nullable="false" />
             </column>
 

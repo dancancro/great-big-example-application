@@ -2,7 +2,6 @@ import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
-const uuid = require('uuid');
 
 import { ClaimRebuttal, initialClaimRebuttal } from './claim-rebuttal.model';
 import { Entities, initialEntities } from '../entity/entity.model';

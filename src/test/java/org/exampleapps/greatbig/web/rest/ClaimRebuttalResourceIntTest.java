@@ -276,5 +276,14 @@ public class ClaimRebuttalResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(ClaimRebuttal.class);
+        ClaimRebuttal claimRebuttal1 = new ClaimRebuttal();
+        claimRebuttal1.setId(1L);
+        ClaimRebuttal claimRebuttal2 = new ClaimRebuttal();
+        claimRebuttal2.setId(claimRebuttal1.getId());
+        assertThat(claimRebuttal1).isEqualTo(claimRebuttal2);
+        claimRebuttal2.setId(2L);
+        assertThat(claimRebuttal1).isNotEqualTo(claimRebuttal2);
+        claimRebuttal1.setId(null);
+        assertThat(claimRebuttal1).isNotEqualTo(claimRebuttal2);
     }
 }

@@ -1,12 +1,9 @@
 package org.exampleapps.greatbig.web.websocket.dto;
 
 import java.time.ZonedDateTime;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
- * A DTO for the Message entity.
+ * DTO for storing a user's message.
  */
 public class MessageDTO {
 
@@ -14,22 +11,9 @@ public class MessageDTO {
 
     private String userLogin;
 
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
-    private String email;
-
     private String message;
 
     private ZonedDateTime createdAt;
-
-    private ZonedDateTime updatedAt;
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
 
     public Long getId() {
         return id;
@@ -39,12 +23,12 @@ public class MessageDTO {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public String getMessage() {
@@ -63,17 +47,11 @@ public class MessageDTO {
         this.createdAt = createdAt;
     }
 
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
-        return "MessageDTO{" + "id=" + id + ", email='" + email + "'" + ", message='" + message + "'" + ", createdAt='"
-                + createdAt + "'" + ", updatedAt='" + updatedAt + "'" + '}';
+        return "MessageDTO{" +
+            ", message='" + getMessage() + '\'' +
+            ", createdAt='" + getCreatedAt() + '\'' +
+            '}';
     }
 }

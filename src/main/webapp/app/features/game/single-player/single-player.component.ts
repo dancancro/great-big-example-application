@@ -5,7 +5,6 @@ import { AsyncService } from '../../../core/services/base.async-service';
 import { RestfulServer } from '../../../core/services/restful-server.service';
 import { GameFacade } from '../../../core/store/game/game.facade';
 import { GAME_TEXT } from '../config/config';
-import { RestfulGateway } from '../../../core/gateways/restful.gateway';
 
 @Component({
     selector: 'jhi-single',

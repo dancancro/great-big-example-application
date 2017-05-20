@@ -59,22 +59,22 @@ public class Crisis implements Serializable {
             return false;
         }
         Crisis crisis = (Crisis) o;
-        if (crisis.id == null || id == null) {
+        if (crisis.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, crisis.id);
+        return Objects.equals(getId(), crisis.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Crisis{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            "}";
     }
 }

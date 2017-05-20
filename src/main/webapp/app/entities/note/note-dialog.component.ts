@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NotePopupService } from './note-popup.service';
@@ -18,14 +19,13 @@ export class NoteDialogComponent implements OnInit {
     note: Note;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private noteService: NoteService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['note']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class NoteDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.note.id !== undefined) {
-            this.noteService.update(this.note)
-                .subscribe((res: Note) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.noteService.update(this.note));
         } else {
-            this.noteService.create(this.note)
-                .subscribe((res: Note) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.noteService.create(this.note));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Note>) {
+        result.subscribe((res: Note) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Note) {

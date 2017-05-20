@@ -36,12 +36,29 @@ export class SocketService {
         private router: Router,
         private authServerProvider: AuthServerProvider,
         private $window: WindowRef,
-        private csrfService: CSRFService,
+        private csrfService: CSRFService,   // ??
         private store: Store<any>
     ) {
         this.connection = this.createConnection();
         this.listener = this.createListener();
         this.resource$ = new Observable((observable) => this.observable = observable);
+    }
+
+    add(entity: any, service: string): Observable<any> {
+        return this.sendData(`/topic/${service}`, entity);
+    }
+    update(entity: any, service: string): Observable<any> {
+        return this.sendData(`/topic/${service}`, entity);
+    }
+
+    sendData(dest: string, data: any): Observable<any> {
+        let x;
+        if (this.stompClient !== null && this.stompClient.connected) {
+            x = this.stompClient.send(dest, JSON.stringify(data), {});
+        } else {
+            x = Observable.empty();  // TODO: ??
+        }
+        return x;
     }
 
     connect(service: string, data: any) {
@@ -62,32 +79,16 @@ export class SocketService {
         this.stompClient.connect(headers, () => {
             this.connectedPromise('success');
             this.connectedPromise = null;
+            // this.sendActivity();
             // this.sendData('/topic/' + service, data);
             if (!this.alreadyConnectedOnce) {
+                // this.subscription = this.router.events.subscribe((event) => {
+                //     if (event instanceof NavigationEnd) {
+                //         this.sendActivity();
+                //     }
+                // });
                 this.alreadyConnectedOnce = true;
             }
-
-            this.subscribe(service);
-            this.listener.subscribe((res) => {
-                switch (res.type) {
-                    case 'find':
-                        this.store.dispatch({
-                            type: 'MESSAGE_INIT',
-                            payload: res.messages
-                        });
-                        break;
-                    case 'created':
-                        // this.store.dispatch({
-                        //   type: 'MESSAGE_UPDATE',
-                        //   payload: res.messages
-                        // })
-                        //       this.messageService.findMessages()
-                        break;
-                    default:
-                        break;
-                }
-            });
-
         });
     }
 
@@ -105,13 +106,6 @@ export class SocketService {
 
     receive() {
         return this.listener;
-    }
-
-    sendData(dest: string, data: any, callback: Function) {
-        if (this.stompClient !== null && this.stompClient.connected) {
-            this.stompClient.send(dest, JSON.stringify(data), {})
-                .then(callback);
-        }
     }
 
     subscribe(service: string) {

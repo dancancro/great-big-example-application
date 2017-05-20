@@ -1,13 +1,13 @@
 import { Route } from '@angular/router';
 
 import { UserRouteAccessService } from '../shared';
-import { HomePage } from './';
+import { HomeComponent } from './';
 
 export const HOME_ROUTE: Route = {
-  path: '',
-  component: HomePage,
-  data: {
-    authorities: [],
-    pageTitle: 'home.title'
-  }
+    path: '',
+    component: HomeComponent,
+    data: {
+        authorities: [],
+        pageTitle: 'home.title'
+    }
 };

@@ -10,7 +10,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { MessagesPage } from './messages.page';
-import { MessagesService } from './messages.service';
+import { EffectsModule } from '@ngrx/effects';
+import { MessageEffects } from '../../core/store/message/message.effects';
 
 @NgModule({
     declarations: [
@@ -18,13 +19,13 @@ import { MessagesService } from './messages.service';
     ],
     imports: [
         CommonModule,
+        EffectsModule.run(MessageEffects),
         FormsModule,
         MessagesRouting,
         MaterialModule.forRoot(),
         FlexLayoutModule,
         NgxDatatableModule
-    ],
-    providers: [MessagesService]
+    ]
 })
 export class MessagesModule {
     constructor() { }

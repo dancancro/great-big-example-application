@@ -20,7 +20,6 @@ rebuttals: Rebuttal[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private rebuttalService: RebuttalService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ rebuttals: Rebuttal[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['rebuttal']);
     }
 
     loadAll() {

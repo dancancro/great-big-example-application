@@ -20,7 +20,6 @@ claimRebuttals: ClaimRebuttal[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private claimRebuttalService: ClaimRebuttalService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ claimRebuttals: ClaimRebuttal[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['claimRebuttal']);
     }
 
     loadAll() {

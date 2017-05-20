@@ -12,54 +12,54 @@ import { HeroDeletePopupComponent } from './hero-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const heroRoute: Routes = [
-  {
-    path: 'hero',
-    component: HeroComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'hero/:id',
-    component: HeroDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'hero',
+        component: HeroComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'hero/:id',
+        component: HeroDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const heroPopupRoute: Routes = [
-  {
-    path: 'hero-new',
-    component: HeroPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+    {
+        path: 'hero-new',
+        component: HeroPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'hero/:id/edit',
-    component: HeroPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+    {
+        path: 'hero/:id/edit',
+        component: HeroPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'hero/:id/delete',
-    component: HeroDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'hero/:id/delete',
+        component: HeroDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

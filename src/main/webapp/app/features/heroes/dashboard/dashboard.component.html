@@ -10,8 +10,8 @@
   <h2 highlight>Crises</h2>
 
   <div class="grid grid-pad">
-    <dashboard-crisis *ngFor="let crisis of crises$ | async" class="col-1-4" [crisis]=crisis (selected)="gotoCrisis($event)">
-    </dashboard-crisis>
+    <jhi-dashboard-crisis *ngFor="let crisis of crises$ | async" class="col-1-4" [crisis]=crisis (selected)="gotoCrisis($event)">
+    </jhi-dashboard-crisis>
   </div>
 
 

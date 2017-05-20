@@ -54,6 +54,10 @@ module.exports = function (config) {
                         loaders: ['file?name=[name].[hash].[ext]', 'extract']
                     },
                     {
+                        test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
+                        loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]']
+                    },
+                    {
                         test: /src[\/|\\]main[\/|\\]webapp[\/|\\].+\.ts$/,
                         enforce: 'post',
                         exclude: /(test|node_modules)/,

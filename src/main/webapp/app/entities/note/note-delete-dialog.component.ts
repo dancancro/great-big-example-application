@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NotePopupService } from './note-popup.service';
@@ -17,12 +17,10 @@ export class NoteDeleteDialogComponent {
     note: Note;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private noteService: NoteService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['note']);
     }
 
     clear() {

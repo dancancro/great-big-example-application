@@ -20,7 +20,6 @@ contacts: Contact[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private contactService: ContactService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ contacts: Contact[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['contact']);
     }
 
     loadAll() {

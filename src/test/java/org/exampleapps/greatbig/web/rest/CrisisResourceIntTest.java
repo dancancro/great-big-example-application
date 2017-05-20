@@ -274,5 +274,14 @@ public class CrisisResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Crisis.class);
+        Crisis crisis1 = new Crisis();
+        crisis1.setId(1L);
+        Crisis crisis2 = new Crisis();
+        crisis2.setId(crisis1.getId());
+        assertThat(crisis1).isEqualTo(crisis2);
+        crisis2.setId(2L);
+        assertThat(crisis1).isNotEqualTo(crisis2);
+        crisis1.setId(null);
+        assertThat(crisis1).isNotEqualTo(crisis2);
     }
 }

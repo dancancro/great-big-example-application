@@ -12,54 +12,54 @@ import { TagDeletePopupComponent } from './tag-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const tagRoute: Routes = [
-  {
-    path: 'tag',
-    component: TagComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'tag/:id',
-    component: TagDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'tag',
+        component: TagComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'tag/:id',
+        component: TagDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const tagPopupRoute: Routes = [
-  {
-    path: 'tag-new',
-    component: TagPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+    {
+        path: 'tag-new',
+        component: TagPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'tag/:id/edit',
-    component: TagPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+    {
+        path: 'tag/:id/edit',
+        component: TagPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'tag/:id/delete',
-    component: TagDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'tag/:id/delete',
+        component: TagDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.tag.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

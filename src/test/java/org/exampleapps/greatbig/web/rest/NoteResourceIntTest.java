@@ -272,5 +272,14 @@ public class NoteResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Note.class);
+        Note note1 = new Note();
+        note1.setId("A1");
+        Note note2 = new Note();
+        note2.setId(note1.getId());
+        assertThat(note1).isEqualTo(note2);
+        note2.setId("A2");
+        assertThat(note1).isNotEqualTo(note2);
+        note1.setId(null);
+        assertThat(note1).isNotEqualTo(note2);
     }
 }

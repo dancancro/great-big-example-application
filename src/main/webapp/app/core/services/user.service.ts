@@ -46,4 +46,12 @@ export class UserService {
     delete(login: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${login}`);
     }
+
+    authorities(): Observable<string[]> {
+        return this.http.get('api/users/authorities').map((res: Response) => {
+            const json = res.json();
+            return <string[]> json;
+        });
+    }
+
 }

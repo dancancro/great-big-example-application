@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Crisis } from './crisis.model';
+
 @Injectable()
 export class CrisisService {
 
@@ -12,14 +13,14 @@ export class CrisisService {
     constructor(private http: Http) { }
 
     create(crisis: Crisis): Observable<Crisis> {
-        const copy: Crisis = Object.assign({}, crisis);
+        const copy = this.convert(crisis);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(crisis: Crisis): Observable<Crisis> {
-        const copy: Crisis = Object.assign({}, crisis);
+        const copy = this.convert(crisis);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +47,6 @@ export class CrisisService {
         return this.http.get(this.resourceSearchUrl, options)
         ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -61,5 +61,10 @@ export class CrisisService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(crisis: Crisis): Crisis {
+        const copy: Crisis = Object.assign({}, crisis);
+        return copy;
     }
 }

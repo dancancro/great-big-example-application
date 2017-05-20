@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Crisis } from './crisis.model';
 import { CrisisPopupService } from './crisis-popup.service';
@@ -17,12 +17,10 @@ export class CrisisDeleteDialogComponent {
     crisis: Crisis;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private crisisService: CrisisService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['crisis']);
     }
 
     clear() {

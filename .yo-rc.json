@@ -4,7 +4,7 @@
       "packageName": "org.exampleapps.greatbig",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.3.0",
+    "jhipsterVersion": "4.4.1",
     "baseName": "GreatBigExampleApplication",
     "packageName": "org.exampleapps.greatbig",
     "packageFolder": "org/exampleapps/greatbig",

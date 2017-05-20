@@ -61,7 +61,7 @@ import * as fromCrises from './crisis/crisis.reducer';
 import * as fromGames from './game/game.reducer';
 import * as fromHeroes from './hero/hero.reducer';
 import * as fromLayout from './layout/layout.reducer';
-import * as fromMessage from './message/message.reducer';
+import * as fromMessages from './message/message.reducer';
 import * as fromNotes from './note/note.reducer';
 import * as fromRebuttals from './rebuttal/rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
@@ -118,7 +118,7 @@ const reducers = {
     router: fromRouter.routerReducer,
     search: fromSearch.reducer,
     session: fromSession.reducer,
-    message: fromMessage.reducer,
+    message: fromMessages.reducer,
     p2pGame: p2pGameReducer
 };
 
@@ -390,4 +390,11 @@ export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTer
 /**
  * Messages Selectors
  */
-export const getMessages = (state: RootState) => state.message;
+export const getMessagesState = (state: RootState) => state.message;
+export const getMessageEntities = createSelector(getMessagesState, fromMessages.getEntities);
+export const getMessageIds = createSelector(getMessagesState, fromMessages.getIds);
+export const getSelectedMessage = createSelector(getMessagesState, fromMessages.getSelected);
+export const getMessages = createSelector(getMessageEntities, getMessageIds, (entities, ids) => {
+    return ids.map((id) => entities[id]);
+});
+export const getMessage = createSelector(getMessagesState, fromMessages.getSelected);

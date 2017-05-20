@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="hipster img-fluid img-rounded"></span>
+    </div>
+    <div class="col-md-9">
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-success" *ngSwitchCase="true">
+                <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
+            </div>
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <a class="alert-link" (click)="login()">Sign in</a> or <a class="alert-link" routerLink="register">register a new account</a>
+            </div>
+        </div>
+
+        <a routerLink="/features/messages" routerLinkActive="active">Edit Messages</a>
+        <div class="chat-messages">
+            <div class="row" *ngFor="let message of messages$ | async">
+                <div class="col-sm-2">
+                    <strong>{{message.userLogin}}</strong>
+                </div>
+                <div class="col-sm-8">
+                    {{message.message}}
+                </div>
+                <div class="col-sm-2">
+                    <div>
+                        {{message.createdAt | date:'short'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="chatForm" (ngSubmit)="sendMessage(message)" #chatForm="ngForm">
+            <div class="row chat-input">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="message" [(ngModel)]="message" autocomplete="off" placeholder="Type a message...">
+                    <span class="input-group-btn">
+                    <button class="btn btn-secondary btn-success" type="submit">Send</button>
+                  </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

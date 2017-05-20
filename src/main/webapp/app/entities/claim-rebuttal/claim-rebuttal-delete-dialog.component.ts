@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalPopupService } from './claim-rebuttal-popup.service';
@@ -17,12 +17,10 @@ export class ClaimRebuttalDeleteDialogComponent {
     claimRebuttal: ClaimRebuttal;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private claimRebuttalService: ClaimRebuttalService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['claimRebuttal']);
     }
 
     clear() {

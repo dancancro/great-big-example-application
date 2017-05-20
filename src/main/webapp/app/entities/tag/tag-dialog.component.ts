@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
@@ -21,15 +22,14 @@ export class TagDialogComponent implements OnInit {
     isSaving: boolean;
 
     entries: Entry[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private tagService: TagService,
         private entryService: EntryService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['tag']);
     }
 
     ngOnInit() {
@@ -45,14 +45,17 @@ export class TagDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.tag.id !== undefined) {
-            this.tagService.update(this.tag)
-                .subscribe((res: Tag) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.tagService.update(this.tag));
         } else {
-            this.tagService.create(this.tag)
-                .subscribe((res: Tag) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.tagService.create(this.tag));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Tag>) {
+        result.subscribe((res: Tag) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Tag) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
 
@@ -12,39 +12,38 @@ import { Account, LoginModalService, Principal } from '../shared';
   ]
 
 })
-export class HomePage implements OnInit {
-  account: Account;
-  modalRef: NgbModalRef;
 
-  constructor(
-    private jhiLanguageService: JhiLanguageService,
-    private principal: Principal,
-    private loginModalService: LoginModalService,
-    private eventManager: EventManager
-  ) {
-    this.jhiLanguageService.setLocations(['home']);
-  }
+export class HomeComponent implements OnInit {
+    account: Account;
+    modalRef: NgbModalRef;
 
-  ngOnInit() {
-    this.principal.identity().then((account) => {
-      this.account = account;
-    });
-    this.registerAuthenticationSuccess();
-  }
+    constructor(
+        private principal: Principal,
+        private loginModalService: LoginModalService,
+        private eventManager: EventManager
+    ) {
+    }
 
-  registerAuthenticationSuccess() {
-    this.eventManager.subscribe('authenticationSuccess', (message) => {
-      this.principal.identity().then((account) => {
-        this.account = account;
-      });
-    });
-  }
+    ngOnInit() {
+        this.principal.identity().then((account) => {
+            this.account = account;
+        });
+        this.registerAuthenticationSuccess();
+    }
 
-  isAuthenticated() {
-    return this.principal.isAuthenticated();
-  }
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', (message) => {
+            this.principal.identity().then((account) => {
+                this.account = account;
+            });
+        });
+    }
 
-  login() {
-    this.modalRef = this.loginModalService.open();
-  }
+    isAuthenticated() {
+        return this.principal.isAuthenticated();
+    }
+
+    login() {
+        this.modalRef = this.loginModalService.open();
+    }
 }

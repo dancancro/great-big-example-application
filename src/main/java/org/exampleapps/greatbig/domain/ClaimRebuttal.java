@@ -89,24 +89,24 @@ public class ClaimRebuttal implements Serializable {
             return false;
         }
         ClaimRebuttal claimRebuttal = (ClaimRebuttal) o;
-        if (claimRebuttal.id == null || id == null) {
+        if (claimRebuttal.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, claimRebuttal.id);
+        return Objects.equals(getId(), claimRebuttal.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "ClaimRebuttal{" +
-            "id=" + id +
-            ", claimId='" + claimId + "'" +
-            ", rebuttalId='" + rebuttalId + "'" +
-            ", sortOrder='" + sortOrder + "'" +
-            '}';
+            "id=" + getId() +
+            ", claimId='" + getClaimId() + "'" +
+            ", rebuttalId='" + getRebuttalId() + "'" +
+            ", sortOrder='" + getSortOrder() + "'" +
+            "}";
     }
 }

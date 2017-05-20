@@ -28,7 +28,6 @@ export class TagComponent implements OnInit, OnDestroy {
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private tagService: TagService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -45,7 +44,6 @@ export class TagComponent implements OnInit, OnDestroy {
         this.predicate = 'id';
         this.reverse = true;
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['tag']);
     }
 
     loadAll() {

@@ -20,7 +20,6 @@ crises: Crisis[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private crisisService: CrisisService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ crises: Crisis[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['crisis']);
     }
 
     loadAll() {

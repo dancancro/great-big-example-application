@@ -16,7 +16,7 @@
     <h2>
         {{(selectedHero$ | async).name | uppercase}} is my hero
     </h2>
-    <button (click)="onSelect(hero)">View Details</button>
+    <button (click)="gotoSelectedHero()">View Details</button>
 </div>
 
 

@@ -93,22 +93,22 @@ public class Tag implements Serializable {
             return false;
         }
         Tag tag = (Tag) o;
-        if (tag.id == null || id == null) {
+        if (tag.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, tag.id);
+        return Objects.equals(getId(), tag.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Tag{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            "}";
     }
 }

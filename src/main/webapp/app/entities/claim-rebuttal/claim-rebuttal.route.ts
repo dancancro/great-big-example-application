@@ -12,54 +12,54 @@ import { ClaimRebuttalDeletePopupComponent } from './claim-rebuttal-delete-dialo
 import { Principal } from '../../shared';
 
 export const claimRebuttalRoute: Routes = [
-  {
-    path: 'claim-rebuttal',
-    component: ClaimRebuttalComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'claim-rebuttal/:id',
-    component: ClaimRebuttalDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'claim-rebuttal',
+        component: ClaimRebuttalComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'claim-rebuttal/:id',
+        component: ClaimRebuttalDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const claimRebuttalPopupRoute: Routes = [
-  {
-    path: 'claim-rebuttal-new',
-    component: ClaimRebuttalPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+    {
+        path: 'claim-rebuttal-new',
+        component: ClaimRebuttalPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'claim-rebuttal/:id/edit',
-    component: ClaimRebuttalPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+    {
+        path: 'claim-rebuttal/:id/edit',
+        component: ClaimRebuttalPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'claim-rebuttal/:id/delete',
-    component: ClaimRebuttalDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'claim-rebuttal/:id/delete',
+        component: ClaimRebuttalDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claimRebuttal.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

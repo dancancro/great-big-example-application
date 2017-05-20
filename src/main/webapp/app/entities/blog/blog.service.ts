@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Blog } from './blog.model';
+
 @Injectable()
 export class BlogService {
 
@@ -12,14 +13,14 @@ export class BlogService {
     constructor(private http: Http) { }
 
     create(blog: Blog): Observable<Blog> {
-        const copy: Blog = Object.assign({}, blog);
+        const copy = this.convert(blog);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(blog: Blog): Observable<Blog> {
-        const copy: Blog = Object.assign({}, blog);
+        const copy = this.convert(blog);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +47,6 @@ export class BlogService {
         return this.http.get(this.resourceSearchUrl, options)
         ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -61,5 +61,10 @@ export class BlogService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(blog: Blog): Blog {
+        const copy: Blog = Object.assign({}, blog);
+        return copy;
     }
 }

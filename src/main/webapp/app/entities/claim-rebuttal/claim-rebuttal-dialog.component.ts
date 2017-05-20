@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalPopupService } from './claim-rebuttal-popup.service';
@@ -18,14 +19,13 @@ export class ClaimRebuttalDialogComponent implements OnInit {
     claimRebuttal: ClaimRebuttal;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private claimRebuttalService: ClaimRebuttalService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['claimRebuttal']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class ClaimRebuttalDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.claimRebuttal.id !== undefined) {
-            this.claimRebuttalService.update(this.claimRebuttal)
-                .subscribe((res: ClaimRebuttal) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.claimRebuttalService.update(this.claimRebuttal));
         } else {
-            this.claimRebuttalService.create(this.claimRebuttal)
-                .subscribe((res: ClaimRebuttal) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.claimRebuttalService.create(this.claimRebuttal));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<ClaimRebuttal>) {
+        result.subscribe((res: ClaimRebuttal) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: ClaimRebuttal) {

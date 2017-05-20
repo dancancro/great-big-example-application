@@ -29,7 +29,8 @@ export class ContactPage implements OnInit, OnDestroy {
     adding: boolean;
     contactSub: Subscription;
 
-    constructor(private store: Store<fromRoot.RootState>,
+    constructor(
+        private store: Store<fromRoot.RootState>,
         private formBuilder: FormBuilder) {
     }
 

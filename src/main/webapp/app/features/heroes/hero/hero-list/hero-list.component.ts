@@ -21,8 +21,10 @@ const uuid = require('uuid');
 export class HeroListComponent implements OnInit, OnDestroy {
     heroes$: Observable<Hero[]>;
     selectedHero$: Observable<Hero>;
+    selectedHeroSub: Subscription;
     routeSub: Subscription;
     heroesSub: Subscription;
+    selectedHero: Hero;
     maxHeroId = 0;
 
     constructor(
@@ -40,6 +42,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
             .subscribe((params: Params) => {
                 this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
             });
+        this.selectedHeroSub = this.selectedHero$.subscribe((hero) => { this.selectedHero = hero });
     }
 
     add(name: string): void {
@@ -52,13 +55,20 @@ export class HeroListComponent implements OnInit, OnDestroy {
         this.store.dispatch(new EntityActions.Delete(slices.HERO, hero));
     }
 
+    // handles clicks from list items
     onSelect(hero: Hero) {
         this.router.navigate([hero.id], { relativeTo: this.route });
+    }
+
+    // handles clicks from the View Details button
+    gotoSelectedHero() {
+        this.onSelect(this.selectedHero);
     }
 
     ngOnDestroy(): void {
         this.routeSub && this.routeSub.unsubscribe();
         this.heroesSub && this.heroesSub.unsubscribe();
+        this.selectedHeroSub && this.selectedHeroSub.unsubscribe();
     }
 }
 

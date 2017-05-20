@@ -7,18 +7,16 @@ import { JhiHealthModalComponent } from './health-modal.component';
 
 @Component({
     selector: 'jhi-health',
-    templateUrl: './health.component.html',
+    templateUrl: './health.component.html'
 })
 export class JhiHealthCheckComponent implements OnInit {
     healthData: any;
     updatingHealth: boolean;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private modalService: NgbModal,
         private healthService: JhiHealthService
     ) {
-        this.jhiLanguageService.setLocations(['health']);
 
     }
 

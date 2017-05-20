@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-error',
@@ -10,11 +10,18 @@ export class ErrorComponent implements OnInit {
     error403: boolean;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService
+        private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['error']);
     }
 
     ngOnInit() {
+        this.route.data.subscribe((routeData) => {
+            if (routeData.error403) {
+                this.error403 = routeData.error403;
+            }
+            if (routeData.errorMessage) {
+                this.errorMessage = routeData.errorMessage;
+            }
+        });
     }
 }

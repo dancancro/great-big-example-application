@@ -1,49 +1,42 @@
 <md-card>
     <!--<md-toolbar color="accent">Messages</md-toolbar>-->
     <md-card-title> Messages - Websocket based</md-card-title>
+    <a routerLink="/features/chat" routerLinkActive="active">Go to Chat</a>
     <md-card-content>
-        <ngx-datatable class="material" [rows]="messages" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Email">
-                <ng-template let-column="column" ngx-datatable-header-template>
-                    {{column.email}}
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{value}}</strong>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Message">
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{column.message}}</span>
-                </ng-template>
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Created Time">
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{column.createdAt}}</span>
-                </ng-template>
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Updated Time">
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{column.updatedAt}}</span>
-                </ng-template>
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
-    </md-card-content>
-    <div fxLayout fxLayoutAlign="space-between">
-        <md-input-container>
-            <input mdInput placeholder="Email" [(ngModel)]="email">
-        </md-input-container>
-        <md-input-container fxFlex="70">
-            <input mdInput placeholder="Message" [(ngModel)]="message">
-        </md-input-container>
-        <button md-button color="accent" (click)="createMessage()">Send</button>
-    </div>
+        <div>
+            <h3>
+                Inline Editing
+            </h3>
+            <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="5" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'"
+                [rows]="messages">
+                <ngx-datatable-column name="UserLogin">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <span title="Double click to edit" (dblclick)="editing[row.$$index + '-user-login'] = true" *ngIf="!editing[row.$$index + '-user-login']">
+              {{value}}
+            </span>
+                        <input autofocus (blur)="updateValue($event, 'userLogin', value, row)" *ngIf="editing[row.$$index + '-user-login']" type="text"
+                            [value]="value" />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Message">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <span title="Double click to edit" (dblclick)="editing[row.$$index + '-message'] = true" *ngIf="!editing[row.$$index + '-message']">
+              {{value}}
+            </span>
+                        <input autofocus (blur)="updateValue($event, 'message', value, row)" *ngIf="editing[row.$$index + '-message']" type="text"
+                            [value]="value" />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="CreatedAt">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="UpdatedAt">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
 </md-card>
