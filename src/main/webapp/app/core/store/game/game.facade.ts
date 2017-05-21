@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { fromJS, Map } from 'immutable';
 
-import { AsyncService } from '../../services/base.async-service';
+import { BaseAsyncService } from '../../services/base.async-service';
 import { BaseFacade } from '../base/base.facade';
 import { GameActions } from './game.action-creator';
 
@@ -23,7 +23,7 @@ export class GameFacade extends BaseFacade {
     game$: Observable<any>;
 
     constructor(protected store: Store<any>,
-        @Optional() @Inject(AsyncService) services: AsyncService[]) {
+        @Optional() @Inject(BaseAsyncService) services: BaseAsyncService[]) {
         super(services || []);
         this.games$ = this.store.select('games');
         this.game$ = this.store.select('game');

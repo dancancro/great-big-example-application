@@ -11,6 +11,7 @@ import { User } from '../../core/store/user/user.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
 import { Entities } from '../../core/store/entity/entity.model';
+import { Account, Principal } from '../../shared';
 
 const uuid = require('uuid');
 
@@ -28,8 +29,10 @@ export class ContactPage implements OnInit, OnDestroy {
     contactForm: FormGroup;
     adding: boolean;
     contactSub: Subscription;
+    accountName: string;
 
     constructor(
+        private principal: Principal,
         private store: Store<fromRoot.RootState>,
         private formBuilder: FormBuilder) {
     }
@@ -44,6 +47,10 @@ export class ContactPage implements OnInit, OnDestroy {
                 id: [contact ? contact.id : '', Validators.required]  // TODO: fix this hack
             });
             this.adding = contact && contact.id !== EntityActions.TEMP
+        });
+        this.principal.identity().then((account) => {
+            console.log('GOT ACCOUNT')
+            this.accountName = account.firstName + ' ' + account.lastName;
         });
     }
 

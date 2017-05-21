@@ -8,7 +8,7 @@ import { GAME_TEXT } from '../config/config';
 import * as constants from '../../../app.constants';
 import { GameComponent } from '../shared/game/game.component';
 import { AppConfig } from '../../../app.config';
-import { AsyncService } from '../../../core/services/base.async-service';
+import { BaseAsyncService } from '../../../core/services/base.async-service';
 import { GameFacade } from '../../../core/store/game/game.facade';
 import { P2PGameFacade } from '../../../core/store/p2p-game/p2p-game.facade';
 import { RestfulServer } from '../../../core/services/restful-server.service';
@@ -27,17 +27,17 @@ const WSConfig: WebSocketGatewayConfig = {
 
 const providers: Provider[] = [
 
-    // Here we override the AsyncService multi-provider and
+    // Here we override the BaseAsyncService multi-provider and
     // introduce the GameP2PService service.
     // This way we're using both GameServer and
     // GameP2PService and so the user can send progress to both
     // the application server and the user she is connected with.
-    { provide: AsyncService, multi: true, useClass: RestfulServer },
-    { provide: AsyncService, multi: true, useClass: GameP2PService },
+    { provide: BaseAsyncService, multi: true, useClass: RestfulServer },
+    { provide: BaseAsyncService, multi: true, useClass: GameP2PService },
 
     // Without lazy-loading it doesn't matter where we declare
     // the WebRTCGateway, BaseGateway and WS_CONFIG. However, notice that
-    // these provider are required by the GameP2PService
+    // these providers are required by the GameP2PService
     // so they should be available in the part of the component tree where
     // we want to render the MultiPlayerComponent.
     { provide: BaseGateway, useClass: WebRTCGateway },

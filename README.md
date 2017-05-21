@@ -1,5 +1,7 @@
 
 [![Build Status](https://travis-ci.org/dancancro/great-big-example-application.svg?branch=master)](https://travis-ci.org/dancancro/great-big-example-application)
+[![Greenkeeper badge](https://badges.greenkeeper.io/dancancro/great-big-example-application.svg)](https://greenkeeper.io/)
+[![Dependency Status](https://david-dm.org/dancancro/great-big-example-application.svg)](https://david-dm.org/dancancro/great-big-example-application)
 
 ## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
 

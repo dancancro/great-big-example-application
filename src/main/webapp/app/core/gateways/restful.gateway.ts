@@ -22,7 +22,7 @@ export class RestfulGateway extends BaseGateway {
     private lastText = '';
     private lastTime = 0;
 
-    constructor(private http: Http, private config: AppConfig, public topic = 'game') {
+    constructor(private http: Http, private config: AppConfig) {
         super();
     }
 
@@ -43,7 +43,7 @@ export class RestfulGateway extends BaseGateway {
                 this.lastText = '';
             }
 
-            return this.http.post(`${this.config.apiUrl}/${endpoints[this.topic]}`, command.payload)
+            return this.http.post(`${this.config.apiUrl}/${endpoints[command.payload.topic]}`, command.payload)
                 .map(this.extractData)
                 .catch(this.handleError);
 

@@ -1,4 +1,4 @@
-<h2>Contacts of {{(user$ | async).fullName}}</h2>
+<h2>Contacts of {{accountName}}</h2>
 <div *ngIf="(msg$ | async)" class="msg">{{(msg$ | async)}}</div>
 
 <button type="button" class="btn" (click)="newContact()">New Contact</button>
