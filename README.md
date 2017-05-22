@@ -5,6 +5,8 @@
 
 ## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dancancro/great-big-example-application.svg)](https://greenkeeper.io/)
+
 # Background and Motivation
 
 The main goal of this project is to make available to unemployed developers source code for a 
