@@ -201,6 +201,12 @@ auto-refreshes when files change on your hard drive.
     ./mvnw
     yarn start
 
+## More Settings
+
+|File|Setting|
+|:-- |:-- |
+| application-prod.yml | spring.data.elasticsearch.cluster-name, spring.data.elasticsearch.cluster-nodes
+
 [Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
 specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
 Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.

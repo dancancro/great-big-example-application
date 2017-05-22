@@ -29,7 +29,7 @@ export class ContactPage implements OnInit, OnDestroy {
     contactForm: FormGroup;
     adding: boolean;
     contactSub: Subscription;
-    accountName: string;
+    identity$: Promise<Account>;
 
     constructor(
         private principal: Principal,
@@ -40,6 +40,7 @@ export class ContactPage implements OnInit, OnDestroy {
     ngOnInit() {
         this.user$ = this.store.select(fromRoot.getUserState);
         this.msg$ = this.store.select(fromRoot.getMsg);
+        this.identity$ = this.principal.identity();
         this.contact$ = this.store.select(fromRoot.getContact);
         this.contactSub = this.contact$.subscribe((contact) => {
             this.contactForm = this.formBuilder.group({
@@ -48,10 +49,6 @@ export class ContactPage implements OnInit, OnDestroy {
             });
             this.adding = contact && contact.id !== EntityActions.TEMP
         });
-        this.principal.identity().then((account) => {
-            console.log('GOT ACCOUNT')
-            this.accountName = account.firstName + ' ' + account.lastName;
-        });
     }
 
     nextContact() {
@@ -59,10 +56,6 @@ export class ContactPage implements OnInit, OnDestroy {
     }
 
     newContact() {
-        // this.store.dispatch(new EntityActions.Add(slices.CONTACT, {
-        //       id: uuid.v1(),  // Pessimistic so ID determined by server
-        //     name: ''
-        // }));
         this.store.dispatch(new EntityActions.AddTemp(slices.CONTACT));
     }
 
