@@ -6,20 +6,21 @@ import { slices } from '../util';
 import { typeFor } from '../util';
 
 export function reducer(state = initialEntities<Claim>({}, slices.CLAIM, actions, initialClaim),
-  action: EntityAction<Claim>): Entities<Claim> {
-  switch (action.type) {
-    case typeFor(slices.CLAIM, actions.ADD):
-    case typeFor(slices.CLAIM, actions.ADD_SUCCESS):
-    case typeFor(slices.CLAIM, actions.LOAD_SUCCESS):
-      return functions.addLoadEntity<Claim>(state, <any>action);
-    case typeFor(slices.CLAIM, actions.UPDATE_EACH):
-      return functions.updateEach<Claim>(state, <any>action);
-    case typeFor(slices.CLAIM, actions.UPDATE):
-      return functions.update<Claim>(state, <any>action);
-    default: {
-      return state;
+    action: EntityAction<Claim>): Entities<Claim> {
+    switch (action.type) {
+        case typeFor(slices.CLAIM, actions.ADD_SUCCESS):
+            return functions.addSuccess<Claim>(state, <any>action);
+        case typeFor(slices.CLAIM, actions.ADD_TEMP):
+        case typeFor(slices.CLAIM, actions.LOAD_SUCCESS):
+            return functions.addToStore<Claim>(state, <any>action);
+        case typeFor(slices.CLAIM, actions.UPDATE_EACH):
+            return functions.updateEach<Claim>(state, <any>action);
+        case typeFor(slices.CLAIM, actions.UPDATE):
+            return functions.update<Claim>(state, <any>action);
+        default: {
+            return state;
+        }
     }
-  }
 }
 
 export const getEntities = (state: Entities<Claim>) => state.entities;

@@ -20,8 +20,8 @@ public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    // @SequenceGenerator(name = "sequenceGenerator")
     private String id;
 
     @Column(name = "text")
@@ -110,20 +110,25 @@ public class Note implements Serializable {
             return false;
         }
         Note note = (Note) o;
-        if (note.id == null || id == null) {
+        if (note.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, note.id);
+        return Objects.equals(getId(), note.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
-        return "Note{" + "id=" + id + ", text='" + text + "'" + ", colour='" + colour + "'" + ", left='" + left + "'"
-                + ", top='" + top + "'" + '}';
+        return "Note{" +
+            "id=" + getId() +
+            ", text='" + getText() + "'" +
+            ", colour='" + getColour() + "'" +
+            ", left='" + getLeft() + "'" +
+            ", top='" + getTop() + "'" +
+            "}";
     }
 }

@@ -1,6 +1,7 @@
 export abstract class CommandPayload {
     mimeType: string;
     protected data: any;
+    topic: string;
 
     constructor(payload?: any) {
         this.data = payload;

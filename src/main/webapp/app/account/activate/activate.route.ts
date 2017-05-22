@@ -4,11 +4,11 @@ import { UserRouteAccessService } from '../../shared';
 import { ActivateComponent } from './activate.component';
 
 export const activateRoute: Route = {
-  path: 'activate',
-  component: ActivateComponent,
-  data: {
-    authorities: [],
-    pageTitle: 'activate.title'
-  },
-  canActivate: [UserRouteAccessService]
+    path: 'activate',
+    component: ActivateComponent,
+    data: {
+        authorities: [],
+        pageTitle: 'activate.title'
+    },
+    canActivate: [UserRouteAccessService]
 };

@@ -301,5 +301,14 @@ public class RebuttalResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Rebuttal.class);
+        Rebuttal rebuttal1 = new Rebuttal();
+        rebuttal1.setId(1L);
+        Rebuttal rebuttal2 = new Rebuttal();
+        rebuttal2.setId(rebuttal1.getId());
+        assertThat(rebuttal1).isEqualTo(rebuttal2);
+        rebuttal2.setId(2L);
+        assertThat(rebuttal1).isNotEqualTo(rebuttal2);
+        rebuttal1.setId(null);
+        assertThat(rebuttal1).isNotEqualTo(rebuttal2);
     }
 }

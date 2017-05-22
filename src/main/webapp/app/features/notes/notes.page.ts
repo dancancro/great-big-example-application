@@ -10,7 +10,7 @@ import * as EntityActions from '../../core/store/entity/entity.actions';
 const uuid = require('uuid');
 
 @Component({
-  selector: 'app-notes',
+  selector: 'jhi-notes',
   templateUrl: './notes.page.html',
   styleUrls: ['./notes.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,7 +22,7 @@ export class NotesPage implements OnInit {
   }
 
   onAddNote(colour) {
-    this.store.dispatch(new EntityActions.Add(slices.NOTE, {
+    this.store.dispatch(new EntityActions.AddOptimistically(slices.NOTE, {
       id: uuid.v1(),
       text: '',
       colour,
@@ -37,6 +37,10 @@ export class NotesPage implements OnInit {
 
   onChangeNotePosition(newPosition: any, note: Note) {
     this.store.dispatch(new EntityActions.Update(slices.NOTE, { id: note.id, left: newPosition.left, top: newPosition.top }));
+  }
+
+  onDelete(note: Note) {
+    this.store.dispatch(new EntityActions.Delete(slices.NOTE, note))
   }
 
   ngOnInit() {

@@ -2,11 +2,11 @@
 <br>
 <br>
 <div>
-  <add-button (add)="onAddNote($event)" colour="yellow"></add-button>
-  <add-button (add)="onAddNote($event)" colour="red"></add-button>
-  <add-button (add)="onAddNote($event)" colour="green"></add-button>
-  <add-button (add)="onAddNote($event)" colour="blue"></add-button>
-  <app-note *ngFor="let note of notes$ | async" [text]="note.text" [colour]="note.colour" [left]=note.left [top]=note.top [disabled]=note.dirty
-    (changeNoteText)="onChangeNoteText($event, note)" (changeNotePosition)="onChangeNotePosition($event, note)"></app-note>
-    {{notes$ | async | json}}
+  <jhi-add-button (add)="onAddNote($event)" colour="yellow"></jhi-add-button>
+  <jhi-add-button (add)="onAddNote($event)" colour="red"></jhi-add-button>
+  <jhi-add-button (add)="onAddNote($event)" colour="green"></jhi-add-button>
+  <jhi-add-button (add)="onAddNote($event)" colour="blue"></jhi-add-button>
+  <jhi-note *ngFor="let note of notes$ | async" [text]="note.text" [colour]="note.colour" [left]=note.left [top]=note.top [disabled]=note.dirty
+    (changeNoteText)="onChangeNoteText($event, note)" (changeNotePosition)="onChangeNotePosition($event, note)" (deleteNote)="onDelete(note)"></jhi-note>
+  {{notes$ | async | json}}
 </div>

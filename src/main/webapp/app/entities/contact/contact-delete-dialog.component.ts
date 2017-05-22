@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactPopupService } from './contact-popup.service';
@@ -17,12 +17,10 @@ export class ContactDeleteDialogComponent {
     contact: Contact;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private contactService: ContactService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['contact']);
     }
 
     clear() {

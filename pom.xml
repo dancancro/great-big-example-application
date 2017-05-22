@@ -5,8 +5,8 @@
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>1.5.2.RELEASE</version>
-        <relativePath />
+        <version>1.5.3.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <groupId>org.exampleapps.greatbig</groupId>
@@ -31,10 +31,9 @@
         <hikaricp.version>2.6.0</hikaricp.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <java.version>1.8</java.version>
-        <javassist.version>3.21.0-GA</javassist.version>
         <jcache.version>1.0.0</jcache.version>
         <jzlib.version>1.1.3</jzlib.version>
-        <jhipster.server.version>1.1.2</jhipster.server.version>
+        <jhipster.server.version>1.1.3</jhipster.server.version>
         <jjwt.version>0.7.0</jjwt.version>
         <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
@@ -49,7 +48,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.version>3.0.0</maven.version>
         <metrics-spring.version>3.1.3</metrics-spring.version>
-        <node.version>v7.5.0</node.version>
+        <node.version>v6.10.3</node.version>
         <postgresql.version>9.4.1212</postgresql.version>
         <!-- These remain empty unless the corresponding profile is active -->
         <profile.no-liquibase />
@@ -90,14 +89,12 @@
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
 
-        <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
         <!-- Spring properties -->
         <!-- Spring social -->
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <springfox.version>2.6.1</springfox.version>
-        <undertow.version>1.4.10.Final</undertow.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <yarn.version>v0.21.3</yarn.version>
+        <yarn.version>v0.23.2</yarn.version>
     </properties>
 
 
@@ -121,7 +118,6 @@
             <artifactId>metrics-json</artifactId>
             <version>${dropwizard-metrics.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-jcache</artifactId>
@@ -411,27 +407,6 @@
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>com.github.ekryd.sortpom</groupId>
-                <artifactId>sortpom-maven-plugin</artifactId>
-                <version>${sortpom-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sort</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sortProperties>true</sortProperties>
-                    <nrOfIndentSpace>4</nrOfIndentSpace>
-                    <sortDependencies>groupId,artifactId</sortDependencies>
-                    <sortPlugins>groupId,artifactId</sortPlugins>
-                    <keepBlankLines>true</keepBlankLines>
-                    <expandEmptyElements>false</expandEmptyElements>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>io.gatling</groupId>
                 <artifactId>gatling-maven-plugin</artifactId>
@@ -847,6 +822,16 @@
                                 </goals>
                                 <configuration>
                                     <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>webpack build test</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <phase>test</phase>
+                                <configuration>
+                                    <arguments>run webpack:test</arguments>
                                 </configuration>
                             </execution>
                             <execution>

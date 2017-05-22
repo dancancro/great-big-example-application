@@ -5,9 +5,9 @@ import { JhiTrackerComponent } from './tracker.component';
 import { JhiTrackerService, Principal } from '../../shared';
 
 export const trackerRoute: Route = {
-  path: 'jhi-tracker',
-  component: JhiTrackerComponent,
-  data: {
-    pageTitle: 'tracker.title'
-  }
+    path: 'jhi-tracker',
+    component: JhiTrackerComponent,
+    data: {
+        pageTitle: 'tracker.title'
+    }
 };

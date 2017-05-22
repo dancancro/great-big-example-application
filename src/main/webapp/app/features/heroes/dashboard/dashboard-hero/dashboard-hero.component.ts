@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hero } from '../../../../core/store/hero/hero.model';
 
 @Component({
-  selector: 'dashboard-hero',
+  selector: 'jhi-dashboard-hero',
   templateUrl: './dashboard-hero.component.html',
   styleUrls: ['./dashboard-hero.component.scss']
 })

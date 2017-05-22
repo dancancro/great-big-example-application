@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ParseLinks, JhiLanguageService} from 'ng-jhipster';
+import { ParseLinks } from 'ng-jhipster';
 
 import { Audit } from './audit.model';
 import { AuditsService } from './audits.service';
@@ -23,13 +23,11 @@ export class AuditsComponent implements OnInit {
     totalItems: number;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private auditsService: AuditsService,
         private parseLinks: ParseLinks,
         private paginationConfig: PaginationConfig,
         private datePipe: DatePipe
     ) {
-        this.jhiLanguageService.setLocations(['audits']);
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 1;
         this.reverse = false;

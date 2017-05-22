@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
@@ -13,16 +13,14 @@ import { ContactService } from './contact.service';
 export class ContactDetailComponent implements OnInit, OnDestroy {
 
     contact: Contact;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
         private contactService: ContactService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['contact']);
     }
 
     ngOnInit() {
@@ -47,6 +45,9 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInContacts() {
-        this.eventSubscriber = this.eventManager.subscribe('contactListModification', (response) => this.load(this.contact.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'contactListModification',
+            (response) => this.load(this.contact.id)
+        );
     }
 }

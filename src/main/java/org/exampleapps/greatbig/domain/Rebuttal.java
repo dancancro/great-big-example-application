@@ -124,26 +124,26 @@ public class Rebuttal implements Serializable {
             return false;
         }
         Rebuttal rebuttal = (Rebuttal) o;
-        if (rebuttal.id == null || id == null) {
+        if (rebuttal.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, rebuttal.id);
+        return Objects.equals(getId(), rebuttal.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Rebuttal{" +
-            "id=" + id +
-            ", longName='" + longName + "'" +
-            ", shortName='" + shortName + "'" +
-            ", date='" + date + "'" +
-            ", expires='" + expires + "'" +
-            ", link='" + link + "'" +
-            '}';
+            "id=" + getId() +
+            ", longName='" + getLongName() + "'" +
+            ", shortName='" + getShortName() + "'" +
+            ", date='" + getDate() + "'" +
+            ", expires='" + getExpires() + "'" +
+            ", link='" + getLink() + "'" +
+            "}";
     }
 }

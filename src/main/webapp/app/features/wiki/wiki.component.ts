@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { WikipediaService } from './wikipedia.service';
 
 @Component({
-  selector: 'app-wiki',
-  styleUrls: ['wiki.scss'],
-  template: `
+    selector: 'jhi-wiki',
+    styleUrls: ['wiki.scss'],
+    template: `
     <h1>Wikipedia Demo</h1>
     <p>Search after each keystroke</p>
     <input #term (keyup)="search(term.value)"/>
@@ -15,13 +15,13 @@ import { WikipediaService } from './wikipedia.service';
     </ul>`
 })
 export class WikiComponent {
-  items: Observable<string[]>;
+    items: Observable<string[]>;
 
-  constructor(private wikipediaService: WikipediaService) { }
+    constructor(private wikipediaService: WikipediaService) { }
 
-  search(term: string) {
-    this.items = this.wikipediaService.search(term);
-  }
+    search(term: string) {
+        this.items = this.wikipediaService.search(term);
+    }
 }
 
 /*

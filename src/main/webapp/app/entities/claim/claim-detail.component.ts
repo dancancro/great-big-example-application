@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { Claim } from './claim.model';
 import { ClaimService } from './claim.service';
@@ -13,16 +13,14 @@ import { ClaimService } from './claim.service';
 export class ClaimDetailComponent implements OnInit, OnDestroy {
 
     claim: Claim;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
         private claimService: ClaimService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['claim']);
     }
 
     ngOnInit() {
@@ -47,6 +45,9 @@ export class ClaimDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInClaims() {
-        this.eventSubscriber = this.eventManager.subscribe('claimListModification', (response) => this.load(this.claim.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'claimListModification',
+            (response) => this.load(this.claim.id)
+        );
     }
 }

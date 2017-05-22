@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Contact } from './contact.model';
+
 @Injectable()
 export class ContactService {
 
@@ -12,14 +13,14 @@ export class ContactService {
     constructor(private http: Http) { }
 
     create(contact: Contact): Observable<Contact> {
-        const copy: Contact = Object.assign({}, contact);
+        const copy = this.convert(contact);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(contact: Contact): Observable<Contact> {
-        const copy: Contact = Object.assign({}, contact);
+        const copy = this.convert(contact);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -45,7 +46,6 @@ export class ContactService {
         return this.http.get(this.resourceSearchUrl, options)
             ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -60,5 +60,10 @@ export class ContactService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(contact: Contact): Contact {
+        const copy: Contact = Object.assign({}, contact);
+        return copy;
     }
 }

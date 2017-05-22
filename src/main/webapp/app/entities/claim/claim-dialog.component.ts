@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Claim } from './claim.model';
 import { ClaimPopupService } from './claim-popup.service';
@@ -18,14 +19,13 @@ export class ClaimDialogComponent implements OnInit {
     claim: Claim;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private claimService: ClaimService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['claim']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class ClaimDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.claim.id !== undefined) {
-            this.claimService.update(this.claim)
-                .subscribe((res: Claim) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.claimService.update(this.claim));
         } else {
-            this.claimService.create(this.claim)
-                .subscribe((res: Claim) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.claimService.create(this.claim));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Claim>) {
+        result.subscribe((res: Claim) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Claim) {

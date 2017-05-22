@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-md-4 offset-md-2">
-            <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm">
+            <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
                 <div class="form-group">
                     <label class="form-control-label" for="login" jhiTranslate="global.form.username">Username</label>
                     <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="{{'global.form.username.placeholder' | translate}}"

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 @Component({
-  selector: 'app-heroes',
-  styleUrls: ['./heroes.page.scss'],
-  templateUrl: './heroes.page.html'
+    selector: 'jhi-heroes-page',
+    styleUrls: ['./heroes.page.scss'],
+    templateUrl: './heroes.page.html'
 })
 export class HeroesPage { }
 

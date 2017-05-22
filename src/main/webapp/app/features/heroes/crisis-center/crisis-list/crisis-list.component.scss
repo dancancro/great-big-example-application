@@ -111,6 +111,10 @@ nav a.active {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+*, ::after, ::before {
+    -webkit-box-sizing: initial;
+    box-sizing: initial;
+}
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

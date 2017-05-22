@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 @Component({
-  selector: 'app-wiki-dashboard',
-  styleUrls: ['wiki.scss'],
-  template: `
+    selector: 'jhi-wiki-page',
+    styleUrls: ['wiki.scss'],
+    template: `
     <br><br>
     <div>
-    <app-wiki></app-wiki><br>
-    <app-wiki-smart></app-wiki-smart>
+    <jhi-wiki></jhi-wiki><br>
+    <jhi-wiki-smart></jhi-wiki-smart>
     </div>
   `
 })

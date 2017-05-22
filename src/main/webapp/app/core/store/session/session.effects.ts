@@ -7,11 +7,11 @@ import { slices } from '../util';
 
 @Injectable()
 export class SessionEffects {
-    constructor(private actions$: Actions,
-        private dataService: RESTService) { }
-
     @Effect()
     login$ = functions.loadFromRemote$(this.actions$, slices.SESSION, this.dataService, 'login', this.transform);
+
+    constructor(private actions$: Actions,
+        private dataService: RESTService) { }
 
     transform({ meta }) {
         return {

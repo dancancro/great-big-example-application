@@ -2,25 +2,23 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
+    AccountService,
+    AuthServerProvider,
+    CSRFService,
     GreatBigExampleApplicationSharedLibsModule,
     GreatBigExampleApplicationSharedCommonModule,
-    CSRFService,
-    AuthService,
-    AuthServerProvider,
-    AccountService,
-    UserService,
-    StateStorageService,
-    LoginService,
-    LoginModalService,
-    Principal,
-    JhiTrackerService,
     HasAnyAuthorityDirective,
+    JhiLoginModalComponent,
     JhiSocialComponent,
+    JhiTrackerService,
+    LoginModalService,
+    LoginService,
+    Principal,
     SocialService,
-    JhiLoginModalComponent
+    StateStorageService
 } from './';
 
-import { Draggable } from './draggable/draggable.directive';
+import { DraggableDirective } from './draggable/draggable.directive';
 // import { RioAlertComponent } from './alert/alert.component';
 import { ButtonComponent } from './button/button.component';
 import { ContainerComponent } from './container/container.component';
@@ -39,7 +37,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 // import { TimerComponent } from '../features/game/timer/timer.component';
 
 export const components = [
-    Draggable,
+    DraggableDirective,
     // RioAlertComponent,
     ButtonComponent,
     ContainerComponent,
@@ -79,8 +77,6 @@ export const components = [
         JhiTrackerService,
         AuthServerProvider,
         SocialService,
-        AuthService,
-        UserService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],

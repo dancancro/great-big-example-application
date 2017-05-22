@@ -1,26 +1,26 @@
 package org.exampleapps.greatbig.web.websocket.dto;
 
+import java.time.ZonedDateTime;
+
 /**
  * DTO for storing a user's message.
  */
 public class MessageDTO {
 
-    private String sessionId;
+    private Long id;
 
     private String userLogin;
 
-    private String ipAddress;
+    private String message;
 
-    private String page;
+    private ZonedDateTime createdAt;
 
-    private String time;
-
-    public String getSessionId() {
-        return sessionId;
+    public Long getId() {
+        return id;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUserLogin() {
@@ -31,33 +31,27 @@ public class MessageDTO {
         this.userLogin = userLogin;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getMessage() {
+        return message;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getPage() {
-        return page;
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
     public String toString() {
-        return "MessageDTO{" + "sessionId='" + sessionId + '\'' + ", userLogin='" + userLogin + '\'' + ", ipAddress='"
-                + ipAddress + '\'' + ", page='" + page + '\'' + ", time='" + time + '\'' + '}';
+        return "MessageDTO{" +
+            ", message='" + getMessage() + '\'' +
+            ", createdAt='" + getCreatedAt() + '\'' +
+            '}';
     }
 }

@@ -12,54 +12,54 @@ import { ContactDeletePopupComponent } from './contact-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const contactRoute: Routes = [
-  {
-    path: 'contact',
-    component: ContactComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'contact/:id',
-    component: ContactDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'contact',
+        component: ContactComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'contact/:id',
+        component: ContactDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const contactPopupRoute: Routes = [
-  {
-    path: 'contact-new',
-    component: ContactPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+    {
+        path: 'contact-new',
+        component: ContactPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'contact/:id/edit',
-    component: ContactPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+    {
+        path: 'contact/:id/edit',
+        component: ContactPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'contact/:id/delete',
-    component: ContactDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'contact/:id/delete',
+        component: ContactDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Tag } from './tag.model';
+
 @Injectable()
 export class TagService {
 
@@ -12,14 +13,14 @@ export class TagService {
     constructor(private http: Http) { }
 
     create(tag: Tag): Observable<Tag> {
-        const copy: Tag = Object.assign({}, tag);
+        const copy = this.convert(tag);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(tag: Tag): Observable<Tag> {
-        const copy: Tag = Object.assign({}, tag);
+        const copy = this.convert(tag);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +47,6 @@ export class TagService {
         return this.http.get(this.resourceSearchUrl, options)
         ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -61,5 +61,10 @@ export class TagService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(tag: Tag): Tag {
+        const copy: Tag = Object.assign({}, tag);
+        return copy;
     }
 }

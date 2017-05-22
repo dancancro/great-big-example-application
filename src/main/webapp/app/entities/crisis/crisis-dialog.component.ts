@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Crisis } from './crisis.model';
 import { CrisisPopupService } from './crisis-popup.service';
@@ -18,14 +19,13 @@ export class CrisisDialogComponent implements OnInit {
     crisis: Crisis;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private crisisService: CrisisService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['crisis']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class CrisisDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.crisis.id !== undefined) {
-            this.crisisService.update(this.crisis)
-                .subscribe((res: Crisis) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.crisisService.update(this.crisis));
         } else {
-            this.crisisService.create(this.crisis)
-                .subscribe((res: Crisis) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.crisisService.create(this.crisis));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Crisis>) {
+        result.subscribe((res: Crisis) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Crisis) {

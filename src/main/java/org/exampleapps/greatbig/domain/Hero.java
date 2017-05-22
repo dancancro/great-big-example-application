@@ -59,22 +59,22 @@ public class Hero implements Serializable {
             return false;
         }
         Hero hero = (Hero) o;
-        if (hero.id == null || id == null) {
+        if (hero.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, hero.id);
+        return Objects.equals(getId(), hero.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Hero{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            "}";
     }
 }

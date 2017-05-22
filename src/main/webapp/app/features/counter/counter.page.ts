@@ -8,7 +8,7 @@ import { slices } from '../../core/store/util';
 import * as SliceActions from '../../core/store/slice/slice.actions';
 
 @Component({
-  selector: 'counter-page',
+  selector: 'jhi-counter-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <jhi-container testid="counter" [size]=2 [center]=true>
@@ -17,16 +17,16 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
         Counter
       </h2>
 
-      <rio-counter
+      <jhi-counter
         [value]="value$ | async"
         (increment)="increment()"
         (decrement)="decrement()">
-      </rio-counter>
+      </jhi-counter>
     </jhi-container>
   `,
   styleUrls: ['./counter.component.scss']
 })
-export class RioCounterPage {
+export class CounterPage {
   value$: Observable<number>;
 
   constructor(private store: Store<fromRoot.RootState>) {

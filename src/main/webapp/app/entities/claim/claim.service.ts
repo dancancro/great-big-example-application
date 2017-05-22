@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Claim } from './claim.model';
+
 @Injectable()
 export class ClaimService {
 
@@ -12,14 +13,14 @@ export class ClaimService {
     constructor(private http: Http) { }
 
     create(claim: Claim): Observable<Claim> {
-        const copy: Claim = Object.assign({}, claim);
+        const copy = this.convert(claim);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(claim: Claim): Observable<Claim> {
-        const copy: Claim = Object.assign({}, claim);
+        const copy = this.convert(claim);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +47,6 @@ export class ClaimService {
         return this.http.get(this.resourceSearchUrl, options)
         ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -61,5 +61,10 @@ export class ClaimService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(claim: Claim): Claim {
+        const copy: Claim = Object.assign({}, claim);
+        return copy;
     }
 }

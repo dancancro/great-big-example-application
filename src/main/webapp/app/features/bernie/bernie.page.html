@@ -24,9 +24,9 @@
 <section class="content-container">
   <ul id="claim-list" [sortablejs]="claims$ | async" (update)="reorderClaims($event)">
     <li *ngFor="let claim of claims$ | async">
-      <bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
+      <jhi-bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
         (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-        (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></bernie-claim>
+        (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></jhi-bernie-claim>
     </li>
   </ul>
 </section>

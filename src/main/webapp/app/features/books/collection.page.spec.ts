@@ -70,7 +70,7 @@ describe('CollectionPageComponent', () => {
 
   //   fixture.detectChanges();
 
-  //   const bookItems = debugElement.queryAll(By.css('bc-book-preview'));
+  //   const bookItems = debugElement.queryAll(By.css('jhi-book-preview'));
   //   expect(bookItems.length).toEqual(books.length);
   // });
 });

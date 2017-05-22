@@ -12,14 +12,14 @@
         <ul class="container" [sortablejs]="claim.rebuttals" [sortablejsOptions]="options"
             (update)="reorderRebuttals.emit($event)">
           <li *ngFor="let rebuttal of claim.rebuttals" [ngClass]="{touched: rebuttal.dirty}" id="{{rebuttal.id}}">
-            <bernie-rebuttal
+            <jhi-bernie-rebuttal
               [page]="page"
               [claim]="claim"
               [rebuttal]="rebuttal"
               (cancel)="cancelRebuttal.emit($event)"
               (makeEditable)="makeRebuttalEditable.emit($event)"
               (save)="saveRebuttal.emit($event)"
-            ></bernie-rebuttal>
+            ></jhi-bernie-rebuttal>
           </li>
           <li><button class="btn btn-default btn-xs" title="Add"
             (click)="addRebuttal.emit(claim)"

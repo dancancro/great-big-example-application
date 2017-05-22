@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalService } from './claim-rebuttal.service';
@@ -13,16 +13,14 @@ import { ClaimRebuttalService } from './claim-rebuttal.service';
 export class ClaimRebuttalDetailComponent implements OnInit, OnDestroy {
 
     claimRebuttal: ClaimRebuttal;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
         private claimRebuttalService: ClaimRebuttalService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['claimRebuttal']);
     }
 
     ngOnInit() {
@@ -47,6 +45,9 @@ export class ClaimRebuttalDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInClaimRebuttals() {
-        this.eventSubscriber = this.eventManager.subscribe('claimRebuttalListModification', (response) => this.load(this.claimRebuttal.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'claimRebuttalListModification',
+            (response) => this.load(this.claimRebuttal.id)
+        );
     }
 }

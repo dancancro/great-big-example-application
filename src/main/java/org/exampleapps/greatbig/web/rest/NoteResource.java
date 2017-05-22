@@ -52,11 +52,11 @@ public class NoteResource {
     @Timed
     public ResponseEntity<Note> createNote(@RequestBody Note note) throws URISyntaxException {
         log.debug("REST request to save Note : {}", note);
-        if (note.getId() != null) {
-            return ResponseEntity.badRequest().headers(
-                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new note cannot already have an ID"))
-                    .body(null);
-        }
+        // if (note.getId() != null) {
+        //     return ResponseEntity.badRequest().headers(
+        //             HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new note cannot already have an ID"))
+        //             .body(null);
+        // }
         Note result = noteRepository.save(note);
         noteSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/notes/" + result.getId()))

@@ -33,9 +33,6 @@ const endpoints = {
 
 @Injectable()
 export class RESTService {
-    // private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) }; // This was doubling up the JWT
-    private JSON_HEADER = {};
-
     constructor(private http: Http, private config: AppConfig) { }
 
     getEntities(table: string): Observable<any[]> {
@@ -51,19 +48,19 @@ export class RESTService {
     }
 
     add(entity: any, table): Observable<any> {
-        return this.http.post(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity), this.JSON_HEADER)
+        return this.http.post(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity))
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     update(entity: any, table): Observable<any> {
-        return this.http.put(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity), this.JSON_HEADER)
+        return this.http.put(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity))
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     remove(entity: any, table): Observable<any> {
-        return this.http.delete(`${this.config.apiUrl}/${endpoints[table]}/${entity.id}`, this.JSON_HEADER)
+        return this.http.delete(`${this.config.apiUrl}/${endpoints[table]}/${entity.id}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -77,10 +74,10 @@ export class RESTService {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        const obj = (res && res.json()) || res.data || res;
-        if (!obj) {
-            return {};
-        }
+        const obj =
+            (res && !!res._body && res.json()) ||
+            res.data ||
+            { id: res.url.match(/[^\/]+$/)[0] };
 
         return obj;
     }
@@ -96,6 +93,8 @@ export class RESTService {
             errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
-        return Observable.throw(errMsg);
+        const id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
+
+        return Observable.throw({ errMsg, id });
     }
 }

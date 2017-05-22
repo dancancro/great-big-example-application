@@ -7,14 +7,14 @@ import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TimerComponent } from './shared/timer/timer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { GameModel } from '../../core/store/game/game.model';
+import { GameFacade } from '../../core/store/game/game.facade';
 import { RestfulGateway } from '../../core/gateways/restful.gateway';
 import { HomeComponent } from './home/home.component';
 import { GamePage } from './game.page';
-import { RoomConfig } from './config/config';
+import { RoomConfig } from '../../core/gateways/webrtc.gateway';
 import { SinglePlayerModule } from './single-player/single-player.module';
 import { MultiPlayerModule } from './multi-player/multi-player.module';
-import { routes } from './game.routes';
+import { GameRouting } from './game.routing';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { GameSharedModule } from './shared/shared.module';
 
@@ -25,7 +25,7 @@ import { GameSharedModule } from './shared/shared.module';
         GreatBigExampleApplicationSharedModule,
         GameSharedModule,
         MultiPlayerModule,
-        RouterModule.forChild(routes),
+        GameRouting,
         SinglePlayerModule],
     declarations: [
         GamePage,
@@ -37,7 +37,7 @@ import { GameSharedModule } from './shared/shared.module';
         ToolbarComponent],
     providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
-        GameModel,
+        GameFacade,
         RestfulGateway,
         RoomConfig]
 })

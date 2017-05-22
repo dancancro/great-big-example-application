@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Note } from './note.model';
+
 @Injectable()
 export class NoteService {
 
@@ -12,14 +13,14 @@ export class NoteService {
     constructor(private http: Http) { }
 
     create(note: Note): Observable<Note> {
-        const copy: Note = Object.assign({}, note);
+        const copy = this.convert(note);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(note: Note): Observable<Note> {
-        const copy: Note = Object.assign({}, note);
+        const copy = this.convert(note);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +47,6 @@ export class NoteService {
         return this.http.get(this.resourceSearchUrl, options)
             ;
     }
-
     private createRequestOption(req?: any): BaseRequestOptions {
         const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -61,5 +61,10 @@ export class NoteService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(note: Note): Note {
+        const copy: Note = Object.assign({}, note);
+        return copy;
     }
 }

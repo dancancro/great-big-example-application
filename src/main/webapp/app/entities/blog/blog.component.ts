@@ -20,7 +20,6 @@ blogs: Blog[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private blogService: BlogService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ blogs: Blog[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['blog']);
     }
 
     loadAll() {

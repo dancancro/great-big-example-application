@@ -12,54 +12,54 @@ import { BlogDeletePopupComponent } from './blog-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const blogRoute: Routes = [
-  {
-    path: 'blog',
-    component: BlogComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'blog/:id',
-    component: BlogDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'blog',
+        component: BlogComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'blog/:id',
+        component: BlogDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const blogPopupRoute: Routes = [
-  {
-    path: 'blog-new',
-    component: BlogPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+    {
+        path: 'blog-new',
+        component: BlogPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'blog/:id/edit',
-    component: BlogPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+    {
+        path: 'blog/:id/edit',
+        component: BlogPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'blog/:id/delete',
-    component: BlogDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'blog/:id/delete',
+        component: BlogDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

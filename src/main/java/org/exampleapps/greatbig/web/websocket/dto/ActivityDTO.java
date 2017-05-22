@@ -1,5 +1,7 @@
 package org.exampleapps.greatbig.web.websocket.dto;
 
+import java.time.Instant;
+
 /**
  * DTO for storing a user's activity.
  */
@@ -13,7 +15,7 @@ public class ActivityDTO {
 
     private String page;
 
-    private String time;
+    private Instant time;
 
     public String getSessionId() {
         return sessionId;
@@ -47,11 +49,11 @@ public class ActivityDTO {
         this.page = page;
     }
 
-    public String getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

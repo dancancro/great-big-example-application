@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FeaturesComponent } from './features.component';
-import { HomeComponent } from './home/home.component';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
     {
         path: 'features',
         component: FeaturesComponent,
         children: [
-            { path: '', component: HomeComponent },
+            { path: '', component: HomePage },
             { path: 'bernie', loadChildren: './bernie/bernie.module#BernieModule' },
             { path: 'books', loadChildren: './books/books.module#BooksModule' },
+            { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },
             { path: 'contacts', loadChildren: './contact/contact.module#ContactModule' },
             { path: 'counter', loadChildren: './counter/counter.module#CounterModule' },
             { path: 'dashboard', loadChildren: './dashboard/index#DashboardModule' },

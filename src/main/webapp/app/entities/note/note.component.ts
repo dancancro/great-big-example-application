@@ -20,7 +20,6 @@ notes: Note[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private noteService: NoteService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ notes: Note[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['note']);
     }
 
     loadAll() {

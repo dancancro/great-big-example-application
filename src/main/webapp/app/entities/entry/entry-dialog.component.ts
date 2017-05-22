@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService, DataUtils } from 'ng-jhipster';
+import { EventManager, AlertService, DataUtils } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
 import { EntryPopupService } from './entry-popup.service';
@@ -24,9 +25,9 @@ export class EntryDialogComponent implements OnInit {
     blogs: Blog[];
 
     tags: Tag[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private dataUtils: DataUtils,
         private alertService: AlertService,
         private entryService: EntryService,
@@ -34,7 +35,6 @@ export class EntryDialogComponent implements OnInit {
         private tagService: TagService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['entry']);
     }
 
     ngOnInit() {
@@ -72,14 +72,17 @@ export class EntryDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
-            this.entryService.update(this.entry)
-                .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.entryService.update(this.entry));
         } else {
-            this.entryService.create(this.entry)
-                .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.entryService.create(this.entry));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Entry>) {
+        result.subscribe((res: Entry) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Entry) {

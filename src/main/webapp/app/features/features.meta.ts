@@ -12,13 +12,16 @@ export const features = [
         link: 'books/find'
     },
     {
+        id: 'chat',
+        link: 'chat'
+    },
+    {
         id: 'contacts',
         link: 'contacts'
     },
     {
         id: 'counter',
-        link: 'counter',
-        tags: ['redux']
+        link: 'counter'
     },
     {
         id: 'dashboard',

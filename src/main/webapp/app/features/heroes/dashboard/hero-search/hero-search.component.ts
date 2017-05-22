@@ -19,42 +19,42 @@ import { slices } from '../../../../core/store/util';
 import * as SliceActions from '../../../../core/store/slice/slice.actions';
 
 @Component({
-  selector: 'hero-search',
-  templateUrl: './hero-search.component.html',
-  styleUrls: ['./hero-search.component.scss']
+    selector: 'jhi-hero-search',
+    templateUrl: './hero-search.component.html',
+    styleUrls: ['./hero-search.component.scss']
 })
 export class HeroSearchComponent implements OnInit, OnDestroy {
-  private heroes$: Observable<Hero[]>;
-  private searchTermsSub: Subscription;
-  private searchTerms = new Subject<string>();
+    private heroes$: Observable<Hero[]>;
+    private searchTermsSub: Subscription;
+    private searchTerms = new Subject<string>();
 
-  constructor(
-    private store: Store<fromRoot.RootState>,
-    private router: Router) { }
+    constructor(
+        private store: Store<fromRoot.RootState>,
+        private router: Router) { }
 
-  // Push a search term into the observable stream.
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
+    // Push a search term into the observable stream.
+    search(term: string): void {
+        this.searchTerms.next(term);
+    }
 
-  ngOnInit(): void {
-    this.heroes$ = this.store.select(fromRoot.getHeroesForSearchTerm);
-    this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-      .distinctUntilChanged()   // ignore if next search term is same as previous
-      .subscribe((term) => {
-        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['heroesDashboardPage', 'heroSearchTerm'], term));
-      });
-  }
+    ngOnInit(): void {
+        this.heroes$ = this.store.select(fromRoot.getHeroesForSearchTerm);
+        this.searchTerms
+            .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+            .distinctUntilChanged()   // ignore if next search term is same as previous
+            .subscribe((term) => {
+                this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['heroesDashboardPage', 'heroSearchTerm'], term));
+            });
+    }
 
-  gotoDetail(hero: Hero): void {
-    const link = ['/features/heroes/hero', hero.id];
-    this.router.navigate(link);
-  }
+    gotoDetail(hero: Hero): void {
+        const link = ['/features/heroes/hero', hero.id];
+        this.router.navigate(link);
+    }
 
-  ngOnDestroy() {
-    this.searchTermsSub && this.searchTermsSub.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.searchTermsSub && this.searchTermsSub.unsubscribe();
+    }
 }
 
 /*

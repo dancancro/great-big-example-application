@@ -91,24 +91,24 @@ public class Claim implements Serializable {
             return false;
         }
         Claim claim = (Claim) o;
-        if (claim.id == null || id == null) {
+        if (claim.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, claim.id);
+        return Objects.equals(getId(), claim.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Claim{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", imageLabel='" + imageLabel + "'" +
-            ", imageLink='" + imageLink + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", imageLabel='" + getImageLabel() + "'" +
+            ", imageLink='" + getImageLink() + "'" +
+            "}";
     }
 }

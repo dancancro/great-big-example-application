@@ -1,10 +1,10 @@
-textarea  { 
+textarea  {
   display: block;
   padding:25px 25px 40px;
   margin:0 auto 20px auto;
   width:250px;
-  height:150px;   
-  font:20px 'Gloria Hallelujah', cursive; 
+  height:150px;
+  font:20px 'Gloria Hallelujah', cursive;
   line-height:1.5;
   border:0;
   border-radius:3px;
@@ -27,7 +27,7 @@ textarea.yellow-note{
   background: -moz-linear-gradient(#F9EFAF, #F7E98D);
   background: -o-linear-gradient(#F9EFAF, #F7E98D);
   background: -ms-linear-gradient(#F9EFAF, #F7E98D);
-  background: linear-gradient(#F9EFAF, #F7E98D);  
+  background: linear-gradient(#F9EFAF, #F7E98D);
 }
 
 textarea.red-note{
@@ -35,7 +35,7 @@ textarea.red-note{
   background: -moz-linear-gradient(#F9AFAF, #F78D8D);
   background: -o-linear-gradient(#F9AFAF, #F78D8D);
   background: -ms-linear-gradient(#F9AFAF, #F78D8D);
-  background: linear-gradient(#F9AFAF, #F78D8D);  
+  background: linear-gradient(#F9AFAF, #F78D8D);
 }
 
 textarea.green-note{
@@ -43,7 +43,7 @@ textarea.green-note{
   background: -moz-linear-gradient(#AFF9B0, #9FF78D);
   background: -o-linear-gradient(#AFF9B0, #9FF78D);
   background: -ms-linear-gradient(#AFF9B0, #9FF78D);
-  background: linear-gradient(#AFF9B0, #9FF78D);  
+  background: linear-gradient(#AFF9B0, #9FF78D);
 }
 
 textarea.blue-note{
@@ -51,7 +51,17 @@ textarea.blue-note{
   background: -moz-linear-gradient(#B3AFF9, #968DF7);
   background: -o-linear-gradient(#B3AFF9, #968DF7);
   background: -ms-linear-gradient(#B3AFF9, #968DF7);
-  background: linear-gradient(#B3AFF9, #968DF7);  
+  background: linear-gradient(#B3AFF9, #968DF7);
 }
 textarea:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
 textarea:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+
+div.note-container {
+  background: -webkit-linear-gradient(#CCCCCC, #DDDDDD);
+  background: -moz-linear-gradient(#CCCCCC, #DDDDDD);
+  background: -o-linear-gradient(#CCCCCC, #DDDDDD);
+  background: -ms-linear-gradient(#CCCCCC, #DDDDDD);
+  background: linear-gradient(#CCCCCC, #DDDDDD);
+  cursor: pointer;
+  cursor: hand;
+}

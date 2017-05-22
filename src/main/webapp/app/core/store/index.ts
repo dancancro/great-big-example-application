@@ -12,12 +12,11 @@ import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
 import { Contact } from './contact/contact.model';
 import { Counter } from './counter/counter.model';
 import { Hero } from './hero/hero.model';
-import { GameModel } from './game/game.model';
 import { Layout } from './layout/layout.model';
 import { Note } from './note/note.model';
 import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
 import { Session } from './session/session.model';
-import { User } from './session/session.model';
+import { User } from './user/user.model';
 
 /**
  * The createSelector function is one of our most handy tools. In basic terms, you give
@@ -62,7 +61,7 @@ import * as fromCrises from './crisis/crisis.reducer';
 import * as fromGames from './game/game.reducer';
 import * as fromHeroes from './hero/hero.reducer';
 import * as fromLayout from './layout/layout.reducer';
-import * as fromMessage from './message/message.reducer';
+import * as fromMessages from './message/message.reducer';
 import * as fromNotes from './note/note.reducer';
 import * as fromRebuttals from './rebuttal/rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
@@ -83,7 +82,6 @@ export interface RootState {
     contact: Entities<Contact>;
     counter: Counter;
     crisis: Entities<Crisis>;
-    game: GameModel;
     hero: Entities<Hero>;
     layout: Layout;
     message: any;
@@ -120,7 +118,7 @@ const reducers = {
     router: fromRouter.routerReducer,
     search: fromSearch.reducer,
     session: fromSession.reducer,
-    message: fromMessage.reducer,
+    message: fromMessages.reducer,
     p2pGame: p2pGameReducer
 };
 
@@ -129,13 +127,13 @@ const developmentReducer = compose(
     // reduxMulti,                // Dispatch multiple actions
     // reduxPromiseMiddleware(),
     // storeFreeze,
-    localStorageSync(['session'], true),
+    localStorageSync({ keys: ['session'] }),
     combineReducers)(reducers);
 const productionReducer = compose(
     // reduxThunk,               // Thunk middleware for Redux
     // reduxMulti,               // Dispatch multiple actions
     // reduxPromiseMiddleware(),
-    localStorageSync(['session'], true),
+    localStorageSync({ keys: ['session'] }),
     combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
@@ -300,7 +298,7 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
                     {
                         rebuttals:
                         claimRebuttals
-                            .filter((cr) => cr.claimId == cid)
+                            .filter((cr) => cr.claimId === cid)
                             .sort((a, b) => a.sortOrder - b.sortOrder)
                             .map((cr) => {
                                 // return rebuttals[cr.rebuttalId];
@@ -318,7 +316,7 @@ export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRe
                             })
                     }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
                     {
-                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  //TODO Why can id be null?
+                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  // TODO Why can id be null?
                     }
                 )
             );
@@ -359,7 +357,7 @@ export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entiti
 // A selector that takes a parameter (id)
 export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => {
     // return crisisList.filter(c => c.id === id);
-    return crisisList.ids.map((id) => crisisList.entities[id]).filter((c) => c.id === id);
+    return crisisList.ids.map((crisisId) => crisisList.entities[crisisId]).filter((c) => c.id === id);
 });
 
 /**
@@ -392,4 +390,11 @@ export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTer
 /**
  * Messages Selectors
  */
-export const getMessages = (state: RootState) => state.message;
+export const getMessagesState = (state: RootState) => state.message;
+export const getMessageEntities = createSelector(getMessagesState, fromMessages.getEntities);
+export const getMessageIds = createSelector(getMessagesState, fromMessages.getIds);
+export const getSelectedMessage = createSelector(getMessagesState, fromMessages.getSelected);
+export const getMessages = createSelector(getMessageEntities, getMessageIds, (entities, ids) => {
+    return ids.map((id) => entities[id]);
+});
+export const getMessage = createSelector(getMessagesState, fromMessages.getSelected);

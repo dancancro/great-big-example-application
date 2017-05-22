@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin")
 const path = require('path');
 
 module.exports = function(options) {
@@ -100,6 +101,17 @@ module.exports = function(options) {
             new webpack.ProvidePlugin({
                 $: "jquery",
                 jQuery: "jquery"
+            }),
+            new MergeJsonWebpackPlugin({
+                output: {
+                    groupBy: [
+                        { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en/all.json" },
+                        { pattern: "./src/main/webapp/i18n/fr/*.json", fileName: "./target/www/i18n/fr/all.json" },
+                        { pattern: "./src/main/webapp/i18n/de/*.json", fileName: "./target/www/i18n/de/all.json" },
+                        { pattern: "./src/main/webapp/i18n/es/*.json", fileName: "./target/www/i18n/es/all.json" }
+                        // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
+                 ]
+                }
             }),
             new HtmlWebpackPlugin({
                 template: './src/main/webapp/index.html',

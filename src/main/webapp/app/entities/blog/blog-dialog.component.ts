@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogPopupService } from './blog-popup.service';
 import { BlogService } from './blog.service';
-import { User, UserService } from '../../shared';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/store/user/user.model';
 
 @Component({
     selector: 'jhi-blog-dialog',
@@ -21,15 +23,14 @@ export class BlogDialogComponent implements OnInit {
     isSaving: boolean;
 
     users: User[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private blogService: BlogService,
         private userService: UserService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['blog']);
     }
 
     ngOnInit() {
@@ -45,18 +46,21 @@ export class BlogDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.blog.id !== undefined) {
-            this.blogService.update(this.blog)
-                .subscribe((res: Blog) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.blogService.update(this.blog));
         } else {
-            this.blogService.create(this.blog)
-                .subscribe((res: Blog) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.blogService.create(this.blog));
         }
     }
 
+    private subscribeToSaveResponse(result: Observable<Blog>) {
+        result.subscribe((res: Blog) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    }
+
     private onSaveSuccess(result: Blog) {
-        this.eventManager.broadcast({ name: 'blogListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'blogListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -92,11 +96,11 @@ export class BlogPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private blogPopupService: BlogPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.blogPopupService
                     .open(BlogDialogComponent, params['id']);
             } else {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Rebuttal } from './rebuttal.model';
 import { DateUtils } from 'ng-jhipster';
+
 @Injectable()
 export class RebuttalService {
 
@@ -13,20 +14,14 @@ export class RebuttalService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(rebuttal: Rebuttal): Observable<Rebuttal> {
-        const copy: Rebuttal = Object.assign({}, rebuttal);
-        copy.date = this.dateUtils.toDate(rebuttal.date);
-        copy.expires = this.dateUtils.toDate(rebuttal.expires);
+        const copy = this.convert(rebuttal);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(rebuttal: Rebuttal): Observable<Rebuttal> {
-        const copy: Rebuttal = Object.assign({}, rebuttal);
-
-        copy.date = this.dateUtils.toDate(rebuttal.date);
-
-        copy.expires = this.dateUtils.toDate(rebuttal.expires);
+        const copy = this.convert(rebuttal);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -46,7 +41,7 @@ export class RebuttalService {
     query(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
+            .map((res: Response) => this.convertResponse(res))
         ;
     }
 
@@ -61,7 +56,7 @@ export class RebuttalService {
         ;
     }
 
-    private convertResponse(res: any): any {
+    private convertResponse(res: Response): Response {
         const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].date = this.dateUtils
@@ -69,7 +64,7 @@ export class RebuttalService {
             jsonResponse[i].expires = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].expires);
         }
-        res._body = jsonResponse;
+        res.json().data = jsonResponse;
         return res;
     }
 
@@ -87,5 +82,14 @@ export class RebuttalService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(rebuttal: Rebuttal): Rebuttal {
+        const copy: Rebuttal = Object.assign({}, rebuttal);
+
+        copy.date = this.dateUtils.toDate(rebuttal.date);
+
+        copy.expires = this.dateUtils.toDate(rebuttal.expires);
+        return copy;
     }
 }

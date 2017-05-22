@@ -1,1 +1,1 @@
-![Image](../../../../../../github_images/counter.png?raw=true)
+![Image](../../../../../../docs/images/counter.png?raw=true)

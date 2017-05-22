@@ -94,23 +94,23 @@ public class Blog implements Serializable {
             return false;
         }
         Blog blog = (Blog) o;
-        if (blog.id == null || id == null) {
+        if (blog.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, blog.id);
+        return Objects.equals(getId(), blog.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Blog{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", handle='" + handle + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", handle='" + getHandle() + "'" +
+            "}";
     }
 }

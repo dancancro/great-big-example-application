@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { Hero } from './hero.model';
 import { HeroService } from './hero.service';
@@ -13,16 +13,14 @@ import { HeroService } from './hero.service';
 export class HeroDetailComponent implements OnInit, OnDestroy {
 
     hero: Hero;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
         private heroService: HeroService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['hero']);
     }
 
     ngOnInit() {
@@ -47,6 +45,9 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInHeroes() {
-        this.eventSubscriber = this.eventManager.subscribe('heroListModification', (response) => this.load(this.hero.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'heroListModification',
+            (response) => this.load(this.hero.id)
+        );
     }
 }

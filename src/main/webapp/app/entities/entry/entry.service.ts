@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Entry } from './entry.model';
 import { DateUtils } from 'ng-jhipster';
+
 @Injectable()
 export class EntryService {
 
@@ -13,17 +14,14 @@ export class EntryService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(entry: Entry): Observable<Entry> {
-        const copy: Entry = Object.assign({}, entry);
-        copy.date = this.dateUtils.toDate(entry.date);
+        const copy = this.convert(entry);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(entry: Entry): Observable<Entry> {
-        const copy: Entry = Object.assign({}, entry);
-
-        copy.date = this.dateUtils.toDate(entry.date);
+        const copy = this.convert(entry);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -41,7 +39,7 @@ export class EntryService {
     query(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
+            .map((res: Response) => this.convertResponse(res))
         ;
     }
 
@@ -56,13 +54,13 @@ export class EntryService {
         ;
     }
 
-    private convertResponse(res: any): any {
+    private convertResponse(res: Response): Response {
         const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].date = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].date);
         }
-        res._body = jsonResponse;
+        res.json().data = jsonResponse;
         return res;
     }
 
@@ -80,5 +78,12 @@ export class EntryService {
             options.search = params;
         }
         return options;
+    }
+
+    private convert(entry: Entry): Entry {
+        const copy: Entry = Object.assign({}, entry);
+
+        copy.date = this.dateUtils.toDate(entry.date);
+        return copy;
     }
 }

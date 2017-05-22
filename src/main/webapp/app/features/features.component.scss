@@ -1,5 +1,5 @@
 md-sidenav-container,
-.app-content {
+.gba-content {
   position: relative;
   margin: 0;
   width: 100%;
@@ -22,7 +22,7 @@ md-sidenav {
 }
 
 
-.app-content-inner {
+.gba-content-inner {
   position: absolute;
   top: 64px;
   left: 0;
@@ -30,7 +30,7 @@ md-sidenav {
   bottom: 0;
   overflow: auto;
 
-  .app-content-main {
+  .gba-content-main {
     padding: 30px;
   }
 }

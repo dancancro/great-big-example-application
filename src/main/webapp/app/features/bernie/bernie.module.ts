@@ -21,9 +21,9 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         GreatBigExampleApplicationSharedModule,
         BernieRouting,
         ReactiveFormsModule,
-        // EffectsModule.run(ClaimEffects),
-        // EffectsModule.run(RebuttalEffects),
-        // EffectsModule.run(ClaimRebuttalEffects)
+        EffectsModule.run(ClaimEffects),
+        EffectsModule.run(RebuttalEffects),
+        EffectsModule.run(ClaimRebuttalEffects)
     ],
     declarations: [
         BerniePage,

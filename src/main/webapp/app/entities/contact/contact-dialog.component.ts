@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactPopupService } from './contact-popup.service';
@@ -18,14 +19,13 @@ export class ContactDialogComponent implements OnInit {
     contact: Contact;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private contactService: ContactService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['contact']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class ContactDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.contact.id !== undefined) {
-            this.contactService.update(this.contact)
-                .subscribe((res: Contact) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.contactService.update(this.contact));
         } else {
-            this.contactService.create(this.contact)
-                .subscribe((res: Contact) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.contactService.create(this.contact));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Contact>) {
+        result.subscribe((res: Contact) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Contact) {

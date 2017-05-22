@@ -4,7 +4,7 @@ services:
   - docker
 language: node_js
 node_js:
-  - "7.5.0"
+  - "6.10.3"
 jdk:
   - oraclejdk8
 sudo: false
@@ -16,7 +16,7 @@ cache:
     - $HOME/.yarn-cache
 env:
   global:
-    - NODE_VERSION=7.5.0
+    - NODE_VERSION=6.10.3
     - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
     - SPRING_JPA_SHOW_SQL=false
 before_install:
@@ -32,7 +32,7 @@ install:
 script:
   - chmod +x mvnw
   - ./mvnw clean test
-  - yarn test
+  # - yarn test
   - ./mvnw com.heroku.sdk:heroku-maven-plugin:1.1.1:deploy -DskipTests -Pprod -Dheroku.appName=great-big-example-application
 notifications:
   webhooks:

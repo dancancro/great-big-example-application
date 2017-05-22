@@ -31,8 +31,8 @@ describe('account', () => {
     });
 
     it('should login successfully with admin account', () => {
-        const expect1 = /login.title/;
-        element.all(by.css('.modal-content h1')).first().getAttribute('jhiTranslate').then((value) => {
+        const expect1 = /global.form.username/;
+        element.all(by.css('.modal-content label')).first().getAttribute('jhiTranslate').then((value) => {
             expect(value).toMatch(expect1);
         });
         username.clear();

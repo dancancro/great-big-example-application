@@ -20,7 +20,6 @@ heroes: Hero[];
     currentSearch: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private heroService: HeroService,
         private alertService: AlertService,
         private eventManager: EventManager,
@@ -28,7 +27,6 @@ heroes: Hero[];
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['hero']);
     }
 
     loadAll() {

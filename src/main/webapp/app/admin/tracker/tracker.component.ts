@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiTrackerService } from '../../shared';
 
@@ -12,10 +11,8 @@ export class JhiTrackerComponent implements OnInit, OnDestroy {
     activities: any[] = [];
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private trackerService: JhiTrackerService
     ) {
-        this.jhiLanguageService.setLocations(['tracker']);
     }
 
     showActivity(activity: any) {

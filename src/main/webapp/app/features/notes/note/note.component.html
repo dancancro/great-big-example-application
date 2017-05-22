@@ -1,10 +1,4 @@
-<textarea 
-  #noteText 
-  [style.top.px] = "top"
-  [style.left.px] = "left"
-  (draggable)="handleChangeNotePosition($event)"
-  (blur)="handleChangeNoteText(noteText.value)" 
-  [disabled] = "disabled"
-  [ngClass] = "colour + '-note'">{{text}}</textarea>
-
-    
+<div class="note-container" [style.top.px]="top" [style.left.px]="left" (jhiDraggable)="handleChangeNotePosition($event)">
+    <textarea #noteText (blur)="handleChangeNoteText(noteText.value)" [disabled]="disabled" [ngClass]="colour + '-note'">{{text}}</textarea>
+    <button class="delete" (click)="handleDelete(); $event.stopPropagation()">x</button>
+</div>

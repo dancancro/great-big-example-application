@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Hero } from './hero.model';
 import { HeroPopupService } from './hero-popup.service';
@@ -17,12 +17,10 @@ export class HeroDeleteDialogComponent {
     hero: Hero;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private heroService: HeroService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['hero']);
     }
 
     clear() {

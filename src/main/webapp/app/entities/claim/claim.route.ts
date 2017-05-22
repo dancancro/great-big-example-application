@@ -12,54 +12,54 @@ import { ClaimDeletePopupComponent } from './claim-delete-dialog.component';
 import { Principal } from '../../shared';
 
 export const claimRoute: Routes = [
-  {
-    path: 'claim',
-    component: ClaimComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'claim/:id',
-    component: ClaimDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'claim',
+        component: ClaimComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'claim/:id',
+        component: ClaimDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const claimPopupRoute: Routes = [
-  {
-    path: 'claim-new',
-    component: ClaimPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+    {
+        path: 'claim-new',
+        component: ClaimPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'claim/:id/edit',
-    component: ClaimPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+    {
+        path: 'claim/:id/edit',
+        component: ClaimPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'claim/:id/delete',
-    component: ClaimDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'claim/:id/delete',
+        component: ClaimDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.claim.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

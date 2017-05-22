@@ -11,7 +11,6 @@ import { GreatBigExampleApplicationAccountModule } from './account/account.modul
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
 
-import { LayoutRoutingModule } from './layouts';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { FeaturesModule } from './features/features.module';
@@ -23,6 +22,7 @@ import 'hammerjs';
 
 import {
     JhiMainComponent,
+    LayoutRoutingModule,
     NavbarComponent,
     FooterComponent,
     ProfileService,

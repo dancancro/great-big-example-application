@@ -7,12 +7,11 @@ import { MessagesRouting } from './messages.routing';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AgGridModule } from 'ag-grid-angular/main';
-import 'ag-grid/dist/styles/ag-grid.css';
-import 'ag-grid/dist/styles/theme-material.css';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { MessagesPage } from './messages.page';
-import { MessagesService } from './messages.service';
+import { EffectsModule } from '@ngrx/effects';
+import { MessageEffects } from '../../core/store/message/message.effects';
 
 @NgModule({
     declarations: [
@@ -20,13 +19,13 @@ import { MessagesService } from './messages.service';
     ],
     imports: [
         CommonModule,
+        EffectsModule.run(MessageEffects),
         FormsModule,
         MessagesRouting,
         MaterialModule.forRoot(),
-        FlexLayoutModule.forRoot(),
-        AgGridModule.withComponents([])
-    ],
-    providers: [MessagesService]
+        FlexLayoutModule,
+        NgxDatatableModule
+    ]
 })
 export class MessagesModule {
     constructor() { }

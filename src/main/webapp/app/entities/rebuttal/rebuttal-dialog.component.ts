@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
 import { RebuttalPopupService } from './rebuttal-popup.service';
@@ -18,14 +19,13 @@ export class RebuttalDialogComponent implements OnInit {
     rebuttal: Rebuttal;
     authorities: any[];
     isSaving: boolean;
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private rebuttalService: RebuttalService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['rebuttal']);
     }
 
     ngOnInit() {
@@ -39,14 +39,17 @@ export class RebuttalDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.rebuttal.id !== undefined) {
-            this.rebuttalService.update(this.rebuttal)
-                .subscribe((res: Rebuttal) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.rebuttalService.update(this.rebuttal));
         } else {
-            this.rebuttalService.create(this.rebuttal)
-                .subscribe((res: Rebuttal) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.rebuttalService.create(this.rebuttal));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Rebuttal>) {
+        result.subscribe((res: Rebuttal) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
     private onSaveSuccess(result: Rebuttal) {

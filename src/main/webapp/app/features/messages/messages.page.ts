@@ -1,25 +1,27 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { GridOptions } from 'ag-grid/main';
 
 import { Principal } from '../../shared';
 import { SocketService } from '../../core/services/socket.service';
+import { slices } from '../../core/store/util';
 import * as EntityActions from '../../core/store/entity/entity.actions';
+import { Message } from '../../core/store/message/message.model';
+import * as fromRoot from '../../core/store';
+import * as SliceActions from '../../core/store/slice/slice.actions';
 
 @Component({
-    selector: 'message',
+    selector: 'jhi-messages-page',
     templateUrl: 'messages.page.html'
 })
 
 export class MessagesPage implements OnInit, OnDestroy {
-    private message$: Observable<any>;
+    private messages$: Observable<Message[]>;
     private messageSubscription: any;
-    public gridOptions: GridOptions;
-    public columnDefs: any[];
     public messages = [];
-    public email: string;
-    public message: string;
+    public userLogin = 'anonymous';
+    public message = '';
+    editing = {};
 
     constructor(
         private store: Store<any>,
@@ -28,79 +30,40 @@ export class MessagesPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        //authenticate
+        // authenticate
         this.principal.identity().then((account) => {
-            this.socketService.connect('message', {});
+            // connect to websocket
+            // this.socketService.connect(slices.MESSAGE, {});
 
-            //connect and subscribe to websocket
-            this.messageSubscription = this.message$.subscribe((messages: any[]) => {
+            // connect to redux store
+            this.messages$ = this.store.select(fromRoot.getMessages);
+            this.messageSubscription = this.messages$.subscribe((messages: any[]) => {
                 this.messages = messages;
-                this.createDataSource();
             });
         });
-
-        // connect to redux store
-        this.message$ = this.store.select('message');
-
-        // initialize ag-grid
-        this.gridOptions = <GridOptions>{};
-        this.columnDefs = this.createColumnDefs();
-        this.email = 'anonymous';
-        this.message = '';
     }
 
     ngOnDestroy() {
         this.messageSubscription.unsubscribe();
-        this.socketService.unsubscribe();
+        // this.socketService.unsubscribe();
     }
 
-    onGridReady() {
-        this.gridOptions.api.sizeColumnsToFit();
-        //   this.messageService.findMessages()
-    }
+    // createMessage() {
+    //     this.store.dispatch(new EntityActions.Add(slices.MESSAGE, {
+    //         userLogin: this.userLogin,
+    //         message: this.message
+    //     }));
+    // }
 
-    createColumnDefs() {
-        return [
-            {
-                headerName: 'Email',
-                field: 'email'
-            },
-            {
-                headerName: 'Message',
-                field: 'message'
-            },
-            {
-                headerName: 'Created Time',
-                field: 'createdAt'
-            },
-            {
-                headerName: 'Updated Time',
-                field: 'updatedAt'
-            }
-        ];
-    }
+    updateValue(event, cell, cellValue, row) {
+        this.editing[row.$$index + '-' + cell] = false;
+        const message = this.messages[row.$$index];
+        const id = message.id;
+        let newObj = {}
+        newObj[cell] = event.target.value;
+        newObj = Object.assign({}, message, newObj)
+        this.store.dispatch(new EntityActions.Update(slices.MESSAGE, newObj));
 
-    createDataSource() {
-        if (!this.gridOptions) return;
-        const dataSource = {
-            rowCount: -1,
-            getRows: (params) => {
-                const rowsThisPage = this.messages.slice(params.startRow, params.endRow);
-                let lastRow = -1;
-                if (this.messages.length <= params.endRow) {
-                    lastRow = this.messages.length;
-                }
-                params.successCallback(rowsThisPage, this.messages.length);
-            }
-        };
-
-        this.gridOptions.api.setDatasource(dataSource);
-    }
-
-    createMessage() {
-        this.store.dispatch(new EntityActions.Add('message', {
-            email: this.email,
-            message: this.message
-        }));
+        // this.messages[row.$$index][cell] = event.target.value;
     }
 }

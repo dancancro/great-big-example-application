@@ -1,0 +1,67 @@
+<div>
+    <h2>
+        <span jhiTranslate="greatBigExampleApplicationApp.message.home.title">Messages</span>
+        <button class="btn btn-primary float-right create-message" [routerLink]="['/', { outlets: { popup: ['message-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="greatBigExampleApplicationApp.message.home.createLabel">
+            Create new Message
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'greatBigExampleApplicationApp.message.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="messages">
+        <table class="table table-striped">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                    <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="userLogin"><span jhiTranslate="greatBigExampleApplicationApp.message.userLogin">User Login</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="message"><span jhiTranslate="greatBigExampleApplicationApp.message.message">Message</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="createdAt"><span jhiTranslate="greatBigExampleApplicationApp.message.createdAt">Created At</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="updatedAt"><span jhiTranslate="greatBigExampleApplicationApp.message.updatedAt">Updated At</span> <span class="fa fa-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let message of messages ;trackBy: trackId">
+                    <td><a [routerLink]="['../message', message.id ]">{{message.id}}</a></td>
+                    <td>{{message.userLogin}}</td>
+                    <td>{{message.message}}</td>
+                    <td>{{message.createdAt | date:'medium'}}</td>
+                    <td>{{message.updatedAt | date:'medium'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['../message', message.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -14,7 +14,7 @@ const routes: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.messages.home.title',
             source: 'https://github.com/implustech/famn',
-            tags: ['websocket', 'Material Design', 'data table']
+            tags: ['websocket', 'material design', 'data table', 'redux']
         },
         canActivate: [UserRouteAccessService]
     }

@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { PasswordResetInit } from './password-reset-init.service';
 
@@ -14,12 +13,10 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
     success: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private passwordResetInit: PasswordResetInit,
         private elementRef: ElementRef,
         private renderer: Renderer
     ) {
-        this.jhiLanguageService.setLocations(['reset']);
     }
 
     ngOnInit() {

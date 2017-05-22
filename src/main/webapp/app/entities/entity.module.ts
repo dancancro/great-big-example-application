@@ -10,6 +10,7 @@ import { GreatBigExampleApplicationClaimRebuttalModule } from './claim-rebuttal/
 import { GreatBigExampleApplicationBlogModule } from './blog/blog.module';
 import { GreatBigExampleApplicationEntryModule } from './entry/entry.module';
 import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
+import { GreatBigExampleApplicationMessageModule } from './message/message.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -24,6 +25,7 @@ import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
         GreatBigExampleApplicationBlogModule,
         GreatBigExampleApplicationEntryModule,
         GreatBigExampleApplicationTagModule,
+        GreatBigExampleApplicationMessageModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

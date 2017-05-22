@@ -59,12 +59,19 @@ button:hover {
 }
 button.delete {
   float:right;
-  margin-top: 2px;
   margin-right: .8em;
   background-color: gray !important;
   color:white;
 }
 
+*, ::after, ::before {
+    -webkit-box-sizing: initial;
+    box-sizing: initial;
+}
+
+button, input, select, textarea {
+    line-height: initial;
+}
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

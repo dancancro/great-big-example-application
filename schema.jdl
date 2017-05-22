@@ -41,6 +41,17 @@ entity ClaimRebuttal {
   sortOrder Integer
 }
 
+entity Blog {
+	name String required minlength(3),
+	handle String required minlength(2)
+}
+
+entity Entry {
+	title String required,
+	content TextBlob required,
+	date ZonedDateTime required
+}
+
 entity Tag {
 	name String required minlength(2)
 }
@@ -55,3 +66,12 @@ relationship ManyToMany {
 }
 
 paginate Entry, Tag with infinite-scroll
+
+entity Message {
+    userLogin String,
+    message String required,
+    createdAt ZonedDateTime,
+    updatedAt ZonedDateTime
+}
+
+paginate Message with infinite-scroll
