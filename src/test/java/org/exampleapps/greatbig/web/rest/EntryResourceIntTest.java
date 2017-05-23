@@ -125,7 +125,7 @@ public class EntryResourceIntTest {
         Entry testEntry = entryList.get(entryList.size() - 1);
         assertThat(testEntry.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testEntry.getContent()).isEqualTo(DEFAULT_CONTENT);
-        assertThat(testEntry.getcontentType()).isEqualTo(DEFAULT_CONTENT_TYPE);
+        assertThat(testEntry.getContentType()).isEqualTo(DEFAULT_CONTENT_TYPE);
         assertThat(testEntry.getDate()).isEqualTo(DEFAULT_DATE);
 
         // Validate the Entry in Elasticsearch
@@ -275,7 +275,7 @@ public class EntryResourceIntTest {
         Entry testEntry = entryList.get(entryList.size() - 1);
         assertThat(testEntry.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testEntry.getContent()).isEqualTo(UPDATED_CONTENT);
-        assertThat(testEntry.getcontentType()).isEqualTo(UPDATED_CONTENT_TYPE);
+        assertThat(testEntry.getContentType()).isEqualTo(UPDATED_CONTENT_TYPE);
         assertThat(testEntry.getDate()).isEqualTo(UPDATED_DATE);
 
         // Validate the Entry in Elasticsearch
