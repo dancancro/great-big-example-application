@@ -23,6 +23,8 @@ export function reducer(state: Entities<ClaimRebuttal> = initialEntities<ClaimRe
             return entityFunctions.addToStore<ClaimRebuttal>(state, <any>action);
         case typeFor(slices.CLAIM_REBUTTAL, actions.DELETE):
             return entityFunctions.deleteEntity<ClaimRebuttal>(state, <any>action);
+        case typeFor(slices.CLAIM_REBUTTAL, actions.DELETE_TEMP):
+            return entityFunctions.deleteTemp<ClaimRebuttal>(state, <any>action);
         case typeFor(slices.CLAIM_REBUTTAL, actions.UPDATE):
             return sliceFunctions.update(state, <any>action); //  TODO This could be a problem. We are only updating the CR slice... for now...
         default: {

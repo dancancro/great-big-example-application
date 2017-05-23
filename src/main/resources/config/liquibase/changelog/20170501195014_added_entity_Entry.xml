@@ -29,6 +29,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="content_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="jhi_date" type="timestamp">
                 <constraints nullable="false" />
             </column>
@@ -40,7 +44,7 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="entry" columnName="jhi_date" columnDataType="datetime"/>
-        
+
         <createTable tableName="entry_tag">
             <column name="tags_id" type="bigint">
                 <constraints nullable="false"/>
@@ -51,6 +55,6 @@
         </createTable>
 
         <addPrimaryKey columnNames="entries_id, tags_id" tableName="entry_tag"/>
-        
+
     </changeSet>
 </databaseChangeLog>

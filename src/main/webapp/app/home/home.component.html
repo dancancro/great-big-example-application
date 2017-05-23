@@ -3,8 +3,8 @@
         <span class="hipster img-fluid img-rounded"></span>
     </div>
     <div class="col-md-9">
-        <h1 class="display-4" jhiTranslate="home.title">Welcome, Java Hipster!</h1>
-        <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
+        <h1 class="display-4" jhiTranslate="home.title">Welcome!</h1>
+        <p class="lead" jhiTranslate="home.subtitle">A demonstration of large web application best practices</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
@@ -24,22 +24,30 @@
             </div>
         </div>
 
-        <p jhiTranslate="home.question">
-            If you have any question on JHipster:
-        </p>
-
-        <ul>
-            <li><a href="http://jhipster.github.io/" target="_blank" jhiTranslate="home.link.homepage">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" jhiTranslate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" jhiTranslate="home.link.bugtracker">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" jhiTranslate="home.link.chat">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/java_hipster" target="_blank" jhiTranslate="home.link.follow">follow @java_hipster on Twitter</a></li>
-        </ul>
-
         <p>
-            <span jhiTranslate="home.like">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster"
-                target="_blank" jhiTranslate="home.github">Github</a>!
+            This example was built from the following source demos and guides:
         </p>
+
+        <ol>
+            <li><a href="https://angular.io/docs/ts/latest/guide/style-guide.html">Angular Style Guide</a> by Google (see
+                <a href="https://angular.io/docs/ts/latest/guide/change-log.html">change log</a> for updates)</li>
+            <li><a href="https://github.com/dancancro/tour-of-heroes-versions">Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)</a>                by Google</li>
+            <li><a href="https://github.com/angular/angular-cli">Angular CLI</a> by Google and the community</li>
+            <li><a href="http://redux.js.org/">Redux Docs</a> Redux.org</li>
+            <li><a href="https://github.com/jhipster/jhipster-sample-app-ng2">JHipster Example - Bank accounts</a> by
+                <a href="https://github.com/jdubois">@jdubois</a>
+            </li>
+            <li><a href="https://github.com/mraible/jhipster4-demo">JHipster Example - Blog</a> by <a href="https://github.com/mraible">@mraible</a></li>
+            <li><a href="https://github.com/ruddell/jhipster-chat-example">JHipster Example - Chat</a> by <a href="https://github.com/ruddell">@ruddell</a></li>
+            <li><a href="https://github.com/mgechev/scalable-architecture-demo">scalable-architecture-demo - P2P Typing Game</a>                by <a href="https://github.com/mgechev">@mgechev</a></li>
+            <li><a href="https://github.com/ngrx/example-app">ngrx example app - book collection</a> by <a href="https://github.com/MikeRyan52">@MikeRyan52</a></li>
+            <li><a href="https://github.com/JavascriptMick/ng2-state-talk">ng2-state-talk - drag/editable notes</a> by
+                <a href="https://github.com/JavascriptMick">@JavascriptMick</a>
+            </li>
+            <li><a href="https://www.npmjs.com/package/rangle-starter">rangle-starter Angular 2 with TypeScript and Redux version - counter</a>                by <a href="https://github.com/SethDavenport">@SethDavenport</a></li>
+            <li><a href="http://www.bernierebuttals.org">Talking point rebuttals with JQuery and Google Scripts</a> by <a href="https://github.com/dancancro">me</a>
+        </ol>
+
         <p>
             <a href="https://github.com/dancancro/great-big-example-application" target="_blank" jhiTranslate="home.gotoproject">Source</a>
         </p>

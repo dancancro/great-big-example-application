@@ -8,7 +8,6 @@ import { ChatRouting } from './chat.routing';
 import { ChatService } from './services/chat.service';
 import { customHttpProvider } from '../../blocks/interceptor/http.provider';
 
-
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedModule,

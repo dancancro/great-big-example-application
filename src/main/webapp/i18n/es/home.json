@@ -1,7 +1,7 @@
 {
     "home": {
-        "title": "¡Bienvenido, Java Hipster!",
-        "subtitle": "Esta es su página de inicio",
+        "title": "¡Bienvenido!",
+        "subtitle": "Una demostración de las mejores prácticas de aplicación web",
         "logged": {
             "message": "Está conectado como \"{{username}}\"."
         },

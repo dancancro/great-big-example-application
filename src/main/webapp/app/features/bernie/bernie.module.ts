@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
+import { MaterialModule } from '@angular/material';
 
 import { BerniePage } from './bernie.page';
 import { ClaimComponent } from './claim/claim.component';
@@ -21,6 +22,7 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         GreatBigExampleApplicationSharedModule,
         BernieRouting,
         ReactiveFormsModule,
+        MaterialModule.forRoot(),
         EffectsModule.run(ClaimEffects),
         EffectsModule.run(RebuttalEffects),
         EffectsModule.run(ClaimRebuttalEffects)

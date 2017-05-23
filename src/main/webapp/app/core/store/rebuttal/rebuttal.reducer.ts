@@ -21,6 +21,8 @@ export function reducer(state: Entities<Rebuttal> = initialEntities<Rebuttal>({}
             return functions.addToStore<Rebuttal>(state, <any>action);
         case typeFor(slices.REBUTTAL, actions.UPDATE):
             return functions.update<Rebuttal>(state, <any>action);
+        case typeFor(slices.REBUTTAL, actions.DELETE_TEMP):
+            return functions.deleteTemp<Rebuttal>(state, <any>action);
         default: {
             return state;
         }

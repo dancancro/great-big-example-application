@@ -35,9 +35,9 @@ export class BerniePage implements OnDestroy {
     loading$: Observable<boolean>;
     expanded: boolean;
     editable: boolean;
-    claimRebuttals$: Observable<Entities<ClaimRebuttal>>;
+    claimRebuttals$: Observable<ClaimRebuttal[]>;
     claimRebuttalsSub: Subscription;
-    claimRebuttals: Entities<ClaimRebuttal>;
+    claimRebuttals: ClaimRebuttal[];
 
     options: SortablejsOptions = {
         disabled: false
@@ -47,7 +47,7 @@ export class BerniePage implements OnDestroy {
         private route: ActivatedRoute, ) {
         this.page$ = store.select(fromRoot.getBerniePageState);
         this.claims$ = store.select(fromRoot.getDeepClaims);
-        this.claimRebuttals$ = store.select(fromRoot.getClaimRebuttalsState);
+        this.claimRebuttals$ = store.select(fromRoot.getClaimRebuttals);
         this.loading$ = store.select(fromRoot.getSearchLoading);
         this.pageSub = this.page$.subscribe((page) => {
             this.expanded = page.expanded;
@@ -86,7 +86,7 @@ export class BerniePage implements OnDestroy {
     addClaim() {
         const newClaim = prompt('New claim');
         if (newClaim) {
-            this.store.dispatch(new EntityActions.Add(slices.CLAIM, {
+            this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM, {
                 id: uuid.v1(),
                 name: newClaim
             }));
@@ -102,19 +102,19 @@ export class BerniePage implements OnDestroy {
         // to create a new, blank rebuttal for this claim
         // create an instance of rebuttal and an instance of the join record claimRebuttal
         // and dispatch actions to each respective reducer
-        const newRebuttal = initialRebuttal({ id: uuid.v1(), editing: true, isNew: true });
-        const newClaimRebuttal = initialClaimRebuttal({ id: uuid.v1(), claimId: claim.id, rebuttalId: newRebuttal.id });
-        this.store.dispatch(new EntityActions.Add(slices.REBUTTAL, newRebuttal));
-        this.store.dispatch(new EntityActions.Add(slices.CLAIM_REBUTTAL, newClaimRebuttal));
+        const newRebuttal = initialRebuttal({ editing: true });
+        const newClaimRebuttal = initialClaimRebuttal({ claimId: claim.id, rebuttalId: EntityActions.TEMP });
+        this.store.dispatch(new EntityActions.AddTemp(slices.REBUTTAL, newRebuttal));
+        this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM_REBUTTAL, newClaimRebuttal));
     }
     toggleRebuttals(claim: Claim) {
         this.store.dispatch(new EntityActions.Update(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
     }
 
     cancelRebuttal({ claimRebuttalId, rebuttal }) {
-        if (rebuttal.isNew) {
-            // TODO: delete the rebuttal record if necessary
-            this.store.dispatch(new EntityActions.Delete(slices.CLAIM_REBUTTAL, claimRebuttalId));
+        if (rebuttal.id === EntityActions.TEMP) {
+            this.store.dispatch(new EntityActions.DeleteTemp(slices.CLAIM_REBUTTAL));
+            this.store.dispatch(new EntityActions.DeleteTemp(slices.REBUTTAL));
         } else {
             this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: false }));
         }
@@ -129,18 +129,29 @@ export class BerniePage implements OnDestroy {
     }
 
     reorderRebuttals(claim, event) {
-        const rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter((li) => li.id).map((li) => li.id);
-        const crs = Object.assign({}, this.claimRebuttals); // TODO I'm not sure if this is necessary
-        for (const id of Object.keys(this.claimRebuttals.entities)) {
-            const cr = this.claimRebuttals.entities[id];
-            if (cr.claimId === claim.id && rebuttalIds[cr.rebuttalId]) {
-                cr.sortOrder = rebuttalIds.indexOf(cr.rebuttalId);
-            }
-        }
-        this.store.dispatch(new SliceActions.Update(slices.CLAIM_REBUTTAL, [], crs));
+        const rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter((li) => li.id).map((li) => +li.id);
+
+        // Otherwise sortablejs gets a null event and throws an error
+        setTimeout(() => {
+            let i = 1;
+            rebuttalIds.map((rebuttalId) => {
+                const crid = this.claimRebuttals.filter((cr) => cr.claimId === claim.id && cr.rebuttalId === rebuttalId)[0].id;
+                this.store.dispatch(new SliceActions.Update(slices.CLAIM_REBUTTAL, ['entities', crid, 'sortOrder'], i));
+                i++;
+            })
+
+        }, 0);
     }
 
     reorderClaims(event) {
+        // Not sure if we want this to work.
+        //
+        // if (event.stopPropagation) {
+        //     event.stopPropagation();
+        // }
+        // if (event.cancelBubble != null) {
+        //     event.cancelBubble = true;
+        // }
         // TODO: There's gotta be a better way
         // This is called when the claims are reordered AND when the rebuttals for a claim are reordered.
         // We need to ignore the second of these

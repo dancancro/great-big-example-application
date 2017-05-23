@@ -40,7 +40,7 @@ export class EntryService {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: Response) => this.convertResponse(res))
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
@@ -51,7 +51,7 @@ export class EntryService {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceSearchUrl, options)
             .map((res: any) => this.convertResponse(res))
-        ;
+            ;
     }
 
     private convertResponse(res: Response): Response {
@@ -84,6 +84,7 @@ export class EntryService {
         const copy: Entry = Object.assign({}, entry);
 
         copy.date = this.dateUtils.toDate(entry.date);
+        copy.contentType = 'text';  // TODO: do something with this field
         return copy;
     }
 }

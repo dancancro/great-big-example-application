@@ -48,7 +48,7 @@ export class ChatService {
         }
         const socket = new SockJS(url);
         this.stompClient = Stomp.over(socket);
-        let headers = {};
+        const headers = {};
         this.stompClient.connect(headers, () => {
             this.connectedPromise('success');
             this.connectedPromise = null;
@@ -87,7 +87,7 @@ export class ChatService {
 
     subscribe() {
         this.connection.then(() => {
-            this.subscriber = this.stompClient.subscribe('/chat/public', data => {
+            this.subscriber = this.stompClient.subscribe('/chat/public', (data) => {
                 const message = JSON.parse(data.body);
                 this.store.dispatch(new EntityActions.LoadSuccess<Message>(slices.MESSAGE, message));
                 // this.listenerObserver.next(JSON.parse(data.body));
@@ -103,7 +103,7 @@ export class ChatService {
     }
 
     private createListener(): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer) => {
             this.listenerObserver = observer;
         });
     }

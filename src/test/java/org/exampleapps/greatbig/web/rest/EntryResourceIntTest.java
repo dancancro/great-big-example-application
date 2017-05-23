@@ -49,8 +49,8 @@ public class EntryResourceIntTest {
 
     private static final byte[] DEFAULT_CONTENT = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_CONTENT = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_CONTENT_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_CONTENT_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_CONTENT_TYPE = "image/png";
 
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
@@ -97,7 +97,7 @@ public class EntryResourceIntTest {
         Entry entry = new Entry()
             .title(DEFAULT_TITLE)
             .content(DEFAULT_CONTENT)
-            .contentContentType(DEFAULT_CONTENT_CONTENT_TYPE)
+            .contentType(DEFAULT_CONTENT_TYPE)
             .date(DEFAULT_DATE);
         return entry;
     }
@@ -125,7 +125,7 @@ public class EntryResourceIntTest {
         Entry testEntry = entryList.get(entryList.size() - 1);
         assertThat(testEntry.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testEntry.getContent()).isEqualTo(DEFAULT_CONTENT);
-        assertThat(testEntry.getContentContentType()).isEqualTo(DEFAULT_CONTENT_CONTENT_TYPE);
+        assertThat(testEntry.getcontentType()).isEqualTo(DEFAULT_CONTENT_TYPE);
         assertThat(testEntry.getDate()).isEqualTo(DEFAULT_DATE);
 
         // Validate the Entry in Elasticsearch
@@ -218,7 +218,7 @@ public class EntryResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(entry.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].contentContentType").value(hasItem(DEFAULT_CONTENT_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].contentType").value(hasItem(DEFAULT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTENT))))
             .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))));
     }
@@ -235,7 +235,7 @@ public class EntryResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(entry.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
-            .andExpect(jsonPath("$.contentContentType").value(DEFAULT_CONTENT_CONTENT_TYPE))
+            .andExpect(jsonPath("$.contentType").value(DEFAULT_CONTENT_TYPE))
             .andExpect(jsonPath("$.content").value(Base64Utils.encodeToString(DEFAULT_CONTENT)))
             .andExpect(jsonPath("$.date").value(sameInstant(DEFAULT_DATE)));
     }
@@ -261,7 +261,7 @@ public class EntryResourceIntTest {
         updatedEntry
             .title(UPDATED_TITLE)
             .content(UPDATED_CONTENT)
-            .contentContentType(UPDATED_CONTENT_CONTENT_TYPE)
+            .contentType(UPDATED_CONTENT_TYPE)
             .date(UPDATED_DATE);
 
         restEntryMockMvc.perform(put("/api/entries")
@@ -275,7 +275,7 @@ public class EntryResourceIntTest {
         Entry testEntry = entryList.get(entryList.size() - 1);
         assertThat(testEntry.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testEntry.getContent()).isEqualTo(UPDATED_CONTENT);
-        assertThat(testEntry.getContentContentType()).isEqualTo(UPDATED_CONTENT_CONTENT_TYPE);
+        assertThat(testEntry.getcontentType()).isEqualTo(UPDATED_CONTENT_TYPE);
         assertThat(testEntry.getDate()).isEqualTo(UPDATED_DATE);
 
         // Validate the Entry in Elasticsearch
@@ -336,7 +336,7 @@ public class EntryResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(entry.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].contentContentType").value(hasItem(DEFAULT_CONTENT_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].contentType").value(hasItem(DEFAULT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTENT))))
             .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))));
     }

@@ -50,10 +50,15 @@ export class Add<T> extends EntityAction<T> {
     }
 }
 
+/**
+ * Create a temporary entity to go into the store but not to the server or be
+ * validated. If the id of the payload is missing or null
+ * then use the TEMP value. Otherwise use the payload.id value
+ */
 export class AddTemp<T> extends EntityAction<T> {
     protected actionName: string = actions.ADD_TEMP;
     constructor(public slice: string, payload: any = {}) {
-        super(slice, Object.assign({}, { id: TEMP }, payload));
+        super(slice, Object.assign({}, payload, (payload.id ? {} : { id: TEMP })));
     }
 }
 

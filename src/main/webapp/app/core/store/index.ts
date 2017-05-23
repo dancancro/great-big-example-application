@@ -251,20 +251,20 @@ export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
     return ids.map((id) => entities[id]);
 });
-export const getBerniePage = createSelector(getBerniePageState, getClaims, (berniePage, claims) => {
+// export const getBerniePage = createSelector(getBerniePageState, getClaims, (berniePage, claims) => {
 
-    let _dirty = false;
-    claims.forEach((claim) => {
-        claim.rebuttals.forEach((rebuttal) => {
-            if (rebuttal && rebuttal.dirty) {
-                _dirty = true;
-            }
-        });
-    });
+//     let _dirty = false;
+//     claims.forEach((claim) => {
+//         claim.rebuttals.forEach((rebuttal) => {
+//             if (rebuttal && rebuttal.dirty) {
+//                 _dirty = true;
+//             }
+//         });
+//     });
 
-    return Object.assign({}, berniePage, { dirty: _dirty });
+//     return Object.assign({}, berniePage, { dirty: _dirty });
 
-});
+// });
 
 /**
  * Rebuttal Selectors
@@ -285,58 +285,28 @@ export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromCl
 export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
     return ids.map((id) => entities[id]);
 });
+export const getDeepClaimRebuttals = createSelector(getClaimRebuttals, getRebuttals, (claimRebuttals, rebuttals) => {
+    return claimRebuttals.map((cr) => {
+        return {
+            claimId: cr.claimId,
+            sortOrder: cr.sortOrder,
+            rebuttal: rebuttals.filter((rebuttal) => rebuttal.id === cr.rebuttalId)[0]
+        }
+    })
+});
 
-// Many-to-Many Join, Denormalization with sorted sub array
-export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRebuttalEntities, getClaimRebuttals,
-    (claims, claimIds, rebuttals, claimRebuttals) => {
-        return claimIds
-            // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
-            .map((cid) =>
-                Object.assign(
-                    {},
-                    claims[cid],
-                    {
-                        rebuttals:
-                        claimRebuttals
-                            .filter((cr) => cr.claimId === cid)
-                            .sort((a, b) => a.sortOrder - b.sortOrder)
-                            .map((cr) => {
-                                // return rebuttals[cr.rebuttalId];
-                                return {
-                                    claimRebuttalId: cr.id,
-                                    id: rebuttals[cr.rebuttalId].id,
-                                    shortName: rebuttals[cr.rebuttalId].shortName,
-                                    longName: rebuttals[cr.rebuttalId].longName,
-                                    comments: rebuttals[cr.rebuttalId].comments,
-                                    editing: rebuttals[cr.rebuttalId].editing,
-                                    isNew: rebuttals[cr.rebuttalId].isNew,
-                                    // isTouched: rebuttals[cr.rebuttalId].isTouched,
-                                    link: rebuttals[cr.rebuttalId].link
-                                };
-                            })
-                    }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
-                    {
-                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  // TODO Why can id be null?
-                    }
-                )
-            );
-
-    });
-
-// export const isTouched = function (state$: Observable<RootState>) {
-//   let _touched = false;
-//   // TODO make this a for loop with early exits
-//   getClaims(state$).forEach(claims => {
-//     claims.forEach(claim => {
-//       claim.rebuttals.forEach(rebuttal => {
-//         if (rebuttal.isTouched()) {
-//           _touched = true;
-//         }
-//       });
-//     });
-//   });
-//   return _touched;
-// }
+export const getDeepClaims = createSelector(getClaims, getDeepClaimRebuttals, (claims, deepClaimRebuttals) => {
+    return claims.map((claim) => {
+        return Object.assign({}, claim, {
+            rebuttals: deepClaimRebuttals
+                .filter((dcr) => dcr.claimId === claim.id)
+                .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)
+                .map((dcr) => dcr.rebuttal)
+        })
+    }
+    )
+        .sort((a, b) => a.name < b.name ? -1 : 1)
+});
 
 /**
  * Counter Selectors

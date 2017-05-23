@@ -5,6 +5,7 @@ export class Entry {
         public id?: number,
         public title?: string,
         public content?: any,
+        public contentType?: string,
         public date?: any,
         public blog?: Blog,
         public tag?: Tag,
