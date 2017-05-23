@@ -19,8 +19,6 @@ import * as EntityActions from '../../core/store/entity/entity.actions';
 import * as SliceActions from '../../core/store/slice/slice.actions';
 import { slices } from '../../core/store/util';
 
-const uuid = require('uuid');
-
 @Component({
     selector: 'jhi-bernie',
     templateUrl: './bernie.page.html',
@@ -87,7 +85,6 @@ export class BerniePage implements OnDestroy {
         const newClaim = prompt('New claim');
         if (newClaim) {
             this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM, {
-                id: uuid.v1(),
                 name: newClaim
             }));
         }

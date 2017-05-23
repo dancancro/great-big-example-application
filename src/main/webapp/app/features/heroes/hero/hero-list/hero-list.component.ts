@@ -5,13 +5,12 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import uuid from 'uuid/uuid';
 
 import { Hero } from '../../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../../core/store';
 import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
-
-const uuid = require('uuid');
 
 @Component({
     selector: 'jhi-hero-list',

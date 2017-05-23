@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import uuid from 'uuid/uuid';
 
 import * as fromRoot from '../../core/store';
 import { Contact } from '../../core/store/contact/contact.model';
@@ -13,7 +14,6 @@ import { slices } from '../../core/store/util';
 import { Entities } from '../../core/store/entity/entity.model';
 import { Account, Principal } from '../../shared';
 
-const uuid = require('uuid');
 
 @Component({
     selector: 'jhi-contact',
