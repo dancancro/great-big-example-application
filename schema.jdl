@@ -46,14 +46,14 @@ entity Blog {
 	handle String required minlength(2)
 }
 
-entity Entry {
-	title String required,
-	content TextBlob required,
-	date ZonedDateTime required
-}
-
 entity Tag {
 	name String required minlength(2)
+}
+
+entity Entry {
+	title String required,
+	content Blob required,
+	date ZonedDateTime required
 }
 
 relationship ManyToOne {

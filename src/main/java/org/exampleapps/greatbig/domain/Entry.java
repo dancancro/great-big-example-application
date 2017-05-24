@@ -37,9 +37,8 @@ public class Entry implements Serializable {
     @Column(name = "content", nullable = false)
     private byte[] content;
 
-    @Column(name = "content_type", nullable = false)
-    private String contentType;
-
+    @Column(name = "content_content_type", nullable = false)
+    private String contentContentType;
 
     @NotNull
     @Column(name = "jhi_date", nullable = false)
@@ -89,17 +88,17 @@ public class Entry implements Serializable {
         this.content = content;
     }
 
-    public String getContentType() {
-        return contentType;
+    public String getContentContentType() {
+        return contentContentType;
     }
 
-    public Entry contentType(String contentType) {
-        this.contentType = contentType;
+    public Entry contentContentType(String contentContentType) {
+        this.contentContentType = contentContentType;
         return this;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setContentContentType(String contentContentType) {
+        this.contentContentType = contentContentType;
     }
 
     public ZonedDateTime getDate() {
@@ -179,7 +178,7 @@ public class Entry implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", content='" + getContent() + "'" +
-            ", contentType='" + contentType + "'" +
+            ", contentContentType='" + contentContentType + "'" +
             ", date='" + getDate() + "'" +
             "}";
     }

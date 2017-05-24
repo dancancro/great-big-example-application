@@ -27,6 +27,7 @@
         {
             "fieldName": "content",
             "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
             "fieldValidateRules": [
                 "required"
             ]

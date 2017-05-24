@@ -3413,7 +3413,7 @@ generator-jhipster@4.2.0:
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
-generator-jhipster@4.4.1, generator-jhipster@>2.26.0, generator-jhipster@>=3.0.0:
+generator-jhipster@4.4.1, generator-jhipster@>2.26.0, generator-jhipster@>3.6.0, generator-jhipster@>=3.0.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.4.1.tgz#8915817c2023997af85c55edcb6f6719f41f5c1c"
   dependencies:
@@ -3434,7 +3434,7 @@ generator-jhipster@4.4.1, generator-jhipster@>2.26.0, generator-jhipster@>=3.0.0
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
-generator-jhipster@>3.6.0, generator-jhipster@>=4.0.0, generator-jhipster@latest:
+generator-jhipster@>=4.0.0, generator-jhipster@latest:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.5.1.tgz#ff0a3b31d961e2ad92c11e3ce8c5479604172701"
   dependencies:
@@ -8524,7 +8524,7 @@ string_decoder@^0.10.25, string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
 
-string_decoder@~1.0.0:
+string_decoder@~1.0.0, string_decoder@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.1.tgz#62e200f039955a6810d8df0a33ffc0f013662d98"
   dependencies:
@@ -9800,16 +9800,9 @@ ws@1.1.1:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@1.1.2:
+ws@1.1.2, ws@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.2.tgz#8a244fa052401e08c9886cf44a85189e1fd4067f"
-  dependencies:
-    options ">=0.0.5"
-    ultron "1.0.x"
-
-ws@^1.0.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
