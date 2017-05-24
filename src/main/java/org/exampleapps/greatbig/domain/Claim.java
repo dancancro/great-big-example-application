@@ -29,6 +29,9 @@ public class Claim implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
     @Column(name = "image_label")
     private String imageLabel;
 
@@ -54,6 +57,19 @@ public class Claim implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public Claim sortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+        return this;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public String getImageLabel() {

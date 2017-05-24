@@ -115,6 +115,7 @@ public class ClaimResourceIntTest {
         assertThat(claimList).hasSize(databaseSizeBeforeCreate + 1);
         Claim testClaim = claimList.get(claimList.size() - 1);
         assertThat(testClaim.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testClaim.getSortOrder()).isEqualTo(DEFAULT_SORT_ORDER);
         assertThat(testClaim.getImageLabel()).isEqualTo(DEFAULT_IMAGE_LABEL);
         assertThat(testClaim.getImageLink()).isEqualTo(DEFAULT_IMAGE_LINK);
 
@@ -173,7 +174,8 @@ public class ClaimResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(claim.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].imageLabel").value(hasItem(DEFAULT_IMAGE_LABEL.toString())))
-            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())));
+            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())))
+            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)));
     }
 
     @Test
@@ -189,7 +191,8 @@ public class ClaimResourceIntTest {
             .andExpect(jsonPath("$.id").value(claim.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.imageLabel").value(DEFAULT_IMAGE_LABEL.toString()))
-            .andExpect(jsonPath("$.imageLink").value(DEFAULT_IMAGE_LINK.toString()));
+            .andExpect(jsonPath("$.imageLink").value(DEFAULT_IMAGE_LINK.toString()))
+            .andExpect(jsonPath("$.sortOrder").value(DEFAULT_SORT_ORDER));
     }
 
     @Test
@@ -213,7 +216,8 @@ public class ClaimResourceIntTest {
         updatedClaim
             .name(UPDATED_NAME)
             .imageLabel(UPDATED_IMAGE_LABEL)
-            .imageLink(UPDATED_IMAGE_LINK);
+            .imageLink(UPDATED_IMAGE_LINK)
+            .sortOrder(UPDATED_SORT_ORDER);
 
         restClaimMockMvc.perform(put("/api/claims")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -227,6 +231,7 @@ public class ClaimResourceIntTest {
         assertThat(testClaim.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testClaim.getImageLabel()).isEqualTo(UPDATED_IMAGE_LABEL);
         assertThat(testClaim.getImageLink()).isEqualTo(UPDATED_IMAGE_LINK);
+        assertThat(testClaim.getSortOrder()).isEqualTo(UPDATED_SORT_ORDER);
 
         // Validate the Claim in Elasticsearch
         Claim claimEs = claimSearchRepository.findOne(testClaim.getId());
@@ -287,7 +292,8 @@ public class ClaimResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(claim.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].imageLabel").value(hasItem(DEFAULT_IMAGE_LABEL.toString())))
-            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())));
+            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())))
+            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)));
     }
 
     @Test

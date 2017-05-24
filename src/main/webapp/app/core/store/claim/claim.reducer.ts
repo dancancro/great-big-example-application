@@ -1,7 +1,9 @@
 import { Claim, initialClaim } from './claim.model';
 import { actions, EntityAction } from '../entity/entity.actions';
+import { SliceAction } from '../slice/slice.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
-import * as functions from '../entity/entity.functions';
+import * as entityFunctions from '../entity/entity.functions';
+import * as sliceFunctions from '../slice/slice.functions';
 import { slices } from '../util';
 import { typeFor } from '../util';
 
@@ -9,14 +11,18 @@ export function reducer(state = initialEntities<Claim>({}, slices.CLAIM, actions
     action: EntityAction<Claim>): Entities<Claim> {
     switch (action.type) {
         case typeFor(slices.CLAIM, actions.ADD_SUCCESS):
-            return functions.addSuccess<Claim>(state, <any>action);
+            return entityFunctions.addSuccess<Claim>(state, <any>action);
         case typeFor(slices.CLAIM, actions.ADD_TEMP):
         case typeFor(slices.CLAIM, actions.LOAD_SUCCESS):
-            return functions.addToStore<Claim>(state, <any>action);
+            return entityFunctions.addToStore<Claim>(state, <any>action);
         case typeFor(slices.CLAIM, actions.UPDATE_EACH):
-            return functions.updateEach<Claim>(state, <any>action);
+            return entityFunctions.updateEach<Claim>(state, <any>action);
         case typeFor(slices.CLAIM, actions.UPDATE):
-            return functions.update<Claim>(state, <any>action);
+            if (action instanceof SliceAction) {
+                return sliceFunctions.update(state, action);
+            } else {
+                return entityFunctions.update<Claim>(state, <any>action);
+            }
         default: {
             return state;
         }

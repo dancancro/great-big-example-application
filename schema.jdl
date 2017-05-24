@@ -11,6 +11,7 @@ entity Crisis {
 
 entity Claim {
     name String required,
+    sortOrder Integer,
     imageLabel String,
     imageLink String
 }

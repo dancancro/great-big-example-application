@@ -27,8 +27,8 @@
         </div>
 </md-card>
 <section class="content-container">
-    <ul id="claim-list" [sortablejs]="claims$ | async" (update)="reorderClaims($event)">
-        <li *ngFor="let claim of claims$ | async">
+    <ul id="claim-list" [sortablejs]="deepClaims$ | async" (update)="reorderClaims($event)">
+        <li *ngFor="let claim of deepClaims$ | async">
             <jhi-bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
                 (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
                 (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></jhi-bernie-claim>

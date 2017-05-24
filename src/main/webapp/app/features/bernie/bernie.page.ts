@@ -28,7 +28,10 @@ import { slices } from '../../core/store/util';
 export class BerniePage implements OnDestroy {
     page$: Observable<BerniePageLayout>;
     pageSub: Subscription;
-    claims$: Observable<Claim[]>;
+    claimEntities$: Observable<Entities<Claim>>;
+    claimEntities: Entities<Claim>;
+    claimEntitiesSub: Subscription;
+    deepClaims$: Observable<Claim[]>;
     rebuttals$: Observable<Rebuttal[]>;
     loading$: Observable<boolean>;
     expanded: boolean;
@@ -44,7 +47,8 @@ export class BerniePage implements OnDestroy {
     constructor(private store: Store<fromRoot.RootState>,
         private route: ActivatedRoute, ) {
         this.page$ = store.select(fromRoot.getBerniePageState);
-        this.claims$ = store.select(fromRoot.getDeepClaims);
+        this.claimEntities$ = store.select(fromRoot.getClaimsState);
+        this.deepClaims$ = store.select(fromRoot.getDeepClaims);
         this.claimRebuttals$ = store.select(fromRoot.getClaimRebuttals);
         this.loading$ = store.select(fromRoot.getSearchLoading);
         this.pageSub = this.page$.subscribe((page) => {
@@ -52,16 +56,17 @@ export class BerniePage implements OnDestroy {
             this.editable = page.editable;
         });
         this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
+        this.claimEntitiesSub = this.claimEntities$.subscribe((claimEntities) => this.claimEntities = claimEntities);
 
-        // this.claims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
-        // this.claims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
+        // this.deepClaims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
+        // this.deepClaims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
 
-        // this.claims$.subscribe(claim => {
+        // this.deepClaims$.subscribe(claim => {
         //   console.log('claims')
         // });
 
         // this.claimsSubscription = combineLatest(
-        //   this.claims$,
+        //   this.deepClaims$,
         //   this.route.params)
         //   .subscribe(([claims, params]) => {
         //     let id = +params['claimId'];
@@ -153,9 +158,39 @@ export class BerniePage implements OnDestroy {
         // This is called when the claims are reordered AND when the rebuttals for a claim are reordered.
         // We need to ignore the second of these
 
+        // try {
+        //     setTimeout(() => {
+        //         // get the claim ids in the updated order from the DOM LIs   IS THERE A BETTER WAY TO GET THESE?
+        //         const ids = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
+
+        //         // get an updated hash of entities by updating sortOrder of the old ones
+        //         const entities = Object.assign({}, this.claimEntities.entities);
+        //         ids.map((id, index) => {
+        //             entities[id].sortOrder = index;
+        //         })
+
+        //         // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
+        //         const newEntities = Object.assign({}, this.claimEntities, { entities, ids });
+        //         this.store.dispatch(new SliceActions.Update(slices.CLAIM, [], newEntities));
+        //     })
+        // } catch (err) {
+
+        // }
         try {
-            const claimIds = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
-            this.store.dispatch(new SliceActions.Update(slices.CLAIM, ['ids'], claimIds));
+
+            // get the claim ids in the updated order from the DOM LIs   IS THERE A BETTER WAY TO GET THESE?
+            const ids = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
+
+            // get an updated hash of entities by updating sortOrder of the old ones
+            const entities = Object.assign({}, this.claimEntities.entities);
+            ids.map((id, index) => {
+                entities[id].sortOrder = index;
+            })
+
+            // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
+            const newEntities = Object.assign({}, this.claimEntities, { entities, ids });  // this Object.assign isn't necessary. Merge in slice.functions too
+            this.store.dispatch(new SliceActions.Update(slices.CLAIM, [], newEntities));
+
         } catch (err) {
 
         }
