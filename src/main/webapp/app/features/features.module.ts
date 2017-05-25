@@ -17,26 +17,26 @@ import { HomePage } from './home/home.page';
 import { VersionService } from '../shared/index';
 
 @NgModule({
-  declarations: [
-    FeaturesComponent,
-    HomePage,
-  ],
-  imports: [
-    // HttpModule,
-    // CoreModule,
-    CommonModule,
-    FeaturesRouting,
-    MaterialModule.forRoot(),
-    FlexLayoutModule
-  ],
-  providers: [
-    VersionService,
-    FeaturesService
-    // SocketService,
-    // AuthGuard
-  ]
+    declarations: [
+        FeaturesComponent,
+        HomePage,
+    ],
+    imports: [
+        // HttpModule,
+        // CoreModule,
+        CommonModule,
+        FeaturesRouting,
+        MaterialModule,
+        FlexLayoutModule
+    ],
+    providers: [
+        VersionService,
+        FeaturesService
+        // SocketService,
+        // AuthGuard
+    ]
 })
 
 export class FeaturesModule {
-  constructor() { }
+    constructor() { }
 }

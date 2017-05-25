@@ -22,7 +22,7 @@ import { MessageEffects } from '../../core/store/message/message.effects';
         EffectsModule.run(MessageEffects),
         FormsModule,
         MessagesRouting,
-        MaterialModule.forRoot(),
+        MaterialModule,
         FlexLayoutModule,
         NgxDatatableModule
     ]

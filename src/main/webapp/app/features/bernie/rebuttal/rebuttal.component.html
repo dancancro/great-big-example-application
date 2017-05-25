@@ -16,8 +16,8 @@
 </form>
 
 <span *ngIf="!rebuttal.editing" [class.editable]="page.editable">
-     <b>{{rebuttal.shortName}}</b>
-     <span>{{rebuttal.longName}}</span>
+     <span class="rebuttal-title">{{rebuttal.shortName}}</span> - <br>
+<span>{{rebuttal.longName}}</span>
 <a *ngIf="rebuttal.link" target="blank" [href]="rebuttal.link">🔗</a>
 <div>{{rebuttal.comments}}</div>
 </span>

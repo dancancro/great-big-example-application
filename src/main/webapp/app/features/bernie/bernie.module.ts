@@ -23,7 +23,7 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         GreatBigExampleApplicationSharedModule,
         BernieRouting,
         ReactiveFormsModule,
-        MaterialModule.forRoot(),
+        MaterialModule,
         EffectsModule.run(ClaimEffects),
         EffectsModule.run(RebuttalEffects),
         EffectsModule.run(ClaimRebuttalEffects),

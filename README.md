@@ -17,8 +17,8 @@ you see it or learn how they made everything work together.
 The other goal is to assemble enough functionality into one free example application that people 
 think twice before starting another one-feature, no edge-case, example and exacerbating the already 
 overwhelming starting point option overload. Hopefully this will persuade a few people to direct
-that energy instead into improving what already exists by refactoring it and creating new marketplace 
-modules. To this end I have made, over the course of the past 4 years, 
+that energy instead into improving what already exists and creating new marketplace modules that
+just work with it. To this end I have made, over the course of the past 4 years, 
 [the world's biggest, most detailed database of web technology selling points](https://docs.google.com/spreadsheets/d/1nMv8TqUx3gUoC3M6BRPB4E4FMTSYGT_OLERguXGjePc/edit#gid=1404564369)
 so things could be compared easily in broad daylight without the hype and selective disclosure of
 a typical product/project sales page. Use it to determine what's best. Then help make it better. See 
@@ -394,7 +394,7 @@ jump to a default location since the former location would be lost.
 
 Any other questions?  Just ask.
 
-# Demonstrations and Features
+# Demonstrations, Features and Selling Points
 
 | **Developer Experience** |[great big example application](https://github.com/dancancro/great-big-example-application)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|[feathers-starter-react-redux-login-roles](https://github.com/eddyystop/feathers-starter-react-redux-login-roles)|[angular-webpack2-starter](https://github.com/qdouble/angular-webpack2-starter)|
 |:------ | :------: | :------: | :------: | :------: | :------: |

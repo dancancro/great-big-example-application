@@ -1,6 +1,6 @@
 <div>
     <a id="{{claim.id}}"></a>
-    <h3><a target="_top" href="http://www.bernierebuttals.org?objection={{claim.id}}">🔗</a>
+    <h3><a target="_blank" href="https://great-big-example-application.herokuapp.com/#/features/bernie/{{claim.id}}">🔗</a>
         <span class="claim-name" [class.editable]="page.editable" (click)="toggleRebuttals.emit(claim)">{{claim.name}}</span></h3>
     <span class="claim-block" *ngIf="claim.expanded">
         <div [hidden]="!claim.imageLink" class="claim-graphic">

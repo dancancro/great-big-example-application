@@ -7,16 +7,16 @@
                     <label for="search-box">Search</label> <input #searchBox id="search-box" (keyup)="search(searchBox.value)"
                     />
                 </span>
-                <span>
-                    <button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All</button>
-                    <button *ngIf="(page$ | async).expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All</button>
-                    <button *ngIf="!(page$ | async).editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
+                <span *ngIf="page$ | async as page">
+                    <button *ngIf="!page.expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All</button>
+                    <button *ngIf="page.expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All</button>
+                    <button *ngIf="!page.editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
                         (click)="toggleEditable()">Edit Mode</button>
-                    <button *ngIf="(page$ | async).editable && (page$ | async).dirty" class="btn btn-default touched" title="Save changes" (click)="saveAll()">
+                    <button *ngIf="page.editable && page.dirty" class="btn btn-default touched" title="Save changes" (click)="saveAll()">
                         Save Changes</button>
-                    <button *ngIf="(page$ | async).editable && !(page$ | async).dirty" class="btn btn-default" title="Read only mode" (click)="toggleEditable()">
+                    <button *ngIf="page.editable && !page.dirty" class="btn btn-default" title="Read only mode" (click)="toggleEditable()">
                         Read-Only Mode</button>
-                    <button *ngIf="(page$ | async).editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
+                    <button *ngIf="page.editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
                         Add Claim</button>
                 </span>
             </div>

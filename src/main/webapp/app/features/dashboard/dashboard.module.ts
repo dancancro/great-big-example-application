@@ -12,17 +12,17 @@ import { DashboardPage } from './dashboard.page';
 import { TodoComponent } from '../../shared/widgets/todo';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DashboardRouting,
-    MaterialModule.forRoot()
-  ],
-  declarations: [
-    DashboardPage,
-    TodoComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DashboardRouting,
+        MaterialModule
+    ],
+    declarations: [
+        DashboardPage,
+        TodoComponent
+    ]
 })
 export class DashboardModule {
-  constructor() { }
+    constructor() { }
 }
