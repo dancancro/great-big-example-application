@@ -219,6 +219,7 @@ export const getMsg = createSelector(getLayoutState, fromLayout.getMsg);
 export const getBerniePageState = createSelector(getLayoutState, fromLayout.getBerniePageState);
 export const getHeroSearchTerm = createSelector(getLayoutState, fromLayout.getHeroSearchTerm);
 export const getSearchQuery = createSelector(getLayoutState, fromLayout.getQuery);
+export const getBernieSearchTerm = createSelector(getLayoutState, fromLayout.getBernieSearchTerm);
 
 /**
  * Session Selectors
@@ -295,7 +296,7 @@ export const getDeepClaimRebuttals = createSelector(getClaimRebuttals, getRebutt
     })
 });
 
-export const getDeepClaims = createSelector(getClaims, getDeepClaimRebuttals, (claims, deepClaimRebuttals) => {
+export const getDeepClaims = createSelector(getClaims, getDeepClaimRebuttals, getBernieSearchTerm, (claims, deepClaimRebuttals, bernieSearchTerm) => {
     return claims.map((claim) => {
         return Object.assign({}, claim, {
             rebuttals: deepClaimRebuttals
@@ -305,6 +306,7 @@ export const getDeepClaims = createSelector(getClaims, getDeepClaimRebuttals, (c
         })
     }
     )
+        .filter((dc) => bernieSearchTerm === '' || dc.name.toLowerCase().indexOf(bernieSearchTerm.toLowerCase()) > -1)
         .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)
 });
 

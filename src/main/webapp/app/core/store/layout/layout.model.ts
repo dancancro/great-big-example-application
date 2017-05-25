@@ -1,67 +1,69 @@
 import { slices } from '../util';
 
 export interface NavLayout {
-  showSidenav: boolean;
+    showSidenav: boolean;
 }
 
 export const initialNavLayout = {
-  showSidenav: false
+    showSidenav: false
 };
 
 export interface BooksPageLayout {
-  query: string;
+    query: string;
 };
 
 export const initialBooksPageLayout = {
-  query: ''
+    query: ''
 };
 
 export interface BerniePageLayout {
-  editable: boolean;
-  expanded: boolean;
-  scrollY: number;
-  // isTouched: Function;
+    editable: boolean;
+    expanded: boolean;
+    scrollY: number;
+    bernieSearchTerm: string;
+    // isTouched: Function;
 };
 
 export const initialBerniePageLayout: BerniePageLayout = {
-  editable: false,
-  expanded: false,
-  scrollY: 0
-  // isTouched: function (claims) {
-  //   let _touched = false;
-  //   claims.forEach(claim => {
-  //     claim.rebuttals.forEach(rebuttal => {
-  //       if (rebuttal && rebuttal.isTouched()) {
-  //         _touched = true;
-  //       }
-  //     });
-  //   });
-  //   return _touched;
-  // }
+    editable: false,
+    expanded: false,
+    scrollY: 0,
+    bernieSearchTerm: ''
+    // isTouched: function (claims) {
+    //   let _touched = false;
+    //   claims.forEach(claim => {
+    //     claim.rebuttals.forEach(rebuttal => {
+    //       if (rebuttal && rebuttal.isTouched()) {
+    //         _touched = true;
+    //       }
+    //     });
+    //   });
+    //   return _touched;
+    // }
 };
 
 export interface HeroesDashboardLayout {
-  heroSearchTerm: string;
+    heroSearchTerm: string;
 }
 
 export const initialHeroesDashboardPageLayout = {
-  heroSearchTerm: ''
+    heroSearchTerm: ''
 };
 
 export interface Layout {
-  nav: NavLayout;
-  booksPage: BooksPageLayout;
-  berniePage: BerniePageLayout;
-  heroesDashboardPage: HeroesDashboardLayout;
-  msg: string;
+    nav: NavLayout;
+    booksPage: BooksPageLayout;
+    berniePage: BerniePageLayout;
+    heroesDashboardPage: HeroesDashboardLayout;
+    msg: string;
 }
 
 export function initialLayout() {
-  return {
-    nav: initialNavLayout,
-    booksPage: initialBooksPageLayout,
-    berniePage: initialBerniePageLayout,
-    heroesDashboardPage: initialHeroesDashboardPageLayout,
-    msg: ''
-  };
+    return {
+        nav: initialNavLayout,
+        booksPage: initialBooksPageLayout,
+        berniePage: initialBerniePageLayout,
+        heroesDashboardPage: initialHeroesDashboardPageLayout,
+        msg: ''
+    };
 }

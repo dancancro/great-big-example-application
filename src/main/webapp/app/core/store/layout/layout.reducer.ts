@@ -23,6 +23,8 @@ export const getShowSidenav = (state: Layout) => state.nav.showSidenav;
 
 export const getBerniePageState = (state: Layout) => state.berniePage;
 
+export const getBernieSearchTerm = (state: Layout) => state.berniePage.bernieSearchTerm;
+
 export const getMsg = (state: Layout) => state.msg;
 
 export const getHeroSearchTerm = (state: Layout) => state.heroesDashboardPage.heroSearchTerm;

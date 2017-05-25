@@ -4,6 +4,7 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { MaterialModule } from '@angular/material';
+import { NgPipesModule } from 'ngx-pipes';
 
 import { BerniePage } from './bernie.page';
 import { ClaimComponent } from './claim/claim.component';
@@ -25,7 +26,8 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         MaterialModule.forRoot(),
         EffectsModule.run(ClaimEffects),
         EffectsModule.run(RebuttalEffects),
-        EffectsModule.run(ClaimRebuttalEffects)
+        EffectsModule.run(ClaimRebuttalEffects),
+        NgPipesModule
     ],
     declarations: [
         BerniePage,

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/takeLast';
 import 'rxjs/add/operator/combineLatest';
@@ -39,9 +40,10 @@ export class BerniePage implements OnDestroy {
     claimRebuttals$: Observable<ClaimRebuttal[]>;
     claimRebuttalsSub: Subscription;
     claimRebuttals: ClaimRebuttal[];
+    searchTerms = new Subject<string>();
 
     options: SortablejsOptions = {
-        disabled: false
+        disabled: true
     };
 
     constructor(private store: Store<fromRoot.RootState>,
@@ -57,27 +59,22 @@ export class BerniePage implements OnDestroy {
         });
         this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
         this.claimEntitiesSub = this.claimEntities$.subscribe((claimEntities) => this.claimEntities = claimEntities);
+        this.searchTerms
+            .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+            .distinctUntilChanged()   // ignore if next search term is same as previous
+            .subscribe((term) => {
+                this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term));
+            });
+    }
 
-        // this.deepClaims$.do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
-        // this.deepClaims$.takeLast(1).do(claims => console.log(claims.length), error => console.log('error'), () => console.log('complete'));
-
-        // this.deepClaims$.subscribe(claim => {
-        //   console.log('claims')
-        // });
-
-        // this.claimsSubscription = combineLatest(
-        //   this.deepClaims$,
-        //   this.route.params)
-        //   .subscribe(([claims, params]) => {
-        //     let id = +params['claimId'];
-        //     if (id && claims && claims.length > 0 && claims.find(claim => claim.id === id)) {
-        //       console.log('found');
-        //     }
-        //   });
+    // Push a search term into the observable stream.
+    search(term: string): void {
+        this.searchTerms.next(term);
     }
 
     toggleEditable() {
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'editable'], !this.editable));
+        this.options = { disabled: !this.options.disabled };
     }
 
     toggleExpanded() {
@@ -87,10 +84,10 @@ export class BerniePage implements OnDestroy {
     }
 
     addClaim() {
-        const newClaim = prompt('New claim');
-        if (newClaim) {
+        const newClaimName = prompt('New claim');
+        if (newClaimName) {
             this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM, {
-                name: newClaim
+                name: newClaimName
             }));
         }
     }
@@ -146,38 +143,11 @@ export class BerniePage implements OnDestroy {
     }
 
     reorderClaims(event) {
-        // Not sure if we want this to work.
-        //
-        // if (event.stopPropagation) {
-        //     event.stopPropagation();
-        // }
-        // if (event.cancelBubble != null) {
-        //     event.cancelBubble = true;
-        // }
-        // TODO: There's gotta be a better way
-        // This is called when the claims are reordered AND when the rebuttals for a claim are reordered.
-        // We need to ignore the second of these
+        if (event.srcElement.children[0].children[0].localName === 'jhi-bernie-rebuttal') {  //  TODO: find a better way
+            return;
+        }
 
-        // try {
-        //     setTimeout(() => {
-        //         // get the claim ids in the updated order from the DOM LIs   IS THERE A BETTER WAY TO GET THESE?
-        //         const ids = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
-
-        //         // get an updated hash of entities by updating sortOrder of the old ones
-        //         const entities = Object.assign({}, this.claimEntities.entities);
-        //         ids.map((id, index) => {
-        //             entities[id].sortOrder = index;
-        //         })
-
-        //         // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
-        //         const newEntities = Object.assign({}, this.claimEntities, { entities, ids });
-        //         this.store.dispatch(new SliceActions.Update(slices.CLAIM, [], newEntities));
-        //     })
-        // } catch (err) {
-
-        // }
-        try {
-
+        setTimeout(() => {   // need this or else sortablejs event handling gets screwed up
             // get the claim ids in the updated order from the DOM LIs   IS THERE A BETTER WAY TO GET THESE?
             const ids = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
 
@@ -190,10 +160,7 @@ export class BerniePage implements OnDestroy {
             // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
             const newEntities = Object.assign({}, this.claimEntities, { entities, ids });  // this Object.assign isn't necessary. Merge in slice.functions too
             this.store.dispatch(new SliceActions.Update(slices.CLAIM, [], newEntities));
-
-        } catch (err) {
-
-        }
+        })
     }
 
     ngOnDestroy() {

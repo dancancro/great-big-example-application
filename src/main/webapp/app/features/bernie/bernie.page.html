@@ -1,33 +1,31 @@
 <md-card>
-    <!--<md-toolbar color="accent">Messages</md-toolbar>-->
     <md-card-title> Bernie Rebuttals</md-card-title>
     <md-card-content>
         <div>
-            <div class="row">
-                <div class="block mx-auto">
-                    <button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All
-    </button>
-                    <button *ngIf="(page$ | async).expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All
-    </button>
+            <div>
+                <span>
+                    <label for="search-box">Search</label> <input #searchBox id="search-box" (keyup)="search(searchBox.value)"
+                    />
+                </span>
+                <span>
+                    <button *ngIf="!(page$ | async).expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All</button>
+                    <button *ngIf="(page$ | async).expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All</button>
                     <button *ngIf="!(page$ | async).editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
-                        (click)="toggleEditable()">
-          Edit Mode
-   </button>
+                        (click)="toggleEditable()">Edit Mode</button>
                     <button *ngIf="(page$ | async).editable && (page$ | async).dirty" class="btn btn-default touched" title="Save changes" (click)="saveAll()">
-          Save Changes
-   </button>
+                        Save Changes</button>
                     <button *ngIf="(page$ | async).editable && !(page$ | async).dirty" class="btn btn-default" title="Read only mode" (click)="toggleEditable()">
-          Read-Only Mode
-   </button>
+                        Read-Only Mode</button>
                     <button *ngIf="(page$ | async).editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
-            Add Claim
-    </button>
-                </div>
+                        Add Claim</button>
+                </span>
             </div>
         </div>
+    </md-card-content>
 </md-card>
+<div>{{deepClaims$ | async | json | shorten: 1000: '...' }}</div>
 <section class="content-container">
-    <ul id="claim-list" [sortablejs]="deepClaims$ | async" (update)="reorderClaims($event)">
+    <ul id="claim-list" [sortablejs]="deepClaims$ | async" [sortablejsOptions]="options" (update)="reorderClaims($event)">
         <li *ngFor="let claim of deepClaims$ | async">
             <jhi-bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
                 (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"

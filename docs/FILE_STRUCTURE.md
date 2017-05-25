@@ -1,8 +1,27 @@
 # File Structure
 ```
 .
+├── LICENSE
+├── NOTICES.md
 ├── Procfile
 ├── README.md
+├── docs
+│   ├── FILE_STRUCTURE.md
+│   └── images
+│       ├── bernie-app.png
+│       ├── bernie-spreadsheet.png
+│       ├── chat.png
+│       ├── collection.png
+│       ├── contacts.png
+│       ├── counter.png
+│       ├── entities.png
+│       ├── game.png
+│       ├── heroes_dashboard.png
+│       ├── heroes_list.png
+│       ├── home.png
+│       ├── messages.png
+│       ├── notes.png
+│       └── to_dos.png
 ├── etc
 ├── mvnw
 ├── mvnw.cmd
@@ -62,6 +81,7 @@
 │   │   │               │   ├── Crisis.java
 │   │   │               │   ├── Entry.java
 │   │   │               │   ├── Hero.java
+│   │   │               │   ├── Message.java
 │   │   │               │   ├── Note.java
 │   │   │               │   ├── PersistentAuditEvent.java
 │   │   │               │   ├── Rebuttal.java
@@ -81,6 +101,7 @@
 │   │   │               │   ├── CustomSocialUsersConnectionRepository.java
 │   │   │               │   ├── EntryRepository.java
 │   │   │               │   ├── HeroRepository.java
+│   │   │               │   ├── MessageRepository.java
 │   │   │               │   ├── NoteRepository.java
 │   │   │               │   ├── PersistenceAuditEventRepository.java
 │   │   │               │   ├── RebuttalRepository.java
@@ -96,6 +117,7 @@
 │   │   │               │       ├── CrisisSearchRepository.java
 │   │   │               │       ├── EntrySearchRepository.java
 │   │   │               │       ├── HeroSearchRepository.java
+│   │   │               │       ├── MessageSearchRepository.java
 │   │   │               │       ├── NoteSearchRepository.java
 │   │   │               │       ├── RebuttalSearchRepository.java
 │   │   │               │       ├── TagSearchRepository.java
@@ -140,8 +162,8 @@
 │   │   │                   │   ├── CrisisResource.java
 │   │   │                   │   ├── EntryResource.java
 │   │   │                   │   ├── HeroResource.java
-│   │   │                   │   ├── JWTToken.java
 │   │   │                   │   ├── LogsResource.java
+│   │   │                   │   ├── MessageResource.java
 │   │   │                   │   ├── NoteResource.java
 │   │   │                   │   ├── ProfileInfoResource.java
 │   │   │                   │   ├── RebuttalResource.java
@@ -168,7 +190,7 @@
 │   │   │                   │       └── package-info.java
 │   │   │                   └── websocket
 │   │   │                       ├── ActivityService.java
-│   │   │                       ├── MessageService.java
+│   │   │                       ├── ChatService.java
 │   │   │                       ├── dto
 │   │   │                       │   ├── ActivityDTO.java
 │   │   │                       │   ├── MessageDTO.java
@@ -198,7 +220,8 @@
 │   │   │   │       │   ├── 20170501195014_added_entity_Entry.xml
 │   │   │   │       │   ├── 20170501195014_added_entity_constraints_Entry.xml
 │   │   │   │       │   ├── 20170501195015_added_entity_Tag.xml
-│   │   │   │       │   └── 20170501195016_load_data_Seed.xml
+│   │   │   │       │   ├── 20170501195016_load_data_Seed.xml
+│   │   │   │       │   └── 20170517190733_added_entity_Message.xml
 │   │   │   │       ├── claim-rebuttal.csv
 │   │   │   │       ├── claim.csv
 │   │   │   │       ├── contact.csv
@@ -343,25 +366,27 @@
 │   │       │   │   │   ├── payloads
 │   │       │   │   │   │   ├── base.command.payload.ts
 │   │       │   │   │   │   └── json.command.payload.ts
-│   │       │   │   │   └── restful.command.ts
+│   │       │   │   │   ├── restful.command.ts
+│   │       │   │   │   └── rpc.command.ts
 │   │       │   │   ├── core.module.ts
-│   │       │   │   ├── core.routing.ts
 │   │       │   │   ├── gateways
 │   │       │   │   │   ├── base.gateway.ts
 │   │       │   │   │   ├── restful.gateway.ts
+│   │       │   │   │   ├── webrtc.gateway.ts
 │   │       │   │   │   └── websocket.gateway.ts
 │   │       │   │   ├── services
 │   │       │   │   │   ├── base.async-service.ts
 │   │       │   │   │   ├── default-request-options.service.ts
-│   │       │   │   │   ├── exception.service.ts
 │   │       │   │   │   ├── in-memory-data.service.ts
-│   │       │   │   │   ├── index.ts
 │   │       │   │   │   ├── rest.service.spec.ts
 │   │       │   │   │   ├── rest.service.ts
-│   │       │   │   │   ├── router-extensions.service.ts
+│   │       │   │   │   ├── restful-server.service.ts
 │   │       │   │   │   ├── socket.service.ts
-│   │       │   │   │   └── user.service.ts
+│   │       │   │   │   ├── user.service.ts
+│   │       │   │   │   └── websocket.service.ts
 │   │       │   │   └── store
+│   │       │   │       ├── account
+│   │       │   │       │   └── account.model.ts
 │   │       │   │       ├── base
 │   │       │   │       │   └── base.facade.ts
 │   │       │   │       ├── book
@@ -404,6 +429,7 @@
 │   │       │   │       │   ├── game.action-creator.ts
 │   │       │   │       │   ├── game.actions.ts
 │   │       │   │       │   ├── game.facade.ts
+│   │       │   │       │   ├── game.model.ts
 │   │       │   │       │   └── game.reducer.ts
 │   │       │   │       ├── hero
 │   │       │   │       │   ├── hero.effects.ts
@@ -418,12 +444,16 @@
 │   │       │   │       │   ├── layout.model.ts
 │   │       │   │       │   └── layout.reducer.ts
 │   │       │   │       ├── message
+│   │       │   │       │   ├── message.effects.ts
+│   │       │   │       │   ├── message.model.ts
 │   │       │   │       │   └── message.reducer.ts
 │   │       │   │       ├── note
 │   │       │   │       │   ├── note.effects.ts
 │   │       │   │       │   ├── note.model.ts
 │   │       │   │       │   └── note.reducer.ts
 │   │       │   │       ├── p2p-game
+│   │       │   │       │   ├── p2p-game.action-creators.ts
+│   │       │   │       │   ├── p2p-game.actions.ts
 │   │       │   │       │   └── p2p-game.facade.ts
 │   │       │   │       ├── rebuttal
 │   │       │   │       │   ├── rebuttal.effects.ts
@@ -438,6 +468,8 @@
 │   │       │   │       ├── slice
 │   │       │   │       │   ├── slice.actions.ts
 │   │       │   │       │   └── slice.functions.ts
+│   │       │   │       ├── user
+│   │       │   │       │   └── user.model.ts
 │   │       │   │       └── util.ts
 │   │       │   ├── entities
 │   │       │   │   ├── blog
@@ -546,6 +578,21 @@
 │   │       │   │   │   ├── hero.route.ts
 │   │       │   │   │   ├── hero.service.ts
 │   │       │   │   │   └── index.ts
+│   │       │   │   ├── message
+│   │       │   │   │   ├── index.ts
+│   │       │   │   │   ├── message-delete-dialog.component.html
+│   │       │   │   │   ├── message-delete-dialog.component.ts
+│   │       │   │   │   ├── message-detail.component.html
+│   │       │   │   │   ├── message-detail.component.ts
+│   │       │   │   │   ├── message-dialog.component.html
+│   │       │   │   │   ├── message-dialog.component.ts
+│   │       │   │   │   ├── message-popup.service.ts
+│   │       │   │   │   ├── message.component.html
+│   │       │   │   │   ├── message.component.ts
+│   │       │   │   │   ├── message.model.ts
+│   │       │   │   │   ├── message.module.ts
+│   │       │   │   │   ├── message.route.ts
+│   │       │   │   │   └── message.service.ts
 │   │       │   │   ├── note
 │   │       │   │   │   ├── index.ts
 │   │       │   │   │   ├── note-delete-dialog.component.html
@@ -633,6 +680,14 @@
 │   │       │   │   │   │   ├── book-exists.guard.ts
 │   │       │   │   │   │   └── google-books.service.ts
 │   │       │   │   │   └── view-book.page.ts
+│   │       │   │   ├── chat
+│   │       │   │   │   ├── chat.module.ts
+│   │       │   │   │   ├── chat.page.css
+│   │       │   │   │   ├── chat.page.html
+│   │       │   │   │   ├── chat.page.ts
+│   │       │   │   │   ├── chat.routing.ts
+│   │       │   │   │   └── services
+│   │       │   │   │       └── chat.service.ts
 │   │       │   │   ├── contact
 │   │       │   │   │   ├── contact.module.ts
 │   │       │   │   │   ├── contact.page.html
@@ -647,14 +702,15 @@
 │   │       │   │   │   ├── counter.page.ts
 │   │       │   │   │   └── counter.routing.ts
 │   │       │   │   ├── dashboard
-│   │       │   │   │   ├── dashboard.component.html
-│   │       │   │   │   ├── dashboard.component.ts
 │   │       │   │   │   ├── dashboard.module.ts
+│   │       │   │   │   ├── dashboard.page.html
+│   │       │   │   │   ├── dashboard.page.ts
 │   │       │   │   │   ├── dashboard.routing.ts
 │   │       │   │   │   └── index.ts
 │   │       │   │   ├── features.component.html
 │   │       │   │   ├── features.component.scss
 │   │       │   │   ├── features.component.ts
+│   │       │   │   ├── features.meta.ts
 │   │       │   │   ├── features.module.ts
 │   │       │   │   ├── features.routing.ts
 │   │       │   │   ├── features.service.ts
@@ -669,19 +725,11 @@
 │   │       │   │   │   ├── game.module.ts
 │   │       │   │   │   ├── game.page.html
 │   │       │   │   │   ├── game.page.ts
-│   │       │   │   │   ├── game.routes.ts
+│   │       │   │   │   ├── game.routing.ts
 │   │       │   │   │   ├── home
 │   │       │   │   │   │   ├── home.component.html
 │   │       │   │   │   │   └── home.component.ts
 │   │       │   │   │   ├── multi-player
-│   │       │   │   │   │   ├── actions
-│   │       │   │   │   │   │   ├── action-creators
-│   │       │   │   │   │   │   │   └── p2p-game.action-creators.ts
-│   │       │   │   │   │   │   └── p2p-game.actions.ts
-│   │       │   │   │   │   ├── commands
-│   │       │   │   │   │   │   └── rpc.command.ts
-│   │       │   │   │   │   ├── gateways
-│   │       │   │   │   │   │   └── webrtc.gateway.ts
 │   │       │   │   │   │   ├── multi-player.component.css
 │   │       │   │   │   │   ├── multi-player.component.html
 │   │       │   │   │   │   ├── multi-player.component.ts
@@ -696,8 +744,6 @@
 │   │       │   │   │   │   ├── navbar.component.css
 │   │       │   │   │   │   ├── navbar.component.html
 │   │       │   │   │   │   └── navbar.component.ts
-│   │       │   │   │   ├── services
-│   │       │   │   │   │   └── game-server.async-service.ts
 │   │       │   │   │   ├── shared
 │   │       │   │   │   │   ├── game
 │   │       │   │   │   │   │   └── game.component.ts
@@ -776,17 +822,15 @@
 │   │       │   │   │   ├── heroes.page.ts
 │   │       │   │   │   └── heroes.routing.ts
 │   │       │   │   ├── home
-│   │       │   │   │   ├── home.component.html
-│   │       │   │   │   └── home.component.ts
+│   │       │   │   │   ├── home.page.html
+│   │       │   │   │   └── home.page.ts
 │   │       │   │   ├── index.ts
 │   │       │   │   ├── messages
-│   │       │   │   │   ├── index.ts
 │   │       │   │   │   ├── messages.module.ts
 │   │       │   │   │   ├── messages.page.html
 │   │       │   │   │   ├── messages.page.ts
 │   │       │   │   │   ├── messages.routing.ts
 │   │       │   │   │   └── messages.service.ts
-│   │       │   │   ├── meta.ts
 │   │       │   │   ├── notes
 │   │       │   │   │   ├── README.md
 │   │       │   │   │   ├── add-button
@@ -850,7 +894,6 @@
 │   │       │   │   ├── auth
 │   │       │   │   │   ├── account.service.ts
 │   │       │   │   │   ├── auth-jwt.service.ts
-│   │       │   │   │   ├── auth.service.ts
 │   │       │   │   │   ├── csrf.service.ts
 │   │       │   │   │   ├── has-any-authority.directive.ts
 │   │       │   │   │   ├── principal.service.ts
@@ -900,10 +943,6 @@
 │   │       │   │   │   ├── twain.component.spec.ts
 │   │       │   │   │   ├── twain.component.ts
 │   │       │   │   │   └── twain.service.ts
-│   │       │   │   ├── user
-│   │       │   │   │   ├── account.model.ts
-│   │       │   │   │   ├── user.model.ts
-│   │       │   │   │   └── user.service.ts
 │   │       │   │   ├── welcome
 │   │       │   │   │   ├── welcome.component.spec.ts
 │   │       │   │   │   └── welcome.component.ts
@@ -914,17 +953,6 @@
 │   │       │   │           ├── todo.html
 │   │       │   │           └── todo.ts
 │   │       │   └── vendor.ts
-│   │       ├── config
-│   │       │   ├── config.common.ts
-│   │       │   ├── config.dev.ts
-│   │       │   ├── config.prod.ts
-│   │       │   ├── config.ts
-│   │       │   ├── empty.ts
-│   │       │   ├── helpers.ts
-│   │       │   ├── html-elements-plugin
-│   │       │   │   └── index.ts
-│   │       │   ├── html-head-config.ts
-│   │       │   └── resource-override.ts
 │   │       ├── content
 │   │       │   ├── css
 │   │       │   │   ├── documentation.css
@@ -959,6 +987,7 @@
 │   │       │   │   ├── home.json
 │   │       │   │   ├── login.json
 │   │       │   │   ├── logs.json
+│   │       │   │   ├── message.json
 │   │       │   │   ├── messages.json
 │   │       │   │   ├── metrics.json
 │   │       │   │   ├── note.json
@@ -997,6 +1026,7 @@
 │   │       │   │   ├── home.json
 │   │       │   │   ├── login.json
 │   │       │   │   ├── logs.json
+│   │       │   │   ├── message.json
 │   │       │   │   ├── messages.json
 │   │       │   │   ├── metrics.json
 │   │       │   │   ├── note.json
@@ -1035,6 +1065,7 @@
 │   │       │   │   ├── home.json
 │   │       │   │   ├── login.json
 │   │       │   │   ├── logs.json
+│   │       │   │   ├── message.json
 │   │       │   │   ├── messages.json
 │   │       │   │   ├── metrics.json
 │   │       │   │   ├── note.json
@@ -1073,6 +1104,7 @@
 │   │       │       ├── home.json
 │   │       │       ├── login.json
 │   │       │       ├── logs.json
+│   │       │       ├── message.json
 │   │       │       ├── messages.json
 │   │       │       ├── metrics.json
 │   │       │       ├── note.json
@@ -1109,6 +1141,7 @@
 │       │       ├── CrisisGatlingTest.scala
 │       │       ├── EntryGatlingTest.scala
 │       │       ├── HeroGatlingTest.scala
+│       │       ├── MessageGatlingTest.scala
 │       │       ├── NoteGatlingTest.scala
 │       │       ├── RebuttalGatlingTest.scala
 │       │       └── TagGatlingTest.scala
@@ -1140,11 +1173,13 @@
 │       │                       ├── EntryResourceIntTest.java
 │       │                       ├── HeroResourceIntTest.java
 │       │                       ├── LogsResourceIntTest.java
+│       │                       ├── MessageResourceIntTest.java
 │       │                       ├── NoteResourceIntTest.java
 │       │                       ├── ProfileInfoResourceIntTest.java
 │       │                       ├── RebuttalResourceIntTest.java
 │       │                       ├── TagResourceIntTest.java
 │       │                       ├── TestUtil.java
+│       │                       ├── UserJWTControllerIntTest.java
 │       │                       └── UserResourceIntTest.java
 │       ├── javascript
 │       │   ├── e2e
@@ -1160,6 +1195,7 @@
 │       │   │       ├── crisis.spec.ts
 │       │   │       ├── entry.spec.ts
 │       │   │       ├── hero.spec.ts
+│       │   │       ├── message.spec.ts
 │       │   │       ├── note.spec.ts
 │       │   │       ├── rebuttal.spec.ts
 │       │   │       └── tag.spec.ts
@@ -1202,6 +1238,8 @@
 │       │       │       │   └── entry-detail.component.spec.ts
 │       │       │       ├── hero
 │       │       │       │   └── hero-detail.component.spec.ts
+│       │       │       ├── message
+│       │       │       │   └── message-detail.component.spec.ts
 │       │       │       ├── note
 │       │       │       │   └── note-detail.component.spec.ts
 │       │       │       ├── rebuttal
@@ -1221,7 +1259,6 @@
 │           ├── config
 │           │   └── application.yml
 │           └── logback.xml
-├── tree.txt
 ├── tsconfig-aot.json
 ├── tsconfig.json
 ├── tslint.json
@@ -1233,3 +1270,4 @@
 │   └── webpack.vendor.js
 └── yarn.lock
 ```
+

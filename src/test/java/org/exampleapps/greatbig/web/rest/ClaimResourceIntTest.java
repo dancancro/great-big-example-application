@@ -47,6 +47,9 @@ public class ClaimResourceIntTest {
     private static final String DEFAULT_IMAGE_LINK = "AAAAAAAAAA";
     private static final String UPDATED_IMAGE_LINK = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_SORT_ORDER = 1;
+    private static final Integer UPDATED_SORT_ORDER = 2;
+
     @Autowired
     private ClaimRepository claimRepository;
 
@@ -88,6 +91,7 @@ public class ClaimResourceIntTest {
     public static Claim createEntity(EntityManager em) {
         Claim claim = new Claim()
             .name(DEFAULT_NAME)
+            .sortOrder(DEFAULT_SORT_ORDER)
             .imageLabel(DEFAULT_IMAGE_LABEL)
             .imageLink(DEFAULT_IMAGE_LINK);
         return claim;

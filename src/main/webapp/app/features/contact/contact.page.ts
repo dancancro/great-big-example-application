@@ -14,7 +14,6 @@ import { slices } from '../../core/store/util';
 import { Entities } from '../../core/store/entity/entity.model';
 import { Account, Principal } from '../../shared';
 
-
 @Component({
     selector: 'jhi-contact',
     changeDetection: ChangeDetectionStrategy.OnPush,

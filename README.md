@@ -50,8 +50,9 @@ should be taught using big examples:
     comprehension of a menagerie of inconsistent learning materials in inconsistent contexts, all but
     one of which approaches you will ultimately reject. I did that to make this; it's not fun. To do 
     the former you copy, find/replace, modify, and compare what you're making with what works until 
-    what you're making also works. It's exactly what you'll do to make something new *after* you have 
-    signed the NDA and get keys to the castle of doing things like professionals do.
+    what you're making also works. It's just what you'll do to make something new *after* you have 
+    signed the NDA and get keys to the castle of doing things like professionals do and the vault of
+    expertly made things to copy and modify.
 
     3. If you want a job making commercial-grade code, you should study commercial-grade code,
     not tutorial-grade code. Anything you learn in a tutorial must be handled with caution 
