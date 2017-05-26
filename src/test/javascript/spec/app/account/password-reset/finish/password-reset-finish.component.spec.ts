@@ -26,12 +26,12 @@ describe('Component Tests', () => {
                     },
                     {
                         provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({'key': 'XYZPDQ'})
+                        useValue: new MockActivatedRoute({ 'key': 'XYZPDQ' })
                     },
                     {
                         provide: Renderer,
                         useValue: {
-                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) {}
+                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
                         }
                     },
                     {
@@ -39,15 +39,12 @@ describe('Component Tests', () => {
                         useValue: new ElementRef(null)
                     }
                 ]
-            }).overrideComponent(PasswordResetFinishComponent, {
-                set: {
-                    template: ''
-                }
-            }).createComponent(PasswordResetFinishComponent);
+            }).overrideTemplate(PasswordResetFinishComponent, '')
+                .createComponent(PasswordResetFinishComponent);
             comp = fixture.componentInstance;
         });
 
-        it('should define its initial state', function() {
+        it('should define its initial state', function () {
             comp.ngOnInit();
 
             expect(comp.keyMissing).toBeFalsy();
@@ -59,7 +56,7 @@ describe('Component Tests', () => {
             inject([ElementRef], (elementRef: ElementRef) => {
                 const element = fixture.nativeElement;
                 const node = {
-                    focus() {}
+                    focus() { }
                 };
 
                 elementRef.nativeElement = element;

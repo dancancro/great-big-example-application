@@ -29,11 +29,8 @@ describe('Component Tests', () => {
                     },
                     Password
                 ]
-            }).overrideComponent(PasswordComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(PasswordComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {
@@ -66,7 +63,7 @@ describe('Component Tests', () => {
             expect(service.save).toHaveBeenCalledWith('myPassword');
         });
 
-        it('should set success to OK upon success', function() {
+        it('should set success to OK upon success', function () {
             // GIVEN
             spyOn(service, 'save').and.returnValue(Observable.of(true));
             comp.password = comp.confirmPassword = 'myPassword';
@@ -80,7 +77,7 @@ describe('Component Tests', () => {
             expect(comp.success).toBe('OK');
         });
 
-        it('should notify of error if change password fails', function() {
+        it('should notify of error if change password fails', function () {
             // GIVEN
             spyOn(service, 'save').and.returnValue(Observable.throw('ERROR'));
             comp.password = comp.confirmPassword = 'myPassword';

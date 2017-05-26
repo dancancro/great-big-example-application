@@ -7,7 +7,7 @@ import { PasswordResetInit } from '../../../../../../../main/webapp/app/account/
 
 describe('Component Tests', () => {
 
-    describe('PasswordResetInitComponent', function() {
+    describe('PasswordResetInitComponent', function () {
         let fixture: ComponentFixture<PasswordResetInitComponent>;
         let comp: PasswordResetInitComponent;
 
@@ -20,7 +20,7 @@ describe('Component Tests', () => {
                     {
                         provide: Renderer,
                         useValue: {
-                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) {}
+                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
                         }
                     },
                     {
@@ -28,16 +28,13 @@ describe('Component Tests', () => {
                         useValue: new ElementRef(null)
                     }
                 ]
-            }).overrideComponent(PasswordResetInitComponent, {
-                set: {
-                    template: ''
-                }
-            }).createComponent(PasswordResetInitComponent);
+            }).overrideTemplate(PasswordResetInitComponent, '')
+                .createComponent(PasswordResetInitComponent);
             comp = fixture.componentInstance;
             comp.ngOnInit();
         });
 
-        it('should define its initial state', function() {
+        it('should define its initial state', function () {
             expect(comp.success).toBeUndefined();
             expect(comp.error).toBeUndefined();
             expect(comp.errorEmailNotExists).toBeUndefined();
@@ -48,7 +45,7 @@ describe('Component Tests', () => {
             inject([ElementRef], (elementRef: ElementRef) => {
                 const element = fixture.nativeElement;
                 const node = {
-                    focus() {}
+                    focus() { }
                 };
 
                 elementRef.nativeElement = element;

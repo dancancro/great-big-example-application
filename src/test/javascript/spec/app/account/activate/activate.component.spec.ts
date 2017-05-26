@@ -21,18 +21,15 @@ describe('Component Tests', () => {
                     Activate,
                     {
                         provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({'key': 'ABC123'})
+                        useValue: new MockActivatedRoute({ 'key': 'ABC123' })
                     },
                     {
                         provide: LoginModalService,
                         useValue: null
                     }
                 ]
-            }).overrideComponent(ActivateComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(ActivateComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

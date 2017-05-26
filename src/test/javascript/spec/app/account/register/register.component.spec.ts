@@ -33,11 +33,8 @@ describe('Component Tests', () => {
                         useValue: null
                     }
                 ]
-            }).overrideComponent(RegisterComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(RegisterComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {
@@ -46,7 +43,7 @@ describe('Component Tests', () => {
             comp.ngOnInit();
         });
 
-        it('should ensure the two passwords entered match', function() {
+        it('should ensure the two passwords entered match', function () {
             comp.registerAccount.password = 'password';
             comp.confirmPassword = 'non-matching';
 
