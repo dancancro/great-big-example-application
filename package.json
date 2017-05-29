@@ -78,7 +78,7 @@
     "exports-loader": "0.6.4",
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
-    "generator-jhipster": "4.5.1",
+    "generator-jhipster": "4.5.2",
     "generator-jhipster-bootstrap-material-design": "3.5.1",
     "generator-jhipster-bootswatch": "1.0.2",
     "generator-jhipster-darktheme": "0.0.7",
