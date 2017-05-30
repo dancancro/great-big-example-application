@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     BlogService,
                     EventManager
                 ]
-            }).overrideComponent(BlogDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(BlogDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     CrisisService,
                     EventManager
                 ]
-            }).overrideComponent(CrisisDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(CrisisDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     MessageService,
                     EventManager
                 ]
-            }).overrideComponent(MessageDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(MessageDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

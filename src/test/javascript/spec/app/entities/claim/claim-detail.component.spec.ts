@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     ClaimService,
                     EventManager
                 ]
-            }).overrideComponent(ClaimDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(ClaimDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

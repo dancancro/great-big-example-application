@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     HeroService,
                     EventManager
                 ]
-            }).overrideComponent(HeroDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(HeroDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

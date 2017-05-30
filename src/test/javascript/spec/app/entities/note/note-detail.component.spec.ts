@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     NoteService,
                     EventManager
                 ]
-            }).overrideComponent(NoteDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(NoteDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {

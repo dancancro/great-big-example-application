@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     ContactService,
                     EventManager
                 ]
-            }).overrideComponent(ContactDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(ContactDetailComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {
