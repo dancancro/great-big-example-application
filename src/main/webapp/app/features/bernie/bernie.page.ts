@@ -11,7 +11,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../../core/store';
-import { BerniePageLayout } from '../../core/store/layout/layout.model';
+import { BerniePageLayout } from './bernie.layout';
 import { Claim, initialClaim } from '../../core/store/claim/claim.model';
 import { Rebuttal, initialRebuttal } from '../../core/store/rebuttal/rebuttal.model';
 import { ClaimRebuttal, initialClaimRebuttal } from '../../core/store/claim-rebuttal/claim-rebuttal.model';

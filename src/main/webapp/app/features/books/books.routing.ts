@@ -14,9 +14,7 @@ const routes: Routes = [
         component: CollectionPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.books.home.title',
-            source: 'https://github.com/ngrx/example-app',
-            tags: ['local storage']
+            pageTitle: 'greatBigExampleApplicationApp.books.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -25,9 +23,7 @@ const routes: Routes = [
         component: FindBookPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.books.home.title',
-            source: 'https://github.com/ngrx/example-app',
-            tags: ['API']
+            pageTitle: 'greatBigExampleApplicationApp.books.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -36,9 +32,7 @@ const routes: Routes = [
         component: ViewBookPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.books.home.title',
-            source: 'https://github.com/ngrx/example-app',
-            tags: ['API']
+            pageTitle: 'greatBigExampleApplicationApp.books.home.title'
         },
         canActivate: [UserRouteAccessService, BookExistsGuard]
     }

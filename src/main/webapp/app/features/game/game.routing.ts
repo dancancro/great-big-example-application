@@ -12,10 +12,7 @@ const routes: Routes = [
         component: HomeComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.game.home.title',
-            source: 'https://github.com/mgechev/scalable-architecture-demo',
-            docs: { viewChild: 'https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-view-child' },
-            tags: ['websocket', 'WebRTC', 'ViewChild', 'peer-to-peer']
+            pageTitle: 'greatBigExampleApplicationApp.game.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -24,10 +21,7 @@ const routes: Routes = [
         component: SinglePlayerComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.game.home.title',
-            source: 'https://github.com/mgechev/scalable-architecture-demo',
-            docs: { viewChild: 'https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-view-child' },
-            tags: ['websocket', 'WebRTC', 'ViewChild', 'peer-to-peer']
+            pageTitle: 'greatBigExampleApplicationApp.game.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -36,10 +30,7 @@ const routes: Routes = [
         component: MultiPlayerComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.game.home.title',
-            source: 'https://github.com/mgechev/scalable-architecture-demo',
-            docs: { viewChild: 'https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-view-child' },
-            tags: ['websocket', 'WebRTC', 'ViewChild', 'peer-to-peer']
+            pageTitle: 'greatBigExampleApplicationApp.game.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

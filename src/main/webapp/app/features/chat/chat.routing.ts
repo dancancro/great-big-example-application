@@ -10,9 +10,7 @@ const routes: Routes = [
         component: ChatPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.contact.home.chat',
-            source: 'https://github.com/ruddell/jhipster-chat-example',
-            tags: ['chat', 'WebSockets']
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.chat'
         },
         canActivate: [UserRouteAccessService]
     }

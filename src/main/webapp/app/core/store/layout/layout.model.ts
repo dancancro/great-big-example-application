@@ -1,57 +1,8 @@
-import { slices } from '../util';
-
-export interface NavLayout {
-    showSidenav: boolean;
-}
-
-export const initialNavLayout = {
-    showSidenav: false
-};
-
-export interface BooksPageLayout {
-    query: string;
-};
-
-export const initialBooksPageLayout = {
-    query: ''
-};
-
-export interface BerniePageLayout {
-    editable: boolean;
-    expanded: boolean;
-    scrollY: number;
-    bernieSearchTerm: string;
-    // isTouched: Function;
-};
-
-export const initialBerniePageLayout: BerniePageLayout = {
-    editable: false,
-    expanded: false,
-    scrollY: 0,
-    bernieSearchTerm: ''
-    // isTouched: function (claims) {
-    //   let _touched = false;
-    //   claims.forEach(claim => {
-    //     claim.rebuttals.forEach(rebuttal => {
-    //       if (rebuttal && rebuttal.isTouched()) {
-    //         _touched = true;
-    //       }
-    //     });
-    //   });
-    //   return _touched;
-    // }
-};
-
-export interface HeroesDashboardLayout {
-    heroSearchTerm: string;
-}
-
-export const initialHeroesDashboardPageLayout = {
-    heroSearchTerm: ''
-};
+import { BooksPageLayout, initialBooksPageLayout } from '../../../features/books/books.layout';
+import { BerniePageLayout, initialBerniePageLayout } from '../../../features/bernie/bernie.layout';
+import { HeroesDashboardLayout, initialHeroesDashboardPageLayout } from '../../../features/heroes/heroes.layout';
 
 export interface Layout {
-    nav: NavLayout;
     booksPage: BooksPageLayout;
     berniePage: BerniePageLayout;
     heroesDashboardPage: HeroesDashboardLayout;
@@ -60,7 +11,6 @@ export interface Layout {
 
 export function initialLayout() {
     return {
-        nav: initialNavLayout,
         booksPage: initialBooksPageLayout,
         berniePage: initialBerniePageLayout,
         heroesDashboardPage: initialHeroesDashboardPageLayout,

@@ -7,29 +7,27 @@ import { DashboardPage } from './dashboard.page';
 import { UserRouteAccessService } from '../../shared';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardPage,
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'greatBigExampleApplicationApp.dashboard.home.title',
-      source: 'https://github.com/implustech/famn',
-      tags: ['todo list']
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: '',
+        component: DashboardPage,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.dashboard.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ],
-  providers: [
-    CanDeactivateGuard,
-    SelectivePreloadingStrategy
-  ]
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ],
+    providers: [
+        CanDeactivateGuard,
+        SelectivePreloadingStrategy
+    ]
 })
 export class DashboardRouting { }

@@ -37,9 +37,7 @@ const routes: Routes = [
         ],
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.heroes.home.title',
-            source: 'https://angular.io/resources/live-examples/toh-6/ts/plnkr.html',
-            tags: ['animation']
+            pageTitle: 'greatBigExampleApplicationApp.heroes.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

@@ -12,9 +12,7 @@ const routes: Routes = [
         component: MessagesPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.messages.home.title',
-            source: 'https://github.com/implustech/famn',
-            tags: ['websocket', 'material design', 'data table', 'redux']
+            pageTitle: 'greatBigExampleApplicationApp.messages.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

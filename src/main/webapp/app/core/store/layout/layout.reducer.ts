@@ -19,8 +19,6 @@ export function reducer(state: Layout = initialLayout(), action: SliceAction): L
     }
 }
 
-export const getShowSidenav = (state: Layout) => state.nav.showSidenav;
-
 export const getBerniePageState = (state: Layout) => state.berniePage;
 
 export const getBernieSearchTerm = (state: Layout) => state.berniePage.bernieSearchTerm;

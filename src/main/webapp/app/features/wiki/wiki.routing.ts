@@ -9,9 +9,7 @@ const routes: Routes = [
         path: '', component: WikiPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.wiki.home.title',
-            source: 'https://angular.io/resources/live-examples/server-communication/ts/plnkr.html',
-            tags: ['autocomplete', 'search']
+            pageTitle: 'greatBigExampleApplicationApp.wiki.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

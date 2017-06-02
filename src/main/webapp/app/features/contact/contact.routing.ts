@@ -9,9 +9,7 @@ const routes: Routes = [
         path: '', component: ContactPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.contact.home.title',
-            source: 'https://angular.io/resources/live-examples/ngmodule/ts/plnkr.html',
-            tags: ['forms']
+            pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

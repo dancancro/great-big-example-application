@@ -10,9 +10,7 @@ const routes: Routes = [
         component: NotesPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.notes.home.title',
-            source: 'https://github.com/JavascriptMick/ng2-state-talk',
-            tags: ['drag-n-drop']
+            pageTitle: 'greatBigExampleApplicationApp.notes.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
