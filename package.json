@@ -60,7 +60,7 @@
     "@ngrx/store-devtools": "3.2.4",
     "@ngrx/store-log-monitor": "3.0.2",
     "@types/hammerjs": "2.0.34",
-    "@types/jasmine": "2.5.47",
+    "@types/jasmine": "2.5.50",
     "@types/node": "7.0.22",
     "@types/selenium-webdriver": "3.0.4",
     "@types/simple-peer": "6.1.1",
