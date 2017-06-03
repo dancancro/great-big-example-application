@@ -1,13 +1,14 @@
-<md-card>
-    <md-card-title> Bernie Rebuttals</md-card-title>
-    <md-card-content>
-        <div>
+<div *ngIf="page$ | async as page">
+    <md-card>
+        <md-card-title> Bernie Rebuttals</md-card-title>
+        <md-card-content>
             <div>
-                <span>
+                <div>
+                    <span>
                     <label for="search-box">Search</label> <input #searchBox id="search-box" (keyup)="search(searchBox.value)"
                     />
                 </span>
-                <span *ngIf="page$ | async as page">
+                    <span>
                     <button *ngIf="!page.expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All</button>
                     <button *ngIf="page.expanded" class="btn btn-default" title="Collapse All" (click)="toggleExpanded()">Collapse All</button>
                     <button *ngIf="!page.editable" class="btn btn-default" title="Arrange rebuttals from strongest to weakest and click this when you are done"
@@ -19,23 +20,25 @@
                     <button *ngIf="page.editable" class="btn btn-default" title="Add a new claim" (click)="addClaim()">
                         Add Claim</button>
                 </span>
+                </div>
             </div>
-        </div>
-    </md-card-content>
-</md-card>
-<div>{{deepClaims$ | async | json | shorten: 1000: '...' }}</div>
-<section class="content-container">
-    <ul id="claim-list" [sortablejs]="deepClaims$ | async" [sortablejsOptions]="options" (update)="reorderClaims($event)">
-        <li *ngFor="let claim of deepClaims$ | async">
-            <jhi-bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
-                (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-                (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></jhi-bernie-claim>
-        </li>
-    </ul>
-</section>
+        </md-card-content>
+    </md-card>
+    <br>
+    <br>
+    <div class="content-container box" [scrollTop]="page.scrollY">
+        <div>{{deepClaims$ | async | json | shorten: 1000: '...' }}</div>
+        <ul id="claim-list" [sortablejs]="deepClaims" [sortablejsOptions]="options" (update)="reorderClaims($event)">
+            <li *ngFor="let claim of deepClaims$ | async">
+                <jhi-bernie-claim [page]="page$ | async" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
+                    (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
+                    (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></jhi-bernie-claim>
+            </li>
+        </ul>
+    </div>
 
-<br><br><br><br><br><br><br><br><br><br><br>
-<!--
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <!--
   if(e.parameter.claim) {
     var id = e.parameter.claim;
     s +=     '<script type="text/javascript">'
@@ -43,5 +46,6 @@
       +      '</script>';
     }
     -->
-<p>This page still gives me problems in Chrome. I have better luck with Opera</p>
-<p>Unaffiliated with any campaign. Made by volunteers with optimism for a better future</p>
+    <p>This page still gives me problems in Chrome. I have better luck with Opera</p>
+    <p>Unaffiliated with any campaign. Made by volunteers with optimism for a better future</p>
+</div>

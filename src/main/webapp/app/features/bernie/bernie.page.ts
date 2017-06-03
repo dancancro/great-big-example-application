@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
@@ -26,13 +26,14 @@ import { slices } from '../../core/store/util';
     styleUrls: ['./bernie.page.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BerniePage implements OnDestroy {
+export class BerniePage implements OnInit, OnDestroy {
     page$: Observable<BerniePageLayout>;
     pageSub: Subscription;
     claimEntities$: Observable<Entities<Claim>>;
     claimEntities: Entities<Claim>;
     claimEntitiesSub: Subscription;
     deepClaims$: Observable<Claim[]>;
+    deepClaims: Claim[];
     rebuttals$: Observable<Rebuttal[]>;
     loading$: Observable<boolean>;
     expanded: boolean;
@@ -47,12 +48,15 @@ export class BerniePage implements OnDestroy {
     };
 
     constructor(private store: Store<fromRoot.RootState>,
-        private route: ActivatedRoute, ) {
-        this.page$ = store.select(fromRoot.getBerniePageState);
-        this.claimEntities$ = store.select(fromRoot.getClaimsState);
-        this.deepClaims$ = store.select(fromRoot.getDeepClaims);
-        this.claimRebuttals$ = store.select(fromRoot.getClaimRebuttals);
-        this.loading$ = store.select(fromRoot.getSearchLoading);
+        private route: ActivatedRoute) {
+    }
+
+    ngOnInit() {
+        this.page$ = this.store.select(fromRoot.getBerniePageState);
+        this.claimEntities$ = this.store.select(fromRoot.getClaimsState);
+        this.deepClaims$ = this.store.select(fromRoot.getDeepClaims);
+        this.claimRebuttals$ = this.store.select(fromRoot.getClaimRebuttals);
+        this.loading$ = this.store.select(fromRoot.getSearchLoading);
         this.pageSub = this.page$.subscribe((page) => {
             this.expanded = page.expanded;
             this.editable = page.editable;
@@ -166,5 +170,12 @@ export class BerniePage implements OnDestroy {
     ngOnDestroy() {
         this.pageSub && this.pageSub.unsubscribe();
         this.claimRebuttalsSub && this.claimRebuttalsSub.unsubscribe();
+    }
+
+    ngAfterViewChecked() {
+        console.log('resolved')
+        // this.scrollDistance = WrappedValue.wrap(0)
+        // console.log("setting scrolly")
+        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'scrollY'], 300));
     }
 }

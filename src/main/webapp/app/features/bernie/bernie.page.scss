@@ -45,3 +45,10 @@ section:before {
    right: 0;
    border-top: 2px solid transparent;
 }
+
+.box {
+    display: block;
+    height: 70vh;
+    overflow: scroll;
+    border: 1px solid black;
+}
