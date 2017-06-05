@@ -144,3 +144,16 @@ Desktop.ini
 # Social Secrets
 ######################
 /src/main/resources/config/application.with.secrets.yml
+
+src/main/nativescript/app
+src/main/nativescript/hooks
+src/main/nativescript/node_modules
+src/main/nativescript/platforms
+src/main/nativescript/src/app
+src/main/nativescript/src/**/*.js
+src/main/nativescript/src/**/*.js.map
+src/main/nativescript/*.d.ts
+!src/main/nativescript/src/references.d.ts
+desktop
+gulpfile.js
+gulpfile.js.map
