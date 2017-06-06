@@ -121,7 +121,7 @@
     "style-loader": "0.18.2",
     "to-string-loader": "1.1.5",
     "ts-node": "3.0.6",
-    "tslint": "5.4.2",
+    "tslint": "5.4.3",
     "tslint-loader": "3.5.3",
     "typescript": "2.3.4",
     "webpack": "2.6.1",
