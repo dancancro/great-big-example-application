@@ -61,7 +61,7 @@
     "@ngrx/store-log-monitor": "3.0.2",
     "@types/hammerjs": "2.0.34",
     "@types/jasmine": "2.5.51",
-    "@types/node": "7.0.28",
+    "@types/node": "7.0.29",
     "@types/selenium-webdriver": "3.0.4",
     "@types/simple-peer": "6.1.1",
     "@types/uuid": "3.0.0",
