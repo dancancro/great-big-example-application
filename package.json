@@ -76,7 +76,7 @@
     "del": "2.2.2",
     "event-stream": "3.3.4",
     "exports-loader": "0.6.4",
-    "extract-text-webpack-plugin": "2.1.0",
+    "extract-text-webpack-plugin": "2.1.1",
     "file-loader": "0.11.2",
     "generator-jhipster": "4.5.2",
     "generator-jhipster-bootstrap-material-design": "3.5.1",
