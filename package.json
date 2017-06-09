@@ -51,7 +51,7 @@
     "swagger-ui": "3.0.13",
     "tether": "1.4.0",
     "webstomp-client": "1.0.6",
-    "zone.js": "0.8.11"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@angular/cli": "1.1.1",
