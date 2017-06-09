@@ -203,18 +203,18 @@ auto-refreshes when files change on your hard drive.
     ./mvnw
     yarn start
 
+[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
+specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
+Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
+
+The `yarn run` command will list all of the scripts available to run for this project.
+
 ## More Settings
 
 |File|Setting|
 |:-- |:-- |
 | application.yml | spring.social.google.client-id, etc |
 | application-prod.yml | spring.data.elasticsearch.cluster-name, spring.data.elasticsearch.cluster-nodes |
-
-[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
-
-The `yarn run` command will list all of the scripts available to run for this project.
 
 ### Managing dependencies
 
