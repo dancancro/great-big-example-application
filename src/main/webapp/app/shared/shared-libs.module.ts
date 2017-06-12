@@ -10,8 +10,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     imports: [
         NgbModule.forRoot(),
         NgJhipsterModule.forRoot({
+            // set below to true to make alerts look like toast
+            // alertAsToast: true,
             i18nEnabled: true,
-            defaultI18nLocation: 'all',
             defaultI18nLang: 'en'
         }),
         InfiniteScrollModule
