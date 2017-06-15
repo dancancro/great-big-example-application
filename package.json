@@ -44,7 +44,7 @@
     "ngx-pipes": "1.6.1",
     "reflect-metadata": "0.1.10",
     "reselect": "3.0.1",
-    "rxjs": "5.4.0",
+    "rxjs": "5.4.1",
     "simple-peer": "^8.1.0",
     "sockjs-client": "1.1.4",
     "sortablejs": "1.6.0",
