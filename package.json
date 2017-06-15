@@ -132,7 +132,7 @@
     "webpack-visualizer-plugin": "0.1.11",
     "write-file-webpack-plugin": "4.1.0",
     "xml2js": "0.4.17",
-    "yargs": "8.0.1"
+    "yargs": "8.0.2"
   },
   "engines": {
     "node": ">=6.9.0"
