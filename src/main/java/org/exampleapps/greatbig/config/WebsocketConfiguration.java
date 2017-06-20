@@ -70,8 +70,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
         return new HandshakeInterceptor() {
 
             @Override
-            public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
-                    WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+            public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
                 if (request instanceof ServletServerHttpRequest) {
                     ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
                     attributes.put(IP_ADDRESS, servletRequest.getRemoteAddress());
@@ -80,9 +79,23 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
             }
 
             @Override
-            public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
-                    WebSocketHandler wsHandler, Exception exception) {
+            public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
 
+            }
+        };
+    }
+
+    private DefaultHandshakeHandler defaultHandshakeHandler() {
+        return new DefaultHandshakeHandler() {
+            @Override
+            protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+                Principal principal = request.getPrincipal();
+                if (principal == null) {
+                    Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ANONYMOUS));
+                    principal = new AnonymousAuthenticationToken("WebsocketConfiguration", "anonymous", authorities);
+                }
+                return principal;
             }
         };
     }

@@ -1,9 +1,10 @@
-import { Entry } from '../entry';
-export class Tag {
+import { BaseEntity } from './../../shared';
+
+export class Tag implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
-        public entry?: Entry,
+        public entries?: BaseEntity[],
     ) {
     }
 }

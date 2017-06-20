@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Crisis } from './crisis.model';
 import { CrisisService } from './crisis.service';
+
 @Injectable()
 export class CrisisPopupService {
     private isOpen = false;

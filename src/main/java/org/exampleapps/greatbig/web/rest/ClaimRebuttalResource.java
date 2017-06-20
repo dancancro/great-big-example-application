@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class ClaimRebuttalResource {
     private final Logger log = LoggerFactory.getLogger(ClaimRebuttalResource.class);
 
     private static final String ENTITY_NAME = "claimRebuttal";
-        
+
     private final ClaimRebuttalRepository claimRebuttalRepository;
 
     private final ClaimRebuttalSearchRepository claimRebuttalSearchRepository;
@@ -68,7 +69,7 @@ public class ClaimRebuttalResource {
      * @param claimRebuttal the claimRebuttal to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated claimRebuttal,
      * or with status 400 (Bad Request) if the claimRebuttal is not valid,
-     * or with status 500 (Internal Server Error) if the claimRebuttal couldnt be updated
+     * or with status 500 (Internal Server Error) if the claimRebuttal couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/claim-rebuttals")
@@ -94,8 +95,7 @@ public class ClaimRebuttalResource {
     @Timed
     public List<ClaimRebuttal> getAllClaimRebuttals() {
         log.debug("REST request to get all ClaimRebuttals");
-        List<ClaimRebuttal> claimRebuttals = claimRebuttalRepository.findAll();
-        return claimRebuttals;
+        return claimRebuttalRepository.findAll();
     }
 
     /**
@@ -131,7 +131,7 @@ public class ClaimRebuttalResource {
      * SEARCH  /_search/claim-rebuttals?query=:query : search for the claimRebuttal corresponding
      * to the query.
      *
-     * @param query the query of the claimRebuttal search 
+     * @param query the query of the claimRebuttal search
      * @return the result of the search
      */
     @GetMapping("/_search/claim-rebuttals")
@@ -142,6 +142,5 @@ public class ClaimRebuttalResource {
             .stream(claimRebuttalSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-
 
 }

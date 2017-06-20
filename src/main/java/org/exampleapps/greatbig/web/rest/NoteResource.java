@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,7 +70,7 @@ public class NoteResource {
      * @param note the note to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated note,
      * or with status 400 (Bad Request) if the note is not valid,
-     * or with status 500 (Internal Server Error) if the note couldnt be updated
+     * or with status 500 (Internal Server Error) if the note couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/notes")
@@ -81,8 +82,9 @@ public class NoteResource {
         }
         Note result = noteRepository.save(note);
         noteSearchRepository.save(result);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, note.getId().toString()))
-                .body(result);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, note.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -94,8 +96,7 @@ public class NoteResource {
     @Timed
     public List<Note> getAllNotes() {
         log.debug("REST request to get all Notes");
-        List<Note> notes = noteRepository.findAll();
-        return notes;
+        return noteRepository.findAll();
     }
 
     /**
@@ -139,7 +140,7 @@ public class NoteResource {
     public List<Note> searchNotes(@RequestParam String query) {
         log.debug("REST request to search Notes for query {}", query);
         return StreamSupport.stream(noteSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
     }
 
 }

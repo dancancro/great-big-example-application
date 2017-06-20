@@ -4,7 +4,7 @@
             "packageName": "org.exampleapps.greatbig",
             "nativeLanguage": "en"
         },
-        "jhipsterVersion": "4.5.3",
+        "jhipsterVersion": "4.4.1",
         "baseName": "GreatBigExampleApplication",
         "packageName": "org.exampleapps.greatbig",
         "packageFolder": "org/exampleapps/greatbig",
@@ -23,7 +23,7 @@
         "enableSocialSignIn": true,
         "jwtSecretKey": "7c10615c946ddf4de8dd2fbf6469aeb8eb4c48c6",
         "clientFramework": "angular2",
-        "useSass": false,
+        "useSass": true,
         "clientPackageManager": "yarn",
         "applicationType": "monolith",
         "testFrameworks": [

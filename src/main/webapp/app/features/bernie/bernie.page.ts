@@ -26,7 +26,7 @@ import { slices } from '../../core/store/util';
     styleUrls: ['./bernie.page.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BerniePage implements OnInit, OnDestroy {
+export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     page$: Observable<BerniePageLayout>;
     pageSub: Subscription;
     claimEntities$: Observable<Entities<Claim>>;

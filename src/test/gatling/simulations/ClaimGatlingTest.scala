@@ -17,7 +17,7 @@ class ClaimGatlingTest extends Simulation {
     // Log failed HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
-    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8090"""
+    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
 
     val httpConf = http
         .baseURL(baseURL)
@@ -68,7 +68,7 @@ class ClaimGatlingTest extends Simulation {
             .exec(http("Create new claim")
             .post("/api/claims")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "imageLabel":"SAMPLE_TEXT", "imageLink":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "sortOrder":"0", "imageLabel":"SAMPLE_TEXT", "imageLink":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_claim_url"))).exitHereIfFailed
             .pause(10)

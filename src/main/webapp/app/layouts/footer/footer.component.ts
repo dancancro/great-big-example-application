@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
     selector: 'jhi-footer',
     templateUrl: './footer.component.html'
 })
-export class FooterComponent {
-}
+export class FooterComponent {}

@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { Message } from './message.model';
 import { MessageService } from './message.service';
+
 @Injectable()
 export class MessagePopupService {
     private isOpen = false;

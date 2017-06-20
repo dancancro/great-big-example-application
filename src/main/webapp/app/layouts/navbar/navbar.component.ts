@@ -13,7 +13,7 @@ import { FeatureMeta, FeaturesService } from '../../features/features.service';
     selector: 'jhi-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: [
-        'navbar.css'
+        'navbar.scss'
     ]
 })
 export class NavbarComponent implements OnInit {
@@ -29,8 +29,8 @@ export class NavbarComponent implements OnInit {
     constructor(
         private _featuresService: FeaturesService,
         private loginService: LoginService,
-        private languageHelper: JhiLanguageHelper,
         private languageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,

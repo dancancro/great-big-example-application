@@ -10,7 +10,10 @@
         </dd>
         <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.content">Content</span></dt>
         <dd>
-            <span>{{entry.content}}</span>
+            <div *ngIf="entry.content">
+                <a (click)="openFile(entry.contentContentType, entry.content)" jhiTranslate="entity.action.open">open</a>
+                {{entry.contentContentType}}, {{byteSize(entry.content)}}
+            </div>
         </dd>
         <dt><span jhiTranslate="greatBigExampleApplicationApp.entry.date">Date</span></dt>
         <dd>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class TagResource {
     private final Logger log = LoggerFactory.getLogger(TagResource.class);
 
     private static final String ENTITY_NAME = "tag";
-        
+
     private final TagRepository tagRepository;
 
     private final TagSearchRepository tagSearchRepository;
@@ -75,7 +76,7 @@ public class TagResource {
      * @param tag the tag to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated tag,
      * or with status 400 (Bad Request) if the tag is not valid,
-     * or with status 500 (Internal Server Error) if the tag couldnt be updated
+     * or with status 500 (Internal Server Error) if the tag couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/tags")
@@ -140,7 +141,7 @@ public class TagResource {
      * SEARCH  /_search/tags?query=:query : search for the tag corresponding
      * to the query.
      *
-     * @param query the query of the tag search 
+     * @param query the query of the tag search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -152,6 +153,5 @@ public class TagResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/tags");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
 
 }

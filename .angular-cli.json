@@ -20,8 +20,8 @@
             "prefix": "jhi",
             "mobile": false,
             "styles": [
-                "content/css/vendor.css",
-                "content/css/global.css"
+                "content/css/vendor.scss",
+                "content/css/global.scss"
             ],
             "scripts": []
         }

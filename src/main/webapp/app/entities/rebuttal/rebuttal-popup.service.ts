@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { Rebuttal } from './rebuttal.model';
 import { RebuttalService } from './rebuttal.service';
+
 @Injectable()
 export class RebuttalPopupService {
     private isOpen = false;

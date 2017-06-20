@@ -8,7 +8,7 @@ import { HOME_ROUTE, HomeComponent } from './';
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedModule,
-        RouterModule.forRoot([HOME_ROUTE], { useHash: true })
+        RouterModule.forRoot([ HOME_ROUTE ], { useHash: true })
     ],
     declarations: [
         HomeComponent,
@@ -19,4 +19,4 @@ import { HOME_ROUTE, HomeComponent } from './';
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationHomeModule { }
+export class GreatBigExampleApplicationHomeModule {}
