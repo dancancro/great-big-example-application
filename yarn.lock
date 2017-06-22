@@ -6,9 +6,9 @@
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.1.3.tgz#6e89a1e0fbfd6d0e90be4f2ae190aac67f83a411"
 
-"@angular/cli@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.1.1.tgz#ee5cf7637ad859c08e8a5e7a7f2161d0e74ce7a5"
+"@angular/cli@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.1.2.tgz#03855777cdab1ba8dc3f6cdc55eac8fcb0fcf831"
   dependencies:
     "@ngtools/json-schema" "1.1.0"
     "@ngtools/webpack" "1.4.1"
@@ -70,9 +70,11 @@
   optionalDependencies:
     node-sass "^4.3.0"
 
-"@angular/common@4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.1.3.tgz#e7c4791e32131cf74c239428c2a67daab2eef017"
+"@angular/common@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.2.3.tgz#e0173612eb6a9cf8dd50bd34c8a932dbce91d2bf"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/compiler-cli@4.2.0-beta.0":
   version "4.2.0-beta.0"
@@ -94,31 +96,39 @@
   version "2.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-2.0.0-rc.1.tgz#96fa7f85b2c4bacf2784913a2d607e2ed23dc7f1"
 
-"@angular/forms@4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.1.3.tgz#380ab4c3af84c5d1d748c2a7d04151c7dc8e4982"
-
-"@angular/http@4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.1.3.tgz#eb9d1c302a0172815f9a573310d9be0bdeb845ae"
-
-"@angular/material@2.0.0-beta.6":
-  version "2.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.6.tgz#83bfdf00f540a8c7db900a1e7b8ed2cff49df821"
+"@angular/forms@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.2.3.tgz#ff770f0a45f37cd99a7c20cedce560d018c9ca3b"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser-dynamic@4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.1.3.tgz#3c13fdcf591d487f6efdc1d46913f280c6d8c2ec"
+"@angular/http@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.2.3.tgz#8a8ffc8fdfcfda1b92cfc335efc658edd4b6a67a"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/material@2.0.0-beta.7":
+  version "2.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.7.tgz#2584aaf1ffbe24779916345f1ac82921ccbc2577"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/platform-browser-dynamic@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.2.3.tgz#87ce41f5779d31cbc68c71db6bfeba216d135554"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser@4.1.3":
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.1.3.tgz#4fa1db5119dd178b315ddae5b329bee1a932a5bd"
 
-"@angular/router@4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.1.3.tgz#ddafd46ae7ccc8b1f74904ffb45f394e44625216"
+"@angular/router@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.2.3.tgz#4492431b1b05af85feb6dcc2b298382006b3a9da"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/tsc-wrapped@4.2.0-beta.0":
   version "4.2.0-beta.0"
@@ -199,9 +209,13 @@
   version "2.5.51"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.51.tgz#e3bd34af3b832fa15d1bc3a148b2780c93ea522e"
 
-"@types/node@*", "@types/node@7.0.29":
+"@types/node@*":
   version "7.0.29"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.29.tgz#ccfcec5b7135c7caf6c4ffb8c7f33102340d99df"
+
+"@types/node@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.0.tgz#acaa89247afddc7967e9902fd11761dadea1a555"
 
 "@types/node@^6.0.46":
   version "6.0.78"
@@ -2916,9 +2930,35 @@ fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
+fastfall@^1.5.0:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/fastfall/-/fastfall-1.5.1.tgz#3fee03331a49d1d39b3cdf7a5e9cd66f475e7b94"
+  dependencies:
+    reusify "^1.0.0"
+
+fastparallel@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/fastparallel/-/fastparallel-2.3.0.tgz#1e709bfb6a03993f3857e3ce7f01311ce7602613"
+  dependencies:
+    reusify "^1.0.0"
+    xtend "^4.0.1"
+
 fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
+
+fastq@^1.3.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.5.0.tgz#05e32ffb999ec2d945dda27461bf08941436448b"
+  dependencies:
+    reusify "^1.0.0"
+
+fastseries@^1.7.0:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/fastseries/-/fastseries-1.7.2.tgz#d22ce13b9433dff3388d91dbd6b8bda9b21a0f4b"
+  dependencies:
+    reusify "^1.0.0"
+    xtend "^4.0.0"
 
 faye-websocket@^0.10.0:
   version "0.10.0"
@@ -3333,9 +3373,9 @@ generator-jhipster-darktheme@0.0.7:
     mkdirp "0.5.1"
     yeoman-generator "0.22.4"
 
-generator-jhipster-entity-audit@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/generator-jhipster-entity-audit/-/generator-jhipster-entity-audit-2.4.0.tgz#0065a1b75500f58c981fd051a3fd5dc27ca1c3e3"
+generator-jhipster-entity-audit@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/generator-jhipster-entity-audit/-/generator-jhipster-entity-audit-2.4.1.tgz#d832e095ec5ceae595d5326aad186c6c25a28f4e"
   dependencies:
     chalk "1.1.1"
     generator-jhipster ">3.6.0"
@@ -3447,9 +3487,9 @@ generator-jhipster@4.2.0:
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
-generator-jhipster@4.5.3:
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.5.3.tgz#23173fa29f288adab8fbe5c659d0ba3bc8eca876"
+generator-jhipster@4.5.5, generator-jhipster@>3.6.0:
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.5.5.tgz#390fa73927b24be94e44ec7a56d785d412648004"
   dependencies:
     chalk "1.1.3"
     cheerio "0.22.0"
@@ -3459,7 +3499,7 @@ generator-jhipster@4.5.3:
     glob "7.1.1"
     html-wiring "1.2.0"
     insight "0.8.4"
-    jhipster-core "1.3.2"
+    jhipster-core "1.3.3"
     js-yaml "3.8.3"
     lodash "4.17.4"
     mkdirp "0.5.1"
@@ -3472,7 +3512,7 @@ generator-jhipster@4.5.3:
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
-generator-jhipster@>2.26.0, generator-jhipster@>3.6.0, generator-jhipster@>=3.0.0, generator-jhipster@>=4.0.0, generator-jhipster@latest:
+generator-jhipster@>2.26.0, generator-jhipster@>=3.0.0, generator-jhipster@>=4.0.0, generator-jhipster@latest:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.5.2.tgz#dfadb726c86bef09c67fc8e730a664d0fab4b964"
   dependencies:
@@ -4893,9 +4933,9 @@ istextorbinary@^2.1.0:
     editions "^1.1.1"
     textextensions "1 || 2"
 
-jasmine-core@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.3.tgz#45072950e4a42b1e322fe55c001100a465d77815"
+jasmine-core@2.6.4:
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.4.tgz#dec926cd0a9fa287fb6db5c755fa487e74cecac5"
 
 jasmine-core@~2.6.0:
   version "2.6.2"
@@ -4935,6 +4975,12 @@ jhipster-core@1.2.9:
 jhipster-core@1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/jhipster-core/-/jhipster-core-1.3.2.tgz#5b2675c7682be098b1238760474a32657905bdae"
+  dependencies:
+    lodash "4.17.4"
+
+jhipster-core@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/jhipster-core/-/jhipster-core-1.3.3.tgz#2e26079d96cae9e5441bae81b480bbed759ace62"
   dependencies:
     lodash "4.17.4"
 
@@ -5314,7 +5360,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@0.2.x, loader-utils@0.x.x, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.5, loader-utils@~0.2.2, loader-utils@~0.2.3, loader-utils@~0.2.5:
+loader-utils@0.2.x, loader-utils@0.x.x, loader-utils@^0.2.12, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.5, loader-utils@~0.2.2, loader-utils@~0.2.3, loader-utils@~0.2.5:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -5821,9 +5867,9 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
-merge-jsons-webpack-plugin@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/merge-jsons-webpack-plugin/-/merge-jsons-webpack-plugin-1.0.7.tgz#a8e048067dfc8da12a2bb14cbd369e63e233be7f"
+merge-jsons-webpack-plugin@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/merge-jsons-webpack-plugin/-/merge-jsons-webpack-plugin-1.0.8.tgz#5f82a7171b72868a33f17b85e0649dbe38a92274"
   dependencies:
     es6-promise "4.0.5"
     glob "7.1.1"
@@ -6020,9 +6066,9 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-ng-jhipster@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/ng-jhipster/-/ng-jhipster-0.2.2.tgz#3bd7b719cd8e7d13c71699a1eb533d52d5acbd7e"
+ng-jhipster@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ng-jhipster/-/ng-jhipster-0.2.3.tgz#6bd8b2b61c2501bcdd6407b4bf174cf50fe0a6ce"
   dependencies:
     "@ngx-translate/core" "7.0.0"
     "@ngx-translate/http-loader" "0.1.0"
@@ -6040,6 +6086,10 @@ ngrx-store-freeze@^0.1.6:
 ngrx-store-localstorage@0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-0.1.8.tgz#21a44ec661c4a47f9137cb5c451a928baa2503ca"
+
+ngx-cookie@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-1.0.0.tgz#004fc653febd849b4dd3ee2c63c4cf171f464da9"
 
 ngx-infinite-scroll@0.5.1:
   version "0.5.1"
@@ -7838,6 +7888,10 @@ ret@~0.1.10:
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.14.tgz#58c636837b12e161f8a380cf081c6a230fd1664e"
 
+reusify@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.1.tgz#f53584367adc825c87431917263fc7aa19118693"
+
 right-align@^0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/right-align/-/right-align-0.1.3.tgz#61339b722fe6a3515689210d24e14c96148613ef"
@@ -8522,6 +8576,16 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
+steed@^1.1.2:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/steed/-/steed-1.1.3.tgz#f1525dd5adb12eb21bf74749537668d625b9abc5"
+  dependencies:
+    fastfall "^1.5.0"
+    fastparallel "^2.2.0"
+    fastq "^1.3.0"
+    fastseries "^1.7.0"
+    reusify "^1.0.0"
+
 stream-browserify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.1.tgz#66266ee5f9bdb9940a4e4514cafb43bb71e5c9db"
@@ -8784,9 +8848,9 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swagger-client@~3.0.14:
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.0.14.tgz#dddbd96c5f73eb061f1a9da473b382e940bb6c5c"
+swagger-client@~3.0.15:
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.0.15.tgz#e64f4b91e6298ec8280a59ce0a2d2c4973993e3e"
   dependencies:
     babel-runtime "^6.23.0"
     btoa "1.1.2"
@@ -8799,9 +8863,9 @@ swagger-client@~3.0.14:
     qs "^6.3.0"
     url "^0.11.0"
 
-swagger-ui@3.0.14:
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.0.14.tgz#6bad166fd46a6fdbe5ad4b746a68b1a77f3f27fb"
+swagger-ui@3.0.16:
+  version "3.0.16"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.0.16.tgz#3538d62845263d99fcc943ea958d5f05682f34cd"
   dependencies:
     babel-polyfill "^6.23.0"
     base64-js "^1.2.0"
@@ -8838,7 +8902,7 @@ swagger-ui@3.0.14:
     sanitize-html "^1.14.1"
     serialize-error "2.0.0"
     shallowequal "0.2.2"
-    swagger-client "~3.0.14"
+    swagger-client "~3.0.15"
     url-parse "^1.1.8"
     whatwg-fetch "0.11.1"
     worker-loader "^0.7.1"
@@ -9579,6 +9643,13 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+web-app-manifest-loader@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/web-app-manifest-loader/-/web-app-manifest-loader-0.1.1.tgz#861186a70f37b69ee10496b7ed0353d56fbdd11a"
+  dependencies:
+    loader-utils "^0.2.12"
+    steed "^1.1.2"
+
 webdriver-js-extender@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/webdriver-js-extender/-/webdriver-js-extender-1.0.0.tgz#81c533a9e33d5bfb597b4e63e2cdb25b54777515"
@@ -9963,7 +10034,7 @@ xmlhttprequest-ssl@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.3.tgz#185a888c04eca46c3e4070d99f7b49de3528992d"
 
-"xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@~4.0.0, xtend@~4.0.1:
+"xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
@@ -10027,9 +10098,9 @@ yargs@6.4.0, yargs@^6.0.0:
     y18n "^3.2.1"
     yargs-parser "^4.1.0"
 
-yargs@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.1.tgz#420ef75e840c1457a80adcca9bc6fa3849de51aa"
+yargs@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
   dependencies:
     camelcase "^4.1.0"
     cliui "^3.2.0"
