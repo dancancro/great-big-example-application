@@ -13,16 +13,14 @@
                    [(ngModel)]="message.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.email" for="field_email">Email</label>
-            <input type="text" class="form-control" name="email" id="field_email"
-                [(ngModel)]="message.email"
-             />
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.userLogin" for="field_userLogin">User Login</label>
+            <input type="text" class="form-control" name="userLogin" id="field_userLogin"
+                [(ngModel)]="message.userLogin"  />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.message" for="field_message">Message</label>
             <input type="text" class="form-control" name="message" id="field_message"
-                [(ngModel)]="message.message"
-            required />
+                [(ngModel)]="message.message" required />
             <div [hidden]="!(editForm.controls.message?.dirty && editForm.controls.message?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.message?.errors?.required" jhiTranslate="entity.validation.required">

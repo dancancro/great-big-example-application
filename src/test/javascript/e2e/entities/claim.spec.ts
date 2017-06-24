@@ -31,7 +31,7 @@ describe('Claim e2e test', () => {
         });
     });
 
-    it('should load create Claim dialog', function() {
+    it('should load create Claim dialog', function () {
         element(by.css('button.create-claim')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.claim.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Claim e2e test', () => {
         });
     });
 
-    afterAll(function() {
+    afterAll(function () {
         accountMenu.click();
         logout.click();
     });

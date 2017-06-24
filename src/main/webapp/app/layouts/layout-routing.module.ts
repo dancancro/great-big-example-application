@@ -5,8 +5,8 @@ import { navbarRoute } from '../app.route';
 import { errorRoute } from './';
 
 const LAYOUT_ROUTES = [
-  navbarRoute,
-  ...errorRoute
+    navbarRoute,
+    ...errorRoute
 ];
 
 @NgModule({
@@ -17,4 +17,4 @@ const LAYOUT_ROUTES = [
         RouterModule
     ]
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}

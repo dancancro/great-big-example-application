@@ -41,14 +41,14 @@ public class ClaimResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_SORT_ORDER = 1;
+    private static final Integer UPDATED_SORT_ORDER = 2;
+
     private static final String DEFAULT_IMAGE_LABEL = "AAAAAAAAAA";
     private static final String UPDATED_IMAGE_LABEL = "BBBBBBBBBB";
 
     private static final String DEFAULT_IMAGE_LINK = "AAAAAAAAAA";
     private static final String UPDATED_IMAGE_LINK = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_SORT_ORDER = 1;
-    private static final Integer UPDATED_SORT_ORDER = 2;
 
     @Autowired
     private ClaimRepository claimRepository;
@@ -177,9 +177,9 @@ public class ClaimResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(claim.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)))
             .andExpect(jsonPath("$.[*].imageLabel").value(hasItem(DEFAULT_IMAGE_LABEL.toString())))
-            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())))
-            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)));
+            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())));
     }
 
     @Test
@@ -194,9 +194,9 @@ public class ClaimResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(claim.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.sortOrder").value(DEFAULT_SORT_ORDER))
             .andExpect(jsonPath("$.imageLabel").value(DEFAULT_IMAGE_LABEL.toString()))
-            .andExpect(jsonPath("$.imageLink").value(DEFAULT_IMAGE_LINK.toString()))
-            .andExpect(jsonPath("$.sortOrder").value(DEFAULT_SORT_ORDER));
+            .andExpect(jsonPath("$.imageLink").value(DEFAULT_IMAGE_LINK.toString()));
     }
 
     @Test
@@ -219,9 +219,9 @@ public class ClaimResourceIntTest {
         Claim updatedClaim = claimRepository.findOne(claim.getId());
         updatedClaim
             .name(UPDATED_NAME)
+            .sortOrder(UPDATED_SORT_ORDER)
             .imageLabel(UPDATED_IMAGE_LABEL)
-            .imageLink(UPDATED_IMAGE_LINK)
-            .sortOrder(UPDATED_SORT_ORDER);
+            .imageLink(UPDATED_IMAGE_LINK);
 
         restClaimMockMvc.perform(put("/api/claims")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,9 +233,9 @@ public class ClaimResourceIntTest {
         assertThat(claimList).hasSize(databaseSizeBeforeUpdate);
         Claim testClaim = claimList.get(claimList.size() - 1);
         assertThat(testClaim.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testClaim.getSortOrder()).isEqualTo(UPDATED_SORT_ORDER);
         assertThat(testClaim.getImageLabel()).isEqualTo(UPDATED_IMAGE_LABEL);
         assertThat(testClaim.getImageLink()).isEqualTo(UPDATED_IMAGE_LINK);
-        assertThat(testClaim.getSortOrder()).isEqualTo(UPDATED_SORT_ORDER);
 
         // Validate the Claim in Elasticsearch
         Claim claimEs = claimSearchRepository.findOne(testClaim.getId());
@@ -295,9 +295,9 @@ public class ClaimResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(claim.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)))
             .andExpect(jsonPath("$.[*].imageLabel").value(hasItem(DEFAULT_IMAGE_LABEL.toString())))
-            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())))
-            .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)));
+            .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())));
     }
 
     @Test

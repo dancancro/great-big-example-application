@@ -17,6 +17,7 @@
                 "title": "Claim"
             },
             "name": "Name",
+            "sortOrder": "Sort Order",
             "imageLabel": "Image Label",
             "imageLink": "Image Link"
         }

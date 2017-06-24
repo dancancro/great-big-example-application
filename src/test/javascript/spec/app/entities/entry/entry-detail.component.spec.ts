@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
+import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { EntryDetailComponent } from '../../../../../../main/webapp/app/entities/entry/entry-detail.component';
@@ -22,18 +22,18 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [EntryDetailComponent],
                 providers: [
-                    DateUtils,
-                    DataUtils,
+                    JhiDateUtils,
+                    JhiDataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     EntryService,
-                    EventManager
+                    JhiEventManager
                 ]
             }).overrideTemplate(EntryDetailComponent, '')
-                .compileComponents();
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -41,6 +41,7 @@ describe('Component Tests', () => {
             comp = fixture.componentInstance;
             service = fixture.debugElement.injector.get(EntryService);
         });
+
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
@@ -53,7 +54,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.entry).toEqual(jasmine.objectContaining({id: 10}));
+            expect(comp.entry).toEqual(jasmine.objectContaining({id:10}));
             });
         });
     });

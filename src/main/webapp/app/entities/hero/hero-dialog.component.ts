@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Hero } from './hero.model';
 import { HeroPopupService } from './hero-popup.service';
@@ -22,9 +22,9 @@ export class HeroDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private heroService: HeroService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -32,6 +32,7 @@ export class HeroDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -40,19 +41,24 @@ export class HeroDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.hero.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.heroService.update(this.hero));
+                this.heroService.update(this.hero), false);
         } else {
             this.subscribeToSaveResponse(
-                this.heroService.create(this.hero));
+                this.heroService.create(this.hero), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Hero>) {
+    private subscribeToSaveResponse(result: Observable<Hero>, isCreated: boolean) {
         result.subscribe((res: Hero) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Hero) {
+    private onSaveSuccess(result: Hero, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'greatBigExampleApplicationApp.hero.created'
+            : 'greatBigExampleApplicationApp.hero.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'heroListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

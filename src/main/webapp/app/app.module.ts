@@ -17,6 +17,7 @@ import { FeaturesModule } from './features/features.module';
 import { CoreModule } from './core/core.module';
 import { AppConfig } from './app.config';
 
+// jhipster-needle-angular-add-module-import JHipster will add new module here
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
 
@@ -44,6 +45,7 @@ import {
         FeaturesModule,
         CoreModule,
         StoreLogMonitorModule
+        // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,

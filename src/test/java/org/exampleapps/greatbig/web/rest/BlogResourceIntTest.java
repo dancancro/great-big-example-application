@@ -4,7 +4,6 @@ import org.exampleapps.greatbig.GreatBigExampleApplicationApp;
 
 import org.exampleapps.greatbig.domain.Blog;
 import org.exampleapps.greatbig.repository.BlogRepository;
-import org.exampleapps.greatbig.repository.UserRepository;
 import org.exampleapps.greatbig.repository.search.BlogSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.ExceptionTranslator;
 
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -62,9 +60,6 @@ public class BlogResourceIntTest {
     private ExceptionTranslator exceptionTranslator;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private EntityManager em;
 
     private MockMvc restBlogMockMvc;
@@ -76,8 +71,9 @@ public class BlogResourceIntTest {
         MockitoAnnotations.initMocks(this);
         BlogResource blogResource = new BlogResource(blogRepository, blogSearchRepository);
         this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
-                .setCustomArgumentResolvers(pageableArgumentResolver).setControllerAdvice(exceptionTranslator)
-                .setMessageConverters(jacksonMessageConverter).build();
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -86,9 +82,10 @@ public class BlogResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public Blog createEntity(EntityManager em) {
-        Blog blog = new Blog().name(DEFAULT_NAME).handle(DEFAULT_HANDLE)
-                .user(userRepository.findOneByLogin("user").get());
+    public static Blog createEntity(EntityManager em) {
+        Blog blog = new Blog()
+            .name(DEFAULT_NAME)
+            .handle(DEFAULT_HANDLE);
         return blog;
     }
 
@@ -104,8 +101,10 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
         // Create the Blog
-        restBlogMockMvc.perform(post("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog))).andExpect(status().isCreated());
+        restBlogMockMvc.perform(post("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isCreated());
 
         // Validate the Blog in the database
         List<Blog> blogList = blogRepository.findAll();
@@ -128,8 +127,10 @@ public class BlogResourceIntTest {
         blog.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restBlogMockMvc.perform(post("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog))).andExpect(status().isBadRequest());
+        restBlogMockMvc.perform(post("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
         List<Blog> blogList = blogRepository.findAll();
@@ -145,8 +146,10 @@ public class BlogResourceIntTest {
 
         // Create the Blog, which fails.
 
-        restBlogMockMvc.perform(post("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog))).andExpect(status().isBadRequest());
+        restBlogMockMvc.perform(post("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isBadRequest());
 
         List<Blog> blogList = blogRepository.findAll();
         assertThat(blogList).hasSize(databaseSizeBeforeTest);
@@ -161,8 +164,10 @@ public class BlogResourceIntTest {
 
         // Create the Blog, which fails.
 
-        restBlogMockMvc.perform(post("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog))).andExpect(status().isBadRequest());
+        restBlogMockMvc.perform(post("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isBadRequest());
 
         List<Blog> blogList = blogRepository.findAll();
         assertThat(blogList).hasSize(databaseSizeBeforeTest);
@@ -170,17 +175,17 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
-    @WithMockUser
     public void getAllBlogs() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
 
         // Get all the blogList
-        restBlogMockMvc.perform(get("/api/blogs?sort=id,desc")).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
+        restBlogMockMvc.perform(get("/api/blogs?sort=id,desc"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
     }
 
     @Test
@@ -190,18 +195,20 @@ public class BlogResourceIntTest {
         blogRepository.saveAndFlush(blog);
 
         // Get the blog
-        restBlogMockMvc.perform(get("/api/blogs/{id}", blog.getId())).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.id").value(blog.getId().intValue()))
-                .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-                .andExpect(jsonPath("$.handle").value(DEFAULT_HANDLE.toString()));
+        restBlogMockMvc.perform(get("/api/blogs/{id}", blog.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(blog.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.handle").value(DEFAULT_HANDLE.toString()));
     }
 
     @Test
     @Transactional
     public void getNonExistingBlog() throws Exception {
         // Get the blog
-        restBlogMockMvc.perform(get("/api/blogs/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
+        restBlogMockMvc.perform(get("/api/blogs/{id}", Long.MAX_VALUE))
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -214,10 +221,14 @@ public class BlogResourceIntTest {
 
         // Update the blog
         Blog updatedBlog = blogRepository.findOne(blog.getId());
-        updatedBlog.name(UPDATED_NAME).handle(UPDATED_HANDLE);
+        updatedBlog
+            .name(UPDATED_NAME)
+            .handle(UPDATED_HANDLE);
 
-        restBlogMockMvc.perform(put("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedBlog))).andExpect(status().isOk());
+        restBlogMockMvc.perform(put("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(updatedBlog)))
+            .andExpect(status().isOk());
 
         // Validate the Blog in the database
         List<Blog> blogList = blogRepository.findAll();
@@ -239,8 +250,10 @@ public class BlogResourceIntTest {
         // Create the Blog
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
-        restBlogMockMvc.perform(put("/api/blogs").contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog))).andExpect(status().isCreated());
+        restBlogMockMvc.perform(put("/api/blogs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isCreated());
 
         // Validate the Blog in the database
         List<Blog> blogList = blogRepository.findAll();
@@ -256,8 +269,9 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeDelete = blogRepository.findAll().size();
 
         // Get the blog
-        restBlogMockMvc.perform(delete("/api/blogs/{id}", blog.getId()).accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+        restBlogMockMvc.perform(delete("/api/blogs/{id}", blog.getId())
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
 
         // Validate Elasticsearch is empty
         boolean blogExistsInEs = blogSearchRepository.exists(blog.getId());
@@ -276,11 +290,12 @@ public class BlogResourceIntTest {
         blogSearchRepository.save(blog);
 
         // Search the blog
-        restBlogMockMvc.perform(get("/api/_search/blogs?query=id:" + blog.getId())).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
+        restBlogMockMvc.perform(get("/api/_search/blogs?query=id:" + blog.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
     }
 
     @Test
