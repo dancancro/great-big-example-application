@@ -19,7 +19,7 @@
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.4",
     "@angularclass/form-validators": "^1.0.12",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.26",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.27",
     "@ngrx/core": "^1.2.0",
     "@ngrx/db": "2.0.2",
     "@ngrx/effects": "2.0.3",
