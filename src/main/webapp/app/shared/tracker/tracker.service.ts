@@ -32,7 +32,7 @@ export class JhiTrackerService {
 
     connect() {
         if (this.connectedPromise === null) {
-            this.connection = this.createConnection();
+          this.connection = this.createConnection();
         }
         // building absolute path so that websocket doesn't fail when deploying with a context path
         const loc = this.$window.nativeWindow.location;
@@ -51,9 +51,9 @@ export class JhiTrackerService {
             this.sendActivity();
             if (!this.alreadyConnectedOnce) {
                 this.subscription = this.router.events.subscribe((event) => {
-                    if (event instanceof NavigationEnd) {
-                        this.sendActivity();
-                    }
+                  if (event instanceof NavigationEnd) {
+                    this.sendActivity();
+                  }
                 });
                 this.alreadyConnectedOnce = true;
             }
@@ -80,7 +80,7 @@ export class JhiTrackerService {
         if (this.stompClient !== null && this.stompClient.connected) {
             this.stompClient.send(
                 '/topic/activity', // destination
-                JSON.stringify({ 'page': this.router.routerState.snapshot.url }), // body
+                JSON.stringify({'page': this.router.routerState.snapshot.url}), // body
                 {} // header
             );
         }

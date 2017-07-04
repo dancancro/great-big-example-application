@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Note } from './note.model';
 import { NoteService } from './note.service';
+
 @Injectable()
 export class NotePopupService {
     private isOpen = false;

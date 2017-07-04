@@ -44,7 +44,7 @@
                         <span jhiTranslate="global.menu.entities.main">
                             Entities
                         </span>
-                    <b class="caret"></b>
+                        <b class="caret"></b>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
@@ -122,7 +122,7 @@
                     <span>
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                         <span jhiTranslate="global.menu.admin.main">Administration</span>
-                    <b class="caret"></b>
+                        <b class="caret"></b>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
@@ -176,7 +176,7 @@
                     </li>
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                     <li *ngIf="!inProduction">
-                        <a class="dropdown-item" href='/h2-console' target="_tab" (click)="collapseNavbar()">
+                        <a class="dropdown-item" href='./h2-console' target="_tab" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-hdd-o" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.admin.database">Database</span>
                         </a>
@@ -188,7 +188,7 @@
                     <span>
                         <i class="fa fa-flag" aria-hidden="true"></i>
                         <span jhiTranslate="global.menu.language">Language</span>
-                    <b class="caret"></b>
+                        <b class="caret"></b>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
@@ -199,14 +199,14 @@
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
-                    <span *ngIf="!getImageUrl()">
+                  <span *ngIf="!getImageUrl()">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.account.main">
                       Account
                     </span>
                     <b class="caret"></b>
-                    </span>
-                    <span *ngIf="getImageUrl()">
+                  </span>
+                  <span *ngIf="getImageUrl()">
                       <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
                   </span>
                 </a>

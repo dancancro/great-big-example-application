@@ -17,7 +17,7 @@ export class SpyObject {
             object = new SpyObject();
         }
 
-        const m = {};
+        let m = {};
         Object.keys(config).forEach((key) => m[key] = config[key]);
         Object.keys(overrides).forEach((key) => m[key] = overrides[key]);
         Object.keys(m).forEach((key) => {
@@ -58,7 +58,7 @@ export class SpyObject {
 
     /** @internal */
     _createGuinnessCompatibleSpy(name): GuinessCompatibleSpy {
-        const newSpy: GuinessCompatibleSpy = < any > jasmine.createSpy(name);
+        let newSpy: GuinessCompatibleSpy = < any > jasmine.createSpy(name);
         newSpy.andCallFake = < any > newSpy.and.callFake;
         newSpy.andReturn = < any > newSpy.and.returnValue;
         newSpy.reset = < any > newSpy.calls.reset;

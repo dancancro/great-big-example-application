@@ -15,8 +15,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.blog.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="blog.name"
-            required minlength="3" />
+                [(ngModel)]="blog.name" required minlength="3" />
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
@@ -31,8 +30,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.blog.handle" for="field_handle">Handle</label>
             <input type="text" class="form-control" name="handle" id="field_handle"
-                [(ngModel)]="blog.handle"
-            required minlength="2" />
+                [(ngModel)]="blog.handle" required minlength="2" />
             <div [hidden]="!(editForm.controls.handle?.dirty && editForm.controls.handle?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.handle?.errors?.required" jhiTranslate="entity.validation.required">

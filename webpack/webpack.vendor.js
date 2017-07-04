@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+
 module.exports = {
     entry: {
         'vendor': [
@@ -13,11 +14,11 @@ module.exports = {
             '@angular/platform-browser-dynamic',
             '@angular/router',
             '@ng-bootstrap/ng-bootstrap',
-            'angular2-cookie',
             'ngx-infinite-scroll',
             'jquery',
             'ng-jhipster',
             'ng2-webstorage',
+            'ngx-cookie',
             'sockjs-client',
             'webstomp-client',
             'rxjs'
@@ -31,12 +32,16 @@ module.exports = {
         exprContextCritical: false,
         rules: [
             {
-                test: /(vendor\.css|global\.css)/,
-                loaders: ['style-loader', 'css-loader']
+                test: /(vendor\.scss|global\.scss)/,
+                loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+                use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+
+                // if you are having trouble, use this one to see which files are being
+                // handled by webpack. It preserves the file names.
+                // use: ['file-loader?name=content/[name].[ext]']
             }
         ]
     },

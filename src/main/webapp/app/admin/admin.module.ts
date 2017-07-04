@@ -6,30 +6,30 @@ import { GreatBigExampleApplicationSharedModule } from '../shared';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
-  adminState,
-  AuditsComponent,
-  UserMgmtComponent,
-  UserDialogComponent,
-  UserDeleteDialogComponent,
-  UserMgmtDetailComponent,
-  UserMgmtDialogComponent,
-  UserMgmtDeleteDialogComponent,
-  LogsComponent,
-  JhiMetricsMonitoringModalComponent,
-  JhiMetricsMonitoringComponent,
-  JhiHealthModalComponent,
-  JhiHealthCheckComponent,
-  JhiConfigurationComponent,
-  JhiDocsComponent,
-  AuditsService,
-  JhiConfigurationService,
-  JhiHealthService,
-  JhiMetricsService,
-  JhiTrackerComponent,
-  LogsService,
-  UserResolvePagingParams,
-  UserResolve,
-  UserModalService
+    adminState,
+    AuditsComponent,
+    UserMgmtComponent,
+    UserDialogComponent,
+    UserDeleteDialogComponent,
+    UserMgmtDetailComponent,
+    UserMgmtDialogComponent,
+    UserMgmtDeleteDialogComponent,
+    LogsComponent,
+    JhiMetricsMonitoringModalComponent,
+    JhiMetricsMonitoringComponent,
+    JhiHealthModalComponent,
+    JhiHealthCheckComponent,
+    JhiConfigurationComponent,
+    JhiDocsComponent,
+    AuditsService,
+    JhiConfigurationService,
+    JhiHealthService,
+    JhiMetricsService,
+    JhiTrackerComponent,
+    LogsService,
+    UserResolvePagingParams,
+    UserResolve,
+    UserModalService
 } from './';
 
 @NgModule({
@@ -74,4 +74,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationAdminModule { }
+export class GreatBigExampleApplicationAdminModule {}
