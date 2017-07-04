@@ -10,13 +10,17 @@
         "noImplicitAny": false,
         "suppressImplicitAnyIndexErrors": true,
         "outDir": "target/www/app",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "typeRoots": [
             "node_modules/@types"
         ]
     },
     "include": [
         "src/main/webapp/app",
-        "src/test/javascript"
+        "src/test/javascript",
+        "typings.d.ts"
     ]
 }

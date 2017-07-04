@@ -1,5 +1,8 @@
 // Here's a good overview of how to use Webpack with Angular
 // https://angular.io/docs/ts/latest/guide/webpack.html
+//
+// and a good video series on youtube
+// https://www.youtube.com/playlist?list=PL55RiY5tL51rcCnrOrZixuOsZhAHHy6os
 
 const webpack = require('webpack');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
@@ -33,10 +36,10 @@ module.exports = (options) => {
                 { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery' },
                 {
                     test: /\.ts$/,
-                    loaders: [
+                    use: [
                         'angular2-template-loader',
                         'awesome-typescript-loader',
-                        'angular-router-loader'
+                        'angular-router-loader'    // enables lazy loading routes
                     ],
                     exclude: ['node_modules/generator-jhipster']
                 },
@@ -54,25 +57,39 @@ module.exports = (options) => {
                 },
                 {
                     test: /\.scss$/,
-                    loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
+                    use: [
+                        'to-string-loader', // creates a string array for Angular to consume via the styles property
+                        'css-loader',
+                        'sass-loader'
+                        ],
                     exclude: /(vendor\.scss|global\.scss)/
                 },
                 {
-                    test: /(vendor\.scss|global\.scss)/,
-                    loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-                },
-                {
-                    test: /\.css$/,
-                    loaders: ['to-string-loader', 'css-loader'],
-                    exclude: /(vendor\.css|global\.css)/
+                    test: /global\.scss/,
+                    use: [
+                        'style-loader', // add <style> tag to the DOM
+                        'css-loader',   // make javascript out of css
+                        'postcss-loader',
+                        'sass-loader'   // uses node-sass to compile scss to css
+                    ]
                 },
                 {
                     test: /(vendor\.css|global\.css)/,
-                    loaders: ['style-loader', 'css-loader']
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.css$/,
+                    use: ['to-string-loader', 'css-loader'],
+                    exclude: /(vendor\.css|global\.css)/
                 },
                 {
                     test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                    loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+                    use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
+                    exclude: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/
+                },
+                {
+                    test: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/i,
+                    use: ['file-loader?name=content/[name].[ext]']
                 },
                 {
                     test: /manifest.webapp$/,

@@ -37,7 +37,11 @@ module.exports = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+                use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+
+                // if you are having trouble, use this one to see which files are being
+                // handled by webpack. It preserves the file names.
+                // use: ['file-loader?name=content/[name].[ext]']
             }
         ]
     },

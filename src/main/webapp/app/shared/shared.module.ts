@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import {
@@ -80,6 +80,7 @@ export const components = [
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
+        // GreatBigExampleApplicationSharedLibsModule,
         GreatBigExampleApplicationSharedCommonModule,
         JhiSocialComponent,
         JhiLoginModalComponent,
@@ -90,4 +91,12 @@ export const components = [
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class GreatBigExampleApplicationSharedModule { }
+export class GreatBigExampleApplicationSharedModule {
+
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GreatBigExampleApplicationSharedModule
+        };
+    }
+
+}
