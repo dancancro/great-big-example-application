@@ -15,8 +15,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.claim.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="claim.name"
-            required />
+                [(ngModel)]="claim.name" required />
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
@@ -25,16 +24,19 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.claim.sortOrder" for="field_sortOrder">Sort Order</label>
+            <input type="number" class="form-control" name="sortOrder" id="field_sortOrder"
+                [(ngModel)]="claim.sortOrder"  />
+        </div>
+        <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.claim.imageLabel" for="field_imageLabel">Image Label</label>
             <input type="text" class="form-control" name="imageLabel" id="field_imageLabel"
-                [(ngModel)]="claim.imageLabel"
-             />
+                [(ngModel)]="claim.imageLabel"  />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.claim.imageLink" for="field_imageLink">Image Link</label>
             <input type="text" class="form-control" name="imageLink" id="field_imageLink"
-                [(ngModel)]="claim.imageLink"
-             />
+                [(ngModel)]="claim.imageLink"  />
         </div>
 
     </div>

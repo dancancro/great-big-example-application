@@ -4,12 +4,13 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
 import { TagService } from './tag.service';
 import { Entry, EntryService } from '../entry';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-tag-dialog',
@@ -25,19 +26,20 @@ export class TagDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private tagService: TagService,
         private entryService: EntryService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.entryService.query().subscribe(
-            (res: Response) => { this.entries = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.entryService.query()
+            .subscribe((res: ResponseWrapper) => { this.entries = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -46,19 +48,24 @@ export class TagDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.tag.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.tagService.update(this.tag));
+                this.tagService.update(this.tag), false);
         } else {
             this.subscribeToSaveResponse(
-                this.tagService.create(this.tag));
+                this.tagService.create(this.tag), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Tag>) {
+    private subscribeToSaveResponse(result: Observable<Tag>, isCreated: boolean) {
         result.subscribe((res: Tag) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Tag) {
+    private onSaveSuccess(result: Tag, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'greatBigExampleApplicationApp.tag.created'
+            : 'greatBigExampleApplicationApp.tag.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'tagListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

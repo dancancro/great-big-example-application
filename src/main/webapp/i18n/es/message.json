@@ -1,6 +1,6 @@
 {
     "greatBigExampleApplicationApp": {
-        "message": {
+        "message" : {
             "home": {
                 "title": "Messages",
                 "createLabel": "Crear nuevo Message",
@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Message"
             },
-            "userLogin": "Usuario",
+            "userLogin": "User Login",
             "message": "Message",
             "createdAt": "Created At",
             "updatedAt": "Updated At"

@@ -3,7 +3,7 @@ services:
     greatbigexampleapplication-postgresql:
         image: postgres:9.6.2
         # volumes:
-        #     - ~/volumes/jhipster/GreatBigExampleApplication/postgresql/:/var/lib/postgresql/
+        #     - ~/volumes/jhipster/GreatBigExampleApplication/postgresql/:/var/lib/postgresql/data/
         environment:
             - POSTGRES_USER=GreatBigExampleApplication
             - POSTGRES_PASSWORD=

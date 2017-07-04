@@ -12,7 +12,7 @@ const routes: Routes = [
         component: DashboardPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.dashboard.home.title'
+            pageTitle: 'dashboard.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
