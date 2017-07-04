@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class CrisisResource {
     private final Logger log = LoggerFactory.getLogger(CrisisResource.class);
 
     private static final String ENTITY_NAME = "crisis";
-        
+
     private final CrisisRepository crisisRepository;
 
     private final CrisisSearchRepository crisisSearchRepository;
@@ -69,7 +70,7 @@ public class CrisisResource {
      * @param crisis the crisis to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated crisis,
      * or with status 400 (Bad Request) if the crisis is not valid,
-     * or with status 500 (Internal Server Error) if the crisis couldnt be updated
+     * or with status 500 (Internal Server Error) if the crisis couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/crises")
@@ -95,8 +96,7 @@ public class CrisisResource {
     @Timed
     public List<Crisis> getAllCrises() {
         log.debug("REST request to get all Crises");
-        List<Crisis> crises = crisisRepository.findAll();
-        return crises;
+        return crisisRepository.findAll();
     }
 
     /**
@@ -132,7 +132,7 @@ public class CrisisResource {
      * SEARCH  /_search/crises?query=:query : search for the crisis corresponding
      * to the query.
      *
-     * @param query the query of the crisis search 
+     * @param query the query of the crisis search
      * @return the result of the search
      */
     @GetMapping("/_search/crises")
@@ -143,6 +143,5 @@ public class CrisisResource {
             .stream(crisisSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-
 
 }

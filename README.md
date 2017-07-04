@@ -2,16 +2,15 @@
 [![Build Status](https://travis-ci.org/dancancro/great-big-example-application.svg?branch=master)](https://travis-ci.org/dancancro/great-big-example-application)
 [![Greenkeeper badge](https://badges.greenkeeper.io/dancancro/great-big-example-application.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://david-dm.org/dancancro/great-big-example-application.svg)](https://david-dm.org/dancancro/great-big-example-application)
-[![Join the chat at https://gitter.im/app-examples/Lobby](https://badges.gitter.im/app-examples/Lobby.svg)](https://gitter.im/app-examples/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/jhipster/generator-jhipster](https://badges.gitter.im/jhipster/generator-jhipster.svg)](https://gitter.im/jhipster/generator-jhipster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
 
 # Background and Motivation
 
-The main goal of this project is to make available to unemployed developers source code for a 
-state-of-the-art web application the likes of which only exist as intellectual property
-visible exclusively to employed experts who have signed non-disclosure agreements and can't let
-you see it or learn how they made everything work together.
+The main goal of this project is to make available source code for a state-of-the-art web application 
+the likes of which only exist as intellectual property visible exclusively to employed experts who have 
+signed non-disclosure agreements and can't let you see it or learn how they made everything work together.
 
     You should not have to get hired before learning how to do a thing the right way
 
@@ -26,6 +25,7 @@ a typical product/project sales page. Use it to determine what's best. Then help
 [below](https://github.com/dancancro/great-big-example-application#demonstrations-features-and-selling-points) 
 for a sample slice of it.
 
+Contributions wanted!
 
 # But why one great big app?
 
@@ -33,12 +33,13 @@ for a sample slice of it.
 "Software development is _always_ taught using lots of inconsistent simple examples!!"
 "Every real app is different" (so teaching with none of them is better than with any?)
 "Approaches are a matter of personal preference and shouldn't be imposed" (on beginners who just
-want to make something that totally works and who don't have any opinions yet)
+want to make something that totally works, don't want to waste time learning the wrong way to do things,
+and don't have any preferences yet)
 
 "Bloated!!"
 
 There's a strange resistance to using big examples to educate in addition to small ones. Should you learn
-automechanics using only go-karts? Heart surgery using only mice? I don't really understand the resistance. 
+automechanics using only go-karts? Construction using only bird houses? I don't really understand the resistance. 
 The case seems pretty plain to me but for clarity, here are some reasons why I think software development 
 should be taught using big examples:
 
@@ -56,24 +57,25 @@ should be taught using big examples:
     expertly made things to copy and modify.
 
     3. If you want a job making commercial-grade code, you should study commercial-grade code,
-    not tutorial-grade code. Anything you learn in a tutorial must be handled with caution 
-    because corners have probably been cut (e.g. the back-end, auth, etc), and it probably doesn't 
-    show you the exact way anyone does it on a real job. The difference between exact and almost 
-    exact is the difference between ten stones balanced on top of each other and those stones lying on
-    the ground. You keep your job and the company makes money only if *everything* works.
+    not tutorial-grade code. Perfect practice makes perfect.
     
-    4. Tutorials show you how you *can* use a feature of the technology but often they 
+    4. A tutorial contains some parts related to the lesson and some ancillary parts that are there
+    to make the example work. The ancillary parts will differ from tutorial to tutorial. So with each
+    new tutorial you need to re-learn these unrelated things in order to understand the concept subject 
+    matter. With a unified, big example, you only need to learn these parts once.
+    
+    5. Tutorials show you how you *can* use a feature of the technology but often they 
     do so in situations when in real life you would not do things that way. This can cost a lot of 
     time. It's just as important to know when to use a technology's features as it is to know how.
 
-    5. If you want to know how fast an app using a particular technology will build, run and test in
+    6. If you want to know how fast an app using a particular technology will build, run and test in
     your development environment before investing the time to learn it - and you should - then you need 
     source code for a big app before you even write Hello World.
 
-    6. If you want to know the complexity limits a technology will place on your app before you
+    7. If you want to know the complexity limits a technology will place on your app before you
     commit to using it, there's no better way than to see a complex example made with that technology.
 
-    7. It's a whole lot easier to vet an idea or accept an approach others have taken when you have
+    8. It's a whole lot easier to vet an idea or accept an approach others have taken when you have
     a complete application with all of its edge cases to show you what needs to be accommodated. 
     By containing many edge cases, a big application will quickly answer the common learner's question:
     "Why isn't this done the easy way I think it should be done?", or "What if we tried X instead?"
@@ -97,20 +99,18 @@ lower authority yielding to the higher one:
 2. [Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 4. [Redux Docs](http://redux.js.org/) Redux.org
-5. [JHipster Example - Bank accounts](https://github.com/jhipster/jhipster-sample-app-ng2) by [@jdubois](https://github.com/jdubois)
-6. [JHipster Example - Blog](https://github.com/mraible/jhipster4-demo) by [@mraible](https://github.com/mraible)
-7. [JHipster Example - Chat](https://github.com/ruddell/jhipster-chat-example) by [@ruddell](https://github.com/ruddell)
+5. [JHipster Example - Blog](https://github.com/mraible/jhipster4-demo) by [@mraible](https://github.com/mraible)
+6. [JHipster Example - Chat](https://github.com/ruddell/jhipster-chat-example) by [@ruddell](https://github.com/ruddell)
+7. [ng2-admin - Admin App](https://github.com/akveo/ng2-admin) by [@nnxiaa](https://github.com/nnixaa) and community
 8. [scalable-architecture-demo - P2P Typing Game](https://github.com/mgechev/scalable-architecture-demo) by [@mgechev](https://github.com/mgechev)
 9. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 10. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by [@mgechev](https://github.com/mgechev) + [@NathanWalker](https://github.com/NathanWalker) + community
-11. [FAMN example](https://github.com/implustech/famn) by [@implustech](https://github.com/implustech)
-12. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
-13. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop](https://github.com/eddyystop)
-14. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+11. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+12. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
 In addition to the features from these demos, I added one of my own. I replaced
 
-15. [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 
+13. [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is 
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
 and served as JSON by a Google script. Well, I tried to anyway. This still isn't working.
 
@@ -138,8 +138,12 @@ A huge thanks to those who created the example demos from which I put together t
 ![Image](./docs/images/heroes_list.png?raw=true)
 ### Drag, Drop and Edit Notes
 ![Image](./docs/images/notes.png?raw=true)
+### Dashboard
+![Image](./docs/images/dashboard.png?raw=true)
 ### To Do List
-![Image](./docs/images/to_dos.png?raw=true)
+![Image](./docs/images/todos.png?raw=true)
+### Calendar
+![Image](./docs/images/calendar.png?raw=true)
 
 
 # My Innovations
@@ -178,14 +182,14 @@ I use `auth.guard.ts` instead of `auth-guard.service.ts`. I use `books.routing.t
 That's it. It shouldn't be too hard to remember these, and in return you will have consistent, short, expressive file names.
 
 
-## Development
+# Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
 1. [Node.js][]: We use Node to run a development web server and build the project.
    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
    Be sure to use an [LTS version of node](https://github.com/nodejs/LTS) nvm is handy for managing different
-   versions of node.
+   versions of node. Remember that every time you change node versions, you need to reinstall your global packages.
 2. [Yarn][]: We use Yarn to manage Node dependencies.
    Depending on your system, you can install Yarn either from source or as a pre-packaged bundle.
 
@@ -196,11 +200,29 @@ You will only need to run this command when dependencies change in [package.json
 
 We use yarn scripts and [Webpack][] as our build system.
 
+### Download this project
+
+    cd parent/directory/of/the/new/project/directory
+    git clone https://github.com/dancancro/great-big-example-application.git
+    cd great-big-example-application
+
+### Define and seed the database
+
+Run this from your project root to define the database schema and populate it with some data.
+
+    jhipster import-jdl schema.jdl
+
+### Run the app
 
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
+1. back end server
+
     ./mvnw
+
+2. front end server
+
     yarn start
 
 [Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
@@ -215,30 +237,31 @@ The `yarn run` command will list all of the scripts available to run for this pr
 |:-- |:-- |
 | application.yml | spring.social.google.client-id, etc |
 | application-prod.yml | spring.data.elasticsearch.cluster-name, spring.data.elasticsearch.cluster-nodes |
+| index.html | Google Analytics ID |
 
 ### Managing dependencies
 
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
+For example, to add [Leaflet][] library as a runtime dependency of your application, you would run the following command:
 
     yarn add --exact leaflet
 
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
+To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run the following command:
 
     yarn add --dev --exact @types/leaflet
 
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
+Then you would import the JS and SCSS files specified in library's installation instructions so that [Webpack][] knows about them:
 
 Edit [src/main/webapp/app/vendor.ts](src/main/webapp/app/vendor.ts) file:
 ~~~
 import 'leaflet/dist/leaflet.js';
 ~~~
 
-Edit [src/main/webapp/content/css/vendor.css](src/main/webapp/content/css/vendor.css) file:
+Edit [src/main/webapp/content/css/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
 ~~~
-@import '~leaflet/dist/leaflet.css';
+@import '~leaflet/dist/leaflet';
 ~~~
 
-Note: there are still few other things remaining to do for Leaflet that we won't detail here.
+Note: there is still a few other things remaining to do for Leaflet that we won't detail here.
 
 For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
 
@@ -384,7 +407,7 @@ but you can overdo it too.
 
 I got the idea from the ngrx example app. I asked about it once and was told that it was done for performance reasons but I'm not sure under what conditions they apply.
 
-## 3) Why do you generate IDs on the client side, not the server side?
+## 3) For Notes, why do you generate IDs on the client side, not the server side?
 
 This makes it possible to have the application work offline. It also lets your objects have some persisted attributes and some transient, UI attributes without it affecting the
 api code. The way this works is that the UI lets you display things before they have been persisted to the server. Then a request to persist happens. The request only sends persistent
@@ -401,38 +424,27 @@ Any other questions?  Just ask.
 |:------ | :------: | :------: | :------: | :------: | :------: |
 [Ambitransportous (?)](https://feathersjs.slack.com/archives/C08QQ5YDA/p1493408741695918?thread_ts=1493406956.232620&cid=C08QQ5YDA "Use one API for both REST and WebSocket communication")| | | |[UNIQUE.](https://feathersjs.slack.com/archives/C08QQ5YDA/p1493408741695918?thread_ts=1493406956.232620&cid=C08QQ5YDA "Feathers.js")| |
 [API introspection report and testing interface (?)](https://helloreverb.com/developers/swagger "The system displays a report of all possible API routes and provides a simple UI to test them")|[UNIQUE.](https://helloreverb.com/developers/swagger "JHipster, Swagger")| | | | |
+[Approach to data readiness, Uses a waiting image/spinner/progressbar (?)](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/theme/services/ba-theme-spinner "Put a \"ready\" variable in your controller initialized to false.  In the callback, set it to true.    Listen to the '$stateChangeStart' and '$stateChangeSuccess' to display a loading element/screen.    In your template, put ng-show=ready into any element that should wait  ")|[X](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/theme/services/ba-theme-spinner)|[X.](http:// "Angular Material")| | |[X.](http:// "Angular Material")|
 [Authentication](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/session/session.effects.ts#L26 "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/session/session.effects.ts#L26)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/7260a89a3f968243e642b20c9fd6775ba59eaf41/src/services/DefaultAuthService.ts)| |[X.](https://docs.feathersjs.com/why/vs/readme.html "Feathers.js, Passport")| |
-[Authentication, JSON Web Token (JWT) (?)](https://www.youtube.com/watch?feature=player_detailpage&v=lDb_GANDR8U&list=UUEGUP3TJJfMsEM_1y8iviSQ#t=476 "Use this to send information that is not secret but needs to be verified. For instance, sending a signed user id to indicate that the user should be logged in. JWT works by simply encoding a string made up of a small JSON object and hashing it using a secret shared between the two parties")|[X.](https://github.com/jhipster/generator-jhipster/tree/master/generators/server/templates/src/main/java/package/security/jwt "JHipster")| | |[X.](https://docs.feathersjs.com/authentication/token.html "Feathers.js")| |
 [Authentication, social sign-in](https://github.com/jhipster/generator-jhipster/pull/2155 "")|[UNIQUE.](https://github.com/jhipster/generator-jhipster/pull/2155 "JHipster")| | | | |
-[Authentication, using Oauth (?)](https://youtu.be/dOCMpoeuwTI?t=677 "Lets users log in with Twitter, Facebook, etc    a standard protocol that allows users to authorize API access to web and desktop or mobile applications    names and passwords are not stored in your app's databases")|[X.](http:// "JHipster")| | |[X.](https://docs.feathersjs.com/authentication/oauth2.html "Feathers.js")| |
 [Authentication, with two-factor authentication](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/actions/SampleActions.js#L22 "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/actions/SampleActions.js#L22)| | | |
-[Authorization, Role-based (?)](https://github.com/jhipster/generator-jhipster/blob/master/generators/server/templates/src/main/java/package/security/_DomainUserDetailsService.java#L64 "Permissions to a resource are defined for each role.  Users have one or more roles and are granted access depending on the permissions granted to their roles")|[X.](https://github.com/jhipster/generator-jhipster/blob/master/generators/server/templates/src/main/java/package/security/_DomainUserDetailsService.java#L64 "JHipster")| | |[X.](https://docs.feathersjs.com/api/authentication/hooks.html#restricttoroles "Feathers.js")| |
-[Automated device testing](http://www.browsersync.io/ "")|[UNIQUE.](http://www.browsersync.io/ "BrowserSync")| | | | |
-[back end generator (?)](https://github.com/jhipster/generator-jhipster/issues/2810 "Just the API files. Not the Single page app files.")|[X.](https://github.com/jhipster/generator-jhipster/issues/2810 "JHipster")| | |[X.](https://docs.feathersjs.com/guides/step-by-step/generators/gen-app.html "Feathers.js")| |
 [Can run on a desktop without a browser](http://electron.atom.io/ "")| | |[UNIQUE.](http://electron.atom.io/ "Electron")| | |
 [Client-side dependency injection](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036675441 "")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036675441 "Angular, Spring MVC, Java 7")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036675441 "Angular")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036675441 "Angular")| |[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036675441 "Angular")|
 [Client-side performance monitoring & instrumentation (?)](https://github.com/dancancro/jhipster-sample-app-ng2/tree/newmodules/src/main/webapp/app/admin/audits "User interface for displaying performance metrics")|[UNIQUE](https://github.com/dancancro/jhipster-sample-app-ng2/tree/newmodules/src/main/webapp/app/admin/audits)| | | | |
-[Client-side routing, routes/states contain special properties (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.route.ts#L18-L20 "It is useful to attach special properties to each route.  This takes some doing.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.route.ts#L18-L20)| | | | |
 [Client-side routing, State-based routing (?)](http://www.funnyant.com/angularjs-ui-router/ "URL becomes simply a property of the state")|[X.](https://www.youtube.com/watch?v=z1NB-HG0ZH4 "Angular, JHipster")|[X.](https://www.youtube.com/watch?v=z1NB-HG0ZH4 "Angular")|[X.](https://www.youtube.com/watch?v=z1NB-HG0ZH4 "Angular")| |[X.](https://www.youtube.com/watch?v=z1NB-HG0ZH4 "Angular")|
 [Client-side unit tests](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/bernie/claim/claim.component.spec.ts "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/bernie/claim/claim.component.spec.ts)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts)|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/components/app.component.spec.ts)| |[X](https://github.com/qdouble/angular-webpack2-starter/blob/master/src/app/app.component.spec.ts)|
 [Clustered HTTP sessions](https://github.com/jhipster/generator-jhipster/blob/77959745c961c3997a01d11ae64ba7633cec496a/generators/server/templates/src/main/java/package/config/_GatewayConfiguration.java#L58 "")|[UNIQUE.](https://github.com/jhipster/generator-jhipster/blob/77959745c961c3997a01d11ae64ba7633cec496a/generators/server/templates/src/main/java/package/config/_GatewayConfiguration.java#L58 "JHipster")| | | | |
 [Code coverage reporting (?)](http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and "Generate reports that tell you how much of your code is being tested")|[X.](http://mochajs.org/ "Mocha, karma-coverage, Istanbul")|[X.](http://mochajs.org/ "Mocha")| |[X.](http://mochajs.org/ "Istanbul, Mocha")| |
 [Command line interface (CLI)](https://github.com/angular/angular-cli "")|[X.](https://github.com/angular/angular-cli "angular-cli, Spring MVC, Yeoman")|[X.](https://github.com/angular/angular-cli "angular-cli")| |[X.](https://github.com/facebookincubator/create-react-app "React")| |
 [Command line interface (CLI), can do database migration/evolution (?)](https://github.com/meanjs/mean/issues/52 "Every schema change is saved as well as its reversal.  So it's easy to keep your schema in order    Plugins:  Modyllic in PHP  https://github.com/OnlineBuddies/Modyllic")|[UNIQUE.](http://www.liquibase.org/ "Liquibase")| | | | |
-[Compiled, supports ahead of time (AOT) compilation](https://github.com/dancancro/great-big-example-application/blob/master/tsconfig-aot.json "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/tsconfig-aot.json)| |[X.](https://github.com/mgechev/angular-seed/blob/18a6e44da97d2734d7e81377df49e52ac70d2354/tools/tasks/seed/build.js.prod.aot.ts "mgechev's angular-seed")| |[X](https://github.com/qdouble/angular-webpack2-starter/blob/5a8acbf6592dd634b571e2b1259f8255386fe86d/tsconfig.aot.json)|
+[Compiled, supports ahead of time (AOT) compilation](https://github.com/qdouble/angular-webpack2-starter/blob/5a8acbf6592dd634b571e2b1259f8255386fe86d/tsconfig.aot.json "")| | |[X.](https://github.com/mgechev/angular-seed/blob/18a6e44da97d2734d7e81377df49e52ac70d2354/tools/tasks/seed/build.js.prod.aot.ts "mgechev's angular-seed")| |[X](https://github.com/qdouble/angular-webpack2-starter/blob/5a8acbf6592dd634b571e2b1259f8255386fe86d/tsconfig.aot.json)|
 [Components communicate with events](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/debate/debate.page.html#L9 "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/debate/debate.page.html#L9)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11)| | | |
-Concurrency (synchronization), supports database transactions|[UNIQUE.](http:// "JHipster")| | | | |
-[Core Module (client-side)](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-12 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts)| |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/core.module.ts)| | |
-[Cross-Origin Resource Sharing (CORS) (?)](http://www.corsproxy.com/ "Click link to see how you can setup a proxy to enable CORS    Your app can serve requests from other domains.  This is an alternative to JSONP.    Your app will inspect the request and if it comes from a friendly origin, it will return an Access-Control-Allow-Origin (ACAO) header in its response.    Put this line in your app.js file of a node app:  app.use(cors()); ")|[X.](https://github.com/jhipster/generator-jhipster/issues/2109 "JHipster")| | |[X](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/blob/e26c5736941cebff6494868d48807364f8e82b41/server/app.js#L4)| |
+[Core Module (client-side)](https://angular.io/guide/ngmodule-faq#coremodule "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts)| |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/core.module.ts)| | |
 [Database connection pooling](https://github.com/jhipster/generator-jhipster/pull/2295/commits/6e8c66fc6a4c3832c5263090d80a485ca933750f "")|[UNIQUE.](https://github.com/jhipster/generator-jhipster/pull/2295/commits/6e8c66fc6a4c3832c5263090d80a485ca933750f "JHipster")| | | | |
 [Deployment automation, to a mobile native executable](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")| | |[UNIQUE](https://github.com/NathanWalker/angular-seed-advanced#electron-app)| | |
 [Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/docker)| |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml)| | |
 [Deployment automation, using Heroku (?)](http://great-big-example-application.herokuapp.com "Generates a dist folder that is deployment ready for heroku.com    Heroku is an interface to Amazon's US East EC2 region")|[UNIQUE](http://great-big-example-application.herokuapp.com)| | | | |
-[Development build, html page processing (?)](https://github.com/yeoman/grunt-usemin "A single page app generally has just one page - index.html (which in some cases can extend another template file).  It may also have other top-level html pages depending on your design.      In this file or files you list dependencies and stylesheets for the whole app.  That process and others can be done dynamically once at build time to generate static versions")|[UNIQUE.](https://github.com/yeoman/grunt-usemin "JHipster")| | | | |
-Development build, script|[UNIQUE.](http:// "JHipster")| | | | |
 [End-to-end tests (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/test/javascript/e2e "end-to-end tests    Protractor is recommended over karma e2e.  See http://karma-runner.github.io/0.10/intro/faq.html    Protractor \"runs atop\" WebDriver which \"runs atop\" Selenium")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/test/javascript/e2e)|[X](https://github.com/born2net/Angular-kitchen-sink/tree/master/e2e)|[X](https://github.com/NathanWalker/angular-seed-advanced/tree/master/src/e2e)| |[X](https://github.com/qdouble/angular-webpack2-starter/blob/master/e2e/app.e2e.ts)|
-[Error handling, Client-side logging](http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm "")|[X](https://github.com/dancancro/great-big-example-application/blob/main/src/main/webapp/app/admin/logs)| |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/services/log.service.ts)| |[X](https://github.com/qdouble/angular-webpack2-starter/blob/7cf9e5ef8aebe827138ca9848337ba1aafeb814b/src/app/reducers/index.ts#L49)|
-[Error handling, Server-side logging](http://mean.io/network#features-menu "")|[X.](https://github.com/jhipster/generator-jhipster/issues/456 "Logback")| |[X.](http://expressjs.com/guide/error-handling.html "Express")|[X.](http://expressjs.com/guide/error-handling.html "Express")|[X.](http://expressjs.com/guide/error-handling.html "Express")|
 [FEATURE (a.k.a. module, entity) generator (?)](https://github.com/DaftMonk/generator-angular-fullstack/issues/524 "The whole nine yards for a feature - view, business layer, routing, configuration, controller")|[UNIQUE.](http:// "JHipster")| | | | |
 [Graphical schema editing](https://jhipster.github.io/jdl-studio/ "")|[UNIQUE.](https://jhipster.github.io/jdl-studio/ "JDL Studio")| | | | |
 [Hot Module Replacement (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/core.module.ts#L95 "After a code change the page will reload and put you in the same place you were in before without losing state.")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/core.module.ts#L95)| | | |[X](https://github.com/qdouble/angular-webpack2-starter/blob/498dc04957011e71bd1d0cd3c9eab36bc848349e/package.json#L14)|
@@ -440,30 +452,23 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Instrumentation, Metrics, server-side (?)](http://mean.io/network#features-menu "New Relic is one way to do this    AngularJS 2.0 will add instrumentation")|[UNIQUE.](http:// "JHipster")| | | | |
 [Lazy (on-demand) loading of client-side code (?)](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2036657491 "Client side code is loaded only as soon as it is needed by the user    However, it can very quickly grow into vast amounts of requests made in a hard-to-predict manner and the latency, especially on 3G (which has very long latencies), will very quickly eat up the hypothetical performance gains")|[X.](http://angularjs.blogspot.com/2015/08/angular-1-and-angular-2-coexistence.html "Angular, Spring MVC")|[X.](http://angularjs.blogspot.com/2015/08/angular-1-and-angular-2-coexistence.html "Angular")|[X.](http://angularjs.blogspot.com/2015/08/angular-1-and-angular-2-coexistence.html "Angular")| |[X.](http://angularjs.blogspot.com/2015/08/angular-1-and-angular-2-coexistence.html "Angular")|
 [Local storage](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/services/LocalStorage.ts)| |[X](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/blob/1c264df9e4c11313fd9237ba1cecb65454c41f3b/client/index.js#L31)| |
-[Messaging Interoperability](https://stomp.github.io/ "")|[UNIQUE.](https://stomp.github.io/ "Stomp")| | | | |
 [Microservice generator](https://jhipster.github.io/2016/03/23/jhipster-release-3.0.0.html "")|[UNIQUE.](https://jhipster.github.io/2016/03/23/jhipster-release-3.0.0.html "JHipster")| | | | |
 [Modularized, route-specific CSS](https://github.com/cgross/generator-cg-angular/issues/113 "")|[X.](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html#!#style-sheets "Angular")|[X.](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html#!#style-sheets "Angular")|[X.](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html#!#style-sheets "Angular")| |[X.](https://angular.io/docs/ts/latest/cookbook/a1-a2-quick-reference.html#!#style-sheets "Angular")|
 [No pluralization (?)](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/core/store "This is one of very few items in this list that could be considered a plus or a minus.  I personally don't like pluralization for these reasons:    1) Names mapped to Hibernate entities should not be plural    2) Plurals are always annoying, with words like \"children\".      3) If you want to make a utility that operates on entities generically, pluralization gives you one more thing to worry about")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/core/store)| | | | |
 [Object-relational mapping (?)](http://hibernate.org/orm/what-is-an-orm/ "A system for managing the difference between data that is stored in rows but used as objects.  This only applies to SQL databases, not NoSQL databases.    Examples:  ActiveRecord for Rails  Hibernate for Java")|[X.](http:// "JHipster")| | |[X.](https://docs.feathersjs.com/why/vs/readme.html "Feathers.js")| |
-[Observables for databinding a.k.a. KVO (?)](https://youtu.be/gawmdhCNy-A?t=879 "a.k.a. Key-value observables    An alternative to scope that is supposed to be faster    An alternative to promises    KVO costs memory and CPU which is more significant with mobile apps    Observables are kind of like promises but they can accept many values over time. So rather than having a promise that a single value will be returned in the future, you subscribe to get all values that are returned in the future     Observables are considered \"Collections over time\"    Observables solve the race condition problem and allow you to cancel requests if you want which you can't do with promises. This is useful in autocomplete boxes and situations where users hold down buttons that should only be pressed once.")|[X.](http:// "RxJS")|[X.](http:// "RxJS")|[X.](https://youtu.be/bVI5gGTEQ_U?t=163 "RxJS, JS ES2016")| |[X.](http:// "RxJS")|
 [Persistent, server-side data storage (?)](http://hammerprinciple.com/databases "See link for a good explanation of NoSQL options and solutions to normalization issues")|[X.](https://jhipster.github.io/2016/12/08/jhipster-release-3.12.1.html "MongoDB, Postgresql")| |[X](http://expressjs.com/guide/database-integration.html)|[X](http://expressjs.com/guide/database-integration.html)|[X](http://expressjs.com/guide/database-integration.html)|
 [Preloads client-side data (?)](http://angularclass.com/angularconnect-2015-a-highlights-tour/ "Client-side JS application and initial data arrive at the browser together in a single http request    Traditionally, the Javascript arrives first, it loads in the browser and then makes API calls to get the first data as it normally does while being used")|[X.](http://angularclass.com/angularconnect-2015-a-highlights-tour/ "Angular")|[X.](http://angularclass.com/angularconnect-2015-a-highlights-tour/ "Angular")|[X.](http://angularclass.com/angularconnect-2015-a-highlights-tour/ "Angular")| |[X.](http://angularclass.com/angularconnect-2015-a-highlights-tour/ "Angular")|
 [Production build, generate docs (?)](https://github.com/yeoman/yeoman/issues/152 "By reading comments in your code or maintaining separate docs:  https://github.com/millermedeiros/mdoc    examples:  ngDoc  YUIdoc")| |[X.](http://typedoc.org/ "typedoc")|[X.](http://typedoc.org/ "typedoc")| | |
 [Production build, safe pre-minification (?)](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "uses grunt-ngmin or ng-annotate or gulp ng-gulp-annotate.so you don't have to use the Angular injection syntax for safe minification (i.e. you dont need $inject or (\['$scope','$http',....    ngmin does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.      ng-annotate is an improvement/alternative to ng-min.  ng-min is deprecated    ng-annotate no longer requires that the following comment be written before each service declaration:    /**   * @ngInject   */")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular, ng-annotate")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")| |[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")|
 [Renders markup on the server (universal) (?)](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap-and-universal "With a single-page app, the final markup used by browser to display what a user sees is produced on the client side by javascript that runs on the client-side.  Server-side rendering does this on the server-side and sends the output to the client browser which renders it without running any javascript.")| | | | |[UNIQUE](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap-and-universal)|
-[route (client side) generator](https://github.com/angular/angular-cli/issues/64 "")|[UNIQUE.](http:// "JHipster")| | | | |
-[Safe from clickjacking (?)](http://en.wikipedia.org/wiki/Clickjacking "On a clickjacked page, the attackers load another page over a real page in a transparent layer")|[UNIQUE.](http:// "JHipster")| | | | |
-[Safe from session id hacks (?)](http://en.wikipedia.org/wiki/Session_fixation "Victim follows a link from the attacker that contains, as a querystring parameter, a session id known by the attacker.  Victim follows the link and logs in.  The server now considers this session id to be authenticated.  Now the attacker can use that link and session id to have the victim's access    Also, a new session ID should be created when going from http to https")|[UNIQUE.](http:// "JHipster")| | | | |
 [Separate route configuration files for each module](https://medium.com/@iDuuck/more-structured-organisation-of-routes-in-angular-js-a348c31c2063 "")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/blob/master/src/main/webapp/app/features/bernie/bernie.routing.ts)| | | | |
 [Separation of smart containers and dumb components (?)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "Such components typically do the following things: subscribe to data, fetch data from those subscriptions, and fetch global client-side state from stores.  Ideally, once a smart component has assembled such a set of data, it passes it off to a reusable component child to render with. Smart components usually don’t render anything apart from one or more reusable children. This makes it easy to separate rendering and data loading in your tests.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/bernie/bernie.page.ts)| | | | |
-[Server-side caching](http://willnathan.com/nodejs-vs-ruby-on-rails "")|[UNIQUE.](http:// "JHipster")| | | | |
 [Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")|[X.](http:// "Mocha, JUnit, Mockito")|[X.](http:// "Mocha")| |[X.](http:// "Mocha")| |
-[Shared Module (client side)](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-10 "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/shared.module.ts)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/8cc88024f22156f397f2aa95dc142460f720f50f/src/comps/app1/lazyone/SharedModule.ts)| | | |
+[Shared Module (client side)](https://angular.io/guide/styleguide#core-feature-module "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/shared.module.ts)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/8cc88024f22156f397f2aa95dc142460f720f50f/src/comps/app1/lazyone/SharedModule.ts)| | | |
 [Single source of truth, central state management, without lots of boilerplate (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/entity "Usually with Redux implementations your app will have lots of similar code in action, reducer and effect files for each slice of the store.    To avoid this, takes imposing some conventions and creating utility functions.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/entity)| | | | |
 [Style guide for code (?)](https://github.com/johnpapa/angularjs-styleguide "Provides consistency and best practices")|[X.](https://angular.io/docs/ts/latest/guide/style-guide.html "Angular Style Guide")| |[X.](https://angular.io/docs/ts/latest/guide/style-guide.html "Angular Style Guide")| | |
 [Supports database layer triggers (?)](https://docs.feathersjs.com/api/hooks.html "Events attached to data objects that allow you to add custom business logic upon creation, modification or deletion of data.")|[X.](http:// "JHipster")| | |[X.](https://docs.feathersjs.com/api/hooks.html "Feathers.js")| |
 [Templating, parsable HTML, no imperative code allowed](http://www.fullstackradio.com/30 "")|[X.](http:// "Angular")|[X.](http:// "Angular")|[X.](http:// "Angular")| |[X.](http:// "Angular")|
-[Two-way data binding (?)](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2054431151 "+ It makes things happen without a lot of code    -This can be prone to infinite loop problems")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2054431151 "Angular")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2054431151 "Angular")|[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2054431151 "Angular")| |[X.](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2054431151 "Angular")|
 [Typed (?)](http://www.typescriptlang.org/ "When the IDE knows type information, it can offer statement completion, reducing typos.    As an application grows in size, renaming and other refactoring operations become necessary. Without type information, error-prone search and replace options must be used")|[X.](http://www.typescriptlang.org/ "Typescript")|[X.](http://www.typescriptlang.org/ "Typescript")|[X.](http://www.typescriptlang.org/ "Typescript")| |[X.](http://www.typescriptlang.org/ "Typescript")|
 [Typed, statically (?)](http://qr.ae/fe0h2 "This is a good way to check things automatically, but you should be writing unit tests that can accomplish the same thing.    It also makes possible editor assistance by giving you code completion to display available methods for an object.")|[X.](http://www.typescriptlang.org/ "Typescript")|[X.](http://www.typescriptlang.org/ "Typescript")|[X.](http://www.typescriptlang.org/ "Typescript")| |[X.](http://www.typescriptlang.org/ "Typescript")|
 [UML to model generation (?)](http://jhipster.github.io/jhipster_uml.html "Offers you the possibility to use a UML editor to create a diagram that will be parsed to create entity model code.")|[UNIQUE.](http://jhipster.github.io/jhipster_uml.html "JHipster")| | | | |
@@ -478,12 +483,14 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Asynchronously loaded data example](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/services/rest.service.ts "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/services/rest.service.ts)|X|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/dadb1052f74cb3114547de94d297cc591ed27ab1/src/client/app/shared/sample/services/name-list.service.ts#L31)| | |
 [Blog](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/blog "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/blog)| | | | |
 [Breadcrumbs (?)](https://github.com/born2net/Angular-kitchen-sink/tree/master/src/comps/breadcrumb "Breadcrumbs are the series of links displayed at the top of a page which take you to any of the ancestral pages between the home page and the one you're on")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/tree/master/src/comps/breadcrumb)| | | |
+[Calendar](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard)| | | | |
+[Charts](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard)| | | | |
 [Chat](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/chat "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/chat)| | | | |
+[Dashboard module](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard)| | | | |
 [Derived, computed properties](http://redux.js.org/docs/recipes/ComputingDerivedData.html "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/index.ts#L218)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/models/ServerModel.js#L35)| | | |
 [Dynamic component creation](https://github.com/born2net/Angular-kitchen-sink/tree/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/dynmiaccomp "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/tree/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/dynmiaccomp)| | | |
 [External, 3rd party, API interaction](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/books/services/google-books.service.ts "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/books/services/google-books.service.ts)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts)| | | |
 [File Upload](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/entry/entry-dialog.component.html#L37 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/entry/entry-dialog.component.html#L37)| | | | |
-[Footer](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/footer "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/footer)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts)| | | |
 [Front-end CRUD, with mock/seed data](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase)| | | | |
 [Full-stack CRUD (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase "CRUD = Create,Read,Update, Delete    The example demonstrates creating, reading, updating and deleting from a backend file system or database through a web page user interface.  It includes seed data and does not require a lot of work to get the app connected to a database")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase)|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos)| | | |
 [Full-stack CRUD, screencast of it](https://jhipster.github.io/video-tutorial/ "")|[UNIQUE](https://jhipster.github.io/video-tutorial/)| | | | |
@@ -498,24 +505,23 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Modals (popups, dialogs) (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/admin/user-management/user-management-dialog.component.html "A popup window that when opened disables the rest of the application")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/admin/user-management/user-management-dialog.component.html)| | | | |
 [Navigation bar](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/navbar "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/navbar)|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/app.page.html)| | | |
 [Notifications](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/alert "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/alert)| | | | |
-[Number spinner](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/alert "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/alert)| | | | |
 [Pagination, paging (client-side)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.ts#L10 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.ts#L10)| | | | |
 [Pagination, paging (server-side)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/web/rest/TagResource.java#L98 "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/web/rest/TagResource.java#L98)| | |[X.](https://docs.feathersjs.com/why/vs/readme.html "Feathers.js")| |
-[Pagination, paging (server-side), with sorting](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/web/rest/TagResource.java#L98 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/web/rest/TagResource.java#L98)| | | | |
 [Panels, draggable](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts)| | | |
 [Realtime data sync (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/config/SecurityConfiguration.java#L109 "Any change to data (addition, update, deletion) by anyone is instantly visible to everyone else without requiring a refresh")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/java/org/exampleapps/greatbig/config/SecurityConfiguration.java#L109)| | | | |
 [Responsive styles](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/navbar/navbar.component.html "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/layouts/navbar/navbar.component.html)| | | | |
 [Search, actually works with backend API](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.html#L14 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.html#L14)| | | | |
+[Sort - client side](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/dashboard)| | | | |
 [Tables (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.ts "Create jQuery dataTables")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/claim/claim.component.ts)| | | | |
-[Timepicker](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/rebuttal/rebuttal-detail.component.html#L15 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/entities/rebuttal/rebuttal-detail.component.html#L15)| | | | |
 [To do list](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/widgets/todo "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/widgets/todo)| | | | |
+[Toast (Snackbar) (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/shared-libs.module.ts#L15 "A temporary message box that slides in from a side and is dismissed with a swipe, timer or button press")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/shared-libs.module.ts#L15)| | | | |
 [User tracking and analytics](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/admin/tracker "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/admin/tracker)| |[X](https://github.com/NathanWalker/angular-seed-advanced)| | |
 |  | | | | |
 | **Dependencies** |[great big example application](https://github.com/dancancro/great-big-example-application)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|[feathers-starter-react-redux-login-roles](https://github.com/eddyystop/feathers-starter-react-redux-login-roles)|[angular-webpack2-starter](https://github.com/qdouble/angular-webpack2-starter)|
 Builders |Yeoman | | | |
 Client-side API interfaces |@angular/http |@angular/http |@angular/http | |@angular/http
 Convenience method libraries |lodash |lodash |lodash |lodash |
-Databases |H2, Postgresql |Redis | | |
+Databases |H2, MongoDB, Postgresql |Redis | | |
 Documentation generators | |typedoc |typedoc | |
 Examples | | |mgechev's angular-seed | |
 Frameworks (Back-End) |Spring MVC | |Express |Express, Feathers.js |Express
@@ -525,7 +531,7 @@ Languages |Java 7, Java 8, JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (
 Linters |codelyzer, ESLint, JSHint, tslint | |codelyzer, tslint |ESLint |tslint
 Loaders/Bundlers |Spring, Webpack |Webpack |Rollup, SystemJS |Webpack |Webpack
 Misc |Angular Style Guide, cssnano, Jackson, JDL Studio, Liquibase, Logback, ng-annotate, nodemon, redux-devtools, RxJS, Stomp, Swagger, useref, wiredep |Immutable, redux-devtools, RxJS |Angular Style Guide, cssnano, Electron, redux-devtools, RxJS |Passport, react-router, redux-devtools |nodemon, redux-devtools, RxJS
-Package Managers |bower, npm, Yarn |npm |npm |npm |npm, Yarn (opt)
+Package Managers |npm, Yarn |npm |npm |npm |npm, Yarn (opt)
 Routers |Angular Component Router |Angular Component Router |Angular Component Router | |Angular Component Router
 Runtime Environments |Node |Node |NativeScript, Node |Node |Node
 Security Frameworks |Spring Social | | | |
@@ -537,7 +543,7 @@ Test coverage reporters |Istanbul, karma-coverage | | |Istanbul |
 Test runners |BrowserSync, Karma | |Karma | |Karma
 Transpilers |libsass |libsass | |libsass |libsass
 Unit testers |JUnit, Mockito | | | |
-Widget collections |Angular Material |Angular Material | | |Angular Material
+Widget collections | |Angular Material | | |Angular Material
 
 See any mistakes? [Help improve this data](https://docs.google.com/forms/d/e/1FAIpQLSeo2fG1YwFbGF_p9zor7Tu_KHPGF6tIt5EWoZGcosGLytC_EQ/viewform)
 

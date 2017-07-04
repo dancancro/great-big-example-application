@@ -10,6 +10,7 @@ import { GreatBigExampleApplicationAdminModule } from './admin/admin.module';
 import { GreatBigExampleApplicationAccountModule } from './account/account.module';
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
@@ -17,6 +18,7 @@ import { FeaturesModule } from './features/features.module';
 import { CoreModule } from './core/core.module';
 import { AppConfig } from './app.config';
 
+// jhipster-needle-angular-add-module-import JHipster will add new module here
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
 
@@ -43,7 +45,9 @@ import {
         GreatBigExampleApplicationEntityModule,
         FeaturesModule,
         CoreModule,
-        StoreLogMonitorModule
+        StoreLogMonitorModule,
+        TranslateModule.forRoot()
+        // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,

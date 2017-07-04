@@ -1,13 +1,13 @@
 import {
-  Component,
-  OnInit,
-  OnDestroy,
-  AfterViewInit,
-  ViewChild,
-  Input,
-  ChangeDetectorRef,
-  Renderer,
-  ElementRef,
+    Component,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+    ViewChild,
+    Input,
+    ChangeDetectorRef,
+    Renderer,
+    ElementRef
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -18,42 +18,40 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
-  templateUrl: 'features.component.html',
-  styleUrls: ['./features.component.scss']
-  // encapsulation: ViewEncapsulation.None
+    templateUrl: 'features.component.html',
+    styleUrls: ['features.component.scss']
 })
 export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
-  static SIDE_MENU_BREAKPOINT = 'gt-md';
+    // static SIDE_MENU_BREAKPOINT = 'gt-md';
 
-  site = 'MANF';
-  version: string;
-  modules: FeatureMeta[] = [];
+    version: string;
+    modules: FeatureMeta[] = [];
 
-  @ViewChild('menu') private menu: MdSidenav;
+    @ViewChild('menu') private menu: MdSidenav;
 
-  private _subscription = null;
-  private user = undefined;
+    private _subscription = null;
+    private user = undefined;
 
-  constructor(private http: Http,
-    // private changeDetectorRef: ChangeDetectorRef,
-    // private media: Media,
-    element: ElementRef,
-    renderer: Renderer,
-    private _router: Router,
-    private _moduleService: FeaturesService) {
-    // Remove loading class to unset default styles
-    renderer.setElementClass(element.nativeElement, 'loading', false);
-  }
+    constructor(private http: Http,
+        // private changeDetectorRef: ChangeDetectorRef,
+        // private media: Media,
+        element: ElementRef,
+        renderer: Renderer,
+        private _router: Router,
+        private _moduleService: FeaturesService) {
+        // Remove loading class to unset default styles
+        renderer.setElementClass(element.nativeElement, 'loading', false);
+    }
 
-  ngOnInit() {
-    this.modules = this._moduleService.getFeatures();
-    // this.user = this._socketService.getUser()
-  }
+    ngOnInit() {
+        this.modules = this._moduleService.getFeatures();
+        // this.user = this._socketService.getUser()
+    }
 
-  ngAfterViewInit(): any {
-  }
+    ngAfterViewInit(): any {
+    }
 
-  ngOnDestroy(): any {
-    // this._subscription.unsubscribe()
-  }
+    ngOnDestroy(): any {
+        // this._subscription.unsubscribe()
+    }
 }

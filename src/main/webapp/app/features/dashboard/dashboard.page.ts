@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoComponent } from '../../shared/widgets';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'jhi-dashboard-page',
-    templateUrl: 'dashboard.page.html'
+    selector: 'jhi-dashboard',
+    styleUrls: ['./dashboard.page.scss'],
+    templateUrl: './dashboard.page.html'
 })
-
-export class DashboardPage implements OnInit {
-    constructor() { }
-
-    ngOnInit() {
-        console.log('This is dashboard module');
-    }
-}
+export class DashboardPage { }

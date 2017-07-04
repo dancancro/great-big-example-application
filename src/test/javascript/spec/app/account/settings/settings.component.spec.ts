@@ -9,6 +9,7 @@ import { MockPrincipal } from '../../../helpers/mock-principal.service';
 import { JhiTrackerService } from '../../../../../../main/webapp/app/shared/tracker/tracker.service';
 import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
+
 describe('Component Tests', () => {
 
     describe('SettingsComponent', () => {
@@ -41,7 +42,7 @@ describe('Component Tests', () => {
                     },
                 ]
             }).overrideTemplate(SettingsComponent, '')
-                .compileComponents();
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -53,7 +54,7 @@ describe('Component Tests', () => {
 
         it('should send the current identity upon save', function () {
             // GIVEN
-            const accountValues = {
+            let accountValues = {
                 firstName: 'John',
                 lastName: 'Doe',
 
@@ -76,7 +77,7 @@ describe('Component Tests', () => {
 
         it('should notify of success upon successful save', function () {
             // GIVEN
-            const accountValues = {
+            let accountValues = {
                 firstName: 'John',
                 lastName: 'Doe'
             };
