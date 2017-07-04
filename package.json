@@ -77,7 +77,7 @@
   "devDependencies": {
     "@angular/cli": "1.2.0",
     "@angular/compiler-cli": "4.2.2",
-    "@angularclass/hmr": "2.0.0",
+    "@angularclass/hmr": "2.1.1",
     "@ngrx/store-devtools": "3.2.4",
     "@ngrx/store-log-monitor": "3.0.2",
     "@types/hammerjs": "2.0.34",
@@ -91,7 +91,7 @@
     "@types/webpack-env": "1.13.0",
     "add-asset-html-webpack-plugin": "2.0.1",
     "angular2-template-loader": "0.6.2",
-    "awesome-typescript-loader": "3.2.0",
+    "awesome-typescript-loader": "3.2.1",
     "browser-sync": "2.18.12",
     "browser-sync-webpack-plugin": "1.2.0",
     "codelyzer": "3.1.2",
