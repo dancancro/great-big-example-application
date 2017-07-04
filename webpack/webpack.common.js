@@ -1,3 +1,9 @@
+// Here's a good overview of how to use Webpack with Angular
+// https://angular.io/docs/ts/latest/guide/webpack.html
+//
+// and a good video series on youtube
+// https://www.youtube.com/playlist?list=PL55RiY5tL51rcCnrOrZixuOsZhAHHy6os
+
 const webpack = require('webpack');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -5,18 +11,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin")
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 const path = require('path');
 
-module.exports = function(options) {
+const parseVersion = require('./utils.js').parseVersion;
+
+module.exports = (options) => {
     const DATAS = {
-        VERSION: JSON.stringify(require("../package.json").version),
+        VERSION: `'${parseVersion()}'`,
         DEBUG_INFO_ENABLED: options.env === 'dev'
     };
     return {
         entry: {
             'polyfills': './src/main/webapp/app/polyfills',
-            'global': './src/main/webapp/content/css/global.css',
+            'global': './src/main/webapp/content/scss/global.scss',
             'main': './src/main/webapp/app/app.main'
         },
         resolve: {
@@ -28,10 +36,10 @@ module.exports = function(options) {
                 { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery' },
                 {
                     test: /\.ts$/,
-                    loaders: [
+                    use: [
                         'angular2-template-loader',
                         'awesome-typescript-loader',
-                        'angular-router-loader'
+                        'angular-router-loader'    // enables lazy loading routes
                     ],
                     exclude: ['node_modules/generator-jhipster']
                 },
@@ -49,34 +57,50 @@ module.exports = function(options) {
                 },
                 {
                     test: /\.scss$/,
-                    loaders: ['to-string-loader', 'css-loader', 'sass-loader'],
+                    use: [
+                        'to-string-loader', // creates a string array for Angular to consume via the styles property
+                        'css-loader',
+                        'sass-loader'
+                        ],
                     exclude: /(vendor\.scss|global\.scss)/
                 },
                 {
-                    test: /(vendor\.scss|global\.scss)/,
-                    loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-                },
-                {
-                    test: /\.css$/,
-                    loaders: ['to-string-loader', 'css-loader'],
-                    exclude: /(vendor\.css|global\.css)/
+                    test: /global\.scss/,
+                    use: [
+                        'style-loader', // add <style> tag to the DOM
+                        'css-loader',   // make javascript out of css
+                        'postcss-loader',
+                        'sass-loader'   // uses node-sass to compile scss to css
+                    ]
                 },
                 {
                     test: /(vendor\.css|global\.css)/,
-                    loaders: ['style-loader', 'css-loader']
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.css$/,
+                    use: ['to-string-loader', 'css-loader'],
+                    exclude: /(vendor\.css|global\.css)/
                 },
                 {
                     test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                    loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
+                    use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
+                    exclude: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/
+                },
+                {
+                    test: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/i,
+                    use: ['file-loader?name=content/[name].[ext]']
+                },
+                {
+                    test: /manifest.webapp$/,
+                    loader: 'file-loader?name=manifest.webapp!web-app-manifest-loader'
                 },
                 {
                     test: /app.constants.ts$/,
                     loader: StringReplacePlugin.replace({
                         replacements: [{
                             pattern: /\/\* @toreplace (\w*?) \*\//ig,
-                            replacement: function(match, p1, offset, string) {
-                                return `_${p1} = ${DATAS[p1]};`;
-                            }
+                            replacement: (match, p1, offset, string) => `_${p1} = ${DATAS[p1]};`
                         }]
                     })
                 }
@@ -95,6 +119,8 @@ module.exports = function(options) {
                 { from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist' },
                 { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
                 { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
+                { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
+                // { from: './src/main/webapp/sw.js', to: 'sw.js' },
                 { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
             ]),
             new webpack.ProvidePlugin({
@@ -104,10 +130,15 @@ module.exports = function(options) {
             new MergeJsonWebpackPlugin({
                 output: {
                     groupBy: [
-                        { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en.json" },
-                        { pattern: "./src/main/webapp/i18n/fr/*.json", fileName: "./target/www/i18n/fr.json" },
-                        { pattern: "./src/main/webapp/i18n/de/*.json", fileName: "./target/www/i18n/de.json" },
-                        { pattern: "./src/main/webapp/i18n/es/*.json", fileName: "./target/www/i18n/es.json" }
+                        // TODO: find out why it was putting files in /target/www/target/www with:
+                        // { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en.json" },
+                        // or why the app that works was not doing this.
+                        // They use path.resolve('target/www') which returns 'target/www' for this and
+                        // '' for the one that works
+                        { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./i18n/en.json" },
+                        { pattern: "./src/main/webapp/i18n/fr/*.json", fileName: "./i18n/fr.json" },
+                        { pattern: "./src/main/webapp/i18n/de/*.json", fileName: "./i18n/de.json" },
+                        { pattern: "./src/main/webapp/i18n/es/*.json", fileName: "./i18n/es.json" }
                         // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
                     ]
                 }

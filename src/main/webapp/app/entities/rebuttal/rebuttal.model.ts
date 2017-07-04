@@ -1,4 +1,6 @@
-export class Rebuttal {
+import { BaseEntity } from './../../shared';
+
+export class Rebuttal implements BaseEntity {
     constructor(
         public id?: number,
         public longName?: string,

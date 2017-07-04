@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginModalService } from '../../../../../../../main/webapp/app/shared';
 import { GreatBigExampleApplicationTestModule } from '../../../../test.module';
 import { PasswordResetFinishComponent } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.component';
-import { PasswordResetFinish } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
+import { PasswordResetFinishService } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
+
 
 describe('Component Tests', () => {
 
@@ -19,19 +20,19 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [PasswordResetFinishComponent],
                 providers: [
-                    PasswordResetFinish,
+                    PasswordResetFinishService,
                     {
                         provide: LoginModalService,
                         useValue: null
                     },
                     {
                         provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({ 'key': 'XYZPDQ' })
+                        useValue: new MockActivatedRoute({'key': 'XYZPDQ'})
                     },
                     {
                         provide: Renderer,
                         useValue: {
-                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
+                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) {}
                         }
                     },
                     {
@@ -40,7 +41,7 @@ describe('Component Tests', () => {
                     }
                 ]
             }).overrideTemplate(PasswordResetFinishComponent, '')
-                .createComponent(PasswordResetFinishComponent);
+            .createComponent(PasswordResetFinishComponent);
             comp = fixture.componentInstance;
         });
 
@@ -54,9 +55,9 @@ describe('Component Tests', () => {
 
         it('sets focus after the view has been initialized',
             inject([ElementRef], (elementRef: ElementRef) => {
-                const element = fixture.nativeElement;
-                const node = {
-                    focus() { }
+                let element = fixture.nativeElement;
+                let node = {
+                    focus() {}
                 };
 
                 elementRef.nativeElement = element;

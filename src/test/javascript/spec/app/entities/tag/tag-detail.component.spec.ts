@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
+import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { TagDetailComponent } from '../../../../../../main/webapp/app/entities/tag/tag-detail.component';
@@ -22,18 +22,18 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [TagDetailComponent],
                 providers: [
-                    DateUtils,
-                    DataUtils,
+                    JhiDateUtils,
+                    JhiDataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     TagService,
-                    EventManager
+                    JhiEventManager
                 ]
             }).overrideTemplate(TagDetailComponent, '')
-                .compileComponents();
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -41,6 +41,7 @@ describe('Component Tests', () => {
             comp = fixture.componentInstance;
             service = fixture.debugElement.injector.get(TagService);
         });
+
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
@@ -53,7 +54,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.tag).toEqual(jasmine.objectContaining({id: 10}));
+            expect(comp.tag).toEqual(jasmine.objectContaining({id:10}));
             });
         });
     });

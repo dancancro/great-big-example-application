@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
 import { RebuttalService } from './rebuttal.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -21,8 +20,8 @@ rebuttals: Rebuttal[];
 
     constructor(
         private rebuttalService: RebuttalService,
-        private alertService: AlertService,
-        private eventManager: EventManager,
+        private alertService: JhiAlertService,
+        private eventManager: JhiEventManager,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
@@ -34,17 +33,17 @@ rebuttals: Rebuttal[];
             this.rebuttalService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: Response) => this.rebuttals = res.json(),
-                    (res: Response) => this.onError(res.json())
+                    (res: ResponseWrapper) => this.rebuttals = res.json,
+                    (res: ResponseWrapper) => this.onError(res.json)
                 );
             return;
        }
         this.rebuttalService.query().subscribe(
-            (res: Response) => {
-                this.rebuttals = res.json();
+            (res: ResponseWrapper) => {
+                this.rebuttals = res.json;
                 this.currentSearch = '';
             },
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 

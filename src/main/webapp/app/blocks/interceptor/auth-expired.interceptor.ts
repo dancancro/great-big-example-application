@@ -1,10 +1,10 @@
-import { HttpInterceptor } from 'ng-jhipster';
+import { JhiHttpInterceptor } from 'ng-jhipster';
 import { RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Injector } from '@angular/core';
 import { LoginService } from '../../shared/login/login.service';
 
-export class AuthExpiredInterceptor extends HttpInterceptor {
+export class AuthExpiredInterceptor extends JhiHttpInterceptor {
 
     constructor(private injector: Injector) {
         super();

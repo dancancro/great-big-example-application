@@ -34,7 +34,7 @@ describe('Component Tests', () => {
                     }
                 ]
             }).overrideTemplate(RegisterComponent, '')
-                .compileComponents();
+            .compileComponents();
         }));
 
         beforeEach(() => {

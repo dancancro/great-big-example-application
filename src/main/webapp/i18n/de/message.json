@@ -1,6 +1,6 @@
 {
     "greatBigExampleApplicationApp": {
-        "message": {
+        "message" : {
             "home": {
                 "title": "Messages",
                 "createLabel": "Message erstellen",

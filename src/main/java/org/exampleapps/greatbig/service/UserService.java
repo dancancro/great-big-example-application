@@ -188,6 +188,7 @@ public class UserService {
                 userDTO.getAuthorities().stream()
                     .map(authorityRepository::findOne)
                     .forEach(managedAuthorities::add);
+                userSearchRepository.save(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
             })

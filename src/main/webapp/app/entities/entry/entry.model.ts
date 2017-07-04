@@ -1,14 +1,14 @@
-import { Blog } from '../blog';
-import { Tag } from '../tag';
-export class Entry {
+import { BaseEntity } from './../../shared';
+
+export class Entry implements BaseEntity {
     constructor(
         public id?: number,
         public title?: string,
+        public contentContentType?: string,
         public content?: any,
-        public contentType?: string,
         public date?: any,
-        public blog?: Blog,
-        public tag?: Tag,
+        public blog?: BaseEntity,
+        public tags?: BaseEntity[],
     ) {
     }
 }
