@@ -14,7 +14,7 @@
 </ul>
 <div *ngIf="(selectedHero$ | async)">
     <h2>
-        {{(selectedHero$ | async).name | uppercase}} is my hero
+        {{(selectedHero$ | async)?.name | uppercase}} is my hero
     </h2>
     <button (click)="gotoSelectedHero()">View Details</button>
 </div>
