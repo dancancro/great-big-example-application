@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
 import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
 import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
-import { JhiConfigService } from 'ng-jhipster/src/config.service';
 import { Http } from '@angular/http';
 
 import { NgaModule } from '../theme/nga.module';
@@ -75,26 +74,6 @@ const imports = [
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     FlexLayoutModule,
-    // TranslateModule.forRoot({
-    //     loader: {
-    //         provide: TranslateLoader,
-    //         useFactory: HttpLoaderFactory,
-    //         deps: [Http]
-    //     },
-    // }),
-
-    // TranslateModule.forRoot({
-    //     loader: {
-    //         provide: TranslateLoader,
-    //         useFactory: translatePartialLoader,
-    //         deps: [Http]
-    //     },
-    //     missingTranslationHandler: {
-    //         provide: MissingTranslationHandler,
-    //         useFactory: missingTranslationHandler,
-    //         deps: [JhiConfigService]
-    //     }
-    // }),
 
     // StoreLogMonitorModule,
 
