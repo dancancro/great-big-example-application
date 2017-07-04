@@ -13,7 +13,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 declarations: [PasswordStrengthBarComponent]
             }).overrideTemplate(PasswordStrengthBarComponent, '')
-                .compileComponents();
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -37,7 +37,7 @@ describe('Component Tests', () => {
                 expect(comp.measureStrength('Aa090(**)+-07365')).toBeGreaterThanOrEqual(comp.measureStrength('Aa090(**)'));
             });
 
-            it('should change the color based on strength', () => {
+             it('should change the color based on strength', () => {
                 expect(comp.getColor(0).col).toBe(comp.colors[0]);
                 expect(comp.getColor(11).col).toBe(comp.colors[1]);
                 expect(comp.getColor(22).col).toBe(comp.colors[2]);

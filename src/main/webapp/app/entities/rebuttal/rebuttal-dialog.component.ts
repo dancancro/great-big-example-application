@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
 import { RebuttalPopupService } from './rebuttal-popup.service';
@@ -22,9 +22,9 @@ export class RebuttalDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private rebuttalService: RebuttalService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -32,6 +32,7 @@ export class RebuttalDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -40,19 +41,24 @@ export class RebuttalDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.rebuttal.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.rebuttalService.update(this.rebuttal));
+                this.rebuttalService.update(this.rebuttal), false);
         } else {
             this.subscribeToSaveResponse(
-                this.rebuttalService.create(this.rebuttal));
+                this.rebuttalService.create(this.rebuttal), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Rebuttal>) {
+    private subscribeToSaveResponse(result: Observable<Rebuttal>, isCreated: boolean) {
         result.subscribe((res: Rebuttal) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Rebuttal) {
+    private onSaveSuccess(result: Rebuttal, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'greatBigExampleApplicationApp.rebuttal.created'
+            : 'greatBigExampleApplicationApp.rebuttal.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'rebuttalListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

@@ -31,7 +31,7 @@ describe('Blog e2e test', () => {
         });
     });
 
-    it('should load create Blog dialog', function() {
+    it('should load create Blog dialog', function () {
         element(by.css('button.create-blog')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.blog.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Blog e2e test', () => {
         });
     });
 
-    afterAll(function() {
+    afterAll(function () {
         accountMenu.click();
         logout.click();
     });

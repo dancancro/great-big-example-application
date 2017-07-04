@@ -8,8 +8,8 @@ import { GreatBigExampleApplicationNoteModule } from './note/note.module';
 import { GreatBigExampleApplicationRebuttalModule } from './rebuttal/rebuttal.module';
 import { GreatBigExampleApplicationClaimRebuttalModule } from './claim-rebuttal/claim-rebuttal.module';
 import { GreatBigExampleApplicationBlogModule } from './blog/blog.module';
-import { GreatBigExampleApplicationEntryModule } from './entry/entry.module';
 import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
+import { GreatBigExampleApplicationEntryModule } from './entry/entry.module';
 import { GreatBigExampleApplicationMessageModule } from './message/message.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -23,8 +23,8 @@ import { GreatBigExampleApplicationMessageModule } from './message/message.modul
         GreatBigExampleApplicationRebuttalModule,
         GreatBigExampleApplicationClaimRebuttalModule,
         GreatBigExampleApplicationBlogModule,
-        GreatBigExampleApplicationEntryModule,
         GreatBigExampleApplicationTagModule,
+        GreatBigExampleApplicationEntryModule,
         GreatBigExampleApplicationMessageModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
@@ -33,4 +33,4 @@ import { GreatBigExampleApplicationMessageModule } from './message/message.modul
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationEntityModule { }
+export class GreatBigExampleApplicationEntityModule {}

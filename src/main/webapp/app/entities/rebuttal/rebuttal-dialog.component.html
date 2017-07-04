@@ -15,8 +15,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.longName" for="field_longName">Long Name</label>
             <input type="text" class="form-control" name="longName" id="field_longName"
-                [(ngModel)]="rebuttal.longName"
-            minlength="20" maxlength="1200" />
+                [(ngModel)]="rebuttal.longName" minlength="20" maxlength="1200" />
             <div [hidden]="!(editForm.controls.longName?.dirty && editForm.controls.longName?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.longName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 20 }">
@@ -31,8 +30,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.shortName" for="field_shortName">Short Name</label>
             <input type="text" class="form-control" name="shortName" id="field_shortName"
-                [(ngModel)]="rebuttal.shortName"
-             />
+                [(ngModel)]="rebuttal.shortName"  />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.date" for="field_date">Date</label>
@@ -51,8 +49,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.link" for="field_link">Link</label>
             <input type="text" class="form-control" name="link" id="field_link"
-                [(ngModel)]="rebuttal.link"
-             />
+                [(ngModel)]="rebuttal.link"  />
         </div>
 
     </div>

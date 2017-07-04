@@ -2,19 +2,23 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myEntryLabel" jhiTranslate="greatBigExampleApplicationApp.entry.home.createOrEditLabel">Create or edit a Entry</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!entry.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="entry.id" readonly />
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="entry.id" readonly />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.entry.title" for="field_title">Title</label>
-            <input type="text" class="form-control" name="title" id="field_title" [(ngModel)]="entry.title" required />
+            <input type="text" class="form-control" name="title" id="field_title"
+                [(ngModel)]="entry.title" required />
             <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
                    This field is required.
                 </small>
             </div>
@@ -23,17 +27,22 @@
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.entry.content" for="field_content">Content</label>
             <div>
                 <div *ngIf="entry.content" class="form-text text-danger clearfix">
-                    <span class="pull-left">{{entry.contentType}}, {{byteSize(entry.content)}}</span>
-                    <button type="button" (click)="entry.content=null;entry.contentType=null;" class="btn btn-default btn-xs pull-right">
+                    <a class="pull-left" (click)="openFile(entry.contentContentType, entry.content)" jhiTranslate="entity.action.open">open</a><br>
+                    <span class="pull-left">{{entry.contentContentType}}, {{byteSize(entry.content)}}</span>
+                    <button type="button" (click)="entry.content=null;entry.contentContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
                         <span class="fa fa-times"></span>
                     </button>
                 </div>
-                <input type="file" (change)="setFileData($event, entry, 'content', false)" jhiTranslate="entity.action.addblob" />
+                <input type="file" (change)="setFileData($event, entry, 'content', false)" jhiTranslate="entity.action.addblob"/>
             </div>
-            <input type="hidden" class="form-control" name="content" id="field_content" [(ngModel)]="entry.content" required />
-            <input type="hidden" class="form-control" name="contentType" id="field_contentType" [(ngModel)]="entry.contentType" />
+            <input type="hidden" class="form-control" name="content" id="field_content"
+                [(ngModel)]="entry.content" required />
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                [(ngModel)]="entry.contentContentType" />
             <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
                    This field is required.
                 </small>
             </div>
@@ -41,13 +50,16 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.entry.date" for="field_date">Date</label>
             <div class="d-flex">
-                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="entry.date" required />
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="entry.date"
+                required  />
             </div>
             <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
                    This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
                     This field should be a date and time.
                 </small>
             </div>
@@ -55,7 +67,7 @@
 
         <div class="form-group">
             <label jhiTranslate="greatBigExampleApplicationApp.entry.blog" for="field_blog">Blog</label>
-            <select class="form-control" id="field_blog" name="blog" [(ngModel)]="entry.blog">
+            <select class="form-control" id="field_blog" name="blog" [(ngModel)]="entry.blog" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="blogOption.id === entry.blog?.id ? entry.blog : blogOption" *ngFor="let blogOption of blogs; trackBy: trackBlogById">{{blogOption.name}}</option>
             </select>
