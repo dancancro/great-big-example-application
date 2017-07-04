@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager , DataUtils } from 'ng-jhipster';
+import { JhiEventManager , JhiDataUtils } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
 import { EntryService } from './entry.service';
@@ -17,8 +17,8 @@ export class EntryDetailComponent implements OnInit, OnDestroy {
     private eventSubscriber: Subscription;
 
     constructor(
-        private eventManager: EventManager,
-        private dataUtils: DataUtils,
+        private eventManager: JhiEventManager,
+        private dataUtils: JhiDataUtils,
         private entryService: EntryService,
         private route: ActivatedRoute
     ) {

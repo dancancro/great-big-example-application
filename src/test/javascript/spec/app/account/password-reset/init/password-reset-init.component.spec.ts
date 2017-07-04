@@ -3,7 +3,8 @@ import { Renderer, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { GreatBigExampleApplicationTestModule } from '../../../../test.module';
 import { PasswordResetInitComponent } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.component';
-import { PasswordResetInit } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service';
+import { PasswordResetInitService } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service';
+
 
 describe('Component Tests', () => {
 
@@ -16,11 +17,11 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [PasswordResetInitComponent],
                 providers: [
-                    PasswordResetInit,
+                    PasswordResetInitService,
                     {
                         provide: Renderer,
                         useValue: {
-                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
+                            invokeElementMethod(renderElement: any, methodName: string, args?: any[]) {}
                         }
                     },
                     {
@@ -29,7 +30,7 @@ describe('Component Tests', () => {
                     }
                 ]
             }).overrideTemplate(PasswordResetInitComponent, '')
-                .createComponent(PasswordResetInitComponent);
+            .createComponent(PasswordResetInitComponent);
             comp = fixture.componentInstance;
             comp.ngOnInit();
         });
@@ -43,9 +44,9 @@ describe('Component Tests', () => {
 
         it('sets focus after the view has been initialized',
             inject([ElementRef], (elementRef: ElementRef) => {
-                const element = fixture.nativeElement;
-                const node = {
-                    focus() { }
+                let element = fixture.nativeElement;
+                let node = {
+                    focus() {}
                 };
 
                 elementRef.nativeElement = element;
@@ -60,7 +61,7 @@ describe('Component Tests', () => {
         );
 
         it('notifies of success upon successful requestReset',
-            inject([PasswordResetInit], (service: PasswordResetInit) => {
+            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
                 spyOn(service, 'save').and.returnValue(Observable.of({}));
                 comp.resetAccount.email = 'user@domain.com';
 
@@ -74,7 +75,7 @@ describe('Component Tests', () => {
         );
 
         it('notifies of unknown email upon email address not registered/400',
-            inject([PasswordResetInit], (service: PasswordResetInit) => {
+            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
                 spyOn(service, 'save').and.returnValue(Observable.throw({
                     status: 400,
                     data: 'email address not registered'
@@ -91,7 +92,7 @@ describe('Component Tests', () => {
         );
 
         it('notifies of error upon error response',
-            inject([PasswordResetInit], (service: PasswordResetInit) => {
+            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
                 spyOn(service, 'save').and.returnValue(Observable.throw({
                     status: 503,
                     data: 'something else'

@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NoteService } from './note.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -21,8 +20,8 @@ notes: Note[];
 
     constructor(
         private noteService: NoteService,
-        private alertService: AlertService,
-        private eventManager: EventManager,
+        private alertService: JhiAlertService,
+        private eventManager: JhiEventManager,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
@@ -34,17 +33,17 @@ notes: Note[];
             this.noteService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: Response) => this.notes = res.json(),
-                    (res: Response) => this.onError(res.json())
+                    (res: ResponseWrapper) => this.notes = res.json,
+                    (res: ResponseWrapper) => this.onError(res.json)
                 );
             return;
        }
         this.noteService.query().subscribe(
-            (res: Response) => {
-                this.notes = res.json();
+            (res: ResponseWrapper) => {
+                this.notes = res.json;
                 this.currentSearch = '';
             },
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 

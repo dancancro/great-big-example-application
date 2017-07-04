@@ -123,6 +123,7 @@ public class Claim implements Serializable {
         return "Claim{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", sortOrder='" + getSortOrder() + "'" +
             ", imageLabel='" + getImageLabel() + "'" +
             ", imageLink='" + getImageLink() + "'" +
             "}";

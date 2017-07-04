@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class HeroResource {
     private final Logger log = LoggerFactory.getLogger(HeroResource.class);
 
     private static final String ENTITY_NAME = "hero";
-        
+
     private final HeroRepository heroRepository;
 
     private final HeroSearchRepository heroSearchRepository;
@@ -69,7 +70,7 @@ public class HeroResource {
      * @param hero the hero to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated hero,
      * or with status 400 (Bad Request) if the hero is not valid,
-     * or with status 500 (Internal Server Error) if the hero couldnt be updated
+     * or with status 500 (Internal Server Error) if the hero couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/heroes")
@@ -95,8 +96,7 @@ public class HeroResource {
     @Timed
     public List<Hero> getAllHeroes() {
         log.debug("REST request to get all Heroes");
-        List<Hero> heroes = heroRepository.findAll();
-        return heroes;
+        return heroRepository.findAll();
     }
 
     /**
@@ -132,7 +132,7 @@ public class HeroResource {
      * SEARCH  /_search/heroes?query=:query : search for the hero corresponding
      * to the query.
      *
-     * @param query the query of the hero search 
+     * @param query the query of the hero search
      * @return the result of the search
      */
     @GetMapping("/_search/heroes")
@@ -143,6 +143,5 @@ public class HeroResource {
             .stream(heroSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-
 
 }

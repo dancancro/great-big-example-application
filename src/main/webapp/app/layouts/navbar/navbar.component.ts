@@ -13,7 +13,7 @@ import { FeatureMeta, FeaturesService } from '../../features/features.service';
     selector: 'jhi-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: [
-        'navbar.css'
+        'navbar.scss'
     ]
 })
 export class NavbarComponent implements OnInit {
@@ -27,10 +27,10 @@ export class NavbarComponent implements OnInit {
     features: FeatureMeta[] = [];
 
     constructor(
-        private _featuresService: FeaturesService,
+        private featuresService: FeaturesService,
         private loginService: LoginService,
-        private languageHelper: JhiLanguageHelper,
         private languageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
-        this.features = this._featuresService.getFeatures();
+        this.features = this.featuresService.getFeatures();
     }
 
     changeLanguage(languageKey: string) {

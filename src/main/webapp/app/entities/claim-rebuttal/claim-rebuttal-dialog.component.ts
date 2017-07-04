@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalPopupService } from './claim-rebuttal-popup.service';
@@ -22,9 +22,9 @@ export class ClaimRebuttalDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private claimRebuttalService: ClaimRebuttalService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -32,6 +32,7 @@ export class ClaimRebuttalDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -40,19 +41,24 @@ export class ClaimRebuttalDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.claimRebuttal.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.claimRebuttalService.update(this.claimRebuttal));
+                this.claimRebuttalService.update(this.claimRebuttal), false);
         } else {
             this.subscribeToSaveResponse(
-                this.claimRebuttalService.create(this.claimRebuttal));
+                this.claimRebuttalService.create(this.claimRebuttal), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<ClaimRebuttal>) {
+    private subscribeToSaveResponse(result: Observable<ClaimRebuttal>, isCreated: boolean) {
         result.subscribe((res: ClaimRebuttal) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: ClaimRebuttal) {
+    private onSaveSuccess(result: ClaimRebuttal, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'greatBigExampleApplicationApp.claimRebuttal.created'
+            : 'greatBigExampleApplicationApp.claimRebuttal.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'claimRebuttalListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

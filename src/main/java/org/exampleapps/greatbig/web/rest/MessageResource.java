@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class MessageResource {
     private final Logger log = LoggerFactory.getLogger(MessageResource.class);
 
     private static final String ENTITY_NAME = "message";
-        
+
     private final MessageRepository messageRepository;
 
     private final MessageSearchRepository messageSearchRepository;
@@ -75,7 +76,7 @@ public class MessageResource {
      * @param message the message to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated message,
      * or with status 400 (Bad Request) if the message is not valid,
-     * or with status 500 (Internal Server Error) if the message couldnt be updated
+     * or with status 500 (Internal Server Error) if the message couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/messages")
@@ -140,7 +141,7 @@ public class MessageResource {
      * SEARCH  /_search/messages?query=:query : search for the message corresponding
      * to the query.
      *
-     * @param query the query of the message search 
+     * @param query the query of the message search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -152,6 +153,5 @@ public class MessageResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/messages");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
 
 }

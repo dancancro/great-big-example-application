@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class ClaimResource {
     private final Logger log = LoggerFactory.getLogger(ClaimResource.class);
 
     private static final String ENTITY_NAME = "claim";
-        
+
     private final ClaimRepository claimRepository;
 
     private final ClaimSearchRepository claimSearchRepository;
@@ -69,7 +70,7 @@ public class ClaimResource {
      * @param claim the claim to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated claim,
      * or with status 400 (Bad Request) if the claim is not valid,
-     * or with status 500 (Internal Server Error) if the claim couldnt be updated
+     * or with status 500 (Internal Server Error) if the claim couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/claims")
@@ -95,8 +96,7 @@ public class ClaimResource {
     @Timed
     public List<Claim> getAllClaims() {
         log.debug("REST request to get all Claims");
-        List<Claim> claims = claimRepository.findAll();
-        return claims;
+        return claimRepository.findAll();
     }
 
     /**
@@ -132,7 +132,7 @@ public class ClaimResource {
      * SEARCH  /_search/claims?query=:query : search for the claim corresponding
      * to the query.
      *
-     * @param query the query of the claim search 
+     * @param query the query of the claim search
      * @return the result of the search
      */
     @GetMapping("/_search/claims")
@@ -143,6 +143,5 @@ public class ClaimResource {
             .stream(claimSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-
 
 }

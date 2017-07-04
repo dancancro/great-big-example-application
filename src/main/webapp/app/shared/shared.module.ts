@@ -1,6 +1,6 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import {
     AccountService,
     AuthServerProvider,
@@ -67,7 +67,6 @@ export const components = [
         ...components
     ],
     providers: [
-        CookieService,
         LoginService,
         LoginModalService,
         AccountService,
@@ -81,6 +80,7 @@ export const components = [
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
+        // GreatBigExampleApplicationSharedLibsModule,
         GreatBigExampleApplicationSharedCommonModule,
         JhiSocialComponent,
         JhiLoginModalComponent,
@@ -91,4 +91,12 @@ export const components = [
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class GreatBigExampleApplicationSharedModule { }
+export class GreatBigExampleApplicationSharedModule {
+
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GreatBigExampleApplicationSharedModule
+        };
+    }
+
+}

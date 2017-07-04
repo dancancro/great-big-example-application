@@ -1,10 +1,10 @@
-import { HttpInterceptor, EventManager } from 'ng-jhipster';
+import { JhiHttpInterceptor, JhiEventManager } from 'ng-jhipster';
 import { RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-export class ErrorHandlerInterceptor extends HttpInterceptor {
+export class ErrorHandlerInterceptor extends JhiHttpInterceptor {
 
-    constructor(private eventManager: EventManager) {
+    constructor(private eventManager: JhiEventManager) {
         super();
     }
 
