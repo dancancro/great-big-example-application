@@ -139,7 +139,7 @@
     "proxy-middleware": "0.15.0",
     "raw-loader": "^0.5.1",
     "rimraf": "2.6.1",
-    "run-sequence": "1.2.2",
+    "run-sequence": "2.0.0",
     "sass-loader": "^6.0.0",
     "sourcemap-istanbul-instrumenter-loader": "0.2.0",
     "string-replace-webpack-plugin": "0.1.3",
