@@ -9,7 +9,7 @@ export class WikipediaService {
 
   search(term: string) {
 
-    const wikiUrl = 'http://en.wikipedia.org/w/api.php';
+    const wikiUrl = 'https://en.wikipedia.org/w/api.php';
 
     const params = new URLSearchParams();
     params.set('search', term); // the user's search value

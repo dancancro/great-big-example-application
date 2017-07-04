@@ -10,6 +10,7 @@ import { GreatBigExampleApplicationAdminModule } from './admin/admin.module';
 import { GreatBigExampleApplicationAccountModule } from './account/account.module';
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
@@ -44,7 +45,8 @@ import {
         GreatBigExampleApplicationEntityModule,
         FeaturesModule,
         CoreModule,
-        StoreLogMonitorModule
+        StoreLogMonitorModule,
+        TranslateModule.forRoot()
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

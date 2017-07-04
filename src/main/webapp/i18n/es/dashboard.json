@@ -1,9 +1,30 @@
 {
-    "greatBigExampleApplicationApp": {
-        "dashboard": {
-            "home": {
-                "title": "Dashboard"
-            }
-        }
+  "dashboard": {
+    "home": {
+      "title": "Cuadro de instrumentos"
+    },
+    "acquisitionChannels": "Canales de adquisición",
+    "usersByCountry": "Usuarios por País",
+    "revenue": "Ingresos",
+    "feed": "Feed",
+    "todoList": "Lista de tareas pendientes",
+    "calendar": "Calendario",
+    "newVisits": "Nuevas visitas",
+    "purchases": "Compras",
+    "activeUsers": "Usuarios activos",
+    "returned": "Devuelto",
+    "popularApp": {
+      "superApp": "Superapp",
+      "mostPopularApp": "La aplicación más popular",
+      "totalVisits": "Total Visitas",
+      "newVisits": "Nuevas visitas",
+      "sales": "Ventas"
+    },
+    "todo": {
+      "taskTodo": "Tarea para hacer .."
+    },
+    "trafficChart": {
+      "viewTotal": "Vistas totales"
     }
+  }
 }

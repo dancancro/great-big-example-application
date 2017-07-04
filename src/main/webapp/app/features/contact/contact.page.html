@@ -5,7 +5,7 @@
 
 <button type="button" class="btn" (click)="newContact()">New Contact</button>
 <form *ngIf="contact$ | async" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-    <h3 highlight>{{ (contact$ | async).name | awesome }}</h3>
+    <h3 highlight>{{ (contact$ | async)?.name | awesome }}</h3>
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" formControlName="name" class="form-control" required>

@@ -1,19 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
 
 import { JhiLanguageHelper, StateStorageService } from '../../shared';
+import * as $ from 'jquery';
+
+// import { GlobalState } from './global.state';
+import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from '../../theme/services';
+import { BaThemeConfig } from '../../theme/theme.config';
+import { layoutPaths } from '../../theme/theme.constants';
 
 @Component({
     selector: 'jhi-main',
     templateUrl: './main.component.html'
 })
-export class JhiMainComponent implements OnInit {
+export class JhiMainComponent implements OnInit, AfterViewInit {
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
         private router: Router,
         private $storageService: StateStorageService,
-    ) {}
+        // private _state: GlobalState,
+        private _imageLoader: BaImageLoaderService,
+        private _spinner: BaThemeSpinner,
+        private viewContainerRef: ViewContainerRef,
+        private themeConfig: BaThemeConfig
+    ) { }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'greatBigExampleApplicationApp';
@@ -30,4 +41,18 @@ export class JhiMainComponent implements OnInit {
             }
         });
     }
+
+    public ngAfterViewInit(): void {
+        // hide spinner once all loaders are completed
+        BaThemePreloader.load().then((values) => {
+            this._spinner.hide();
+        });
+    }
+
+    private _loadImages(): void {
+
+        // register some loaders
+        BaThemePreloader.registerLoader(this._imageLoader.load('/content/img/sky-bg.jpg'));
+    }
+
 }

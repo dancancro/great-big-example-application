@@ -1,4 +1,3 @@
-# File Structure
 ```
 .
 ├── LICENSE
@@ -7,26 +6,64 @@
 ├── README.md
 ├── docs
 │   ├── FILE_STRUCTURE.md
-│   └── images
-│       ├── bernie-app.png
-│       ├── bernie-spreadsheet.png
-│       ├── chat.png
-│       ├── collection.png
-│       ├── contacts.png
-│       ├── counter.png
-│       ├── entities.png
-│       ├── game.png
-│       ├── heroes_dashboard.png
-│       ├── heroes_list.png
-│       ├── home.png
-│       ├── messages.png
-│       ├── notes.png
-│       └── to_dos.png
-├── etc
+│   ├── config.json
+│   ├── contents
+│   │   ├── articles
+│   │   │   ├── 001-getting-started
+│   │   │   │   └── index.md
+│   │   │   ├── 002-installation-guidelines
+│   │   │   │   └── index.md
+│   │   │   ├── 011-changing-color-scheme
+│   │   │   │   ├── index.md
+│   │   │   │   └── new-color-scheme.png
+│   │   │   ├── 012-project-structure
+│   │   │   │   └── index.md
+│   │   │   ├── 013-create-new-page
+│   │   │   │   └── index.md
+│   │   │   ├── 014-switch-to-blur-theme
+│   │   │   │   └── index.md
+│   │   │   ├── 015-sidebar
+│   │   │   │   └── index.md
+│   │   │   └── 016-spinner
+│   │   │       └── index.md
+│   │   ├── css
+│   │   │   └── main.scss
+│   │   ├── images
+│   │   │   ├── favicon.png
+│   │   │   ├── logo.png
+│   │   │   ├── sky-preview.png
+│   │   │   ├── why-design.svg
+│   │   │   ├── why-practices.svg
+│   │   │   └── why-structure.svg
+│   │   └── index.json
+│   ├── images
+│   │   ├── bernie-app.png
+│   │   ├── bernie-spreadsheet.png
+│   │   ├── chat.png
+│   │   ├── collection.png
+│   │   ├── contacts.png
+│   │   ├── counter.png
+│   │   ├── dashboard.png
+│   │   ├── entities.png
+│   │   ├── game.png
+│   │   ├── heroes_dashboard.png
+│   │   ├── heroes_list.png
+│   │   ├── home.png
+│   │   ├── messages.png
+│   │   └── notes.png
+│   ├── package.json
+│   ├── plugins
+│   │   └── paginator.coffee
+│   └── templates
+│       ├── article.jade
+│       ├── index.jade
+│       └── layout.jade
 ├── mvnw
 ├── mvnw.cmd
+├── npm-debug.log
 ├── package.json
 ├── pom.xml
+├── postcss.config.js
 ├── proxy.conf.json
 ├── schema.jdl
 ├── src
@@ -56,6 +93,7 @@
 │   │   │               │   ├── DateTimeFormatConfiguration.java
 │   │   │               │   ├── DefaultProfileUtil.java
 │   │   │               │   ├── ElasticsearchConfiguration.java
+│   │   │               │   ├── JacksonConfiguration.java
 │   │   │               │   ├── LocaleConfiguration.java
 │   │   │               │   ├── LoggingAspectConfiguration.java
 │   │   │               │   ├── LoggingConfiguration.java
@@ -260,7 +298,7 @@
 │   │       │   │   ├── index.ts
 │   │       │   │   ├── password
 │   │       │   │   │   ├── password-strength-bar.component.ts
-│   │       │   │   │   ├── password-strength-bar.css
+│   │       │   │   │   ├── password-strength-bar.scss
 │   │       │   │   │   ├── password.component.html
 │   │       │   │   │   ├── password.component.ts
 │   │       │   │   │   ├── password.route.ts
@@ -350,6 +388,7 @@
 │   │       │   ├── app.main.ts
 │   │       │   ├── app.module.ts
 │   │       │   ├── app.route.ts
+│   │       │   ├── app.service.ts
 │   │       │   ├── blocks
 │   │       │   │   ├── config
 │   │       │   │   │   ├── prod.config.ts
@@ -641,6 +680,7 @@
 │   │       │   ├── features
 │   │       │   │   ├── bernie
 │   │       │   │   │   ├── README.md
+│   │       │   │   │   ├── bernie.layout.ts
 │   │       │   │   │   ├── bernie.module.ts
 │   │       │   │   │   ├── bernie.page.html
 │   │       │   │   │   ├── bernie.page.scss
@@ -650,6 +690,7 @@
 │   │       │   │   │   │   ├── claim.component.html
 │   │       │   │   │   │   ├── claim.component.scss
 │   │       │   │   │   │   └── claim.component.ts
+│   │       │   │   │   ├── claims.resolver.ts
 │   │       │   │   │   └── rebuttal
 │   │       │   │   │       ├── rebuttal.component.html
 │   │       │   │   │       ├── rebuttal.component.scss
@@ -667,6 +708,7 @@
 │   │       │   │   │   │   └── book-preview.component.ts
 │   │       │   │   │   ├── book-search
 │   │       │   │   │   │   └── book-search.component.ts
+│   │       │   │   │   ├── books.layout.ts
 │   │       │   │   │   ├── books.module.ts
 │   │       │   │   │   ├── books.routing.ts
 │   │       │   │   │   ├── collection.page.spec.ts
@@ -702,11 +744,51 @@
 │   │       │   │   │   ├── counter.page.ts
 │   │       │   │   │   └── counter.routing.ts
 │   │       │   │   ├── dashboard
+│   │       │   │   │   ├── calendar
+│   │       │   │   │   │   ├── calendar.component.html
+│   │       │   │   │   │   ├── calendar.component.scss
+│   │       │   │   │   │   ├── calendar.component.ts
+│   │       │   │   │   │   └── calendar.service.ts
 │   │       │   │   │   ├── dashboard.module.ts
 │   │       │   │   │   ├── dashboard.page.html
+│   │       │   │   │   ├── dashboard.page.scss
 │   │       │   │   │   ├── dashboard.page.ts
 │   │       │   │   │   ├── dashboard.routing.ts
-│   │       │   │   │   └── index.ts
+│   │       │   │   │   ├── feed
+│   │       │   │   │   │   ├── feed.component.html
+│   │       │   │   │   │   ├── feed.component.scss
+│   │       │   │   │   │   ├── feed.component.ts
+│   │       │   │   │   │   └── feed.service.ts
+│   │       │   │   │   ├── index.ts
+│   │       │   │   │   ├── line-chart
+│   │       │   │   │   │   ├── line-chart.component.html
+│   │       │   │   │   │   ├── line-chart.component.scss
+│   │       │   │   │   │   ├── line-chart.component.ts
+│   │       │   │   │   │   └── line-chart.service.ts
+│   │       │   │   │   ├── pie-chart
+│   │       │   │   │   │   ├── pie-chart.component.html
+│   │       │   │   │   │   ├── pie-chart.component.scss
+│   │       │   │   │   │   ├── pie-chart.component.ts
+│   │       │   │   │   │   └── pie-chart.service.ts
+│   │       │   │   │   ├── popular-app
+│   │       │   │   │   │   ├── popular-app.component.html
+│   │       │   │   │   │   ├── popular-app.component.scss
+│   │       │   │   │   │   └── popular-app.component.ts
+│   │       │   │   │   ├── todo
+│   │       │   │   │   │   ├── todo.component.html
+│   │       │   │   │   │   ├── todo.component.scss
+│   │       │   │   │   │   ├── todo.component.ts
+│   │       │   │   │   │   └── todo.service.ts
+│   │       │   │   │   ├── traffic-chart
+│   │       │   │   │   │   ├── traffic-chart.component.html
+│   │       │   │   │   │   ├── traffic-chart.component.scss
+│   │       │   │   │   │   ├── traffic-chart.component.ts
+│   │       │   │   │   │   └── traffic-chart.service.ts
+│   │       │   │   │   └── users-map
+│   │       │   │   │       ├── users-map.component.html
+│   │       │   │   │       ├── users-map.component.scss
+│   │       │   │   │       ├── users-map.component.ts
+│   │       │   │   │       └── users-map.service.ts
 │   │       │   │   ├── features.component.html
 │   │       │   │   ├── features.component.scss
 │   │       │   │   ├── features.component.ts
@@ -816,6 +898,7 @@
 │   │       │   │   │   │   │   └── hero-list.component.ts
 │   │       │   │   │   │   ├── hero.module.ts
 │   │       │   │   │   │   └── hero.routing.ts
+│   │       │   │   │   ├── heroes.layout.ts
 │   │       │   │   │   ├── heroes.module.ts
 │   │       │   │   │   ├── heroes.page.html
 │   │       │   │   │   ├── heroes.page.scss
@@ -855,12 +938,14 @@
 │   │       │   │       ├── wiki.routing.ts
 │   │       │   │       ├── wiki.scss
 │   │       │   │       └── wikipedia.service.ts
+│   │       │   ├── global.state.ts
 │   │       │   ├── home
 │   │       │   │   ├── home.component.html
 │   │       │   │   ├── home.component.ts
 │   │       │   │   ├── home.css
 │   │       │   │   ├── home.module.ts
 │   │       │   │   ├── home.route.ts
+│   │       │   │   ├── home.scss
 │   │       │   │   └── index.ts
 │   │       │   ├── layouts
 │   │       │   │   ├── error
@@ -879,10 +964,12 @@
 │   │       │   │   │   ├── active-menu.directive.ts
 │   │       │   │   │   ├── navbar.component.html
 │   │       │   │   │   ├── navbar.component.ts
-│   │       │   │   │   └── navbar.css
+│   │       │   │   │   ├── navbar.css
+│   │       │   │   │   └── navbar.scss
 │   │       │   │   └── profiles
 │   │       │   │       ├── page-ribbon.component.ts
 │   │       │   │       ├── page-ribbon.css
+│   │       │   │       ├── page-ribbon.scss
 │   │       │   │       ├── profile-info.model.ts
 │   │       │   │       └── profile.service.ts
 │   │       │   ├── polyfills.ts
@@ -918,6 +1005,7 @@
 │   │       │   │   │   └── draggable.directive.ts
 │   │       │   │   ├── index.ts
 │   │       │   │   ├── language
+│   │       │   │   │   ├── find-language-from-key.pipe.ts
 │   │       │   │   │   ├── language.constants.ts
 │   │       │   │   │   ├── language.helper.ts
 │   │       │   │   │   └── language.pipe.ts
@@ -926,6 +1014,10 @@
 │   │       │   │   │   ├── login.component.html
 │   │       │   │   │   ├── login.component.ts
 │   │       │   │   │   └── login.service.ts
+│   │       │   │   ├── model
+│   │       │   │   │   ├── base-entity.ts
+│   │       │   │   │   ├── request-util.ts
+│   │       │   │   │   └── response-wrapper.model.ts
 │   │       │   │   ├── selective-preloading-strategy.ts
 │   │       │   │   ├── services
 │   │       │   │   │   ├── version.service.ts
@@ -938,30 +1030,367 @@
 │   │       │   │   │   ├── social.component.ts
 │   │       │   │   │   └── social.service.ts
 │   │       │   │   ├── tracker
-│   │       │   │   │   └── tracker.service.ts
+│   │       │   │   │   ├── tracker.service.ts
+│   │       │   │   │   └── window.service.ts
 │   │       │   │   ├── twain
 │   │       │   │   │   ├── twain.component.spec.ts
 │   │       │   │   │   ├── twain.component.ts
 │   │       │   │   │   └── twain.service.ts
-│   │       │   │   ├── welcome
-│   │       │   │   │   ├── welcome.component.spec.ts
-│   │       │   │   │   └── welcome.component.ts
-│   │       │   │   └── widgets
-│   │       │   │       ├── index.ts
-│   │       │   │       └── todo
-│   │       │   │           ├── index.ts
-│   │       │   │           ├── todo.html
-│   │       │   │           └── todo.ts
+│   │       │   │   ├── user
+│   │       │   │   │   ├── account.model.ts
+│   │       │   │   │   ├── user.model.ts
+│   │       │   │   │   └── user.service.ts
+│   │       │   │   └── welcome
+│   │       │   │       ├── welcome.component.spec.ts
+│   │       │   │       └── welcome.component.ts
+│   │       │   ├── theme
+│   │       │   │   ├── components
+│   │       │   │   │   ├── ba-am-chart
+│   │       │   │   │   │   ├── ba-am-chart-theme.service.ts
+│   │       │   │   │   │   ├── ba-am-chart.component.html
+│   │       │   │   │   │   ├── ba-am-chart.component.scss
+│   │       │   │   │   │   ├── ba-am-chart.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-back-top
+│   │       │   │   │   │   ├── ba-back-top.component.scss
+│   │       │   │   │   │   ├── ba-back-top.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-card
+│   │       │   │   │   │   ├── ba-card-blur-helper.service.ts
+│   │       │   │   │   │   ├── ba-card-blur.directive.ts
+│   │       │   │   │   │   ├── ba-card.component.html
+│   │       │   │   │   │   ├── ba-card.component.ts
+│   │       │   │   │   │   ├── bg-metrics.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-chartist-chart
+│   │       │   │   │   │   ├── ba-chartist-chart.component.html
+│   │       │   │   │   │   ├── ba-chartist-chart.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-checkbox
+│   │       │   │   │   │   ├── ba-checkbox.component.html
+│   │       │   │   │   │   ├── ba-checkbox.component.scss
+│   │       │   │   │   │   ├── ba-checkbox.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-content-top
+│   │       │   │   │   │   ├── ba-content-top.component.html
+│   │       │   │   │   │   ├── ba-content-top.component.scss
+│   │       │   │   │   │   ├── ba-content-top.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-file-uploader
+│   │       │   │   │   │   ├── ba-file-uploader.component.html
+│   │       │   │   │   │   ├── ba-file-uploader.component.scss
+│   │       │   │   │   │   ├── ba-file-uploader.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-full-calendar
+│   │       │   │   │   │   ├── ba-full-calendar.component.html
+│   │       │   │   │   │   ├── ba-full-calendar.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-menu
+│   │       │   │   │   │   ├── ba-menu.component.html
+│   │       │   │   │   │   ├── ba-menu.component.scss
+│   │       │   │   │   │   ├── ba-menu.component.ts
+│   │       │   │   │   │   ├── components
+│   │       │   │   │   │   │   └── ba-menu-item
+│   │       │   │   │   │   │       ├── ba-menu-item.component.html
+│   │       │   │   │   │   │       ├── ba-menu-item.component.scss
+│   │       │   │   │   │   │       ├── ba-menu-item.component.ts
+│   │       │   │   │   │   │       └── index.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-msg-center
+│   │       │   │   │   │   ├── ba-msg-center.component.html
+│   │       │   │   │   │   ├── ba-msg-center.component.scss
+│   │       │   │   │   │   ├── ba-msg-center.component.ts
+│   │       │   │   │   │   ├── ba-msg-center.service.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-multi-checkbox
+│   │       │   │   │   │   ├── ba-multi-checkbox.component.html
+│   │       │   │   │   │   ├── ba-multi-checkbox.component.scss
+│   │       │   │   │   │   ├── ba-multi-checkbox.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-page-top
+│   │       │   │   │   │   ├── ba-page-top.component.html
+│   │       │   │   │   │   ├── ba-page-top.component.scss
+│   │       │   │   │   │   ├── ba-page-top.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-picture-uploader
+│   │       │   │   │   │   ├── ba-picture-uploader.component.html
+│   │       │   │   │   │   ├── ba-picture-uploader.component.scss
+│   │       │   │   │   │   ├── ba-picture-uploader.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-sidebar
+│   │       │   │   │   │   ├── ba-sidebar.component.html
+│   │       │   │   │   │   ├── ba-sidebar.component.scss
+│   │       │   │   │   │   ├── ba-sidebar.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── directives
+│   │       │   │   │   ├── ba-scroll-position
+│   │       │   │   │   │   ├── ba-scroll-position.directive.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-slim-scroll
+│   │       │   │   │   │   ├── ba-slim-scroll.directive.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-theme-run
+│   │       │   │   │   │   ├── ba-theme-run.directive.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── index.ts
+│   │       │   │   ├── nga.module.ts
+│   │       │   │   ├── pipes
+│   │       │   │   │   ├── ba-app-picture
+│   │       │   │   │   │   ├── ba-app-picture.pipe.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-kameleon-picture
+│   │       │   │   │   │   ├── ba-kameleon-picture.pipe.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-profile-picture
+│   │       │   │   │   │   ├── ba-profile-picture.pipe.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── sass
+│   │       │   │   │   ├── _auth.scss
+│   │       │   │   │   ├── _buttons.scss
+│   │       │   │   │   ├── _fonts.scss
+│   │       │   │   │   ├── _form.scss
+│   │       │   │   │   ├── _icons.scss
+│   │       │   │   │   ├── _ionicons.scss
+│   │       │   │   │   ├── _layout.scss
+│   │       │   │   │   ├── _modal.scss
+│   │       │   │   │   ├── _preloader.scss
+│   │       │   │   │   ├── _socicon.scss
+│   │       │   │   │   ├── _table.scss
+│   │       │   │   │   ├── _treeView.scss
+│   │       │   │   │   ├── _typography.scss
+│   │       │   │   │   ├── bootstrap-overrides
+│   │       │   │   │   │   ├── _card.scss
+│   │       │   │   │   │   ├── _dropdown.scss
+│   │       │   │   │   │   ├── _tabs.scss
+│   │       │   │   │   │   └── overrides.scss
+│   │       │   │   │   └── conf
+│   │       │   │   │       ├── _mixins.scss
+│   │       │   │   │       ├── _variables.scss
+│   │       │   │   │       ├── color-schemes
+│   │       │   │   │       │   ├── _blur.scss
+│   │       │   │   │       │   ├── _mint.scss
+│   │       │   │   │       │   └── _ng2.scss
+│   │       │   │   │       └── conf.scss
+│   │       │   │   ├── services
+│   │       │   │   │   ├── ba-image-loader
+│   │       │   │   │   │   ├── ba-image-loader.service.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-menu
+│   │       │   │   │   │   ├── ba-menu.service.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-theme-preloader
+│   │       │   │   │   │   ├── ba-theme-preloader.service.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-theme-spinner
+│   │       │   │   │   │   ├── ba-theme-spinner.service.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── theme.config-provider.ts
+│   │       │   │   ├── theme.config.ts
+│   │       │   │   ├── theme.constants.ts
+│   │       │   │   ├── theme.scss
+│   │       │   │   └── validators
+│   │       │   │       ├── email.validator.ts
+│   │       │   │       ├── equal-passwords.validator.ts
+│   │       │   │       └── index.ts
 │   │       │   └── vendor.ts
 │   │       ├── content
 │   │       │   ├── css
-│   │       │   │   ├── documentation.css
-│   │       │   │   ├── global.css
 │   │       │   │   └── vendor.css
-│   │       │   └── images
-│   │       │       ├── hipster.png
-│   │       │       ├── hipster2x.png
-│   │       │       └── logo-jhipster.png
+│   │       │   ├── fonts
+│   │       │   │   ├── socicon.eot
+│   │       │   │   ├── socicon.svg
+│   │       │   │   ├── socicon.ttf
+│   │       │   │   ├── socicon.woff
+│   │       │   │   └── socicon.woff2
+│   │       │   ├── icon
+│   │       │   │   ├── android-icon-192x192.png
+│   │       │   │   ├── apple-icon-114x114.png
+│   │       │   │   ├── apple-icon-120x120.png
+│   │       │   │   ├── apple-icon-144x144.png
+│   │       │   │   ├── apple-icon-152x152.png
+│   │       │   │   ├── apple-icon-180x180.png
+│   │       │   │   ├── apple-icon-57x57.png
+│   │       │   │   ├── apple-icon-60x60.png
+│   │       │   │   ├── apple-icon-72x72.png
+│   │       │   │   ├── apple-icon-76x76.png
+│   │       │   │   ├── favicon-16x16.png
+│   │       │   │   ├── favicon-32x32.png
+│   │       │   │   ├── favicon-96x96.png
+│   │       │   │   └── ms-icon-144x144.png
+│   │       │   ├── images
+│   │       │   │   ├── 76ers.gif
+│   │       │   │   ├── blazers.gif
+│   │       │   │   ├── bucks.gif
+│   │       │   │   ├── bulls.gif
+│   │       │   │   ├── cavaliers.gif
+│   │       │   │   ├── celtic.gif
+│   │       │   │   ├── clippers.gif
+│   │       │   │   ├── feed-video.svg
+│   │       │   │   ├── hawks.gif
+│   │       │   │   ├── heat.gif
+│   │       │   │   ├── hipster.png
+│   │       │   │   ├── hipster2x.png
+│   │       │   │   ├── hornets.gif
+│   │       │   │   ├── jazz.gif
+│   │       │   │   ├── kings.gif
+│   │       │   │   ├── knicks.gif
+│   │       │   │   ├── lakers.gif
+│   │       │   │   ├── logo-jhipster.png
+│   │       │   │   ├── magic.gif
+│   │       │   │   ├── mavericks.gif
+│   │       │   │   ├── memphis.gif
+│   │       │   │   ├── nets.gif
+│   │       │   │   ├── nuggets.gif
+│   │       │   │   ├── orleans.gif
+│   │       │   │   ├── pacers.gif
+│   │       │   │   ├── pistons.gif
+│   │       │   │   ├── raptors.gif
+│   │       │   │   ├── rockets.gif
+│   │       │   │   ├── spurs.gif
+│   │       │   │   ├── suns.gif
+│   │       │   │   ├── test.png
+│   │       │   │   ├── thunder.gif
+│   │       │   │   ├── timberwolves.gif
+│   │       │   │   ├── warriors.gif
+│   │       │   │   └── wizards.gif
+│   │       │   ├── img
+│   │       │   │   ├── app
+│   │       │   │   │   ├── browsers
+│   │       │   │   │   │   ├── chrome.svg
+│   │       │   │   │   │   ├── firefox.svg
+│   │       │   │   │   │   ├── ie.svg
+│   │       │   │   │   │   ├── opera.svg
+│   │       │   │   │   │   └── safari.svg
+│   │       │   │   │   ├── feed
+│   │       │   │   │   │   ├── genom.png
+│   │       │   │   │   │   ├── my-little-kitten.png
+│   │       │   │   │   │   ├── new-york-location.png
+│   │       │   │   │   │   └── vader-and-me-preview.png
+│   │       │   │   │   ├── my-app-logo.png
+│   │       │   │   │   ├── profile
+│   │       │   │   │   │   ├── Alexander.png
+│   │       │   │   │   │   ├── Andrey.png
+│   │       │   │   │   │   ├── Kostya.png
+│   │       │   │   │   │   ├── Nasta.png
+│   │       │   │   │   │   ├── Nick.png
+│   │       │   │   │   │   └── Vlad.png
+│   │       │   │   │   ├── skin-thumbnails
+│   │       │   │   │   │   ├── 01_default.jpg
+│   │       │   │   │   │   ├── 02_transparent.jpg
+│   │       │   │   │   │   ├── 03_blue.jpg
+│   │       │   │   │   │   ├── 04_peachy.jpg
+│   │       │   │   │   │   ├── 05_material.jpg
+│   │       │   │   │   │   └── 06_transblue.jpg
+│   │       │   │   │   ├── todo
+│   │       │   │   │   │   └── check-icon.png
+│   │       │   │   │   └── typography
+│   │       │   │   │       ├── banner.png
+│   │       │   │   │       ├── typo01.png
+│   │       │   │   │       ├── typo03.png
+│   │       │   │   │       ├── typo04.png
+│   │       │   │   │       ├── typo05.png
+│   │       │   │   │       ├── typo06.png
+│   │       │   │   │       └── typo07.png
+│   │       │   │   ├── arrow-green-up.svg
+│   │       │   │   ├── arrow-red-down.svg
+│   │       │   │   ├── blue-bg.jpg
+│   │       │   │   ├── blur-bg-blurred.jpg
+│   │       │   │   ├── blur-bg-mobile.jpg
+│   │       │   │   ├── blur-bg.jpg
+│   │       │   │   ├── chernika.png
+│   │       │   │   ├── comments.svg
+│   │       │   │   ├── face.svg
+│   │       │   │   ├── green-bg.jpg
+│   │       │   │   ├── money.svg
+│   │       │   │   ├── peachy-bg.jpg
+│   │       │   │   ├── person.svg
+│   │       │   │   ├── refresh.svg
+│   │       │   │   ├── shopping-cart.svg
+│   │       │   │   ├── sky-bg.jpg
+│   │       │   │   ├── theme
+│   │       │   │   │   ├── icon
+│   │       │   │   │   │   ├── feed
+│   │       │   │   │   │   │   ├── feed-image.svg
+│   │       │   │   │   │   │   ├── feed-location.svg
+│   │       │   │   │   │   │   └── feed-video.svg
+│   │       │   │   │   │   └── kameleon
+│   │       │   │   │   │       ├── Alien.svg
+│   │       │   │   │   │       ├── Analytics.svg
+│   │       │   │   │   │       ├── Apartment.svg
+│   │       │   │   │   │       ├── Batman.svg
+│   │       │   │   │   │       ├── Beach.svg
+│   │       │   │   │   │       ├── Bell.svg
+│   │       │   │   │   │       ├── Bonsai.svg
+│   │       │   │   │   │       ├── Boss-3.svg
+│   │       │   │   │   │       ├── Boss-5.svg
+│   │       │   │   │   │       ├── Burglar.svg
+│   │       │   │   │   │       ├── Bus.svg
+│   │       │   │   │   │       ├── Candy.svg
+│   │       │   │   │   │       ├── Checklist.svg
+│   │       │   │   │   │       ├── Cheese.svg
+│   │       │   │   │   │       ├── Chessboard.svg
+│   │       │   │   │   │       ├── Clipboard-Plan.svg
+│   │       │   │   │   │       ├── Desert.svg
+│   │       │   │   │   │       ├── Dna.svg
+│   │       │   │   │   │       ├── Euro-Coin.svg
+│   │       │   │   │   │       ├── Food-Dome.svg
+│   │       │   │   │   │       ├── Hacker.svg
+│   │       │   │   │   │       ├── Images.svg
+│   │       │   │   │   │       ├── Key.svg
+│   │       │   │   │   │       ├── Laptop-Signal.svg
+│   │       │   │   │   │       ├── Locked-Cloud.svg
+│   │       │   │   │   │       ├── Love-Letter.svg
+│   │       │   │   │   │       ├── Magician.svg
+│   │       │   │   │   │       ├── Makeup.svg
+│   │       │   │   │   │       ├── Medal-2.svg
+│   │       │   │   │   │       ├── Microscope.svg
+│   │       │   │   │   │       ├── Mind-Map-Paper.svg
+│   │       │   │   │   │       ├── Money-Increase.svg
+│   │       │   │   │   │       ├── Music-Equalizer.svg
+│   │       │   │   │   │       ├── Ninja.svg
+│   │       │   │   │   │       ├── Online-Shopping.svg
+│   │       │   │   │   │       ├── Pantone.svg
+│   │       │   │   │   │       ├── Party-Poppers.svg
+│   │       │   │   │   │       ├── Phone-Booth.svg
+│   │       │   │   │   │       ├── Programming.svg
+│   │       │   │   │   │       ├── Santa.svg
+│   │       │   │   │   │       ├── Shop.svg
+│   │       │   │   │   │       ├── Street-View.svg
+│   │       │   │   │   │       ├── Student-3.svg
+│   │       │   │   │   │       ├── Surfer.svg
+│   │       │   │   │   │       ├── Surgeon.svg
+│   │       │   │   │   │       ├── Tower.svg
+│   │       │   │   │   │       └── Vector.svg
+│   │       │   │   │   ├── no-photo.png
+│   │       │   │   │   ├── palette.png
+│   │       │   │   │   └── vendor
+│   │       │   │   │       ├── ammap
+│   │       │   │   │       │   ├── arrowDown.gif
+│   │       │   │   │       │   ├── arrowUp.gif
+│   │       │   │   │       │   ├── export.png
+│   │       │   │   │       │   ├── homeIcon.gif
+│   │       │   │   │       │   ├── homeIconWhite.gif
+│   │       │   │   │       │   ├── minus.gif
+│   │       │   │   │       │   ├── panDown.gif
+│   │       │   │   │       │   ├── panLeft.gif
+│   │       │   │   │       │   ├── panRight.gif
+│   │       │   │   │       │   ├── panUp.gif
+│   │       │   │   │       │   ├── plus.gif
+│   │       │   │   │       │   ├── xIcon.gif
+│   │       │   │   │       │   └── xIconH.gif
+│   │       │   │   │       └── leaflet
+│   │       │   │   │           ├── marker-icon-2x.png
+│   │       │   │   │           ├── marker-icon.png
+│   │       │   │   │           └── marker-shadow.png
+│   │       │   │   └── transblue-bg.jpg
+│   │       │   └── scss
+│   │       │       ├── global.scss
+│   │       │       ├── postcss.config.js
+│   │       │       └── vendor.scss
 │   │       ├── favicon.ico
 │   │       ├── i18n
 │   │       │   ├── de
@@ -1121,7 +1550,9 @@
 │   │       │       ├── user-management.json
 │   │       │       └── wiki.json
 │   │       ├── index.html
+│   │       ├── manifest.webapp
 │   │       ├── robots.txt
+│   │       ├── sw.js
 │   │       └── swagger-ui
 │   │           ├── images
 │   │           │   └── throbber.gif
@@ -1150,15 +1581,20 @@
 │       │       └── exampleapps
 │       │           └── greatbig
 │       │               ├── config
+│       │               │   ├── WebConfigurerTest.java
+│       │               │   ├── WebConfigurerTestController.java
 │       │               │   └── elasticsearch
 │       │               │       └── IndexReinitializer.java
 │       │               ├── repository
+│       │               │   ├── CustomAuditEventRepositoryIntTest.java
 │       │               │   └── CustomSocialUsersConnectionRepositoryIntTest.java
 │       │               ├── security
 │       │               │   ├── SecurityUtilsUnitTest.java
 │       │               │   └── jwt
+│       │               │       ├── JWTFilterTest.java
 │       │               │       └── TokenProviderTest.java
 │       │               ├── service
+│       │               │   ├── MailServiceIntTest.java
 │       │               │   ├── SocialServiceIntTest.java
 │       │               │   └── UserServiceIntTest.java
 │       │               └── web
@@ -1180,7 +1616,10 @@
 │       │                       ├── TagResourceIntTest.java
 │       │                       ├── TestUtil.java
 │       │                       ├── UserJWTControllerIntTest.java
-│       │                       └── UserResourceIntTest.java
+│       │                       ├── UserResourceIntTest.java
+│       │                       └── errors
+│       │                           ├── ExceptionTranslatorIntTest.java
+│       │                           └── ExceptionTranslatorTestController.java
 │       ├── javascript
 │       │   ├── e2e
 │       │   │   ├── account
@@ -1258,16 +1697,22 @@
 │       └── resources
 │           ├── config
 │           │   └── application.yml
-│           └── logback.xml
+│           ├── i18n
+│           │   └── messages_en.properties
+│           ├── logback.xml
+│           └── mails
+│               └── testEmail.html
 ├── tsconfig-aot.json
 ├── tsconfig.json
 ├── tslint.json
-├── webpack
-│   ├── logo-jhipster.png
-│   ├── webpack.common.js
-│   ├── webpack.dev.js
-│   ├── webpack.prod.js
-│   └── webpack.vendor.js
-└── yarn.lock
-```
+├── typings.d.ts
+└── webpack
+    ├── logo-jhipster.png
+    ├── utils.js
+    ├── webpack.common.js
+    ├── webpack.dev.js
+    ├── webpack.prod.js
+    └── webpack.vendor.js
 
+320 directories, 1393 files
+```
