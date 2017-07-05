@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import uuid from 'uuid/uuid';
 
 import * as fromRoot from '../../core/store';
 import { Contact } from '../../core/store/contact/contact.model';

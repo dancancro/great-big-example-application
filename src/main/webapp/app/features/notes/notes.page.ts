@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import uuid from 'uuid/uuid';
+import * as uuid from 'uuid/uuid';
 
 import * as fromRoot from '../../core/store';
 import { Note } from '../../core/store/note/note.model';
