@@ -110,7 +110,7 @@
     "generator-jhipster-fortune": "0.0.2",
     "generator-jhipster-google-analytics": "0.0.1",
     "generator-jhipster-material": "0.0.0",
-    "generator-jhipster-nav-element": "1.2.2",
+    "generator-jhipster-nav-element": "1.2.3",
     "generator-jhipster-swagger2markup": "1.2.0",
     "html-loader": "0.4.5",
     "html-webpack-plugin": "2.29.0",
