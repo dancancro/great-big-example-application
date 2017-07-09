@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@angular/cli": "1.2.0",
-    "@angular/compiler-cli": "4.2.2",
+    "@angular/compiler-cli": "4.2.6",
     "@angularclass/hmr": "2.1.1",
     "@ngrx/store-devtools": "3.2.4",
     "@ngrx/store-log-monitor": "3.0.2",
