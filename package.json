@@ -126,7 +126,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-remap-istanbul": "0.6.0",
     "karma-sourcemap-loader": "0.3.7",
-    "karma-webpack": "2.0.3",
+    "karma-webpack": "2.0.4",
     "lazypipe": "1.0.1",
     "lodash": "4.17.4",
     "map-stream": "0.0.7",
