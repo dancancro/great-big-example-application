@@ -27,7 +27,7 @@
     "@ngrx/store": "2.2.2",
     "@ngx-translate/core": "6.0.1",
     "@ngx-translate/http-loader": "0.0.3",
-    "@swimlane/ngx-datatable": "9.3.0",
+    "@swimlane/ngx-datatable": "9.3.1",
     "amcharts3": "github:amcharts/amcharts3",
     "ammap3": "github:amcharts/ammap3",
     "angular-in-memory-web-api": "0.3.2",
