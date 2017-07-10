@@ -100,7 +100,7 @@
     "del": "3.0.0",
     "event-stream": "3.3.4",
     "exports-loader": "0.6.4",
-    "extract-text-webpack-plugin": "2.1.1",
+    "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "0.11.2",
     "generator-jhipster": "4.6.0",
     "generator-jhipster-bootstrap-material-design": "3.5.1",
