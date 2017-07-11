@@ -206,12 +206,6 @@ We use yarn scripts and [Webpack][] as our build system.
     git clone https://github.com/dancancro/great-big-example-application.git
     cd great-big-example-application
 
-### Define and seed the database
-
-Run this from your project root to define the database schema and populate it with some data.
-
-    jhipster import-jdl schema.jdl
-
 ### Run the app
 
 Run the following commands in two separate terminals to create a blissful development experience where your browser
