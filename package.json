@@ -24,7 +24,7 @@
     "@ngrx/db": "2.0.2",
     "@ngrx/effects": "2.0.3",
     "@ngrx/router-store": "1.2.6",
-    "@ngrx/store": "2.2.2",
+    "@ngrx/store": "2.2.3",
     "@ngx-translate/core": "6.0.1",
     "@ngx-translate/http-loader": "0.0.3",
     "@swimlane/ngx-datatable": "9.3.1",
