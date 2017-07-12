@@ -72,7 +72,7 @@
     "tabtab": "2.2.2",
     "tether": "1.4.0",
     "webstomp-client": "1.0.6",
-    "zone.js": "0.8.12"
+    "zone.js": "0.8.13"
   },
   "devDependencies": {
     "@angular/cli": "1.2.0",
