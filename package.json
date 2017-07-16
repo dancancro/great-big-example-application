@@ -86,7 +86,7 @@
     "@types/leaflet": "1.0.64",
     "@types/node": "8.0.1",
     "@types/selenium-webdriver": "3.0.4",
-    "@types/simple-peer": "6.1.1",
+    "@types/simple-peer": "6.1.2",
     "@types/uuid": "3.0.0",
     "@types/webpack-env": "1.13.0",
     "add-asset-html-webpack-plugin": "2.0.1",
