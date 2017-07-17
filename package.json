@@ -87,7 +87,7 @@
     "@types/node": "8.0.1",
     "@types/selenium-webdriver": "3.0.4",
     "@types/simple-peer": "6.1.2",
-    "@types/uuid": "3.0.0",
+    "@types/uuid": "3.4.0",
     "@types/webpack-env": "1.13.0",
     "add-asset-html-webpack-plugin": "2.0.1",
     "angular2-template-loader": "0.6.2",
