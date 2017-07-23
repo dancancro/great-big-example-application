@@ -112,7 +112,7 @@ const imports = [
 ];
 
 // Enable HMR and ngrx/devtools in hot reload mode
-if (process.env === 'dev') {
+if (process.env.NODE_ENV === 'dev') {
     imports.push(...[
         StoreDevtoolsModule.instrumentStore({
             monitor: useLogMonitor({

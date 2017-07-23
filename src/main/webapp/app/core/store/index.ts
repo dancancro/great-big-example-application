@@ -137,7 +137,7 @@ const productionReducer = compose(
     combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
-    if (process.env === 'prod') {
+    if (process.env.NODE_ENV === 'prod') {
         return productionReducer(state, action);
     } else {
         return developmentReducer(state, action);
