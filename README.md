@@ -25,7 +25,7 @@ a typical product/project sales page. Use it to determine what's best. Then help
 [below](https://github.com/dancancro/great-big-example-application#demonstrations-features-and-selling-points) 
 for a sample slice of it.
 
-Contributions wanted!
+See the project's [to do list](https://github.com/dancancro/great-big-example-application/projects/1) for opportunities to contribute.
 
 # But why one great big app?
 
@@ -38,10 +38,10 @@ and don't have any preferences yet)
 
 "Bloated!!"
 
-There's a strange resistance to using big examples to educate in addition to small ones. Should you learn
-automechanics using only go-karts? Construction using only bird houses? I don't really understand the resistance. 
-The case seems pretty plain to me but for clarity, here are some reasons why I think software development 
-should be taught using big examples:
+There's a strange resistance to using big examples as the _primary_ instrument of web development
+education or even at all. Would you teach automechanics using go-karts? Home construction using just windows? 
+I don't really understand the resistance. The case seems pretty plain to me but for clarity, here are 
+some reasons why I think web development should be taught using big examples:
 
     1. Real code answers every question, not just what the authors of tutorials choose to answer through
     their choices of simplifications.
