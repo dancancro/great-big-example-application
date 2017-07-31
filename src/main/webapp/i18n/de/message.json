@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "message" : {
+            "home": {
+                "title": "Messages",
+                "createLabel": "Message erstellen",
+                "createOrEditLabel": "Message erstellen oder bearbeiten",
+                "search": "Suche nach Message"
+            },
+            "created": "Message erstellt mit ID {{ param }}",
+            "updated": "Message aktualisiert mit ID {{ param }}",
+            "deleted": "Message gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Message {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Message"
+            },
+            "userLogin": "User Login",
+            "message": "Message",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At"
+        }
+    }
+}

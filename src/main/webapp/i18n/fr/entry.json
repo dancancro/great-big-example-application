@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "entry" : {
+            "home": {
+                "title": "Entries",
+                "createLabel": "Créer un nouveau Entry",
+                "createOrEditLabel": "Créer ou éditer un Entry",
+                "search": "Recherche pour Entry"
+            },
+            "created": "Un nouveau Entry a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Entry avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Entry avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Entry {{ id }} ?"
+            },
+            "detail": {
+                "title": "Entry"
+            },
+            "title": "Title",
+            "content": "Content",
+            "date": "Date",
+            "blog": "Blog",
+            "tag": "Tag"
+        }
+    }
+}

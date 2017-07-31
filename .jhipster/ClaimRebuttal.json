@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "claimId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "rebuttalId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "sortOrder",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170725052213",
+    "entityTableName": "claim_rebuttal",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
+}

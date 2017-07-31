@@ -1,0 +1,24 @@
+{
+    "greatBigExampleApplicationApp": {
+        "claimRebuttal" : {
+            "home": {
+                "title": "Claim Rebuttals",
+                "createLabel": "Create a new Claim Rebuttal",
+                "createOrEditLabel": "Create or edit a Claim Rebuttal",
+                "search": "Search for Claim Rebuttal"
+            },
+            "created": "A new Claim Rebuttal is created with identifier {{ param }}",
+            "updated": "A Claim Rebuttal is updated with identifier {{ param }}",
+            "deleted": "A Claim Rebuttal is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Claim Rebuttal {{ id }}?"
+            },
+            "detail": {
+                "title": "Claim Rebuttal"
+            },
+            "claimId": "Claim Id",
+            "rebuttalId": "Rebuttal Id",
+            "sortOrder": "Sort Order"
+        }
+    }
+}

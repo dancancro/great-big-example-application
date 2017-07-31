@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "message" : {
+            "home": {
+                "title": "Messages",
+                "createLabel": "Crear nuevo Message",
+                "createOrEditLabel": "Crear o editar Message",
+                "search": "Search for Message"
+            },
+            "created": "Un nuevo Message ha sido creado con el identificador {{ param }}",
+            "updated": "Un Message ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Message ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Message {{ id }}?"
+            },
+            "detail": {
+                "title": "Message"
+            },
+            "userLogin": "User Login",
+            "message": "Message",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At"
+        }
+    }
+}

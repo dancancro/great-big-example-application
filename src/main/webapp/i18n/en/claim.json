@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "claim" : {
+            "home": {
+                "title": "Claims",
+                "createLabel": "Create a new Claim",
+                "createOrEditLabel": "Create or edit a Claim",
+                "search": "Search for Claim"
+            },
+            "created": "A new Claim is created with identifier {{ param }}",
+            "updated": "A Claim is updated with identifier {{ param }}",
+            "deleted": "A Claim is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Claim {{ id }}?"
+            },
+            "detail": {
+                "title": "Claim"
+            },
+            "name": "Name",
+            "sortOrder": "Sort Order",
+            "imageLabel": "Image Label",
+            "imageLink": "Image Link"
+        }
+    }
+}

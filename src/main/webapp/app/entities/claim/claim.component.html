@@ -1,0 +1,75 @@
+<div>
+    <h2>
+        <span jhiTranslate="greatBigExampleApplicationApp.claim.home.title">Claims</span>
+        <button class="btn btn-primary float-right create-claim" [routerLink]="['/', { outlets: { popup: ['claim-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="greatBigExampleApplicationApp.claim.home.createLabel">
+            Create new Claim
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'greatBigExampleApplicationApp.claim.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="claims">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="greatBigExampleApplicationApp.claim.name">Name</span></th>
+            <th><span jhiTranslate="greatBigExampleApplicationApp.claim.sortOrder">Sort Order</span></th>
+            <th><span jhiTranslate="greatBigExampleApplicationApp.claim.imageLabel">Image Label</span></th>
+            <th><span jhiTranslate="greatBigExampleApplicationApp.claim.imageLink">Image Link</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let claim of claims ;trackBy: trackId">
+                <td><a [routerLink]="['../claim', claim.id ]">{{claim.id}}</a></td>
+                <td>{{claim.name}}</td>
+                <td>{{claim.sortOrder}}</td>
+                <td>{{claim.imageLabel}}</td>
+                <td>{{claim.imageLink}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../claim', claim.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'claim/'+ claim.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'claim/'+ claim.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

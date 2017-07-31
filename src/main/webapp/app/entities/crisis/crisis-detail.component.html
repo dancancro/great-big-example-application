@@ -1,0 +1,25 @@
+
+<div *ngIf="crisis">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.crisis.detail.title">Crisis</span> {{crisis.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.crisis.name">Name</span></dt>
+        <dd>
+            <span>{{crisis.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'crisis/'+ crisis.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

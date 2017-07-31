@@ -1,0 +1,41 @@
+
+<div *ngIf="rebuttal">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.detail.title">Rebuttal</span> {{rebuttal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.longName">Long Name</span></dt>
+        <dd>
+            <span>{{rebuttal.longName}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.shortName">Short Name</span></dt>
+        <dd>
+            <span>{{rebuttal.shortName}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.date">Date</span></dt>
+        <dd>
+            <span>{{rebuttal.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.expires">Expires</span></dt>
+        <dd>
+            <span>{{rebuttal.expires | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.rebuttal.link">Link</span></dt>
+        <dd>
+            <span>{{rebuttal.link}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rebuttal/'+ rebuttal.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

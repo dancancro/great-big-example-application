@@ -1,0 +1,37 @@
+
+<div *ngIf="note">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.note.detail.title">Note</span> {{note.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.note.text">Text</span></dt>
+        <dd>
+            <span>{{note.text}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.note.colour">Colour</span></dt>
+        <dd>
+            <span>{{note.colour}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.note.left">Left</span></dt>
+        <dd>
+            <span>{{note.left}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.note.top">Top</span></dt>
+        <dd>
+            <span>{{note.top}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'note/'+ note.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "longName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 20,
+            "fieldValidateRulesMaxlength": 1200
+        },
+        {
+            "fieldName": "shortName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "expires",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "link",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170725052212",
+    "entityTableName": "rebuttal",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
+}

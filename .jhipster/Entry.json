@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "blog",
+            "otherEntityName": "blog",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "entry",
+            "relationshipName": "tag",
+            "otherEntityName": "tag",
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170725052216",
+    "entityTableName": "entry",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
+}

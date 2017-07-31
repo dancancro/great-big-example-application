@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "talk" : {
+            "home": {
+                "title": "Talks",
+                "createLabel": "Create a new Talk",
+                "createOrEditLabel": "Create or edit a Talk",
+                "search": "Search for Talk"
+            },
+            "created": "A new Talk is created with identifier {{ param }}",
+            "updated": "A Talk is updated with identifier {{ param }}",
+            "deleted": "A Talk is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Talk {{ id }}?"
+            },
+            "detail": {
+                "title": "Talk"
+            },
+            "title": "Title",
+            "speaker": "Speaker",
+            "description": "Description",
+            "yourRating": "Your Rating",
+            "rating": "Rating"
+        }
+    }
+}

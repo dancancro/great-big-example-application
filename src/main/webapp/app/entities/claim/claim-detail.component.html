@@ -1,0 +1,37 @@
+
+<div *ngIf="claim">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.claim.detail.title">Claim</span> {{claim.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.claim.name">Name</span></dt>
+        <dd>
+            <span>{{claim.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.claim.sortOrder">Sort Order</span></dt>
+        <dd>
+            <span>{{claim.sortOrder}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.claim.imageLabel">Image Label</span></dt>
+        <dd>
+            <span>{{claim.imageLabel}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.claim.imageLink">Image Link</span></dt>
+        <dd>
+            <span>{{claim.imageLink}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'claim/'+ claim.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

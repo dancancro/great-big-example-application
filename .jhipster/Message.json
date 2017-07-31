@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "userLogin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "message",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170725052217",
+    "entityTableName": "message",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
+}

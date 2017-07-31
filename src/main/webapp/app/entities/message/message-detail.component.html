@@ -1,0 +1,37 @@
+
+<div *ngIf="message">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.message.detail.title">Message</span> {{message.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.message.userLogin">User Login</span></dt>
+        <dd>
+            <span>{{message.userLogin}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.message.message">Message</span></dt>
+        <dd>
+            <span>{{message.message}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.message.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{message.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.message.updatedAt">Updated At</span></dt>
+        <dd>
+            <span>{{message.updatedAt | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

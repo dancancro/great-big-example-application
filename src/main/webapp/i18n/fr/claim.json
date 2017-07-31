@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "claim" : {
+            "home": {
+                "title": "Claims",
+                "createLabel": "Créer un nouveau Claim",
+                "createOrEditLabel": "Créer ou éditer un Claim",
+                "search": "Recherche pour Claim"
+            },
+            "created": "Un nouveau Claim a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Claim avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Claim avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Claim {{ id }} ?"
+            },
+            "detail": {
+                "title": "Claim"
+            },
+            "name": "Name",
+            "sortOrder": "Sort Order",
+            "imageLabel": "Image Label",
+            "imageLink": "Image Link"
+        }
+    }
+}

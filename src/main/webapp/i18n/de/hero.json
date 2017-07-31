@@ -1,0 +1,22 @@
+{
+    "greatBigExampleApplicationApp": {
+        "hero" : {
+            "home": {
+                "title": "Heroes",
+                "createLabel": "Hero erstellen",
+                "createOrEditLabel": "Hero erstellen oder bearbeiten",
+                "search": "Suche nach Hero"
+            },
+            "created": "Hero erstellt mit ID {{ param }}",
+            "updated": "Hero aktualisiert mit ID {{ param }}",
+            "deleted": "Hero gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Hero {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Hero"
+            },
+            "name": "Name"
+        }
+    }
+}

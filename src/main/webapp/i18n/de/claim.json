@@ -1,0 +1,25 @@
+{
+    "greatBigExampleApplicationApp": {
+        "claim" : {
+            "home": {
+                "title": "Claims",
+                "createLabel": "Claim erstellen",
+                "createOrEditLabel": "Claim erstellen oder bearbeiten",
+                "search": "Suche nach Claim"
+            },
+            "created": "Claim erstellt mit ID {{ param }}",
+            "updated": "Claim aktualisiert mit ID {{ param }}",
+            "deleted": "Claim gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Claim {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Claim"
+            },
+            "name": "Name",
+            "sortOrder": "Sort Order",
+            "imageLabel": "Image Label",
+            "imageLink": "Image Link"
+        }
+    }
+}

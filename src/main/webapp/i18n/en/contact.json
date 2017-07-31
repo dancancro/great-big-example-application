@@ -1,0 +1,22 @@
+{
+    "greatBigExampleApplicationApp": {
+        "contact" : {
+            "home": {
+                "title": "Contacts",
+                "createLabel": "Create a new Contact",
+                "createOrEditLabel": "Create or edit a Contact",
+                "search": "Search for Contact"
+            },
+            "created": "A new Contact is created with identifier {{ param }}",
+            "updated": "A Contact is updated with identifier {{ param }}",
+            "deleted": "A Contact is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Contact {{ id }}?"
+            },
+            "detail": {
+                "title": "Contact"
+            },
+            "name": "Name"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "greatBigExampleApplicationApp": {
+        "contact" : {
+            "home": {
+                "title": "Contacts",
+                "createLabel": "Crear nuevo Contact",
+                "createOrEditLabel": "Crear o editar Contact",
+                "search": "Search for Contact"
+            },
+            "created": "Un nuevo Contact ha sido creado con el identificador {{ param }}",
+            "updated": "Un Contact ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Contact ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Contact {{ id }}?"
+            },
+            "detail": {
+                "title": "Contact"
+            },
+            "name": "Name"
+        }
+    }
+}
