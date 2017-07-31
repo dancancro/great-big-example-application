@@ -102,9 +102,9 @@ lower authority yielding to the higher one:
 5. [JHipster Example - Blog](https://github.com/mraible/jhipster4-demo) by [@mraible](https://github.com/mraible)
 6. [JHipster Example - Chat](https://github.com/ruddell/jhipster-chat-example) by [@ruddell](https://github.com/ruddell)
 7. [ng2-admin - Admin App](https://github.com/akveo/ng2-admin) by [@nnxiaa](https://github.com/nnixaa) and community
-8. [scalable-architecture-demo - P2P Typing Game](https://github.com/mgechev/scalable-architecture-demo) by [@mgechev](https://github.com/mgechev)
-9. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
-10. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by [@mgechev](https://github.com/mgechev) + [@NathanWalker](https://github.com/NathanWalker) + community
+8. [ngrx State Management - Rate/Watch talks](https://blog.nrwl.io/using-ngrx-4-to-manage-state-in-angular-applications-64e7a1f84b7b) by [@vsavkin](https://github.com/vsavkin)
+9. [scalable-architecture-demo - P2P Typing Game](https://github.com/mgechev/scalable-architecture-demo) by [@mgechev](https://github.com/mgechev)
+10. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 11. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
 12. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
 
@@ -136,6 +136,8 @@ A huge thanks to those who created the example demos from which I put together t
 ![Image](./docs/images/heroes_dashboard.png?raw=true)
 ### Tour of Heroes List
 ![Image](./docs/images/heroes_list.png?raw=true)
+### Tech Talks
+![Image](./docs/images/talks.png?raw=true)
 ### Drag, Drop and Edit Notes
 ![Image](./docs/images/notes.png?raw=true)
 ### Dashboard
@@ -459,6 +461,7 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Separation of smart containers and dumb components (?)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "Such components typically do the following things: subscribe to data, fetch data from those subscriptions, and fetch global client-side state from stores.  Ideally, once a smart component has assembled such a set of data, it passes it off to a reusable component child to render with. Smart components usually don’t render anything apart from one or more reusable children. This makes it easy to separate rendering and data loading in your tests.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/bernie/bernie.page.ts)| | | | |
 [Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")|[X.](http:// "Mocha, JUnit, Mockito")|[X.](http:// "Mocha")| |[X.](http:// "Mocha")| |
 [Shared Module (client side)](https://angular.io/guide/styleguide#core-feature-module "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/shared/shared.module.ts)|[X](https://github.com/born2net/Angular-kitchen-sink/blob/8cc88024f22156f397f2aa95dc142460f720f50f/src/comps/app1/lazyone/SharedModule.ts)| | | |
+[Single source of truth, central state management, Server, Persistent, URL, (Transient) Client, Local UI](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/talks "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/talks)| | | | |
 [Single source of truth, central state management, without lots of boilerplate (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/entity "Usually with Redux implementations your app will have lots of similar code in action, reducer and effect files for each slice of the store.    To avoid this, takes imposing some conventions and creating utility functions.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/entity)| | | | |
 [Style guide for code (?)](https://github.com/johnpapa/angularjs-styleguide "Provides consistency and best practices")|[X.](https://angular.io/docs/ts/latest/guide/style-guide.html "Angular Style Guide")| |[X.](https://angular.io/docs/ts/latest/guide/style-guide.html "Angular Style Guide")| | |
 [Supports database layer triggers (?)](https://docs.feathersjs.com/api/hooks.html "Events attached to data objects that allow you to add custom business logic upon creation, modification or deletion of data.")|[X.](http:// "JHipster")| | |[X.](https://docs.feathersjs.com/api/hooks.html "Feathers.js")| |
@@ -493,6 +496,7 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Full-stack CRUD, with Create, Update and Delete, whole data structures](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/services/rest.service.ts "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/services/rest.service.ts)| | | | |
 [Full-stack CRUD, with db-persisted seed data](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase)| | | | |
 [Full-stack CRUD, with Read](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase "")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/config/liquibase)|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos)| | | |
+[Full-stack CRUD, with Read, with filtering](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/talks/filters "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/talks/filters)| | | | |
 [Grid, Editable](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/messages "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/tree/master/src/main/webapp/app/features/messages)| | | | |
 [i18n, localization (?)](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/i18n "Internationalization or localization    Text for different languages are stored in separate places and used to fill in placeholders in the view depending on the user's preferences")|[X](https://github.com/dancancro/great-big-example-application/blob/master/src/main/resources/i18n)| |[X](https://github.com/NathanWalker/angular-seed-advanced/tree/master/src/client/app/shared/i18n)| | |
 [Many-to-many data](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/index.ts#L265 "")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/core/store/index.ts#L265)| | | | |

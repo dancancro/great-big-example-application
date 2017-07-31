@@ -24,9 +24,7 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
         BernieRouting,
         ReactiveFormsModule,
         MaterialModule,
-        EffectsModule.run(ClaimEffects),
-        EffectsModule.run(RebuttalEffects),
-        EffectsModule.run(ClaimRebuttalEffects),
+        EffectsModule.forRoot([ClaimEffects, RebuttalEffects, ClaimRebuttalEffects]),
         NgPipesModule
     ],
     declarations: [

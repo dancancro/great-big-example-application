@@ -15,7 +15,7 @@ import * as EntityActions from '../../core/store/entity/entity.actions';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotesPage implements OnInit {
-    notes$: Observable<Note[]>;
+    notes$: Store<Note[]>;
 
     constructor(private store: Store<fromRoot.RootState>) {
     }
@@ -31,11 +31,11 @@ export class NotesPage implements OnInit {
     }
 
     onChangeNoteText(newText: string, note: Note) {
-        this.store.dispatch(new EntityActions.Update(slices.NOTE, { text: newText, id: note.id }));
+        this.store.dispatch(new EntityActions.Patch(slices.NOTE, { id: note.id, text: newText }));
     }
 
     onChangeNotePosition(newPosition: any, note: Note) {
-        this.store.dispatch(new EntityActions.Update(slices.NOTE, { id: note.id, left: newPosition.left, top: newPosition.top }));
+        this.store.dispatch(new EntityActions.Patch(slices.NOTE, { id: note.id, left: newPosition.left, top: newPosition.top }));
     }
 
     onDelete(note: Note) {

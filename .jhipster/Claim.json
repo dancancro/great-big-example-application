@@ -10,6 +10,10 @@
             ]
         },
         {
+            "fieldName": "sortOrder",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "imageLabel",
             "fieldType": "String"
         },
@@ -18,9 +22,11 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170501195008",
+    "changelogDate": "20170725052209",
     "entityTableName": "claim",
     "dto": "no",
     "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

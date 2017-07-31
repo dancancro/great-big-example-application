@@ -17,7 +17,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
     styleUrls: ['./hero-list.component.scss']
 })
 export class HeroListComponent implements OnInit, OnDestroy {
-    heroes$: Observable<Hero[]>;
+    heroes$: Store<Hero[]>;
     selectedHero$: Observable<Hero>;
     selectedHeroSub: Subscription;
     routeSub: Subscription;

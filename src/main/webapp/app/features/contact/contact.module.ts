@@ -13,7 +13,7 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
     imports: [
         GreatBigExampleApplicationSharedModule,
         ContactRouting,
-        EffectsModule.run(ContactEffects),
+        EffectsModule.forRoot([ContactEffects]),
         ReactiveFormsModule
     ],
     declarations: [

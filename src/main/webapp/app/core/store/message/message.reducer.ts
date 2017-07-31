@@ -16,8 +16,8 @@ export function reducer(state: Entities<Message> = initialEntities<Message>({}, 
         case typeFor(slices.MESSAGE, actions.ADD_TEMP):
         case typeFor(slices.MESSAGE, actions.LOAD_SUCCESS):
             return functions.addToStore<Message>(state, <any>action);
-        case typeFor(slices.MESSAGE, actions.UPDATE):
-        case typeFor(slices.MESSAGE, actions.UPDATE_SUCCESS):
+        case typeFor(slices.MESSAGE, actions.PATCH):
+        case typeFor(slices.MESSAGE, actions.PATCH_SUCCESS):
             return functions.update<Message>(state, <any>action);
         case typeFor(slices.MESSAGE, actions.DELETE):
             return functions.deleteEntity<Message>(state, <any>action);

@@ -19,7 +19,7 @@ import { MessageEffects } from '../../core/store/message/message.effects';
     ],
     imports: [
         CommonModule,
-        EffectsModule.run(MessageEffects),
+        EffectsModule.forRoot([MessageEffects]),
         FormsModule,
         MessagesRouting,
         MaterialModule,

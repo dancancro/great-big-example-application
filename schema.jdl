@@ -76,3 +76,13 @@ entity Message {
 }
 
 paginate Message with infinite-scroll
+
+entity Talk {
+	title String required,
+    speaker String required,
+    description TextBlob required,
+    yourRating Float max(10),
+    rating Float
+}
+
+paginate Talk with pager

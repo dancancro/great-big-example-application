@@ -17,8 +17,8 @@ export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices
         case typeFor(slices.HERO, actions.LOAD_SUCCESS):
         case typeFor(slices.HERO, actions.DELETE_FAIL):
             return functions.addToStore<Hero>(state, <any>action);
-        case typeFor(slices.HERO, actions.UPDATE):
-        case typeFor(slices.HERO, actions.UPDATE_SUCCESS):
+        case typeFor(slices.HERO, actions.PATCH):
+        case typeFor(slices.HERO, actions.PATCH_SUCCESS):
         case typeFor(slices.HERO, actions.DELETE):
         case typeFor(slices.HERO, actions.DELETE_FAIL):
             return functions.update<Hero>(state, <any>action);

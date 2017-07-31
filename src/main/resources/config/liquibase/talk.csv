@@ -1,0 +1,6 @@
+id,title,speaker,description,your_rating,rating
+898,"Are we there yet?","Rich Hickey","In his keynote at JVM Languages Summit 2009, Rich Hickey advocated for the reexamination of basic principles like state, identity, value, time, types, genericity, complexity, as they are used by OOP today, to be able to create the new constructs and languages to deal with the massive parallelism and concurrency of the future.",null,9.1
+777,"The Value of Values","Rich Hickey","Rich Hickey compares value-oriented programming with place-oriented programming concluding that the time of imperative languages has passed and it is the time of functional programming.",null,8.5
+466,"Simple Made Easy","Rich Hickey","Rich Hickey emphasizes simplicity’s virtues over easiness’, showing that while many choose easiness they may end up with complexity, and the better way is to choose easiness along the simplicity path.",null,8.2
+322,"Growing a Language","Guy Steele","Guy Steele's keynote at the 1998 ACM OOPSLA conference on 'Growing a Language' discusses the importance of and issues associated with designing a programming language that can be grown by its users.",null,8.9
+

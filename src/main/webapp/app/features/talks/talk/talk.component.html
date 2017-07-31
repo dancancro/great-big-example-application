@@ -1,0 +1,11 @@
+<md-card>
+    <div id="rating-column">
+        Rating
+        <span id="rating">{{talk.rating | formatRating}}</span>
+    </div>
+
+    <div>
+        <span id="title"><a [routerLink]="['/features/talks/talk', talk.id]">{{talk.title}}</a></span>
+        <span id="speaker">{{talk.speaker}}</span>
+    </div>
+</md-card>

@@ -19,9 +19,11 @@
             "fieldType": "Integer"
         }
     ],
-    "changelogDate": "20170501195010",
+    "changelogDate": "20170725052211",
     "entityTableName": "note",
     "dto": "no",
     "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

@@ -13,7 +13,7 @@ import { CounterEffects } from '../../core/store/counter/counter.effects';
         GreatBigExampleApplicationSharedModule,
         ReactiveFormsModule,
         CounterRouting,
-        EffectsModule.run(CounterEffects)
+        EffectsModule.forRoot([CounterEffects])
     ],
     declarations: [
         CounterPage,

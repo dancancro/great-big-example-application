@@ -29,9 +29,11 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170501195011",
+    "changelogDate": "20170725052212",
     "entityTableName": "rebuttal",
     "dto": "no",
     "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

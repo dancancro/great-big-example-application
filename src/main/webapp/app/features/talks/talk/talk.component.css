@@ -1,0 +1,27 @@
+:host {
+  margin: 10px;
+}
+
+md-card {
+  display: flex;
+}
+
+#rating-column {
+  margin-right: 20px;
+}
+
+#rating {
+  display: block;
+  font-size: 25px;
+}
+
+#title {
+  display: block;
+  font-size: 20px;
+}
+
+#speaker {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 20px;
+}

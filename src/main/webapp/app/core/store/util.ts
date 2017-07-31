@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Actions } from '@ngrx/effects';
 
 /**
  * This function coerces a string into a string literal type.
@@ -49,5 +50,15 @@ export const slices = {
     NOTE: 'note',
     REBUTTAL: 'rebuttal',
     SEARCH: 'search',
-    SESSION: 'session'
+    SESSION: 'session',
+    TALK: 'talk'
 };
+
+export class PayloadAction implements Action {
+    public type: string;
+
+    constructor(public payload?: any) {
+    }
+}
+
+export type PayloadActions = Actions<PayloadAction>;

@@ -30,15 +30,15 @@ export class CollectionEffects {
      * the effect immediately on startup.
      */
     @Effect()
-    private loadCollection$ = functions.loadFromLocal$(this.actions$, slices.COLLECTION,
+    loadCollection$ = functions.loadFromLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     @Effect()
-    private addBookToCollection$ = functions.addToLocal$(this.actions$, slices.COLLECTION,
+    addBookToCollection$ = functions.addToLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     @Effect()
-    private removeBookFromCollection$ = functions.deleteFromLocal$(this.actions$, slices.COLLECTION,
+    removeBookFromCollection$ = functions.deleteFromLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     constructor(private actions$: Actions,

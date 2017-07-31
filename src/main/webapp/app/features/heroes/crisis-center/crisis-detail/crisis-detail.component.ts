@@ -56,7 +56,7 @@ export class CrisisDetailComponent implements OnInit {
 
     save() {
         this.crisis.name = this.editName;
-        this.store.dispatch(new EntityActions.Update(slices.CRISIS, this.crisis));
+        this.store.dispatch(new EntityActions.Patch(slices.CRISIS, this.crisis));
         this.gotoCrises();
     }
 

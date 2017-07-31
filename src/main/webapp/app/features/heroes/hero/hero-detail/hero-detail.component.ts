@@ -43,7 +43,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     }
 
     save(): void {
-        this.store.dispatch(new EntityActions.Update(slices.HERO, this.hero));
+        this.store.dispatch(new EntityActions.Patch(slices.HERO, this.hero));
         this.goBack();
     }
 

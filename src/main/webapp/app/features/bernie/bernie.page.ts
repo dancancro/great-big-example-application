@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/takeLast';
 import 'rxjs/add/operator/combineLatest';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../../core/store';
@@ -32,15 +31,15 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     claimEntities$: Observable<Entities<Claim>>;
     claimEntities: Entities<Claim>;
     claimEntitiesSub: Subscription;
-    deepClaims$: Observable<Claim[]>;
+    deepClaims$: Store<Claim[]>;
     deepClaims: Claim[];
     rebuttals$: Observable<Rebuttal[]>;
     loading$: Observable<boolean>;
     expanded: boolean;
     editable: boolean;
-    claimRebuttals$: Observable<ClaimRebuttal[]>;
+    claimRebuttals$: Store<ClaimRebuttal[]>;
     claimRebuttalsSub: Subscription;
-    claimRebuttals: ClaimRebuttal[];
+    claimRebuttals: Readonly<ClaimRebuttal[]>;
     searchTerms = new Subject<string>();
 
     options: SortablejsOptions = {
@@ -84,7 +83,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     toggleExpanded() {
         const expanded = this.expanded;
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'expanded'], !expanded));
-        this.store.dispatch(new EntityActions.UpdateEach(slices.CLAIM, { expanded: !expanded }));
+        this.store.dispatch(new EntityActions.PatchEach(slices.CLAIM, { expanded: !expanded }));
     }
 
     addClaim() {
@@ -110,8 +109,9 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
         this.store.dispatch(new EntityActions.AddTemp(slices.REBUTTAL, newRebuttal));
         this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM_REBUTTAL, newClaimRebuttal));
     }
+
     toggleRebuttals(claim: Claim) {
-        this.store.dispatch(new EntityActions.Update(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
+        this.store.dispatch(new EntityActions.Patch(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
     }
 
     cancelRebuttal({ claimRebuttalId, rebuttal }) {
@@ -119,7 +119,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
             this.store.dispatch(new EntityActions.DeleteTemp(slices.CLAIM_REBUTTAL));
             this.store.dispatch(new EntityActions.DeleteTemp(slices.REBUTTAL));
         } else {
-            this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: false }));
+            this.store.dispatch(new EntityActions.Patch<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: false }));
         }
     }
 
@@ -128,7 +128,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     makeRebuttalEditable(rebuttal: Rebuttal) {
-        this.store.dispatch(new EntityActions.Update<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: true }));
+        this.store.dispatch(new EntityActions.Patch<Rebuttal>(slices.REBUTTAL, { id: rebuttal.id, editing: true }));
     }
 
     reorderRebuttals(claim, event) {

@@ -24,7 +24,7 @@ import * as SliceActions from '../../../../core/store/slice/slice.actions';
     styleUrls: ['./hero-search.component.scss']
 })
 export class HeroSearchComponent implements OnInit, OnDestroy {
-    private heroes$: Observable<Hero[]>;
+    private heroes$: Store<Hero[]>;
     private searchTermsSub: Subscription;
     private searchTerms = new Subject<string>();
 

@@ -12,7 +12,7 @@ import { toPayload, Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 
 import { Entities } from './entity.model';
-import { typeFor } from '../util';
+import { typeFor, PayloadAction, PayloadActions } from '../util';
 import { actions, EntityAction } from './entity.actions';
 import * as EntityActions from './entity.actions';
 
@@ -111,6 +111,12 @@ export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T
     });
 }
 
+/**
+ * @whatItDoes updates, patches or sets deleteMe of a single entity
+ *
+ * @param state  the set of entities
+ * @param action needs a payload that has an id
+ */
 export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
     const id = action.payload.id;
@@ -121,7 +127,24 @@ export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): 
     });
 };
 
-export function updateEach<T>(state: Entities<T>, action: any): Entities<T> {
+/**
+ * @whatItDoes updates a given slice with a new set of entities in one fell swoop
+ *
+ * @param state  the set of entities
+ * @param action needs a payload that is an array of entities
+ */
+export function newEntities<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
+    const entities = action.payload.reduce(function (map, obj) {
+        map[obj.id] = obj;
+        return map;
+    }, {});
+    return Object.assign({}, state, {
+        ids: Object.keys(entities),
+        entities
+    });
+};
+
+export function patchEach<T>(state: Entities<T>, action: any): Entities<T> {
     const entities = Object.assign({}, state.entities);
     for (const id of Object.keys(entities)) {
         entities[id] = Object.assign(entities[id], action.payload);
@@ -143,6 +166,8 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
         case typeFor(state.slice, actions.DELETE_FAIL):
             return Object.assign({}, entity, action.payload, { deleteMe: false });
         case typeFor(state.slice, actions.UPDATE):
+            return Object.assign({}, action.payload, { dirty: true });
+        case typeFor(state.slice, actions.PATCH):
             return Object.assign({}, entity, action.payload, { dirty: true });
         case typeFor(state.slice, actions.ADD_SUCCESS):
             // entity could be a client-side-created object with client-side state not returned by
@@ -167,12 +192,12 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
  *
  */
 
-export function loadFromRemote$(actions$: Actions, slice: string, dataService): Observable<Action> {
+export function loadFromRemote$(actions$: PayloadActions, slice: string, dataService): Observable<Action> {  // TODO: should return PayloadAction
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
         .startWith(new EntityActions.Load(slice, null))
-        .switchMap(() =>
-            dataService.getEntities(slice)
+        .switchMap((action) =>
+            dataService.getEntities(slice || action.payload.route, action.payload ? action.payload.query : undefined)
                 .mergeMap((fetchedEntities) => Observable.from(fetchedEntities))
                 .map((fetchedEntity) => new EntityActions.LoadSuccess(slice, fetchedEntity))  // one action per entity
                 .catch((err) => {
@@ -201,7 +226,7 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService): 
 export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
-        .switchMap((action) => dataService.add(action.payloadForPost(), slice))
+        .switchMap((action) => dataService.add((<any>action).payloadForPost(), slice))  // TODO: find better way
         .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity));
 }
 
@@ -218,10 +243,10 @@ export function updateToRemote$(actions$: Actions, slice: string, dataService, s
         );
 }
 
-export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<EntityAction<any>> {  // TODO: fix this any
     return actions$
         .ofType(typeFor(slice, actions.DELETE))
-        .switchMap((action) => dataService.remove(action.payload, slice))
+        .switchMap((action) => dataService.remove((<EntityAction<any>>action).payload, slice))
         .map((responseEntity) => new EntityActions.DeleteSuccess(slice, responseEntity))
         .catch((err) => {
             console.log(err);

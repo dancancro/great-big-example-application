@@ -10,7 +10,8 @@
             "assets": [
                 "content",
                 "i18n",
-                "favicon.ico"
+                "favicon.ico",
+                "node_modules/@angular/material/prebuilt-themes"
             ],
             "index": "index.html",
             "main": "app/app.main.ts",

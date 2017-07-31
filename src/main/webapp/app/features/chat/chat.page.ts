@@ -18,7 +18,7 @@ import { Account, LoginModalService, Principal } from '../../shared';
 
 })
 export class ChatPage implements OnInit {
-    messages$: Observable<Message[]>;
+    messages$: Store<Message[]>;
     account: Account;
     modalRef: NgbModalRef;
     messages: Array<Object> = [];

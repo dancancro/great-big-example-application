@@ -15,8 +15,8 @@ import * as fromRoot from '../../../core/store';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-    heroes$: Observable<Hero[]>;
-    crises$: Observable<Crisis[]>;
+    heroes$: Observable<Readonly<Hero[]>>;
+    crises$: Observable<Readonly<Crisis[]>>;
     heroesSub: Subscription;
     title: string;
 

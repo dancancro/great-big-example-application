@@ -67,6 +67,11 @@ export const features = [
         tags: ['drag-n-drop']
     },
     {
+        id: 'talks',
+        link: 'talks',
+        source: 'https://blog.nrwl.io/using-ngrx-4-to-manage-state-in-angular-applications-64e7a1f84b7b'
+    },
+    {
         id: 'wiki',
         link: 'wiki',
         source: 'https://angular.io/resources/live-examples/server-communication/ts/plnkr.html',

@@ -54,6 +54,7 @@ public class CacheConfiguration {
             cm.createCache(org.exampleapps.greatbig.domain.Entry.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Entry.class.getName() + ".tags", jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Message.class.getName(), jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Talk.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

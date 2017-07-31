@@ -17,7 +17,7 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
     imports: [
         GreatBigExampleApplicationSharedModule,
         NotesRouting,
-        EffectsModule.run(NoteEffects)
+        EffectsModule.forRoot([NoteEffects])
     ],
     declarations: [
         NotesPage,

@@ -19,20 +19,22 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        HeroesRouting,
-        EffectsModule.run(HeroEffects),
-        EffectsModule.run(CrisisEffects),
         CrisisCenterModule,
-        HeroModule,
         DashboardModule,
+        EffectsModule.forRoot([CrisisEffects, HeroEffects]),
+        FormsModule,
         GreatBigExampleApplicationSharedModule,
+        HeroesRouting,
+        HeroModule
     ],
-    declarations: [HeroesPage],
+    declarations: [
+        HeroesPage
+    ],
     providers: [
         customHttpProvider(),
         TwainService,
-        UserService]
+        UserService
+    ]
 })
 export class HeroesModule { }
 

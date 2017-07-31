@@ -1,9 +1,8 @@
-import { createSelector } from 'reselect';
 import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/combineLatest';
 
 import { Book } from './book/book.model';
 import { Claim } from './claim/claim.model';
@@ -17,16 +16,18 @@ import { Note } from './note/note.model';
 import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
 import { Session } from './session/session.model';
 import { User } from './user/user.model';
+import { Talk } from './talk/talk.model';
 
-/**
- * The createSelector function is one of our most handy tools. In basic terms, you give
- * it any number of functions and it returns a function. This new function
- * takes a value and chains it through every composed function, returning
- * the output.
- *
- * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
- */
-import { compose } from '@ngrx/core/compose';
+import {
+    ActionReducerMap,
+    createSelector,
+    createFeatureSelector,
+    compose,
+    ActionReducer,
+    combineReducers,
+    Action,
+    ActionReducerFactory,
+} from '@ngrx/store';
 
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
@@ -35,15 +36,6 @@ import { compose } from '@ngrx/core/compose';
  */
 import { storeFreeze } from 'ngrx-store-freeze';
 
-/**
- * combineReducers is another useful metareducer that takes a map of reducer
- * functions and creates a new reducer that stores the gathers the values
- * of each reducer and stores them using the reducer's key. Think of it
- * almost like a database, where every reducer is a table in the db.
- *
- * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
- */
-import { combineReducers } from '@ngrx/store';
 
 /**
  * Every reducer module's default export is the reducer function itself. In
@@ -66,6 +58,7 @@ import * as fromNotes from './note/note.reducer';
 import * as fromRebuttals from './rebuttal/rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
 import * as fromSession from './session/session.reducer';
+import * as fromTalks from './talk/talk.reducer';
 import { gameReducer, gamesReducer, p2pGameReducer } from './game/game.reducer';
 import { Entities } from './entity/entity.model';
 import { IDs } from './id/id.model';
@@ -82,25 +75,28 @@ export interface RootState {
     contact: Entities<Contact>;
     counter: Counter;
     crisis: Entities<Crisis>;
+    game;
+    games;
     hero: Entities<Hero>;
     layout: Layout;
     message: any;
     note: Entities<Note>;
+    p2pGame;
     rebuttal: Entities<Rebuttal>;
-    router: fromRouter.RouterState;
+    router: fromRouter.RouterReducerState;
     search: IDs;
     session: Session;
+    talk: Entities<Talk>;
 }
 
 /**
  * Because metareducers take a reducer function and return a new reducer,
- * we can use our createSelector helper to chain them together. Here we are
+ * we can use our compose helper to chain them together. Here we are
  * using combineReducers to make our top level reducer, and then
- * wrapping that in storeLogger. Remember that createSelector applies
+ * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
-
-const reducers = {
+export const reducers: ActionReducerMap<RootState> = {
     // ngrx ones
     book: fromBooks.reducer,
     claim: fromClaims.reducer,
@@ -114,13 +110,36 @@ const reducers = {
     hero: fromHeroes.reducer,
     layout: fromLayout.reducer,
     note: fromNotes.reducer,
+    p2pGame: p2pGameReducer,
     rebuttal: fromRebuttals.reducer,
     router: fromRouter.routerReducer,
     search: fromSearch.reducer,
     session: fromSession.reducer,
     message: fromMessages.reducer,
-    p2pGame: p2pGameReducer
+    talk: fromTalks.reducer,
 };
+
+
+
+/**
+ * By default, @ngrx/store uses combineReducers with the reducer map to compose
+ * the root meta-reducer. To add more meta-reducers, provide an array of meta-reducers
+ * that will be composed to form the root meta-reducer.
+ */
+export const metaReducers: ActionReducer<any, any>[] = process.env.NODE_ENV === 'dev'
+    ? [logger]
+    : [];
+
+
+// console.log all actions
+function logger(reducer: ActionReducer<RootState>) {
+    return function (state: RootState, action: any) {
+        console.log('state', state);
+        console.log('action', action);
+
+        return reducer(state, action);
+    }
+}
 
 const developmentReducer = compose(
     // reduxThunk,                // Thunk middleware for Redux
@@ -143,6 +162,73 @@ export function reducer(state: any, action: any) {
         return developmentReducer(state, action);
     }
 }
+
+/**
+ * The compose function is one of our most handy tools. In basic terms, you give
+ * it any number of functions and it returns a function. This new function
+ * takes a value and chains it through every composed function, returning
+ * the output.
+ *
+ * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
+ */
+
+/**
+ * combineReducers is another useful metareducer that takes a map of reducer
+ * functions and creates a new reducer that gathers the values
+ * of each reducer and stores them using the reducer's key. Think of it
+ * almost like a database, where every reducer is a table in the db.
+ *
+ * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
+ */
+
+/**
+ * By default, @ngrx/store uses combineReducers with the reducer map to compose the root meta-reducer.
+ * To add more meta-reducers, provide a custom reducer factory.
+ */
+export const developmentReducerFactory: ActionReducerFactory<RootState, Action> = compose(logger, combineReducers);
+
+/**
+ * A selector function is a map function factory. We pass it parameters and it
+ * returns a function that maps from the larger state tree into a smaller
+ * piece of state. This selector simply selects the `books` state.
+ *
+ * Selectors are used with the `select` operator.
+ *
+ * ```ts
+ * class MyComponent {
+ * 	constructor(state$: Observable<State>) {
+ * 	  this.booksState$ = state$.select(getBooksState);
+ * 	}
+ * }
+ * ```
+ */
+
+/**
+  * The createFeatureSelector function selects a piece of state from the root of the state object.
+  * This is used for selecting feature states that are loaded eagerly or lazily.
+*/
+
+// const developmentReducer = compose(
+//     // reduxThunk,                // Thunk middleware for Redux
+//     // reduxMulti,                // Dispatch multiple actions
+//     // reduxPromiseMiddleware(),
+//     // storeFreeze,
+//     localStorageSync({ keys: ['session'] }),
+//     combineReducers)(reducers);
+// const productionReducer = compose(
+//     // reduxThunk,               // Thunk middleware for Redux
+//     // reduxMulti,               // Dispatch multiple actions
+//     // reduxPromiseMiddleware(),
+//     localStorageSync({ keys: ['session'] }),
+//     combineReducers)(reducers);
+
+// export function reducer(state: any, action: any) {
+//     if (process.env === 'prod') {
+//         return productionReducer(state, action);
+//     } else {
+//         return developmentReducer(state, action);
+//     }
+// }
 
 /**
  * A selector function is a map function factory. We pass it parameters and it
@@ -219,6 +305,7 @@ export const getBerniePageState = createSelector(getLayoutState, fromLayout.getB
 export const getHeroSearchTerm = createSelector(getLayoutState, fromLayout.getHeroSearchTerm);
 export const getSearchQuery = createSelector(getLayoutState, fromLayout.getQuery);
 export const getBernieSearchTerm = createSelector(getLayoutState, fromLayout.getBernieSearchTerm);
+export const getTalksPageFilters = createSelector(getLayoutState, fromLayout.getTalksPageFilters);
 
 /**
  * Session Selectors
@@ -369,3 +456,13 @@ export const getMessages = createSelector(getMessageEntities, getMessageIds, (en
     return ids.map((id) => entities[id]);
 });
 export const getMessage = createSelector(getMessagesState, fromMessages.getSelected);
+
+/**
+ * Talks Selectors
+ */
+export const getTalksState = (state: RootState) => state.talk;
+export const getTalkEntities = createSelector(getTalksState, fromTalks.getEntities);
+export const getTalkIds = createSelector(getTalksState, fromTalks.getIds);
+export const getTalks = createSelector(getTalkEntities, getTalkIds, (entities, ids) => {
+    return ids.map((id) => entities[id]);
+});

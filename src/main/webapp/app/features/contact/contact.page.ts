@@ -66,7 +66,7 @@ export class ContactPage implements OnInit, OnDestroy {
             this.store.dispatch(new EntityActions.Add(slices.CONTACT,
                 this.contactForm.value));
         } else {
-            this.store.dispatch(new EntityActions.Update(slices.CONTACT,
+            this.store.dispatch(new EntityActions.Patch(slices.CONTACT,
                 this.contactForm.value));
         }
     }

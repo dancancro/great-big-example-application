@@ -18,6 +18,7 @@
                 "entry": "Entry",
                 "tag": "Tag",
                 "message": "Message",
+                "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "features": {
@@ -33,6 +34,7 @@
                 "main": "Features",
                 "message": "Messages",
                 "notes": "Notes",
+                "talks": "Talks",
                 "user": "User",
                 "wiki": "Search Wikipedia"
             },

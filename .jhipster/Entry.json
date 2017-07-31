@@ -40,9 +40,11 @@
             ]
         }
     ],
-    "changelogDate": "20170501195014",
+    "changelogDate": "20170725052216",
     "entityTableName": "entry",
     "dto": "no",
     "pagination": "infinite-scroll",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

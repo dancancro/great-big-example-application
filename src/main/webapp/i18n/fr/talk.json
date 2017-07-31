@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "talk" : {
+            "home": {
+                "title": "Talks",
+                "createLabel": "Créer un nouveau Talk",
+                "createOrEditLabel": "Créer ou éditer un Talk",
+                "search": "Recherche pour Talk"
+            },
+            "created": "Un nouveau Talk a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Talk avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Talk avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Talk {{ id }} ?"
+            },
+            "detail": {
+                "title": "Talk"
+            },
+            "title": "Title",
+            "speaker": "Speaker",
+            "description": "Description",
+            "yourRating": "Your Rating",
+            "rating": "Rating"
+        }
+    }
+}

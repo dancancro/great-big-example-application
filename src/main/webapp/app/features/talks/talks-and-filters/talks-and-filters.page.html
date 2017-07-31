@@ -1,0 +1,5 @@
+<filters-cmp [filters]="filters$ | async" (filtersChange)="handleFiltersChange($event)"></filters-cmp>
+<jhi-talks [talks]="talks$ | async"></jhi-talks>
+
+
+{{ talks$ | async | json }}

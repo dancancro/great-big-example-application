@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "talk" : {
+            "home": {
+                "title": "Talks",
+                "createLabel": "Talk erstellen",
+                "createOrEditLabel": "Talk erstellen oder bearbeiten",
+                "search": "Suche nach Talk"
+            },
+            "created": "Talk erstellt mit ID {{ param }}",
+            "updated": "Talk aktualisiert mit ID {{ param }}",
+            "deleted": "Talk gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Talk {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Talk"
+            },
+            "title": "Title",
+            "speaker": "Speaker",
+            "description": "Description",
+            "yourRating": "Your Rating",
+            "rating": "Rating"
+        }
+    }
+}

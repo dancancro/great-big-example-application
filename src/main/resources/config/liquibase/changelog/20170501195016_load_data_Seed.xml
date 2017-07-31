@@ -53,6 +53,11 @@
                   separator=","
                   tableName="note">
         </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/talk.csv"
+                  separator=","
+                  tableName="talk">
+        </loadData>
 
     </changeSet>
 </databaseChangeLog>

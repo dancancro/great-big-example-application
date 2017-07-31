@@ -10,9 +10,11 @@
             ]
         }
     ],
-    "changelogDate": "20170501195006",
+    "changelogDate": "20170725052207",
     "entityTableName": "hero",
     "dto": "no",
     "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

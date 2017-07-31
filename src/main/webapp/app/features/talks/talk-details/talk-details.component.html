@@ -1,0 +1,19 @@
+<md-card *ngIf="talk">
+    <div id="rating-column">
+        Rating
+        <span id="rating">{{talk.rating | formatRating}}</span>
+    </div>
+
+    <div>
+        <span id="title">{{talk.title}}</span>
+        <span id="speaker">{{talk.speaker}}</span>
+
+        <div id="description">
+            {{talk.description}}
+        </div>
+
+        <watch-button [talk]="talk" [watched]="isWatched" (watch)="handleWatch()"></watch-button>
+        <rate-button [talk]="talk" (rate)="handleRate($event)"></rate-button>
+    </div>
+</md-card>
+{{ talk | json }} &lt;- notice that when you provide your rating, the rating value changes, not the yourRating value

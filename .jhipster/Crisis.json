@@ -10,9 +10,11 @@
             ]
         }
     ],
-    "changelogDate": "20170501195007",
+    "changelogDate": "20170725052208",
     "entityTableName": "crisis",
     "dto": "no",
     "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
 }

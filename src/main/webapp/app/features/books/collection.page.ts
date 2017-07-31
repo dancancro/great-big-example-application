@@ -32,7 +32,7 @@ import { Book } from '../../core/store/book/book.model';
   `]
 })
 export class CollectionPage {
-    books$: Observable<Book[]>;
+    books$: Observable<Readonly<Book[]>>;
 
     constructor(store: Store<fromRoot.RootState>) {
         this.books$ = store.select(fromRoot.getBookCollection);

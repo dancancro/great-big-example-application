@@ -16,7 +16,7 @@ import * as SliceActions from '../../core/store/slice/slice.actions';
 })
 
 export class MessagesPage implements OnInit, OnDestroy {
-    private messages$: Observable<Message[]>;
+    private messages$: Store<Message[]>;
     private messageSubscription: any;
     public messages = [];
     public userLogin = 'anonymous';
@@ -62,7 +62,7 @@ export class MessagesPage implements OnInit, OnDestroy {
         let newObj = {}
         newObj[cell] = event.target.value;
         newObj = Object.assign({}, message, newObj)
-        this.store.dispatch(new EntityActions.Update(slices.MESSAGE, newObj));
+        this.store.dispatch(new EntityActions.Patch(slices.MESSAGE, newObj));
 
         // this.messages[row.$$index][cell] = event.target.value;
     }

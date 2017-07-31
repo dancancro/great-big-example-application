@@ -18,7 +18,7 @@ import { slices } from '../../core/store/util';
 })
 export class FindBookPage {
     searchQuery$: Observable<string>;
-    books$: Observable<Book[]>;
+    books$: Store<Book[]>;
     loading$: Observable<boolean>;
 
     constructor(private store: Store<fromRoot.RootState>) {

@@ -1,0 +1,78 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTalkLabel" jhiTranslate="greatBigExampleApplicationApp.talk.home.createOrEditLabel">Create or edit a Talk</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!talk.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="talk.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.talk.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                [(ngModel)]="talk.title" required />
+            <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.talk.speaker" for="field_speaker">Speaker</label>
+            <input type="text" class="form-control" name="speaker" id="field_speaker"
+                [(ngModel)]="talk.speaker" required />
+            <div [hidden]="!(editForm.controls.speaker?.dirty && editForm.controls.speaker?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.speaker?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.talk.description" for="field_description">Description</label>
+            <textarea class="form-control" name="description" id="field_description"
+                [(ngModel)]="talk.description" required ></textarea>
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.talk.yourRating" for="field_yourRating">Your Rating</label>
+            <input type="number" class="form-control" name="yourRating" id="field_yourRating"
+                [(ngModel)]="talk.yourRating" max="10" />
+            <div [hidden]="!(editForm.controls.yourRating?.dirty && editForm.controls.yourRating?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.yourRating?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 10 }">
+                    This field cannot be more than 10.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.yourRating?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.talk.rating" for="field_rating">Rating</label>
+            <input type="number" class="form-control" name="rating" id="field_rating"
+                [(ngModel)]="talk.rating"  />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

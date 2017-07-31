@@ -13,6 +13,6 @@ export class RestfulServer extends BaseAsyncService {
         super();
     }
     process(data: Action) {
-        return this.restfulGateway.send(new RestfulCommand(data.payload));
+        return this.restfulGateway.send(new RestfulCommand((<any>data).payload));
     }
 }

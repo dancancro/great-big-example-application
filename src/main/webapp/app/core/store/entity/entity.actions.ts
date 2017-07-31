@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { PayloadAction } from '../util';
 
 import { typeFor } from '../util';
 
@@ -15,16 +15,22 @@ export const actions = {
     LOAD: 'LOAD',
     LOAD_FAIL: 'LOAD_FAIL',
     LOAD_SUCCESS: 'LOAD_SUCCESS',
+    LOAD_ALL: 'LOAD_ALL',
+    LOAD_ALL_FAIL: 'LOAD_ALL_FAIL',
+    LOAD_ALL_SUCCESS: 'LOAD_ALL_SUCCESS',
     SELECT: 'SELECT',
     SELECT_NEXT: 'SELECT_NEXT',
     UPDATE: 'UPDATE',
-    UPDATE_EACH: 'UPDATE_EACH',
-    UPDATE_SUCCESS: 'UPDATE_SUCCESS'
+    PATCH_EACH: 'PATCH_EACH',
+    UPDATE_SUCCESS: 'UPDATE_SUCCESS',
+    PATCH: 'PATCH',
+    PATCH_SUCCESS: 'PATCH_SUCCESS',
+    PATCH_FAIL: 'PATCH_FAIL'
 };
 
 export const TEMP = 'TEMP_ID_VALUE';
 
-export class EntityAction<T> implements Action {
+export class EntityAction<T> implements PayloadAction {
     protected actionName = '';
     constructor(public slice: string, public payload: any) { }
     get type() {
@@ -112,12 +118,36 @@ export class LoadSuccess<T> extends EntityAction<T> {
     protected actionName: string = actions.LOAD_SUCCESS;
 }
 
+export class LoadAll<T> extends EntityAction<T> {
+    protected actionName: string = actions.LOAD_ALL;
+}
+
+export class LoadAllFail<T> extends EntityAction<T> {
+    protected actionName: string = actions.LOAD_ALL_FAIL;
+}
+
+export class LoadAllSuccess<T> extends EntityAction<T> {
+    protected actionName: string = actions.LOAD_ALL_SUCCESS;
+}
+
+export class Patch<T> extends EntityAction<T> {
+    protected actionName: string = actions.PATCH;
+}
+
+export class PatchSuccess<T> extends EntityAction<T> {
+    protected actionName: string = actions.PATCH_SUCCESS;
+}
+
+export class PatchFail<T> extends EntityAction<T> {
+    protected actionName: string = actions.PATCH_FAIL;
+}
+
 export class Update<T> extends EntityAction<T> {
     protected actionName: string = actions.UPDATE;
 }
 
-export class UpdateEach<T> extends EntityAction<T> {
-    protected actionName: string = actions.UPDATE_EACH;
+export class PatchEach<T> extends EntityAction<T> {
+    protected actionName: string = actions.PATCH_EACH;
 }
 
 export class UpdateSuccess<T> extends EntityAction<T> {
