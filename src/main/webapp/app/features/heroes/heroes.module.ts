@@ -9,9 +9,7 @@ import { TwainService } from '../../shared/twain/twain.service';
 import { WelcomeComponent } from '../../shared/welcome/welcome.component';
 import { UserService } from '../../core/services/user.service';
 import { HeroesPage } from './heroes.page';
-import { CrisisCenterModule } from './crisis-center/crisis-center.module';
 import { HeroModule } from './hero/hero.module';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { HeroEffects } from '../../core/store/hero/hero.effects';
 import { CrisisEffects } from '../../core/store/crisis/crisis.effects';
 import { customHttpProvider } from '../../blocks/interceptor/http.provider';
@@ -19,8 +17,6 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
 @NgModule({
     imports: [
         CommonModule,
-        CrisisCenterModule,
-        DashboardModule,
         EffectsModule.forRoot([CrisisEffects, HeroEffects]),
         FormsModule,
         GreatBigExampleApplicationSharedModule,

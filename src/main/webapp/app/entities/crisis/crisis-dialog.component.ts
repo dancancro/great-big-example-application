@@ -41,24 +41,19 @@ export class CrisisDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.crisis.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.crisisService.update(this.crisis), false);
+                this.crisisService.update(this.crisis));
         } else {
             this.subscribeToSaveResponse(
-                this.crisisService.create(this.crisis), true);
+                this.crisisService.create(this.crisis));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Crisis>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Crisis>) {
         result.subscribe((res: Crisis) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Crisis, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.crisis.created'
-            : 'greatBigExampleApplicationApp.crisis.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Crisis) {
         this.eventManager.broadcast({ name: 'crisisListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

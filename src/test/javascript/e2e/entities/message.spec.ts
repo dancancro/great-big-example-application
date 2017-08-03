@@ -31,7 +31,7 @@ describe('Message e2e test', () => {
         });
     });
 
-    it('should load create Message dialog', function () {
+    it('should load create Message dialog', () => {
         element(by.css('button.create-message')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.message.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Message e2e test', () => {
         });
     });
 
-    afterAll(function () {
+    afterAll(() => {
         accountMenu.click();
         logout.click();
     });

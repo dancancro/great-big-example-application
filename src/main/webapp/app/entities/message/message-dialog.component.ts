@@ -41,24 +41,19 @@ export class MessageDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.message.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.messageService.update(this.message), false);
+                this.messageService.update(this.message));
         } else {
             this.subscribeToSaveResponse(
-                this.messageService.create(this.message), true);
+                this.messageService.create(this.message));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Message>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Message>) {
         result.subscribe((res: Message) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Message, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.message.created'
-            : 'greatBigExampleApplicationApp.message.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Message) {
         this.eventManager.broadcast({ name: 'messageListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

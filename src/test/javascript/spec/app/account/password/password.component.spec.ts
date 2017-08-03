@@ -8,7 +8,6 @@ import { AccountService } from '../../../../../../main/webapp/app/shared/auth/ac
 import { JhiTrackerService } from '../../../../../../main/webapp/app/shared/tracker/tracker.service';
 import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
-
 describe('Component Tests', () => {
 
     describe('PasswordComponent', () => {

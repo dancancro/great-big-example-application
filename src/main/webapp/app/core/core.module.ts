@@ -13,7 +13,7 @@ import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
 import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
 import { Http } from '@angular/http';
 
-import { NgaModule } from '../theme/nga.module';
+import { NgaModule } from '../shared/nga.module';
 
 /**
  * Import ngrx

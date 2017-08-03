@@ -76,24 +76,19 @@ export class EntryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.entryService.update(this.entry), false);
+                this.entryService.update(this.entry));
         } else {
             this.subscribeToSaveResponse(
-                this.entryService.create(this.entry), true);
+                this.entryService.create(this.entry));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Entry>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Entry>) {
         result.subscribe((res: Entry) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Entry, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.entry.created'
-            : 'greatBigExampleApplicationApp.entry.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Entry) {
         this.eventManager.broadcast({ name: 'entryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

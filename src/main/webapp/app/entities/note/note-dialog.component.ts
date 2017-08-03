@@ -41,24 +41,19 @@ export class NoteDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.note.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.noteService.update(this.note), false);
+                this.noteService.update(this.note));
         } else {
             this.subscribeToSaveResponse(
-                this.noteService.create(this.note), true);
+                this.noteService.create(this.note));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Note>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Note>) {
         result.subscribe((res: Note) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Note, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.note.created'
-            : 'greatBigExampleApplicationApp.note.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Note) {
         this.eventManager.broadcast({ name: 'noteListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

@@ -48,24 +48,19 @@ export class TagDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.tag.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.tagService.update(this.tag), false);
+                this.tagService.update(this.tag));
         } else {
             this.subscribeToSaveResponse(
-                this.tagService.create(this.tag), true);
+                this.tagService.create(this.tag));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Tag>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Tag>) {
         result.subscribe((res: Tag) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Tag, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.tag.created'
-            : 'greatBigExampleApplicationApp.tag.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Tag) {
         this.eventManager.broadcast({ name: 'tagListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

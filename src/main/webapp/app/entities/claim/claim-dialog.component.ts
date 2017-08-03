@@ -41,24 +41,19 @@ export class ClaimDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.claim.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.claimService.update(this.claim), false);
+                this.claimService.update(this.claim));
         } else {
             this.subscribeToSaveResponse(
-                this.claimService.create(this.claim), true);
+                this.claimService.create(this.claim));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Claim>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Claim>) {
         result.subscribe((res: Claim) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Claim, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.claim.created'
-            : 'greatBigExampleApplicationApp.claim.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Claim) {
         this.eventManager.broadcast({ name: 'claimListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

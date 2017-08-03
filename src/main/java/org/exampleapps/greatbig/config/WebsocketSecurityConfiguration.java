@@ -12,8 +12,7 @@ public class WebsocketSecurityConfiguration extends AbstractSecurityWebSocketMes
     @Override
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
         messages
-            .nullDestMatcher().authenticated()
-            .simpDestMatchers("/topic/tracker")
+            .nullDestMatcher().authenticated().simpDestMatchers("/topic/tracker")
             .hasAuthority(AuthoritiesConstants.ADMIN).simpDestMatchers("/topic/message")
             .hasAuthority(AuthoritiesConstants.ADMIN)
             // matches any destination that starts with /topic/

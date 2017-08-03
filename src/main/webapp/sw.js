@@ -1,5 +1,5 @@
-var dataCacheName = '"GreatBigExampleApplication-v1';
-var cacheName = '"GreatBigExampleApplication-1';
+var dataCacheName = 'GreatBigExampleApplication-v1';
+var cacheName = 'GreatBigExampleApplication-1';
 var filesToCache = [
     '/',
     '/index.html'

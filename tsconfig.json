@@ -20,7 +20,10 @@
     },
     "include": [
         "src/main/webapp/app",
-        "src/test/javascript",
+        "src/test/javascript/",
         "typings.d.ts"
+    ],
+    "exclude": [
+        "src/main/webapp/app/app.main-aot.ts"
     ]
 }

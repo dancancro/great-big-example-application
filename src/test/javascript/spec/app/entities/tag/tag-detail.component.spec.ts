@@ -1,3 +1,4 @@
+/* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -42,7 +43,6 @@ describe('Component Tests', () => {
             service = fixture.debugElement.injector.get(TagService);
         });
 
-
         describe('OnInit', () => {
             it('Should call load all on init', () => {
             // GIVEN
@@ -54,7 +54,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.tag).toEqual(jasmine.objectContaining({id:10}));
+            expect(comp.tag).toEqual(jasmine.objectContaining({id: 10}));
             });
         });
     });

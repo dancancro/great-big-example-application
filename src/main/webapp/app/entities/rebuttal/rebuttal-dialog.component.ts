@@ -41,24 +41,19 @@ export class RebuttalDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.rebuttal.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.rebuttalService.update(this.rebuttal), false);
+                this.rebuttalService.update(this.rebuttal));
         } else {
             this.subscribeToSaveResponse(
-                this.rebuttalService.create(this.rebuttal), true);
+                this.rebuttalService.create(this.rebuttal));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Rebuttal>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Rebuttal>) {
         result.subscribe((res: Rebuttal) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Rebuttal, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.rebuttal.created'
-            : 'greatBigExampleApplicationApp.rebuttal.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Rebuttal) {
         this.eventManager.broadcast({ name: 'rebuttalListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

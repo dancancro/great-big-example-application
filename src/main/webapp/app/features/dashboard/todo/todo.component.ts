@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaThemeConfigProvider } from '../../../theme';
+import { BaThemeConfigProvider } from '../../../shared/theme';
 
 import { TodoService } from './todo.service';
 

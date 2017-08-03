@@ -1,6 +1,6 @@
 {
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "project": {
-        "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
         "name": "great-big-example-application"
     },
     "apps": [
@@ -17,18 +17,16 @@
             "main": "app/app.main.ts",
             "polyfills": "app/polyfills.ts",
             "test": "",
-            "tsconfig": "./tsconfig.json",
+            "tsconfig": "../../../tsconfig.json",
             "prefix": "jhi",
             "mobile": false,
             "styles": [
-                "content/css/vendor.scss",
-                "content/css/global.scss"
+                "content/scss/vendor.scss",
+                "content/scss/global.scss"
             ],
             "scripts": []
         }
     ],
-    "addons": [],
-    "packages": [],
     "e2e": {
         "protractor": {
             "config": "src/test/javascript/protractor.conf.js"
@@ -50,9 +48,9 @@
     "defaults": {
         "styleExt": "scss",
         "prefixInterfaces": false,
-        "inline": {
-            "style": true,
-            "template": false
+        "component": {
+            "inlineStyle": true,
+            "inlineTemplate": false
         },
         "spec": {
             "component": false,

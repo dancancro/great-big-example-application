@@ -12,13 +12,12 @@ The main goal of this project is to make available source code for a state-of-th
 the likes of which only exist as intellectual property visible exclusively to employed experts who have 
 signed non-disclosure agreements and can't let you see it or learn how they made everything work together.
 
-    You should not have to get hired before learning how to do a thing the right way
+    You should not have to get hired before learning how professionals do a thing
 
-The other goal is to assemble enough functionality into one free example application that people 
+The other goal is to assemble enough functionality into one excellent, free example application that people 
 think twice before starting another one-feature, no edge-case, example and exacerbating the already 
 overwhelming starting point option overload. Hopefully this will persuade a few people to direct
-that energy instead into improving what already exists and creating new marketplace modules that
-just work with it. To this end I have made, over the course of the past 4 years, 
+that energy instead into improving what already exists. To this end I have made, over the course of the past 4 years, 
 [the world's biggest, most detailed database of web technology selling points](https://docs.google.com/spreadsheets/d/1nMv8TqUx3gUoC3M6BRPB4E4FMTSYGT_OLERguXGjePc/edit#gid=1404564369)
 so things could be compared easily in broad daylight without the hype and selective disclosure of
 a typical product/project sales page. Use it to determine what's best. Then help make it better. See 
@@ -29,18 +28,31 @@ See the project's [to do list](https://github.com/dancancro/great-big-example-ap
 
 # But why one great big app?
 
-"There are already lots of little example apps!!" (written in all different styles) 
-"Software development is _always_ taught using lots of inconsistent simple examples!!"
-"Every real app is different" (so teaching with none of them is better than with any?)
-"Approaches are a matter of personal preference and shouldn't be imposed" (on beginners who just
-want to make something that totally works, don't want to waste time learning the wrong way to do things,
-and don't have any preferences yet)
+"There are already lots of little example apps" (written in all different styles). 
+
+"Software development has _always_ been taught using lots of inconsistent simple examples". 
+
+"Every real app is different" (so teaching with none of them is better than with any?) 
+
+"Big (real) artifacts of the craft are too complex and overwhelming for students of web development" 
+(but not for students of every other line of work under the sun?) 
+
+"Approaches are a matter of personal preference and shouldn't be imposed" (on beginners who just want 
+to make something that totally works, don't want to waste time learning an approach that the pros don't 
+use, and don't have any preferences yet). 
+
+"If _all_ you want to do is be a code monkey then sure, study real examples, but _real_ computer 
+scientists are above that and only engage in abstract thought (and exposure to real world code in its 
+entirety is somehow a detriment to learning abstract concepts?)"
+
+"Demo/blog creators don't have time to provide the material of lessons in the context of a finished product 
+(like what they have readily at hand because they do this every day for a living)
 
 "Bloated!!"
 
 There's a strange resistance to using big examples as the _primary_ instrument of web development
-education or even at all. Would you teach automechanics using go-karts? Home construction using just windows? 
-I don't really understand the resistance. The case seems pretty plain to me but for clarity, here are 
+education or even at all. Would you teach automotive engineering using go-karts? Home construction using just windows? 
+I don't understand the resistance, not even a little. The case seems pretty plain to me but for clarity, here are 
 some reasons why I think web development should be taught using big examples:
 
     1. Real code answers every question, not just what the authors of tutorials choose to answer through
@@ -48,7 +60,7 @@ some reasons why I think web development should be taught using big examples:
     
     2. To make something new as an expert would do it, it's much easier to copy and modify a thing
     made by experts, no matter how complex, than to synthesize the missing details removed for the 
-    sake of simplicity, out of nothing, no matter how simple. To do the latter requires full 
+    sake of "simplicity", out of nothing, no matter how simple. To do the latter requires full 
     comprehension of a menagerie of inconsistent learning materials in inconsistent contexts, all but
     one of which approaches you will ultimately reject. I did that to make this; it's not fun. To do 
     the former you copy, find/replace, modify, and compare what you're making with what works until 
@@ -457,6 +469,7 @@ In-memory server-side database|[X.](http:// "H2")|[X.](http:// "Redis")| | | |
 [Production build, generate docs (?)](https://github.com/yeoman/yeoman/issues/152 "By reading comments in your code or maintaining separate docs:  https://github.com/millermedeiros/mdoc    examples:  ngDoc  YUIdoc")| |[X.](http://typedoc.org/ "typedoc")|[X.](http://typedoc.org/ "typedoc")| | |
 [Production build, safe pre-minification (?)](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "uses grunt-ngmin or ng-annotate or gulp ng-gulp-annotate.so you don't have to use the Angular injection syntax for safe minification (i.e. you dont need $inject or (\['$scope','$http',....    ngmin does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.      ng-annotate is an improvement/alternative to ng-min.  ng-min is deprecated    ng-annotate no longer requires that the following comment be written before each service declaration:    /**   * @ngInject   */")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular, ng-annotate")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")|[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")| |[X.](https://medium.com/@MikeRyan52/angular-2-first-app-post-mortem-b2b2b3618828#.xik5mk7bd "Angular")|
 [Renders markup on the server (universal) (?)](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap-and-universal "With a single-page app, the final markup used by browser to display what a user sees is produced on the client side by javascript that runs on the client-side.  Server-side rendering does this on the server-side and sends the output to the client browser which renders it without running any javascript.")| | | | |[UNIQUE](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap-and-universal)|
+[Save generator project settings for automated re-run](http://yeoman.io/authoring/storage.html "")|[UNIQUE.](http://yeoman.io/authoring/storage.html "Yeoman")| | | | |
 [Separate route configuration files for each module](https://medium.com/@iDuuck/more-structured-organisation-of-routes-in-angular-js-a348c31c2063 "")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/blob/master/src/main/webapp/app/features/bernie/bernie.routing.ts)| | | | |
 [Separation of smart containers and dumb components (?)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "Such components typically do the following things: subscribe to data, fetch data from those subscriptions, and fetch global client-side state from stores.  Ideally, once a smart component has assembled such a set of data, it passes it off to a reusable component child to render with. Smart components usually don’t render anything apart from one or more reusable children. This makes it easy to separate rendering and data loading in your tests.")|[UNIQUE](https://github.com/dancancro/great-big-example-application/blob/master/src/main/webapp/app/features/bernie/bernie.page.ts)| | | | |
 [Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")|[X.](http:// "Mocha, JUnit, Mockito")|[X.](http:// "Mocha")| |[X.](http:// "Mocha")| |

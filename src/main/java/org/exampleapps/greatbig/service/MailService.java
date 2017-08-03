@@ -23,7 +23,6 @@ import java.util.Locale;
  * Service for sending emails.
  * <p>
  * We use the @Async annotation to send emails asynchronously.
- * </p>
  */
 @Service
 public class MailService {

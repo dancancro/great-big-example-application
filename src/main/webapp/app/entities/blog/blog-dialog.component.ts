@@ -48,24 +48,19 @@ export class BlogDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.blog.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.blogService.update(this.blog), false);
+                this.blogService.update(this.blog));
         } else {
             this.subscribeToSaveResponse(
-                this.blogService.create(this.blog), true);
+                this.blogService.create(this.blog));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Blog>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Blog>) {
         result.subscribe((res: Blog) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Blog, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.blog.created'
-            : 'greatBigExampleApplicationApp.blog.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Blog) {
         this.eventManager.broadcast({ name: 'blogListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

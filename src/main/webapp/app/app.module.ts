@@ -1,4 +1,4 @@
-import './vendor.ts';
+import './vendor';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +12,7 @@ import { GreatBigExampleApplicationAccountModule } from './account/account.modul
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
@@ -102,7 +102,6 @@ const imports = [
      */
     StoreRouterConnectingModule,
 
-
     /**
      * Store devtools instrument the store retaining past versions of state
      * and recalculating new states. This enables powerful time-travel
@@ -151,7 +150,7 @@ const imports = [
     providers: [
         AppConfig,
         ProfileService,
-        // customHttpProvider(),
+        customHttpProvider(),
         PaginationConfig,
         UserRouteAccessService
     ],

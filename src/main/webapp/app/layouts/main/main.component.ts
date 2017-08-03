@@ -5,9 +5,9 @@ import { JhiLanguageHelper, StateStorageService } from '../../shared';
 import * as $ from 'jquery';
 
 // import { GlobalState } from './global.state';
-import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from '../../theme/services';
-import { BaThemeConfig } from '../../theme/theme.config';
-import { layoutPaths } from '../../theme/theme.constants';
+import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from '../../shared/services';
+import { BaThemeConfig } from '../../shared/theme/theme.config';
+import { layoutPaths } from '../../shared/theme/theme.constants';
 
 @Component({
     selector: 'jhi-main',

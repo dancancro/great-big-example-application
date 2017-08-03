@@ -31,7 +31,7 @@ describe('Entry e2e test', () => {
         });
     });
 
-    it('should load create Entry dialog', function () {
+    it('should load create Entry dialog', () => {
         element(by.css('button.create-entry')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.entry.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Entry e2e test', () => {
         });
     });
 
-    afterAll(function () {
+    afterAll(() => {
         accountMenu.click();
         logout.click();
     });
