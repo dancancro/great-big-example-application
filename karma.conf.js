@@ -66,7 +66,7 @@ module.exports = (config) => {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
         // Ensure all browsers can run tests written in .ts files
         mime: {
