@@ -1,0 +1,44 @@
+@import '../../../content/scss/conf/conf';
+
+:host {
+  min-height: 80vh;
+
+  .c2c-logo {
+    display: block;
+    height: 150px;
+    margin: 5px auto 40px;
+    width: 150px;
+  }
+
+  .title {
+    color: $pure-gray;
+    font-family: CheddarJack;
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .author {
+    margin: 0 auto;
+    margin-top: 70px;
+    width: 50%;
+    @media (max-width: $mobile-break-point) {
+      width: 70%;
+    }
+    @media (max-width: 450px) {
+      width: 90%;
+    }
+
+    c2c-image-cover {
+      border-radius: 50%;
+      height: 100px;
+      margin: 0 auto;
+      overflow: hidden;
+      width: 100px;
+    }
+
+    .author-bio {
+      line-height: 1.5;
+      margin: 80px 0 50px;
+    }
+  }
+}

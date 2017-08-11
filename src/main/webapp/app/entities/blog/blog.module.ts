@@ -25,7 +25,7 @@ const ENTITY_STATES = [
     imports: [
         GreatBigExampleApplicationSharedModule,
         GreatBigExampleApplicationAdminModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
         BlogComponent,
@@ -48,4 +48,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationBlogModule {}
+export class GreatBigExampleApplicationBlogModule { }

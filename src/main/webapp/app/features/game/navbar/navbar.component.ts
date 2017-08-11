@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'jhi-navbar',
+    selector: 'gam-navbar',
     templateUrl: 'navbar.component.html',
     styleUrls: ['navbar.component.css']
 })

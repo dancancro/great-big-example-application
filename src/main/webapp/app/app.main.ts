@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { ProdConfig } from './blocks/config/prod.config';
+import { ProdConfig } from './core/config/prod.config';
 import { GreatBigExampleApplicationAppModule } from './app.module';
 
 ProdConfig();

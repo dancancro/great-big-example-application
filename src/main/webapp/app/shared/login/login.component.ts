@@ -9,13 +9,7 @@ import { SocialService } from '../social/social.service';
 
 @Component({
     selector: 'jhi-login-modal',
-    templateUrl: './login.component.html',
-    styles: [`
-    :host {
-      background-color: grey;
-    }
-    `
-    ]
+    templateUrl: './login.component.html'
 })
 export class JhiLoginModalComponent implements AfterViewInit {
     authenticationError: boolean;

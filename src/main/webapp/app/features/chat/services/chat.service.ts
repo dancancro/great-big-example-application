@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable, Observer, Subscription } from 'rxjs/Rx';
-import SockJS = require('sockjs-client');
-import Stomp = require('webstomp-client');
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'webstomp-client';
 import { Store } from '@ngrx/store';
 
 import { CSRFService } from '../../../shared/auth/csrf.service';
@@ -11,6 +11,8 @@ import { AuthServerProvider } from '../../../shared/auth/auth-jwt.service';
 import { Message } from '../../../core/store/message/message.model';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
 import { slices } from '../../../core/store/util';
+
+let document: any;
 
 @Injectable()
 export class ChatService {
@@ -26,8 +28,7 @@ export class ChatService {
     constructor(
         private router: Router,
         private authServerProvider: AuthServerProvider,
-        private $document: Document,
-        private $window: Window,
+        // private $window: Window,
         private csrfService: CSRFService,
         private store: Store<Message>
     ) {
@@ -40,7 +41,8 @@ export class ChatService {
             this.connection = this.createConnection();
         }
         // building absolute path so that websocket doesnt fail when deploying with a context path
-        const loc = this.$window.location;
+        // const loc = this.$window.location;
+        const loc = window.location;
         let url = '//' + loc.host + loc.pathname + 'websocket/chat';
         const authToken = this.authServerProvider.getToken();
         if (authToken) {

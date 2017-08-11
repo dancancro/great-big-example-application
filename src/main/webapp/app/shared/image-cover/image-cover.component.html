@@ -1,0 +1,5 @@
+<div class="loading" [style.opacity]="!imgLoad && !imgError ? 1 : 0" [ngClass]="{'fade-in': fadeIn}">
+  <c2c-loading *ngIf="!imgLoad && !imgError"></c2c-loading>
+</div>
+<img *ngIf="src" (load)="imgLoad = true" (error)="imgError = true" [ngClass]="{'error': imgError}" [src]="src" [attr.alt]="alt ? alt : ''" />
+<ng-content></ng-content>

@@ -12,7 +12,7 @@ import { HeroesPage } from './heroes.page';
 import { HeroModule } from './hero/hero.module';
 import { HeroEffects } from '../../core/store/hero/hero.effects';
 import { CrisisEffects } from '../../core/store/crisis/crisis.effects';
-import { customHttpProvider } from '../../blocks/interceptor/http.provider';
+import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [

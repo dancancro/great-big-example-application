@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  height: 1em;
+  line-height: 1;
+  width: 1em;
+
+  svg {
+    fill: inherit;
+    height: 100%;
+    width: 100%;
+  }
+}

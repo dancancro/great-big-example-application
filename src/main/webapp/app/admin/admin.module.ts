@@ -35,7 +35,7 @@ import {
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedModule,
-        RouterModule.forRoot(adminState, { useHash: true }),
+        RouterModule.forChild(adminState),
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
@@ -74,4 +74,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationAdminModule {}
+export class GreatBigExampleApplicationAdminModule { }

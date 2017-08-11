@@ -1,0 +1,26 @@
+<div class="content" [style.max-height]="map === 'mobile' && map === 'mobile' && !drawerOpen ? '78px' : null">
+  <ng-template ngFor let-item [ngForOf]="filterItems | remap:map">
+    <div class="left" [ngClass]="{search: item.type === 'search'}">
+      <c2c-select *ngIf="item.type === 'select'" (update)="onSelectUpdate(item.name, $event)" [category]="item.name" [options]="item.options"
+        class="left item" [tabindex]="map === 'mobile' && !drawerOpen ? -1 : null" [ariaHidden]="map === 'mobile' && !drawerOpen"
+        [label]="'Filter by ' + item.name"></c2c-select>
+      <c2c-input *ngIf="item.type === 'search'" (update)="filterValues['search'] = $event; onUpdate()" special="search" label="Search recipes"
+        class="item"></c2c-input>
+      <meals-button-clear label="toggle additional search options" class="toggle" *ngIf="item.type === 'search'" (click)="onDrawerToggle()">
+        <c2c-icon-nav></c2c-icon-nav>
+      </meals-button-clear>
+    </div>
+  </ng-template>
+  <a class="right item" aria-label="Instagram social media external link" href="https://www.instagram.com/cleantothecore/"
+    target="_blank" [tabindex]="map === 'mobile' && !drawerOpen ? -1 : null" [attr.aria-hidden]="map === 'mobile' && !drawerOpen">
+    <c2c-icon-instagram></c2c-icon-instagram>
+  </a>
+  <a class="right item" aria-label="Facebook social media external link" href="https://www.facebook.com/Clean-to-the-Core-456459467870666/"
+    target="_blank" [tabindex]="map === 'mobile' && !drawerOpen ? -1 : null" [attr.aria-hidden]="map === 'mobile' && !drawerOpen">
+    <c2c-icon-facebook></c2c-icon-facebook>
+  </a>
+  <a class="right item" aria-label="Pinterest social media external link" href="https://www.pinterest.com/janesmith0711/" target="_blank"
+    [tabindex]="map === 'mobile' && !drawerOpen ? -1 : null" [attr.aria-hidden]="map === 'mobile' && !drawerOpen">
+    <c2c-icon-pinterest></c2c-icon-pinterest>
+  </a>
+</div>

@@ -15,7 +15,7 @@ import { BernieRouting } from './bernie.routing';
 import { ClaimEffects } from '../../core/store/claim/claim.effects';
 import { RebuttalEffects } from '../../core/store/rebuttal/rebuttal.effects';
 import { ClaimRebuttalEffects } from '../../core/store/claim-rebuttal/claim-rebuttal.effects';
-import { customHttpProvider } from '../../blocks/interceptor/http.provider';
+import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [

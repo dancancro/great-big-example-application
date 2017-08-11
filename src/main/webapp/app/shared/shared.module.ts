@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import {
     AccountService,
@@ -30,11 +31,18 @@ import { ContainerComponent } from './container/container.component';
 import { AwesomePipe } from './awesome/awesome.pipe';
 // import { HighlightDirective } from './highlight/highlight.directive';
 // import { TitleCasePipe } from './title-case/title-case.pipe';
-// import { TwainComponent } from './twain/twain.component';
-// import { TwainService } from './twain/twain.service';
+import { TwainComponent } from './twain/twain.component';
+import { TwainService } from './twain/twain.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 // import { GameComponent } from '../features/game/game.component';
 // import { TimerComponent } from '../features/game/timer/timer.component';
+import { LayoutsModule } from '../layouts/layouts.module';
+// import { StatusBarComponent } from '../layouts/status-bar/status-bar.component';
+import { NavComponent } from '../layouts/nav/nav.component';
+import { SkipNavComponent } from '../layouts/skip-nav/skip-nav.component';
+import { UiModule } from './ui/ui.module';
+import { MealsLayoutComponent } from '../layouts/meals-layout/meals-layout.component';
+import { ImageCoverComponent } from './image-cover/image-cover.component';
 
 export const components = [
     DraggableDirective,
@@ -49,16 +57,23 @@ export const components = [
     AwesomePipe,
     // HighlightDirective,
     // TitleCasePipe,
-    // TwainComponent,
+    TwainComponent,
     WelcomeComponent,
     // GameComponent,
-    // TimerComponent
+    // TimerComponent,
+    NavComponent,
+    SkipNavComponent,
+    // MealsLayoutComponent,
+    ImageCoverComponent
 ];
 
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedLibsModule,
-        GreatBigExampleApplicationSharedCommonModule
+        GreatBigExampleApplicationSharedCommonModule,
+        UiModule,
+        // LayoutsModule,
+        RouterModule
     ],
     declarations: [
         JhiSocialComponent,
@@ -76,16 +91,19 @@ export const components = [
         JhiTrackerService,
         AuthServerProvider,
         SocialService,
-        DatePipe
+        DatePipe,
+        TwainService
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
         // GreatBigExampleApplicationSharedLibsModule,
         GreatBigExampleApplicationSharedCommonModule,
+        UiModule,
         JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
         DatePipe,
+        // LayoutsModule,
         ...components
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

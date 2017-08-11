@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Talk } from "../../core/store/talk/talk.model";
+import { Talk } from '../../core/store/talk/talk.model';
 
 @Component({
     selector: 'jhi-talks',

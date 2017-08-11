@@ -29,7 +29,7 @@ export class TalkEffects {
     navigateToTalk$ = this.handleNavigation('talks/talk/:id', (r: ActivatedRouteSnapshot, state: RootState) => {
         const id = +r.paramMap.get('id');
         if (!state.talk[id]) {
-            return this.dataService.getEntity(+r.paramMap.get('id'), slices.TALK).map(responseEntity => new EntityActions.UpdateSuccess(slices.TALK, responseEntity));
+            return this.dataService.getEntity(+r.paramMap.get('id'), slices.TALK).map((responseEntity) => new EntityActions.UpdateSuccess(slices.TALK, responseEntity));
         } else {
             return of();
         }
@@ -39,7 +39,7 @@ export class TalkEffects {
         switchMap((a: PayloadAction) => {
             return this.dataService.update({ id: a.payload.id, yourRating: a.payload.rating }, slices.TALK)
                 .switchMap(() => of())
-                .catch(e => {
+                .catch((e) => {
                     console.log('Error', e);
                     return of(new EntityActions.PatchFail(slices.TALK, { id: a.payload.talkId, rating: null })
                     );
@@ -58,7 +58,7 @@ export class TalkEffects {
             .map(secondSegment)
             .filter((s) => s.routeConfig.path === segment);
 
-        return nav.withLatestFrom(this.store).switchMap(a => callback(a[0], a[1])).catch(e => {
+        return nav.withLatestFrom(this.store).switchMap((a) => callback(a[0], a[1])).catch((e) => {
             console.log('Network error', e);
             return of();
         });
@@ -77,5 +77,3 @@ function secondSegment(r: RouterNavigationAction) {
 function createFilters(p: Params): Filters {
     return { speaker: p['speaker'] || null, title: p['title'] || null, minRating: p['minRating'] ? +p['minRating'] : 0 };
 }
-
-

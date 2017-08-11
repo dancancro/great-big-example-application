@@ -1,4 +1,6 @@
 import { Observable } from 'rxjs/Observable';
+import { Scheduler } from 'rxjs/Scheduler';
+import { async } from 'rxjs/scheduler/async';
 import { of } from 'rxjs/observable/of';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { empty } from 'rxjs/observable/empty';
@@ -78,10 +80,10 @@ export function loadFromLocal$<T>(actions$: Actions, slice: string, db, localSto
  * @param dataService a service that gets data from a remote source
  * @param dataGetter a method of the service that takes a query string parameter
  */
-export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, debounce: number = 300, scheduler?): Observable<{}> {  // TODO: should return PayloadAction
+export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, debounce = 300, scheduler?): Observable<{}> {  // TODO: should return PayloadAction
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
-        .debounceTime(debounce, scheduler)
+        .debounceTime(debounce, this.scheduler || async)
         .map(toPayload)
         .switchMap((query) => {
             if (query === '') {

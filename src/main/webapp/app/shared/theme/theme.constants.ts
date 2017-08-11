@@ -1,3 +1,4 @@
+/* tslint:disable:no-bitwise */
 export const IMAGES_ROOT = 'content/img/';
 
 export const layoutSizes = {

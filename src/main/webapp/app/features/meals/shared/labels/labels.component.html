@@ -1,0 +1,7 @@
+<ul *ngIf="labels" [attr.aria-label]="label ? label : null">
+  <li *ngFor="let label of labels" class="label-container">
+    <div [style.background]="label.color" class="label-content">
+      <div class="label-text">{{label.name}}</div>
+    </div>
+  </li>
+</ul>

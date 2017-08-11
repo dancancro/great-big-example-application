@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="hipster img-fluid img-rounded"></span>
+    </div>
+    <div class="col-md-9">
+        <h1 class="display-4" jhiTranslate="home.title">Welcome!</h1>
+        <p class="lead" jhiTranslate="home.subtitle">A demonstration of large web application best practices</p>
+
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-success" *ngSwitchCase="true">
+                <span *ngIf="account" jhiTranslate="home.logged.message" translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
+            </div>
+
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+                <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
+                <span jhiTranslate="global.messages.info.authenticated.suffix">, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User
+                    (login="user" and password="user").</span>
+            </div>
+
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+                <a class="alert-link" routerLink="register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+            </div>
+        </div>
+
+        <p>
+            This example was built from the following source demos and guides:
+        </p>
+
+        <ol>
+            <li><a href="https://angular.io/docs/ts/latest/guide/style-guide.html">Angular Style Guide</a> by Google (see
+                <a href="https://angular.io/docs/ts/latest/guide/change-log.html">change log</a> for updates)</li>
+            <li><a href="https://github.com/dancancro/tour-of-heroes-versions">Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)</a>                by Google</li>
+            <li><a href="https://github.com/angular/angular-cli">Angular CLI</a> by Google and the community</li>
+            <li><a href="http://redux.js.org/">Redux Docs</a> Redux.org</li>
+            <li><a href="https://github.com/deepu105/ngtools-sample">JHipster Example - AoT</a> by <a href="https://github.com/deepu105">@deepu105</a></li>
+            <li><a href="https://github.com/ruddell/jhipster-chat-example">JHipster Example - Chat</a> by <a href="https://github.com/ruddell">@ruddell</a></li>
+            <li><a href="https://github.com/akveo/ng2-admin">ng2-admin</a> by <a href="http://akveo.com/">Akveo Team</a></li>
+            <li><a href="https://blog.nrwl.io/using-ngrx-4-to-manage-state-in-angular-applications-64e7a1f84b7b">State management with ngrx4</a>                by <a href="https://github.com/vsavkin">@vsavkin</a></li>
+            <li><a href="https://github.com/mgechev/scalable-architecture-demo">scalable-architecture-demo - P2P Typing Game</a>                by <a href="https://github.com/mgechev">@mgechev</a></li>
+            <li><a href="https://github.com/adriancarriger/clean-to-the-core">clean-to-the-core Recipe finder</a> by <a href="https://github.com/adriancarriger">@adriancarriger</a></li>
+            <li><a href="https://github.com/ngrx/example-app">ngrx example app - book collection</a> by <a href="https://github.com/MikeRyan52">@MikeRyan52</a></li>
+            <li><a href="https://github.com/JavascriptMick/ng2-state-talk">ng2-state-talk - drag/editable notes</a> by
+                <a href="https://github.com/JavascriptMick">@JavascriptMick</a>
+            </li>
+            <li><a href="https://www.npmjs.com/package/rangle-starter">rangle-starter Angular 2 with TypeScript and Redux version - counter</a>                by <a href="https://github.com/SethDavenport">@SethDavenport</a></li>
+            <li><a href="http://www.bernierebuttals.org">Bernie rebuttals - drag-n-drop, editable list</a> by me <a href="https://github.com/dancancro">@dancancro</a>
+        </ol>
+    </div>
+</div>

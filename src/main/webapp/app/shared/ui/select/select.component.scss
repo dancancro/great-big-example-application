@@ -1,0 +1,56 @@
+@import '../../../../content/scss/conf/conf';
+
+:host {
+  color: $white;
+  display: block;
+  fill: $white;
+  height: 2em;
+  outline-color: $white;
+  position: relative;
+  width: 9em;
+
+  select {
+    // sass-lint:disable-all
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    // sass-lint:enable-all
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    font-family: inherit;
+    font-size: 1em;
+    height: 100%;
+    padding: 0 10px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    .default-select {
+      display: none;
+    }
+
+    .hide-option {
+      display: none;
+    }
+
+    &:focus {
+      outline: solid 1px;
+      outline-color: inherit;
+    }
+  }
+
+  c2c-icon-arrow-down {
+    bottom: 0;
+    fill: inherit;
+    height: 1.6em;
+    margin: auto;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    width: 1.6em;
+  }
+}

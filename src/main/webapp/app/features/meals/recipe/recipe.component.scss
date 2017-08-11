@@ -1,0 +1,64 @@
+@import '../../../../content/scss/conf/conf';
+
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 16px;
+  padding: 3%;
+  padding-top: 0;
+}
+
+.recipe-article {
+  padding: 6%;
+  padding-top: 0;
+  width: 100%;
+
+  .recipe-content {
+    line-height: 1.5;
+
+    ul {
+      list-style: none;
+      padding-left: 15px;
+    }
+
+    .title {
+      font-size: 40px;
+      margin: 5px 0;
+    }
+
+    .date,
+    .author {
+      color: $visible-gray;
+    }
+
+    .blurb {
+      margin: 10px 0;
+      margin-top: 25px;
+    }
+
+    c2c-labels {
+      justify-content: flex-start;
+      margin-left: 0;
+    }
+
+    c2c-image-cover {
+      height: 0;
+      margin: 20px 0;
+      padding-bottom: 50%;
+    }
+
+    .recipe-item {
+      .item-title {
+        font-size: 36px;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+    }
+
+    .conclusion {
+      margin-top: 60px;
+    }
+  }
+}

@@ -30,7 +30,7 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li uiSrefActive="active" *ngFor="let feature of features">
-                        <a class="dropdown-item" [routerLink]="'/features/' + feature.link" (click)="collapseNavbar()">
+                        <a class="dropdown-item" [routerLink]="'/' + feature.link" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span [jhiTranslate]="'global.menu.features.'+ feature.id">Feature Name</span>
                         </a>

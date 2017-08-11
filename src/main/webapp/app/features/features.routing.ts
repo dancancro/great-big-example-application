@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FeaturesComponent } from './features.component';
-import { HomePage } from './home/home.page';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { UserRouteAccessService } from '../shared';
@@ -12,7 +11,7 @@ const routes: Routes = [
         path: 'features',
         component: FeaturesComponent,
         children: [
-            { path: '', component: HomePage },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'bernie', loadChildren: './bernie/bernie.module#BernieModule' },
             { path: 'books', loadChildren: './books/books.module#BooksModule' },
             { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },
@@ -44,7 +43,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         DashboardModule,
-        RouterModule.forRoot(routes, { useHash: true })
+        RouterModule.forChild(routes)
     ],
     exports: [RouterModule]
 })

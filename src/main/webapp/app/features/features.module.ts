@@ -9,13 +9,11 @@ import { FeaturesRouting } from './features.routing';
 import { FeaturesService } from './features.service';
 import { CoreModule } from '../core/core.module';
 import { FeaturesComponent } from './features.component';
-import { HomePage } from './home/home.page';
 import { VersionService } from '../shared';
 
 @NgModule({
     declarations: [
-        FeaturesComponent,
-        HomePage,
+        FeaturesComponent
     ],
     imports: [
         // HttpModule,

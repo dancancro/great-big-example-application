@@ -6,79 +6,79 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, 
 import { Crisis } from './crisis.model';
 import { CrisisService } from './crisis.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { PaginationConfig } from '../../core/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-crisis',
-    templateUrl: './crisis.component.html'
+  selector: 'jhi-crisis',
+  templateUrl: './crisis.component.html'
 })
 export class CrisisComponent implements OnInit, OnDestroy {
-crises: Crisis[];
-    currentAccount: any;
-    eventSubscriber: Subscription;
-    currentSearch: string;
+  crises: Crisis[];
+  currentAccount: any;
+  eventSubscriber: Subscription;
+  currentSearch: string;
 
-    constructor(
-        private crisisService: CrisisService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private activatedRoute: ActivatedRoute,
-        private principal: Principal
-    ) {
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-    }
+  constructor(
+    private crisisService: CrisisService,
+    private alertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private activatedRoute: ActivatedRoute,
+    private principal: Principal
+  ) {
+    this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
+  }
 
-    loadAll() {
-        if (this.currentSearch) {
-            this.crisisService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: ResponseWrapper) => this.crises = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
-                );
-            return;
-       }
-        this.crisisService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.crises = res.json;
-                this.currentSearch = '';
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
+  loadAll() {
+    if (this.currentSearch) {
+      this.crisisService.search({
+        query: this.currentSearch,
+      }).subscribe(
+        (res: ResponseWrapper) => this.crises = res.json,
+        (res: ResponseWrapper) => this.onError(res.json)
         );
+      return;
     }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.currentSearch = query;
-        this.loadAll();
-    }
-
-    clear() {
+    this.crisisService.query().subscribe(
+      (res: ResponseWrapper) => {
+        this.crises = res.json;
         this.currentSearch = '';
-        this.loadAll();
-    }
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInCrises();
-    }
+      },
+      (res: ResponseWrapper) => this.onError(res.json)
+    );
+  }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+  search(query) {
+    if (!query) {
+      return this.clear();
     }
+    this.currentSearch = query;
+    this.loadAll();
+  }
 
-    trackId(index: number, item: Crisis) {
-        return item.id;
-    }
-    registerChangeInCrises() {
-        this.eventSubscriber = this.eventManager.subscribe('crisisListModification', (response) => this.loadAll());
-    }
+  clear() {
+    this.currentSearch = '';
+    this.loadAll();
+  }
+  ngOnInit() {
+    this.loadAll();
+    this.principal.identity().then((account) => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInCrises();
+  }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
-    }
+  ngOnDestroy() {
+    this.eventManager.destroy(this.eventSubscriber);
+  }
+
+  trackId(index: number, item: Crisis) {
+    return item.id;
+  }
+  registerChangeInCrises() {
+    this.eventSubscriber = this.eventManager.subscribe('crisisListModification', (response) => this.loadAll());
+  }
+
+  private onError(error) {
+    this.alertService.error(error.message, null, null);
+  }
 }

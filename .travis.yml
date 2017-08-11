@@ -4,7 +4,7 @@ services:
   - docker
 language: node_js
 node_js:
-  - "6.10.3"
+  - "6.11.0"
 jdk:
   - oraclejdk8
 sudo: false
@@ -16,7 +16,7 @@ cache:
     - $HOME/.yarn-cache
 env:
   global:
-    - NODE_VERSION=6.10.3
+    - NODE_VERSION=6.11.0
     - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
     - SPRING_JPA_SHOW_SQL=false
 before_install:
@@ -27,8 +27,17 @@ before_install:
   # Repo for Yarn
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
+  - npm install -g firebase-tools
 install:
   - yarn install
+after_success:
+  # Send coverage data to Codecov
+  - bash <(curl -s https://codecov.io/bash)
+  # Start e2e test via sauce (on hold for now)
+  # - npm run e2e protractor.sauce.conf.js
+  # Deploy to firebase
+  - npm run fireDeployPrep
+  - firebase deploy --token=${FIREBASE_API_TOKEN}
 script:
   - chmod +x mvnw
   - ./mvnw clean test

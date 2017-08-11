@@ -1,12 +1,10 @@
-<jhi-page-ribbon></jhi-page-ribbon>
-<div>
-    <router-outlet name="navbar"></router-outlet>
+<div *ngIf="whichLayout() === 'meals'">
+    <jhi-page-ribbon></jhi-page-ribbon>
+    <c2c-status-bar appStatusBarAware>
+        <c2c-recipe-timer></c2c-recipe-timer>
+    </c2c-status-bar>
+    <c2c-layout></c2c-layout>
 </div>
-<div class="container-fluid">
-    <div class="card jh-card">
-        <router-outlet></router-outlet>
-        <router-outlet name="popup"></router-outlet>
-    </div>
-    <jhi-footer></jhi-footer>
+<div *ngIf="whichLayout() === 'jhipster'">
+    <jhi-standard-layout></jhi-standard-layout>
 </div>
-</main>

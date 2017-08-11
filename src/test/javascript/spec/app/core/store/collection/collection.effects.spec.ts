@@ -47,7 +47,6 @@ describe('CollectionEffects', () => {
         actions$ = TestBed.get(Actions);
     });
 
-
     describe('openDB$', () => {
         it('should call db.open when initially subscribed to', () => {
             effects.openDB$.subscribe();

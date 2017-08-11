@@ -1,0 +1,83 @@
+@import '../../../../../content/scss/conf/conf';
+
+:host {
+  cursor: pointer;
+  display: block;
+  text-align: center;
+
+  c2c-image-cover {
+    height: 0;
+    padding-bottom: 65%;
+  }
+
+  .recipe-title {
+    font-size: 22px;
+    margin: 3px 0;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .allergens {
+    display: flex;
+    flex-wrap: wrap;
+    height: 32px;
+    list-style: none;
+    margin: 4px 0;
+    padding-left: 0;
+
+    .allergen {
+      color: $visible-gray;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      text-align: center;
+      width: 33.33%;
+
+      &::after {
+        background-color: $pure-gray;
+        border-radius: 50%;
+        content: '';
+        height: 5px;
+        position: absolute;
+        right: 0;
+        top: 9px;
+        width: 5px;
+      }
+
+      &:nth-child(3n) {
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .recipe-blurb {
+    color: $visible-gray;
+    display: inline-block;
+    font-size: 13px;
+    margin: 0 auto;
+    max-width: 80%;
+    overflow: hidden;
+    padding: 10px 15px;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .arrow {
+      border-bottom: 5px solid transparent;
+      border-left: 7px solid $pure-gray;
+      border-top: 5px solid transparent;
+      bottom: 0;
+      height: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 0;
+    }
+  }
+}

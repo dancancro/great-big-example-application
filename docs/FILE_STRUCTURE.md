@@ -1,4 +1,3 @@
-```
 .
 ├── LICENSE
 ├── NOTICES.md
@@ -39,6 +38,7 @@
 │   ├── images
 │   │   ├── bernie-app.png
 │   │   ├── bernie-spreadsheet.png
+│   │   ├── calendar.png
 │   │   ├── chat.png
 │   │   ├── collection.png
 │   │   ├── contacts.png
@@ -49,8 +49,11 @@
 │   │   ├── heroes_dashboard.png
 │   │   ├── heroes_list.png
 │   │   ├── home.png
+│   │   ├── meals.png
 │   │   ├── messages.png
-│   │   └── notes.png
+│   │   ├── notes.png
+│   │   ├── talks.png
+│   │   └── todos.png
 │   ├── package.json
 │   ├── plugins
 │   │   └── paginator.coffee
@@ -58,13 +61,50 @@
 │       ├── article.jade
 │       ├── index.jade
 │       └── layout.jade
+├── e2e
+│   ├── account
+│   │   └── account.spec.ts
+│   ├── admin
+│   │   └── administration.spec.ts
+│   └── entities
+│       ├── blog.spec.ts
+│       ├── claim-rebuttal.spec.ts
+│       ├── claim.spec.ts
+│       ├── contact.spec.ts
+│       ├── crisis.spec.ts
+│       ├── entry.spec.ts
+│       ├── hero.spec.ts
+│       ├── message.spec.ts
+│       ├── note.spec.ts
+│       ├── rebuttal.spec.ts
+│       └── tag.spec.ts
+├── etc
+├── firebase.json
+├── karma.conf.js
 ├── mvnw
 ├── mvnw.cmd
-├── npm-debug.log
+├── node
+│   ├── node
+│   └── yarn
+│       └── dist
+│           ├── LICENSE
+│           ├── bin
+│           │   ├── yarn
+│           │   ├── yarn.cmd
+│           │   ├── yarn.js
+│           │   ├── yarnpkg
+│           │   └── yarnpkg.cmd
+│           ├── lib
+│           │   ├── v8-compile-cache.js
+│           │   └── yarn-cli.js
+│           └── package.json
 ├── package.json
 ├── pom.xml
 ├── postcss.config.js
+├── protractor.conf.js
+├── protractor.sauce.conf.js
 ├── proxy.conf.json
+├── sass-lint.yml
 ├── schema.jdl
 ├── src
 │   ├── main
@@ -125,6 +165,7 @@
 │   │   │               │   ├── Rebuttal.java
 │   │   │               │   ├── SocialUserConnection.java
 │   │   │               │   ├── Tag.java
+│   │   │               │   ├── Talk.java
 │   │   │               │   ├── User.java
 │   │   │               │   └── package-info.java
 │   │   │               ├── repository
@@ -145,6 +186,7 @@
 │   │   │               │   ├── RebuttalRepository.java
 │   │   │               │   ├── SocialUserConnectionRepository.java
 │   │   │               │   ├── TagRepository.java
+│   │   │               │   ├── TalkRepository.java
 │   │   │               │   ├── UserRepository.java
 │   │   │               │   ├── package-info.java
 │   │   │               │   └── search
@@ -159,6 +201,7 @@
 │   │   │               │       ├── NoteSearchRepository.java
 │   │   │               │       ├── RebuttalSearchRepository.java
 │   │   │               │       ├── TagSearchRepository.java
+│   │   │               │       ├── TalkSearchRepository.java
 │   │   │               │       ├── UserSearchRepository.java
 │   │   │               │       └── package-info.java
 │   │   │               ├── security
@@ -207,6 +250,7 @@
 │   │   │                   │   ├── RebuttalResource.java
 │   │   │                   │   ├── SocialController.java
 │   │   │                   │   ├── TagResource.java
+│   │   │                   │   ├── TalkResource.java
 │   │   │                   │   ├── UserJWTController.java
 │   │   │                   │   ├── UserResource.java
 │   │   │                   │   ├── errors
@@ -259,7 +303,8 @@
 │   │   │   │       │   ├── 20170501195014_added_entity_constraints_Entry.xml
 │   │   │   │       │   ├── 20170501195015_added_entity_Tag.xml
 │   │   │   │       │   ├── 20170501195016_load_data_Seed.xml
-│   │   │   │       │   └── 20170517190733_added_entity_Message.xml
+│   │   │   │       │   ├── 20170517190733_added_entity_Message.xml
+│   │   │   │       │   └── 20170725052218_added_entity_Talk.xml
 │   │   │   │       ├── claim-rebuttal.csv
 │   │   │   │       ├── claim.csv
 │   │   │   │       ├── contact.csv
@@ -268,6 +313,7 @@
 │   │   │   │       ├── master.xml
 │   │   │   │       ├── note.csv
 │   │   │   │       ├── rebuttal.csv
+│   │   │   │       ├── talk.csv
 │   │   │   │       ├── users.csv
 │   │   │   │       └── users_authorities.csv
 │   │   │   ├── i18n
@@ -292,35 +338,42 @@
 │   │       │   │   ├── account.route.ts
 │   │       │   │   ├── activate
 │   │       │   │   │   ├── activate.component.html
+│   │       │   │   │   ├── activate.component.spec.ts
 │   │       │   │   │   ├── activate.component.ts
 │   │       │   │   │   ├── activate.route.ts
 │   │       │   │   │   └── activate.service.ts
 │   │       │   │   ├── index.ts
 │   │       │   │   ├── password
+│   │       │   │   │   ├── password-strength-bar.component.spec.ts
 │   │       │   │   │   ├── password-strength-bar.component.ts
 │   │       │   │   │   ├── password-strength-bar.scss
 │   │       │   │   │   ├── password.component.html
+│   │       │   │   │   ├── password.component.spec.ts
 │   │       │   │   │   ├── password.component.ts
 │   │       │   │   │   ├── password.route.ts
 │   │       │   │   │   └── password.service.ts
 │   │       │   │   ├── password-reset
 │   │       │   │   │   ├── finish
 │   │       │   │   │   │   ├── password-reset-finish.component.html
+│   │       │   │   │   │   ├── password-reset-finish.component.spec.ts
 │   │       │   │   │   │   ├── password-reset-finish.component.ts
 │   │       │   │   │   │   ├── password-reset-finish.route.ts
 │   │       │   │   │   │   └── password-reset-finish.service.ts
 │   │       │   │   │   └── init
 │   │       │   │   │       ├── password-reset-init.component.html
+│   │       │   │   │       ├── password-reset-init.component.spec.ts
 │   │       │   │   │       ├── password-reset-init.component.ts
 │   │       │   │   │       ├── password-reset-init.route.ts
 │   │       │   │   │       └── password-reset-init.service.ts
 │   │       │   │   ├── register
 │   │       │   │   │   ├── register.component.html
+│   │       │   │   │   ├── register.component.spec.ts
 │   │       │   │   │   ├── register.component.ts
 │   │       │   │   │   ├── register.route.ts
 │   │       │   │   │   └── register.service.ts
 │   │       │   │   ├── settings
 │   │       │   │   │   ├── settings.component.html
+│   │       │   │   │   ├── settings.component.spec.ts
 │   │       │   │   │   ├── settings.component.ts
 │   │       │   │   │   └── settings.route.ts
 │   │       │   │   └── social
@@ -335,6 +388,7 @@
 │   │       │   │   │   ├── audit-data.model.ts
 │   │       │   │   │   ├── audit.model.ts
 │   │       │   │   │   ├── audits.component.html
+│   │       │   │   │   ├── audits.component.spec.ts
 │   │       │   │   │   ├── audits.component.ts
 │   │       │   │   │   ├── audits.route.ts
 │   │       │   │   │   └── audits.service.ts
@@ -351,6 +405,7 @@
 │   │       │   │   │   ├── health-modal.component.html
 │   │       │   │   │   ├── health-modal.component.ts
 │   │       │   │   │   ├── health.component.html
+│   │       │   │   │   ├── health.component.spec.ts
 │   │       │   │   │   ├── health.component.ts
 │   │       │   │   │   ├── health.route.ts
 │   │       │   │   │   └── health.service.ts
@@ -387,19 +442,16 @@
 │   │       │   ├── app.constants.ts
 │   │       │   ├── app.main.ts
 │   │       │   ├── app.module.ts
-│   │       │   ├── app.route.ts
+│   │       │   ├── app.routing.ts
 │   │       │   ├── app.service.ts
-│   │       │   ├── blocks
-│   │       │   │   ├── config
-│   │       │   │   │   ├── prod.config.ts
-│   │       │   │   │   └── uib-pagination.config.ts
-│   │       │   │   └── interceptor
-│   │       │   │       ├── auth-expired.interceptor.ts
-│   │       │   │       ├── auth.interceptor.ts
-│   │       │   │       ├── errorhandler.interceptor.ts
-│   │       │   │       ├── http.provider.ts
-│   │       │   │       └── notification.interceptor.ts
 │   │       │   ├── core
+│   │       │   │   ├── api
+│   │       │   │   │   ├── api-interfaces.ts
+│   │       │   │   │   ├── api.service.spec.ts
+│   │       │   │   │   ├── api.service.ts
+│   │       │   │   │   ├── mock-api-data.spec.ts
+│   │       │   │   │   ├── mock-api.service.spec.ts
+│   │       │   │   │   └── mock-firebase-cache.service.spec.ts
 │   │       │   │   ├── commands
 │   │       │   │   │   ├── base.command.ts
 │   │       │   │   │   ├── payloads
@@ -407,12 +459,26 @@
 │   │       │   │   │   │   └── json.command.payload.ts
 │   │       │   │   │   ├── restful.command.ts
 │   │       │   │   │   └── rpc.command.ts
+│   │       │   │   ├── config
+│   │       │   │   │   ├── prod.config.ts
+│   │       │   │   │   └── uib-pagination.config.ts
 │   │       │   │   ├── core.module.ts
+│   │       │   │   ├── firebase-config.ts
 │   │       │   │   ├── gateways
 │   │       │   │   │   ├── base.gateway.ts
 │   │       │   │   │   ├── restful.gateway.ts
 │   │       │   │   │   ├── webrtc.gateway.ts
 │   │       │   │   │   └── websocket.gateway.ts
+│   │       │   │   ├── global-events
+│   │       │   │   │   ├── global-events.service.spec.ts
+│   │       │   │   │   ├── global-events.service.ts
+│   │       │   │   │   └── mock-global-events.service.spec.ts
+│   │       │   │   ├── interceptor
+│   │       │   │   │   ├── auth-expired.interceptor.ts
+│   │       │   │   │   ├── auth.interceptor.ts
+│   │       │   │   │   ├── errorhandler.interceptor.ts
+│   │       │   │   │   ├── http.provider.ts
+│   │       │   │   │   └── notification.interceptor.ts
 │   │       │   │   ├── services
 │   │       │   │   │   ├── base.async-service.ts
 │   │       │   │   │   ├── default-request-options.service.ts
@@ -429,7 +495,6 @@
 │   │       │   │       ├── base
 │   │       │   │       │   └── base.facade.ts
 │   │       │   │       ├── book
-│   │       │   │       │   ├── book.effects.spec.ts
 │   │       │   │       │   ├── book.effects.ts
 │   │       │   │       │   ├── book.model.ts
 │   │       │   │       │   └── book.reducer.ts
@@ -443,7 +508,6 @@
 │   │       │   │       │   ├── claim-rebuttal.model.ts
 │   │       │   │       │   └── claim-rebuttal.reducer.ts
 │   │       │   │       ├── collection
-│   │       │   │       │   ├── collection.effects.spec.ts
 │   │       │   │       │   ├── collection.effects.ts
 │   │       │   │       │   └── collection.reducer.ts
 │   │       │   │       ├── contact
@@ -451,7 +515,7 @@
 │   │       │   │       │   ├── contact.model.ts
 │   │       │   │       │   └── contact.reducer.ts
 │   │       │   │       ├── counter
-│   │       │   │       │   ├── counter.actions.test.ts
+│   │       │   │       │   ├── counter.actions.spec.ts
 │   │       │   │       │   ├── counter.effects.ts
 │   │       │   │       │   ├── counter.model.ts
 │   │       │   │       │   └── counter.reducer.ts
@@ -480,6 +544,7 @@
 │   │       │   │       │   └── id.model.ts
 │   │       │   │       ├── index.ts
 │   │       │   │       ├── layout
+│   │       │   │       │   ├── layout.effects.ts
 │   │       │   │       │   ├── layout.model.ts
 │   │       │   │       │   └── layout.reducer.ts
 │   │       │   │       ├── message
@@ -507,6 +572,12 @@
 │   │       │   │       ├── slice
 │   │       │   │       │   ├── slice.actions.ts
 │   │       │   │       │   └── slice.functions.ts
+│   │       │   │       ├── store-and-router-connector.guard.ts
+│   │       │   │       ├── store-router-connecting.module.ts
+│   │       │   │       ├── talk
+│   │       │   │       │   ├── talk.effects.ts
+│   │       │   │       │   ├── talk.model.ts
+│   │       │   │       │   └── talk.reducer.ts
 │   │       │   │       ├── user
 │   │       │   │       │   └── user.model.ts
 │   │       │   │       └── util.ts
@@ -515,6 +586,7 @@
 │   │       │   │   │   ├── blog-delete-dialog.component.html
 │   │       │   │   │   ├── blog-delete-dialog.component.ts
 │   │       │   │   │   ├── blog-detail.component.html
+│   │       │   │   │   ├── blog-detail.component.spec.ts
 │   │       │   │   │   ├── blog-detail.component.ts
 │   │       │   │   │   ├── blog-dialog.component.html
 │   │       │   │   │   ├── blog-dialog.component.ts
@@ -530,6 +602,7 @@
 │   │       │   │   │   ├── claim-delete-dialog.component.html
 │   │       │   │   │   ├── claim-delete-dialog.component.ts
 │   │       │   │   │   ├── claim-detail.component.html
+│   │       │   │   │   ├── claim-detail.component.spec.ts
 │   │       │   │   │   ├── claim-detail.component.ts
 │   │       │   │   │   ├── claim-dialog.component.html
 │   │       │   │   │   ├── claim-dialog.component.ts
@@ -545,6 +618,7 @@
 │   │       │   │   │   ├── claim-rebuttal-delete-dialog.component.html
 │   │       │   │   │   ├── claim-rebuttal-delete-dialog.component.ts
 │   │       │   │   │   ├── claim-rebuttal-detail.component.html
+│   │       │   │   │   ├── claim-rebuttal-detail.component.spec.ts
 │   │       │   │   │   ├── claim-rebuttal-detail.component.ts
 │   │       │   │   │   ├── claim-rebuttal-dialog.component.html
 │   │       │   │   │   ├── claim-rebuttal-dialog.component.ts
@@ -560,6 +634,7 @@
 │   │       │   │   │   ├── contact-delete-dialog.component.html
 │   │       │   │   │   ├── contact-delete-dialog.component.ts
 │   │       │   │   │   ├── contact-detail.component.html
+│   │       │   │   │   ├── contact-detail.component.spec.ts
 │   │       │   │   │   ├── contact-detail.component.ts
 │   │       │   │   │   ├── contact-dialog.component.html
 │   │       │   │   │   ├── contact-dialog.component.ts
@@ -575,6 +650,7 @@
 │   │       │   │   │   ├── crisis-delete-dialog.component.html
 │   │       │   │   │   ├── crisis-delete-dialog.component.ts
 │   │       │   │   │   ├── crisis-detail.component.html
+│   │       │   │   │   ├── crisis-detail.component.spec.ts
 │   │       │   │   │   ├── crisis-detail.component.ts
 │   │       │   │   │   ├── crisis-dialog.component.html
 │   │       │   │   │   ├── crisis-dialog.component.ts
@@ -591,6 +667,7 @@
 │   │       │   │   │   ├── entry-delete-dialog.component.html
 │   │       │   │   │   ├── entry-delete-dialog.component.ts
 │   │       │   │   │   ├── entry-detail.component.html
+│   │       │   │   │   ├── entry-detail.component.spec.ts
 │   │       │   │   │   ├── entry-detail.component.ts
 │   │       │   │   │   ├── entry-dialog.component.html
 │   │       │   │   │   ├── entry-dialog.component.ts
@@ -606,6 +683,7 @@
 │   │       │   │   │   ├── hero-delete-dialog.component.html
 │   │       │   │   │   ├── hero-delete-dialog.component.ts
 │   │       │   │   │   ├── hero-detail.component.html
+│   │       │   │   │   ├── hero-detail.component.spec.ts
 │   │       │   │   │   ├── hero-detail.component.ts
 │   │       │   │   │   ├── hero-dialog.component.html
 │   │       │   │   │   ├── hero-dialog.component.ts
@@ -622,6 +700,7 @@
 │   │       │   │   │   ├── message-delete-dialog.component.html
 │   │       │   │   │   ├── message-delete-dialog.component.ts
 │   │       │   │   │   ├── message-detail.component.html
+│   │       │   │   │   ├── message-detail.component.spec.ts
 │   │       │   │   │   ├── message-detail.component.ts
 │   │       │   │   │   ├── message-dialog.component.html
 │   │       │   │   │   ├── message-dialog.component.ts
@@ -637,6 +716,7 @@
 │   │       │   │   │   ├── note-delete-dialog.component.html
 │   │       │   │   │   ├── note-delete-dialog.component.ts
 │   │       │   │   │   ├── note-detail.component.html
+│   │       │   │   │   ├── note-detail.component.spec.ts
 │   │       │   │   │   ├── note-detail.component.ts
 │   │       │   │   │   ├── note-dialog.component.html
 │   │       │   │   │   ├── note-dialog.component.ts
@@ -652,6 +732,7 @@
 │   │       │   │   │   ├── rebuttal-delete-dialog.component.html
 │   │       │   │   │   ├── rebuttal-delete-dialog.component.ts
 │   │       │   │   │   ├── rebuttal-detail.component.html
+│   │       │   │   │   ├── rebuttal-detail.component.spec.ts
 │   │       │   │   │   ├── rebuttal-detail.component.ts
 │   │       │   │   │   ├── rebuttal-dialog.component.html
 │   │       │   │   │   ├── rebuttal-dialog.component.ts
@@ -662,22 +743,46 @@
 │   │       │   │   │   ├── rebuttal.module.ts
 │   │       │   │   │   ├── rebuttal.route.ts
 │   │       │   │   │   └── rebuttal.service.ts
-│   │       │   │   └── tag
+│   │       │   │   ├── tag
+│   │       │   │   │   ├── index.ts
+│   │       │   │   │   ├── tag-delete-dialog.component.html
+│   │       │   │   │   ├── tag-delete-dialog.component.ts
+│   │       │   │   │   ├── tag-detail.component.html
+│   │       │   │   │   ├── tag-detail.component.spec.ts
+│   │       │   │   │   ├── tag-detail.component.ts
+│   │       │   │   │   ├── tag-dialog.component.html
+│   │       │   │   │   ├── tag-dialog.component.ts
+│   │       │   │   │   ├── tag-popup.service.ts
+│   │       │   │   │   ├── tag.component.html
+│   │       │   │   │   ├── tag.component.ts
+│   │       │   │   │   ├── tag.model.ts
+│   │       │   │   │   ├── tag.module.ts
+│   │       │   │   │   ├── tag.route.ts
+│   │       │   │   │   └── tag.service.ts
+│   │       │   │   └── talk
 │   │       │   │       ├── index.ts
-│   │       │   │       ├── tag-delete-dialog.component.html
-│   │       │   │       ├── tag-delete-dialog.component.ts
-│   │       │   │       ├── tag-detail.component.html
-│   │       │   │       ├── tag-detail.component.ts
-│   │       │   │       ├── tag-dialog.component.html
-│   │       │   │       ├── tag-dialog.component.ts
-│   │       │   │       ├── tag-popup.service.ts
-│   │       │   │       ├── tag.component.html
-│   │       │   │       ├── tag.component.ts
-│   │       │   │       ├── tag.model.ts
-│   │       │   │       ├── tag.module.ts
-│   │       │   │       ├── tag.route.ts
-│   │       │   │       └── tag.service.ts
+│   │       │   │       ├── talk-delete-dialog.component.html
+│   │       │   │       ├── talk-delete-dialog.component.ts
+│   │       │   │       ├── talk-detail.component.html
+│   │       │   │       ├── talk-detail.component.spec.ts
+│   │       │   │       ├── talk-detail.component.ts
+│   │       │   │       ├── talk-dialog.component.html
+│   │       │   │       ├── talk-dialog.component.ts
+│   │       │   │       ├── talk-popup.service.ts
+│   │       │   │       ├── talk.component.html
+│   │       │   │       ├── talk.component.ts
+│   │       │   │       ├── talk.model.ts
+│   │       │   │       ├── talk.module.ts
+│   │       │   │       ├── talk.route.ts
+│   │       │   │       └── talk.service.ts
 │   │       │   ├── features
+│   │       │   │   ├── about
+│   │       │   │   │   ├── about.component.html
+│   │       │   │   │   ├── about.component.scss
+│   │       │   │   │   ├── about.component.spec.ts
+│   │       │   │   │   ├── about.component.ts
+│   │       │   │   │   ├── about.module.ts
+│   │       │   │   │   └── about.routing.ts
 │   │       │   │   ├── bernie
 │   │       │   │   │   ├── README.md
 │   │       │   │   │   ├── bernie.layout.ts
@@ -734,6 +839,7 @@
 │   │       │   │   │   ├── contact.module.ts
 │   │       │   │   │   ├── contact.page.html
 │   │       │   │   │   ├── contact.page.scss
+│   │       │   │   │   ├── contact.page.spec.ts
 │   │       │   │   │   ├── contact.page.ts
 │   │       │   │   │   └── contact.routing.ts
 │   │       │   │   ├── counter
@@ -861,8 +967,8 @@
 │   │       │   │   │   │   ├── crisis-center.page.ts
 │   │       │   │   │   │   ├── crisis-center.routing.ts
 │   │       │   │   │   │   ├── crisis-detail
-│   │       │   │   │   │   │   ├── crisis-detail-resolver.service.ts
-│   │       │   │   │   │   │   └── crisis-detail.component.ts
+│   │       │   │   │   │   │   ├── crisis-detail.component.ts
+│   │       │   │   │   │   │   └── crisis-detail.resolver.ts
 │   │       │   │   │   │   └── crisis-list
 │   │       │   │   │   │       ├── crisis-list.component.scss
 │   │       │   │   │   │       └── crisis-list.component.ts
@@ -905,9 +1011,93 @@
 │   │       │   │   │   ├── heroes.page.ts
 │   │       │   │   │   └── heroes.routing.ts
 │   │       │   │   ├── home
-│   │       │   │   │   ├── home.page.html
-│   │       │   │   │   └── home.page.ts
-│   │       │   │   ├── index.ts
+│   │       │   │   │   ├── home.component.html
+│   │       │   │   │   ├── home.component.ts
+│   │       │   │   │   ├── home.module.ts
+│   │       │   │   │   ├── home.route.ts
+│   │       │   │   │   ├── home.scss
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── legal
+│   │       │   │   │   ├── legal.component.html
+│   │       │   │   │   ├── legal.component.scss
+│   │       │   │   │   ├── legal.component.spec.ts
+│   │       │   │   │   ├── legal.component.ts
+│   │       │   │   │   ├── legal.module.ts
+│   │       │   │   │   └── legal.routing.ts
+│   │       │   │   ├── meals
+│   │       │   │   │   ├── home
+│   │       │   │   │   │   ├── filter
+│   │       │   │   │   │   │   ├── filter-options.ts
+│   │       │   │   │   │   │   ├── filter-utilities.service.spec.ts
+│   │       │   │   │   │   │   ├── filter-utilities.service.ts
+│   │       │   │   │   │   │   ├── filter.component.html
+│   │       │   │   │   │   │   ├── filter.component.scss
+│   │       │   │   │   │   │   ├── filter.component.spec.ts
+│   │       │   │   │   │   │   ├── filter.component.ts
+│   │       │   │   │   │   │   ├── filter.pipe.spec.ts
+│   │       │   │   │   │   │   ├── filter.pipe.ts
+│   │       │   │   │   │   │   ├── remap.pipe.spec.ts
+│   │       │   │   │   │   │   ├── remap.pipe.ts
+│   │       │   │   │   │   │   └── stop-words.ts
+│   │       │   │   │   │   ├── home.component.html
+│   │       │   │   │   │   ├── home.component.scss
+│   │       │   │   │   │   ├── home.component.spec.ts
+│   │       │   │   │   │   ├── home.component.ts
+│   │       │   │   │   │   ├── home.module.ts
+│   │       │   │   │   │   ├── home.routing.ts
+│   │       │   │   │   │   ├── limit-to.pipe.spec.ts
+│   │       │   │   │   │   ├── limit-to.pipe.ts
+│   │       │   │   │   │   ├── recipe-ad
+│   │       │   │   │   │   │   ├── recipe-ad.component.html
+│   │       │   │   │   │   │   ├── recipe-ad.component.scss
+│   │       │   │   │   │   │   ├── recipe-ad.component.spec.ts
+│   │       │   │   │   │   │   └── recipe-ad.component.ts
+│   │       │   │   │   │   └── sticky-scroll
+│   │       │   │   │   │       ├── sticky-scroll.component.html
+│   │       │   │   │   │       ├── sticky-scroll.component.scss
+│   │       │   │   │   │       ├── sticky-scroll.component.spec.ts
+│   │       │   │   │   │       └── sticky-scroll.component.ts
+│   │       │   │   │   ├── meals.module.ts
+│   │       │   │   │   ├── meals.routing.ts
+│   │       │   │   │   ├── recipe
+│   │       │   │   │   │   ├── recipe.component.html
+│   │       │   │   │   │   ├── recipe.component.scss
+│   │       │   │   │   │   ├── recipe.component.spec.ts
+│   │       │   │   │   │   ├── recipe.component.ts
+│   │       │   │   │   │   ├── recipe.module.ts
+│   │       │   │   │   │   ├── recipe.routing.ts
+│   │       │   │   │   │   └── timer-button
+│   │       │   │   │   │       ├── timer-button.component.html
+│   │       │   │   │   │       ├── timer-button.component.scss
+│   │       │   │   │   │       ├── timer-button.component.spec.ts
+│   │       │   │   │   │       └── timer-button.component.ts
+│   │       │   │   │   ├── shared
+│   │       │   │   │   │   ├── ax-focus-fix
+│   │       │   │   │   │   │   ├── ax-focus-fix.directive.spec.ts
+│   │       │   │   │   │   │   └── ax-focus-fix.directive.ts
+│   │       │   │   │   │   ├── button-clear
+│   │       │   │   │   │   │   ├── button-clear.component.html
+│   │       │   │   │   │   │   ├── button-clear.component.scss
+│   │       │   │   │   │   │   ├── button-clear.component.spec.ts
+│   │       │   │   │   │   │   └── button-clear.component.ts
+│   │       │   │   │   │   ├── labels
+│   │       │   │   │   │   │   ├── labels.component.html
+│   │       │   │   │   │   │   ├── labels.component.scss
+│   │       │   │   │   │   │   ├── labels.component.spec.ts
+│   │       │   │   │   │   │   └── labels.component.ts
+│   │       │   │   │   │   ├── shared.module.ts
+│   │       │   │   │   │   └── watch-height
+│   │       │   │   │   │       ├── watch-height.directive.spec.ts
+│   │       │   │   │   │       └── watch-height.directive.ts
+│   │       │   │   │   └── timer
+│   │       │   │   │       ├── mock-push.service.spec.ts
+│   │       │   │   │       ├── mock-timer.service.spec.ts
+│   │       │   │   │       ├── timer.component.html
+│   │       │   │   │       ├── timer.component.scss
+│   │       │   │   │       ├── timer.component.spec.ts
+│   │       │   │   │       ├── timer.component.ts
+│   │       │   │   │       ├── timer.service.spec.ts
+│   │       │   │   │       └── timer.service.ts
 │   │       │   │   ├── messages
 │   │       │   │   │   ├── messages.module.ts
 │   │       │   │   │   ├── messages.page.html
@@ -927,9 +1117,44 @@
 │   │       │   │   │   ├── notes.module.ts
 │   │       │   │   │   ├── notes.page.html
 │   │       │   │   │   ├── notes.page.scss
-│   │       │   │   │   ├── notes.page.spec.ts
 │   │       │   │   │   ├── notes.page.ts
 │   │       │   │   │   └── notes.routing.ts
+│   │       │   │   ├── talks
+│   │       │   │   │   ├── filters
+│   │       │   │   │   │   ├── filters.component.html
+│   │       │   │   │   │   ├── filters.component.scss
+│   │       │   │   │   │   └── filters.component.ts
+│   │       │   │   │   ├── format-rating
+│   │       │   │   │   │   └── format-rating.pipe.ts
+│   │       │   │   │   ├── rate-button
+│   │       │   │   │   │   ├── rate-button.component.html
+│   │       │   │   │   │   └── rate-button.component.ts
+│   │       │   │   │   ├── services
+│   │       │   │   │   │   └── watch.service.ts
+│   │       │   │   │   ├── talk
+│   │       │   │   │   │   ├── talk.component.css
+│   │       │   │   │   │   ├── talk.component.html
+│   │       │   │   │   │   └── talk.component.ts
+│   │       │   │   │   ├── talk-details
+│   │       │   │   │   │   ├── talk-details.component.css
+│   │       │   │   │   │   ├── talk-details.component.html
+│   │       │   │   │   │   └── talk-details.component.ts
+│   │       │   │   │   ├── talks-and-filters
+│   │       │   │   │   │   ├── talks-and-filters.page.css
+│   │       │   │   │   │   ├── talks-and-filters.page.html
+│   │       │   │   │   │   └── talks-and-filters.page.ts
+│   │       │   │   │   ├── talks.component.css
+│   │       │   │   │   ├── talks.component.html
+│   │       │   │   │   ├── talks.component.ts
+│   │       │   │   │   ├── talks.layout.ts
+│   │       │   │   │   ├── talks.module.ts
+│   │       │   │   │   ├── talks.page.html
+│   │       │   │   │   ├── talks.page.scss
+│   │       │   │   │   ├── talks.page.ts
+│   │       │   │   │   ├── talks.routing.ts
+│   │       │   │   │   └── watch-button
+│   │       │   │   │       ├── watch-button.component.html
+│   │       │   │   │       └── watch-button.component.ts
 │   │       │   │   └── wiki
 │   │       │   │       ├── wiki-smart.component.ts
 │   │       │   │       ├── wiki.component.ts
@@ -939,14 +1164,6 @@
 │   │       │   │       ├── wiki.scss
 │   │       │   │       └── wikipedia.service.ts
 │   │       │   ├── global.state.ts
-│   │       │   ├── home
-│   │       │   │   ├── home.component.html
-│   │       │   │   ├── home.component.ts
-│   │       │   │   ├── home.css
-│   │       │   │   ├── home.module.ts
-│   │       │   │   ├── home.route.ts
-│   │       │   │   ├── home.scss
-│   │       │   │   └── index.ts
 │   │       │   ├── layouts
 │   │       │   │   ├── error
 │   │       │   │   │   ├── error.component.html
@@ -954,24 +1171,59 @@
 │   │       │   │   │   └── error.route.ts
 │   │       │   │   ├── footer
 │   │       │   │   │   ├── footer.component.html
+│   │       │   │   │   ├── footer.component.scss
+│   │       │   │   │   ├── footer.component.spec.ts
 │   │       │   │   │   └── footer.component.ts
 │   │       │   │   ├── index.ts
-│   │       │   │   ├── layout-routing.module.ts
+│   │       │   │   ├── layouts.module.ts
 │   │       │   │   ├── main
 │   │       │   │   │   ├── main.component.html
 │   │       │   │   │   └── main.component.ts
+│   │       │   │   ├── meals-layout
+│   │       │   │   │   ├── globalz.scss
+│   │       │   │   │   ├── meals-layout.component.html
+│   │       │   │   │   ├── meals-layout.component.scss
+│   │       │   │   │   ├── meals-layout.component.spec.ts
+│   │       │   │   │   └── meals-layout.component.ts
+│   │       │   │   ├── nav
+│   │       │   │   │   ├── nav.component.html
+│   │       │   │   │   ├── nav.component.scss
+│   │       │   │   │   ├── nav.component.spec.ts
+│   │       │   │   │   └── nav.component.ts
 │   │       │   │   ├── navbar
 │   │       │   │   │   ├── active-menu.directive.ts
 │   │       │   │   │   ├── navbar.component.html
 │   │       │   │   │   ├── navbar.component.ts
 │   │       │   │   │   ├── navbar.css
 │   │       │   │   │   └── navbar.scss
-│   │       │   │   └── profiles
-│   │       │   │       ├── page-ribbon.component.ts
-│   │       │   │       ├── page-ribbon.css
-│   │       │   │       ├── page-ribbon.scss
-│   │       │   │       ├── profile-info.model.ts
-│   │       │   │       └── profile.service.ts
+│   │       │   │   ├── profiles
+│   │       │   │   │   ├── page-ribbon.component.ts
+│   │       │   │   │   ├── page-ribbon.css
+│   │       │   │   │   ├── page-ribbon.scss
+│   │       │   │   │   ├── profile-info.model.ts
+│   │       │   │   │   └── profile.service.ts
+│   │       │   │   ├── skip-nav
+│   │       │   │   │   ├── skip-nav.component.html
+│   │       │   │   │   ├── skip-nav.component.scss
+│   │       │   │   │   ├── skip-nav.component.spec.ts
+│   │       │   │   │   └── skip-nav.component.ts
+│   │       │   │   ├── standard-layout
+│   │       │   │   │   ├── globalz.scss
+│   │       │   │   │   ├── standard-layout.component.html
+│   │       │   │   │   ├── standard-layout.component.scss
+│   │       │   │   │   ├── standard-layout.component.ts
+│   │       │   │   │   └── vendorz.scss
+│   │       │   │   └── status-bar
+│   │       │   │       ├── current-status.interface.ts
+│   │       │   │       ├── mock-status-bar.service.spec.ts
+│   │       │   │       ├── status-bar-aware.directive.spec.ts
+│   │       │   │       ├── status-bar-aware.directive.ts
+│   │       │   │       ├── status-bar.component.html
+│   │       │   │       ├── status-bar.component.scss
+│   │       │   │       ├── status-bar.component.spec.ts
+│   │       │   │       ├── status-bar.component.ts
+│   │       │   │       ├── status-bar.service.spec.ts
+│   │       │   │       └── status-bar.service.ts
 │   │       │   ├── polyfills.ts
 │   │       │   ├── shared
 │   │       │   │   ├── alert
@@ -988,68 +1240,15 @@
 │   │       │   │   │   └── user-route-access-service.ts
 │   │       │   │   ├── awesome
 │   │       │   │   │   └── awesome.pipe.ts
-│   │       │   │   ├── button
-│   │       │   │   │   ├── button.component.spec.ts
-│   │       │   │   │   ├── button.component.ts
-│   │       │   │   │   └── index.ts
-│   │       │   │   ├── can-deactivate
-│   │       │   │   │   └── can-deactivate.guard.ts
-│   │       │   │   ├── constants
-│   │       │   │   │   └── pagination.constants.ts
-│   │       │   │   ├── container
-│   │       │   │   │   ├── container.component.spec.ts
-│   │       │   │   │   └── container.component.ts
-│   │       │   │   ├── dialog
-│   │       │   │   │   └── dialog.service.ts
-│   │       │   │   ├── draggable
-│   │       │   │   │   └── draggable.directive.ts
-│   │       │   │   ├── index.ts
-│   │       │   │   ├── language
-│   │       │   │   │   ├── find-language-from-key.pipe.ts
-│   │       │   │   │   ├── language.constants.ts
-│   │       │   │   │   ├── language.helper.ts
-│   │       │   │   │   └── language.pipe.ts
-│   │       │   │   ├── login
-│   │       │   │   │   ├── login-modal.service.ts
-│   │       │   │   │   ├── login.component.html
-│   │       │   │   │   ├── login.component.ts
-│   │       │   │   │   └── login.service.ts
-│   │       │   │   ├── model
-│   │       │   │   │   ├── base-entity.ts
-│   │       │   │   │   ├── request-util.ts
-│   │       │   │   │   └── response-wrapper.model.ts
-│   │       │   │   ├── selective-preloading-strategy.ts
-│   │       │   │   ├── services
-│   │       │   │   │   ├── version.service.ts
-│   │       │   │   │   └── window.service.ts
-│   │       │   │   ├── shared-common.module.ts
-│   │       │   │   ├── shared-libs.module.ts
-│   │       │   │   ├── shared.module.ts
-│   │       │   │   ├── social
-│   │       │   │   │   ├── social.component.html
-│   │       │   │   │   ├── social.component.ts
-│   │       │   │   │   └── social.service.ts
-│   │       │   │   ├── tracker
-│   │       │   │   │   ├── tracker.service.ts
-│   │       │   │   │   └── window.service.ts
-│   │       │   │   ├── twain
-│   │       │   │   │   ├── twain.component.spec.ts
-│   │       │   │   │   ├── twain.component.ts
-│   │       │   │   │   └── twain.service.ts
-│   │       │   │   ├── user
-│   │       │   │   │   ├── account.model.ts
-│   │       │   │   │   ├── user.model.ts
-│   │       │   │   │   └── user.service.ts
-│   │       │   │   └── welcome
-│   │       │   │       ├── welcome.component.spec.ts
-│   │       │   │       └── welcome.component.ts
-│   │       │   ├── theme
-│   │       │   │   ├── components
+│   │       │   │   ├── ba
 │   │       │   │   │   ├── ba-am-chart
 │   │       │   │   │   │   ├── ba-am-chart-theme.service.ts
 │   │       │   │   │   │   ├── ba-am-chart.component.html
 │   │       │   │   │   │   ├── ba-am-chart.component.scss
 │   │       │   │   │   │   ├── ba-am-chart.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-app-picture
+│   │       │   │   │   │   ├── ba-app-picture.pipe.ts
 │   │       │   │   │   │   └── index.ts
 │   │       │   │   │   ├── ba-back-top
 │   │       │   │   │   │   ├── ba-back-top.component.scss
@@ -1076,14 +1275,12 @@
 │   │       │   │   │   │   ├── ba-content-top.component.scss
 │   │       │   │   │   │   ├── ba-content-top.component.ts
 │   │       │   │   │   │   └── index.ts
-│   │       │   │   │   ├── ba-file-uploader
-│   │       │   │   │   │   ├── ba-file-uploader.component.html
-│   │       │   │   │   │   ├── ba-file-uploader.component.scss
-│   │       │   │   │   │   ├── ba-file-uploader.component.ts
-│   │       │   │   │   │   └── index.ts
 │   │       │   │   │   ├── ba-full-calendar
 │   │       │   │   │   │   ├── ba-full-calendar.component.html
 │   │       │   │   │   │   ├── ba-full-calendar.component.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-kameleon-picture
+│   │       │   │   │   │   ├── ba-kameleon-picture.pipe.ts
 │   │       │   │   │   │   └── index.ts
 │   │       │   │   │   ├── ba-menu
 │   │       │   │   │   │   ├── ba-menu.component.html
@@ -1112,20 +1309,16 @@
 │   │       │   │   │   │   ├── ba-page-top.component.scss
 │   │       │   │   │   │   ├── ba-page-top.component.ts
 │   │       │   │   │   │   └── index.ts
-│   │       │   │   │   ├── ba-picture-uploader
-│   │       │   │   │   │   ├── ba-picture-uploader.component.html
-│   │       │   │   │   │   ├── ba-picture-uploader.component.scss
-│   │       │   │   │   │   ├── ba-picture-uploader.component.ts
+│   │       │   │   │   ├── ba-profile-picture
+│   │       │   │   │   │   ├── ba-profile-picture.pipe.ts
+│   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── ba-scroll-position
+│   │       │   │   │   │   ├── ba-scroll-position.directive.ts
 │   │       │   │   │   │   └── index.ts
 │   │       │   │   │   ├── ba-sidebar
 │   │       │   │   │   │   ├── ba-sidebar.component.html
 │   │       │   │   │   │   ├── ba-sidebar.component.scss
 │   │       │   │   │   │   ├── ba-sidebar.component.ts
-│   │       │   │   │   │   └── index.ts
-│   │       │   │   │   └── index.ts
-│   │       │   │   ├── directives
-│   │       │   │   │   ├── ba-scroll-position
-│   │       │   │   │   │   ├── ba-scroll-position.directive.ts
 │   │       │   │   │   │   └── index.ts
 │   │       │   │   │   ├── ba-slim-scroll
 │   │       │   │   │   │   ├── ba-slim-scroll.directive.ts
@@ -1134,46 +1327,40 @@
 │   │       │   │   │   │   ├── ba-theme-run.directive.ts
 │   │       │   │   │   │   └── index.ts
 │   │       │   │   │   └── index.ts
-│   │       │   │   ├── index.ts
-│   │       │   │   ├── nga.module.ts
-│   │       │   │   ├── pipes
-│   │       │   │   │   ├── ba-app-picture
-│   │       │   │   │   │   ├── ba-app-picture.pipe.ts
-│   │       │   │   │   │   └── index.ts
-│   │       │   │   │   ├── ba-kameleon-picture
-│   │       │   │   │   │   ├── ba-kameleon-picture.pipe.ts
-│   │       │   │   │   │   └── index.ts
-│   │       │   │   │   ├── ba-profile-picture
-│   │       │   │   │   │   ├── ba-profile-picture.pipe.ts
-│   │       │   │   │   │   └── index.ts
+│   │       │   │   ├── button
+│   │       │   │   │   ├── button.component.ts
 │   │       │   │   │   └── index.ts
-│   │       │   │   ├── sass
-│   │       │   │   │   ├── _auth.scss
-│   │       │   │   │   ├── _buttons.scss
-│   │       │   │   │   ├── _fonts.scss
-│   │       │   │   │   ├── _form.scss
-│   │       │   │   │   ├── _icons.scss
-│   │       │   │   │   ├── _ionicons.scss
-│   │       │   │   │   ├── _layout.scss
-│   │       │   │   │   ├── _modal.scss
-│   │       │   │   │   ├── _preloader.scss
-│   │       │   │   │   ├── _socicon.scss
-│   │       │   │   │   ├── _table.scss
-│   │       │   │   │   ├── _treeView.scss
-│   │       │   │   │   ├── _typography.scss
-│   │       │   │   │   ├── bootstrap-overrides
-│   │       │   │   │   │   ├── _card.scss
-│   │       │   │   │   │   ├── _dropdown.scss
-│   │       │   │   │   │   ├── _tabs.scss
-│   │       │   │   │   │   └── overrides.scss
-│   │       │   │   │   └── conf
-│   │       │   │   │       ├── _mixins.scss
-│   │       │   │   │       ├── _variables.scss
-│   │       │   │   │       ├── color-schemes
-│   │       │   │   │       │   ├── _blur.scss
-│   │       │   │   │       │   ├── _mint.scss
-│   │       │   │   │       │   └── _ng2.scss
-│   │       │   │   │       └── conf.scss
+│   │       │   │   ├── can-deactivate
+│   │       │   │   │   └── can-deactivate.guard.ts
+│   │       │   │   ├── constants
+│   │       │   │   │   └── pagination.constants.ts
+│   │       │   │   ├── container
+│   │       │   │   │   └── container.component.ts
+│   │       │   │   ├── dialog
+│   │       │   │   │   └── dialog.service.ts
+│   │       │   │   ├── draggable
+│   │       │   │   │   └── draggable.directive.ts
+│   │       │   │   ├── image-cover
+│   │       │   │   │   ├── image-cover.component.html
+│   │       │   │   │   ├── image-cover.component.scss
+│   │       │   │   │   ├── image-cover.component.spec.ts
+│   │       │   │   │   └── image-cover.component.ts
+│   │       │   │   ├── index.ts
+│   │       │   │   ├── language
+│   │       │   │   │   ├── find-language-from-key.pipe.ts
+│   │       │   │   │   ├── language.constants.ts
+│   │       │   │   │   └── language.helper.ts
+│   │       │   │   ├── login
+│   │       │   │   │   ├── login-modal.service.ts
+│   │       │   │   │   ├── login.component.html
+│   │       │   │   │   ├── login.component.ts
+│   │       │   │   │   └── login.service.ts
+│   │       │   │   ├── model
+│   │       │   │   │   ├── base-entity.ts
+│   │       │   │   │   ├── request-util.ts
+│   │       │   │   │   └── response-wrapper.model.ts
+│   │       │   │   ├── nga.module.ts
+│   │       │   │   ├── selective-preloading-strategy.ts
 │   │       │   │   ├── services
 │   │       │   │   │   ├── ba-image-loader
 │   │       │   │   │   │   ├── ba-image-loader.service.ts
@@ -1187,20 +1374,119 @@
 │   │       │   │   │   ├── ba-theme-spinner
 │   │       │   │   │   │   ├── ba-theme-spinner.service.ts
 │   │       │   │   │   │   └── index.ts
+│   │       │   │   │   ├── index.ts
+│   │       │   │   │   ├── version.service.ts
+│   │       │   │   │   └── window.service.ts
+│   │       │   │   ├── shared-common.module.ts
+│   │       │   │   ├── shared-libs.module.ts
+│   │       │   │   ├── shared.module.ts
+│   │       │   │   ├── social
+│   │       │   │   │   ├── social.component.html
+│   │       │   │   │   ├── social.component.ts
+│   │       │   │   │   └── social.service.ts
+│   │       │   │   ├── theme
+│   │       │   │   │   ├── index.ts
+│   │       │   │   │   ├── theme.config-provider.ts
+│   │       │   │   │   ├── theme.config.ts
+│   │       │   │   │   └── theme.constants.ts
+│   │       │   │   ├── tracker
+│   │       │   │   │   └── tracker.service.ts
+│   │       │   │   ├── twain
+│   │       │   │   │   ├── twain.component.spec.ts
+│   │       │   │   │   ├── twain.component.ts
+│   │       │   │   │   └── twain.service.ts
+│   │       │   │   ├── ui
+│   │       │   │   │   ├── icons
+│   │       │   │   │   │   ├── icon-arrow-down
+│   │       │   │   │   │   │   ├── icon-arrow-down.component.html
+│   │       │   │   │   │   │   ├── icon-arrow-down.component.scss
+│   │       │   │   │   │   │   ├── icon-arrow-down.component.spec.ts
+│   │       │   │   │   │   │   └── icon-arrow-down.component.ts
+│   │       │   │   │   │   ├── icon-facebook
+│   │       │   │   │   │   │   ├── icon-facebook.component.html
+│   │       │   │   │   │   │   ├── icon-facebook.component.scss
+│   │       │   │   │   │   │   ├── icon-facebook.component.spec.ts
+│   │       │   │   │   │   │   └── icon-facebook.component.ts
+│   │       │   │   │   │   ├── icon-heart
+│   │       │   │   │   │   │   ├── icon-heart.component.html
+│   │       │   │   │   │   │   ├── icon-heart.component.scss
+│   │       │   │   │   │   │   ├── icon-heart.component.spec.ts
+│   │       │   │   │   │   │   └── icon-heart.component.ts
+│   │       │   │   │   │   ├── icon-instagram
+│   │       │   │   │   │   │   ├── icon-instagram.component.html
+│   │       │   │   │   │   │   ├── icon-instagram.component.scss
+│   │       │   │   │   │   │   ├── icon-instagram.component.spec.ts
+│   │       │   │   │   │   │   └── icon-instagram.component.ts
+│   │       │   │   │   │   ├── icon-minus
+│   │       │   │   │   │   │   ├── icon-minus.component.html
+│   │       │   │   │   │   │   ├── icon-minus.component.scss
+│   │       │   │   │   │   │   ├── icon-minus.component.spec.ts
+│   │       │   │   │   │   │   └── icon-minus.component.ts
+│   │       │   │   │   │   ├── icon-nav
+│   │       │   │   │   │   │   ├── icon-nav.component.html
+│   │       │   │   │   │   │   ├── icon-nav.component.scss
+│   │       │   │   │   │   │   ├── icon-nav.component.spec.ts
+│   │       │   │   │   │   │   └── icon-nav.component.ts
+│   │       │   │   │   │   ├── icon-pinterest
+│   │       │   │   │   │   │   ├── icon-pinterest.component.html
+│   │       │   │   │   │   │   ├── icon-pinterest.component.scss
+│   │       │   │   │   │   │   ├── icon-pinterest.component.spec.ts
+│   │       │   │   │   │   │   └── icon-pinterest.component.ts
+│   │       │   │   │   │   ├── icon-plus
+│   │       │   │   │   │   │   ├── icon-plus.component.html
+│   │       │   │   │   │   │   ├── icon-plus.component.scss
+│   │       │   │   │   │   │   ├── icon-plus.component.spec.ts
+│   │       │   │   │   │   │   └── icon-plus.component.ts
+│   │       │   │   │   │   ├── icon-reset
+│   │       │   │   │   │   │   ├── icon-reset.component.html
+│   │       │   │   │   │   │   ├── icon-reset.component.scss
+│   │       │   │   │   │   │   ├── icon-reset.component.spec.ts
+│   │       │   │   │   │   │   └── icon-reset.component.ts
+│   │       │   │   │   │   ├── icon-search
+│   │       │   │   │   │   │   ├── icon-search.component.html
+│   │       │   │   │   │   │   ├── icon-search.component.scss
+│   │       │   │   │   │   │   ├── icon-search.component.spec.ts
+│   │       │   │   │   │   │   └── icon-search.component.ts
+│   │       │   │   │   │   └── icon-time
+│   │       │   │   │   │       ├── icon-time.component.html
+│   │       │   │   │   │       ├── icon-time.component.scss
+│   │       │   │   │   │       ├── icon-time.component.spec.ts
+│   │       │   │   │   │       └── icon-time.component.ts
+│   │       │   │   │   ├── input
+│   │       │   │   │   │   ├── input.component.html
+│   │       │   │   │   │   ├── input.component.scss
+│   │       │   │   │   │   ├── input.component.spec.ts
+│   │       │   │   │   │   └── input.component.ts
+│   │       │   │   │   ├── loading
+│   │       │   │   │   │   ├── loading.component.html
+│   │       │   │   │   │   ├── loading.component.scss
+│   │       │   │   │   │   ├── loading.component.spec.ts
+│   │       │   │   │   │   └── loading.component.ts
+│   │       │   │   │   ├── select
+│   │       │   │   │   │   ├── select.component.html
+│   │       │   │   │   │   ├── select.component.scss
+│   │       │   │   │   │   ├── select.component.spec.ts
+│   │       │   │   │   │   └── select.component.ts
+│   │       │   │   │   └── ui.module.ts
+│   │       │   │   ├── user
+│   │       │   │   │   ├── account.model.ts
+│   │       │   │   │   ├── user.model.ts
+│   │       │   │   │   └── user.service.ts
+│   │       │   │   ├── validators
+│   │       │   │   │   ├── email.validator.ts
+│   │       │   │   │   ├── equal-passwords.validator.ts
 │   │       │   │   │   └── index.ts
-│   │       │   │   ├── theme.config-provider.ts
-│   │       │   │   ├── theme.config.ts
-│   │       │   │   ├── theme.constants.ts
-│   │       │   │   ├── theme.scss
-│   │       │   │   └── validators
-│   │       │   │       ├── email.validator.ts
-│   │       │   │       ├── equal-passwords.validator.ts
-│   │       │   │       └── index.ts
+│   │       │   │   └── welcome
+│   │       │   │       ├── welcome.component.spec.ts
+│   │       │   │       └── welcome.component.ts
 │   │       │   └── vendor.ts
+│   │       ├── assets
 │   │       ├── content
 │   │       │   ├── css
 │   │       │   │   └── vendor.css
 │   │       │   ├── fonts
+│   │       │   │   ├── GeosansLight.ttf
+│   │       │   │   ├── cheddar-jack.ttf
 │   │       │   │   ├── socicon.eot
 │   │       │   │   ├── socicon.svg
 │   │       │   │   ├── socicon.ttf
@@ -1229,6 +1515,10 @@
 │   │       │   │   ├── cavaliers.gif
 │   │       │   │   ├── celtic.gif
 │   │       │   │   ├── clippers.gif
+│   │       │   │   ├── example-1.png
+│   │       │   │   ├── example-2.png
+│   │       │   │   ├── example-3.png
+│   │       │   │   ├── example.gif
 │   │       │   │   ├── feed-video.svg
 │   │       │   │   ├── hawks.gif
 │   │       │   │   ├── heat.gif
@@ -1240,6 +1530,7 @@
 │   │       │   │   ├── knicks.gif
 │   │       │   │   ├── lakers.gif
 │   │       │   │   ├── logo-jhipster.png
+│   │       │   │   ├── logo.png
 │   │       │   │   ├── magic.gif
 │   │       │   │   ├── mavericks.gif
 │   │       │   │   ├── memphis.gif
@@ -1248,6 +1539,7 @@
 │   │       │   │   ├── orleans.gif
 │   │       │   │   ├── pacers.gif
 │   │       │   │   ├── pistons.gif
+│   │       │   │   ├── push-logo.png
 │   │       │   │   ├── raptors.gif
 │   │       │   │   ├── rockets.gif
 │   │       │   │   ├── spurs.gif
@@ -1388,8 +1680,35 @@
 │   │       │   │   │           └── marker-shadow.png
 │   │       │   │   └── transblue-bg.jpg
 │   │       │   └── scss
+│   │       │       ├── _auth.scss
+│   │       │       ├── _buttons.scss
+│   │       │       ├── _fonts.scss
+│   │       │       ├── _form.scss
+│   │       │       ├── _icons.scss
+│   │       │       ├── _ionicons.scss
+│   │       │       ├── _layout.scss
+│   │       │       ├── _modal.scss
+│   │       │       ├── _preloader.scss
+│   │       │       ├── _socicon.scss
+│   │       │       ├── _table.scss
+│   │       │       ├── _treeView.scss
+│   │       │       ├── _typography.scss
+│   │       │       ├── bootstrap-overrides
+│   │       │       │   ├── _card.scss
+│   │       │       │   ├── _dropdown.scss
+│   │       │       │   ├── _tabs.scss
+│   │       │       │   └── overrides.scss
+│   │       │       ├── conf
+│   │       │       │   ├── _mixins.scss
+│   │       │       │   ├── _variables.scss
+│   │       │       │   ├── color-schemes
+│   │       │       │   │   ├── _blur.scss
+│   │       │       │   │   ├── _mint.scss
+│   │       │       │   │   └── _ng2.scss
+│   │       │       │   └── conf.scss
 │   │       │       ├── global.scss
 │   │       │       ├── postcss.config.js
+│   │       │       ├── theme.scss
 │   │       │       └── vendor.scss
 │   │       ├── favicon.ico
 │   │       ├── i18n
@@ -1429,6 +1748,7 @@
 │   │       │   │   ├── settings.json
 │   │       │   │   ├── social.json
 │   │       │   │   ├── tag.json
+│   │       │   │   ├── talk.json
 │   │       │   │   ├── tracker.json
 │   │       │   │   ├── user-management.json
 │   │       │   │   └── wiki.json
@@ -1468,6 +1788,7 @@
 │   │       │   │   ├── settings.json
 │   │       │   │   ├── social.json
 │   │       │   │   ├── tag.json
+│   │       │   │   ├── talk.json
 │   │       │   │   ├── tracker.json
 │   │       │   │   ├── user-management.json
 │   │       │   │   └── wiki.json
@@ -1507,6 +1828,7 @@
 │   │       │   │   ├── settings.json
 │   │       │   │   ├── social.json
 │   │       │   │   ├── tag.json
+│   │       │   │   ├── talk.json
 │   │       │   │   ├── tracker.json
 │   │       │   │   ├── user-management.json
 │   │       │   │   └── wiki.json
@@ -1546,11 +1868,25 @@
 │   │       │       ├── settings.json
 │   │       │       ├── social.json
 │   │       │       ├── tag.json
+│   │       │       ├── talk.json
 │   │       │       ├── tracker.json
 │   │       │       ├── user-management.json
 │   │       │       └── wiki.json
 │   │       ├── index.html
 │   │       ├── manifest.webapp
+│   │       ├── mocks
+│   │       │   ├── mock-account.service.ts
+│   │       │   ├── mock-angular-fire.service.spec.ts
+│   │       │   ├── mock-document.service.spec.ts
+│   │       │   ├── mock-language.service.ts
+│   │       │   ├── mock-ng2-localforage.service.spec.ts
+│   │       │   ├── mock-principal.service.ts
+│   │       │   ├── mock-route.service.ts
+│   │       │   ├── mock-router.spec.ts
+│   │       │   ├── mock-tracker.service.ts
+│   │       │   ├── mock-window.service.spec.ts
+│   │       │   ├── spyobject.ts
+│   │       │   └── test.module.ts
 │   │       ├── robots.txt
 │   │       ├── sw.js
 │   │       └── swagger-ui
@@ -1564,18 +1900,34 @@
 │       │   │   ├── gatling.conf
 │       │   │   └── logback.xml
 │       │   ├── data
-│       │   └── simulations
-│       │       ├── BlogGatlingTest.scala
-│       │       ├── ClaimGatlingTest.scala
-│       │       ├── ClaimRebuttalGatlingTest.scala
-│       │       ├── ContactGatlingTest.scala
-│       │       ├── CrisisGatlingTest.scala
-│       │       ├── EntryGatlingTest.scala
-│       │       ├── HeroGatlingTest.scala
-│       │       ├── MessageGatlingTest.scala
-│       │       ├── NoteGatlingTest.scala
-│       │       ├── RebuttalGatlingTest.scala
-│       │       └── TagGatlingTest.scala
+│       │   ├── simulations
+│       │   │   ├── BlogGatlingTest.scala
+│       │   │   ├── ClaimGatlingTest.scala
+│       │   │   ├── ClaimRebuttalGatlingTest.scala
+│       │   │   ├── ContactGatlingTest.scala
+│       │   │   ├── CrisisGatlingTest.scala
+│       │   │   ├── EntryGatlingTest.scala
+│       │   │   ├── HeroGatlingTest.scala
+│       │   │   ├── MessageGatlingTest.scala
+│       │   │   ├── NoteGatlingTest.scala
+│       │   │   ├── RebuttalGatlingTest.scala
+│       │   │   └── TagGatlingTest.scala
+│       │   └── user-files
+│       │       ├── bodies
+│       │       ├── data
+│       │       └── simulations
+│       │           ├── BlogGatlingTest.scala
+│       │           ├── ClaimGatlingTest.scala
+│       │           ├── ClaimRebuttalGatlingTest.scala
+│       │           ├── ContactGatlingTest.scala
+│       │           ├── CrisisGatlingTest.scala
+│       │           ├── EntryGatlingTest.scala
+│       │           ├── HeroGatlingTest.scala
+│       │           ├── MessageGatlingTest.scala
+│       │           ├── NoteGatlingTest.scala
+│       │           ├── RebuttalGatlingTest.scala
+│       │           ├── TagGatlingTest.scala
+│       │           └── TalkGatlingTest.scala
 │       ├── java
 │       │   └── org
 │       │       └── exampleapps
@@ -1614,86 +1966,26 @@
 │       │                       ├── ProfileInfoResourceIntTest.java
 │       │                       ├── RebuttalResourceIntTest.java
 │       │                       ├── TagResourceIntTest.java
+│       │                       ├── TalkResourceIntTest.java
 │       │                       ├── TestUtil.java
 │       │                       ├── UserJWTControllerIntTest.java
 │       │                       ├── UserResourceIntTest.java
-│       │                       └── errors
-│       │                           ├── ExceptionTranslatorIntTest.java
-│       │                           └── ExceptionTranslatorTestController.java
+│       │                       ├── errors
+│       │                       │   ├── ExceptionTranslatorIntTest.java
+│       │                       │   └── ExceptionTranslatorTestController.java
+│       │                       └── util
+│       │                           └── PaginationUtilUnitTest.java
 │       ├── javascript
 │       │   ├── e2e
-│       │   │   ├── account
-│       │   │   │   └── account.spec.ts
-│       │   │   ├── admin
-│       │   │   │   └── administration.spec.ts
 │       │   │   └── entities
-│       │   │       ├── blog.spec.ts
-│       │   │       ├── claim-rebuttal.spec.ts
-│       │   │       ├── claim.spec.ts
-│       │   │       ├── contact.spec.ts
-│       │   │       ├── crisis.spec.ts
-│       │   │       ├── entry.spec.ts
-│       │   │       ├── hero.spec.ts
-│       │   │       ├── message.spec.ts
-│       │   │       ├── note.spec.ts
-│       │   │       ├── rebuttal.spec.ts
-│       │   │       └── tag.spec.ts
+│       │   │       └── talk.spec.ts
 │       │   ├── karma.conf.js
-│       │   ├── protractor.conf.js
 │       │   └── spec
-│       │       ├── app
-│       │       │   ├── account
-│       │       │   │   ├── activate
-│       │       │   │   │   └── activate.component.spec.ts
-│       │       │   │   ├── password
-│       │       │   │   │   ├── password-strength-bar.component.spec.ts
-│       │       │   │   │   └── password.component.spec.ts
-│       │       │   │   ├── password-reset
-│       │       │   │   │   ├── finish
-│       │       │   │   │   │   └── password-reset-finish.component.spec.ts
-│       │       │   │   │   └── init
-│       │       │   │   │       └── password-reset-init.component.spec.ts
-│       │       │   │   ├── register
-│       │       │   │   │   └── register.component.spec.ts
-│       │       │   │   └── settings
-│       │       │   │       └── settings.component.spec.ts
-│       │       │   ├── admin
-│       │       │   │   ├── audits
-│       │       │   │   │   └── audits.component.spec.ts
-│       │       │   │   └── health
-│       │       │   │       └── health.component.spec.ts
-│       │       │   └── entities
-│       │       │       ├── blog
-│       │       │       │   └── blog-detail.component.spec.ts
-│       │       │       ├── claim
-│       │       │       │   └── claim-detail.component.spec.ts
-│       │       │       ├── claim-rebuttal
-│       │       │       │   └── claim-rebuttal-detail.component.spec.ts
-│       │       │       ├── contact
-│       │       │       │   └── contact-detail.component.spec.ts
-│       │       │       ├── crisis
-│       │       │       │   └── crisis-detail.component.spec.ts
-│       │       │       ├── entry
-│       │       │       │   └── entry-detail.component.spec.ts
-│       │       │       ├── hero
-│       │       │       │   └── hero-detail.component.spec.ts
-│       │       │       ├── message
-│       │       │       │   └── message-detail.component.spec.ts
-│       │       │       ├── note
-│       │       │       │   └── note-detail.component.spec.ts
-│       │       │       ├── rebuttal
-│       │       │       │   └── rebuttal-detail.component.spec.ts
-│       │       │       └── tag
-│       │       │           └── tag-detail.component.spec.ts
-│       │       ├── entry.ts
-│       │       ├── helpers
-│       │       │   ├── mock-account.service.ts
-│       │       │   ├── mock-language.service.ts
-│       │       │   ├── mock-principal.service.ts
-│       │       │   ├── mock-route.service.ts
-│       │       │   ├── mock-tracker.service.ts
-│       │       │   └── spyobject.ts
-│       │       └── test.module.ts
+│       │       └── app
+│       │           └── core
+│       │               └── store
+│       │                   └── collection
+│       │                       └── collection.effects.spec.ts
 │       └── resources
 │           ├── config
 │           │   └── application.yml
@@ -1702,17 +1994,20 @@
 │           ├── logback.xml
 │           └── mails
 │               └── testEmail.html
+├── sw-precache-config.js
+├── test.ts
 ├── tsconfig-aot.json
 ├── tsconfig.json
 ├── tslint.json
 ├── typings.d.ts
-└── webpack
-    ├── logo-jhipster.png
-    ├── utils.js
-    ├── webpack.common.js
-    ├── webpack.dev.js
-    ├── webpack.prod.js
-    └── webpack.vendor.js
+├── webpack
+│   ├── logo-jhipster.png
+│   ├── utils.js
+│   ├── webpack.common.js
+│   ├── webpack.dev.js
+│   ├── webpack.prod.js
+│   ├── webpack.test.js
+│   └── webpack.vendor.js
+└── yarn.lock
 
-320 directories, 1393 files
-```
+356 directories, 1654 files

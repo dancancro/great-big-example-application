@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RouterStateSnapshot, CanActivateChild, ActivatedRouteSnapshot, Routes } from "@angular/router";
-import { of } from "rxjs/observable/of";
-import { Observable } from "rxjs";
+import { RouterStateSnapshot, CanActivateChild, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
 
 import * as fromRoot from '../../core/store';
 

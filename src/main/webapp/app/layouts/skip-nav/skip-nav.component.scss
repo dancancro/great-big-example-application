@@ -1,0 +1,35 @@
+@import '../../../content/scss/conf/conf';
+
+.skip-nav {
+  border: 0;
+  position: absolute;
+
+  &:not(:focus) {
+    background: transparent;
+    color: $black;
+    font-size: 30px;
+    left: 100px;
+    overflow: hidden;
+    padding: 0;
+    width: 1px;
+    z-index: 99999999;
+  }
+
+  &:focus {
+    background-color: $white;
+    font-size: 20px;
+    left: 2px;
+    padding: 10px;
+    position: fixed;
+    top: 2px;
+    z-index: 99999;
+  }
+}
+
+.start-of-content {
+  height: 1px;
+  outline: none;
+  position: absolute;
+  width: 1px;
+  z-index: 9999999;
+}

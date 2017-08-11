@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
+import { Component, OnInit, ViewContainerRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
 
 import { JhiLanguageHelper, StateStorageService } from '../../shared';
 import * as $ from 'jquery';
@@ -17,14 +17,19 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
+        // private activatedRoute: ActivatedRoute,
         private router: Router,
-        private $storageService: StateStorageService,
+        // private $storageService: StateStorageService,
         // private _state: GlobalState,
         private _imageLoader: BaImageLoaderService,
         private _spinner: BaThemeSpinner,
-        private viewContainerRef: ViewContainerRef,
-        private themeConfig: BaThemeConfig
+        // private viewContainerRef: ViewContainerRef,
+        // private themeConfig: BaThemeConfig,
     ) { }
+
+    whichLayout() {
+        return this.router.routerState.snapshot.url.indexOf('meals') > -1 ? 'meals' : 'jhipster';
+    }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'greatBigExampleApplicationApp';

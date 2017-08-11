@@ -17,7 +17,7 @@ export class BookEffects {
     constructor(
         private actions$: Actions,
         private googleBooks: GoogleBooksService,
-        @Optional() @Inject(SEARCH_DEBOUNCE) private debounce: number = 300,
+        @Optional() @Inject(SEARCH_DEBOUNCE) private debounce = 300,
 
         /**
          * You inject an optional Scheduler that will be undefined

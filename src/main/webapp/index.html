@@ -34,15 +34,13 @@
     <noscript>
         <h1>You must enable javascript to view this page.</h1>
     </noscript>
-    <!-- uncomment this for adding service worker
-        <script>
-            if ('serviceWorker' in navigator) {
-                 navigator.serviceWorker
-                    .register('./sw.js')
-                    .then(function() { console.log('Service Worker Registered'); });
-            }
-        </script>
-    -->
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('./sw.js')
+                .then(function() { console.log('Service Worker Registered'); });
+        }
+    </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
         (function(b, o, i, l, e, r) {

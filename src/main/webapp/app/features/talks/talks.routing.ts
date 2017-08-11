@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { StoreAndRouterConnectorGuard } from '../../core/store/store-and-router-connector.guard';
 import { TalksPage } from './talks.page';
-import { TalksAndFiltersPage } from "./talks-and-filters/talks-and-filters.page";
-import { TalkDetailsComponent } from "./talk-details/talk-details.component";
+import { TalksAndFiltersPage } from './talks-and-filters/talks-and-filters.page';
+import { TalkDetailsComponent } from './talk-details/talk-details.component';
 import { UserRouteAccessService } from '../../shared';
 
 const routes: Routes = [

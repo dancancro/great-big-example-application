@@ -1,0 +1,125 @@
+@import '../../../../content/scss/conf/conf';
+$image-height: 50%;
+
+.fixed-content {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+
+  .primary-image {
+    display: block;
+    padding-bottom: $image-height;
+    @media (max-width: $mobile-break-point) {
+      margin-top: 39px;
+    }
+  }
+
+  .primary-info {
+    $header-margin: 25px;
+    overflow: hidden;
+    text-align: center;
+
+    .title {
+      font-size: 25px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    .blurb {
+      font-family: $title-font;
+      font-size: 20px;
+      margin-bottom: $header-margin;
+    }
+
+    c2c-labels {
+      display: block;
+      margin: $header-margin auto;
+      margin-top: 0;
+      max-width: 550px;
+      @media(min-width: $desktop-break-point) {
+        bottom: 100px;
+        position: absolute;
+        right: 5%;
+      }
+      @media (max-width: 400px) {
+        max-width: 260px;
+      }
+    }
+  }
+}
+
+.home-content {
+  background: $white;
+  z-index: 10;
+
+  .info-bar {
+    h1 {
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+
+  .recipes {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 84%;
+
+    .c2c-recipe-ad {
+      padding: 8px 4px;
+      width: 33.33%;
+    }
+    @media (max-width: $mobile-break-point) {
+      width: 100%;
+
+      .c2c-recipe-ad {
+        padding: 8px 0;
+        width: 100%;
+      }
+    }
+    @media (min-width: $mobile-break-point + 1) and (max-width: $desktop-break-point) {
+      .c2c-recipe-ad {
+        width: 50%;
+      }
+    }
+  }
+}
+
+.recipe-link {
+  &,
+  &:hover {
+    color: inherit;
+    display: block;
+    text-decoration: inherit;
+  }
+
+  &:focus {
+    outline: none;
+    position: relative;
+
+    ::after {
+      border: 2px solid $black;
+      bottom: 0;
+      content: '';
+      display: block;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.no-results {
+  font-size: 20px;
+  height: 100px;
+  margin: 100px auto;
+  text-align: center;
+}

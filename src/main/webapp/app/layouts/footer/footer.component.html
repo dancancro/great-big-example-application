@@ -1,4 +1,20 @@
-<div class="footer">
+<footer>
     <p jhiTranslate="footer">footer</p>
-    <a href="https://github.com/dancancro/great-big-example-application" class="navlink" target="_blank" role="button"><i class="fa fa-github fa-2x"></i></a>
-</div>
+    <div class="social-media">
+        <a class="item" aria-label="Instagram social media external link" href="https://www.instagram.com/" target="_blank">
+            <c2c-icon-instagram></c2c-icon-instagram>
+        </a>
+        <a class="item" aria-label="Facebook social media external link" href="https://www.facebook.com/" target="_blank">
+            <c2c-icon-facebook></c2c-icon-facebook>
+        </a>
+        <a class="item" aria-label="Pinterest social media external link" href="https://www.pinterest.com/" target="_blank">
+            <c2c-icon-pinterest></c2c-icon-pinterest>
+        </a>
+    </div>
+    <hr>
+    <ul class="links">
+        <li class="link"><a href="https://github.com/dancancro/great-big-example-application" class="navlink" target="_blank" role="button"><i class="fa fa-github fa-2x"></i></a></li>
+        <li class="link"><a [routerLink]="['/legal', 'terms']">Terms</a></li>
+        <li class="link"><a [routerLink]="['/legal', 'privacy']">Privacy policy</a></li>
+    </ul>
+</footer>

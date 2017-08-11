@@ -6,79 +6,79 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, 
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { PaginationConfig } from '../../core/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-blog',
-    templateUrl: './blog.component.html'
+  selector: 'jhi-blog',
+  templateUrl: './blog.component.html'
 })
 export class BlogComponent implements OnInit, OnDestroy {
-blogs: Blog[];
-    currentAccount: any;
-    eventSubscriber: Subscription;
-    currentSearch: string;
+  blogs: Blog[];
+  currentAccount: any;
+  eventSubscriber: Subscription;
+  currentSearch: string;
 
-    constructor(
-        private blogService: BlogService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private activatedRoute: ActivatedRoute,
-        private principal: Principal
-    ) {
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-    }
+  constructor(
+    private blogService: BlogService,
+    private alertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private activatedRoute: ActivatedRoute,
+    private principal: Principal
+  ) {
+    this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
+  }
 
-    loadAll() {
-        if (this.currentSearch) {
-            this.blogService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: ResponseWrapper) => this.blogs = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
-                );
-            return;
-       }
-        this.blogService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.blogs = res.json;
-                this.currentSearch = '';
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
+  loadAll() {
+    if (this.currentSearch) {
+      this.blogService.search({
+        query: this.currentSearch,
+      }).subscribe(
+        (res: ResponseWrapper) => this.blogs = res.json,
+        (res: ResponseWrapper) => this.onError(res.json)
         );
+      return;
     }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.currentSearch = query;
-        this.loadAll();
-    }
-
-    clear() {
+    this.blogService.query().subscribe(
+      (res: ResponseWrapper) => {
+        this.blogs = res.json;
         this.currentSearch = '';
-        this.loadAll();
-    }
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInBlogs();
-    }
+      },
+      (res: ResponseWrapper) => this.onError(res.json)
+    );
+  }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+  search(query) {
+    if (!query) {
+      return this.clear();
     }
+    this.currentSearch = query;
+    this.loadAll();
+  }
 
-    trackId(index: number, item: Blog) {
-        return item.id;
-    }
-    registerChangeInBlogs() {
-        this.eventSubscriber = this.eventManager.subscribe('blogListModification', (response) => this.loadAll());
-    }
+  clear() {
+    this.currentSearch = '';
+    this.loadAll();
+  }
+  ngOnInit() {
+    this.loadAll();
+    this.principal.identity().then((account) => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInBlogs();
+  }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
-    }
+  ngOnDestroy() {
+    this.eventManager.destroy(this.eventSubscriber);
+  }
+
+  trackId(index: number, item: Blog) {
+    return item.id;
+  }
+  registerChangeInBlogs() {
+    this.eventSubscriber = this.eventManager.subscribe('blogListModification', (response) => this.loadAll());
+  }
+
+  private onError(error) {
+    this.alertService.error(error.message, null, null);
+  }
 }

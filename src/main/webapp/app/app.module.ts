@@ -3,24 +3,29 @@ import './vendor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
+import { AngularFireOfflineModule } from 'angularfire2-offline';
 
 import { DBModule } from '@ngrx/db';
 import { GreatBigExampleApplicationSharedModule, UserRouteAccessService } from './shared';
-import { GreatBigExampleApplicationHomeModule } from './home/home.module';
 import { GreatBigExampleApplicationAdminModule } from './admin/admin.module';
 import { GreatBigExampleApplicationAccountModule } from './account/account.module';
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
+import { GreatBigExampleApplicationHomeModule } from './features/home/home.module';
+// import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
 import { TranslateModule } from '@ngx-translate/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
-import { customHttpProvider } from './blocks/interceptor/http.provider';
-import { PaginationConfig } from './blocks/config/uib-pagination.config';
+import { customHttpProvider } from './core/interceptor/http.provider';
+import { PaginationConfig } from './core/config/uib-pagination.config';
 import { FeaturesModule } from './features/features.module';
 import { CoreModule } from './core/core.module';
 import { AppConfig } from './app.config';
+import { AppRouting } from './app.routing';
+import { MealsModule } from './features/meals/meals.module'; // for the timer
+import { LayoutsModule } from './layouts/layouts.module';
 import { schema } from './core/store/db';
 
 import { reducers, metaReducers, developmentReducerFactory } from './core/store';
@@ -31,7 +36,7 @@ import 'hammerjs';
 
 import {
     JhiMainComponent,
-    LayoutRoutingModule,
+    // LayoutRoutingModule,
     NavbarComponent,
     FooterComponent,
     ProfileService,
@@ -42,15 +47,20 @@ import {
 
 const imports = [
     BrowserModule,
-    LayoutRoutingModule,
+    AppRouting,
+    // LayoutRoutingModule,
     Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
     GreatBigExampleApplicationSharedModule,
-    GreatBigExampleApplicationHomeModule,
     GreatBigExampleApplicationAdminModule,
     GreatBigExampleApplicationAccountModule,
     GreatBigExampleApplicationEntityModule,
+    GreatBigExampleApplicationHomeModule,
     FeaturesModule,
+    AngularFireOfflineModule,
+    CoreModule.forRoot(),
     TranslateModule.forRoot(),
+    MealsModule,
+    LayoutsModule,
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of
@@ -63,15 +73,6 @@ const imports = [
     // StoreModule.forRoot(reducers, {
     //     reducerFactory: (process.env.NODE_ENV === 'dev') ? developmentReducerFactory : undefined
     // }),
-
-    /**
-     * StoreModule.forRoot is imported once in the root module, accepting a reducer
-     * function or object map of reducer functions. If passed an object of
-     * reducers, combineReducers will be run creating your application
-     * meta-reducer. This returns all providers for an @ngrx/store
-     * based application.
-     */
-    StoreModule.forRoot(reducers, { metaReducers }),
 
     /**
      * Store devtools instrument the store retaining past versions of state
@@ -118,8 +119,7 @@ const imports = [
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
      * service available.
      */
-    DBModule.provideDB(schema),
-    CoreModule
+    DBModule.provideDB(schema)
     // jhipster-needle-angular-add-module JHipster will add new module here
 ];
 
@@ -140,12 +140,6 @@ const imports = [
 @NgModule({
     imports: [imports],
     declarations: [
-        JhiMainComponent,
-        NavbarComponent,
-        ErrorComponent,
-        PageRibbonComponent,
-        ActiveMenuDirective,
-        FooterComponent
     ],
     providers: [
         AppConfig,

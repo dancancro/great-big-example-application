@@ -1,0 +1,52 @@
+@import '../../../../content/scss/conf/conf';
+$timer-green: #008000;
+
+:host {
+  display: block;
+  font-family: $title-font;
+  min-height: 114px;
+}
+
+.title {
+  font-size: 1em;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+
+  a {
+    color: $black;
+
+    &:hover {
+      border-bottom: 1px solid $black;
+      text-decoration: none;
+    }
+  }
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  $icon-size: 30px;
+
+  .left {
+    color: $timer-green;
+    font-size: $icon-size;
+    margin-right: auto;
+  }
+
+  .center {
+    align-items: center;
+    display: flex;
+
+    meals-button-clear {
+      display: flex;
+      font-size: $icon-size;
+    }
+  }
+
+  .right {
+    color: $visible-red;
+    margin-left: auto;
+  }
+}

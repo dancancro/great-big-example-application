@@ -1,0 +1,10 @@
+<c2c-image-cover [src]="recipe.image" [alt]="recipe.title"></c2c-image-cover>
+<h2 class="recipe-title">{{recipe.title}}</h2>
+<ul class="allergens" aria-label="Allergy free items for this recipe">
+    <ng-template ngFor let-allergen [ngForOf]="recipe.allergens" let-i="index">
+        <li *ngIf="i < 6" class="allergen">{{allergen}}</li>
+    </ng-template>
+</ul>
+<div class="recipe-blurb">{{recipe.blurb}}
+    <div *ngIf="recipe.blurb" aria-hidden="true" [style.border-left-color]="arrowColor" class="arrow"></div>
+</div>

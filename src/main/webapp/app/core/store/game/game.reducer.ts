@@ -2,10 +2,11 @@ import { fromJS } from 'immutable';
 import { PayloadAction } from '../util';
 
 import { initialGame } from './game.model';
+export { initialGame } from './game.model';
 import { COMPLETE_GAME, INVALID_GAME, START_GAME, GAME_PROGRESS } from './game.actions';
 import { PARTNER_PROGRESS, PARTNER_COMPLETED } from '../p2p-game/p2p-game.actions';
 
-export const gamesReducer = (state: any = initialGame.get('games'), action: PayloadAction) => {
+export function gamesReducer(state: any = initialGame.get('games'), action: PayloadAction) {
     switch (action.type) {
         case COMPLETE_GAME:
             state = state.push(fromJS(action.payload));
@@ -14,7 +15,11 @@ export const gamesReducer = (state: any = initialGame.get('games'), action: Payl
     return state;
 };
 
-export const gameReducer = (state: any = initialGame.get('game'), action: PayloadAction) => {
+// Fixes error: Error encountered resolving symbol values statically. Function calls are not
+// supported. Consider replacing the function or lambda with a reference to an exported function
+// const initialGameValue = initialGame.get('game');
+
+export function gameReducer(state: any = initialGame.get('game'), action: PayloadAction) {
     switch (action.type) {
         case START_GAME:
             state = fromJS({});
@@ -30,7 +35,7 @@ export const gameReducer = (state: any = initialGame.get('game'), action: Payloa
 };
 
 // Can't move to +multi-player yet because of `provideStore`.
-export const p2pGameReducer = (state: any = initialGame.get('p2pGame'), action: PayloadAction) => {
+export function p2pGameReducer(state: any = initialGame.get('p2pGame'), action: PayloadAction) {
     switch (action.type) {
         case START_GAME:
             state = fromJS({});

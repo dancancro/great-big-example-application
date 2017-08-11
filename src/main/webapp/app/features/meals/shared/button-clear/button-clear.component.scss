@@ -1,0 +1,35 @@
+@import '../../../../../content/scss/conf/conf';
+
+:host {
+  display: inline-block;
+  line-height: 1;
+  padding: 10px;
+
+  // Turn a button into a link - http://stackoverflow.com/a/12642009/5357459
+  button {
+    // Remove all decorations to look like normal text
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    display: inline;
+    font: inherit;
+    line-height: inherit;
+    margin: 0;
+    outline-offset: 0;
+    padding: inherit;
+
+    &:focus {
+      outline: solid $black 1px;
+    }
+  }
+
+  // Remove extra space inside buttons in Firefox
+  // sass-lint:disable-all
+  input[type='button']::-moz-focus-inner,
+  button::-moz-focus-inner {
+    // sass-lint:enable-all
+    border: 0;
+    padding: inherit;
+  }
+}

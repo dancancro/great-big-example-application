@@ -1,0 +1,8 @@
+<ng-template [ngIf]="timerService.running && (slug !== timerService.slug || id !== timerService.id)">{{time}}</ng-template>
+<ng-template [ngIf]="!timerService.running || (slug === timerService.slug && id === timerService.id)">
+  <meals-button-clear (click)="timerService.toggleTimer(timerObj, title, slug, id)" [style.color]="timerService.running ? 'black' : null"
+    [label]="timerService.running ? 'Stop timer that will complete in ' + timerService.readable : 'Start timer for this recipe item that lasts for ' + time ">
+    {{time}} <span *ngIf="timerService.running" class="stop">stop </span>
+    <c2c-icon-time [style.fill]="timerService.running ? 'red' : null"></c2c-icon-time>
+  </meals-button-clear>
+</ng-template>

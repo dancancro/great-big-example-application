@@ -1,0 +1,30 @@
+@import '../../../content/scss/conf/conf';
+
+$transparent-black: rgba(0, 0, 0, .54);
+
+.nav {
+  .nav-content {
+    background-color: $transparent-black;
+    display: flex;
+    font-size: 19px;
+    justify-content: space-between;
+    line-height: 1;
+    padding: 0 15px;
+
+    .nav-right {
+      justify-content: flex-end;
+    }
+
+    .nav-item {
+      color: $white;
+      display: inline-block;
+      font-family: $title-font;
+      margin: 8px;
+      padding: 2px 4px;
+
+      &:focus {
+        outline: solid 1px $white;
+      }
+    }
+  }
+}

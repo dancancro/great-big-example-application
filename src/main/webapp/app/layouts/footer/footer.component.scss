@@ -1,0 +1,44 @@
+@import '../../../content/scss/conf/conf';
+
+:host {
+  background-color: $dark-blue;
+  display: block;
+  padding-bottom: 50px;
+  padding-top: 100px;
+  text-align: center;
+
+  .social-media {
+    color: $white;
+    fill: $white;
+    font-size: 70px;
+    margin: 20px 0;
+
+    .item {
+      display: inline-block;
+      width: 70px;
+    }
+  }
+
+  hr {
+    border-style: inset;
+    border-width: 1px;
+    display: block;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 370px;
+    @media (max-width: 500px) {
+      width: 80%;
+    }
+  }
+
+  .links {
+    .link {
+      padding: 15px;
+
+      > a {
+        color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<c2c-image-cover class="c2c-logo" src="https://cleantothecore.com/wp-content/uploads/mp/image-cache/site/9/clean-to-the-core-logo.accf5b2eb29e383d5e54b7c6cd55b3df-20161126012327-.border.fffo20.png"
+    alt="Logo for Clean to the Core"></c2c-image-cover>
+<h1 class="title">life should be yummy!</h1>
+<article class="author">
+    <c2c-image-cover src="https://cleantothecore.com/wp-content/uploads/mp/image-cache/site/7/file-oct-04-9-26-38-am.f6a63b429eeb1846177e2c204f10c57c.jpeg"
+        alt="picture of the author"></c2c-image-cover>
+    <c2c-loading *ngIf="!(apiService.about | async)"></c2c-loading>
+    <section class="author-bio">{{ (apiService.about | async)?.text }}</section>
+</article>

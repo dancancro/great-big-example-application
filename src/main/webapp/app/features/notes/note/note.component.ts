@@ -28,7 +28,7 @@ export class NoteComponent {
             this.changeNoteText.emit(text);
         }
     }
-    handleDelete(note) {
+    handleDelete() {
         this.deleteNote.emit();
     }
 }

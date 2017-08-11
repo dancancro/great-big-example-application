@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "GreatBigExampleApplication",
+        "title": "Great Big Example Application",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
@@ -22,6 +22,7 @@
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "features": {
+                "about": "About",
                 "bernie": "Bernie",
                 "booksFind": "Search for Books",
                 "books": "Book Collection",
@@ -31,7 +32,9 @@
                 "dashboard": "Dashboard",
                 "game": "Game",
                 "heroes": "Heroes",
+                "legal": "Legal",
                 "main": "Features",
+                "meals": "Meals",
                 "message": "Messages",
                 "notes": "Notes",
                 "talks": "Talks",

@@ -6,7 +6,7 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, 
 import { Talk } from './talk.model';
 import { TalkService } from './talk.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { PaginationConfig } from '../../core/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-talk',
@@ -14,7 +14,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 })
 export class TalkComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     talks: Talk[];
     error: any;
     success: any;
@@ -57,19 +57,21 @@ currentAccount: any;
             this.talkService.search({
                 query: this.currentSearch,
                 size: this.itemsPerPage,
-                sort: this.sort()}).subscribe(
-                    (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-                    (res: ResponseWrapper) => this.onError(res.json)
+                sort: this.sort()
+            }).subscribe(
+                (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+                (res: ResponseWrapper) => this.onError(res.json)
                 );
             return;
         }
         this.talkService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
-        );
+            );
     }
     loadPage(page: number) {
         if (page !== this.previousPage) {
@@ -78,7 +80,8 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/talk'], {queryParams:
+        this.router.navigate(['/talk'], {
+            queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,

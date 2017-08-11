@@ -102,8 +102,8 @@ export class StoreRouterConnectingModule {
   private storeState: any;
   private lastRoutesRecognized: RoutesRecognized;
 
-  private dispatchTriggeredByRouter: boolean = false; // used only in dev mode in combination with routerReducer
-  private navigationTriggeredByDispatch: boolean = false; // used only in dev mode in combination with routerReducer
+  private dispatchTriggeredByRouter = false; // used only in dev mode in combination with routerReducer
+  private navigationTriggeredByDispatch = false; // used only in dev mode in combination with routerReducer
 
   constructor(private store: Store<any>, private router: Router) {
     this.setUpBeforePreactivationHook();
@@ -120,7 +120,7 @@ export class StoreRouterConnectingModule {
   }
 
   private setUpStoreStateListener(): void {
-    this.store.subscribe(s => {
+    this.store.subscribe((s) => {
       this.storeState = s;
       this.navigateIfNeeded();
     });
@@ -153,7 +153,7 @@ export class StoreRouterConnectingModule {
   }
 
   private setUpStateRollbackEvents(): void {
-    this.router.events.subscribe(e => {
+    this.router.events.subscribe((e) => {
       if (e instanceof RoutesRecognized) {
         this.lastRoutesRecognized = e;
       } else if (e instanceof NavigationCancel) {

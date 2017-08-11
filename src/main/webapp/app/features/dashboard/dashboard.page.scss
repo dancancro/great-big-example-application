@@ -21,3 +21,12 @@
 .blurCalendar {
   height: 475px;
 }
+
+// main background
+@mixin body-bg() {
+  $mainBgUrl: $content-root + $images-root + 'sky-bg.jpg';
+
+  &::before {
+    background: url($mainBgUrl) no-repeat center center;
+  }
+}

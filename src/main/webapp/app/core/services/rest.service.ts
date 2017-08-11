@@ -81,7 +81,7 @@ export class RESTService {
     }
 
     prepareRecord(record: any) {
-        let newRecord = { ...record };
+        const newRecord = { ...record };
         delete newRecord.dirty;
         return newRecord;
     }

@@ -26,8 +26,7 @@ import { PieChartService } from './pie-chart/pie-chart.service';
 import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './traffic-chart/traffic-chart.service';
 import { UsersMapService } from './users-map/users-map.service';
-import { customHttpProvider } from '../../blocks/interceptor/http.provider';
-
+import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 // AoT requires an exported function for factories
 // export function HttpLoaderFactory(http: Http) {
@@ -35,33 +34,33 @@ import { customHttpProvider } from '../../blocks/interceptor/http.provider';
 // }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        GreatBigExampleApplicationSharedModule,
-        NgaModule,
-        DashboardRouting
-    ],
-    declarations: [
-        PopularApp,
-        PieChart,
-        TrafficChart,
-        UsersMap,
-        LineChart,
-        Feed,
-        Todo,
-        Calendar,
-        DashboardPage
-    ],
-    providers: [
-        customHttpProvider(),
-        CalendarService,
-        FeedService,
-        LineChartService,
-        PieChartService,
-        TodoService,
-        TrafficChartService,
-        UsersMapService
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    GreatBigExampleApplicationSharedModule,
+    NgaModule,
+    DashboardRouting
+  ],
+  declarations: [
+    PopularApp,
+    PieChart,
+    TrafficChart,
+    UsersMap,
+    LineChart,
+    Feed,
+    Todo,
+    Calendar,
+    DashboardPage
+  ],
+  providers: [
+    customHttpProvider(),
+    CalendarService,
+    FeedService,
+    LineChartService,
+    PieChartService,
+    TodoService,
+    TrafficChartService,
+    UsersMapService
+  ]
 })
 export class DashboardModule { }

@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
-const utils = require('./utils.js');
+const root = __path => path.join(__dirname, __path);
 
 module.exports = (WATCH) => ({
     resolve: {
@@ -11,12 +11,17 @@ module.exports = (WATCH) => ({
     module: {
         rules: [
             {
-                test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader', exclude: /node_modules/
+                // test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader', exclude: /node_modules/
             },
             {
                 test: /\.ts$/,
-                loaders: ['awesome-typescript-loader', 'angular2-template-loader?keepUrl=true'],
-                exclude: /node_modules/
+                loaders: [
+                    'awesome-typescript-loader',
+                    // 'angular2-template-loader?keepUrl=true',  // this caused problems
+                    'angular2-template-loader',
+                    'angular-router-loader'    // enables lazy loading routes
+                ],
+                // exclude: /node_modules/
             },
             {
                 test: /\.(html|css)$/,
@@ -47,7 +52,7 @@ module.exports = (WATCH) => ({
         new webpack.ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            utils.root('./src') // location of your src
+            root('./src') // location of your src
         ),
         new LoaderOptionsPlugin({
             options: {

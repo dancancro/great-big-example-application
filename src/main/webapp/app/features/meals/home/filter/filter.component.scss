@@ -1,0 +1,114 @@
+@import '../../../../../content/scss/conf/conf';
+$filter-gray: #c3c3c3;
+$filter-white: #fff;
+$filter-black: #000;
+$spacing: 15px;
+
+:host {
+  background-color: $filter-white;
+  border-top: 1px solid $filter-gray;
+  display: block;
+  font-size: inherit;
+  line-height: 2;
+  overflow: hidden;
+}
+
+.content {
+  // Filter layout
+  display: flex;
+  font-size: 19px;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: $spacing 20px;
+  @media(min-width: $desktop-break-point) {
+    width: 86%;
+  }
+  @media (min-width: $mobile-break-point + 1) {
+    .toggle {
+      display: none;
+    }
+  }
+
+  .left {
+    &:last-of-type {
+      margin-right: auto;
+    }
+  }
+
+  .right {
+    &.item {
+      font-size: 18px;
+      margin: 0 12px;
+      padding: 9px;
+
+      &:first-of-type {
+        margin-left: auto;
+      }
+    }
+
+    &:focus {
+      outline: solid $filter-black 1px;
+    }
+  }
+
+  .search {
+    width: 35%;
+
+    c2c-input {
+      overflow: hidden;
+      width: 100%;
+    }
+  }
+
+  .item {
+    color: $filter-black;
+    fill: $filter-black;
+    font-family: $title-font;
+    font-size: .8em;
+    margin: 3px;
+    outline-color: $filter-black;
+  }
+  @media (max-width: $mobile-break-point) {
+    $mobile-font-size: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 260px;
+
+    .left {
+      flex: 1 0 100%;
+      font-size: $mobile-font-size;
+      margin: 5px auto;
+      width: 90%;
+
+      meals-button-clear {
+        padding: 5px;
+      }
+    }
+
+    .right {
+      &.item {
+        font-size: $mobile-font-size;
+        margin: 20px;
+
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:last-of-type {
+          margin-right: auto;
+        }
+      }
+    }
+
+    .search {
+      align-items: center;
+      display: flex;
+      margin: 0 auto;
+
+      c2c-input {
+        margin-right: auto;
+        width: 70%;
+      }
+    }
+  }
+}

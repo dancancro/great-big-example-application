@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible Node.js debug attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch via NPM",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "run",
+                "debug"
+            ],
+            "port": 5858,
+            "protocol": "inspector"
+        },
+        {
+            "name": "ngc",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "ngc",
+            "runtimeArgs": [
+                "--debug-brk=5858"
+            ],
+            "port": 5858,
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "port": 5858
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "npm install",
+            "program": "${file}",
+            "outFiles": [
+                "${workspaceRoot}/out/**/*.js"
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug application front end",
+            "url": "http://localhost:9010/#",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug tests",
+            "url": "http://localhost:9876/debug.html",
+            "webRoot": "${workspaceRoot}"
+        }
+    ]
+}

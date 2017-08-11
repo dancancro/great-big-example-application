@@ -1,6 +1,7 @@
 ######################
 # Project Specific
 ######################
+/src/main/webapp/content/css/main.css
 /target/www/**
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/
@@ -58,6 +59,7 @@ local.properties
 *.ipr
 *.ids
 *.orig
+classes/
 
 ######################
 # Visual Studio Code
@@ -139,21 +141,3 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-
-######################
-# Social Secrets
-######################
-/src/main/resources/config/application.with.secrets.yml
-
-src/main/nativescript/app
-src/main/nativescript/hooks
-src/main/nativescript/node_modules
-src/main/nativescript/platforms
-src/main/nativescript/src/app
-src/main/nativescript/src/**/*.js
-src/main/nativescript/src/**/*.js.map
-src/main/nativescript/*.d.ts
-!src/main/nativescript/src/references.d.ts
-desktop
-gulpfile.js
-gulpfile.js.map

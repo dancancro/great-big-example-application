@@ -45,7 +45,7 @@ export class BaAmChart implements OnInit, AfterViewInit {
             if (AmCharts.isReady) {
                 resolve(amChartsReadyMsg);
             } else {
-                AmCharts.ready(function () {
+                AmCharts.ready(function() {
                     resolve(amChartsReadyMsg);
                 });
             }

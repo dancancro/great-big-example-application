@@ -10,7 +10,7 @@ export class RateButtonComponent {
     @Output() rate = new EventEmitter();
 
     promptRating(): void {
-        const value = prompt("Enter rating");
+        const value = prompt('Enter rating');
         if (value) {
             this.rate.next(+value);
         }

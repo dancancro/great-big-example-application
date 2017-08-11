@@ -1,0 +1,17 @@
+@import '../../../../../content/scss/conf/conf';
+
+meals-button-clear {
+  color: $link-color;
+  padding: 0 4px;
+}
+
+c2c-icon-time {
+  bottom: -2px;
+  display: inline-block;
+  fill: $link-color;
+  position: relative;
+}
+
+.stop {
+  color: $visible-red;
+}

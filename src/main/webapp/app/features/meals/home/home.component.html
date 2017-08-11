@@ -1,0 +1,31 @@
+<header class="fixed-content" appWatchHeight (heightChange)="fixedHeight = $event" [style.transition]="statusBarService.animate ? 'padding-top 1s' : null"
+  [style.padding-top]="statusBarService.currentStatus.height + 'px'">
+  <c2c-loading *ngIf="!(apiService.latest | async)"></c2c-loading>
+  <c2c-image-cover [src]="(apiService.latest | async)?.image" class="primary-image" [alt]="(apiService.latest | async)?.title"></c2c-image-cover>
+  <section class="primary-info">
+    <h1 class="title">{{ (apiService.latest | async)?.title }}</h1>
+    <div class="blurb">{{ (apiService.latest | async)?.blurb }} <a *ngIf="apiService.latest | async" [routerLink]="['/recipe', (apiService.latest | async)?.slug]"
+        appAxFocus01Fix>View&nbsp;Recipe</a></div>
+    <c2c-labels (change)="wh.updateHeight()" [labels]="(apiService.latest | async)?.labels" label="Allergy free items for this recipe"></c2c-labels>
+  </section>
+</header>
+<div class="home-content" [style.transition]="statusBarService.animate ? 'margin-top 1s' : null" [style.margin-top]="(fixedHeight + statusBarService.currentStatus.height) + 'px'">
+  <c2c-sticky-scroll #stickyScroll [stickyOffset]="fixedHeight">
+    <c2c-filter (change)="filterStamp = $event; onFilterUpdate(fixedHeight)" (update)="filterValues = $event" (drawerEvent)="stickyScroll.manualHeightCheck()"
+      [filterItems]="(apiService.filterOptions | async)?.items"></c2c-filter>
+  </c2c-sticky-scroll>
+  <div class="info-bar">
+    <h1>Let's get cookin'</h1>
+  </div>
+  <main class="recipes" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+    <section *ngFor="let recipe of apiService.recipes | async | filter:filterStamp:filterValues:filteredMeta | limitTo:limit; let i = index"
+      class="c2c-recipe-ad">
+      <a [routerLink]="['/meals/recipe', recipe.slug]" class="recipe-link">
+        <c2c-recipe-ad [recipe]="recipe" [index]="i"></c2c-recipe-ad>
+      </a>
+    </section>
+    <div *ngIf="(apiService.recipes | async) !== undefined && filteredMeta?.count === 0" class="no-results">
+      No matches for {{filteredMeta.query}}
+    </div>
+  </main>
+</div>

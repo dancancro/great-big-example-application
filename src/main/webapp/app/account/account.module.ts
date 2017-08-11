@@ -24,7 +24,7 @@ import {
 @NgModule({
     imports: [
         GreatBigExampleApplicationSharedModule,
-        RouterModule.forRoot(accountState, { useHash: true })
+        RouterModule.forChild(accountState)
     ],
     declarations: [
         SocialRegisterComponent,
@@ -46,4 +46,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationAccountModule {}
+export class GreatBigExampleApplicationAccountModule { }

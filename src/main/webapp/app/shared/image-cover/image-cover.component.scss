@@ -1,0 +1,60 @@
+@import '../../../content/scss/conf/conf';
+
+// http://stackoverflow.com/a/36175093/5357459
+:host {
+  // Background
+  background-position: center center;
+  background-repeat: no-repeat;
+  // Background size
+  background-size: cover;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .loading {
+    background: $white;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &.fade-in {
+      transition: .33s opacity ease-in;
+    }
+  }
+
+  img {
+    // http://stackoverflow.com/a/11552460/5357459
+    bottom: 0;
+    font-family: $title-font;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+
+    &.error {
+      background: $missing-image;
+      padding: 20% 0;
+    }
+
+    &:not(.error) {
+      opacity: 0;
+    }
+  }
+
+  c2c-loading {
+    bottom: 0;
+    height: 80px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

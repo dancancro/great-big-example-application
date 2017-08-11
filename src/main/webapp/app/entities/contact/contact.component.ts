@@ -6,79 +6,79 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, 
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { PaginationConfig } from '../../core/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-contact',
-    templateUrl: './contact.component.html'
+  selector: 'jhi-contact',
+  templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit, OnDestroy {
-contacts: Contact[];
-    currentAccount: any;
-    eventSubscriber: Subscription;
-    currentSearch: string;
+  contacts: Contact[];
+  currentAccount: any;
+  eventSubscriber: Subscription;
+  currentSearch: string;
 
-    constructor(
-        private contactService: ContactService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private activatedRoute: ActivatedRoute,
-        private principal: Principal
-    ) {
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-    }
+  constructor(
+    private contactService: ContactService,
+    private alertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private activatedRoute: ActivatedRoute,
+    private principal: Principal
+  ) {
+    this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
+  }
 
-    loadAll() {
-        if (this.currentSearch) {
-            this.contactService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: ResponseWrapper) => this.contacts = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
-                );
-            return;
-       }
-        this.contactService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.contacts = res.json;
-                this.currentSearch = '';
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
+  loadAll() {
+    if (this.currentSearch) {
+      this.contactService.search({
+        query: this.currentSearch,
+      }).subscribe(
+        (res: ResponseWrapper) => this.contacts = res.json,
+        (res: ResponseWrapper) => this.onError(res.json)
         );
+      return;
     }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.currentSearch = query;
-        this.loadAll();
-    }
-
-    clear() {
+    this.contactService.query().subscribe(
+      (res: ResponseWrapper) => {
+        this.contacts = res.json;
         this.currentSearch = '';
-        this.loadAll();
-    }
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInContacts();
-    }
+      },
+      (res: ResponseWrapper) => this.onError(res.json)
+    );
+  }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+  search(query) {
+    if (!query) {
+      return this.clear();
     }
+    this.currentSearch = query;
+    this.loadAll();
+  }
 
-    trackId(index: number, item: Contact) {
-        return item.id;
-    }
-    registerChangeInContacts() {
-        this.eventSubscriber = this.eventManager.subscribe('contactListModification', (response) => this.loadAll());
-    }
+  clear() {
+    this.currentSearch = '';
+    this.loadAll();
+  }
+  ngOnInit() {
+    this.loadAll();
+    this.principal.identity().then((account) => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInContacts();
+  }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
-    }
+  ngOnDestroy() {
+    this.eventManager.destroy(this.eventSubscriber);
+  }
+
+  trackId(index: number, item: Contact) {
+    return item.id;
+  }
+  registerChangeInContacts() {
+    this.eventSubscriber = this.eventManager.subscribe('contactListModification', (response) => this.loadAll());
+  }
+
+  private onError(error) {
+    this.alertService.error(error.message, null, null);
+  }
 }

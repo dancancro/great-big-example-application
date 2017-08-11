@@ -10,4 +10,3 @@ export const initialTalksPageLayout: TalksPageLayout = {
     },
     watched: {}
 };
-

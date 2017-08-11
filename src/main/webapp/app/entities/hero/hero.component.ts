@@ -6,79 +6,79 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, 
 import { Hero } from './hero.model';
 import { HeroService } from './hero.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { PaginationConfig } from '../../core/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-hero',
-    templateUrl: './hero.component.html'
+  selector: 'jhi-hero',
+  templateUrl: './hero.component.html'
 })
 export class HeroComponent implements OnInit, OnDestroy {
-heroes: Hero[];
-    currentAccount: any;
-    eventSubscriber: Subscription;
-    currentSearch: string;
+  heroes: Hero[];
+  currentAccount: any;
+  eventSubscriber: Subscription;
+  currentSearch: string;
 
-    constructor(
-        private heroService: HeroService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private activatedRoute: ActivatedRoute,
-        private principal: Principal
-    ) {
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-    }
+  constructor(
+    private heroService: HeroService,
+    private alertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private activatedRoute: ActivatedRoute,
+    private principal: Principal
+  ) {
+    this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
+  }
 
-    loadAll() {
-        if (this.currentSearch) {
-            this.heroService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: ResponseWrapper) => this.heroes = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
-                );
-            return;
-       }
-        this.heroService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.heroes = res.json;
-                this.currentSearch = '';
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
+  loadAll() {
+    if (this.currentSearch) {
+      this.heroService.search({
+        query: this.currentSearch,
+      }).subscribe(
+        (res: ResponseWrapper) => this.heroes = res.json,
+        (res: ResponseWrapper) => this.onError(res.json)
         );
+      return;
     }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.currentSearch = query;
-        this.loadAll();
-    }
-
-    clear() {
+    this.heroService.query().subscribe(
+      (res: ResponseWrapper) => {
+        this.heroes = res.json;
         this.currentSearch = '';
-        this.loadAll();
-    }
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInHeroes();
-    }
+      },
+      (res: ResponseWrapper) => this.onError(res.json)
+    );
+  }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+  search(query) {
+    if (!query) {
+      return this.clear();
     }
+    this.currentSearch = query;
+    this.loadAll();
+  }
 
-    trackId(index: number, item: Hero) {
-        return item.id;
-    }
-    registerChangeInHeroes() {
-        this.eventSubscriber = this.eventManager.subscribe('heroListModification', (response) => this.loadAll());
-    }
+  clear() {
+    this.currentSearch = '';
+    this.loadAll();
+  }
+  ngOnInit() {
+    this.loadAll();
+    this.principal.identity().then((account) => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInHeroes();
+  }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
-    }
+  ngOnDestroy() {
+    this.eventManager.destroy(this.eventSubscriber);
+  }
+
+  trackId(index: number, item: Hero) {
+    return item.id;
+  }
+  registerChangeInHeroes() {
+    this.eventSubscriber = this.eventManager.subscribe('heroListModification', (response) => this.loadAll());
+  }
+
+  private onError(error) {
+    this.alertService.error(error.message, null, null);
+  }
 }

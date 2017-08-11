@@ -36,7 +36,6 @@ import {
  */
 import { storeFreeze } from 'ngrx-store-freeze';
 
-
 /**
  * Every reducer module's default export is the reducer function itself. In
  * addition, each module should export a type or interface that describes
@@ -119,8 +118,6 @@ export const reducers: ActionReducerMap<RootState> = {
     talk: fromTalks.reducer,
 };
 
-
-
 /**
  * By default, @ngrx/store uses combineReducers with the reducer map to compose
  * the root meta-reducer. To add more meta-reducers, provide an array of meta-reducers
@@ -130,10 +127,9 @@ export const metaReducers: ActionReducer<any, any>[] = process.env.NODE_ENV === 
     ? [logger]
     : [];
 
-
 // console.log all actions
 function logger(reducer: ActionReducer<RootState>) {
-    return function (state: RootState, action: any) {
+    return function(state: RootState, action: any) {
         console.log('state', state);
         console.log('action', action);
 

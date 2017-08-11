@@ -3,6 +3,7 @@
         <span class="hipster img-fluid img-rounded"></span>
     </div>
     <div class="col-md-9">
+        <div>Heroku has a problem with this page and websockets. It should work locally</div>
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>

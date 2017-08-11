@@ -1,0 +1,5 @@
+<div [style.height]="fixed ? height + 'px' : null">
+  <div #positionContainer class="position-container" [style.position]="fixed ? 'fixed' : null" [style.top]="statusBarService.active ? statusBarService.currentStatus.height + 'px' : 0" [style.transition]="statusBarService.animate ? 'top 1s' : null" appWatchHeight (heightChange)="height = $event">
+    <ng-content></ng-content>
+  </div>
+</div>

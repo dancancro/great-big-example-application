@@ -16,7 +16,7 @@
             "index": "index.html",
             "main": "app/app.main.ts",
             "polyfills": "app/polyfills.ts",
-            "test": "",
+            "test": "../../../test.ts",
             "tsconfig": "../../../tsconfig.json",
             "prefix": "jhi",
             "mobile": false,
@@ -29,20 +29,22 @@
     ],
     "e2e": {
         "protractor": {
-            "config": "src/test/javascript/protractor.conf.js"
+            "config": "protractor.conf.js"
         }
     },
     "lint": [
         {
-            "project": "./tsconfig.json"
+            "project": "./tsconfig.json",
+            "exclude": "**/node_modules/**/*"
         },
         {
-            "project": "./tsconfig-aot.json"
+            "project": "./tsconfig-aot.json",
+            "exclude": "**/node_modules/**/*"
         }
     ],
     "test": {
         "karma": {
-            "config": "src/test/javascript/karma.conf.js"
+            "config": "./karma.conf.js"
         }
     },
     "defaults": {

@@ -1,0 +1,5 @@
+<button (click)="skipNavigation()" class="skip-nav btn">
+  Skip to main content
+</button>
+<ng-content></ng-content>
+<div #startOfContent class="start-of-content" (blur)="startContentBlur()" [attr.aria-label]="skipLabel" [attr.tabindex]="startContentIndex"></div>

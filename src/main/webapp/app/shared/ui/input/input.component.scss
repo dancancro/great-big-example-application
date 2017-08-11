@@ -1,0 +1,57 @@
+@import '../../../../content/scss/conf/conf';
+$default-color: #808080;
+$side-padding: .7em;
+$border-radius: 0;
+
+:host {
+  background-color: $white;
+  border-radius: $border-radius;
+  color: $white;
+  display: block;
+  fill: $default-color;
+  height: 2em;
+  position: relative;
+  width: 12em;
+
+  input {
+    background-color: transparent;
+    border: 0;
+    border-radius: $border-radius;
+    color: inherit;
+    font-size: 1em;
+    font-weight: 300;
+    height: 100%;
+    outline: none;
+    padding: .4em $side-padding;
+    padding-left: 2em;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    &:focus + .design {
+      background-color: $black;
+      width: 100%;
+    }
+  }
+
+  .design {
+    background-color: transparent;
+    bottom: 0;
+    height: 1px;
+    left: 2em;
+    position: absolute;
+    right: 0;
+    transition: .5s ease;
+    width: 0;
+  }
+
+  c2c-icon-search {
+    bottom: 0;
+    fill: inherit;
+    left: $side-padding;
+    line-height: 1;
+    margin: auto;
+    position: absolute;
+    top: 3px;
+  }
+}
