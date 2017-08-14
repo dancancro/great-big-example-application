@@ -12,7 +12,7 @@ The main goal of this project is to make available source code for a state-of-th
 the likes of which only exist as intellectual property visible exclusively to employed experts who have 
 signed non-disclosure agreements and can't let you see it or learn how they made everything work together.
 
-    You should not have to get hired before learning how professionals do a thing
+> You should not have to get hired before learning how professionals do a thing
 
 The other goal is to assemble enough functionality into one excellent, free example application that people 
 think twice before starting another one-feature, no edge-case, example and exacerbating the already 
