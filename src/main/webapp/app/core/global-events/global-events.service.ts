@@ -2,7 +2,7 @@
  * @module CoreModule
  */ /** */
 import { EventEmitter, Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 /**
  * @whatItDoes Reponsible for handling and dispatching global events such as `window` resizing,
  * `body` scrolling, etc.

@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/share';
 
 import { Command } from '../commands/base.command';
 

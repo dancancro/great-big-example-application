@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output, Inject, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
 import { Filters } from '../talks.layout';
 
 @Component({

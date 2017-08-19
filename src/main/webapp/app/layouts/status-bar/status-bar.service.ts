@@ -3,7 +3,7 @@
  */ /** */
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ReplaySubject } from 'rxjs/Rx';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { CurrentStatus } from './current-status.interface';
 /**

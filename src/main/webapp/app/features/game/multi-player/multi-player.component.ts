@@ -16,9 +16,6 @@ import { GameP2PService } from './services/game-p2p.async-service';
 
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/take';
-
 const WSConfig: WebSocketGatewayConfig = {
     port: 5552,
     secure: false,

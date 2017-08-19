@@ -3,8 +3,7 @@ import { Http, Response, ResponseOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/merge';
+
 
 import { GAME_TEXT } from '../../features/game/config/config';
 import { RestfulCommand } from '../commands/restful.command';

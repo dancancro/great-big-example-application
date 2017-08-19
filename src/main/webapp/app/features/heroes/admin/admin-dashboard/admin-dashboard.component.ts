@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { SelectivePreloadingStrategy } from '../../../../shared/selective-preloading-strategy';
 
-import 'rxjs/add/operator/map';
-
 @Component({
   template: `
     <p>Dashboard</p>

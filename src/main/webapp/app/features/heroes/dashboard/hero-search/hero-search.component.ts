@@ -3,15 +3,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
-// Observable class extensions
-import 'rxjs/add/observable/of';
 
-// Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Hero } from '../../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../../core/store';

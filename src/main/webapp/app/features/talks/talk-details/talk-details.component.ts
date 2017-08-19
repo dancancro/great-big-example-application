@@ -1,11 +1,10 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/mergeMap';
 import { WatchService } from '../services/watch.service';
 import { Talk } from '../../../core/store/talk/talk.model';
 import { RootState } from '../../../core/store';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
 import { slices } from '../../../core/store/util';
 import * as fromRoot from '../../../core/store';

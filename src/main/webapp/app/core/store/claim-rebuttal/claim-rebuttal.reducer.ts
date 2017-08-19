@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 
 import { ClaimRebuttal, initialClaimRebuttal } from './claim-rebuttal.model';

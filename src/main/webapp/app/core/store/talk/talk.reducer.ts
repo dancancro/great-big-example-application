@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { RouterStateSnapshot, Params } from '@angular/router';
 import { RouterAction } from '@ngrx/router-store';

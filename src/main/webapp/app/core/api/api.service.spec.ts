@@ -1,7 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { Injectable } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
-import { Subject, Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
 import { AngularFireOffline } from 'angularfire2-offline';

@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { Route, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
 
 import { MealsLayoutComponent } from './meals-layout.component';

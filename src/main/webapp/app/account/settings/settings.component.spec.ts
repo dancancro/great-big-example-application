@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { JhiLanguageHelper } from '../../shared';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { Principal, AccountService } from '../../shared';
