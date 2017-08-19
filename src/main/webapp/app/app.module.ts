@@ -1,5 +1,5 @@
 import './vendor';
-
+import '../../../rxjs-imports'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
