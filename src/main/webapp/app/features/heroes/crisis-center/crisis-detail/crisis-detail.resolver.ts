@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  Router, Resolve, RouterStateSnapshot,
-  ActivatedRouteSnapshot
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { RESTService } from '../../../../core/services/rest.service';
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
-import { slices } from '../../../../core/store/util';
 
 @Injectable()
 export class CrisisDetailResolver implements Resolve<Crisis> {

@@ -2,9 +2,10 @@ import { fromJS } from 'immutable';
 import { PayloadAction } from '../util';
 
 import { initialGame } from './game.model';
+import { COMPLETE_GAME, GAME_PROGRESS, INVALID_GAME, START_GAME } from './game.actions';
+import { PARTNER_COMPLETED, PARTNER_PROGRESS } from '../p2p-game/p2p-game.actions';
+
 export { initialGame } from './game.model';
-import { COMPLETE_GAME, INVALID_GAME, START_GAME, GAME_PROGRESS } from './game.actions';
-import { PARTNER_PROGRESS, PARTNER_COMPLETED } from '../p2p-game/p2p-game.actions';
 
 export function gamesReducer(state: any = initialGame.get('games'), action: PayloadAction) {
     switch (action.type) {
@@ -13,8 +14,7 @@ export function gamesReducer(state: any = initialGame.get('games'), action: Payl
             break;
     }
     return state;
-};
-
+}
 // Fixes error: Error encountered resolving symbol values statically. Function calls are not
 // supported. Consider replacing the function or lambda with a reference to an exported function
 // const initialGameValue = initialGame.get('game');
@@ -32,8 +32,7 @@ export function gameReducer(state: any = initialGame.get('game'), action: Payloa
             break;
     }
     return state;
-};
-
+}
 // Can't move to +multi-player yet because of `provideStore`.
 export function p2pGameReducer(state: any = initialGame.get('p2pGame'), action: PayloadAction) {
     switch (action.type) {
@@ -48,4 +47,4 @@ export function p2pGameReducer(state: any = initialGame.get('p2pGame'), action: 
             break;
     }
     return state;
-};
+}

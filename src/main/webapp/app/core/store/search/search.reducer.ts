@@ -1,7 +1,6 @@
 import { IDs, initialIDs } from '../id/id.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import { actions, IDAction } from '../id/id.actions';
-import { typeFor } from '../util';
 import * as functions from '../id/id.functions';
 
 export function reducer(state = initialIDs(), action: IDAction): IDs {

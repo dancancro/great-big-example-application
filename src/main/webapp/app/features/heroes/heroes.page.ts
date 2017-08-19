@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 @Component({
     selector: 'jhi-heroes-page',
     styleUrls: ['./heroes.page.scss'],

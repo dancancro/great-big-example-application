@@ -12,7 +12,7 @@ export interface Claim {
     // UI state
     rebuttalsReordered: boolean;
     expanded: boolean;
-};
+}
 
 export const initialClaim: Claim = {
     id: null,

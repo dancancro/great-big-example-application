@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  EntryService,
-  EntryPopupService,
-  EntryComponent,
-  EntryDetailComponent,
-  EntryDialogComponent,
-  EntryPopupComponent,
-  EntryDeletePopupComponent,
-  EntryDeleteDialogComponent,
-  entryRoute,
-  entryPopupRoute,
+    EntryComponent,
+    EntryDeleteDialogComponent,
+    EntryDeletePopupComponent,
+    EntryDetailComponent,
+    EntryDialogComponent,
+    EntryPopupComponent,
+    entryPopupRoute,
+    EntryPopupService,
+    entryRoute,
+    EntryService,
 } from './';
 
 const ENTITY_STATES = [

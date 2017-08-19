@@ -1,4 +1,4 @@
-import { PROGRESS, COMPLETE } from './game-p2p.commands';
+import { COMPLETE, PROGRESS } from './game-p2p.commands';
 import { RPCCommand } from '../../../../../core/commands/rpc.command';
 
 export const gameProgress = (payload: any, baseCommand: RPCCommand) => {

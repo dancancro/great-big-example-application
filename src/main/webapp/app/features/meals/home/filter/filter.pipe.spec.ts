@@ -1,12 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FilterPipe } from './filter.pipe';
 import { FilterUtilitiesService } from './filter-utilities.service';
 import { MockApiData } from '../../../../core/api/mock-api-data.spec';
-import { GlobalEventsService } from '../../../../core/global-events/global-events.service';
-import { MockGlobalEventsService } from '../../../../core/global-events/mock-global-events.service.spec';
 
 @Component({
     template: ``

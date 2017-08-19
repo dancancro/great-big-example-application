@@ -1,15 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { TagComponent } from './tag.component';
 import { TagDetailComponent } from './tag-detail.component';
 import { TagPopupComponent } from './tag-dialog.component';
 import { TagDeletePopupComponent } from './tag-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 export const tagRoute: Routes = [
     {

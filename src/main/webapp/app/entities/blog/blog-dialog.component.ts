@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogPopupService } from './blog-popup.service';
 import { BlogService } from './blog.service';
-import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
+import { ResponseWrapper, User, UserService } from '../../shared';
 
 @Component({
     selector: 'jhi-blog-dialog',

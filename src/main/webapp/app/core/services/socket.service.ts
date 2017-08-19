@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import {  Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';

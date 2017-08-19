@@ -1,5 +1,5 @@
-import { RouterAction, ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
-import { Params, ActivatedRouteSnapshot } from '@angular/router';
+import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+import { ActivatedRouteSnapshot, Params } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs/observable/of';
@@ -9,11 +9,9 @@ import { Observable } from 'rxjs/Observable';
 import { WatchService } from '../../../features/talks/services/watch.service';
 import { Filters } from '../../../features/talks/talks.layout';
 import { RESTService } from '../../services/rest.service';
-import { Talk } from './talk.model';
 import { RootState } from '../';
-import { slices, PayloadAction } from '../util';
+import { PayloadAction, slices, typeFor } from '../util';
 import * as EntityActions from '../entity/entity.actions';
-import { typeFor } from '../util';
 import { actions } from '../entity/entity.actions';
 
 @Injectable()

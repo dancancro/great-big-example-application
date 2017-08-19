@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
 <metadata></metadata>
 <defs>
 <font id="sociconregular" horiz-adv-x="2048" >
@@ -119,4 +119,4 @@
 <glyph unicode="&#x205f;" horiz-adv-x="483" />
 <glyph unicode="&#x25fc;" horiz-adv-x="1930" d="M0 0v1930h1930v-1930h-1930z" />
 </font>
-</defs></svg> 
+</defs></svg>

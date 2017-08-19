@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 @Component({
     selector: 'ba-card',

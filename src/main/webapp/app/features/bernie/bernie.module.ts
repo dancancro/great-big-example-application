@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SortablejsModule } from 'angular-sortablejs';
-import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { MaterialModule } from '@angular/material';
 import { NgPipesModule } from 'ngx-pipes';

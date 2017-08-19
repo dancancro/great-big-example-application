@@ -1,7 +1,4 @@
-import {
-    Component, Renderer, Input, ViewChild, ElementRef, Output, EventEmitter,
-    AfterViewInit
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Renderer, ViewChild } from '@angular/core';
 import { TimerComponent } from '../timer/timer.component';
 import { GameFacade } from '../../../../core/store/game/game.facade';
 

@@ -1,4 +1,4 @@
-import { PARTNER_PROGRESS, PARTNER_COMPLETED } from './p2p-game.actions';
+import { PARTNER_COMPLETED, PARTNER_PROGRESS } from './p2p-game.actions';
 import { PayloadAction } from '../util';
 
 export const P2PGameActions = {

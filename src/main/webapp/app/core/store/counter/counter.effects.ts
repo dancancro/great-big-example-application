@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { empty } from 'rxjs/observable/empty';
 
 import { Counter, initialCounter } from './counter.model';
 import { RESTService } from '../../services/rest.service';
-import * as functions from '../entity/entity.functions';
-import { typeFor, slices } from '../util';
-import { actions, SliceAction } from '../slice/slice.actions';
+import { slices, typeFor } from '../util';
 import * as SliceActions from '../slice/slice.actions';
+import { actions, SliceAction } from '../slice/slice.actions';
 
 @Injectable()
 export class CounterEffects {

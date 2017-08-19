@@ -1,14 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Scheduler } from 'rxjs/Scheduler';
 import { async } from 'rxjs/scheduler/async';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Actions, toPayload } from '@ngrx/effects';
 
 
 import { IDs } from './id.model';
-import { typeFor } from '../util';
-import { actions, IDAction } from './id.actions';
+import { PayloadAction, typeFor } from '../util';
 import * as IDActions from './id.actions';
-import { PayloadAction } from '../util';
+import { actions, IDAction } from './id.actions';
 
 import { of } from 'rxjs/observable/of';
 import { empty } from 'rxjs/observable/empty';
@@ -21,8 +19,7 @@ export function addLoadID(state: IDs, action: IDAction): IDs {
     return Object.assign({}, state, {
         loading: true,
     });
-};
-
+}
 export function updateIDs(state: IDs, action: IDAction): IDs {
     const entities = action.payload;
     return Object.assign({}, state, {
@@ -30,8 +27,7 @@ export function updateIDs(state: IDs, action: IDAction): IDs {
         loading: false,
         ids: entities.map((entity) => entity.id)
     });
-};
-
+}
 export function addID(state: IDs, action: IDAction): IDs {
     const id = action.payload.id;
     if (state.ids.indexOf(id.id) > -1) {
@@ -41,16 +37,14 @@ export function addID(state: IDs, action: IDAction): IDs {
     return Object.assign({}, state, {
         ids: [...state.ids, id]
     });
-};
-
+}
 export function deleteID(state: IDs, action: IDAction): IDs {
     const entity = action.payload;
 
     return Object.assign({}, state, {
         ids: state.ids.filter((id) => id !== entity.id)
     });
-};
-
+}
 /**
  * Effects
  */

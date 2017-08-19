@@ -1,14 +1,6 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Store } from '@ngrx/store';
-import { RouterStateSnapshot, Params } from '@angular/router';
-import { RouterAction } from '@ngrx/router-store';
-
-import * as fromRoot from '../';
-import { typeFor, slices } from '../util';
+import { slices, typeFor } from '../util';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { Talk, initialTalk } from './talk.model';
-import { Filters } from '../../../features/talks/talks.layout';
+import { initialTalk, Talk } from './talk.model';
 // import { TalksUpdated, TalkUpdated, Watch, TalkWatched, Rate, Unrate } from './talk.actions';
 import * as functions from '../entity/entity.functions';
 import { actions, EntityAction } from '../entity/entity.actions';

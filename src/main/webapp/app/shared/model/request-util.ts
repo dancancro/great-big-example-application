@@ -1,4 +1,4 @@
-import { URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, URLSearchParams } from '@angular/http';
 
 export const createRequestOption = (req?: any): BaseRequestOptions => {
     const options: BaseRequestOptions = new BaseRequestOptions();

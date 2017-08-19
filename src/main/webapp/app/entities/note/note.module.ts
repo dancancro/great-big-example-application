@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-    NoteService,
-    NotePopupService,
     NoteComponent,
+    NoteDeleteDialogComponent,
+    NoteDeletePopupComponent,
     NoteDetailComponent,
     NoteDialogComponent,
     NotePopupComponent,
-    NoteDeletePopupComponent,
-    NoteDeleteDialogComponent,
-    noteRoute,
     notePopupRoute,
+    NotePopupService,
+    noteRoute,
+    NoteService,
 } from './';
 
 const ENTITY_STATES = [

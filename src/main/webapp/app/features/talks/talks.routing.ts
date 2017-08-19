@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Routes } from '@angular/router';
-import { Store } from '@ngrx/store';
-
-import { StoreAndRouterConnectorGuard } from '../../core/store/store-and-router-connector.guard';
+import { RouterModule, Routes } from '@angular/router';
 import { TalksPage } from './talks.page';
 import { TalksAndFiltersPage } from './talks-and-filters/talks-and-filters.page';
 import { TalkDetailsComponent } from './talk-details/talk-details.component';

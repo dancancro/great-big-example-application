@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewContainerRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 
-import { JhiLanguageHelper, StateStorageService } from '../../shared';
-import * as $ from 'jquery';
-
+import { JhiLanguageHelper } from '../../shared';
 // import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from '../../shared/services';
-import { BaThemeConfig } from '../../shared/theme/theme.config';
-import { layoutPaths } from '../../shared/theme/theme.constants';
 
 @Component({
     selector: 'jhi-main',

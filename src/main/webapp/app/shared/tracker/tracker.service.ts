@@ -1,5 +1,5 @@
-import { Injectable, Inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 
 import { CSRFService } from '../auth/csrf.service';
@@ -8,9 +8,9 @@ import { AuthServerProvider } from '../auth/auth-jwt.service';
 
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
-import {Subscription} from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class JhiTrackerService {

@@ -1,10 +1,8 @@
-import { SliceAction } from '../slice/slice.actions';
-import { Layout, initialLayout } from './layout.model';
-import * as functions from '../slice/slice.functions';
-import { typeFor, slices } from '../util';
-import { actions } from '../slice/slice.actions';
 import * as SliceActions from '../slice/slice.actions';
-import { Contact } from '../contact/contact.model';
+import { actions, SliceAction } from '../slice/slice.actions';
+import { initialLayout, Layout } from './layout.model';
+import * as functions from '../slice/slice.functions';
+import { slices, typeFor } from '../util';
 
 export function reducer(state: Layout = initialLayout(), action: SliceAction): Layout {
 

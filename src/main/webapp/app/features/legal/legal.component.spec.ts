@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 

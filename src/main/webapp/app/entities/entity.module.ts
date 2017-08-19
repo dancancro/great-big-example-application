@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { GreatBigExampleApplicationHeroModule } from './hero/hero.module';
 import { GreatBigExampleApplicationCrisisModule } from './crisis/crisis.module';
@@ -12,6 +12,7 @@ import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
 import { GreatBigExampleApplicationEntryModule } from './entry/entry.module';
 import { GreatBigExampleApplicationMessageModule } from './message/message.module';
 import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
+
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({

@@ -7,7 +7,7 @@ export enum CommandState {
   IDLE,
   EXECUTING,
   INVOKED
-};
+}
 
 export interface CommandResult {
   command: Command;

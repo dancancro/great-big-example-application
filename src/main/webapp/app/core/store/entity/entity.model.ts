@@ -1,5 +1,3 @@
-import { EntityAction } from './entity.actions';
-
 export interface Entities<T> {
     ids: string[];
     entities: { [id: string]: T };
@@ -9,7 +7,7 @@ export interface Entities<T> {
     slice: string;
     initialEntity: T;
     getData: Function;
-};
+}
 
 export function initialEntities<T>(vals: any = {}, slice: string, actionNames: any, initialEntity): Entities<T> {
 
@@ -22,4 +20,4 @@ export function initialEntities<T>(vals: any = {}, slice: string, actionNames: a
         slice,
         initialEntity,
     }, vals);
-};
+}

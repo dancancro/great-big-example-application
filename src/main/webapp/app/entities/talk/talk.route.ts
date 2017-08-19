@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { JhiPaginationUtil } from 'ng-jhipster';
@@ -8,8 +8,6 @@ import { TalkComponent } from './talk.component';
 import { TalkDetailComponent } from './talk-detail.component';
 import { TalkPopupComponent } from './talk-dialog.component';
 import { TalkDeletePopupComponent } from './talk-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 @Injectable()
 export class TalkResolvePagingParams implements Resolve<any> {

@@ -1,7 +1,9 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Component } from '@angular/core';
+
 /**
  * @whatItDoes Returns the {@link NavComponent} view
  * @consumers {@link LayoutComponent}

@@ -1,8 +1,8 @@
 import { PayloadAction } from '../../../../core/store/util';
 
-import { gameProgress, gameComplete } from './command-builders/game-p2p.command-builder';
+import { gameComplete, gameProgress } from './command-builders/game-p2p.command-builder';
 import { RPCCommand } from '../../../../core/commands/rpc.command';
-import { GAME_PROGRESS, COMPLETE_GAME } from '../../../../core/store/game/game.actions';
+import { COMPLETE_GAME, GAME_PROGRESS } from '../../../../core/store/game/game.actions';
 
 const builders = new Map<string, CommandBuilder>();
 

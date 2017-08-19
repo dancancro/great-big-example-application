@@ -1,6 +1,4 @@
-import { PayloadAction } from '../util';
-
-import { typeFor } from '../util';
+import { PayloadAction, typeFor } from '../util';
 
 export const actions = {
     ADD: 'ADD',

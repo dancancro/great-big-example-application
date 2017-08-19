@@ -1,9 +1,11 @@
 /**
  * @module RecipeModule
- */ /** */
+ */
+/** */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { TimerService } from '../../timer/timer.service';
+
 /**
  * @whatItDoes creates a button to toggle the timer.
  */

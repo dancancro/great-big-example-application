@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 
 import { TrafficChartService } from './traffic-chart.service';
 import * as Chart from 'chart.js';

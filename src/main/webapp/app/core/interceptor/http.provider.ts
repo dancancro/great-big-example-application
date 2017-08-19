@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { Http, XHRBackend, RequestOptions } from '@angular/http';
+import { Http, RequestOptions, XHRBackend } from '@angular/http';
 import { JhiEventManager, JhiInterceptableHttp } from 'ng-jhipster';
 
 import { AuthInterceptor } from './auth.interceptor';
@@ -27,8 +27,7 @@ export function interceptableFactory(
             new NotificationInterceptor(injector)
         ]
     );
-};
-
+}
 export function customHttpProvider() {
     return {
         provide: Http,
@@ -42,4 +41,4 @@ export function customHttpProvider() {
             JhiEventManager
         ]
     };
-};
+}

@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Note } from './note.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class NoteService {

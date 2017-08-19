@@ -1,13 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement, Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Route, Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 
-import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 import { HomeComponent } from './home.component';
 import { HomeModule } from './home.module';

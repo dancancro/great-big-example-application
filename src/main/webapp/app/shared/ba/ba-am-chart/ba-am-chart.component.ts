@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { BaThemePreloader } from '../../../shared/services';
 

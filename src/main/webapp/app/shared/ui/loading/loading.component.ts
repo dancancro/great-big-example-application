@@ -1,7 +1,9 @@
 /**
  * @module UiModule
- */ /** */
+ */
+/** */
 import { Component, HostBinding } from '@angular/core';
+
 /**
  * @whatItDoes Returns a loading ui component with accessibility attributes.
  */

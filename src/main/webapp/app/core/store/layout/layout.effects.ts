@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
-import { slices, PayloadAction } from '../util';
-import { actions } from '../slice/slice.actions';
-import * as SliceActions from '../slice/slice.actions';
+import { PayloadAction } from '../util';
 import { WatchService } from '../../../features/talks/services/watch.service';
 
 /**

@@ -2,9 +2,8 @@ import { createSelector } from 'reselect';
 
 import { Contact, initialContact } from './contact.model';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import * as functions from '../entity/entity.functions';
-import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<Contact> = initialEntities<Contact>({}, slices.CONTACT, actions, initialContact),
@@ -30,8 +29,7 @@ export function reducer(state: Entities<Contact> = initialEntities<Contact>({}, 
         default:
             return state;
     }
-};
-
+}
 export const getEntities = (state: Entities<Contact>) => state.entities;
 
 export const getIds = (state: Entities<Contact>) => state.ids;

@@ -1,11 +1,13 @@
 /**
  * @module SharedModule
- */ /** */
+ */
+/** */
 import { Directive, ElementRef, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';
+
 /**
  * @whatItDoes This makes the Chrome accesibility audit pass for
  * [AX_FOCUS_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_focus_01).

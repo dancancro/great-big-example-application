@@ -1,15 +1,15 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../../core/store';
 import { BerniePageLayout } from './bernie.layout';
-import { Claim, initialClaim } from '../../core/store/claim/claim.model';
-import { Rebuttal, initialRebuttal } from '../../core/store/rebuttal/rebuttal.model';
+import { Claim } from '../../core/store/claim/claim.model';
+import { initialRebuttal, Rebuttal } from '../../core/store/rebuttal/rebuttal.model';
 import { ClaimRebuttal, initialClaimRebuttal } from '../../core/store/claim-rebuttal/claim-rebuttal.model';
 import { Entities } from '../../core/store/entity/entity.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
@@ -156,7 +156,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
             const entities = Object.assign({}, this.claimEntities.entities);
             ids.map((id, index) => {
                 entities[id].sortOrder = index;
-            })
+            });
 
             // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
             const newEntities = Object.assign({}, this.claimEntities, { entities, ids });  // this Object.assign isn't necessary. Merge in slice.functions too
@@ -170,7 +170,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     ngAfterViewChecked() {
-        console.log('resolved')
+        console.log('resolved');
         // this.scrollDistance = WrappedValue.wrap(0)
         // console.log("setting scrolly")
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'scrollY'], 300));

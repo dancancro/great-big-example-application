@@ -1,8 +1,10 @@
 /**
  * @module LegalModule
- */ /** */
+ */
+/** */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 /**
  * @whatItDoes Returns the {@link LegalComponent} view that provides basic legal information
  * such as terms of use, privacy policy, etc.

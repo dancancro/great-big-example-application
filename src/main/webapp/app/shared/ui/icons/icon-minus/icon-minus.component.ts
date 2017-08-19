@@ -1,7 +1,9 @@
 /**
  * @module UiModule
- */ /** */
+ */
+/** */
 import { Component, HostBinding } from '@angular/core';
+
 /**
  * Minus icon from [Ionicons](http://ionicons.com/).
  * [Source](https://github.com/driftyco/ionicons/blob/master/src/ios-minus-empty.svg)

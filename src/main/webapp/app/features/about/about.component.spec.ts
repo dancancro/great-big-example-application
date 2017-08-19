@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement, EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 
 import { AboutComponent } from './about.component';
 import { ApiService } from '../../core/api/api.service';

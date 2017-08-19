@@ -1,7 +1,9 @@
 /**
  * @module HomeModule
- */ /** */
+ */
+/** */
 import { Pipe, PipeTransform } from '@angular/core';
+
 /**
  * @whatItDoes limits the given array to the first x items
  */

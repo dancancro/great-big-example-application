@@ -1,10 +1,12 @@
 /**
  * @module AboutModule
- */ /** */
+ */
+/** */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './about.component';
+
 /**
  * Child routes for the lazy-loaded {@link AboutModule}
  */

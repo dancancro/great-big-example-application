@@ -2,14 +2,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
-import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import * as fromRoot from '../../core/store';
+import { metaReducers, reducers } from '../../core/store';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { CollectionPage } from './collection.page';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { reducers, metaReducers, developmentReducerFactory } from '../../core/store';
 
 describe('CollectionPage', () => {
     let component: CollectionPage;

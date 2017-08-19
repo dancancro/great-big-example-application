@@ -1,9 +1,11 @@
 /**
  * @module AboutModule
- */ /** */
+ */
+/** */
 import { Component } from '@angular/core';
 
 import { ApiService } from '../../core/api/api.service';
+
 /**
  * @whatItDoes Returns the {@link AboutComponent} view.
  * @consumers {@link AboutModule},  {@link AboutRouting}

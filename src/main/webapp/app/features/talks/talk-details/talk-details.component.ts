@@ -1,13 +1,12 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { WatchService } from '../services/watch.service';
 import { Talk } from '../../../core/store/talk/talk.model';
+import * as fromRoot from '../../../core/store';
 import { RootState } from '../../../core/store';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
 import { slices } from '../../../core/store/util';
-import * as fromRoot from '../../../core/store';
 
 @Component({
     selector: 'talk-details-cmp',

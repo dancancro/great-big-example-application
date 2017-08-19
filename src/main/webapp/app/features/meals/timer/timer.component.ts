@@ -1,9 +1,11 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Component } from '@angular/core';
 
 import { TimerService } from './timer.service';
+
 /**
  * @whatItDoes Provides a timer for the user to set when their current recipe item will complete.
  *

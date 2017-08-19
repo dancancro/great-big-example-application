@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs/Observable';
-import { toPayload, Actions } from '@ngrx/effects';
+import { Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 
 import { Entities } from './entity.model';
-import { typeFor, PayloadAction, PayloadActions } from '../util';
-import { actions, EntityAction } from './entity.actions';
+import { PayloadActions, typeFor } from '../util';
 import * as EntityActions from './entity.actions';
+import { actions, EntityAction } from './entity.actions';
 
 export function addToStore<T>(state: Entities<T>, action: EntityActions.Add<T> | EntityActions.Load<T>): Entities<T> {
     const entities = Object.assign({}, state.entities);
@@ -17,8 +17,7 @@ export function addToStore<T>(state: Entities<T>, action: EntityActions.Add<T> |
         loaded: true,
         loading: false,
     });
-};
-
+}
 /**
  * Called after response from an add request returns from the server
  */
@@ -34,7 +33,7 @@ export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<
         loaded: true,
         loading: false,
     });
-};
+}
 /*
  * Delete the property from state.entities, the element from state.ids and
  * if the one being deleted is the selectedEntity, then select a different one.
@@ -48,14 +47,13 @@ export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete
 
     delete entities[id];
     const idx = state.ids.indexOf(id);
-    const lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null
+    const lastIdx = state.ids.length > 1 ? state.ids.length - 2 : null;
     const newIdx = idx > 0 ? idx - 1 : lastIdx;
     const selectedEntityId = idx === -1 ? state.selectedEntityId : state.ids[newIdx];
     const i = state.ids.findIndex((findId) => findId === id);
     const ids = [...state.ids.slice(0, i), ...state.ids.slice(i + 1)];
     return Object.assign({}, state, { entities, ids, selectedEntityId });
-};
-
+}
 /**
  * Called from OnDestroy hooks to remove unsaved records with TEMP ID
  */
@@ -70,14 +68,12 @@ export function select<T>(state: Entities<T>, action: EntityActions.Select<T>): 
     return Object.assign({}, state, {
         selectedEntityId: action.payload.id || action.payload
     });
-};
-
+}
 export function selectNext<T>(state: Entities<T>, action: EntityActions.SelectNext<T>): Entities<T> {
     let ix = 1 + state.ids.indexOf(state.selectedEntityId);
     if (ix >= state.ids.length) { ix = 0; }
     return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
-};
-
+}
 /**
  * Add entities in the action's payload into the state if they are not yet there
  *
@@ -116,8 +112,7 @@ export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): 
         ids: Object.keys(entities),
         entities
     });
-};
-
+}
 /**
  * @whatItDoes updates a given slice with a new set of entities in one fell swoop
  *
@@ -133,8 +128,7 @@ export function newEntities<T>(state: Entities<T>, action: EntityActions.Update<
         ids: Object.keys(entities),
         entities
     });
-};
-
+}
 export function patchEach<T>(state: Entities<T>, action: any): Entities<T> {
     const entities = Object.assign({}, state.entities);
     for (const id of Object.keys(entities)) {
@@ -143,8 +137,7 @@ export function patchEach<T>(state: Entities<T>, action: any): Entities<T> {
     return Object.assign({}, state, {
         entities
     });
-};
-
+}
 function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction<T>): T {
     // console.log('reduceOne entity:' + JSON.stringify(entity) + ' ' + action.type)
     switch (action.type) {
@@ -175,8 +168,7 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
         default:
             return entity;
     }
-};
-
+}
 /**
  *
  * Effects

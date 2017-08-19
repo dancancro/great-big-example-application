@@ -1,10 +1,12 @@
 /**
  * @module HomeModule
- */ /** */
+ */
+/** */
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { FilterUtilitiesService } from './filter-utilities.service';
 import { StopWords } from './stop-words';
+
 /**
  * Filters data
  */

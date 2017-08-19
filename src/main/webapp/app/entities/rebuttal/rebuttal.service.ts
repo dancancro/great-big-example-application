@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class RebuttalService {

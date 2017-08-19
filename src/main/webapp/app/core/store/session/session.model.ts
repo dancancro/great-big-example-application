@@ -10,7 +10,7 @@ export interface Session {
     user: User;
     hasError: boolean;
     loading: boolean;
-};
+}
 
 export function initialSession(vals: any = {}): Session {
     return Object.assign({},
@@ -20,4 +20,4 @@ export function initialSession(vals: any = {}): Session {
             hasError: false,
             loading: false
         }, vals);
-};
+}

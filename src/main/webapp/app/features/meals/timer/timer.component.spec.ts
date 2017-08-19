@@ -1,8 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TimerComponent } from './timer.component';

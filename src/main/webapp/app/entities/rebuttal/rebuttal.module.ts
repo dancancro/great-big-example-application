@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  RebuttalService,
-  RebuttalPopupService,
-  RebuttalComponent,
-  RebuttalDetailComponent,
-  RebuttalDialogComponent,
-  RebuttalPopupComponent,
-  RebuttalDeletePopupComponent,
-  RebuttalDeleteDialogComponent,
-  rebuttalRoute,
-  rebuttalPopupRoute,
+    RebuttalComponent,
+    RebuttalDeleteDialogComponent,
+    RebuttalDeletePopupComponent,
+    RebuttalDetailComponent,
+    RebuttalDialogComponent,
+    RebuttalPopupComponent,
+    rebuttalPopupRoute,
+    RebuttalPopupService,
+    rebuttalRoute,
+    RebuttalService,
 } from './';
 
 const ENTITY_STATES = [

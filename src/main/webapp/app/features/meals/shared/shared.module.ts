@@ -1,7 +1,8 @@
 /**
  * @module SharedModule
  * @preferred
- */ /** */
+ */
+/** */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +13,6 @@ import { UiModule } from '../../../shared/ui/ui.module';
 import { WatchHeightDirective } from './watch-height/watch-height.directive';
 import { GreatBigExampleApplicationSharedModule } from '../../../shared/shared.module';
 import { ImageCoverComponent } from '../../../shared/image-cover/image-cover.component';
-import { StatusBarComponent } from '../../../layouts/status-bar/status-bar.component';
 
 /**
  * @whatItDoes {@link SharedModule} exists to hold the common components, directives, and pipes

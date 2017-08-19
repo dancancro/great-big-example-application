@@ -1,7 +1,7 @@
 import { BooksPageLayout, initialBooksPageLayout } from '../../../features/books/books.layout';
 import { BerniePageLayout, initialBerniePageLayout } from '../../../features/bernie/bernie.layout';
 import { HeroesDashboardLayout, initialHeroesDashboardPageLayout } from '../../../features/heroes/heroes.layout';
-import { TalksPageLayout, initialTalksPageLayout } from '../../../features/talks/talks.layout';
+import { initialTalksPageLayout, TalksPageLayout } from '../../../features/talks/talks.layout';
 
 /**
  * Combination of everything

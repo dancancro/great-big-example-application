@@ -4,7 +4,7 @@ export interface BerniePageLayout {
     scrollY: number;
     bernieSearchTerm: string;
     // isTouched: Function;
-};
+}
 
 export const initialBerniePageLayout: BerniePageLayout = {
     editable: false,

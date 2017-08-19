@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import 'easy-pie-chart/dist/jquery.easypiechart.js';
 
 import { PieChartService } from './pie-chart.service';

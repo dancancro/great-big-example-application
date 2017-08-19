@@ -1,19 +1,19 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import { GreatBigExampleApplicationAdminModule } from '../../admin/admin.module';
 import {
-    BlogService,
-    BlogPopupService,
     BlogComponent,
+    BlogDeleteDialogComponent,
+    BlogDeletePopupComponent,
     BlogDetailComponent,
     BlogDialogComponent,
     BlogPopupComponent,
-    BlogDeletePopupComponent,
-    BlogDeleteDialogComponent,
-    blogRoute,
     blogPopupRoute,
+    BlogPopupService,
+    blogRoute,
+    BlogService,
 } from './';
 
 const ENTITY_STATES = [

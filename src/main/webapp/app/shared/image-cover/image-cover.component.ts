@@ -1,15 +1,9 @@
 /**
  * @module SharedModule
- */ /** */
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    Renderer
-} from '@angular/core';
+ */
+/** */
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, Renderer } from '@angular/core';
+
 /**
  * @whatItDoes Creates an image that covers the element.
  * @consumers {@link HomeModule}

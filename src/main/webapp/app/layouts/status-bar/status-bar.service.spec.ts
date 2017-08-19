@@ -1,6 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { EventEmitter, Injectable } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 import { NavigationEnd, Router } from '@angular/router';
 import { StatusBarService } from './status-bar.service';
 import { MockRouter } from '../../../mocks/mock-router.spec';

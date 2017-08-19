@@ -1,4 +1,4 @@
-import { Injectable, Inject, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, OpaqueToken } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 

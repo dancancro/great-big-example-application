@@ -6,7 +6,7 @@ export class AppConfig {
     public readonly WS_SECURE = false;
     public readonly WS_HOST = 'localhost';
     public readonly WS_PORT = 5552;
-};
+}
 
 export const apiUrl = '/api';
 export const API_URL = new OpaqueToken('restful-url');

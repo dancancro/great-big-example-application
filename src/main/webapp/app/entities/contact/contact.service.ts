@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Contact } from './contact.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class ContactService {

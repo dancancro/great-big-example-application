@@ -1,36 +1,36 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiTrackerService } from './../shared/tracker/tracker.service';
 
 import { GreatBigExampleApplicationSharedModule } from '../shared';
-/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
-
 import {
     adminState,
     AuditsComponent,
-    UserMgmtComponent,
-    UserDialogComponent,
-    UserDeleteDialogComponent,
-    UserMgmtDetailComponent,
-    UserMgmtDialogComponent,
-    UserMgmtDeleteDialogComponent,
-    LogsComponent,
-    JhiMetricsMonitoringModalComponent,
-    JhiMetricsMonitoringComponent,
-    JhiHealthModalComponent,
-    JhiHealthCheckComponent,
-    JhiConfigurationComponent,
-    JhiDocsComponent,
     AuditsService,
+    JhiConfigurationComponent,
     JhiConfigurationService,
+    JhiDocsComponent,
+    JhiHealthCheckComponent,
+    JhiHealthModalComponent,
     JhiHealthService,
+    JhiMetricsMonitoringComponent,
+    JhiMetricsMonitoringModalComponent,
     JhiMetricsService,
     JhiTrackerComponent,
+    LogsComponent,
     LogsService,
-    UserResolvePagingParams,
+    UserDeleteDialogComponent,
+    UserDialogComponent,
+    UserMgmtComponent,
+    UserMgmtDeleteDialogComponent,
+    UserMgmtDetailComponent,
+    UserMgmtDialogComponent,
+    UserModalService,
     UserResolve,
-    UserModalService
+    UserResolvePagingParams
 } from './';
+
+/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 @NgModule({
     imports: [

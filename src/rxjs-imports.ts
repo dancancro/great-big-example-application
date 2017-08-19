@@ -23,7 +23,6 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/withLatestFrom';
 
 
-
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/fromEvent';

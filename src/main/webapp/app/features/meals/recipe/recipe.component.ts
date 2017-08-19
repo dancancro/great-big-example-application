@@ -1,6 +1,7 @@
 /**
  * @module RecipeModule
- */ /** */
+ */
+/** */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AfoObjectObservable } from 'angularfire2-offline';
@@ -8,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Recipe } from '../../../core/api/api-interfaces';
 import { ApiService } from '../../../core/api/api.service';
+
 /**
  * @whatItDoes Returns the {@link RecipeComponent} view.
  * @consumers {@link RecipeModule}, {@link RecipeRouting}

@@ -1,10 +1,12 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Injectable } from '@angular/core';
 import { PushNotificationsService } from 'angular2-notifications';
 
 import { StatusBarService } from '../../../layouts/status-bar/status-bar.service';
+
 /**
  * @whatItDoes tracks the current status of the time and pushes needed notifications of timer state
  * to timer related components.

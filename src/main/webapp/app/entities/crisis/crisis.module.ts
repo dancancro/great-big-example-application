@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  CrisisService,
-  CrisisPopupService,
-  CrisisComponent,
-  CrisisDetailComponent,
-  CrisisDialogComponent,
-  CrisisPopupComponent,
-  CrisisDeletePopupComponent,
-  CrisisDeleteDialogComponent,
-  crisisRoute,
-  crisisPopupRoute,
+    CrisisComponent,
+    CrisisDeleteDialogComponent,
+    CrisisDeletePopupComponent,
+    CrisisDetailComponent,
+    CrisisDialogComponent,
+    CrisisPopupComponent,
+    crisisPopupRoute,
+    CrisisPopupService,
+    crisisRoute,
+    CrisisService,
 } from './';
 
 const ENTITY_STATES = [

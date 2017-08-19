@@ -1,10 +1,12 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from '../../../../../../node_modules/rxjs/Subscription.d';
 
 import { StatusBarService } from './status-bar.service';
+
 /**
  * @whatItDoes moves a fixed position host element with respect to the {@link StatusBarComponent}'s
  * position.

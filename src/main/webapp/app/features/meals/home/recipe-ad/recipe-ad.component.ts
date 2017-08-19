@@ -1,7 +1,9 @@
 /**
  * @module HomeModule
- */ /** */
+ */
+/** */
 import { Component, Input, OnInit } from '@angular/core';
+
 /**
  * @whatItDoes Displays a single recipe ad item.
  * @consumers {@link HomeModule}

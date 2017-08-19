@@ -8,8 +8,8 @@ import {
     logsRoute,
     metricsRoute,
     trackerRoute,
-    userMgmtRoute,
-    userDialogRoute
+    userDialogRoute,
+    userMgmtRoute
 } from './';
 
 import { UserRouteAccessService } from '../shared';

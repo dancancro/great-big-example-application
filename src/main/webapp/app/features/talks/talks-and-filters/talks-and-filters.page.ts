@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Router, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Params, Router } from '@angular/router';
 import { Filters } from '../talks.layout';
 import * as fromRoot from '../../../core/store';
 import { Talk } from '../../../core/store/talk/talk.model';
