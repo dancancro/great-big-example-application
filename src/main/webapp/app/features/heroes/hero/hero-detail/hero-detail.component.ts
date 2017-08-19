@@ -1,9 +1,8 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import { Location } from '@angular/common';
 
 import { slideInDownAnimation } from '../../../../shared/animations';

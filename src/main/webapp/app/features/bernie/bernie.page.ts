@@ -4,9 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/takeLast';
-import 'rxjs/add/operator/combineLatest';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../../core/store';

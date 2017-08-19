@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
 import { Renderer, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../mocks/mock-language.service';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';

@@ -3,7 +3,6 @@ import {
     EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/zip';
 import { SortablejsOptions } from 'angular-sortablejs';
 
 import { Claim } from '../../../core/store/claim/claim.model';

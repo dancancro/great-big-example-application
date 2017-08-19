@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from '../../core/services/socket.service';
-import 'rxjs/add/observable/fromPromise';
 
 @Injectable()
 export class MessagesService {

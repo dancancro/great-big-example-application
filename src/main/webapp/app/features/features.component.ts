@@ -15,7 +15,7 @@ import { MdSidenav } from '@angular/material';
 import { FeatureMeta, FeaturesService } from './features.service';
 import { Http, Response } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     templateUrl: 'features.component.html',

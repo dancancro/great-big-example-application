@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 
 import { Rebuttal, initialRebuttal } from './rebuttal.model';

@@ -5,8 +5,6 @@ import {
 import { TimerComponent } from '../timer/timer.component';
 import { GameFacade } from '../../../../core/store/game/game.facade';
 
-import 'rxjs/add/operator/scan';
-
 @Component({
     selector: 'jhi-game',
     template: `

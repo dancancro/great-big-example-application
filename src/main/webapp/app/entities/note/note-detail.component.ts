@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager  } from 'ng-jhipster';
 
 import { Note } from './note.model';
@@ -36,7 +36,8 @@ export class NoteDetailComponent implements OnInit, OnDestroy {
         });
     }
     previousState() {
-        window.history.back();
+        window.history.back(); // FIXME: Inject Location: this.location.back();
+        // Using the window is not good =(
     }
 
     ngOnDestroy() {

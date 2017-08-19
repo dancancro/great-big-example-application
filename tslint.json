@@ -2,7 +2,21 @@
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
+    "extends": [
+        "rxjs-tslint-rules"
+    ],
     "rules": {
+        "rxjs-no-wholesale": {
+            "severity": "error"
+        },
+        "rxjs-add": {
+            "options": [{
+                "allowElsewhere": false,
+                "allowUnused": false,
+                "file": "./src/rxjs-imports.ts"
+            }],
+            "severity": "error"
+        },
         "class-name": true,
         "comment-format": [
             true,

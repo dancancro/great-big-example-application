@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
-import { Subject, ReplaySubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Recipe } from './api-interfaces';
 import { FilterOptions } from '../../features/meals/home/filter/filter-options';  // TODO: This file should be in the meals feature
