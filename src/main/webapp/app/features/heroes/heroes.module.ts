@@ -6,7 +6,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { HeroesRouting } from './heroes.routing';
 import { TwainService } from '../../shared/twain/twain.service';
-import { WelcomeComponent } from '../../shared/welcome/welcome.component';
 import { UserService } from '../../core/services/user.service';
 import { HeroesPage } from './heroes.page';
 import { HeroModule } from './hero/hero.module';

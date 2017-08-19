@@ -3,11 +3,11 @@ import { Title } from '@angular/platform-browser';
 
 import { WindowRef } from './services/window.service';
 import {
-    GreatBigExampleApplicationSharedLibsModule,
-    JhiLanguageHelper,
     FindLanguageFromKeyPipe,
+    GreatBigExampleApplicationSharedLibsModule,
     JhiAlertComponent,
-    JhiAlertErrorComponent
+    JhiAlertErrorComponent,
+    JhiLanguageHelper
 } from './';
 
 @NgModule({

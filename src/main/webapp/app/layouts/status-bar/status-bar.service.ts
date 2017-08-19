@@ -1,11 +1,13 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { CurrentStatus } from './current-status.interface';
+
 /**
  * @whatItDoes tracks the status of the {@link StatusBarComponent} and notifies all components with
  * the {@link StatusBarAwareDirective} that a change has occurred.

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DatePipe } from '@angular/common';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { JhiParseLinks } from 'ng-jhipster';

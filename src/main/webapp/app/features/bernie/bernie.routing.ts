@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { BerniePage } from './bernie.page';
 import { UserRouteAccessService } from '../../shared';

@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
 
-import { Message, initialMessage } from './message.model';
+import { initialMessage, Message } from './message.model';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import * as functions from '../entity/entity.functions';
-import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<Message> = initialEntities<Message>({}, slices.MESSAGE, actions, initialMessage),
@@ -30,8 +29,7 @@ export function reducer(state: Entities<Message> = initialEntities<Message>({}, 
         default:
             return state;
     }
-};
-
+}
 export const getEntities = (state: Entities<Message>) => state.entities;
 
 export const getIds = (state: Entities<Message>) => state.ids;

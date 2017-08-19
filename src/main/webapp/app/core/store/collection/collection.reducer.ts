@@ -1,9 +1,7 @@
-import { createSelector } from 'reselect';
 import { IDs, initialIDs } from '../id/id.model';
 import { slices, typeFor } from '../util';
 import * as functions from '../id/id.functions';
-import { actions } from '../id/id.actions';
-import { IDAction } from '../id/id.actions';
+import { actions, IDAction } from '../id/id.actions';
 
 export function reducer(state = initialIDs(),
   action: IDAction): IDs {

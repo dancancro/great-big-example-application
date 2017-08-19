@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  TagService,
-  TagPopupService,
-  TagComponent,
-  TagDetailComponent,
-  TagDialogComponent,
-  TagPopupComponent,
-  TagDeletePopupComponent,
-  TagDeleteDialogComponent,
-  tagRoute,
-  tagPopupRoute,
+    TagComponent,
+    TagDeleteDialogComponent,
+    TagDeletePopupComponent,
+    TagDetailComponent,
+    TagDialogComponent,
+    TagPopupComponent,
+    tagPopupRoute,
+    TagPopupService,
+    tagRoute,
+    TagService,
 } from './';
 
 const ENTITY_STATES = [

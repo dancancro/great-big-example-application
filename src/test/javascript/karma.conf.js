@@ -2,7 +2,7 @@ const webpackConfig = require('../../../webpack/webpack.test.js');
 
 const WATCH = process.argv.indexOf('--watch') > -1;
 
-module.exports = (config) => {
+module.exports = (config) =;> {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -77,4 +77,4 @@ module.exports = (config) => {
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: !WATCH
     });
-};
+}

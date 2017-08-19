@@ -1,10 +1,12 @@
 /**
  * @module LegalModule
- */ /** */
+ */
+/** */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LegalComponent } from './legal.component';
+
 /**
  * Child routes for the lazy-loaded {@link LegalModule}
  */

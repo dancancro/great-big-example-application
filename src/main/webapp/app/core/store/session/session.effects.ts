@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 
 import { RESTService } from '../../services/rest.service';
 import * as functions from '../slice/slice.functions';

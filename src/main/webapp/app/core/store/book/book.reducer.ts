@@ -2,11 +2,9 @@ import { createSelector } from 'reselect';
 
 import { Book, initialBook } from './book.model';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import * as functions from '../entity/entity.functions';
-import { typeFor } from '../util';
-import { actions } from '../entity/entity.actions';
-import { EntityAction } from '../entity/entity.actions';
+import { actions, EntityAction } from '../entity/entity.actions';
 import { IDAction } from '../id/id.actions';
 
 export function reducer(state: Entities<Book> = initialEntities<Book>({}, slices.BOOK, actions, initialBook),

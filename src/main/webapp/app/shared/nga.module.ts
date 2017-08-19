@@ -1,54 +1,42 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
 import { GreatBigExampleApplicationSharedModule } from '../shared';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-    BaThemeConfig
-} from './theme/theme.config';
+import { BaThemeConfig } from './theme/theme.config';
 
-import {
-    BaThemeConfigProvider
-} from './theme/theme.config-provider';
+import { BaThemeConfigProvider } from './theme/theme.config-provider';
 
 import {
     BaAmChart,
+    BaAppPicturePipe,
     BaBackTop,
     BaCard,
     BaChartistChart,
     BaCheckbox,
     BaContentTop,
     BaFullCalendar,
-    BaMenuItem,
+    BaKameleonPicturePipe,
     BaMenu,
+    BaMenuItem,
     BaMsgCenter,
     BaMultiCheckbox,
     BaPageTop,
-    BaSidebar,
+    BaProfilePicturePipe,
     BaScrollPositionDirective,
+    BaSidebar,
     BaSlimScrollDirective,
-    BaThemeRunDirective,
-    BaAppPicturePipe,
-    BaKameleonPicturePipe,
-    BaProfilePicturePipe
+    BaThemeRunDirective
 } from './ba';
 
 import { BaCardBlurDirective } from './ba/ba-card/ba-card-blur.directive';
 
-import {
-    BaImageLoaderService,
-    BaMenuService,
-    BaThemePreloader,
-    BaThemeSpinner
-} from './services';
+import { BaImageLoaderService, BaMenuService, BaThemePreloader, BaThemeSpinner } from './services';
 
-import {
-    EmailValidator,
-    EqualPasswordsValidator
-} from './validators';
+import { EmailValidator, EqualPasswordsValidator } from './validators';
 
 const NGA_COMPONENTS = [
     BaAmChart,

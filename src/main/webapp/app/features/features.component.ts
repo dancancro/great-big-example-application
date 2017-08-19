@@ -1,21 +1,9 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    AfterViewInit,
-    ViewChild,
-    Input,
-    ChangeDetectorRef,
-    Renderer,
-    ElementRef
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MdSidenav } from '@angular/material';
 import { FeatureMeta, FeaturesService } from './features.service';
-import { Http, Response } from '@angular/http';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Http } from '@angular/http';
 
 @Component({
     templateUrl: 'features.component.html',

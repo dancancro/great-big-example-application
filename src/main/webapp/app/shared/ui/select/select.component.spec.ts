@@ -1,7 +1,5 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { IconArrowDownComponent } from '../../../shared/ui/icons/icon-arrow-down/icon-arrow-down.component';
 import { SelectComponent } from '../../../shared/ui/select/select.component';

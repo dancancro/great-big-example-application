@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs/Observable';
-
 import { ClaimRebuttal, initialClaimRebuttal } from './claim-rebuttal.model';
 import { Entities, initialEntities } from '../entity/entity.model';
 import * as entityFunctions from '../entity/entity.functions';
@@ -29,8 +27,7 @@ export function reducer(state: Entities<ClaimRebuttal> = initialEntities<ClaimRe
         }
     }
 
-};
-
+}
 export const getEntities = (state: Entities<ClaimRebuttal>) => state.entities;
 
 export const getIds = (state: Entities<ClaimRebuttal>) => state.ids;

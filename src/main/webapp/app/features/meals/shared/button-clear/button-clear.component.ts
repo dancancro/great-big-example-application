@@ -1,7 +1,9 @@
 /**
  * @module SharedModule
- */ /** */
+ */
+/** */
 import { Component, Input } from '@angular/core';
+
 /**
  * @whatItDoes Wraps conntent in a `button` element with minimal styling.
  */

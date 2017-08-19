@@ -2,9 +2,8 @@ import { createSelector } from 'reselect';
 
 import { Hero, initialHero } from './hero.model';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import * as functions from '../entity/entity.functions';
-import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices.HERO, actions, initialHero),
@@ -29,8 +28,7 @@ export function reducer(state: Entities<Hero> = initialEntities<Hero>({}, slices
         default:
             return state;
     }
-};
-
+}
 export const getEntities = (state: Entities<Hero>) => state.entities;
 
 export const getIds = (state: Entities<Hero>) => state.ids.filter((id) => !state.entities[id].deleteMe);

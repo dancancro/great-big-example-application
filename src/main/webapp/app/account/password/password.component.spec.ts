@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { PasswordComponent } from './password.component';

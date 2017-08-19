@@ -1,7 +1,9 @@
 /**
  * @module SharedModule
- */ /** */
+ */
+/** */
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+
 /**
  * @whatItDoes Creates up to 6 labels with a circular design.
  * @consumers {@link HomeModule}

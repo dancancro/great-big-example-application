@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 import { NavbarComponent } from './navbar/navbar.component';
-import { TimerComponent } from './shared/timer/timer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { GameFacade } from '../../core/store/game/game.facade';
 import { RestfulGateway } from '../../core/gateways/restful.gateway';

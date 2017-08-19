@@ -1,13 +1,13 @@
 import {
+    AfterViewInit,
     Component,
-    ViewChild,
-    Input,
-    Output,
     ElementRef,
     EventEmitter,
-    AfterViewInit,
+    Input,
     OnChanges,
-    OnDestroy
+    OnDestroy,
+    Output,
+    ViewChild
 } from '@angular/core';
 
 import * as Chartist from 'chartist';

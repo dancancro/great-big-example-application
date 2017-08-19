@@ -21,4 +21,4 @@ export class ContainerComponent {
   @Input() size = 1;
   @Input() center = false;
   @Input() testid: string;
-};
+}

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
 import { buildP2PCommand } from './index';
-import { PROGRESS, COMPLETE } from './command-builders/game-p2p.commands';
+import { COMPLETE, PROGRESS } from './command-builders/game-p2p.commands';
 import { WebRTCGateway } from '../../../../core/gateways/webrtc.gateway';
 import { BaseAsyncService } from '../../../../core/services/base.async-service';
 import { RPCCommand } from '../../../../core/commands/rpc.command';

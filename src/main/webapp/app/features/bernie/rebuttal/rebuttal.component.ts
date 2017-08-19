@@ -1,7 +1,4 @@
-import {
-    Component, Input, Output, EventEmitter, OnInit,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Claim } from '../../../core/store/claim/claim.model';

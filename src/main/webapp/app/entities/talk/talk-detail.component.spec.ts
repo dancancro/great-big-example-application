@@ -1,10 +1,10 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+import { JhiDataUtils, JhiDateUtils, JhiEventManager } from 'ng-jhipster';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { MockActivatedRoute } from '../../../mocks/mock-route.service';
 import { TalkDetailComponent } from './talk-detail.component';

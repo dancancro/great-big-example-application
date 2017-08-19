@@ -1,6 +1,7 @@
 /**
  * @module HomeModule
- */ /** */
+ */
+/** */
 import {
     AfterViewInit,
     Component,
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';
 import { FilterItems } from './filter-options';
 import { FilterUtilitiesService } from './filter-utilities.service';
+
 /**
  * @whatItDoes Returns a filter bar that filters recipes
  * @consumers {@link HomeComponent}

@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -6,8 +6,8 @@ import {
     AccountService,
     AuthServerProvider,
     CSRFService,
-    GreatBigExampleApplicationSharedLibsModule,
     GreatBigExampleApplicationSharedCommonModule,
+    GreatBigExampleApplicationSharedLibsModule,
     HasAnyAuthorityDirective,
     JhiLoginModalComponent,
     JhiSocialComponent,
@@ -36,12 +36,10 @@ import { TwainService } from './twain/twain.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 // import { GameComponent } from '../features/game/game.component';
 // import { TimerComponent } from '../features/game/timer/timer.component';
-import { LayoutsModule } from '../layouts/layouts.module';
 // import { StatusBarComponent } from '../layouts/status-bar/status-bar.component';
 import { NavComponent } from '../layouts/nav/nav.component';
 import { SkipNavComponent } from '../layouts/skip-nav/skip-nav.component';
 import { UiModule } from './ui/ui.module';
-import { MealsLayoutComponent } from '../layouts/meals-layout/meals-layout.component';
 import { ImageCoverComponent } from './image-cover/image-cover.component';
 
 export const components = [

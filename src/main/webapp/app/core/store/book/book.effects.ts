@@ -1,5 +1,5 @@
-import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
 
 import { GoogleBooksService } from '../../../features/books/services/google-books.service';
 import { slices } from '../util';

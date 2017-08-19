@@ -4,8 +4,7 @@ import { SliceAction } from '../slice/slice.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 import * as entityFunctions from '../entity/entity.functions';
 import * as sliceFunctions from '../slice/slice.functions';
-import { slices } from '../util';
-import { typeFor } from '../util';
+import { slices, typeFor } from '../util';
 
 export function reducer(state = initialEntities<Claim>({}, slices.CLAIM, actions, initialClaim),
     action: EntityAction<Claim>): Entities<Claim> {

@@ -1,9 +1,9 @@
 /**
  * @module MealsModule
  * @preferred
- */ /** */
+ */
+/** */
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { MealsRouting } from './meals.routing';

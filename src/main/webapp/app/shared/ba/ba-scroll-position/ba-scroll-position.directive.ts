@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Directive({
     selector: '[baScrollPosition]'

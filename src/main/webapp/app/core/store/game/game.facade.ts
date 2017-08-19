@@ -1,7 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { fromJS, Map } from 'immutable';
 
 import { BaseAsyncService } from '../../services/base.async-service';
 import { BaseFacade } from '../base/base.facade';

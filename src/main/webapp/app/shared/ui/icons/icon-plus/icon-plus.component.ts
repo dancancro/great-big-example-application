@@ -1,7 +1,9 @@
 /**
  * @module UiModule
- */ /** */
+ */
+/** */
 import { Component, HostBinding } from '@angular/core';
+
 /**
  * Plus icon from [Ionicons](http://ionicons.com/).
  * [Source](https://github.com/driftyco/ionicons/blob/master/src/ios-plus-empty.svg)

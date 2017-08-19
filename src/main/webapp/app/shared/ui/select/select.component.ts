@@ -1,13 +1,9 @@
 /**
  * @module UiModule
- */ /** */
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild } from '@angular/core';
+ */
+/** */
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 /**
  * @whatItDoes Returns a simple ui component as defined in the {@link UiModule}.
  */

@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  ClaimService,
-  ClaimPopupService,
-  ClaimComponent,
-  ClaimDetailComponent,
-  ClaimDialogComponent,
-  ClaimPopupComponent,
-  ClaimDeletePopupComponent,
-  ClaimDeleteDialogComponent,
-  claimRoute,
-  claimPopupRoute,
+    ClaimComponent,
+    ClaimDeleteDialogComponent,
+    ClaimDeletePopupComponent,
+    ClaimDetailComponent,
+    ClaimDialogComponent,
+    ClaimPopupComponent,
+    claimPopupRoute,
+    ClaimPopupService,
+    claimRoute,
+    ClaimService,
 } from './';
 
 const ENTITY_STATES = [

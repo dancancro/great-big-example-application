@@ -1,7 +1,8 @@
 /**
  * @module HomeModule
  * @preferred
- */ /** */
+ */
+/** */
 import { NgModule } from '@angular/core';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
@@ -15,6 +16,7 @@ import { LimitToPipe } from './limit-to.pipe';
 import { RecipeAdComponent } from './recipe-ad/recipe-ad.component';
 import { StickyScrollComponent } from './sticky-scroll/sticky-scroll.component';
 import { MealsSharedModule } from '../shared/shared.module';
+
 /**
  * @whatItDoes Lazy loaded feature module for the home page.
  * @consumers {@link AppRoutingModule} (on demand)

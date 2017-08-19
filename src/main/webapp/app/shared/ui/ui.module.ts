@@ -1,7 +1,8 @@
 /**
  * @module UiModule
  * @preferred
- */ /** */
+ */
+/** */
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -19,6 +20,7 @@ import { IconTimeComponent } from './icons/icon-time/icon-time.component';
 import { LoadingComponent } from './loading/loading.component';
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
+
 /**
  * @whatItDoes {@link UiModule} exists to hold the common user interface methods that offers a
  * consistant look and api to the rest of the app.

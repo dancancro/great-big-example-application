@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
 import { Principal } from '../../shared';
 import { SocketService } from '../../core/services/socket.service';
@@ -8,7 +7,6 @@ import { slices } from '../../core/store/util';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { Message } from '../../core/store/message/message.model';
 import * as fromRoot from '../../core/store';
-import * as SliceActions from '../../core/store/slice/slice.actions';
 
 @Component({
     selector: 'jhi-messages-page',
@@ -59,9 +57,9 @@ export class MessagesPage implements OnInit, OnDestroy {
         this.editing[row.$$index + '-' + cell] = false;
         const message = this.messages[row.$$index];
         const id = message.id;
-        let newObj = {}
+        let newObj = {};
         newObj[cell] = event.target.value;
-        newObj = Object.assign({}, message, newObj)
+        newObj = Object.assign({}, message, newObj);
         this.store.dispatch(new EntityActions.Patch(slices.MESSAGE, newObj));
 
         // this.messages[row.$$index][cell] = event.target.value;

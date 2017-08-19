@@ -15,7 +15,6 @@ import { GreatBigExampleApplicationHomeModule } from './features/home/home.modul
 import { TranslateModule } from '@ngx-translate/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
 import { customHttpProvider } from './core/interceptor/http.provider';
@@ -28,22 +27,12 @@ import { MealsModule } from './features/meals/meals.module'; // for the timer
 import { LayoutsModule } from './layouts/layouts.module';
 import { schema } from './core/store/db';
 
-import { reducers, metaReducers, developmentReducerFactory } from './core/store';
-
+import { metaReducers, reducers } from './core/store';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
 
-import {
-    JhiMainComponent,
-    // LayoutRoutingModule,
-    NavbarComponent,
-    FooterComponent,
-    ProfileService,
-    PageRibbonComponent,
-    ActiveMenuDirective,
-    ErrorComponent
-} from './layouts';
+import { JhiMainComponent, ProfileService } from './layouts';
 
 const imports = [
     BrowserModule,

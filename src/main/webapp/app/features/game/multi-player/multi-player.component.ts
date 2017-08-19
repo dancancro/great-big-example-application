@@ -1,13 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
-import { Component, Provider, ViewChild, NgZone } from '@angular/core';
+import { Component, NgZone, Provider, ViewChild } from '@angular/core';
 import { BaseGateway } from '../../../core/gateways/base.gateway';
 import { WebRTCGateway } from '../../../core/gateways/webrtc.gateway';
 import { WebSocketGateway, WebSocketGatewayConfig, WS_CONFIG } from '../../../core/gateways/websocket.gateway';
 import { GAME_TEXT } from '../config/config';
-import * as constants from '../../../app.constants';
 import { GameComponent } from '../shared/game/game.component';
-import { AppConfig } from '../../../app.config';
 import { BaseAsyncService } from '../../../core/services/base.async-service';
 import { GameFacade } from '../../../core/store/game/game.facade';
 import { P2PGameFacade } from '../../../core/store/p2p-game/p2p-game.facade';

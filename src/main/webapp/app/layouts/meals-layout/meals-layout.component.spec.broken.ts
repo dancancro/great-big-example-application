@@ -1,18 +1,13 @@
 /* tslint:disable:no-unused-variable */
-import { Injectable } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { Route, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject } from 'rxjs/Subject';
-import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 import { MealsLayoutComponent } from './meals-layout.component';
 import { CoreModule } from '../../core/core.module';
-import { FooterComponent } from '../footer/footer.component';
 import { GlobalEventsService } from '../../core/global-events/global-events.service';
-import { NavComponent } from '../nav/nav.component';
 import { HomeComponent } from '../../features/home/home.component';
 import { GreatBigExampleApplicationHomeModule } from '../../features/home/home.module';
 import { ApiService } from '../../core/api/api.service';

@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
@@ -12,29 +11,24 @@ import { Counter } from './counter/counter.model';
 import { Hero } from './hero/hero.model';
 import { Layout } from './layout/layout.model';
 import { Note } from './note/note.model';
-import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
+import { Rebuttal } from './rebuttal/rebuttal.model';
 import { Session } from './session/session.model';
-import { User } from './user/user.model';
 import { Talk } from './talk/talk.model';
 
 import {
-    ActionReducerMap,
-    createSelector,
-    createFeatureSelector,
-    compose,
-    ActionReducer,
-    combineReducers,
     Action,
+    ActionReducer,
     ActionReducerFactory,
+    ActionReducerMap,
+    combineReducers,
+    compose,
+    createSelector,
 } from '@ngrx/store';
-
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
-
 /**
  * Every reducer module's default export is the reducer function itself. In
  * addition, each module should export a type or interface that describes
@@ -49,6 +43,7 @@ import * as fromContacts from './contact/contact.reducer';
 import * as fromCounter from './counter/counter.reducer';
 import * as fromCrises from './crisis/crisis.reducer';
 import * as fromGames from './game/game.reducer';
+import { gamesReducer, p2pGameReducer } from './game/game.reducer';
 import * as fromHeroes from './hero/hero.reducer';
 import * as fromLayout from './layout/layout.reducer';
 import * as fromMessages from './message/message.reducer';
@@ -57,7 +52,6 @@ import * as fromRebuttals from './rebuttal/rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
 import * as fromSession from './session/session.reducer';
 import * as fromTalks from './talk/talk.reducer';
-import { gameReducer, gamesReducer, p2pGameReducer } from './game/game.reducer';
 import { Entities } from './entity/entity.model';
 import { IDs } from './id/id.model';
 

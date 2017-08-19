@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaThemeConfigProvider, ColorHelper } from '../../../shared/theme';
+import { BaThemeConfigProvider } from '../../../shared/theme';
 
 @Injectable()
 export class PieChartService {

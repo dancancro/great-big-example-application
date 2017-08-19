@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'ba-back-top',

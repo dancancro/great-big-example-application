@@ -1,15 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { BlogComponent } from './blog.component';
 import { BlogDetailComponent } from './blog-detail.component';
 import { BlogPopupComponent } from './blog-dialog.component';
 import { BlogDeletePopupComponent } from './blog-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 export const blogRoute: Routes = [
     {

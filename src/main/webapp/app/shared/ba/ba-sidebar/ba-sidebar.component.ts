@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { GlobalState } from '../../../global.state';
 import { layoutSizes } from '../../../shared/theme';
 

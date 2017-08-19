@@ -2,7 +2,6 @@
 // https://angular.io/docs/ts/latest/guide/style-guide.html#04-09
 
 import { NgModule } from '@angular/core';
-import { Jsonp, URLSearchParams } from '@angular/http';
 import { JsonpModule } from '@angular/http';
 
 import { WikiComponent } from './wiki.component';

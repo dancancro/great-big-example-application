@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import 'fullcalendar/dist/fullcalendar.js';
 import * as jQuery from 'jquery';
 

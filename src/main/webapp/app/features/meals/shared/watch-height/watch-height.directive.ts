@@ -1,18 +1,12 @@
 /**
  * @module CoreModule
- */ /** */
-import {
-    AfterViewInit,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    OnDestroy,
-    OnInit,
-    Output
-} from '@angular/core';
+ */
+/** */
+import { AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';
+
 /**
  * Emits the host's height `OnInit` and when the window resizes.
  */

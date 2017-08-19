@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, Inject, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Filters } from '../talks.layout';
 
 @Component({

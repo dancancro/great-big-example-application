@@ -1,10 +1,7 @@
-import { createSelector } from 'reselect';
-
-import { Note, initialNote } from './note.model';
+import { initialNote, Note } from './note.model';
 import { Entities, initialEntities } from '../entity/entity.model';
-import { slices } from '../util';
+import { slices, typeFor } from '../util';
 import * as functions from '../entity/entity.functions';
-import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices.NOTE, actions, initialNote),
@@ -29,8 +26,7 @@ export function reducer(state: Entities<Note> = initialEntities<Note>({}, slices
         default:
             return state;
     }
-};
-
+}
 export const getEntities = (state: Entities<Note>) => state.entities;
 
 export const getIds = (state: Entities<Note>) => state.ids.filter((id) => !state.entities[id].deleteMe);

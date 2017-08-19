@@ -1,13 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import { Component, DebugElement, Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MomentModule } from 'angular2-moment';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 
-import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 import { RecipeComponent } from './recipe.component';
 import { TimerButtonComponent } from '../recipe/timer-button/timer-button.component';

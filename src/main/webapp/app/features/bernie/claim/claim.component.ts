@@ -1,15 +1,7 @@
-import {
-    Component, Input, Output,
-    EventEmitter, ChangeDetectionStrategy
-} from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SortablejsOptions } from 'angular-sortablejs';
 
 import { Claim } from '../../../core/store/claim/claim.model';
-import { Rebuttal } from '../../../core/store/rebuttal/rebuttal.model';
-import { ClaimRebuttal } from '../../../core/store/claim-rebuttal/claim-rebuttal.model';
-import { RebuttalComponent } from '../rebuttal/rebuttal.component';
-import { getRebuttalEntities } from '../../../core/store';
 
 @Component({
     selector: 'jhi-bernie-claim',

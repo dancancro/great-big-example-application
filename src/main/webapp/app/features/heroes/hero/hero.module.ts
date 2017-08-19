@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
 import { NgPipesModule } from 'ngx-pipes';
 
 import { GreatBigExampleApplicationSharedModule } from '../../../shared/shared.module';
-import { routedComponents, HeroRouting } from './hero.routing';
+import { HeroRouting, routedComponents } from './hero.routing';
 
 @NgModule({
     imports: [

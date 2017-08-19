@@ -1,10 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement, Injectable, ViewChild } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
+import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject } from 'rxjs/Subject';
 
 import { StickyScrollComponent } from './sticky-scroll.component';
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';

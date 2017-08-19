@@ -1,9 +1,11 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { AfterViewInit, Component, ElementRef, HostBinding } from '@angular/core';
 
 import { StatusBarService } from './status-bar.service';
+
 /**
  * @whatItDoes provides app status messages by pushing app content down from the top revealing
  * this component.

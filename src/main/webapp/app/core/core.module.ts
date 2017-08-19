@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core';
+import { ApplicationRef, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -6,25 +6,17 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
-import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
-import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
-import { Http } from '@angular/http';
 
 import { NgaModule } from '../shared/nga.module';
-
-import { ModuleWithProviders } from '@angular/core';
 import { PushNotificationsModule } from 'angular2-notifications';
 import { AngularFireModule } from 'angularfire2';
-
 /**
  * Import ngrx
  */
-import { Store, ActionReducer, combineReducers } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 // import { RouterStoreModule } from '@ngrx/router-store';
-
 /**
  * Import toplevel component/providers/directives/pipes
  */
@@ -34,16 +26,10 @@ import { SocketService } from './services/socket.service';
 import { UserService } from './services/user.service';
 import { customHttpProvider } from '../core/interceptor/http.provider';
 
-import { AppState, InternalStateType } from '../app.service';
-import { GlobalState } from '../global.state';
-
 import { firebaseConfig } from './firebase-config';
 import { ApiService } from './api/api.service';
 import { GlobalEventsService } from './global-events/global-events.service';
-import { StatusBarAwareDirective } from '../layouts/status-bar/status-bar-aware.directive';
-import { StatusBarComponent } from '../layouts/status-bar/status-bar.component';
 import { StatusBarService } from '../layouts/status-bar/status-bar.service';
-import { SkipNavComponent } from '../layouts/skip-nav/skip-nav.component';
 
 // Application wide providers
 // const APP_PROVIDERS = [

@@ -4,17 +4,16 @@ import { RouterModule } from '@angular/router';
 import { GreatBigExampleApplicationSharedModule } from '../shared/shared.module';
 
 import {
-    JhiMainComponent,
-    NavbarComponent,
-    FooterComponent,
-    ProfileService,
-    PageRibbonComponent,
     ActiveMenuDirective,
     ErrorComponent,
+    FooterComponent,
+    JhiMainComponent,
     MealsLayoutComponent,
+    NavbarComponent,
+    PageRibbonComponent,
     StandardLayoutComponent,
-    StatusBarComponent,
-    StatusBarAwareDirective
+    StatusBarAwareDirective,
+    StatusBarComponent
 } from './';
 import { MealsModule } from '../features/meals/meals.module';
 

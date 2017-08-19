@@ -50,4 +50,5 @@ const routes: Routes = [
         SelectivePreloadingStrategy
     ]
 })
-export class BooksRouting { };
+export class BooksRouting {
+}

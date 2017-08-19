@@ -1,7 +1,9 @@
 /**
  * @module SharedModule
- */ /** */
+ */
+/** */
 import { Component, HostBinding } from '@angular/core';
+
 /**
  * Reset icon from [Ionicons](http://ionicons.com/).
  * [Source](https://github.com/driftyco/ionicons/blob/master/src/ios-reload.svg)

@@ -3,11 +3,9 @@ import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { SliceAction } from './slice.actions';
-import { typeFor } from '../util';
-import { actions } from './slice.actions';
 import * as ActionClasses from './slice.actions';
-import { PayloadAction } from '../util';
+import { actions, SliceAction } from './slice.actions';
+import { PayloadAction, typeFor } from '../util';
 
 const merge = require('lodash/merge');
 
@@ -17,8 +15,7 @@ export function load(state: {}, action: SliceAction): any {
         loaded: false,
         loading: true,
     });
-};
-
+}
 export function loadFail(state): any {
     return merge({}, state, {
         hasError: true,

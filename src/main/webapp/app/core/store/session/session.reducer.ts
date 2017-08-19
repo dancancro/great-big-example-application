@@ -1,6 +1,6 @@
-import { Session, initialSession } from './session.model';
+import { initialSession, Session } from './session.model';
 import * as functions from '../slice/slice.functions';
-import { typeFor, slices } from '../util';
+import { slices, typeFor } from '../util';
 import { actions, SliceAction } from '../slice/slice.actions';
 
 export function reducer(state: Session = initialSession(), action: SliceAction): Session {

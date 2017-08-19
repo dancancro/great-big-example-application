@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import { Component, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Subject } from 'rxjs/Subject';
 
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';
 import { MockGlobalEventsService } from '../../../../core/global-events/mock-global-events.service.spec';

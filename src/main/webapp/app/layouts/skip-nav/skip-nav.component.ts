@@ -1,8 +1,10 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+
 /**
  * @whatItDoes Provides a shortcut button to skip the main navigation for accessibility purposes.
  *

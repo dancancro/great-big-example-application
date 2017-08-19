@@ -1,7 +1,9 @@
 /**
  * @module HomeModule
- */ /** */
+ */
+/** */
 import { Injectable } from '@angular/core';
+
 /**
  * @whatItDoes Provides common utiliies for the {@link HomeModule}
  */

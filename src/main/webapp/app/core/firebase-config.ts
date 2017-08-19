@@ -1,7 +1,9 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { FirebaseAppConfig } from 'angularfire2';
+
 /**
  * @whatItDoes provides config info for initializing the AngularFireModule
  * @consumers {@link CoreModule}

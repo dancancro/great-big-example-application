@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  ContactService,
-  ContactPopupService,
-  ContactComponent,
-  ContactDetailComponent,
-  ContactDialogComponent,
-  ContactPopupComponent,
-  ContactDeletePopupComponent,
-  ContactDeleteDialogComponent,
-  contactRoute,
-  contactPopupRoute,
+    ContactComponent,
+    ContactDeleteDialogComponent,
+    ContactDeletePopupComponent,
+    ContactDetailComponent,
+    ContactDialogComponent,
+    ContactPopupComponent,
+    contactPopupRoute,
+    ContactPopupService,
+    contactRoute,
+    ContactService,
 } from './';
 
 const ENTITY_STATES = [

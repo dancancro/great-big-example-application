@@ -1,10 +1,12 @@
 /**
  * @module CoreModule
- */ /** */
+ */
+/** */
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { StatusBarService } from '../status-bar/status-bar.service';
+
 /**
  * @whatItDoes Manages all layout functions for the {@link AppComponent}.
  * @purpose The goal for this component is to encapsulate all logic relating to how the app's layout

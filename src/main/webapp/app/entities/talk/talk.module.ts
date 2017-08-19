@@ -1,19 +1,19 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  TalkService,
-  TalkPopupService,
-  TalkComponent,
-  TalkDetailComponent,
-  TalkDialogComponent,
-  TalkPopupComponent,
-  TalkDeletePopupComponent,
-  TalkDeleteDialogComponent,
-  talkRoute,
-  talkPopupRoute,
-  TalkResolvePagingParams,
+    TalkComponent,
+    TalkDeleteDialogComponent,
+    TalkDeletePopupComponent,
+    TalkDetailComponent,
+    TalkDialogComponent,
+    TalkPopupComponent,
+    talkPopupRoute,
+    TalkPopupService,
+    TalkResolvePagingParams,
+    talkRoute,
+    TalkService,
 } from './';
 
 const ENTITY_STATES = [

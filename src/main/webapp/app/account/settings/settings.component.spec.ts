@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
-import { JhiLanguageHelper } from '../../shared';
+import { AccountService, JhiLanguageHelper, Principal } from '../../shared';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { Principal, AccountService } from '../../shared';
 import { SettingsComponent } from './settings.component';
 import { MockAccountService } from '../../../mocks/mock-account.service';
 import { MockPrincipal } from '../../../mocks/mock-principal.service';

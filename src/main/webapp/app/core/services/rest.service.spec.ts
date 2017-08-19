@@ -1,17 +1,8 @@
-import {
-    async, inject, TestBed
-} from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 
-import {
-    MockBackend,
-    MockConnection
-} from '@angular/http/testing';
+import { MockBackend } from '@angular/http/testing';
 
-import {
-    HttpModule, Http, XHRBackend, Response, ResponseOptions
-} from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
+import { Http, HttpModule, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { Hero } from '../store/hero/hero.model';
 import { RESTService } from './rest.service';
 import { AppConfig } from '../../app.config';

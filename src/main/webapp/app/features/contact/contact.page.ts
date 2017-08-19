@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,7 +9,6 @@ import { Contact } from '../../core/store/contact/contact.model';
 import { User } from '../../core/store/user/user.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
-import { Entities } from '../../core/store/entity/entity.model';
 import { Account, Principal } from '../../shared';
 
 @Component({

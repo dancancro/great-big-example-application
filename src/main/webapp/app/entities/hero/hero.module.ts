@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-    HeroService,
-    HeroPopupService,
     HeroComponent,
+    HeroDeleteDialogComponent,
+    HeroDeletePopupComponent,
     HeroDetailComponent,
     HeroDialogComponent,
     HeroPopupComponent,
-    HeroDeletePopupComponent,
-    HeroDeleteDialogComponent,
-    heroRoute,
     heroPopupRoute,
+    HeroPopupService,
+    heroRoute,
+    HeroService,
 } from './';
 
 const ENTITY_STATES = [

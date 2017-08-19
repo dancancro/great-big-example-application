@@ -1,4 +1,4 @@
-import { Directive, Input, Output, ElementRef, EventEmitter, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
 // import 'jquery-slimscroll';
 

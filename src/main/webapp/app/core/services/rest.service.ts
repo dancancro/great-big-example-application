@@ -1,15 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http, URLSearchParams, Response, Headers } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
-import { Claim } from '../store/claim/claim.model';
-import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
-import { Contact } from '../store/contact/contact.model';
-import { Crisis } from '../store/crisis/crisis.model';
-import { Hero } from '../store/hero/hero.model';
-import { Note } from '../store/note/note.model';
-import { Rebuttal } from '../store/rebuttal/rebuttal.model';
 import { AppConfig } from '../../app.config';
 
 /**
