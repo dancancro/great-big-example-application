@@ -4,7 +4,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Route, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject, Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+
 import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
 
 import { HomeComponent } from './home.component';

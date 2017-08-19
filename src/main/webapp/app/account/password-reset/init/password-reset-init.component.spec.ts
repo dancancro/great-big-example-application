@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Renderer, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { GreatBigExampleApplicationTestModule } from '../../../../mocks/test.module';
 import { PasswordResetInitComponent } from './password-reset-init.component';
 import { PasswordResetInitService } from './password-reset-init.service';

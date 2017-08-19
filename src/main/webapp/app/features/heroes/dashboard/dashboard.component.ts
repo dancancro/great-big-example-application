@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/take';
 
 import { Hero } from '../../../core/store/hero/hero.model';
 import { Crisis } from '../../../core/store/crisis/crisis.model';

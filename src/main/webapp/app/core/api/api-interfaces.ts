@@ -1,7 +1,7 @@
 /**
  * @module CoreModule
  */ /** */
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Interface for individual recipe items

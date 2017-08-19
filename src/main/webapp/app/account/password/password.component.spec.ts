@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { PasswordComponent } from './password.component';
 import { PasswordService } from './password.service';

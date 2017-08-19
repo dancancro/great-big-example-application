@@ -4,10 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GameFacade } from '../../../core/store/game/game.facade';
 import { RoomConfig } from '../../../core/gateways/webrtc.gateway';
 
-import 'rxjs/add/operator/scan';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/take';
-
 @Component({
     selector: 'jhi-home',
     styles: [`

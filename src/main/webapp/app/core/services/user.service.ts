@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { User } from '../store/user/user.model';
 import { ResponseWrapper } from '../../shared/model/response-wrapper.model';

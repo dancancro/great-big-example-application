@@ -2,7 +2,7 @@
 import { Component, HostBinding, Injectable, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import { AxFocusFixDirective } from './ax-focus-fix.directive';
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';

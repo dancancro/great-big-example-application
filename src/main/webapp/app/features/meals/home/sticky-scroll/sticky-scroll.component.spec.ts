@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Component, DebugElement, Injectable, ViewChild } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import { StickyScrollComponent } from './sticky-scroll.component';
 import { GlobalEventsService } from '../../../../core/global-events/global-events.service';

@@ -3,10 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as Peer from 'simple-peer';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-
 import { BaseGateway } from './base.gateway';
 import { WebSocketGateway } from './websocket.gateway';
 import { Command } from '../commands/base.command';

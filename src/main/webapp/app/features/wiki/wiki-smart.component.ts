@@ -2,10 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
-
 import { Subject } from 'rxjs/Subject';
 
 import { WikipediaService } from './wikipedia.service';

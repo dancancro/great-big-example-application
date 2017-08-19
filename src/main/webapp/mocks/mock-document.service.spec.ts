@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 /**
  * **For Components:**
  * ```
@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Rx';
      @Inject('Document') private document: Document
      private otherInjectables: OtherInjectables) { }
  * ```
- * 
+ *
  * **For tests:**
  * 1. import
  * ```
