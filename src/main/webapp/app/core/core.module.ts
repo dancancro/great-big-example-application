@@ -18,6 +18,7 @@ import { NgaModule } from '../shared/nga.module';
 import { ModuleWithProviders } from '@angular/core';
 import { PushNotificationsModule } from 'angular2-notifications';
 import { AngularFireModule } from 'angularfire2';
+import { EntityExistsGuard } from './services/entity-exists.guard';
 
 /**
  * Import ngrx
@@ -106,6 +107,7 @@ export class CoreModule {
             ngModule: CoreModule,
             providers: [
                 RESTService,
+                EntityExistsGuard,
                 SocketService,
                 UserService,
                 customHttpProvider(), // expose our Services and Providers into Angular's dependency injection

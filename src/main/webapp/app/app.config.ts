@@ -2,6 +2,7 @@ import { OpaqueToken } from '@angular/core';
 
 export class AppConfig {
     public readonly apiUrl = '/api';
+    public conduitApiUrl = 'https://conduit.productionready.io/api';
     public readonly API_URL = new OpaqueToken('restful-url');
     public readonly WS_SECURE = false;
     public readonly WS_HOST = 'localhost';

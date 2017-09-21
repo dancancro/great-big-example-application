@@ -24,6 +24,12 @@ export const features = [
         tags: ['API']
     },
     {
+        id: 'blog',
+        link: 'features/blog',
+        source: 'https://github.com/gothinkster/angular-realworld-example-app',
+        tags: ['blog', 'rest api', 'pagination']
+    },
+    {
         id: 'chat',
         link: 'features/chat',
         source: 'https://github.com/ruddell/jhipster-chat-example',

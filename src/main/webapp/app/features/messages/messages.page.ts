@@ -41,6 +41,8 @@ export class MessagesPage implements OnInit, OnDestroy {
                 this.messages = messages;
             });
         });
+        this.store.dispatch(new EntityActions.Load(slices.MESSAGE));
+
     }
 
     ngOnDestroy() {
@@ -59,7 +61,7 @@ export class MessagesPage implements OnInit, OnDestroy {
         this.editing[row.$$index + '-' + cell] = false;
         const message = this.messages[row.$$index];
         const id = message.id;
-        let newObj = {}
+        let newObj = { id }
         newObj[cell] = event.target.value;
         newObj = Object.assign({}, message, newObj)
         this.store.dispatch(new EntityActions.Patch(slices.MESSAGE, newObj));

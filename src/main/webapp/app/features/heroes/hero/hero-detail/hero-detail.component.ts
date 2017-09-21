@@ -37,7 +37,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
         this.heroSub = this.hero$.subscribe((hero) => this.hero = hero);
         this.routeSub = this.route.params
             .subscribe((params: Params) => {
-                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
+                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: params['id'] }));
             });
     }
 

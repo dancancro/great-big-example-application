@@ -23,7 +23,7 @@ export class UserMgmtDialogComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private userService: UserService,
         private eventManager: JhiEventManager
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -62,7 +62,7 @@ export class UserMgmtDialogComponent implements OnInit {
 
 @Component({
     selector: 'jhi-user-dialog',
-    template: ''
+    template: './user-management-dialog.component.html'
 })
 export class UserDialogComponent implements OnInit, OnDestroy {
 
@@ -72,11 +72,11 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private userModalService: UserModalService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['login'] ) {
+            if (params['login']) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);

@@ -1,3 +1,4 @@
+```
 .
 ├── LICENSE
 ├── NOTICES.md
@@ -23,8 +24,9 @@
 │   │   │   │   └── index.md
 │   │   │   ├── 015-sidebar
 │   │   │   │   └── index.md
-│   │   │   └── 016-spinner
-│   │   │       └── index.md
+│   │   │   ├── 016-spinner
+│   │   │   │   └── index.md
+│   │   │   └── 101-loading-middleware
 │   │   ├── css
 │   │   │   └── main.scss
 │   │   ├── images
@@ -38,6 +40,7 @@
 │   ├── images
 │   │   ├── bernie-app.png
 │   │   ├── bernie-spreadsheet.png
+│   │   ├── blog.png
 │   │   ├── calendar.png
 │   │   ├── chat.png
 │   │   ├── collection.png
@@ -67,17 +70,19 @@
 │   ├── admin
 │   │   └── administration.spec.ts
 │   └── entities
-│       ├── blog.spec.ts
+│       ├── article.spec.ts
+│       ├── author.spec.ts
 │       ├── claim-rebuttal.spec.ts
 │       ├── claim.spec.ts
+│       ├── comment.spec.ts
 │       ├── contact.spec.ts
 │       ├── crisis.spec.ts
-│       ├── entry.spec.ts
 │       ├── hero.spec.ts
 │       ├── message.spec.ts
 │       ├── note.spec.ts
 │       ├── rebuttal.spec.ts
-│       └── tag.spec.ts
+│       ├── tag.spec.ts
+│       └── talk.spec.ts
 ├── etc
 ├── firebase.json
 ├── karma.conf.js
@@ -152,25 +157,21 @@
 │   │   │               ├── domain
 │   │   │               │   ├── AbstractAuditingEntity.java
 │   │   │               │   ├── Authority.java
-│   │   │               │   ├── Blog.java
 │   │   │               │   ├── Claim.java
 │   │   │               │   ├── ClaimRebuttal.java
 │   │   │               │   ├── Contact.java
 │   │   │               │   ├── Crisis.java
-│   │   │               │   ├── Entry.java
 │   │   │               │   ├── Hero.java
 │   │   │               │   ├── Message.java
 │   │   │               │   ├── Note.java
 │   │   │               │   ├── PersistentAuditEvent.java
 │   │   │               │   ├── Rebuttal.java
 │   │   │               │   ├── SocialUserConnection.java
-│   │   │               │   ├── Tag.java
 │   │   │               │   ├── Talk.java
 │   │   │               │   ├── User.java
 │   │   │               │   └── package-info.java
 │   │   │               ├── repository
 │   │   │               │   ├── AuthorityRepository.java
-│   │   │               │   ├── BlogRepository.java
 │   │   │               │   ├── ClaimRebuttalRepository.java
 │   │   │               │   ├── ClaimRepository.java
 │   │   │               │   ├── ContactRepository.java
@@ -178,24 +179,22 @@
 │   │   │               │   ├── CustomAuditEventRepository.java
 │   │   │               │   ├── CustomSocialConnectionRepository.java
 │   │   │               │   ├── CustomSocialUsersConnectionRepository.java
-│   │   │               │   ├── EntryRepository.java
 │   │   │               │   ├── HeroRepository.java
 │   │   │               │   ├── MessageRepository.java
 │   │   │               │   ├── NoteRepository.java
 │   │   │               │   ├── PersistenceAuditEventRepository.java
 │   │   │               │   ├── RebuttalRepository.java
 │   │   │               │   ├── SocialUserConnectionRepository.java
-│   │   │               │   ├── TagRepository.java
 │   │   │               │   ├── TalkRepository.java
 │   │   │               │   ├── UserRepository.java
 │   │   │               │   ├── package-info.java
 │   │   │               │   └── search
-│   │   │               │       ├── BlogSearchRepository.java
+│   │   │               │       ├── ArticleSearchRepository.java
 │   │   │               │       ├── ClaimRebuttalSearchRepository.java
 │   │   │               │       ├── ClaimSearchRepository.java
+│   │   │               │       ├── CommentSearchRepository.java
 │   │   │               │       ├── ContactSearchRepository.java
 │   │   │               │       ├── CrisisSearchRepository.java
-│   │   │               │       ├── EntrySearchRepository.java
 │   │   │               │       ├── HeroSearchRepository.java
 │   │   │               │       ├── MessageSearchRepository.java
 │   │   │               │       ├── NoteSearchRepository.java
@@ -224,6 +223,7 @@
 │   │   │               │   ├── SocialService.java
 │   │   │               │   ├── UserService.java
 │   │   │               │   ├── dto
+│   │   │               │   │   ├── ProfileDTO.java
 │   │   │               │   │   ├── UserDTO.java
 │   │   │               │   │   └── package-info.java
 │   │   │               │   ├── mapper
@@ -236,12 +236,10 @@
 │   │   │                   ├── rest
 │   │   │                   │   ├── AccountResource.java
 │   │   │                   │   ├── AuditResource.java
-│   │   │                   │   ├── BlogResource.java
 │   │   │                   │   ├── ClaimRebuttalResource.java
 │   │   │                   │   ├── ClaimResource.java
 │   │   │                   │   ├── ContactResource.java
 │   │   │                   │   ├── CrisisResource.java
-│   │   │                   │   ├── EntryResource.java
 │   │   │                   │   ├── HeroResource.java
 │   │   │                   │   ├── LogsResource.java
 │   │   │                   │   ├── MessageResource.java
@@ -249,7 +247,6 @@
 │   │   │                   │   ├── ProfileInfoResource.java
 │   │   │                   │   ├── RebuttalResource.java
 │   │   │                   │   ├── SocialController.java
-│   │   │                   │   ├── TagResource.java
 │   │   │                   │   ├── TalkResource.java
 │   │   │                   │   ├── UserJWTController.java
 │   │   │                   │   ├── UserResource.java
@@ -278,7 +275,62 @@
 │   │   │                       │   ├── MessageDTO.java
 │   │   │                       │   └── package-info.java
 │   │   │                       └── package-info.java
+│   │   ├── kotlin
+│   │   │   └── org
+│   │   │       └── exampleapps
+│   │   │           └── greatbig
+│   │   │               ├── ApiApplication.kt.todo
+│   │   │               ├── client
+│   │   │               │   ├── ProfileClient.kt
+│   │   │               │   ├── TagClient.kt
+│   │   │               │   ├── UserClient.kt
+│   │   │               │   └── response
+│   │   │               │       ├── InLogin.kt
+│   │   │               │       ├── InRegister.kt
+│   │   │               │       ├── OutProfile.kt
+│   │   │               │       ├── OutTag.kt
+│   │   │               │       └── OutUser.kt
+│   │   │               ├── domain
+│   │   │               │   ├── Article.kt
+│   │   │               │   ├── Author.kt
+│   │   │               │   ├── Comment.kt
+│   │   │               │   ├── Tag.kt
+│   │   │               │   └── inout
+│   │   │               │       ├── Article.kt
+│   │   │               │       ├── Comment.kt
+│   │   │               │       ├── Login.kt
+│   │   │               │       ├── NewArticle.kt
+│   │   │               │       ├── NewComment.kt
+│   │   │               │       ├── Profile.kt
+│   │   │               │       ├── Register.kt
+│   │   │               │       ├── UpdateArticle.kt
+│   │   │               │       └── UpdateUser.kt
+│   │   │               ├── exception
+│   │   │               │   ├── ForbiddenRequestException.kt
+│   │   │               │   ├── InvalidException.kt
+│   │   │               │   ├── InvalidLoginException.kt
+│   │   │               │   ├── NotFoundException.kt
+│   │   │               │   ├── UnauthorizedException.kt
+│   │   │               │   └── UserExistException.kt
+│   │   │               ├── jwt
+│   │   │               │   ├── ApiKeySecured.kt
+│   │   │               │   ├── ApiKeySecuredAspect.kt
+│   │   │               │   └── ExposeResponseInterceptor.kt
+│   │   │               ├── repository
+│   │   │               │   ├── ArticleRepository.kt
+│   │   │               │   ├── AuthorRepository.kt
+│   │   │               │   ├── CommentRepository.kt
+│   │   │               │   ├── TagRepository.kt
+│   │   │               │   └── specification
+│   │   │               │       └── ArticlesSpecifications.kt
+│   │   │               └── web
+│   │   │                   └── rest
+│   │   │                       ├── ArticleHandler.kt
+│   │   │                       ├── InvalidRequestHandler.kt
+│   │   │                       ├── ProfileHandler.kt
+│   │   │                       └── TagHandler.kt
 │   │   ├── resources
+│   │   │   ├── application.properties
 │   │   │   ├── banner.txt
 │   │   │   ├── config
 │   │   │   │   ├── application-dev.yml
@@ -287,32 +339,42 @@
 │   │   │   │   ├── application.yml
 │   │   │   │   ├── bootstrap-heroku.yml
 │   │   │   │   └── liquibase
+│   │   │   │       ├── article.csv
+│   │   │   │       ├── article_favorited.csv
+│   │   │   │       ├── article_tag.csv
+│   │   │   │       ├── author.csv
+│   │   │   │       ├── author_follower.csv
 │   │   │   │       ├── authorities.csv
 │   │   │   │       ├── changelog
 │   │   │   │       │   ├── 00000000000000_initial_schema.xml
-│   │   │   │       │   ├── 20170501195006_added_entity_Hero.xml
-│   │   │   │       │   ├── 20170501195007_added_entity_Crisis.xml
-│   │   │   │       │   ├── 20170501195008_added_entity_Claim.xml
-│   │   │   │       │   ├── 20170501195009_added_entity_Contact.xml
 │   │   │   │       │   ├── 20170501195010_added_entity_Note.xml
-│   │   │   │       │   ├── 20170501195011_added_entity_Rebuttal.xml
-│   │   │   │       │   ├── 20170501195012_added_entity_ClaimRebuttal.xml
-│   │   │   │       │   ├── 20170501195013_added_entity_Blog.xml
-│   │   │   │       │   ├── 20170501195013_added_entity_constraints_Blog.xml
-│   │   │   │       │   ├── 20170501195014_added_entity_Entry.xml
-│   │   │   │       │   ├── 20170501195014_added_entity_constraints_Entry.xml
-│   │   │   │       │   ├── 20170501195015_added_entity_Tag.xml
 │   │   │   │       │   ├── 20170501195016_load_data_Seed.xml
 │   │   │   │       │   ├── 20170517190733_added_entity_Message.xml
+│   │   │   │       │   ├── 20170617213412_added_entity_Hero.xml
+│   │   │   │       │   ├── 20170617213413_added_entity_Crisis.xml
+│   │   │   │       │   ├── 20170617213414_added_entity_Claim.xml
+│   │   │   │       │   ├── 20170617213415_added_entity_Contact.xml
+│   │   │   │       │   ├── 20170617213417_added_entity_Rebuttal.xml
+│   │   │   │       │   ├── 20170617213418_added_entity_ClaimRebuttal.xml
+│   │   │   │       │   ├── 20170617213419_added_entity_Message.xml
+│   │   │   │       │   ├── 20170617213420_added_entity_Tag.xml
+│   │   │   │       │   ├── 20170617213421_added_entity_Article.xml
+│   │   │   │       │   ├── 20170617213421_added_entity_constraints_Article.xml
+│   │   │   │       │   ├── 20170617213422_added_entity_Comment.xml
+│   │   │   │       │   ├── 20170617213422_added_entity_constraints_Comment.xml
+│   │   │   │       │   ├── 20170617213423_added_entity_Author.xml
+│   │   │   │       │   ├── 20170617213423_added_entity_constraints_Author.xml
 │   │   │   │       │   └── 20170725052218_added_entity_Talk.xml
 │   │   │   │       ├── claim-rebuttal.csv
 │   │   │   │       ├── claim.csv
+│   │   │   │       ├── comment.csv
 │   │   │   │       ├── contact.csv
 │   │   │   │       ├── crisis.csv
 │   │   │   │       ├── hero.csv
 │   │   │   │       ├── master.xml
 │   │   │   │       ├── note.csv
 │   │   │   │       ├── rebuttal.csv
+│   │   │   │       ├── tag.csv
 │   │   │   │       ├── talk.csv
 │   │   │   │       ├── users.csv
 │   │   │   │       └── users_authorities.csv
@@ -481,7 +543,9 @@
 │   │       │   │   │   └── notification.interceptor.ts
 │   │       │   │   ├── services
 │   │       │   │   │   ├── base.async-service.ts
+│   │       │   │   │   ├── data.service.ts
 │   │       │   │   │   ├── default-request-options.service.ts
+│   │       │   │   │   ├── entity-exists.guard.ts
 │   │       │   │   │   ├── in-memory-data.service.ts
 │   │       │   │   │   ├── rest.service.spec.ts
 │   │       │   │   │   ├── rest.service.ts
@@ -492,6 +556,10 @@
 │   │       │   │   └── store
 │   │       │   │       ├── account
 │   │       │   │       │   └── account.model.ts
+│   │       │   │       ├── article
+│   │       │   │       │   ├── article.effects.ts
+│   │       │   │       │   ├── article.model.ts
+│   │       │   │       │   └── article.reducer.ts
 │   │       │   │       ├── base
 │   │       │   │       │   └── base.facade.ts
 │   │       │   │       ├── book
@@ -508,8 +576,13 @@
 │   │       │   │       │   ├── claim-rebuttal.model.ts
 │   │       │   │       │   └── claim-rebuttal.reducer.ts
 │   │       │   │       ├── collection
+│   │       │   │       │   ├── collection.effects.spec.ts
 │   │       │   │       │   ├── collection.effects.ts
 │   │       │   │       │   └── collection.reducer.ts
+│   │       │   │       ├── comment
+│   │       │   │       │   ├── comment.effects.ts
+│   │       │   │       │   ├── comment.model.ts
+│   │       │   │       │   └── comment.reducer.ts
 │   │       │   │       ├── contact
 │   │       │   │       │   ├── contact.effects.ts
 │   │       │   │       │   ├── contact.model.ts
@@ -559,6 +632,10 @@
 │   │       │   │       │   ├── p2p-game.action-creators.ts
 │   │       │   │       │   ├── p2p-game.actions.ts
 │   │       │   │       │   └── p2p-game.facade.ts
+│   │       │   │       ├── profile
+│   │       │   │       │   ├── profile.effects.ts
+│   │       │   │       │   ├── profile.model.ts
+│   │       │   │       │   └── profile.reducer.ts
 │   │       │   │       ├── rebuttal
 │   │       │   │       │   ├── rebuttal.effects.ts
 │   │       │   │       │   ├── rebuttal.model.ts
@@ -566,14 +643,17 @@
 │   │       │   │       ├── search
 │   │       │   │       │   └── search.reducer.ts
 │   │       │   │       ├── session
-│   │       │   │       │   ├── session.effects.ts
 │   │       │   │       │   ├── session.model.ts
 │   │       │   │       │   └── session.reducer.ts
 │   │       │   │       ├── slice
 │   │       │   │       │   ├── slice.actions.ts
-│   │       │   │       │   └── slice.functions.ts
+│   │       │   │       │   ├── slice.functions.ts
+│   │       │   │       │   └── slice.model.ts
 │   │       │   │       ├── store-and-router-connector.guard.ts
-│   │       │   │       ├── store-router-connecting.module.ts
+│   │       │   │       ├── tag
+│   │       │   │       │   ├── tag.effects.ts
+│   │       │   │       │   ├── tag.model.ts
+│   │       │   │       │   └── tag.reducer.ts
 │   │       │   │       ├── talk
 │   │       │   │       │   ├── talk.effects.ts
 │   │       │   │       │   ├── talk.model.ts
@@ -582,22 +662,39 @@
 │   │       │   │       │   └── user.model.ts
 │   │       │   │       └── util.ts
 │   │       │   ├── entities
-│   │       │   │   ├── blog
-│   │       │   │   │   ├── blog-delete-dialog.component.html
-│   │       │   │   │   ├── blog-delete-dialog.component.ts
-│   │       │   │   │   ├── blog-detail.component.html
-│   │       │   │   │   ├── blog-detail.component.spec.ts
-│   │       │   │   │   ├── blog-detail.component.ts
-│   │       │   │   │   ├── blog-dialog.component.html
-│   │       │   │   │   ├── blog-dialog.component.ts
-│   │       │   │   │   ├── blog-popup.service.ts
-│   │       │   │   │   ├── blog.component.html
-│   │       │   │   │   ├── blog.component.ts
-│   │       │   │   │   ├── blog.model.ts
-│   │       │   │   │   ├── blog.module.ts
-│   │       │   │   │   ├── blog.route.ts
-│   │       │   │   │   ├── blog.service.ts
+│   │       │   │   ├── article
+│   │       │   │   │   ├── article-delete-dialog.component.html
+│   │       │   │   │   ├── article-delete-dialog.component.ts
+│   │       │   │   │   ├── article-detail.component.html
+│   │       │   │   │   ├── article-detail.component.spec.ts
+│   │       │   │   │   ├── article-detail.component.ts
+│   │       │   │   │   ├── article-dialog.component.html
+│   │       │   │   │   ├── article-dialog.component.ts
+│   │       │   │   │   ├── article-popup.service.ts
+│   │       │   │   │   ├── article.component.html
+│   │       │   │   │   ├── article.component.ts
+│   │       │   │   │   ├── article.model.ts
+│   │       │   │   │   ├── article.module.ts
+│   │       │   │   │   ├── article.route.ts
+│   │       │   │   │   ├── article.service.ts
 │   │       │   │   │   └── index.ts
+│   │       │   │   ├── author
+│   │       │   │   │   ├── author-delete-dialog.component.html
+│   │       │   │   │   ├── author-delete-dialog.component.ts
+│   │       │   │   │   ├── author-detail.component.html
+│   │       │   │   │   ├── author-detail.component.spec.ts
+│   │       │   │   │   ├── author-detail.component.ts
+│   │       │   │   │   ├── author-dialog.component.html
+│   │       │   │   │   ├── author-dialog.component.ts
+│   │       │   │   │   ├── author-popup.service.ts
+│   │       │   │   │   ├── author.component.html
+│   │       │   │   │   ├── author.component.ts
+│   │       │   │   │   ├── author.model.ts
+│   │       │   │   │   ├── author.module.ts
+│   │       │   │   │   ├── author.route.ts
+│   │       │   │   │   ├── author.service.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── blog
 │   │       │   │   ├── claim
 │   │       │   │   │   ├── claim-delete-dialog.component.html
 │   │       │   │   │   ├── claim-delete-dialog.component.ts
@@ -629,6 +726,22 @@
 │   │       │   │   │   ├── claim-rebuttal.module.ts
 │   │       │   │   │   ├── claim-rebuttal.route.ts
 │   │       │   │   │   ├── claim-rebuttal.service.ts
+│   │       │   │   │   └── index.ts
+│   │       │   │   ├── comment
+│   │       │   │   │   ├── comment-delete-dialog.component.html
+│   │       │   │   │   ├── comment-delete-dialog.component.ts
+│   │       │   │   │   ├── comment-detail.component.html
+│   │       │   │   │   ├── comment-detail.component.spec.ts
+│   │       │   │   │   ├── comment-detail.component.ts
+│   │       │   │   │   ├── comment-dialog.component.html
+│   │       │   │   │   ├── comment-dialog.component.ts
+│   │       │   │   │   ├── comment-popup.service.ts
+│   │       │   │   │   ├── comment.component.html
+│   │       │   │   │   ├── comment.component.ts
+│   │       │   │   │   ├── comment.model.ts
+│   │       │   │   │   ├── comment.module.ts
+│   │       │   │   │   ├── comment.route.ts
+│   │       │   │   │   ├── comment.service.ts
 │   │       │   │   │   └── index.ts
 │   │       │   │   ├── contact
 │   │       │   │   │   ├── contact-delete-dialog.component.html
@@ -664,21 +777,6 @@
 │   │       │   │   │   └── index.ts
 │   │       │   │   ├── entity.module.ts
 │   │       │   │   ├── entry
-│   │       │   │   │   ├── entry-delete-dialog.component.html
-│   │       │   │   │   ├── entry-delete-dialog.component.ts
-│   │       │   │   │   ├── entry-detail.component.html
-│   │       │   │   │   ├── entry-detail.component.spec.ts
-│   │       │   │   │   ├── entry-detail.component.ts
-│   │       │   │   │   ├── entry-dialog.component.html
-│   │       │   │   │   ├── entry-dialog.component.ts
-│   │       │   │   │   ├── entry-popup.service.ts
-│   │       │   │   │   ├── entry.component.html
-│   │       │   │   │   ├── entry.component.ts
-│   │       │   │   │   ├── entry.model.ts
-│   │       │   │   │   ├── entry.module.ts
-│   │       │   │   │   ├── entry.route.ts
-│   │       │   │   │   ├── entry.service.ts
-│   │       │   │   │   └── index.ts
 │   │       │   │   ├── hero
 │   │       │   │   │   ├── hero-delete-dialog.component.html
 │   │       │   │   │   ├── hero-delete-dialog.component.ts
@@ -800,6 +898,72 @@
 │   │       │   │   │       ├── rebuttal.component.html
 │   │       │   │   │       ├── rebuttal.component.scss
 │   │       │   │   │       └── rebuttal.component.ts
+│   │       │   │   ├── blog
+│   │       │   │   │   ├── README.md
+│   │       │   │   │   ├── article
+│   │       │   │   │   │   ├── article-comment
+│   │       │   │   │   │   │   ├── article-comment.component.html
+│   │       │   │   │   │   │   └── article-comment.component.ts
+│   │       │   │   │   │   ├── article.component.html
+│   │       │   │   │   │   ├── article.component.ts
+│   │       │   │   │   │   ├── article.module.ts
+│   │       │   │   │   │   ├── article.routing.ts
+│   │       │   │   │   │   └── markdown.pipe.ts
+│   │       │   │   │   ├── blog.layout.ts
+│   │       │   │   │   ├── blog.module.ts
+│   │       │   │   │   ├── blog.page.html
+│   │       │   │   │   ├── blog.page.ts
+│   │       │   │   │   ├── blog.routing.ts
+│   │       │   │   │   ├── editor
+│   │       │   │   │   │   ├── add.page.html
+│   │       │   │   │   │   ├── add.page.ts
+│   │       │   │   │   │   ├── editor.guard.ts
+│   │       │   │   │   │   ├── editor.module.ts
+│   │       │   │   │   │   ├── editor.page.html
+│   │       │   │   │   │   ├── editor.page.ts
+│   │       │   │   │   │   └── editor.routing.ts
+│   │       │   │   │   ├── home
+│   │       │   │   │   │   ├── home.module.ts
+│   │       │   │   │   │   ├── home.page.css
+│   │       │   │   │   │   ├── home.page.html
+│   │       │   │   │   │   ├── home.page.ts
+│   │       │   │   │   │   └── home.routing.ts
+│   │       │   │   │   ├── profile
+│   │       │   │   │   │   ├── profile-articles
+│   │       │   │   │   │   │   ├── profile-articles.component.html
+│   │       │   │   │   │   │   └── profile-articles.component.ts
+│   │       │   │   │   │   ├── profile-favorites
+│   │       │   │   │   │   │   ├── profile-favorites.component.html
+│   │       │   │   │   │   │   └── profile-favorites.component.ts
+│   │       │   │   │   │   ├── profile.component.html
+│   │       │   │   │   │   ├── profile.component.ts
+│   │       │   │   │   │   ├── profile.module.ts
+│   │       │   │   │   │   └── profile.routing.ts
+│   │       │   │   │   └── shared
+│   │       │   │   │       ├── article-list
+│   │       │   │   │       │   ├── article-list.component.html
+│   │       │   │   │       │   └── article-list.component.ts
+│   │       │   │   │       ├── article-meta
+│   │       │   │   │       │   ├── article-meta.component.html
+│   │       │   │   │       │   └── article-meta.component.ts
+│   │       │   │   │       ├── article-preview
+│   │       │   │   │       │   ├── article-preview.component.html
+│   │       │   │   │       │   └── article-preview.component.ts
+│   │       │   │   │       ├── favorite-button
+│   │       │   │   │       │   ├── favorite-button.component.html
+│   │       │   │   │       │   └── favorite-button.component.ts
+│   │       │   │   │       ├── follow-button
+│   │       │   │   │       │   ├── follow-button.component.html
+│   │       │   │   │       │   └── follow-button.component.ts
+│   │       │   │   │       ├── footer
+│   │       │   │   │       │   ├── footer.component.html
+│   │       │   │   │       │   └── footer.component.ts
+│   │       │   │   │       ├── header
+│   │       │   │   │       │   ├── header.component.html
+│   │       │   │   │       │   └── header.component.ts
+│   │       │   │   │       ├── shared.module.ts
+│   │       │   │   │       └── show-authed
+│   │       │   │   │           └── show-authed.directive.ts
 │   │       │   │   ├── books
 │   │       │   │   │   ├── README.md
 │   │       │   │   │   ├── add-commas
@@ -823,9 +987,6 @@
 │   │       │   │   │   │   └── ellipsis.spec.ts
 │   │       │   │   │   ├── find-book.page.ts
 │   │       │   │   │   ├── selected-book.page.ts
-│   │       │   │   │   ├── services
-│   │       │   │   │   │   ├── book-exists.guard.ts
-│   │       │   │   │   │   └── google-books.service.ts
 │   │       │   │   │   └── view-book.page.ts
 │   │       │   │   ├── chat
 │   │       │   │   │   ├── chat.module.ts
@@ -835,13 +996,13 @@
 │   │       │   │   │   ├── chat.routing.ts
 │   │       │   │   │   └── services
 │   │       │   │   │       └── chat.service.ts
-│   │       │   │   ├── contact
-│   │       │   │   │   ├── contact.module.ts
-│   │       │   │   │   ├── contact.page.html
-│   │       │   │   │   ├── contact.page.scss
-│   │       │   │   │   ├── contact.page.spec.ts
-│   │       │   │   │   ├── contact.page.ts
-│   │       │   │   │   └── contact.routing.ts
+│   │       │   │   ├── contacts
+│   │       │   │   │   ├── contacts.module.ts
+│   │       │   │   │   ├── contacts.page.html
+│   │       │   │   │   ├── contacts.page.scss
+│   │       │   │   │   ├── contacts.page.spec.ts
+│   │       │   │   │   ├── contacts.page.ts
+│   │       │   │   │   └── contacts.routing.ts
 │   │       │   │   ├── counter
 │   │       │   │   │   ├── README.md
 │   │       │   │   │   ├── counter.component.scss
@@ -967,8 +1128,7 @@
 │   │       │   │   │   │   ├── crisis-center.page.ts
 │   │       │   │   │   │   ├── crisis-center.routing.ts
 │   │       │   │   │   │   ├── crisis-detail
-│   │       │   │   │   │   │   ├── crisis-detail.component.ts
-│   │       │   │   │   │   │   └── crisis-detail.resolver.ts
+│   │       │   │   │   │   │   └── crisis-detail.component.ts
 │   │       │   │   │   │   └── crisis-list
 │   │       │   │   │   │       ├── crisis-list.component.scss
 │   │       │   │   │   │       └── crisis-list.component.ts
@@ -1036,7 +1196,7 @@
 │   │       │   │   │   │   │   ├── filter.component.ts
 │   │       │   │   │   │   │   ├── filter.pipe.spec.ts
 │   │       │   │   │   │   │   ├── filter.pipe.ts
-│   │       │   │   │   │   │   ├── remap.pipe.spec.ts
+│   │       │   │   │   │   │   ├── remap.pipe.spec.broken.ts
 │   │       │   │   │   │   │   ├── remap.pipe.ts
 │   │       │   │   │   │   │   └── stop-words.ts
 │   │       │   │   │   │   ├── home.component.html
@@ -1062,7 +1222,7 @@
 │   │       │   │   │   ├── recipe
 │   │       │   │   │   │   ├── recipe.component.html
 │   │       │   │   │   │   ├── recipe.component.scss
-│   │       │   │   │   │   ├── recipe.component.spec.ts
+│   │       │   │   │   │   ├── recipe.component.spec.broken.ts
 │   │       │   │   │   │   ├── recipe.component.ts
 │   │       │   │   │   │   ├── recipe.module.ts
 │   │       │   │   │   │   ├── recipe.routing.ts
@@ -1183,7 +1343,7 @@
 │   │       │   │   │   ├── globalz.scss
 │   │       │   │   │   ├── meals-layout.component.html
 │   │       │   │   │   ├── meals-layout.component.scss
-│   │       │   │   │   ├── meals-layout.component.spec.ts
+│   │       │   │   │   ├── meals-layout.component.spec.broken.ts
 │   │       │   │   │   └── meals-layout.component.ts
 │   │       │   │   ├── nav
 │   │       │   │   │   ├── nav.component.html
@@ -1225,6 +1385,7 @@
 │   │       │   │       ├── status-bar.service.spec.ts
 │   │       │   │       └── status-bar.service.ts
 │   │       │   ├── polyfills.ts
+│   │       │   ├── rxjs-imports.ts
 │   │       │   ├── shared
 │   │       │   │   ├── alert
 │   │       │   │   │   ├── alert-error.component.ts
@@ -1390,7 +1551,8 @@
 │   │       │   │   │   ├── theme.config.ts
 │   │       │   │   │   └── theme.constants.ts
 │   │       │   │   ├── tracker
-│   │       │   │   │   └── tracker.service.ts
+│   │       │   │   │   ├── tracker.service.ts
+│   │       │   │   │   └── window.service.ts
 │   │       │   │   ├── twain
 │   │       │   │   │   ├── twain.component.spec.ts
 │   │       │   │   │   ├── twain.component.ts
@@ -1469,9 +1631,6 @@
 │   │       │   │   │   │   └── select.component.ts
 │   │       │   │   │   └── ui.module.ts
 │   │       │   │   ├── user
-│   │       │   │   │   ├── account.model.ts
-│   │       │   │   │   ├── user.model.ts
-│   │       │   │   │   └── user.service.ts
 │   │       │   │   ├── validators
 │   │       │   │   │   ├── email.validator.ts
 │   │       │   │   │   ├── equal-passwords.validator.ts
@@ -1480,7 +1639,6 @@
 │   │       │   │       ├── welcome.component.spec.ts
 │   │       │   │       └── welcome.component.ts
 │   │       │   └── vendor.ts
-│   │       ├── assets
 │   │       ├── content
 │   │       │   ├── css
 │   │       │   │   └── vendor.css
@@ -1714,17 +1872,18 @@
 │   │       ├── i18n
 │   │       │   ├── de
 │   │       │   │   ├── activate.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── audits.json
+│   │       │   │   ├── author.json
 │   │       │   │   ├── bernie.json
-│   │       │   │   ├── blog.json
 │   │       │   │   ├── books.json
 │   │       │   │   ├── claim.json
 │   │       │   │   ├── claimRebuttal.json
+│   │       │   │   ├── comment.json
 │   │       │   │   ├── configuration.json
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1754,17 +1913,18 @@
 │   │       │   │   └── wiki.json
 │   │       │   ├── en
 │   │       │   │   ├── activate.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── audits.json
+│   │       │   │   ├── author.json
 │   │       │   │   ├── bernie.json
-│   │       │   │   ├── blog.json
 │   │       │   │   ├── books.json
 │   │       │   │   ├── claim.json
 │   │       │   │   ├── claimRebuttal.json
+│   │       │   │   ├── comment.json
 │   │       │   │   ├── configuration.json
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1791,20 +1951,22 @@
 │   │       │   │   ├── talk.json
 │   │       │   │   ├── tracker.json
 │   │       │   │   ├── user-management.json
+│   │       │   │   ├── userCustom.json
 │   │       │   │   └── wiki.json
 │   │       │   ├── es
 │   │       │   │   ├── activate.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── audits.json
+│   │       │   │   ├── author.json
 │   │       │   │   ├── bernie.json
-│   │       │   │   ├── blog.json
 │   │       │   │   ├── books.json
 │   │       │   │   ├── claim.json
 │   │       │   │   ├── claimRebuttal.json
+│   │       │   │   ├── comment.json
 │   │       │   │   ├── configuration.json
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1831,20 +1993,22 @@
 │   │       │   │   ├── talk.json
 │   │       │   │   ├── tracker.json
 │   │       │   │   ├── user-management.json
+│   │       │   │   ├── userCustom.json
 │   │       │   │   └── wiki.json
 │   │       │   └── fr
 │   │       │       ├── activate.json
+│   │       │       ├── article.json
 │   │       │       ├── audits.json
+│   │       │       ├── author.json
 │   │       │       ├── bernie.json
-│   │       │       ├── blog.json
 │   │       │       ├── books.json
 │   │       │       ├── claim.json
 │   │       │       ├── claimRebuttal.json
+│   │       │       ├── comment.json
 │   │       │       ├── configuration.json
 │   │       │       ├── contact.json
 │   │       │       ├── crisis.json
 │   │       │       ├── dashboard.json
-│   │       │       ├── entry.json
 │   │       │       ├── error.json
 │   │       │       ├── game.json
 │   │       │       ├── gateway.json
@@ -1871,6 +2035,7 @@
 │   │       │       ├── talk.json
 │   │       │       ├── tracker.json
 │   │       │       ├── user-management.json
+│   │       │       ├── userCustom.json
 │   │       │       └── wiki.json
 │   │       ├── index.html
 │   │       ├── manifest.webapp
@@ -1901,27 +2066,28 @@
 │       │   │   └── logback.xml
 │       │   ├── data
 │       │   ├── simulations
-│       │   │   ├── BlogGatlingTest.scala
+│       │   │   ├── ArticleGatlingTest.scala
+│       │   │   ├── AuthorGatlingTest.scala
 │       │   │   ├── ClaimGatlingTest.scala
 │       │   │   ├── ClaimRebuttalGatlingTest.scala
+│       │   │   ├── CommentGatlingTest.scala
 │       │   │   ├── ContactGatlingTest.scala
 │       │   │   ├── CrisisGatlingTest.scala
-│       │   │   ├── EntryGatlingTest.scala
 │       │   │   ├── HeroGatlingTest.scala
 │       │   │   ├── MessageGatlingTest.scala
 │       │   │   ├── NoteGatlingTest.scala
+│       │   │   ├── ProfileGatlingTest.scala
 │       │   │   ├── RebuttalGatlingTest.scala
-│       │   │   └── TagGatlingTest.scala
+│       │   │   ├── TagGatlingTest.scala
+│       │   │   └── UserCustomGatlingTest.scala
 │       │   └── user-files
 │       │       ├── bodies
 │       │       ├── data
 │       │       └── simulations
-│       │           ├── BlogGatlingTest.scala
 │       │           ├── ClaimGatlingTest.scala
 │       │           ├── ClaimRebuttalGatlingTest.scala
 │       │           ├── ContactGatlingTest.scala
 │       │           ├── CrisisGatlingTest.scala
-│       │           ├── EntryGatlingTest.scala
 │       │           ├── HeroGatlingTest.scala
 │       │           ├── MessageGatlingTest.scala
 │       │           ├── NoteGatlingTest.scala
@@ -1953,19 +2119,16 @@
 │       │                   └── rest
 │       │                       ├── AccountResourceIntTest.java
 │       │                       ├── AuditResourceIntTest.java
-│       │                       ├── BlogResourceIntTest.java
 │       │                       ├── ClaimRebuttalResourceIntTest.java
 │       │                       ├── ClaimResourceIntTest.java
 │       │                       ├── ContactResourceIntTest.java
 │       │                       ├── CrisisResourceIntTest.java
-│       │                       ├── EntryResourceIntTest.java
 │       │                       ├── HeroResourceIntTest.java
 │       │                       ├── LogsResourceIntTest.java
 │       │                       ├── MessageResourceIntTest.java
 │       │                       ├── NoteResourceIntTest.java
 │       │                       ├── ProfileInfoResourceIntTest.java
 │       │                       ├── RebuttalResourceIntTest.java
-│       │                       ├── TagResourceIntTest.java
 │       │                       ├── TalkResourceIntTest.java
 │       │                       ├── TestUtil.java
 │       │                       ├── UserJWTControllerIntTest.java
@@ -1975,17 +2138,11 @@
 │       │                       │   └── ExceptionTranslatorTestController.java
 │       │                       └── util
 │       │                           └── PaginationUtilUnitTest.java
-│       ├── javascript
-│       │   ├── e2e
-│       │   │   └── entities
-│       │   │       └── talk.spec.ts
-│       │   ├── karma.conf.js
-│       │   └── spec
-│       │       └── app
-│       │           └── core
-│       │               └── store
-│       │                   └── collection
-│       │                       └── collection.effects.spec.ts
+│       ├── kotlin
+│       │   └── org
+│       │       └── exampleapps
+│       │           └── greatbig
+│       │               └── ApiApplicationTests.kt.todo
 │       └── resources
 │           ├── config
 │           │   └── application.yml
@@ -2009,5 +2166,5 @@
 │   ├── webpack.test.js
 │   └── webpack.vendor.js
 └── yarn.lock
-
-356 directories, 1654 files
+```
+388 directories, 1778 files

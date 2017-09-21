@@ -3,8 +3,8 @@
     "relationships": [
         {
             "relationshipType": "many-to-many",
-            "relationshipName": "entry",
-            "otherEntityName": "entry",
+            "relationshipName": "article",
+            "otherEntityName": "article",
             "ownerSide": false,
             "otherEntityRelationshipName": "tag"
         }

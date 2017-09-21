@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
@@ -10,16 +12,19 @@ import { Entities, initialEntities } from '../entity/entity.model';
 import { Talk, initialTalk } from './talk.model';
 import { Filters } from '../../../features/talks/talks.layout';
 // import { TalksUpdated, TalkUpdated, Watch, TalkWatched, Rate, Unrate } from './talk.actions';
-import * as functions from '../entity/entity.functions';
+import * as entityFunctions from '../entity/entity.functions';
 import { actions, EntityAction } from '../entity/entity.actions';
 
 // type Action = RouterAction<fromRoot.RootState> | TalksUpdated | TalkUpdated | Watch | TalkWatched | Rate | Unrate;
 
-export function reducer(state: Entities<Talk> = initialEntities<Talk>({}, slices.TALK, actions, initialTalk), action: EntityAction<Talk>): Entities<Talk> {
+export function reducer(state: Entities<Talk> = initialEntities<Talk>(slices.TALK, initialTalk), action: EntityAction<Talk>): Entities<Talk> {
 
     switch (action.type) {
+        case typeFor(slices.TALK, actions.ADD_SUCCESS):
+        case typeFor(slices.TALK, actions.LOAD_SUCCESS):
+            return entityFunctions.addEntityToStore<Talk>(state, <any>action);
         case typeFor(slices.TALK, actions.LOAD_ALL_SUCCESS):
-            return functions.newEntities<Talk>(state, <any>action);
+            return entityFunctions.addEntitiesToStore<Talk>(state, <any>action);
         case typeFor(slices.TALK, actions.PATCH):
             // This case has a twist so we can't use the regular update method.
             // It sets the talk.rating field in the store, but the talk.yourRating field on the server
@@ -31,7 +36,9 @@ export function reducer(state: Entities<Talk> = initialEntities<Talk>({}, slices
                 entities
             });
         case typeFor(slices.TALK, actions.PATCH_FAIL):
-            return functions.update<Talk>(state, <any>action);
+            return entityFunctions.update<Talk>(state, <any>action);
+        case typeFor(slices.TALK, actions.SELECT):
+            return entityFunctions.select<Talk>(state, <any>action);
         default:
             return state;
     }
@@ -40,3 +47,9 @@ export function reducer(state: Entities<Talk> = initialEntities<Talk>({}, slices
 export const getEntities = (state: Entities<Talk>) => state.entities;
 
 export const getIds = (state: Entities<Talk>) => state.ids.filter((id) => state.entities[id] && !state.entities[id].deleteMe);
+
+export const getSelectedId = (state: Entities<Talk>): string => state.selectedEntityId;
+
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+    return entities[selectedId];
+});

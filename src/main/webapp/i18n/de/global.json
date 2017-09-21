@@ -4,7 +4,7 @@
         "browsehappy": "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=de/\">aktualisieren Sie Ihren Browser</a>, um die Benutzerfreundlichkeit zu erhöhen.",
         "menu": {
             "home": "Startseite",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu articles here (do not translate!)",
             "entities": {
                 "main": "Entitäten",
                 "hero": "Hero",
@@ -14,10 +14,12 @@
                 "note": "Note",
                 "rebuttal": "Rebuttal",
                 "claimRebuttal": "Claim Rebuttal",
-                "blog": "Blog",
+                "article": "Article",
                 "tag": "Tag",
                 "entry": "Entry",
                 "message": "Message",
+                "comment": "Comment",
+                "author": "Author",
                 "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
@@ -25,6 +27,7 @@
                 "about": "Über",
                 "bernie": "Bernie",
                 "books": "Bücher",
+                "blog": "Blog",
                 "booksFind": "Bücher finden",
                 "chat": "Chat",
                 "contacts": "Kontakte",
@@ -62,7 +65,7 @@
                 "audits": "Audits",
                 "apidocs": "API",
                 "database": "Datenbank",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu articles here (do not translate!)"
             },
             "language": "Sprache"
         },
@@ -161,5 +164,6 @@
         "emailexists": "Email wird bereits verwendet!",
         "idexists": "Ein neuer {{entityName}} kann noch keine ID haben"
     },
-    "footer": "Dies ist Ihre Fußzeile"
+    "footer": "Dies ist Ihre Fußzeile",
+    "item-count": ""
 }

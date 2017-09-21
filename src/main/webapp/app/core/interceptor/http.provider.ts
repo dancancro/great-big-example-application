@@ -29,6 +29,11 @@ export function interceptableFactory(
     );
 };
 
+/**
+ * This has to be listed in the providers for any module that has routes
+ * guarded by UserRouteAccessService so that an authorization header is
+ * included in requests
+ */
 export function customHttpProvider() {
     return {
         provide: Http,

@@ -9,7 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
 import { TagService } from './tag.service';
-import { Entry, EntryService } from '../entry';
+import { Article, ArticleService } from '../article';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -22,13 +22,13 @@ export class TagDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    entries: Entry[];
+    articles: Article[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private tagService: TagService,
-        private entryService: EntryService,
+        private articleService: ArticleService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -36,8 +36,8 @@ export class TagDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.entryService.query()
-            .subscribe((res: ResponseWrapper) => { this.entries = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.articleService.query()
+            .subscribe((res: ResponseWrapper) => { this.articles = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -80,7 +80,7 @@ export class TagDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackEntryById(index: number, item: Entry) {
+    trackArticleById(index: number, item: Article) {
         return item.id;
     }
 
@@ -108,11 +108,11 @@ export class TagPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private tagPopupService: TagPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.tagPopupService
                     .open(TagDialogComponent, params['id']);
             } else {

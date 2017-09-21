@@ -1,8 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 
-
-
 import { BaseAsyncService } from '../../services/base.async-service';
 
 export abstract class BaseFacade {

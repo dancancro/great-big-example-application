@@ -40,7 +40,7 @@ export class HeroDeleteDialogComponent {
 
 @Component({
     selector: 'jhi-hero-delete-popup',
-    template: ''
+    template: './hero-delete-dialog.component.html'
 })
 export class HeroDeletePopupComponent implements OnInit, OnDestroy {
 
@@ -50,7 +50,7 @@ export class HeroDeletePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private heroPopupService: HeroPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {

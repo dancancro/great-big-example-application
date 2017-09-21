@@ -1,0 +1,31 @@
+{
+    "greatBigExampleApplicationApp": {
+        "article" : {
+            "home": {
+                "title": "Articles",
+                "createLabel": "Crear nuevo Article",
+                "createOrEditLabel": "Crear o editar Article",
+                "search": "Search for Article"
+            },
+            "created": "Un nuevo Article ha sido creado con el identificador {{ param }}",
+            "updated": "Un Article ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Article ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Article {{ id }}?"
+            },
+            "detail": {
+                "title": "Article"
+            },
+            "slug": "Slug",
+            "title": "Title",
+            "description": "Description",
+            "body": "Body",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At",
+            "comment": "Comment",
+            "tag": "Tag",
+            "author": "Author",
+            "favoriter": "Favoriter"
+        }
+    }
+}

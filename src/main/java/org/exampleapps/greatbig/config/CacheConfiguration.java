@@ -38,8 +38,8 @@ public class CacheConfiguration {
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
             cm.createCache(org.exampleapps.greatbig.domain.User.class.getName(), jcacheConfiguration);
-            cm.createCache(org.exampleapps.greatbig.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Hero.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Crisis.class.getName(), jcacheConfiguration);
@@ -48,12 +48,20 @@ public class CacheConfiguration {
             cm.createCache(org.exampleapps.greatbig.domain.Note.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Rebuttal.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.ClaimRebuttal.class.getName(), jcacheConfiguration);
-            cm.createCache(org.exampleapps.greatbig.domain.Blog.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Tag.class.getName(), jcacheConfiguration);
-            cm.createCache(org.exampleapps.greatbig.domain.Tag.class.getName() + ".entries", jcacheConfiguration);
-            cm.createCache(org.exampleapps.greatbig.domain.Entry.class.getName(), jcacheConfiguration);
-            cm.createCache(org.exampleapps.greatbig.domain.Entry.class.getName() + ".tags", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Tag.class.getName() + ".articles", jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Message.class.getName(), jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName() + ".articles", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName() + ".comments", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName(), jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName() + ".followers", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName() + ".followees", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Author.class.getName() + ".favorites", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Article.class.getName(), jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Article.class.getName() + ".tags", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Article.class.getName() + ".favoriters", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Article.class.getName() + ".comments", jcacheConfiguration);
+            cm.createCache(org.exampleapps.greatbig.domain.Comment.class.getName(), jcacheConfiguration);
             cm.createCache(org.exampleapps.greatbig.domain.Talk.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };

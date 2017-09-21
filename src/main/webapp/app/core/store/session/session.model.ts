@@ -1,23 +1,16 @@
-import { User } from '../user/user.model';
+import { Account, initialAccount } from '../account/account.model';
+import { initialSlice, Slice } from '../slice/slice.model';
+import { slices } from '../util';
 
-export const initialUser: User = {
-    firstName: '',
-    lastName: '',
-};
-
-export interface Session {
+export interface Session extends Slice {
     token: string;
-    user: User;
-    hasError: boolean;
-    loading: boolean;
+    account: Account;
 };
 
 export function initialSession(vals: any = {}): Session {
-    return Object.assign({},
+    return Object.assign({}, initialSlice(slices.SESSION),
         {
             token: null,
-            user: initialUser,
-            hasError: false,
-            loading: false
+            account: initialAccount,
         }, vals);
 };

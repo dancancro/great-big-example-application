@@ -4,7 +4,7 @@
         "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu articles here (do not translate!)",
             "entities": {
                 "main": "Entités",
                 "hero": "Hero",
@@ -14,16 +14,19 @@
                 "note": "Note",
                 "rebuttal": "Rebuttal",
                 "claimRebuttal": "Claim Rebuttal",
-                "blog": "Blog",
+                "article": "Article",
                 "tag": "Tag",
                 "entry": "Entry",
                 "message": "Message",
+                "comment": "Commentaire",
+                "author": "Auteur",
                 "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "features": {
                 "about": "Sur",
                 "bernie": "Bernie",
+                "blog": "Blog",
                 "books": "Collection de livres",
                 "booksFind": "Rechercher des livres",
                 "chat": "Tchat",
@@ -62,7 +65,7 @@
                 "audits": "Audits",
                 "apidocs": "API",
                 "database": "Base de données",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu articles here (do not translate!)"
             },
             "language": "Langue"
         },

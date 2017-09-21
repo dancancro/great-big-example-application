@@ -27,9 +27,8 @@ export class TalkDetailsComponent implements OnDestroy {
             this.isWatched = layout.talksPage.watched[id];
         });
 
-        this.talksSub = store.select(fromRoot.getTalkEntities).subscribe((talks) => {
-            const id = (+route.snapshot.paramMap.get('id'));
-            this.talk = talks[id];
+        this.talksSub = this.store.select(fromRoot.getSelectedTalk).subscribe((talk) => {
+            this.talk = talk;
         });
     }
 

@@ -37,7 +37,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
             this.maxHeroId = +heroes.reduce((prev, current, index, array) => +current.id > +prev.id ? current : prev, { id: '0' }).id);
         this.routeSub = this.route.params
             .subscribe((params: Params) => {
-                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
+                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: params['id'] }));
             });
         this.selectedHeroSub = this.selectedHero$.subscribe((hero) => { this.selectedHero = hero });
     }

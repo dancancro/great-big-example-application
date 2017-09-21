@@ -1,0 +1,22 @@
+<jhi-article-preview *ngFor="let article of articles" [article]="article">
+</jhi-article-preview>
+
+<div class="jhi-article-preview" [hidden]="!loading">
+    Loading articles...
+</div>
+
+<div class="jhi-article-preview" [hidden]="loading || articles.length">
+    No articles are here... yet.
+</div>
+
+<nav [hidden]="loading || totalPages.length <= 1">
+    <ul class="pagination">
+
+        <li class="page-item" [ngClass]="{'active': pageNumber === layout.currentPage}" *ngFor="let pageNumber of totalPages" (click)="setPageTo(pageNumber)">
+
+            <a class="page-link" href="javascript:void(0);">{{ pageNumber }}</a>
+
+        </li>
+
+    </ul>
+</nav>

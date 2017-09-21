@@ -5,19 +5,23 @@ import java.io.IOException;
 import org.elasticsearch.client.Client;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+// import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.EntityMapper;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.vanroy.springdata.jest.JestElasticsearchTemplate;
+import com.github.vanroy.springdata.jest.mapper.DefaultJestResultsMapper;
+import io.searchbox.client.JestClient;
 
 @Configuration
 public class ElasticsearchConfiguration {
 
     @Bean
-    public ElasticsearchTemplate elasticsearchTemplate(Client client, Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
-        return new ElasticsearchTemplate(client, new CustomEntityMapper(jackson2ObjectMapperBuilder.createXmlMapper(false).build()));
+    public JestElasticsearchTemplate elasticsearchTemplate(JestClient client, Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
+        return new JestElasticsearchTemplate(client, new DefaultJestResultsMapper(
+                new CustomEntityMapper(jackson2ObjectMapperBuilder.createXmlMapper(false).build())));
     }
 
     public class CustomEntityMapper implements EntityMapper {

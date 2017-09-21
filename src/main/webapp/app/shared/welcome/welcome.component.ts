@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
+import { Principal } from '../../shared/auth/principal.service';
 
 @Component({
-  selector: 'jhi-welcome',
-  template: '<h3 class="welcome" ><i>{{welcome}}</i></h3>'
+    selector: 'jhi-welcome',
+    template: '<h3 class="welcome" ><i>{{welcome}}</i></h3>'
 })
 export class WelcomeComponent implements OnInit {
-  welcome = '-- not initialized yet --';
-  constructor(private userService: UserService) { }
+    welcome = '-- not initialized yet --';
+    constructor(private principal: Principal) { }
 
-  ngOnInit(): void {
-    this.welcome = this.userService.isLoggedIn ?
-      'Welcome, ' + this.userService.user.name :
-      'Please log in.';
-  }
+    ngOnInit(): void {
+        this.welcome = this.principal.isAuthenticated() ?
+            'Welcome, ' + this.principal.identity.name :
+            'Please log in.';
+    }
 }
 
 /*

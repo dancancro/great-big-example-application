@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BookExistsGuard } from './services/book-exists.guard';
 import { FindBookPage } from './find-book.page';
 import { ViewBookPage } from './view-book.page';
 import { CollectionPage } from './collection.page';
 import { SelectivePreloadingStrategy } from '../../shared/selective-preloading-strategy';
 import { UserRouteAccessService } from '../../shared';
+import { EntityExistsGuard } from '../../core/services/entity-exists.guard';
+import { slices } from '../../core/store/util';
 
 const routes: Routes = [
     {
@@ -32,9 +33,10 @@ const routes: Routes = [
         component: ViewBookPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.books.home.title'
+            pageTitle: 'greatBigExampleApplicationApp.books.home.title',
+            slice: slices.BOOK
         },
-        canActivate: [UserRouteAccessService, BookExistsGuard]
+        canActivate: [UserRouteAccessService, EntityExistsGuard]
     }
 ];
 
@@ -46,7 +48,7 @@ const routes: Routes = [
         RouterModule
     ],
     providers: [
-        BookExistsGuard,
+        EntityExistsGuard,
         SelectivePreloadingStrategy
     ]
 })

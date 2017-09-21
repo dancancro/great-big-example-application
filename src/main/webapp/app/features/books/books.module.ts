@@ -12,9 +12,6 @@ import { BookPreviewListComponent } from './book-preview/book-preview-list.compo
 import { BookSearchComponent } from './book-search/book-search.component';
 import { AddCommasPipe } from './add-commas/add-commas.pipe';
 import { EllipsisPipe } from './ellipsis/ellipsis.pipe';
-// import { NavigatorModule } from '../core/navigator/navigator.module';
-import { GoogleBooksService } from './services/google-books.service';
-import { BookExistsGuard } from './services/book-exists.guard';
 import { CollectionPage } from './collection.page';
 import { FindBookPage } from './find-book.page';
 import { SelectedBookPage } from './selected-book.page';
@@ -23,6 +20,7 @@ import { BookEffects } from '../../core/store/book/book.effects';
 import { CollectionEffects } from '../../core/store/collection/collection.effects';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { BooksRouting } from './books.routing';
+import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 export const COMPONENTS = [
     BookAuthorsComponent,
@@ -51,8 +49,7 @@ export const COMPONENTS = [
     declarations: COMPONENTS,
     exports: COMPONENTS,
     providers: [
-        BookExistsGuard,
-        GoogleBooksService
+        customHttpProvider()
     ],
 })
 export class BooksModule { }

@@ -1,8 +1,21 @@
 import { Rebuttal } from '../rebuttal/rebuttal.model';
+import { Entity } from '../entity/entity.model';
 
-export interface Claim {
+export interface ClaimFields {
     // data
-    id: string;
+    name?: string;
+    sortOrder?: number;
+    rebuttalIds?: string[];
+    rebuttals?: Rebuttal[];
+    imageLink?: string;
+
+    // UI state
+    rebuttalsReordered: boolean;
+    expanded: boolean;
+};
+
+export interface Claim extends Entity {
+    // data
     name: string;
     sortOrder: number;
     rebuttalIds?: string[];

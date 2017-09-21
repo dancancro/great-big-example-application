@@ -5,13 +5,17 @@ import { Principal } from '../';
 import { LoginModalService } from '../login/login-modal.service';
 import { StateStorageService } from './state-storage.service';
 
+/**
+ * customHttpProvider must be a provider for any module with routes that use
+ * this guard so that an authorization header is included in requests
+ */
 @Injectable()
 export class UserRouteAccessService implements CanActivate {
 
     constructor(private router: Router,
-                private loginModalService: LoginModalService,
-                private principal: Principal,
-                private stateStorageService: StateStorageService) {
+        private loginModalService: LoginModalService,
+        private principal: Principal,
+        private stateStorageService: StateStorageService) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {

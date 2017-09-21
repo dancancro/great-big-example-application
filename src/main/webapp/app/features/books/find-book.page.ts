@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../core/store';
 import { Book } from '../../core/store/book/book.model';
-import * as idActions from '../../core/store/id/id.actions';
+import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
 
 @Component({
@@ -27,6 +27,6 @@ export class FindBookPage {
     }
 
     search(query: string) {
-        this.store.dispatch(new idActions.Load(slices.SEARCH, query));
+        this.store.dispatch(new EntityActions.Load(slices.SEARCH, { query }));
     }
 }

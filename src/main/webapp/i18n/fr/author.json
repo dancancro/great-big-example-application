@@ -1,0 +1,28 @@
+{
+    "greatBigExampleApplicationApp": {
+        "author" : {
+            "home": {
+                "title": "Authors",
+                "createLabel": "Créer un nouveau Author",
+                "createOrEditLabel": "Créer ou éditer un Author",
+                "search": "Recherche pour Author"
+            },
+            "created": "Un nouveau Author a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Author avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Author avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Author {{ id }} ?"
+            },
+            "detail": {
+                "title": "Author"
+            },
+            "bio": "Bio",
+            "user": "User",
+            "article": "Article",
+            "comment": "Comment",
+            "follower": "Follower",
+            "favorite": "Favorite",
+            "followee": "Followee"
+        }
+    }
+}

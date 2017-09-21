@@ -17,7 +17,7 @@ import { GameP2PService } from './services/game-p2p.async-service';
 import { Observable } from 'rxjs/Observable';
 
 const WSConfig: WebSocketGatewayConfig = {
-    port: 5552,
+    port: 9010,
     secure: false,
     host: 'localhost'
 };

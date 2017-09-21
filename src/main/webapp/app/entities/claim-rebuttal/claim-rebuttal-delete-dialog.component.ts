@@ -40,7 +40,7 @@ export class ClaimRebuttalDeleteDialogComponent {
 
 @Component({
     selector: 'jhi-claim-rebuttal-delete-popup',
-    template: ''
+    template: './claim-rebuttal-delete-dialog.component.html'
 })
 export class ClaimRebuttalDeletePopupComponent implements OnInit, OnDestroy {
 
@@ -50,7 +50,7 @@ export class ClaimRebuttalDeletePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private claimRebuttalPopupService: ClaimRebuttalPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {

@@ -8,40 +8,53 @@ import { typeFor } from '../util';
 import { actions } from './slice.actions';
 import * as ActionClasses from './slice.actions';
 import { PayloadAction } from '../util';
+import { RootState } from '../';
 
 const merge = require('lodash/merge');
 
 export function load(state: {}, action: SliceAction): any {
-    return merge({}, state, {
-        hasError: false,
-        loaded: false,
-        loading: true,
+    const newState = merge({}, state, {
+        hasError: false
     });
+    return newState;
+    // return setSliceLoading(newState, action);
 };
 
-export function loadFail(state): any {
-    return merge({}, state, {
+export function loadFail(state, action: SliceAction): any {
+    const newState = merge({}, state, {
         hasError: true,
-        loaded: false,
-        loading: false,
     });
+    return newState;
+    // return setSliceLoading(newState, action);
 }
 
 export function loadSuccess(state, action): any {
-    return merge({}, state, action.payload, {
+    const newState = merge({}, state, action.payload, {
         hasError: false,
-        loaded: true,
-        loading: false,
     });
+    return newState;
+    // return setSliceLoading(newState, action);
 }
 
 export function update(state: any, action: SliceAction): any {
+    return patchOrUpdate(state, action, true);
+}
+
+export function patch(state: any, action: SliceAction): any {
+    return patchOrUpdate(state, action, false);
+}
+
+function patchOrUpdate(state: any, action: SliceAction, update: boolean): any {
     const obj = [state];
     const path = action.payload.path;
     const val = action.payload.val;
 
     if (!path || !path.length) {
-        return merge({}, state, evaluate(val, state));
+        const wiper = {}; // wipes out the meat of the state, leaving system stuff like loading
+        if (update) {
+            wiper[state.slice] = null;
+        }
+        return merge({}, merge({}, state, wiper), evaluate(val, state));
     }
 
     let i = 0;
@@ -62,12 +75,20 @@ export function update(state: any, action: SliceAction): any {
 
     let mutation = {};
     for (i = start; i > 0; i--) {
-        mutation = merge({}, obj[i], result);
+        if (i === start && update) {
+            mutation = result;
+        } else {
+            mutation = merge({}, obj[i], result);
+        }
         result = {};
         result[path[i - 1]] = mutation;
     }
 
-    return merge({}, state, result);
+    if (update) {
+        return { ...state, ...result }
+    } else {
+        return merge({}, state, result);
+    }
 }
 
 function evaluate(val, state) {
@@ -81,32 +102,35 @@ function evaluate(val, state) {
 /**
  * Effects
  */
-export function loadFromRemote$(actions$: Actions, slice: string, dataService, dataGetter: string, transform: Function = ((resp) => resp)): Observable<Action> {
+export function loadFromRemote$(actions$: Actions, slice: keyof RootState, dataService, dataGetter: string): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.LOAD))
         .switchMap((action: PayloadAction) =>
             dataService[dataGetter](action.payload)
-                .map(transform)
                 .map((responseSlice: any) =>
                     new ActionClasses.LoadSuccess(slice, responseSlice))
                 .catch((error) => of(new ActionClasses.LoadFail(slice, error)))
         );
 }
 
-export function postToRemote$(actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
-    return httpToRemote$('post', actions$, slice, dataService, triggerAction, successAction, errorAction, transform);
+export function postToRemote$(actions$: Actions, slice: keyof RootState, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, responseTransform: Function = ((resp) => resp)): Observable<Action> {
+    return httpToRemote$('post', actions$, slice, dataService, triggerAction, successAction, errorAction, responseTransform);
 }
 
-export function deleteFromRemote$(actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
-    return httpToRemote$('delete', actions$, slice, dataService, triggerAction, successAction, errorAction, transform);
+export function deleteFromRemote$(actions$: Actions, slice: keyof RootState, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, responseTransform: Function = ((resp) => resp)): Observable<Action> {
+    return httpToRemote$('delete', actions$, slice, dataService, triggerAction, successAction, errorAction, responseTransform);
 }
 
-function httpToRemote$(method: string, actions$: Actions, slice: string, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, transform: Function = ((resp) => resp)): Observable<Action> {
+export function getFromRemote$(actions$: Actions, slice: keyof RootState, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, responseTransform: Function = ((resp) => resp)): Observable<Action> {
+    return httpToRemote$('get', actions$, slice, dataService, triggerAction, successAction, errorAction, responseTransform);
+}
+
+function httpToRemote$(method: string, actions$: Actions, slice: keyof RootState, dataService, triggerAction: string, successAction: SliceAction, errorAction: SliceAction, responseTransform: Function = ((resp) => resp)): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, triggerAction))
         .switchMap((action: PayloadAction) =>
             dataService[method](action.payload.route, action.payload.requestObject || {})
-                .map(transform)
+                .map(responseTransform)
                 .map((responseSlice: any) => {
                     successAction.payload = responseSlice;
                     return successAction;

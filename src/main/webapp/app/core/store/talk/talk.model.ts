@@ -1,5 +1,6 @@
-export interface Talk {
-    id: number,
+import { Entity } from '../entity/entity.model';
+
+export interface Talk extends Entity {
     title: string,
     speaker: string,
     description: string,

@@ -1,5 +1,6 @@
-export interface Contact {
-    id: string;
+import { Entity } from '../entity/entity.model';
+
+export interface Contact extends Entity {
     name: string;
 }
 

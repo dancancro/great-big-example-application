@@ -3,30 +3,30 @@ import { createSelector } from 'reselect';
 import { Contact, initialContact } from './contact.model';
 import { Entities, initialEntities } from '../entity/entity.model';
 import { slices } from '../util';
-import * as functions from '../entity/entity.functions';
+import * as entityFunctions from '../entity/entity.functions';
 import { typeFor } from '../util';
 import { actions, EntityAction } from '../entity/entity.actions';
 
-export function reducer(state: Entities<Contact> = initialEntities<Contact>({}, slices.CONTACT, actions, initialContact),
+export function reducer(state: Entities<Contact> = initialEntities<Contact>(slices.CONTACT, initialContact),
     action: EntityAction<Contact>): Entities<Contact> {
 
     switch (action.type) {
         case typeFor(slices.CONTACT, actions.ADD_SUCCESS):
-            return functions.addSuccess<Contact>(state, <any>action);
         case typeFor(slices.CONTACT, actions.ADD_TEMP):
         case typeFor(slices.CONTACT, actions.LOAD_SUCCESS):
-            return functions.addToStore<Contact>(state, <any>action);
+            return entityFunctions.addEntityToStore<Contact>(state, <any>action);
+        case typeFor(slices.CONTACT, actions.ADD):
         case typeFor(slices.CONTACT, actions.PATCH):
         case typeFor(slices.CONTACT, actions.PATCH_SUCCESS):
-            return functions.update<Contact>(state, <any>action);
+            return entityFunctions.update<Contact>(state, <any>action);
         case typeFor(slices.CONTACT, actions.DELETE):
-            return functions.deleteEntity<Contact>(state, <any>action);
+            return entityFunctions.deleteEntity<Contact>(state, <any>action);
         case typeFor(slices.CONTACT, actions.DELETE_TEMP):
-            return functions.deleteTemp<Contact>(state, <any>action);
+            return entityFunctions.deleteTemp<Contact>(state, <any>action);
         case typeFor(slices.CONTACT, actions.SELECT):
-            return functions.select<Contact>(state, <any>action);
+            return entityFunctions.select<Contact>(state, <any>action);
         case typeFor(slices.CONTACT, actions.SELECT_NEXT):
-            return functions.selectNext<Contact>(state, <any>action);
+            return entityFunctions.selectNext<Contact>(state, <any>action);
         default:
             return state;
     }

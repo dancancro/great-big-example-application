@@ -49,6 +49,7 @@ spring:
             cluster-nodes:
             properties:
                 path:
+                    home: target/elasticsearch
                     logs: target/elasticsearch/log
                     data: target/elasticsearch/data
     mail:

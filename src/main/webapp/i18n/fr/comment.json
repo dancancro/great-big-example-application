@@ -1,0 +1,26 @@
+{
+    "greatBigExampleApplicationApp": {
+        "comment" : {
+            "home": {
+                "title": "Comments",
+                "createLabel": "Créer un nouveau Comment",
+                "createOrEditLabel": "Créer ou éditer un Comment",
+                "search": "Recherche pour Comment"
+            },
+            "created": "Un nouveau Comment a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Comment avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Comment avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Comment {{ id }} ?"
+            },
+            "detail": {
+                "title": "Comment"
+            },
+            "body": "Body",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At",
+            "article": "Article",
+            "author": "Author"
+        }
+    }
+}

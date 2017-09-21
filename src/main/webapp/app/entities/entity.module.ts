@@ -7,10 +7,11 @@ import { GreatBigExampleApplicationContactModule } from './contact/contact.modul
 import { GreatBigExampleApplicationNoteModule } from './note/note.module';
 import { GreatBigExampleApplicationRebuttalModule } from './rebuttal/rebuttal.module';
 import { GreatBigExampleApplicationClaimRebuttalModule } from './claim-rebuttal/claim-rebuttal.module';
-import { GreatBigExampleApplicationBlogModule } from './blog/blog.module';
+import { GreatBigExampleApplicationArticleModule } from './article/article.module';
 import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
-import { GreatBigExampleApplicationEntryModule } from './entry/entry.module';
 import { GreatBigExampleApplicationMessageModule } from './message/message.module';
+import { GreatBigExampleApplicationAuthorModule } from './author/author.module';
+import { GreatBigExampleApplicationCommentModule } from './comment/comment.module';
 import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -23,10 +24,11 @@ import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
         GreatBigExampleApplicationNoteModule,
         GreatBigExampleApplicationRebuttalModule,
         GreatBigExampleApplicationClaimRebuttalModule,
-        GreatBigExampleApplicationBlogModule,
+        GreatBigExampleApplicationArticleModule,
         GreatBigExampleApplicationTagModule,
-        GreatBigExampleApplicationEntryModule,
         GreatBigExampleApplicationMessageModule,
+        GreatBigExampleApplicationAuthorModule,
+        GreatBigExampleApplicationCommentModule,
         GreatBigExampleApplicationTalkModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
@@ -35,4 +37,4 @@ import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationEntityModule {}
+export class GreatBigExampleApplicationEntityModule { }

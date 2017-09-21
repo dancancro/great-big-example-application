@@ -1,6 +1,8 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 import { slideInDownAnimation } from '../../../../shared/animations';
 import { DialogService } from '../../../../shared/dialog/dialog.service';
@@ -28,10 +30,12 @@ import { slices } from '../../../../core/store/util';
     styles: ['input {width: 20em}'],
     animations: [slideInDownAnimation]
 })
-export class CrisisDetailComponent implements OnInit {
+export class CrisisDetailComponent implements OnInit, OnDestroy {
     @HostBinding('@routeAnimation') routeAnimation = true;
     @HostBinding('style.display') display = 'block';
 
+    crisis$: Observable<Crisis>;
+    crisisSub: Subscription;
     crisis: Crisis;
     editName: string;
 
@@ -43,11 +47,16 @@ export class CrisisDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.route.data
-            .subscribe((data: { crisis: Crisis }) => {
-                this.editName = data.crisis.name;
-                this.crisis = data.crisis;
-            });
+        this.crisis$ = this.store.select(fromRoot.getSelectedCrisis);
+        this.crisisSub = this.crisis$.subscribe((crisis) => this.crisis = crisis);
+
+        // Load the current user's data
+        this.crisisSub = this.crisis$.subscribe(
+            (crisis) => {
+                this.editName = crisis.name;
+                this.crisis = crisis;
+            }
+        );
     }
 
     cancel() {
@@ -77,6 +86,10 @@ export class CrisisDetailComponent implements OnInit {
         // Add a totally useless `foo` parameter for kicks.
         // Relative navigation back to the crises
         this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
+    }
+
+    ngOnDestroy() {
+        this.crisisSub && this.crisisSub.unsubscribe();
     }
 }
 

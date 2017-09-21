@@ -1,0 +1,5 @@
+<button class="btn btn-sm" [ngClass]="{ 'disabled' : article.loading,
+              'btn-outline-primary': !article.favorited,
+              'btn-primary': article.favorited }" (click)="toggleFavorite()">
+  <i class="ion-heart"></i> <ng-content></ng-content>
+</button>

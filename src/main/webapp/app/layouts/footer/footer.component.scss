@@ -1,5 +1,9 @@
 @import '../../../content/scss/conf/conf';
 
+footer {
+  position: static;
+}
+
 :host {
   background-color: $dark-blue;
   display: block;

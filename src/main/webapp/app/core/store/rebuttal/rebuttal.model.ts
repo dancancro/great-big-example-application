@@ -1,20 +1,34 @@
-export interface Rebuttal {
-  // data
-  id: string;
-  shortName: string;
-  longName: string;
-  link?: string;
-  comments?: string;
+import { Entity } from '../entity/entity.model';
 
-  // UI state
-  dirty: boolean;
-  editing: boolean;
-  isNew?: boolean;
-  original?: Rebuttal;
+export interface RebuttalFields {
+    // data
+    shortName?: string;
+    longName?: string;
+    link?: string;
+    comments?: string;
+
+    // UI state
+    dirty: boolean;
+    editing: boolean;
+    isNew?: boolean;
+    original?: Rebuttal;
 }
 
-export function initialRebuttal(vals: any = {}): Rebuttal {
-  return Object.assign({
+export interface Rebuttal extends Entity {
+    // data
+    shortName: string;
+    longName: string;
+    link?: string;
+    comments?: string;
+
+    // UI state
+    dirty: boolean;
+    editing: boolean;
+    isNew?: boolean;
+    original?: Rebuttal;
+}
+
+export const initialRebuttal = {
     // data
     id: null,
     shortName: null,
@@ -33,5 +47,4 @@ export function initialRebuttal(vals: any = {}): Rebuttal {
     //     this.original.link !== this.link ||
     //     (this.original.comments || '') !== (this.comments || ''));
     // }
-  }, vals);
 }

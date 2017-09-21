@@ -44,8 +44,7 @@ export class NotesPage implements OnInit {
 
     ngOnInit() {
         this.notes$ = this.store.select(fromRoot.getNotes);
-        // probably don't need this.
-        // this.store.dispatch(new noteActions.InitializeAction());
+        this.store.dispatch(new EntityActions.Load(slices.NOTE));
     }
 
 }

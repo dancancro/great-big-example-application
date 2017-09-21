@@ -13,14 +13,14 @@
         <div class="col-md-6">
             <form class="form" role="form" (ngSubmit)="login()">
                 <div class="form-group">
-                    <label for="username" jhiTranslate="global.form.username">Login</label>
+                    <label for="username" jhiTranslate="global.form.username">Login</label> (admin)
                     <input type="text" class="form-control" name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}"
-                    [(ngModel)]="username">
+                        [(ngModel)]="username">
                 </div>
                 <div class="form-group">
-                    <label for="password" jhiTranslate="login.form.password">Password</label>
+                    <label for="password" jhiTranslate="login.form.password">Password</label> (admin)
                     <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
-                           [(ngModel)]="password">
+                        [(ngModel)]="password">
                 </div>
                 <div class="form-check">
                     <label class="form-check-label" for="rememberMe">

@@ -19,12 +19,11 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
     templateUrl: 'features.component.html',
-    styleUrls: ['features.component.scss']
+    styleUrls: ['./features.component.scss']
+    // encapsulation: ViewEncapsulation.None
 })
 export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
-    // static SIDE_MENU_BREAKPOINT = 'gt-md';
 
-    version: string;
     modules: FeatureMeta[] = [];
 
     @ViewChild('menu') private menu: MdSidenav;

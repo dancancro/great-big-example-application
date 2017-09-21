@@ -1,25 +1,35 @@
 import { EntityAction } from './entity.actions';
+import { initialSlice, Slice } from '../slice/slice.model';
+import { completeAssign } from '../util';
 
-export interface Entities<T> {
-    ids: string[];
-    entities: { [id: string]: T };
-    loaded?: boolean;
-    loading?: boolean;
-    selectedEntityId?: string;
-    slice: string;
-    initialEntity: T;
-    getData: Function;
+export interface Entity {
+    id: string,
+    loading?: boolean;  // not really optional. set during construction
+    slice?: Entities<any> // not really optional. set during construction
+    [field: string]: any,
+}
+
+const initialBaseEntity = {
+    id: null,
+    slice: null,
+    get loading() {
+        return this.slice && this.slice.loading;
+    }
 };
 
-export function initialEntities<T>(vals: any = {}, slice: string, actionNames: any, initialEntity): Entities<T> {
+export interface Entities<T extends Entity> extends Slice {
+    ids: string[];
+    entities: { [id: string]: T };
+    selectedEntityId?: string;
+    initialEntity: T;
+};
 
-    return Object.assign({
+export function initialEntities<T extends Entity>(slice: string, initialEntity: T, vals = {}): Entities<T> {
+
+    return completeAssign({}, initialSlice(slice), {
         ids: [],
         entities: {},
-        loaded: false,
-        loading: false,
         selectedEntityId: null,
-        slice,
-        initialEntity,
+        initialEntity: completeAssign({}, initialBaseEntity, initialEntity)
     }, vals);
 };

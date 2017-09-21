@@ -1,16 +1,12 @@
 import * as commonActions from '../entity/entity.actions';
-import { IDAction } from './id.actions';
+import { initialSlice, Slice } from '../slice/slice.model';
 
-export interface IDs {
-  ids: string[];
-  loaded: boolean;
-  loading: boolean;
+export interface IDs extends Slice {
+    ids: string[];
 };
 
-export function initialIDs(vals: any = {}): IDs {
-  return Object.assign({}, {
-    ids: [],
-    loaded: false,
-    loading: false
-  }, vals);
+export function initialIDs(slice: string, vals: any = {}): IDs {
+    return Object.assign({}, initialSlice(slice), {
+        ids: [],
+    }, vals);
 };

@@ -10,11 +10,13 @@
             "severity": "error"
         },
         "rxjs-add": {
-            "options": [{
-                "allowElsewhere": false,
-                "allowUnused": false,
-                "file": "./src/rxjs-imports.ts"
-            }],
+            "options": [
+                {
+                    "allowElsewhere": false,
+                    "allowUnused": false,
+                    "file": "./src/main/webapp/app/rxjs-imports.ts"
+                }
+            ],
             "severity": "error"
         },
         "class-name": true,
@@ -55,7 +57,9 @@
         "no-duplicate-variable": true,
         "no-empty": false,
         "no-eval": true,
-        "no-inferrable-types": [true],
+        "no-inferrable-types": [
+            true
+        ],
         "no-shadowed-variable": true,
         "no-string-literal": false,
         "no-switch-case-fall-through": true,
@@ -103,15 +107,33 @@
             "check-type"
         ],
         "prefer-const": true,
-        "arrow-parens": [true],
-        "arrow-return-shorthand": [true],
+        "arrow-parens": [
+            true
+        ],
+        "arrow-return-shorthand": [
+            true
+        ],
         "import-spacing": true,
-        "no-consecutive-blank-lines": [true],
+        "no-consecutive-blank-lines": [
+            true
+        ],
         "object-literal-shorthand": true,
-        "space-before-function-paren": [true, "never"],
-
-        "directive-selector": [true, "attribute", "jhi", "camelCase"],
-        "component-selector": [true, "element", "jhi", "kebab-case"],
+        "space-before-function-paren": [
+            true,
+            "never"
+        ],
+        "directive-selector": [
+            true,
+            "attribute",
+            "jhi",
+            "camelCase"
+        ],
+        "component-selector": [
+            true,
+            "element",
+            "jhi",
+            "kebab-case"
+        ],
         "use-input-property-decorator": true,
         "use-output-property-decorator": true,
         "use-host-property-decorator": true,

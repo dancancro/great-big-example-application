@@ -4,7 +4,6 @@ import { Http, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-
 import { GAME_TEXT } from '../../features/game/config/config';
 import { RestfulCommand } from '../commands/restful.command';
 import { BaseGateway } from './base.gateway';

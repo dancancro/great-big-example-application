@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
-import { Message } from './message.model';
+import { Message, initialMessage } from './message.model';
 import { slices } from '../util';
 import { SocketService } from '../../services/socket.service';
-import * as functions from '../entity/entity.functions';
+import * as entityFunctions from '../entity/entity.functions';
+import { RootState } from '../';
 
 @Injectable()
 export class MessageEffects {
     // Since we're using WebSockets, we just need to connect and the data will be pushed
     // @Effect()
-    // private loadFromRemote$ = functions.loadFromRemote$(this.actions$, slices.MESSAGE, this.dataService);
+    // private loadFromRemote$ = entityFunctions.loadFromRemote$(this.actions$, slices.MESSAGE, this.dataService);
     @Effect()
-    private addToRemote$ = functions.addToRemote$(this.actions$, slices.MESSAGE, this.dataService, this.store);
+    private addToRemote$ = entityFunctions.addToRemote$(this.actions$, slices.MESSAGE, this.dataService, this.store, initialMessage);
 
     constructor(
-        private store: Store<Message>,
+        private store: Store<RootState>,
         private actions$: Actions,
         private dataService: SocketService
     ) { }

@@ -1,0 +1,18 @@
+<div class="jhi-article-preview">
+    <article-meta [article]="article">
+        <jhi-favorite-button [article]="article" class="pull-xs-right">
+            {{article.favoritesCount}}
+        </jhi-favorite-button>
+    </article-meta>
+
+    <a [routerLink]="['/features/blog/article', article.slug]" class="preview-link">
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.description }}</p>
+        <span>Read more...</span>
+        <ul class="tag-list">
+            <li class="tag-default tag-pill tag-outline" *ngFor="let tag of article.tagList">
+                {{ tag }}
+            </li>
+        </ul>
+    </a>
+</div>

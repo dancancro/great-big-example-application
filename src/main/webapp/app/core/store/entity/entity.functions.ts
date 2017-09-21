@@ -1,48 +1,56 @@
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { empty } from 'rxjs/observable/empty';
 import { toPayload, Actions } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { async } from 'rxjs/scheduler/async';
+import { Action, Store } from '@ngrx/store';
 
-import { Entities } from './entity.model';
-import { typeFor, PayloadAction, PayloadActions } from '../util';
+import { Entities, Entity } from './entity.model';
+import { typeFor, PayloadAction, PayloadActions, completeAssign } from '../util';
 import { actions, EntityAction } from './entity.actions';
 import * as EntityActions from './entity.actions';
+import * as sliceFunctions from '../slice/slice.functions';
+import { RootState } from '../';
+import { DataService } from '../../services/data.service';
 
-export function addToStore<T>(state: Entities<T>, action: EntityActions.Add<T> | EntityActions.Load<T>): Entities<T> {
-    const entities = Object.assign({}, state.entities);
-    entities[action.payload.id] = reduceOne(state, null, action);
-    return Object.assign({}, state, {
+export function addEntityToStore<T extends Entity>(state: Entities<T>, action: EntityActions.Add<T> | EntityActions.Load<T>): Entities<T> {
+    const entities = completeAssign({}, state.entities);
+    const newEntity = reduceOne(state, null, action);
+    newEntity.slice = state;
+    entities[newEntity.id] = newEntity;
+    const newState = completeAssign({}, state, {
         ids: Object.keys(entities),
         entities,
-        selectedEntityId: action.payload.id,
-        loaded: true,
-        loading: false,
+        selectedEntityId: action.payload.id
     });
+    return newState;
 };
 
 /**
- * Called after response from an add request returns from the server
+ * @whatItDoes updates a given slice with a whole new set of entities in one fell swoop
+ *
+ * @param state  the set of entities
+ * @param action needs a payload that is an array of entities
  */
-export function addSuccess<T>(state: Entities<T>, action: EntityActions.AddTemp<T>): Entities<T> {
-    const entities = Object.assign({}, state.entities);
-    const optimisticObject = entities[EntityActions.TEMP] || null;
-    entities[action.payload.id] = reduceOne(state, optimisticObject, action);
-    entities[EntityActions.TEMP] && delete entities[EntityActions.TEMP];
-    return Object.assign({}, state, {
+export function addEntitiesToStore<T extends Entity>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
+    const entities = action.payload.reduce(function (map, obj) {
+        map[obj.id] = completeAssign({}, state.initialEntity, obj, { dirty: false });
+        return map;
+    }, {});
+    return completeAssign({}, state, {
         ids: Object.keys(entities),
-        entities,
-        selectedEntityId: action.payload.id,
-        loaded: true,
-        loading: false,
+        entities
     });
 };
+
 /*
  * Delete the property from state.entities, the element from state.ids and
  * if the one being deleted is the selectedEntity, then select a different one.
  *
  * Only delete pessimistically
  */
-export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete<T> | EntityActions.DeleteTemp<T>): Entities<T> {
-    const entities = Object.assign({}, state.entities);
+export function deleteEntity<T extends Entity>(state: Entities<T>, action: EntityActions.Delete<T> | EntityActions.DeleteTemp<T>): Entities<T> {
+    const entities = completeAssign({}, state.entities);
 
     const id = action.payload.id;
 
@@ -53,29 +61,36 @@ export function deleteEntity<T>(state: Entities<T>, action: EntityActions.Delete
     const selectedEntityId = idx === -1 ? state.selectedEntityId : state.ids[newIdx];
     const i = state.ids.findIndex((findId) => findId === id);
     const ids = [...state.ids.slice(0, i), ...state.ids.slice(i + 1)];
-    return Object.assign({}, state, { entities, ids, selectedEntityId });
+    const newState = completeAssign({}, state, { entities, ids, selectedEntityId });
+    return newState;
 };
 
 /**
- * Called from OnDestroy hooks to remove unsaved records with TEMP ID
+ * Called from OnDestroy hooks and from dataService after a successful add to remove unsaved records with TEMP ID
  */
-export function deleteTemp<T>(state: Entities<T>, action: EntityActions.DeleteTemp<T>): Entities<T> {
-    const entities = Object.assign({}, state.entities);
+export function deleteTemp<T extends Entity>(state: Entities<T>, action: EntityActions.DeleteTemp<T>): Entities<T> {
+    let newState = state;
+    const entities = completeAssign({}, state.entities);
     if (entities[action.payload.id]) {
-        return deleteEntity<T>(state, action);
+        newState = deleteEntity<T>(state, action);
     }
+    return newState;
 }
 
-export function select<T>(state: Entities<T>, action: EntityActions.Select<T>): Entities<T> {
-    return Object.assign({}, state, {
+export function select<T extends Entity>(state: Entities<T>, action: EntityActions.Select<T>): Entities<T> {
+    return completeAssign({}, state, {
         selectedEntityId: action.payload.id || action.payload
     });
 };
 
-export function selectNext<T>(state: Entities<T>, action: EntityActions.SelectNext<T>): Entities<T> {
+export function selectNext<T extends Entity>(state: Entities<T>, action: EntityActions.SelectNext<T>): Entities<T> {
     let ix = 1 + state.ids.indexOf(state.selectedEntityId);
     if (ix >= state.ids.length) { ix = 0; }
-    return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
+    return completeAssign({}, state, { selectedEntityId: state.ids[ix] });
+};
+
+export function unload<T extends Entity>(state: Entities<T>, action: EntityActions.Select<T>): Entities<T> {
+    return completeAssign({}, state, { entities: {}, ids: [], selectedEntityId: null, loaded: false });
 };
 
 /**
@@ -84,97 +99,99 @@ export function selectNext<T>(state: Entities<T>, action: EntityActions.SelectNe
  * @param state
  * @param action
  */
-export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T>) {
+export function union<T extends Entity>(state: Entities<T>, action: EntityActions.LoadSuccess<T>) {
     const entities = action.payload;
     let newEntities = entities.filter((entity) => !state.entities[entity.id]);
 
     const newEntityIds = newEntities.map((entity) => entity.id);
     newEntities = newEntities.reduce((ents: { [id: string]: T }, entity: T) => {
-        return Object.assign(ents, {
-            [entity['id']]: entity
+        return completeAssign(ents, {
+            [entity.id]: entity
         });
     }, {});
 
-    return Object.assign({}, state, {
+    return completeAssign({}, state, {
         ids: [...state.ids, ...newEntityIds],
-        entities: Object.assign({}, state.entities, newEntities),
+        entities: completeAssign({}, state.entities, newEntities),
         selectedEntityId: state.selectedEntityId
     });
 }
 
 /**
- * @whatItDoes updates, patches or sets deleteMe of a single entity
+ * @whatItDoes updates, patches, sets loading, unsets dirty (for temps) or sets deleteMe of a single entity
  *
  * @param state  the set of entities
  * @param action needs a payload that has an id
  */
-export function update<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
-    const entities = Object.assign({}, state.entities);
+export function update<T extends Entity>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
+    // for ADD actions, there may or may not be a temporary entity whose dirty must be set to true
+    // so skip this for ADDs without that
+    if (!state.entities[action.payload.id]) {
+        return state;
+    }
+    const entities = completeAssign({}, state.entities);
     const id = action.payload.id;
     entities[id] = reduceOne(state, entities[id], action);
-    return Object.assign({}, state, {
+
+    return completeAssign({}, state, {
         ids: Object.keys(entities),
         entities
     });
 };
 
-/**
- * @whatItDoes updates a given slice with a new set of entities in one fell swoop
- *
- * @param state  the set of entities
- * @param action needs a payload that is an array of entities
- */
-export function newEntities<T>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
-    const entities = action.payload.reduce(function(map, obj) {
-        map[obj.id] = obj;
-        return map;
-    }, {});
-    return Object.assign({}, state, {
-        ids: Object.keys(entities),
-        entities
-    });
-};
-
-export function patchEach<T>(state: Entities<T>, action: any): Entities<T> {
-    const entities = Object.assign({}, state.entities);
+export function patchEach<T extends Entity>(state: Entities<T>, action: any): Entities<T> {
+    const entities = completeAssign({}, state.entities);
     for (const id of Object.keys(entities)) {
-        entities[id] = Object.assign(entities[id], action.payload);
+        entities[id] = completeAssign(entities[id], action.payload);
     }
-    return Object.assign({}, state, {
+    return completeAssign({}, state, {
         entities
     });
 };
 
-function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction<T>): T {
+function reduceOne<T extends Entity>(state: Entities<T>, entity: T = null, action: EntityAction<T>): T {
     // console.log('reduceOne entity:' + JSON.stringify(entity) + ' ' + action.type)
+    let newState;
     switch (action.type) {
 
+        // this will possibly save changes to a TEMP entity
+        case typeFor(state.slice, actions.ADD):
         case typeFor(state.slice, actions.ADD_TEMP):
         case typeFor(state.slice, actions.ADD_OPTIMISTICALLY):
-            return Object.assign({}, state.initialEntity, action.payload, { dirty: true });
+            // dirty serves to distinguish temp entities that are
+            // being processed on the server from those that aren't
+            newState = completeAssign({}, state.initialEntity, action.payload, { dirty: true });
+            break;
         case typeFor(state.slice, actions.DELETE):
-            return Object.assign({}, entity, action.payload, { deleteMe: true });
+            newState = completeAssign({}, entity, action.payload, { deleteMe: true });
+            break;
         case typeFor(state.slice, actions.DELETE_FAIL):
-            return Object.assign({}, entity, action.payload, { deleteMe: false });
+            newState = completeAssign({}, entity, action.payload, { deleteMe: false });
+            break;
         case typeFor(state.slice, actions.UPDATE):
-            return Object.assign({}, action.payload, { dirty: true });
         case typeFor(state.slice, actions.PATCH):
-            return Object.assign({}, entity, action.payload, { dirty: true });
+            newState = completeAssign({}, entity, action.payload, { dirty: true });
+            break;
+        case typeFor(state.slice, actions.RESTORE_TEMP):
+            newState = completeAssign({}, entity, { dirty: false });
+            break;
         case typeFor(state.slice, actions.ADD_SUCCESS):
             // entity could be a client-side-created object with client-side state not returned by
             // the server. If so, preserve this state by having entity as part of this
-            return Object.assign({}, state.initialEntity, entity, action.payload, { dirty: false });
+            newState = completeAssign({}, state.initialEntity, entity, action.payload, { dirty: false });
+            break;
         case typeFor(state.slice, actions.LOAD_SUCCESS):
-            return Object.assign({}, state.initialEntity, action.payload, { dirty: false });
+            // maybe remove initialEntity. it is merged in the effect
+            newState = completeAssign({}, state.initialEntity, action.payload, { dirty: false });
+            break;
         case typeFor(state.slice, actions.UPDATE_SUCCESS):
-            if (entity['id'] === action.payload.id) {
-                return Object.assign({}, entity, { dirty: false });
-            } else {
-                return entity;
-            }
+        case typeFor(state.slice, actions.PATCH_SUCCESS):
+            newState = completeAssign({}, entity, action.payload, { dirty: false });
+            break;
         default:
-            return entity;
+            newState = entity;
     }
+    return newState;
 };
 
 /**
@@ -183,14 +200,61 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
  *
  */
 
-export function loadFromRemote$(actions$: PayloadActions, slice: string, dataService): Observable<Action> {  // TODO: should return PayloadAction
+export function loadFromRemote$(actions$: PayloadActions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity, debounce = 0, scheduler?): Observable<Action> {  // TODO: should return PayloadAction
     return actions$
-        .ofType(typeFor(slice, actions.LOAD))
-        .startWith(new EntityActions.Load(slice, null))
-        .switchMap((action) =>
-            dataService.getEntities(slice || action.payload.route, action.payload ? action.payload.query : undefined)
-                .mergeMap((fetchedEntities) => Observable.from(fetchedEntities))
-                .map((fetchedEntity) => new EntityActions.LoadSuccess(slice, fetchedEntity))  // one action per entity
+        .ofType(typeFor(slice, actions.LOAD), typeFor(slice, actions.LOAD_ALL_SUCCESS))
+        .debounceTime(debounce, this.scheduler || async)
+        .withLatestFrom(store)
+        .switchMap(([action, state]) => {
+
+            // First this happens
+            // for actions.LOAD - dispatch a LoadAllSuccess
+            let o: Observable<any>;
+            if (action.type === typeFor(slice, actions.LOAD)) {
+                if (action.payload && action.payload.query === '') {
+                    return empty();
+                }
+
+                const nextSearch$ = actions$.ofType(typeFor(slice, actions.LOAD)).skip(1);
+
+                if (!action.payload) {
+                    o = dataService.getEntities(slice, null, state);
+                } else if (action.payload && action.payload.query) {
+                    o = dataService.getEntities(slice, action.payload.query, state);
+                } else {
+                    o = dataService.getEntity(slice, action.payload.id, state, store);
+                }
+                return o
+                    .takeUntil(nextSearch$)
+                    .mergeMap((responseEntities) => Observable.of(new EntityActions.LoadAllSuccess(slice, responseEntities)))
+                    .catch((err) => {
+                        console.log(err);
+                        return Observable.of(new EntityActions.LoadAllFail(slice, null));
+                    });
+            }
+
+            // Then this happens
+            // for actions.LOAD_ALL_SUCCESS - dispatch a LoadSuccess for each entity returned
+            else {
+                if (Array.isArray(action.payload)) {
+                    o = Observable.from(action.payload);
+                } else {
+                    o = Observable.of(action.payload)
+                }
+                return o.map((responseEntity) => new EntityActions.LoadSuccess(slice, completeAssign({}, initialEntity, responseEntity)))  // one action per entity
+            }
+
+        }
+        );
+}
+
+export function addToRemote$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<Action> {
+    return actions$
+        .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
+        .withLatestFrom(store)
+        .switchMap(([action, state]) =>
+            dataService.add(slice, (<any>action).payloadForPost(), state, store)  // TODO: find better way
+                .map((responseEntity: Entity) => new EntityActions.AddSuccess(slice, completeAssign({}, initialEntity, responseEntity)))
                 .catch((err) => {
                     console.log(err);
                     return Observable.of(new EntityActions.AddUpdateFail(slice, null));
@@ -198,70 +262,60 @@ export function loadFromRemote$(actions$: PayloadActions, slice: string, dataSer
         );
 }
 
-// This way looks at the store for the new entity, not the action.payload
-// I got that from the notes demo. I don't know if that's necessary in cases of failures
-//
-// export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
-//     return actions$
-//         .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
-//         .withLatestFrom(store.select(slice))
-//         .switchMap(([action, entities]) =>
-//             Observable
-//                 .from((<any>entities).ids)
-//                 .filter((id: string) => (<any>entities).entities[id].dirty)
-//                 .switchMap((id: string) => dataService.add(action.payloadForPost(), slice))
-//                 .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity))
-//         );
-// }
-
-export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+/**
+ * @whatItDoes This function creates a subscription to UPDATE and PATCH actions for a given entity type and calls the dataservice to send the
+ * update to the server
+ *
+ * @param actions$
+ * @param slice
+ * @param dataService
+ * @param store
+ */
+export function updateToRemote$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<Action> {
     return actions$
-        .ofType(typeFor(slice, actions.ADD), typeFor(slice, actions.ADD_OPTIMISTICALLY))
-        .switchMap((action) => dataService.add((<any>action).payloadForPost(), slice))  // TODO: find better way
-        .map((responseEntity) => new EntityActions.AddSuccess(slice, responseEntity));
-}
-
-export function updateToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
-    return actions$
-        .ofType(typeFor(slice, actions.UPDATE))
-        .withLatestFrom(store.select(slice))
-        .switchMap(([{ }, entities]) =>  // first element is action, but it isn't used
-            Observable
-                .from((<any>entities).ids)
-                .filter((id: string) => (<any>entities).entities[id].dirty)
-                .switchMap((id: string) => dataService.update((<any>entities).entities[id], slice))
-                .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
+        .ofType(typeFor(slice, actions.UPDATE), typeFor(slice, actions.PATCH))
+        .withLatestFrom(store)
+        .switchMap(([action, state]) => {
+            let entity = (<EntityAction<any>>action).payload;
+            if (action.type === typeFor(slice, actions.PATCH)) {
+                entity = { ...state[slice].entities[entity.id], ...entity }
+            }
+            return Observable.combineLatest(Observable.of(action), dataService.update(slice, entity, state, store));
+        })
+        .map(([action, responseEntity]) => {
+            if (action.type === actions.UPDATE) {
+                return new EntityActions.UpdateSuccess(slice, completeAssign({}, initialEntity, responseEntity));
+            } else {
+                return new EntityActions.PatchSuccess(slice, completeAssign({}, initialEntity, responseEntity));
+            }
+        }
         );
 }
 
-export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<EntityAction<any>> {  // TODO: fix this any
+export function deleteFromRemote$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>): Observable<EntityAction<any>> {  // TODO: fix this any
     return actions$
         .ofType(typeFor(slice, actions.DELETE))
-        .switchMap((action) => dataService.remove((<EntityAction<any>>action).payload, slice))
-        .map((responseEntity) => new EntityActions.DeleteSuccess(slice, responseEntity))
+        .withLatestFrom(store)
+        .switchMap(([action, state]) => dataService.remove(slice, (<EntityAction<any>>action).payload, state, store))
+        .map((responseEntity: Entity) => new EntityActions.DeleteSuccess(slice, responseEntity))
         .catch((err) => {
             console.log(err);
             return Observable.of(new EntityActions.DeleteFail(slice, err));
         })
 }
 
-//  Load if not loaded
-//
-// @Effect()
-// load$: Observable<Action> = this.actions$
-//     .ofType( actions.LOAD )
-//     .map( toPayload )
-//     .withLatestFrom( this.store.select( fromRoot.getEssentialItems ) )
-//     // filter on whether it is already loaded or loading
-//     .filter( this.shouldLoadItem )
-//     .mergeMap( ( [payload, items] ) => {
-//         const loadBegunAction = Observable.of( new actions.LoadBegunAction(  payload ) );
-//         const loadedAction = this.itemsService.getEssentialItem( payload.item )
-//             .map( successPayload => new actions.LoadSuccessAction( successPayload ) );
-//         return Observable.merge( loadBegunAction, loadedAction );
-//     } );
-
-// shouldLoadItem( [ payload, items ] ) {
-//     const item = _.get( items, [payload.item.type, payload.item.id] );
-//     return !_.get( item, 'loaded' ) && ! _.get( item, 'loading' );
-// }
+export function select$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<EntityAction<any>> {  // TODO: fix this any
+    return actions$
+        .ofType(typeFor(slice, actions.SELECT))
+        .withLatestFrom(store)
+        .filter(([action, state]) => {
+            return !state[slice].entities[(<EntityAction<any>>action).payload.id];
+        })
+        .switchMap(([action, state]) => {
+            return dataService.getEntity(slice, (<EntityAction<any>>action).payload.id, state, store)
+                .map((responseEntity) => {
+                    const payload = completeAssign({}, initialEntity, responseEntity)
+                    return new EntityActions.LoadSuccess(slice, payload);
+                });
+        });
+}

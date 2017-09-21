@@ -254,4 +254,30 @@ public class UserService {
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
+
+    /**
+     * @return null
+     */
+    public User findByToken(String token) {
+        return null;
+    }
+
+    /**
+     * @return true
+     */
+    public Boolean validToken(String token, User user) {
+        return true;
+    }
+
+    /**
+     * @return void
+     */
+    public void setCurrentUser(User user) {
+    }
+
+    /**
+     * @return void
+     */
+    public void clearCurrentUser() {
+    }
 }

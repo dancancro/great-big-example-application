@@ -11,12 +11,34 @@ const routes: Routes = [
         path: 'features',
         component: FeaturesComponent,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'bernie', loadChildren: './bernie/bernie.module#BernieModule' },
-            { path: 'books', loadChildren: './books/books.module#BooksModule' },
-            { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },
-            { path: 'contacts', loadChildren: './contact/contact.module#ContactModule' },
-            { path: 'counter', loadChildren: './counter/counter.module#CounterModule' },
+            {
+                path: '',
+                redirectTo: 'dashboard', pathMatch: 'full'
+            },
+            {
+                path: 'bernie',
+                loadChildren: './bernie/bernie.module#BernieModule'
+            },
+            {
+                path: 'blog',
+                loadChildren: './blog/blog.module#BlogModule'
+            },
+            {
+                path: 'books',
+                loadChildren: './books/books.module#BooksModule'
+            },
+            {
+                path: 'chat',
+                loadChildren: './chat/chat.module#ChatModule'
+            },
+            {
+                path: 'contacts',
+                loadChildren: './contacts/contacts.module#ContactModule'
+            },
+            {
+                path: 'counter',
+                loadChildren: './counter/counter.module#CounterModule'
+            },
             // TODO: fix lazy loading of pages with i18n
             // https://github.com/ngx-translate/core/issues/209
             // https://stackoverflow.com/questions/38987013/ng2-translate-not-working-in-lazy-loaded-module
@@ -30,12 +52,30 @@ const routes: Routes = [
                 },
                 canActivate: [UserRouteAccessService]
             },
-            { path: 'game', loadChildren: './game/game.module#GameModule' },
-            { path: 'heroes', loadChildren: './heroes/heroes.module#HeroesModule' },
-            { path: 'messages', loadChildren: './messages/messages.module#MessagesModule' },
-            { path: 'notes', loadChildren: './notes/notes.module#NotesModule' },
-            { path: 'talks', loadChildren: './talks/talks.module#TalksModule' },
-            { path: 'wiki', loadChildren: './wiki/wiki.module#WikiModule' }
+            {
+                path: 'game',
+                loadChildren: './game/game.module#GameModule'
+            },
+            {
+                path: 'heroes',
+                loadChildren: './heroes/heroes.module#HeroesModule'
+            },
+            {
+                path: 'messages',
+                loadChildren: './messages/messages.module#MessagesModule'
+            },
+            {
+                path: 'notes',
+                loadChildren: './notes/notes.module#NotesModule'
+            },
+            {
+                path: 'talks',
+                loadChildren: './talks/talks.module#TalksModule'
+            },
+            {
+                path: 'wiki',
+                loadChildren: './wiki/wiki.module#WikiModule'
+            }
         ]
     },
 ];

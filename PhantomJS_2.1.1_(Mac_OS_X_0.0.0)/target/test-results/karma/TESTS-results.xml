@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<testsuite name="PhantomJS 2.1.1 (Mac OS X 0.0.0)" package="" timestamp="2017-09-21T04:50:48" id="0" hostname="Dans-MBP-2.attlocal.net" tests="180" errors="0" failures="0" time="26.751">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1"/>
+  </properties>
+  <testcase name="Component Tests ActivateComponent calls activate.get with the key from params" time="0.175" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests ActivateComponent should set set success to OK upon successful activation" time="0.13" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests ActivateComponent should set set error to ERROR upon activation failure" time="0.116" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetFinishComponent should define its initial state" time="0.04" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetFinishComponent sets focus after the view has been initialized" time="0.031" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetInitComponent should define its initial state" time="0.038" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetInitComponent sets focus after the view has been initialized" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetInitComponent notifies of success upon successful requestReset" time="0.023" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetInitComponent notifies of unknown email upon email address not registered/400" time="0.028" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordResetInitComponent notifies of error upon error response" time="0.017" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordStrengthBarComponent PasswordStrengthBarComponents should initialize with default values" time="0.059" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordStrengthBarComponent PasswordStrengthBarComponents should increase strength upon password value change" time="0.038" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordStrengthBarComponent PasswordStrengthBarComponents should change the color based on strength" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordComponent should show error if passwords do not match" time="0.173" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordComponent should call Auth.changePassword when passwords match" time="0.09" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordComponent should set success to OK upon success" time="0.048" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests PasswordComponent should notify of error if change password fails" time="0.04" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests RegisterComponent should ensure the two passwords entered match" time="0.11" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests RegisterComponent should update success to OK after creating an account" time="0.168" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests RegisterComponent should notify of user existence upon 400/login already in use" time="0.125" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests RegisterComponent should notify of email existence upon 400/email address already in use" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests RegisterComponent should notify of generic error" time="0.08" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests SettingsComponent should send the current identity upon save" time="0.048" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests SettingsComponent should notify of success upon successful save" time="0.063" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests SettingsComponent should notify of error upon failed save" time="0.027" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests AuditsComponent today function  should set toDate to current date" time="0.094" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests AuditsComponent previousMonth function  should set fromDate to current date" time="0.039" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests AuditsComponent By default, on init should set all default values correctly" time="0.067" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent baseName and subSystemName should return the basename when it has no sub system" time="0.037" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent baseName and subSystemName should return the basename when it has sub systems" time="0.035" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent baseName and subSystemName should return the sub system name" time="0.064" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent baseName and subSystemName should return the subsystem when it has multiple keys" time="0.018" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent transformHealthData should flatten empty health data" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent should flatten health data with no subsystems" time="0.05" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent should flatten health data with subsystems at level 1, main system has no additional information" time="0.095" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent should flatten health data with subsystems at level 1, main system has additional information" time="0.038" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests JhiHealthCheckComponent should flatten health data with subsystems at level 1, main system has additional error" time="0.028" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Service: ApiService should create the service" time="0.039" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: ApiService"/>
+  <testcase name="Service: ApiService should return a recipe" time="0.104" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: ApiService"/>
+  <testcase name="Service: ApiService should return the latest recipe" time="0.04" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: ApiService"/>
+  <testcase name="Service: GlobalEvents should ..." time="0.033" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Service: GlobalEvents should call scroll three times" time="0.743" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Service: GlobalEvents should call scroll two times" time="0.553" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Service: GlobalEvents should call resize three times" time="0.749" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Service: GlobalEvents should call resize two times" time="0.546" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Service: GlobalEvents should call scroll one time" time="0.247" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: GlobalEvents"/>
+  <testcase name="Http-RESTService (mockBackend) can instantiate service when inject service" time="0.029" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Http-RESTService (mockBackend)"/>
+  <testcase name="Http-RESTService (mockBackend) can instantiate service with &quot;new&quot;" time="0.018" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Http-RESTService (mockBackend)"/>
+  <testcase name="Http-RESTService (mockBackend) can provide the mockBackend as XHRBackend" time="0.017" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Http-RESTService (mockBackend)"/>
+  <testcase name="CollectionEffects openDB$ should call db.open when initially subscribed to" time="0.014" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects loadCollection$ should return a IDActions.LoadSuccess, with the books, on success" time="0.012" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects loadCollection$ should return a IDActions.LoadFail, if the query throws" time="0.015" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects addBookToCollection$ should return a IDActions.AddSuccess, with the book, on success" time="0.008" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects addBookToCollection$ should return a IDActions.AddFail, with the book, when the db insert throws" time="0.011" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects addBookToCollection$ removeBookFromCollection$ should return a IDActions.DeleteSuccess, with the book, on success" time="0.007" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="CollectionEffects addBookToCollection$ removeBookFromCollection$ should return a IDActions.DeleteFail, with the book, when the db insert throws" time="0.01" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionEffects"/>
+  <testcase name="Component Tests Article Management Detail Component OnInit Should call load all on init" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Author Management Detail Component OnInit Should call load all on init" time="0.03" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests ClaimRebuttal Management Detail Component OnInit Should call load all on init" time="0.059" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Claim Management Detail Component OnInit Should call load all on init" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Comment Management Detail Component OnInit Should call load all on init" time="0.023" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Contact Management Detail Component OnInit Should call load all on init" time="0.024" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Crisis Management Detail Component OnInit Should call load all on init" time="0.032" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Hero Management Detail Component OnInit Should call load all on init" time="0.02" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Message Management Detail Component OnInit Should call load all on init" time="0.032" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Note Management Detail Component OnInit Should call load all on init" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Rebuttal Management Detail Component OnInit Should call load all on init" time="0.032" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Tag Management Detail Component OnInit Should call load all on init" time="0.031" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="Component Tests Talk Management Detail Component OnInit Should call load all on init" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Component Tests"/>
+  <testcase name="AboutComponent should create" time="0.112" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).AboutComponent"/>
+  <testcase name="CollectionPage should create an instance of CollectionPageComponent" time="0.752" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).CollectionPage"/>
+  <testcase name="Pipe: Ellipsis should return the string if it's length is less than 250" time="0.002" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Ellipsis"/>
+  <testcase name="Pipe: Ellipsis should return up to 250 characters followed by an ellipsis" time="0" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Ellipsis"/>
+  <testcase name="Pipe: Ellipsis should return only 20 characters followed by an ellipsis" time="0.001" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Ellipsis"/>
+  <testcase name="ContactPage should create an instance of ContactPage" time="1.242" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).ContactPage"/>
+  <testcase name="LegalComponent should create" time="0.393" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).LegalComponent"/>
+  <testcase name="Service: FilterUtilities should ..." time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: FilterUtilities"/>
+  <testcase name="Service: FilterUtilities should convert text to camel case" time="0.012" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: FilterUtilities"/>
+  <testcase name="FilterComponent should create" time="0.523" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should close drawer on scroll" time="0.563" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should not close drawer on scroll if dontCloseOnScroll is true" time="0.641" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should set map to null" time="0.656" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should set map to mobile" time="0.587" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should open the drawer" time="0.637" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should close the drawer" time="0.54" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="FilterComponent should update select values" time="0.58" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FilterComponent"/>
+  <testcase name="Pipe: Filter should create an instance" time="0.016" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should return given a null value" time="0.02" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should filter by search term" time="0.023" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should filter by key" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should not filter if key is set to &quot;all&quot;" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should not filter by search term if only given stop words" time="0.029" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should return a not found query string for 3 items" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should return a not found query string for 2 items" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should return a not found query string for 1 item" time="0.018" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should return given an undefined `fillterInputer` value" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should skip undefined search fields during search" time="0.02" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should not filter by search without searchFields" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should find an item in an array" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="Pipe: Filter should ..." time="0.017" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Pipe: Filter"/>
+  <testcase name="HomeComponent should create" time="1.206" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).HomeComponent"/>
+  <testcase name="HomeComponent should get filterOptions from an Observable" time="1.096" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).HomeComponent"/>
+  <testcase name="HomeComponent should use filter.prefilter to filter an array" time="1.113" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).HomeComponent"/>
+  <testcase name="HomeComponent should scroll" time="1.202" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).HomeComponent"/>
+  <testcase name="HomeComponent should increase the limit" time="1.243" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).HomeComponent"/>
+  <testcase name="LimitToPipe create an instance" time="0.001" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).LimitToPipe"/>
+  <testcase name="LimitToPipe should return a shorter array" time="0" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).LimitToPipe"/>
+  <testcase name="RecipeAdComponent should create" time="0.566" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).RecipeAdComponent"/>
+  <testcase name="RecipeAdComponent should set the correct color" time="0.537" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).RecipeAdComponent"/>
+  <testcase name="StickyScrollComponent should create" time="0.032" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StickyScrollComponent"/>
+  <testcase name="StickyScrollComponent should set style to fixed" time="0.033" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StickyScrollComponent"/>
+  <testcase name="StickyScrollComponent should remove fixed style" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StickyScrollComponent"/>
+  <testcase name="StickyScrollComponent should destroy the component" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StickyScrollComponent"/>
+  <testcase name="StickyScrollComponent should update the height on manuel check" time="0.104" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StickyScrollComponent"/>
+  <testcase name="TimerButtonComponent should create" time="0.528" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TimerButtonComponent"/>
+  <testcase name="TimerButtonComponent should update on changes" time="0.488" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TimerButtonComponent"/>
+  <testcase name="Directive: appAxFocus01Fix should create an instance" time="0.032" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should not set aria-hidden to false on a non-tab keydown" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should set aria-hidden to false on a tab keydown" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should not set aria-hidden to true on a non-tab keyup" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should set aria-hidden to true on a tab keyup" time="0.027" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should set window offset to 0, and&#xA;      not set aria-hidden to true on a tab  with focus" time="0.027" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should set aria-hidden to false on scrollTop" time="0.02" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should set aria-hidden to true on scroll down" time="0.024" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should skip non-home routes" time="0.023" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="Directive: appAxFocus01Fix should not do nothing if not an instance of NavigationEnd" time="0.028" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: appAxFocus01Fix"/>
+  <testcase name="ButtonClearComponent should create" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).ButtonClearComponent"/>
+  <testcase name="LabelsComponent should create" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).LabelsComponent"/>
+  <testcase name="Directive: WatchHeight should create an instance" time="0.02" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: WatchHeight"/>
+  <testcase name="Directive: WatchHeight should emit the inital height" time="0.018" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: WatchHeight"/>
+  <testcase name="Directive: WatchHeight should emit an updated height" time="0.024" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: WatchHeight"/>
+  <testcase name="TimerComponent should create" time="0.479" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TimerComponent"/>
+  <testcase name="Service: Timer should create the service" time="0.009" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="Service: Timer should toggle the timer on, then off" time="0.009" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="Service: Timer should add one minute" time="0.006" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="Service: Timer should reset the timer" time="0.007" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="Service: Timer should reset the timer to the short time" time="0.007" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="Service: Timer should create readable text" time="0.007" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: Timer"/>
+  <testcase name="FooterComponent should create" time="0.153" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).FooterComponent"/>
+  <testcase name="NavComponent should create" time="0.039" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).NavComponent"/>
+  <testcase name="SkipNavComponent should create" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SkipNavComponent"/>
+  <testcase name="SkipNavComponent should set the label after skipping the main content" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SkipNavComponent"/>
+  <testcase name="SkipNavComponent should automatically skip to the main content" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SkipNavComponent"/>
+  <testcase name="SkipNavComponent should not set the current route if not an instance of NavigationEnd" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SkipNavComponent"/>
+  <testcase name="SkipNavComponent should set startContentIndex to null on blur" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SkipNavComponent"/>
+  <testcase name="Directive: StatusBarAware should create an instance" time="0.001" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: StatusBarAware"/>
+  <testcase name="Directive: StatusBarAware should set transform" time="1.522" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: StatusBarAware"/>
+  <testcase name="Directive: StatusBarAware should not transform if in an excluded route" time="0.001" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Directive: StatusBarAware"/>
+  <testcase name="StatusBarComponent should create" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StatusBarComponent"/>
+  <testcase name="StatusBarComponent should set height to 0px" time="0.347" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).StatusBarComponent"/>
+  <testcase name="Service: StatusBar should ..." time="0.009" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: StatusBar"/>
+  <testcase name="Service: StatusBar should set the current route" time="0.006" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: StatusBar"/>
+  <testcase name="Service: StatusBar should not set the current route if not an instance of NavigationEnd" time="0.009" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: StatusBar"/>
+  <testcase name="Service: StatusBar should set to active" time="1.232" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: StatusBar"/>
+  <testcase name="Service: StatusBar should not change animate on setActive if value is the same" time="0.014" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).Service: StatusBar"/>
+  <testcase name="ImageCoverComponent should create if src is defined" time="0.041" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).ImageCoverComponent"/>
+  <testcase name="ImageCoverComponent should create if src is undefined" time="0.033" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).ImageCoverComponent"/>
+  <testcase name="TwainComponent should not show quote before OnInit" time="0.012" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TwainComponent"/>
+  <testcase name="TwainComponent should still not show quote after component initialized" time="0.011" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TwainComponent"/>
+  <testcase name="TwainComponent should show quote after getQuote promise (async)" time="0.012" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TwainComponent"/>
+  <testcase name="TwainComponent should show quote after getQuote promise (fakeAsync)" time="0.019" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TwainComponent"/>
+  <testcase name="TwainComponent should show quote after getQuote promise (done)" time="0.012" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).TwainComponent"/>
+  <testcase name="IconArrowDownComponent should create" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconArrowDownComponent"/>
+  <testcase name="IconFacebookComponent should create" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconFacebookComponent"/>
+  <testcase name="IconHeartComponent should create" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconHeartComponent"/>
+  <testcase name="IconInstagramComponent should create" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconInstagramComponent"/>
+  <testcase name="IconMinusComponent should create" time="0.022" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconMinusComponent"/>
+  <testcase name="IconNavComponent should create" time="0.03" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconNavComponent"/>
+  <testcase name="IconPinterestComponent should create" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconPinterestComponent"/>
+  <testcase name="IconPlusComponent should create" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconPlusComponent"/>
+  <testcase name="IconResetComponent should create" time="0.025" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconResetComponent"/>
+  <testcase name="IconSearchComponent should create" time="0.021" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconSearchComponent"/>
+  <testcase name="IconTimeComponent should create" time="0.029" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).IconTimeComponent"/>
+  <testcase name="InputComponent should create" time="0.027" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).InputComponent"/>
+  <testcase name="InputComponent should set the input value" time="0.048" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).InputComponent"/>
+  <testcase name="InputComponent shuld get the input value" time="0.08" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).InputComponent"/>
+  <testcase name="LoadingComponent should create" time="0.028" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).LoadingComponent"/>
+  <testcase name="SelectComponent should create" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SelectComponent"/>
+  <testcase name="SelectComponent should set the select value" time="0.044" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SelectComponent"/>
+  <testcase name="SelectComponent should get the select value" time="0.034" classname="PhantomJS_2_1_1_(Mac_OS_X_0_0_0).SelectComponent"/>
+  <system-out>
+    <![CDATA[PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+,PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+,PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+,PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+,PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+,PhantomJS 2.1.1 (Mac OS X 0.0.0) WARN: 'Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

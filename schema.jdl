@@ -1,5 +1,16 @@
-DEFAULT_MIN_LENGTH = 20
-DEFAULT_MAX_LENGTH = 1200
+entity User {
+    login String required minlength(1) maxlength(100),
+    password String required minlength(60) maxlength(60),
+    firstName String maxlength(50),
+    lastName String maxlength(50),
+    email String minlength(5) maxlength(100),
+    activated Boolean required,
+    langKey String minlength(2) maxlength(5),
+    imageUrl String maxlength(256),
+    activationKey String maxlength(20),
+    resetKey String maxlength(20),
+    resetDate ZonedDateTime
+}
 
 entity Hero {
 	name String required
@@ -29,7 +40,7 @@ entity Note {
 }
 
 entity Rebuttal {
-    longName String minlength(DEFAULT_MIN_LENGTH) maxlength(DEFAULT_MAX_LENGTH),
+    longName String minlength(20) maxlength(1200),
     shortName String,
     date ZonedDateTime,
     expires ZonedDateTime,
@@ -42,37 +53,62 @@ entity ClaimRebuttal {
   sortOrder Integer
 }
 
-entity Blog {
-	name String required minlength(3),
-	handle String required minlength(2)
+entity Message {
+    userLogin String,
+    message String required,
+    createdAt ZonedDateTime,
+    updatedAt ZonedDateTime
 }
 
 entity Tag {
 	name String required minlength(2)
 }
 
-entity Entry {
+entity Article {
+    slug String required,
 	title String required,
-	content Blob required,
-	date ZonedDateTime required
+    description String required,
+	body TextBlob required,
+	createdAt ZonedDateTime required,
+	updatedAt ZonedDateTime required
 }
 
-relationship ManyToOne {
-	Blog{user(login)} to User,
-	Entry{blog(name)} to Blog
+entity Comment {
+	body TextBlob required,
+	createdAt ZonedDateTime required,
+	updatedAt ZonedDateTime required
+}
+
+entity Author {
+    bio TextBlob
+}
+
+entity Profile {
+    username String,
+    bio TextBlob,
+    image String,
+    following Boolean
+}
+
+dto Profile with mapstruct
+
+paginate Article, Tag, Message with infinite-scroll
+paginate Comment with pager
+
+relationship OneToMany {
+	Author{article} to Article{author(login)},
+    Article{comment} to Comment{article},
+    Author{comment} to Comment{author}
 }
 
 relationship ManyToMany {
-	Entry{tag(name)} to Tag{entry}
+	Article{tag(name)} to Tag{article},
+    Author{follower} to Author{followee},
+    Author{favorite} to Article{favoriter}
 }
 
-paginate Entry, Tag with infinite-scroll
-
-entity Message {
-    userLogin String,
-    message String required,
-    createdAt ZonedDateTime,
-    updatedAt ZonedDateTime
+relationship OneToOne {
+    Author{user(login)} to User{custom(login)}
 }
 
 paginate Message with infinite-scroll

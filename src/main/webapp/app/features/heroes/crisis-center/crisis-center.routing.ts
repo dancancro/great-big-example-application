@@ -6,8 +6,9 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import { CrisisCenterPage } from './crisis-center.page';
 import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
-import { CrisisDetailResolver } from './crisis-detail/crisis-detail.resolver';
 import { CrisisListComponent } from './crisis-list/crisis-list.component';
+import { slices } from '../../../core/store/util';
+import { EntityExistsGuard } from '../../../core/services/entity-exists.guard';
 
 const routes: Routes = [
     {
@@ -22,9 +23,10 @@ const routes: Routes = [
                         path: ':id',
                         component: CrisisDetailComponent,
                         canDeactivate: [CanDeactivateGuard],
-                        resolve: {
-                            crisis: CrisisDetailResolver
-                        }
+                        data: {
+                            slice: slices.CRISIS
+                        },
+                        canActivate: [EntityExistsGuard]
                     },
                     {
                         path: '',
@@ -49,7 +51,6 @@ const routes: Routes = [
         RouterModule
     ],
     providers: [
-        CrisisDetailResolver
     ]
 })
 export class CrisisCenterRouting { }

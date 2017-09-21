@@ -22,9 +22,9 @@
     "@angularclass/form-validators": "^1.0.12",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.28",
     "@ngrx/db": "2.0.2",
-    "@ngrx/effects": "4.0.1",
-    "@ngrx/router-store": "4.0.0",
-    "@ngrx/store": "4.0.0",
+    "@ngrx/effects": "4.0.5",
+    "@ngrx/router-store": "4.0.4",
+    "@ngrx/store": "4.0.3",
     "@ngx-translate/core": "7.1.0",
     "@ngx-translate/http-loader": "0.0.3",
     "@swimlane/ngx-datatable": "9.3.1",
@@ -185,7 +185,7 @@
     "yargs": "8.0.2"
   },
   "engines": {
-    "node": "6.11.1"
+    "node": "6.11.0"
   },
   "scripts": {
     "lint": "tslint 'src/main/webapp/app/**/*.ts' 'src/test/javascript/**/*.ts'",
@@ -198,6 +198,7 @@
     "webpack:build:dev": "webpack --config webpack/webpack.dev.js --progress --profile",
     "webpack:build": "yarn run cleanup && yarn run webpack:build:vendor && yarn run webpack:build:dev",
     "webpack:prod": "yarn run cleanup && webpack -p --config webpack/webpack.vendor.js --progress --profile && webpack -p --config webpack/webpack.prod.js --progress --profile",
+    "webpack:run:prod": "webpack-dev-server --config webpack/webpack.prod.js --progress --inline --hot --profile --port=9070",
     "webpack:test": "yarn run test",
     "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",

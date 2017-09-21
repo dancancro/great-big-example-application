@@ -40,7 +40,7 @@ export class CrisisListComponent implements OnInit, OnDestroy {
         this.crises$ = this.store.select(fromRoot.getCrises);
         this.routeSub = this.route.params
             .subscribe((params: Params) => {
-                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: +params['id'] }));
+                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: params['id'] }));
             });
     }
 

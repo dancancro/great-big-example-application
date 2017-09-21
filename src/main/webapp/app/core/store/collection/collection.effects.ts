@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { defer } from 'rxjs/observable/defer';
 
 import { slices } from '../util';
-import * as functions from '../id/id.functions';
+import * as idFunctions from '../id/id.functions';
 
 @Injectable()
 export class CollectionEffects {
@@ -30,15 +30,15 @@ export class CollectionEffects {
      * the effect immediately on startup.
      */
     @Effect()
-    loadCollection$ = functions.loadFromLocal$(this.actions$, slices.COLLECTION,
+    loadCollection$ = idFunctions.loadFromLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     @Effect()
-    addBookToCollection$ = functions.addToLocal$(this.actions$, slices.COLLECTION,
+    addBookToCollection$ = idFunctions.addToLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     @Effect()
-    removeBookFromCollection$ = functions.deleteFromLocal$(this.actions$, slices.COLLECTION,
+    removeBookFromCollection$ = idFunctions.deleteFromLocal$(this.actions$, slices.COLLECTION,
         this.db, 'books');
 
     constructor(private actions$: Actions,

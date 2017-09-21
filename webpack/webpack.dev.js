@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 const path = require('path');
@@ -17,7 +17,7 @@ if(!fs.existsSync(ddlPath)) {
 }
 
 module.exports = webpackMerge(commonConfig({ env: ENV }), {
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
         contentBase: './target/www',
         proxy: [{
@@ -29,13 +29,13 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 '/v2/api-docs',
                 '/h2-console'
             ],
-            target: 'http://127.0.0.1:8090',
+            target: 'http://127.0.0.1:8070',
             secure: false
         }, {
             context: [
                 '/websocket'
             ],
-            target: 'ws://127.0.0.1:8090',
+            target: 'ws://127.0.0.1:8070',
             ws: true
         }]
     },

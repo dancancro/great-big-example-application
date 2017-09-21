@@ -22,8 +22,8 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/GreatBigExampleApplication
-        username: GreatBigExampleApplication
-        password:
+        username: GreatBigExampleUser
+        password: password
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -36,8 +36,17 @@ spring:
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory
     data:
         elasticsearch:
-            cluster-name: elasticsearcb
-            cluster-nodes: rowan-1085891.us-east-1.bonsaisearch.net:9300
+            cluster-name:
+            cluster-nodes: localhost:9300
+            properties:
+                path:
+                    home: target/elasticsearch
+                transport:
+                    tcp:
+                        connect_timeout: 120s
+        jest:
+            readTimeout: 10000
+            # uri: ${SEARCHBOX_SSL_URL}
     mail:
         host: localhost
         port: 25

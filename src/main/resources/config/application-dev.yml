@@ -48,8 +48,14 @@ spring:
             cluster-nodes:
             properties:
                 path:
+                    home: target/elasticsearch
                     logs: target/elasticsearch/log
                     data: target/elasticsearch/data
+                transport:
+                    tcp:
+                        connect_timeout: 120s
+        jest:
+            readTimeout: 10000
     mail:
         host: localhost
         port: 25
@@ -81,7 +87,7 @@ liquibase:
 #        keyAlias: GreatBigExampleApplication
 # ===================================================================
 server:
-    port: 8090
+    port: 8070
 
 # ===================================================================
 # JHipster specific properties
@@ -113,7 +119,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: GreatBigExampleApplication@localhost
-        base-url: http://127.0.0.1:8090
+        base-url: http://127.0.0.1:8070
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         graphite: # Use the "graphite" Maven profile to have the Graphite dependencies

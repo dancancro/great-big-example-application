@@ -6,6 +6,8 @@
             "firstname.placeholder": "Su nombre",
             "lastname": "Apellidos",
             "lastname.placeholder": "Sus apellidos",
+            "bio": "Bio",
+            "bio.placeholder": "Su Bio",
             "language": "Idioma",
             "button": "Guardar"
         },

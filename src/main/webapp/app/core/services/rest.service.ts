@@ -1,84 +1,330 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, URLSearchParams, Response, Headers } from '@angular/http';
+import { Http, URLSearchParams, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Store } from '@ngrx/store';
 
 import { Claim } from '../store/claim/claim.model';
 import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
+import { Comment } from '../store/comment/comment.model';
 import { Contact } from '../store/contact/contact.model';
 import { Crisis } from '../store/crisis/crisis.model';
 import { Hero } from '../store/hero/hero.model';
 import { Note } from '../store/note/note.model';
 import { Rebuttal } from '../store/rebuttal/rebuttal.model';
 import { AppConfig } from '../../app.config';
+import { DataService } from './data.service';
+import { RootState } from '../store';
+import { Entity } from '../store/entity/entity.model';
+import * as SliceActions from '../store/slice/slice.actions';
+import * as EntityActions from '../store/entity/entity.actions';
+import { completeAssign, QueryPayload } from '../store/util';
+import * as config from '../../app.config';
 
-/**
- * This mapping exists because I don't like pluralization of entity names. The JHipster
- * approach uses plurals so this takes care of that.
- */
-const endpoints = {
-    article: 'articles',
-    claim: 'claims',
-    claimRebuttal: 'claim-rebuttals',
-    contact: 'contacts',
-    crisis: 'crises',
-    hero: 'heroes',
-    note: 'notes',
-    rebuttal: 'rebuttals',
-    talk: 'talks'
-};
+type APIConfig = {
+    method?: ((entity?: any, state?: RootState) => string) | string,
+    url?: ((entity?: any, state?: RootState, query?: QueryPayload, slice?: keyof RootState) => string) | string,
+    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs,
+    response?: (resp: any, entity?: any) => any
+}
 
-@Injectable()
-export class RESTService {
-    constructor(private http: Http, private config: AppConfig) { }
+type EntityConfig = {
+    url?: ((entity?: any, state?: RootState, query?: QueryPayload) => string) | string,
+    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs,
 
-    getEntities(table: string, query: { [key: string]: string } = {}): Observable<any[]> {
-        const params: URLSearchParams = new URLSearchParams();
+    getEntity?: APIConfig,
+    getEntities?: APIConfig,
+    update?: APIConfig,
+    remove?: APIConfig,
+    add?: APIConfig,
+}
 
+const GOOGLE_ROOT = 'https://www.googleapis.com/books/v1/volumes';
+
+const apis: { [entity: string]: EntityConfig } = {
+    article: {
+        url: 'articles',
+        update: {
+            url: (article, state) => {
+                const slug = state.article.entities[article.id].slug;
+                if (article.favorited === true || article.favorited === false) {
+                    return `${config.apiUrl}/articles/${slug}/favorite`;
+                }
+                return `${config.apiUrl}/articles/${slug}`;
+            },
+            method: (article, state) => {
+                if (Object.keys(article).length === 2 && article.favorited === true) {
+                    return 'post';
+                }
+                if (Object.keys(article).length === 2 && article.favorited === false) {
+                    return 'delete';
+                }
+                return 'put';
+            },
+            options: (article, state, query) => (Object.keys(article).length === 2 && typeof article.favorited !== 'undefined') ? null : article,
+            response: (resp, article) => ({ id: article.id, ...resp })  // the slug could be different if the title changed
+        },
+        // getEntity: {
+        //     url: (article, state) => {
+        //         const slug = article.id;
+        //         return `${config.apiUrl}/articles/${slug}`;
+        //     }
+        // },
+        getEntities: {
+            url: (article, state: RootState) => {
+                return `${config.apiUrl}/articles` + ((state.layout.blogPage.type === 'feed') ? '/feed' : '');
+            },
+            options: (article, state, query) => ({ params: getParamsFromQuery(query) })
+        }
+    },
+    claim: {
+        url: 'claims'
+    },
+    claimRebuttal: {
+        url: 'claimRebuttals'
+    },
+    comment: {
+        url: 'comments',
+        add: {
+            url: (comment: Comment, state: RootState) => {
+                const slug = comment.articleId;
+                return `${config.apiUrl}/articles/${slug}/comments`;
+            },
+            options: (entity, state, query) => ({ body: entity.body }),
+            response: (resp, comment) => ({ ...resp, articleId: comment.articleId })
+        },
+        remove: {
+            url: (comment: Comment, state: RootState) => {
+                const slug = comment.articleId;
+                return `${config.apiUrl}/articles/${slug}/comments/${comment.id}`;
+            }
+        }
+    },
+    contact: {
+        url: 'contacts'
+    },
+    crisis: {
+        url: 'crises'
+    },
+    hero: {
+        url: 'heroes'
+    },
+    note: {
+        url: 'notes'
+    },
+    profile: {
+        url: 'profiles',
+        update: {
+            method: (profile, state) => {
+                if (Object.keys(profile).length === 2 && profile.following === true) {
+                    return 'post';
+                }
+                if (Object.keys(profile).length === 2 && profile.following === false) {
+                    return 'delete';
+                }
+                return 'put';
+            },
+            url: (profile, state) => {
+                const username = state.profile.entities[profile.id].username;
+                if (profile.following === true || profile.following === false) {
+                    return `${config.apiUrl}/profiles/${username}/follow`;
+                }
+                return `${config.apiUrl}/profiles`;
+            },
+            options: (profile, state, query) => (Object.keys(profile).length === 2 && typeof profile.following !== 'undefined') ? null : profile
+        },
+        getEntities: {
+            url: (profile, state, query) => {
+                const id = query['id'];
+                return `${config.apiUrl}/profiles/${id}`;
+            }
+        }
+    },
+    rebuttal: {
+        url: 'rebuttals'
+    },
+    search: {
+        url: 'books',
+        getEntity: {
+            url: (book, state, query) => {
+                return `${GOOGLE_ROOT}/${book.id}`;
+            }
+        },
+        getEntities: {
+            url: (book, state, query) => {
+                if (typeof query === 'object') {
+                    throw new Error(`Invalid parameter [query] passed to book getEntities: ${query}`);
+                }
+                return `${GOOGLE_ROOT}?q=${query}`;
+            },
+            response: (resp, entity) => resp.items
+        }
+    },
+    tag: {
+        url: 'tags',
+        getEntities: {
+            response: (resp) => resp.map((tag) => {
+                return { id: tag, name: tag };
+            })
+        }
+    },
+    talk: {
+        url: 'talks'
+    },
+    defaults: {
+        options: (entity, state, query) => entity,
+        add: {
+            method: 'post',
+            url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}`
+        },
+        update: {
+            method: 'put',
+            url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}`
+        },
+        getEntity: {
+            url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}/${entity.id}`
+        },
+        getEntities: {
+            url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}`
+        },
+        remove: {
+            url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}/${entity.id}`
+        }
+    }
+}
+
+const getParamsFromQuery = (query: QueryPayload) => {
+
+    const params: URLSearchParams = new URLSearchParams();
+
+    if (query && typeof query === 'object') {
         Object.keys(query)
             .forEach((key) => {
                 if (query[key] !== null) {
-                    params.set(key, query[key]);
+                    params.set(key, '' + query[key]);
                 }
             });
+    }
 
-        const endpoint = endpoints[table] || table; // Could be a table name or a named endpoint TODO: reconsider this
+    return params;
+}
 
-        return this.http.get(`${this.config.apiUrl}/${endpoint}`, { search: params })
+@Injectable()
+export class RESTService implements DataService {
+    constructor(private http: Http, private config: AppConfig) { }
+
+    private getUrl(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): string {
+        return apis[slice][job] && (typeof apis[slice][job].url === 'function') && apis[slice][job].url(entity, state, query)
+            || (typeof apis.defaults[job].url === 'function') && apis.defaults[job].url(entity, state, query, slice);
+    }
+
+    private getOptions(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): RequestOptionsArgs {
+        // remove the infrastructure parts of the entity
+        const newEntity = { ...this.prepareEntity(entity) };
+
+        return apis[slice][job] && (typeof apis[slice][job].options === 'function') && apis[slice][job].options(newEntity, state, query)
+            || (typeof apis.defaults[job].options === 'function') && apis.defaults[job].options(newEntity, state, query)
+            || (typeof apis.defaults.options === 'function') && apis.defaults.options(newEntity, state, query);
+    }
+
+    private getMethod(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): string {
+        return apis[slice][job] && (typeof apis[slice][job].method === 'function') && apis[slice][job].method(entity, state)
+            || apis.defaults[job].method;
+    }
+
+    private getResponse(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): any {
+        return (resp: any) => {
+            return apis[slice][job] && (typeof apis[slice][job].response === 'function') && apis[slice][job].response(resp, entity)
+                || resp;
+        }
+    }
+
+    getEntities(slice: keyof RootState, query: QueryPayload = null,
+        state: RootState): Observable<any[]> {
+
+        const url = this.getUrl(slice, state, null, query, 'getEntities');
+        const options = this.getOptions(slice, state, null, query, 'getEntities');
+
+        return this.http.get(url, options)
+            .map(this.extractData)
+            .map(this.getResponse(slice, state, null, query, 'getEntities'))
+            .catch(this.handleError);
+    }
+
+    getEntity(slice: keyof RootState, id: string, state: RootState): Observable<any> {
+        const url = this.getUrl(slice, state, { id }, null, 'getEntity');
+        const options = this.getOptions(slice, state, null, null, 'getEntity');
+        return this.http.get(url, options)
+            .map(this.extractData)
+            .map(this.getResponse(slice, state, null, null, 'getEntity'))
+            .catch(this.handleError);
+    }
+
+    add(slice: keyof RootState, entity: Entity, state: RootState, store: Store<RootState>): Observable<any> {
+        const url = this.getUrl(slice, state, entity, null, 'add');
+        const options = this.getOptions(slice, state, entity, null, 'add');
+
+        return this.http.post(url, options)
+            .map((result) => {
+                let oldObject = {};
+                const newObject = this.extractData(result);
+                const tempEntity = state[slice].entities[EntityActions.TEMP];
+                if (tempEntity) {
+                    oldObject = completeAssign({}, ...tempEntity);
+                    if (typeof oldObject['id'] !== 'undefined') {
+                        delete oldObject['id'];
+                    }
+                    store.dispatch(new EntityActions.DeleteTemp(slice));
+                }
+                return completeAssign(oldObject, newObject);
+            })
+            .map(this.getResponse(slice, state, entity, null, 'add'))
+            .catch((error: Response | any) => {
+                if (state[slice].entities[EntityActions.TEMP]) {
+                    store.dispatch(new EntityActions.RestoreTemp(slice));
+                }
+                return this.handleError(error);
+            });
+    }
+
+    get(route: string): Observable<any> {
+        return this.http.get(`${this.config.apiUrl}/${route}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    // TODO: make table the first parameter of all of these
-
-    getEntity(id: number | string, table: string): Observable<any> {
-        return this.http.get(`${this.config.apiUrl}/${endpoints[table]}/${id}`)
+    post(route: string, object: any): Observable<any> {
+        return this.http.post(`${this.config.apiUrl}/${route}`, this.prepareEntity(object))
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    add(entity: any, table): Observable<any> {
-        return this.http.post(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity))
+    update(slice: keyof RootState, entity: Entity, state: RootState, store: Store<RootState>): Observable<any> {
+        const url = this.getUrl(slice, state, entity, null, 'update');
+        const method = this.getMethod(slice, state, entity, null, 'update');
+        const options = this.getOptions(slice, state, entity, null, 'update');
+
+        return this.http[method](url, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    update(entity: any, table): Observable<any> {
-        return this.http.put(`${this.config.apiUrl}/${endpoints[table]}`, this.prepareRecord(entity))
+    remove(slice: keyof RootState, entity: Entity, state: RootState, store: Store<RootState>): Observable<any> {
+        const url = this.getUrl(slice, state, entity, null, 'remove');
+        return this.http.delete(url)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    remove(entity: any, table): Observable<any> {
-        return this.http.delete(`${this.config.apiUrl}/${endpoints[table]}/${entity.id}`)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    prepareRecord(record: any) {
-        const newRecord = { ...record };
-        delete newRecord.dirty;
-        return newRecord;
+    /**
+     * Remove all the utility parts of the entity
+     */
+    prepareEntity(entity: any) {
+        const newEntity = { ...entity };
+        delete newEntity.dirty;
+        delete newEntity.loading;
+        delete newEntity.slice;
+        return newEntity;
     }
 
     extractData(res: any) {
@@ -107,6 +353,6 @@ export class RESTService {
         console.error(errMsg);
         const id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
 
-        return Observable.throw({ errMsg, id });
+        return Observable.throw({ errMsg, id })
     }
 }

@@ -1,0 +1,31 @@
+{
+    "greatBigExampleApplicationApp": {
+        "article" : {
+            "home": {
+                "title": "Articles",
+                "createLabel": "Create a new Article",
+                "createOrEditLabel": "Create or edit a Article",
+                "search": "Search for Article"
+            },
+            "created": "A new Article is created with identifier {{ param }}",
+            "updated": "A Article is updated with identifier {{ param }}",
+            "deleted": "A Article is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Article {{ id }}?"
+            },
+            "detail": {
+                "title": "Article"
+            },
+            "slug": "Slug",
+            "title": "Title",
+            "description": "Description",
+            "body": "Body",
+            "createdAt": "Created At",
+            "updatedAt": "Updated At",
+            "comment": "Comment",
+            "tag": "Tag",
+            "author": "Author",
+            "favoriter": "Favoriter"
+        }
+    }
+}

@@ -54,6 +54,41 @@
                   tableName="note">
         </loadData>
         <loadData encoding="UTF-8"
+                  file="config/liquibase/author.csv"
+                  separator=","
+                  tableName="author">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/article.csv"
+                  separator=","
+                  tableName="article">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/tag.csv"
+                  separator=","
+                  tableName="tag">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/article_tag.csv"
+                  separator=","
+                  tableName="article_tag">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/author_follower.csv"
+                  separator=","
+                  tableName="author_follower">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/article_favorited.csv"
+                  separator=","
+                  tableName="article_favorited">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/comment.csv"
+                  separator=","
+                  tableName="comment">
+        </loadData>
+        <loadData encoding="UTF-8"
                   file="config/liquibase/talk.csv"
                   separator=","
                   tableName="talk">

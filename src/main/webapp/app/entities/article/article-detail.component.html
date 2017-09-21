@@ -1,0 +1,57 @@
+
+<div *ngIf="article">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.article.detail.title">Article</span> {{article.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.slug">Slug</span></dt>
+        <dd>
+            <span>{{article.slug}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.title">Title</span></dt>
+        <dd>
+            <span>{{article.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.description">Description</span></dt>
+        <dd>
+            <span>{{article.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.body">Body</span></dt>
+        <dd>
+            <span>{{article.body}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{article.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.updatedAt">Updated At</span></dt>
+        <dd>
+            <span>{{article.updatedAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.tag">Tag</span></dt>
+        <dd>
+            <span *ngFor="let tag of article.tags; let last = last">
+                <a [routerLink]="['/tag', tag?.id ]">{{tag.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.article.author">Author</span></dt>
+        <dd>
+            <div *ngIf="article.author">
+                <a [routerLink]="['/author', article.author?.id]">{{article.author?.login}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'article/'+ article.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

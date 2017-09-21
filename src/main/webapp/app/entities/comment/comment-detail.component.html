@@ -1,0 +1,45 @@
+
+<div *ngIf="comment">
+    <h2><span jhiTranslate="greatBigExampleApplicationApp.comment.detail.title">Comment</span> {{comment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.comment.body">Body</span></dt>
+        <dd>
+            <span>{{comment.body}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.comment.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{comment.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.comment.updatedAt">Updated At</span></dt>
+        <dd>
+            <span>{{comment.updatedAt | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.comment.article">Article</span></dt>
+        <dd>
+            <div *ngIf="comment.article">
+                <a [routerLink]="['/article', comment.article?.id]">{{comment.article?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="greatBigExampleApplicationApp.comment.author">Author</span></dt>
+        <dd>
+            <div *ngIf="comment.author">
+                <a [routerLink]="['/author', comment.author?.id]">{{comment.author?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
