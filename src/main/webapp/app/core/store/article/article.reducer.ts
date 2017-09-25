@@ -5,10 +5,10 @@ import { Entities, initialEntities } from '../entity/entity.model';
 import { slices } from '../util';
 import * as entityFunctions from '../entity/entity.functions';
 import * as sliceFunctions from '../slice/slice.functions';
-import { typeFor } from '../util';
 import { EntityAction } from '../entity/entity.actions';
 import * as EntityActions from '../entity/entity.actions';
 import { actions } from '../entity/entity.actions';
+import { typeFor, PayloadAction, PayloadActions, completeAssign } from '../util';
 
 export function reducer(state: Entities<Article> = initialEntities<Article>(slices.ARTICLE, initialArticle),
     action: EntityAction<Article>): Entities<Article> {
@@ -34,6 +34,14 @@ export function reducer(state: Entities<Article> = initialEntities<Article>(slic
             return entityFunctions.select<Article>(state, <any>action);
         case typeFor(slices.ARTICLE, actions.UNLOAD):
             return entityFunctions.unload<Article>(state, <any>action);
+        case typeFor(slices.PROFILE, actions.PATCH):
+            const entities = completeAssign({}, state.entities);
+            for (const id of Object.keys(entities).filter((id) => (<Article>entities[id]).author.username === action.payload.id)) {
+                entities[id].author.following = action.payload.following;
+            }
+            return completeAssign({}, state, {
+                entities
+            });
         default:
             return state;
     }

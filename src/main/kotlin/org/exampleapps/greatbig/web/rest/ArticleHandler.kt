@@ -20,11 +20,14 @@ import org.exampleapps.greatbig.repository.TagRepository
 import org.exampleapps.greatbig.repository.UserRepository
 import org.exampleapps.greatbig.repository.specification.ArticlesSpecifications
 import org.exampleapps.greatbig.service.UserService
+import org.exampleapps.greatbig.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.Errors
 import org.springframework.validation.FieldError
@@ -56,17 +59,19 @@ class ArticleHandler(val repository: ArticleRepository,
 
         log.debug("\n\nREST request to get all Articles")
 
-        val p = PageRequest(offset, limit, Sort.Direction.DESC, "createdAt")
+        val p = PageRequest(offset/limit, limit, Sort.Direction.DESC, "createdAt")
 
         val articles = repository.findAll(ArticlesSpecifications.lastArticles(
                 if (tag != "") tagRepository.findByName(tag) else null,
                 if (author != "") userRepository.findOneByLogin(author).get() else null,
                 if (favorited != "") userRepository.findOneByLogin(favorited).get() else null
-        ), p).toList()
+        ), p)
         val currentUser = userService.getUserWithAuthorities()
         val currentAuthor = authorRepository.findById(currentUser.getId())
 
-        return articlesView(articles, currentAuthor)
+        val headers = PaginationUtil.generatePaginationHttpHeaders(articles, "/api/articles")
+
+        return ResponseEntity(articlesView(articles.toList(), currentAuthor), headers, HttpStatus.OK)
     }
 
     // @ApiKeySecured
@@ -80,8 +85,11 @@ class ArticleHandler(val repository: ArticleRepository,
         val currentUser = userService.getUserWithAuthorities()
         val currentAuthor = authorRepository.findById(currentUser.getId())
         val articles = repository.findByAuthorIdInOrderByCreatedAtDesc(currentAuthor.followers.map { it.id },
-                PageRequest(offset, limit))
-        return articlesView(articles, currentAuthor)
+                PageRequest(offset/limit, limit))
+
+        val headers = PaginationUtil.generatePaginationHttpHeaders(articles, "/api/articles/feed")
+
+        return ResponseEntity(articlesView(articles.toList(), currentAuthor), headers, HttpStatus.OK)
     }
 
     // @ApiKeySecured(mandatory = false)

@@ -85,10 +85,14 @@ export type PayloadActions = Actions<PayloadAction>;
  * @param segment The url part to watch for
  * @param callback The function to execute after routing to segment
  */
-export function handleNavigation(store: Store<RootState>, actions$: Actions, pathOfInterest: string, callback: (a: ActivatedRouteSnapshot, state: RootState) => Observable<any>) {
+export function handleNavigation(store: Store<RootState>, actions$: Actions, pathOfInterest: string | string[], callback: (a: ActivatedRouteSnapshot, state: RootState) => Observable<any>) {
+    let config: string;
     return actions$.ofType(ROUTER_NAVIGATION)
         .map(actionToSnapshot)
-        .filter((s) => getFullRouteConfigPath('', s) === pathOfInterest)
+        .filter((s) => {
+            config = getFullRouteConfigPath('', s);
+            return config === pathOfInterest || (Array.isArray(pathOfInterest) && pathOfInterest.indexOf(config) > -1);
+        })
         .withLatestFrom(store)
         .switchMap((a) => {
             return callback(a[0], a[1])
@@ -103,7 +107,7 @@ export function actionToSnapshot(r: RouterNavigationAction): ActivatedRouteSnaps
     return (<any>r.payload.routerState).root.firstChild;
 }
 
-function getFullRouteConfigPath(path, firstChild) {
+function getFullRouteConfigPath(path, firstChild): string {
     if (!firstChild) {
         return path;
     }

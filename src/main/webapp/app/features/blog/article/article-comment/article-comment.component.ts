@@ -37,7 +37,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
             ([user, article]) => {
                 this.currentUser = user;
 
-                this.canModify = article && (this.currentUser.login === article.author.username);
+                this.canModify = this.comment && (this.currentUser.login === this.comment.author.username);
             }
         );
     }

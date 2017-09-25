@@ -49,7 +49,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
         // this.identity = this.principal.identity();
         this.currentUserProfile$ = this.store.select(fromRoot.getCurrentProfile);
         this.article$ = this.store.select(fromRoot.getSelectedArticle);
-        this.articleSub = this.article$.subscribe((article) => this.article = article);
+        this.articleSub = this.article$.subscribe((article) => {
+            this.store.dispatch(new EntityActions.Load(slices.COMMENT, { query: { slug: article.slug } }));
+            this.article = article;
+        });
         this.comments$ = this.store.select(fromRoot.getCommentsForSelectedArticle);
         this.commentsSub = this.comments$.subscribe((comments) => this.comments = comments);
         this.newCommentSub = this.store.select(fromRoot.getCleanTempComment).subscribe((comment) =>

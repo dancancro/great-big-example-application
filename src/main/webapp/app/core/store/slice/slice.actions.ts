@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { typeFor } from '../util';
+import { typeFor, PayloadAction } from '../util';
 import { RootState } from '../';
 export const actions = {
     LOAD: 'LOAD',
@@ -11,13 +11,15 @@ export const actions = {
     UPDATE_SUCCESS: 'UPDATE_SUCCESS'
 };
 
-export class SliceAction implements Action {
+export class SliceAction extends PayloadAction implements Action {
     protected actionName = '';
     get type() {
         return typeFor(this.slice, this.actionName);
     }
 
-    constructor(public slice: keyof RootState, public payload?: any) { }
+    constructor(public slice: keyof RootState, public payload?: any) {
+        super(payload)
+    }
     get verb() {
         return this.actionName;
     }

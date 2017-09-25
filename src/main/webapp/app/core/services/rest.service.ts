@@ -25,7 +25,7 @@ type APIConfig = {
     method?: ((entity?: any, state?: RootState) => string) | string,
     url?: ((entity?: any, state?: RootState, query?: QueryPayload, slice?: keyof RootState) => string) | string,
     options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs,
-    response?: (resp: any, entity?: any) => any
+    response?: (resp: any, entity?: any, state?: RootState, query?: QueryPayload) => any
 }
 
 type EntityConfig = {
@@ -53,15 +53,15 @@ const apis: { [entity: string]: EntityConfig } = {
                 return `${config.apiUrl}/articles/${slug}`;
             },
             method: (article, state) => {
-                if (Object.keys(article).length === 2 && article.favorited === true) {
+                if (article.favorited === true) {
                     return 'post';
                 }
-                if (Object.keys(article).length === 2 && article.favorited === false) {
+                if (article.favorited === false) {
                     return 'delete';
                 }
                 return 'put';
             },
-            options: (article, state, query) => (Object.keys(article).length === 2 && typeof article.favorited !== 'undefined') ? null : article,
+            options: (article, state, query) => (typeof article.favorited !== 'undefined') ? null : article,
             response: (resp, article) => ({ id: article.id, ...resp })  // the slug could be different if the title changed
         },
         // getEntity: {
@@ -81,7 +81,7 @@ const apis: { [entity: string]: EntityConfig } = {
         url: 'claims'
     },
     claimRebuttal: {
-        url: 'claimRebuttals'
+        url: 'claim-rebuttals'
     },
     comment: {
         url: 'comments',
@@ -97,6 +97,15 @@ const apis: { [entity: string]: EntityConfig } = {
             url: (comment: Comment, state: RootState) => {
                 const slug = comment.articleId;
                 return `${config.apiUrl}/articles/${slug}/comments/${comment.id}`;
+            }
+        },
+        getEntities: {
+            url: (comment: Comment, state: RootState, query: QueryPayload) => {
+                const slug = query['slug'];
+                return `${config.apiUrl}/articles/${slug}/comments`;
+            },
+            response: (resp, comment, state, query) => {
+                return resp.entities.map((comment) => ({ articleId: query['slug'], ...comment }));
             }
         }
     },
@@ -116,10 +125,10 @@ const apis: { [entity: string]: EntityConfig } = {
         url: 'profiles',
         update: {
             method: (profile, state) => {
-                if (Object.keys(profile).length === 2 && profile.following === true) {
+                if (profile.following === true) {
                     return 'post';
                 }
-                if (Object.keys(profile).length === 2 && profile.following === false) {
+                if (profile.following === false) {
                     return 'delete';
                 }
                 return 'put';
@@ -131,7 +140,7 @@ const apis: { [entity: string]: EntityConfig } = {
                 }
                 return `${config.apiUrl}/profiles`;
             },
-            options: (profile, state, query) => (Object.keys(profile).length === 2 && typeof profile.following !== 'undefined') ? null : profile
+            options: (profile, state, query) => (typeof profile.following !== 'undefined') ? null : profile
         },
         getEntities: {
             url: (profile, state, query) => {
@@ -234,7 +243,7 @@ export class RESTService implements DataService {
 
     private getResponse(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): any {
         return (resp: any) => {
-            return apis[slice][job] && (typeof apis[slice][job].response === 'function') && apis[slice][job].response(resp, entity)
+            return apis[slice][job] && (typeof apis[slice][job].response === 'function') && apis[slice][job].response(resp, entity, state, query)
                 || resp;
         }
     }
@@ -332,11 +341,14 @@ export class RESTService implements DataService {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        const obj =
+        let obj =
             (res && !!res._body && res.json()) ||
             res.data ||
             { id: res.url.match(/[^\/]+$/)[0] };
 
+        if (Array.isArray(obj)) {
+            obj = { entities: obj, totalItems: +res.headers.get('X-Total-Count') }
+        }
         return obj;
     }
 

@@ -12,13 +12,13 @@ import { RESTService } from '../../services/rest.service';
 import * as entityFunctions from '../entity/entity.functions';
 import * as sliceFunctions from '../slice/slice.functions';
 import { typeFor } from '../util';
-import { actions } from '../entity/entity.actions';
+import { actions, EntityAction } from '../entity/entity.actions';
 import { SliceAction } from '../slice/slice.actions';
 import * as EntityActions from '../entity/entity.actions';
 import { initialBlogPageLayout } from '../../../features/blog/blog.layout';
 import * as SliceActions from '../slice/slice.actions';
 import * as fromRoot from '../../../core/store';
-import { PayloadAction, handleNavigation } from '../util';
+import { handleNavigation } from '../util';
 import { RootState } from '../';
 
 @Injectable()
@@ -31,6 +31,8 @@ export class ArticleEffects {
     private addToRemote$ = entityFunctions.addToRemote$(this.actions$, slices.ARTICLE, this.dataService, this.store, initialArticle);
     @Effect()
     private deleteFromRemote$ = entityFunctions.deleteFromRemote$(this.actions$, slices.ARTICLE, this.dataService, this.store);
+    @Effect()
+    private selectArticle$ = entityFunctions.select$(this.actions$, slices.ARTICLE, this.dataService, this.store, initialArticle);
 
     @Effect({ dispatch: false })
     private navigateOnArticleAddSuccess = this.actions$
@@ -50,19 +52,16 @@ export class ArticleEffects {
     /*
      * Select the article whose slug is contained in the route
      */
-    @Effect()
-    navigateToArticle$ = handleNavigation(this.store, this.actions$, '/features/blog/article/:slug', (r: ActivatedRouteSnapshot, state: RootState) => {
-        const slug = r.firstChild.firstChild.firstChild.firstChild.paramMap.get('slug');
-        this.store.dispatch(new EntityActions.Select(slices.ARTICLE, { id: slug }));
-        return of();
-    });
-
-    @Effect()
-    private selectArticle$ = entityFunctions.select$(this.actions$, slices.ARTICLE, this.dataService, this.store, initialArticle);
+    // @Effect()
+    // navigateToArticle$ = handleNavigation(this.store, this.actions$, ['/features/blog/article/:slug', '/features/blog/editor/:slug'], (r: ActivatedRouteSnapshot, state: RootState) => {
+    //     const slug = r.firstChild.firstChild.firstChild.firstChild.paramMap.get('slug');
+    //     this.store.dispatch(new EntityActions.Select(slices.ARTICLE, { id: slug }));
+    //     return of();
+    // });
 
     constructor(
         private store: Store<RootState>,
-        private actions$: Actions<PayloadAction>,
+        private actions$: Actions<EntityAction<Article>>,
         private router: Router,
         private dataService: RESTService
     ) { }

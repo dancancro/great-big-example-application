@@ -22,6 +22,7 @@ export interface Entities<T extends Entity> extends Slice {
     entities: { [id: string]: T };
     selectedEntityId?: string;
     initialEntity: T;
+    totalItems: number;
 };
 
 export function initialEntities<T extends Entity>(slice: string, initialEntity: T, vals = {}): Entities<T> {
@@ -30,6 +31,7 @@ export function initialEntities<T extends Entity>(slice: string, initialEntity: 
         ids: [],
         entities: {},
         selectedEntityId: null,
-        initialEntity: completeAssign({}, initialBaseEntity, initialEntity)
+        initialEntity: completeAssign({}, initialBaseEntity, initialEntity),
+        totalItems: 0
     }, vals);
 };

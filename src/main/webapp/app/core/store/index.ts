@@ -189,6 +189,12 @@ function setLoading(state, action) {
     if (action.verb === actions.UNLOAD) {
         newState[action.slice].loaded = false;
     }
+
+    if (action.verb === actions.LOAD_ALL_SUCCESS) {
+        if (typeof action.payload.totalItems !== 'undefined') {
+            newState[action.slice].totalItems = action.payload.totalItems;
+        }
+    }
     return newState;
 
 }

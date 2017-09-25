@@ -10,7 +10,7 @@ import { Account, Principal } from '../../../shared';
 import { User } from '../../../core/store/user/user.model';
 import * as SliceActions from '../../../core/store/slice/slice.actions';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
-import { slices } from '../../../core/store/util';
+import { slices, completeAssign } from '../../../core/store/util';
 import { BlogPageLayout, initialBlogPageLayout } from '../blog.layout';
 
 @Component({
@@ -51,15 +51,21 @@ export class HomePage implements OnInit, OnDestroy {
         });
     }
 
-    setListTo(type = '', filters: Object = {}) {
+    setListTo(type = '', filters?: Object) {
         // If feed is requested but user is not authenticated, redirect to login
         if (type === 'feed' && !this.principal.isAuthenticated()) {
             this.router.navigateByUrl('/');
             return;
         }
+        // Otherwise, set the list query
+        const query: any = { type, currentPage: 1 };
+        if (filters) {
+            query.offset = 0;
+            query.filters = filters;
+            query.currentPage = 1;
+        }
 
-        // Otherwise, set the list object
-        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['blogPage'], { type, filters, currentPage: 1 }));
+        this.store.dispatch(new SliceActions.Patch(slices.LAYOUT, ['blogPage'], query));
     }
 
     ngOnDestroy() {

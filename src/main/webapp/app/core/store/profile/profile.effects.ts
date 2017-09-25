@@ -7,6 +7,7 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router'
 import { Profile, initialProfile } from './profile.model';
 import * as entityFunctions from '../entity/entity.functions';
 import { slices } from '../util';
+import { EntityAction } from '../entity/entity.actions';
 import * as EntityActions from '../entity/entity.actions';
 import * as SliceActions from '../slice/slice.actions';
 import { RESTService } from '../../services/rest.service';
@@ -24,7 +25,7 @@ export class ProfileEffects {
     @Effect()
     navigateToProfile$ = handleNavigation(this.store, this.actions$, '/features/blog/profile/:username', (r: ActivatedRouteSnapshot, state: RootState) => {
         const username = r.firstChild.firstChild.firstChild.firstChild.paramMap.get('username');
-        this.store.dispatch(new EntityActions.Select(slices.PROFILE, { id: username }));
+        // this.store.dispatch(new EntityActions.Select(slices.PROFILE, { id: username }));
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['blogPage'], { currentPage: 1, type: null, filters: { favorited: null, tag: null, author: username } }));
         return of();
     });
@@ -32,14 +33,14 @@ export class ProfileEffects {
     @Effect()
     navigateToProfileFavorites$ = handleNavigation(this.store, this.actions$, '/features/blog/profile/:username/favorites', (r: ActivatedRouteSnapshot, state: RootState) => {
         const username = r.firstChild.firstChild.firstChild.firstChild.paramMap.get('username');
-        this.store.dispatch(new EntityActions.Select(slices.PROFILE, { id: username }));
+        // this.store.dispatch(new EntityActions.Select(slices.PROFILE, { id: username }));
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['blogPage'], { currentPage: 1, type: null, filters: { favorited: username, tag: null, author: null } }));
         return of();
     });
 
     constructor(
         private store: Store<RootState>,
-        private actions$: Actions,
+        private actions$: Actions<EntityAction<Profile>>,
         private router: Router,
         private dataService: RESTService
     ) { }

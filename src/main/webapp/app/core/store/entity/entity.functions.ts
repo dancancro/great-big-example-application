@@ -142,7 +142,7 @@ export function update<T extends Entity>(state: Entities<T>, action: EntityActio
 export function patchEach<T extends Entity>(state: Entities<T>, action: any): Entities<T> {
     const entities = completeAssign({}, state.entities);
     for (const id of Object.keys(entities)) {
-        entities[id] = completeAssign(entities[id], action.payload);
+        entities[id] = completeAssign({}, entities[id], action.payload);
     }
     return completeAssign({}, state, {
         entities
@@ -169,6 +169,7 @@ function reduceOne<T extends Entity>(state: Entities<T>, entity: T = null, actio
             newState = completeAssign({}, entity, action.payload, { deleteMe: false });
             break;
         case typeFor(state.slice, actions.UPDATE):
+            newState = completeAssign({}, state.initialEntity, action.payload, { dirty: true });
         case typeFor(state.slice, actions.PATCH):
             newState = completeAssign({}, entity, action.payload, { dirty: true });
             break;
@@ -226,7 +227,7 @@ export function loadFromRemote$(actions$: PayloadActions, slice: keyof RootState
                 }
                 return o
                     .takeUntil(nextSearch$)
-                    .mergeMap((responseEntities) => Observable.of(new EntityActions.LoadAllSuccess(slice, responseEntities)))
+                    .mergeMap((responseObject) => Observable.of(new EntityActions.LoadAllSuccess(slice, responseObject)))
                     .catch((err) => {
                         console.log(err);
                         return Observable.of(new EntityActions.LoadAllFail(slice, null));
@@ -235,7 +236,7 @@ export function loadFromRemote$(actions$: PayloadActions, slice: keyof RootState
 
             // Then this happens
             // for actions.LOAD_ALL_SUCCESS - dispatch a LoadSuccess for each entity returned
-            else {
+            else { // action.type === typeFor(slice, actions.LOAD_ALL_SUCCESS)
                 if (Array.isArray(action.payload)) {
                     o = Observable.from(action.payload);
                 } else {
@@ -271,7 +272,7 @@ export function addToRemote$(actions$: Actions, slice: keyof RootState, dataServ
  * @param dataService
  * @param store
  */
-export function updateToRemote$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<Action> {
+export function updateToRemote$(actions$: Actions<EntityAction<any>>, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<Action> {
     return actions$
         .ofType(typeFor(slice, actions.UPDATE), typeFor(slice, actions.PATCH))
         .withLatestFrom(store)
@@ -283,7 +284,7 @@ export function updateToRemote$(actions$: Actions, slice: keyof RootState, dataS
             return Observable.combineLatest(Observable.of(action), dataService.update(slice, entity, state, store));
         })
         .map(([action, responseEntity]) => {
-            if (action.type === actions.UPDATE) {
+            if (action.verb === actions.UPDATE) {
                 return new EntityActions.UpdateSuccess(slice, completeAssign({}, initialEntity, responseEntity));
             } else {
                 return new EntityActions.PatchSuccess(slice, completeAssign({}, initialEntity, responseEntity));
@@ -304,6 +305,17 @@ export function deleteFromRemote$(actions$: Actions, slice: keyof RootState, dat
         })
 }
 
+/**
+ * @whatItDoes This will fetch a selected entity from the server if it is not in the store. The
+ * response returning will trigger a load action which will trigger another select action. The reducer will get that
+ * and set the entity selectedId
+ *
+ * @param actions$ stream of actions
+ * @param slice the type of entity
+ * @param dataService the service that makes the http request
+ * @param store the ngrx store
+ * @param initialEntity this contains all the default entity properties to be merged with a fetched entity
+ */
 export function select$(actions$: Actions, slice: keyof RootState, dataService: DataService, store: Store<RootState>, initialEntity: Entity): Observable<EntityAction<any>> {  // TODO: fix this any
     return actions$
         .ofType(typeFor(slice, actions.SELECT))

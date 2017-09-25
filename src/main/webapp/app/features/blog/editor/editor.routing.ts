@@ -4,7 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditorPage } from './editor.page';
 import { AddPage } from './add.page';
 import { EditorGuard } from './editor.guard';
+import { EntityExistsGuard } from '../../../core/services/entity-exists.guard';
 import { UserRouteAccessService } from '../../../shared';
+import { slices } from '../../../core/store/util';
 
 const routes: Routes = [
     {
@@ -21,9 +23,10 @@ const routes: Routes = [
         component: EditorPage,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.blog.home.title'
+            pageTitle: 'greatBigExampleApplicationApp.blog.home.title',
+            slice: slices.ARTICLE
         },
-        // canActivate: [UserRouteAccessService, EditorGuard]
+        canActivate: [UserRouteAccessService, EditorGuard, EntityExistsGuard]
     }
 ];
 

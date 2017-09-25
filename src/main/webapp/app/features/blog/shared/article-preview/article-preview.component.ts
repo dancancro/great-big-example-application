@@ -24,6 +24,6 @@ export class ArticlePreviewComponent {
         } else {
             favoritesCount = this.article.favoritesCount - 1;
         }
-        this.store.dispatch(new EntityActions.Patch(slices.ARTICLE, { id: this.article.id, favorited, favoritesCount }));
+        this.store.dispatch(new EntityActions.Update(slices.ARTICLE, { id: this.article.id, favorited, favoritesCount }));
     }
 }

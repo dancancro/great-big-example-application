@@ -44,7 +44,7 @@ export class EntityExistsGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
         const slice = route.data['slice'];
-        const id = route.params['slug'] || route.params['id'] || route.params['username'];
+        const id = route.params['id'] || route.params['slug'] || route.params['username'];
         return this.getFromStoreOrAPI(slice, id)
             .switchMap(() => of(true))
             .catch(() => of(false));

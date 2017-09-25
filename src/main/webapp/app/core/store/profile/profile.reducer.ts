@@ -18,6 +18,11 @@ export function reducer(state: Entities<Profile> = initialEntities<Profile>(slic
             return entityFunctions.addEntityToStore<Profile>(state, <any>action);
         case typeFor(slices.PROFILE, actions.SELECT):
             return entityFunctions.select<Profile>(state, <any>action);
+        case typeFor(slices.PROFILE, actions.PATCH):
+        case typeFor(slices.PROFILE, actions.PATCH_SUCCESS):
+        case typeFor(slices.PROFILE, actions.UPDATE):
+        case typeFor(slices.PROFILE, actions.UPDATE_SUCCESS):
+            return entityFunctions.update(state, <any>action);
 
         case typeFor(slices.SESSION, actions.LOAD_SUCCESS):
             // add a profile entity whenever a session is loaded
