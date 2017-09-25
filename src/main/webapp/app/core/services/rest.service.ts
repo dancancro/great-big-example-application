@@ -105,7 +105,7 @@ const apis: { [entity: string]: EntityConfig } = {
                 return `${config.apiUrl}/articles/${slug}/comments`;
             },
             response: (resp, comment, state, query) => {
-                return resp.entities.map((comment) => ({ articleId: query['slug'], ...comment }));
+                return ({ ...resp, entities: resp.entities.map((comment) => ({ articleId: query['slug'], ...comment })) });
             }
         }
     },

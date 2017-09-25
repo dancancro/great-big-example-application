@@ -237,8 +237,8 @@ export function loadFromRemote$(actions$: PayloadActions, slice: keyof RootState
             // Then this happens
             // for actions.LOAD_ALL_SUCCESS - dispatch a LoadSuccess for each entity returned
             else { // action.type === typeFor(slice, actions.LOAD_ALL_SUCCESS)
-                if (Array.isArray(action.payload)) {
-                    o = Observable.from(action.payload);
+                if (Array.isArray(action.payload.entities)) {
+                    o = Observable.from(action.payload.entities);
                 } else {
                     o = Observable.of(action.payload)
                 }
