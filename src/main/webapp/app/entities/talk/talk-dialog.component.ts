@@ -76,7 +76,7 @@ export class TalkDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Talk) {
-        this.eventManager.broadcast({ name: 'talkListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'talkListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -108,11 +108,11 @@ export class TalkPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private talkPopupService: TalkPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.talkPopupService
                     .open(TalkDialogComponent, params['id']);
             } else {

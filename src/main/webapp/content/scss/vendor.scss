@@ -4,7 +4,7 @@
 // in order for the imports below to work at all
 $fa-font-path: '~font-awesome/fonts';
 $roboto-font-path: '~roboto-fontface/fonts';
-$ionicons-font-path: "~ionicons/fonts";
+$ionicons-font-path: "~ionicons/dist/fonts";
 
 /***************************
 put Sass variables here:
@@ -14,4 +14,4 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome';
 @import '~roboto-fontface/css/roboto/sass/roboto-fontface';
-@import '~ionicons/scss/ionicons';
+@import '~ionicons/dist/scss/ionicons';

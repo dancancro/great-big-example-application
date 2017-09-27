@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Recipe } from './api-interfaces';
-import { FilterOptions } from '../../features/meals/home/filter/filter-options';  // TODO: This file should be in the meals feature
+import { FilterOptions } from '../../features/meals/home/filter/filter-options';
 
 @Injectable()
 export class MockApiService {
