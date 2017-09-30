@@ -7,6 +7,7 @@ import { slices } from '../util';
 import { RESTService } from '../../services/rest.service';
 import * as entityFunctions from '../entity/entity.functions';
 import { RootState } from '../';
+import { EntityAction } from '../entity/entity.actions';
 
 @Injectable()
 export class HeroEffects {
@@ -21,7 +22,7 @@ export class HeroEffects {
 
     constructor(
         private store: Store<RootState>,
-        private actions$: Actions,
+        private actions$: Actions<EntityAction<Hero>>,
         private dataService: RESTService
     ) { }
 }

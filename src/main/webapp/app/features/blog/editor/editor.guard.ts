@@ -31,6 +31,7 @@ export class EditorGuard implements CanActivate {
                 // } else if (!articles.loaded) {
                 //     return true;
             } else {
+                console.log('EDITOR GUARD FALSE');
                 this.router.navigateByUrl('/features/blog');
                 return false;
             }
