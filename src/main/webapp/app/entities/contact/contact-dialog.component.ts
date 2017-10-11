@@ -54,7 +54,7 @@ export class ContactDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Contact) {
-        this.eventManager.broadcast({ name: 'contactListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'contactListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class ContactPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private contactPopupService: ContactPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.contactPopupService
-                    .open(ContactDialogComponent, params['id']);
+                    .open(<Component>ContactDialogComponent, params['id']);
             } else {
                 this.modalRef = this.contactPopupService
-                    .open(ContactDialogComponent);
+                    .open(<Component>ContactDialogComponent);
             }
         });
     }

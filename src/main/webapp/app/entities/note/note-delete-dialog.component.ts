@@ -55,7 +55,7 @@ export class NoteDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.notePopupService
-                .open(NoteDeleteDialogComponent, params['id']);
+                .open(<Component>NoteDeleteDialogComponent, params['id']);
         });
     }
 

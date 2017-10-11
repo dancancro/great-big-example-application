@@ -11,6 +11,7 @@ import 'rxjs';
 import 'intl/locale-data/jsonp/en-US.js';
 import { TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+var reflect = require('reflect-metadata');
 
 TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 

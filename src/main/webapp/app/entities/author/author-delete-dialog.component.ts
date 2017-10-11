@@ -55,7 +55,7 @@ export class AuthorDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.authorPopupService
-                .open(AuthorDeleteDialogComponent, params['id']);
+                .open(<Component>AuthorDeleteDialogComponent, params['id']);
         });
     }
 

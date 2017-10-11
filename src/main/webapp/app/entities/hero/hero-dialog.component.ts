@@ -54,7 +54,7 @@ export class HeroDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Hero) {
-        this.eventManager.broadcast({ name: 'heroListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'heroListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class HeroPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private heroPopupService: HeroPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.heroPopupService
-                    .open(HeroDialogComponent, params['id']);
+                    .open(<Component>HeroDialogComponent, params['id']);
             } else {
                 this.modalRef = this.heroPopupService
-                    .open(HeroDialogComponent);
+                    .open(<Component>HeroDialogComponent);
             }
         });
     }

@@ -55,7 +55,7 @@ export class ContactDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.contactPopupService
-                .open(ContactDeleteDialogComponent, params['id']);
+                .open(<Component>ContactDeleteDialogComponent, params['id']);
         });
     }
 

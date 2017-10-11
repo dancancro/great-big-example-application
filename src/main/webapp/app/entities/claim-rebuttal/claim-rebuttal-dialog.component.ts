@@ -54,7 +54,7 @@ export class ClaimRebuttalDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: ClaimRebuttal) {
-        this.eventManager.broadcast({ name: 'claimRebuttalListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'claimRebuttalListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class ClaimRebuttalPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private claimRebuttalPopupService: ClaimRebuttalPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.claimRebuttalPopupService
-                    .open(ClaimRebuttalDialogComponent, params['id']);
+                    .open(<Component>ClaimRebuttalDialogComponent, params['id']);
             } else {
                 this.modalRef = this.claimRebuttalPopupService
-                    .open(ClaimRebuttalDialogComponent);
+                    .open(<Component>ClaimRebuttalDialogComponent);
             }
         });
     }

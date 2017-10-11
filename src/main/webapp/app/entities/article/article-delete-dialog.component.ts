@@ -55,7 +55,7 @@ export class ArticleDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.articlePopupService
-                .open(ArticleDeleteDialogComponent, params['id']);
+                .open(<Component>ArticleDeleteDialogComponent, params['id']);
         });
     }
 

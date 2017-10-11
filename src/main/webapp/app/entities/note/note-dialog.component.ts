@@ -54,7 +54,7 @@ export class NoteDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Note) {
-        this.eventManager.broadcast({ name: 'noteListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'noteListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class NotePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private notePopupService: NotePopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.notePopupService
-                    .open(NoteDialogComponent, params['id']);
+                    .open(<Component>NoteDialogComponent, params['id']);
             } else {
                 this.modalRef = this.notePopupService
-                    .open(NoteDialogComponent);
+                    .open(<Component>NoteDialogComponent);
             }
         });
     }

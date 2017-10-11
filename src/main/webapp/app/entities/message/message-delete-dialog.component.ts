@@ -55,7 +55,7 @@ export class MessageDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.messagePopupService
-                .open(MessageDeleteDialogComponent, params['id']);
+                .open(<Component>MessageDeleteDialogComponent, params['id']);
         });
     }
 

@@ -160,10 +160,10 @@ export class AuthorPopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.authorPopupService
-                    .open(AuthorDialogComponent, params['id']);
+                    .open(<Component>AuthorDialogComponent, params['id']);
             } else {
                 this.modalRef = this.authorPopupService
-                    .open(AuthorDialogComponent);
+                    .open(<Component>AuthorDialogComponent);
             }
         });
     }

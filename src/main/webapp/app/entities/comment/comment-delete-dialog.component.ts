@@ -36,7 +36,7 @@ export class CommentDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('greatBigExampleApplicationApp.comment.deleted', { param : id }, null);
+        this.alertService.success('greatBigExampleApplicationApp.comment.deleted', { param: id }, null);
     }
 }
 
@@ -52,12 +52,12 @@ export class CommentDeletePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private commentPopupService: CommentPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.commentPopupService
-                .open(CommentDeleteDialogComponent, params['id']);
+                .open(<Component>CommentDeleteDialogComponent, params['id']);
         });
     }
 

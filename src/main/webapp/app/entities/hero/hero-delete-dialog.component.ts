@@ -55,7 +55,7 @@ export class HeroDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.heroPopupService
-                .open(HeroDeleteDialogComponent, params['id']);
+                .open(<Component>HeroDeleteDialogComponent, params['id']);
         });
     }
 

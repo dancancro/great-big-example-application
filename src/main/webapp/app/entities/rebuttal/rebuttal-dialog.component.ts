@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-          import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
@@ -54,7 +54,7 @@ export class RebuttalDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Rebuttal) {
-        this.eventManager.broadcast({ name: 'rebuttalListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'rebuttalListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class RebuttalPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private rebuttalPopupService: RebuttalPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.rebuttalPopupService
-                    .open(RebuttalDialogComponent, params['id']);
+                    .open(<Component>RebuttalDialogComponent, params['id']);
             } else {
                 this.modalRef = this.rebuttalPopupService
-                    .open(RebuttalDialogComponent);
+                    .open(<Component>RebuttalDialogComponent);
             }
         });
     }

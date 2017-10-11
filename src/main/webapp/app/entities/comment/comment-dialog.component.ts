@@ -91,10 +91,10 @@ export class CommentDialogComponent implements OnInit {
     private onSaveSuccess(result: Comment, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'greatBigExampleApplicationApp.comment.created'
-            : 'greatBigExampleApplicationApp.comment.updated',
-            { param : result.id }, null);
+                : 'greatBigExampleApplicationApp.comment.updated',
+            { param: result.id }, null);
 
-        this.eventManager.broadcast({ name: 'commentListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'commentListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -134,16 +134,16 @@ export class CommentPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private commentPopupService: CommentPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.commentPopupService
-                    .open(CommentDialogComponent, params['id']);
+                    .open(<Component>CommentDialogComponent, params['id']);
             } else {
                 this.modalRef = this.commentPopupService
-                    .open(CommentDialogComponent);
+                    .open(<Component>CommentDialogComponent);
             }
         });
     }

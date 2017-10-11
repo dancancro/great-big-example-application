@@ -55,7 +55,7 @@ export class CrisisDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.crisisPopupService
-                .open(CrisisDeleteDialogComponent, params['id']);
+                .open(<Component>CrisisDeleteDialogComponent, params['id']);
         });
     }
 

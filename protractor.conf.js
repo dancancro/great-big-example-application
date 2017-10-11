@@ -19,7 +19,7 @@ exports.config = {
 
     directConnect: true,
 
-    baseUrl: 'http://localhost:8070/',
+    baseUrl: 'http://localhost:9010/',
 
     framework: 'jasmine2',
 

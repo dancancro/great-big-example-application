@@ -114,10 +114,10 @@ export class TalkPopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.talkPopupService
-                    .open(TalkDialogComponent, params['id']);
+                    .open(<Component>TalkDialogComponent, params['id']);
             } else {
                 this.modalRef = this.talkPopupService
-                    .open(TalkDialogComponent);
+                    .open(<Component>TalkDialogComponent);
             }
         });
     }

@@ -54,7 +54,7 @@ export class CrisisDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Crisis) {
-        this.eventManager.broadcast({ name: 'crisisListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'crisisListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class CrisisPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private crisisPopupService: CrisisPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.crisisPopupService
-                    .open(CrisisDialogComponent, params['id']);
+                    .open(<Component>CrisisDialogComponent, params['id']);
             } else {
                 this.modalRef = this.crisisPopupService
-                    .open(CrisisDialogComponent);
+                    .open(<Component>CrisisDialogComponent);
             }
         });
     }

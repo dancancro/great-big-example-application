@@ -54,7 +54,7 @@ export class MessageDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Message) {
-        this.eventManager.broadcast({ name: 'messageListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'messageListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class MessagePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private messagePopupService: MessagePopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.messagePopupService
-                    .open(MessageDialogComponent, params['id']);
+                    .open(<Component>MessageDialogComponent, params['id']);
             } else {
                 this.modalRef = this.messagePopupService
-                    .open(MessageDialogComponent);
+                    .open(<Component>MessageDialogComponent);
             }
         });
     }

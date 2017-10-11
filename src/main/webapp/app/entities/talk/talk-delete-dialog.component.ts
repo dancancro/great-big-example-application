@@ -50,12 +50,12 @@ export class TalkDeletePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private talkPopupService: TalkPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.talkPopupService
-                .open(TalkDeleteDialogComponent, params['id']);
+                .open(<Component>TalkDeleteDialogComponent, params['id']);
         });
     }
 

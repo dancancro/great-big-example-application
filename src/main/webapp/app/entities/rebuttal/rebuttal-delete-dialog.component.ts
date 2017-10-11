@@ -55,7 +55,7 @@ export class RebuttalDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.rebuttalPopupService
-                .open(RebuttalDeleteDialogComponent, params['id']);
+                .open(<Component>RebuttalDeleteDialogComponent, params['id']);
         });
     }
 

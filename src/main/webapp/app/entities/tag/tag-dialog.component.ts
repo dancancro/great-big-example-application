@@ -61,7 +61,7 @@ export class TagDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Tag) {
-        this.eventManager.broadcast({ name: 'tagListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'tagListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -114,10 +114,10 @@ export class TagPopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.tagPopupService
-                    .open(TagDialogComponent, params['id']);
+                    .open(<Component>TagDialogComponent, params['id']);
             } else {
                 this.modalRef = this.tagPopupService
-                    .open(TagDialogComponent);
+                    .open(<Component>TagDialogComponent);
             }
         });
     }

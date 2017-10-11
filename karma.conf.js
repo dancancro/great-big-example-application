@@ -14,7 +14,8 @@ module.exports = (config) => {
 
         // list of files / patterns to load in the browser
         files: [
-            'test.ts'
+            'test.ts',
+            'node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css'
         ],
 
 

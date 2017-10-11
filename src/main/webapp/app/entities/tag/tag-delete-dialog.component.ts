@@ -55,7 +55,7 @@ export class TagDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.tagPopupService
-                .open(TagDeleteDialogComponent, params['id']);
+                .open(<Component>TagDeleteDialogComponent, params['id']);
         });
     }
 

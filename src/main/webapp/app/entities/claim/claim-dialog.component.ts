@@ -54,7 +54,7 @@ export class ClaimDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Claim) {
-        this.eventManager.broadcast({ name: 'claimListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'claimListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -86,16 +86,16 @@ export class ClaimPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private claimPopupService: ClaimPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.claimPopupService
-                    .open(ClaimDialogComponent, params['id']);
+                    .open(<Component>ClaimDialogComponent, params['id']);
             } else {
                 this.modalRef = this.claimPopupService
-                    .open(ClaimDialogComponent);
+                    .open(<Component>ClaimDialogComponent);
             }
         });
     }
