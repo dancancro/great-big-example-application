@@ -5,6 +5,9 @@
 [![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 
 ## [Live Demo on Heroku](https://great-big-example-application.herokuapp.com/)
+If this
+doesn't work, it's probably because it exceeds Heroku's 500MB memory quota for the free tier.
+Sorry about that. It does work locally.
 
 # Background and Motivation
 
