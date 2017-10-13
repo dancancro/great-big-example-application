@@ -33,7 +33,7 @@ export function addEntityToStore<T extends Entity>(state: Entities<T>, action: E
  * @param action needs a payload that is an array of entities
  */
 export function addEntitiesToStore<T extends Entity>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
-    const entities = action.payload.reduce(function (map, obj) {
+    const entities = action.payload.entities.reduce(function (map, obj) {
         map[obj.id] = completeAssign({}, state.initialEntity, obj, { dirty: false });
         return map;
     }, {});
