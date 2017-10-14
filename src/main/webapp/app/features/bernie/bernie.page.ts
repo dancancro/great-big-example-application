@@ -172,9 +172,8 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     ngAfterViewChecked() {
-        console.log('resolved')
         // this.scrollDistance = WrappedValue.wrap(0)
         // console.log("setting scrolly")
-        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'scrollY'], 300));
+        // this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'scrollY'], 300));
     }
 }

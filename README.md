@@ -263,6 +263,12 @@ Add the `help` flag on any command to see how you can use it. For example, `yarn
 
 The `yarn run` command will list all of the scripts available to run for this project.
 
+### Debugging info
+
+You can get state information during development in a couple of ways. You can either have it log each state change to the console
+or enable the Redux dev tools. Logging is enabled in `src/main/webapp/app/core/store/index.ts`. Last I checked Redux dev tools has
+a pretty big performance penalty so it's turned off. To turn it on edit the part about StoreDevtoolsModule in `app.module.ts`.
+
 ## More Settings you'll need to set
 
 |File|Setting|Source|

@@ -16,9 +16,9 @@ export const actions = {
     DELETE_FAIL: 'DELETE_FAIL',
     DELETE_SUCCESS: 'DELETE_SUCCESS',
     DELETE_TEMP: 'DELETE_TEMP',
-    LOAD_ALL: 'LOAD_ALL',
-    LOAD_ALL_FAIL: 'LOAD_ALL_FAIL',
-    LOAD_ALL_SUCCESS: 'LOAD_ALL_SUCCESS',
+    ASYNC: 'ASYNC',
+    ASYNC_FAIL: 'ASYNC_FAIL',
+    ASYNC_SUCCESS: 'ASYNC_SUCCESS',
     PATCH: 'PATCH',
     PATCH_EACH: 'PATCH_EACH',
     PATCH_FAIL: 'PATCH_FAIL',
@@ -119,22 +119,22 @@ export class LoadFail<T extends Entity> extends EntityAction<T> {
     protected actionName: string = actions.LOAD_FAIL;
 }
 
-export class LoadAll<T extends Entity> extends EntityAction<T> {
-    protected actionName: string = actions.LOAD_ALL;
+export class Async<T extends Entity> extends EntityAction<T> {
+    protected actionName: string = actions.ASYNC;
 }
 
-export class LoadAllFail<T extends Entity> extends EntityAction<T> {
-    protected actionName: string = actions.LOAD_ALL_FAIL;
+export class AsyncFail<T extends Entity> extends EntityAction<T> {
+    protected actionName: string = actions.ASYNC_FAIL;
 }
 
-export class LoadAllSuccess<T extends Entity> extends SliceAction {
-    protected actionName: string = actions.LOAD_ALL_SUCCESS;
+export class AsyncSuccess<T extends Entity> extends SliceAction {
+    protected actionName: string = actions.ASYNC_SUCCESS;
     constructor(public slice: keyof RootState, public payload: T[]) {
         super(slice, payload);
     }
 }
 
-export class LoadSuccess<T extends Entity> extends LoadAllSuccess<T> {  // this makes Effect loadFromRemote$ work
+export class LoadSuccess<T extends Entity> extends AsyncSuccess<T> {  // this makes Effect loadFromRemote$ work
     protected actionName: string = actions.LOAD_SUCCESS;
 }
 

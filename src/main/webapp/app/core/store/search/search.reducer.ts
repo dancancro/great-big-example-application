@@ -6,13 +6,13 @@ import { SliceAction } from '../slice/slice.actions';
 import * as idFunctions from '../id/id.functions';
 
 export function reducer(state = initialIDs(slices.SEARCH), action: SliceAction): IDs {
-    switch (action.type) {
-        case typeFor(slices.SEARCH, actions.LOAD_ALL_SUCCESS):
-            return idFunctions.updateIDs(state, action);
-        default: {
-            return state;
-        }
+  switch (action.type) {
+    case typeFor(slices.SEARCH, actions.ASYNC_SUCCESS):
+      return idFunctions.updateIDs(state, action);
+    default: {
+      return state;
     }
+  }
 }
 
 export const getIds = (state: IDs) => state.ids;

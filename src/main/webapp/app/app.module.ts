@@ -91,7 +91,7 @@ const imports = [
     // using devtools and router-store together
     process.env.NODE_ENV === 'dev' ? StoreDevtoolsModule.instrument() : [],
     // StoreDevtoolsModule.instrument(),
-
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
     /**
      * EffectsModule.forRoot() is imported once in the root module and
      * sets up the effects class to be initialized immediately when the

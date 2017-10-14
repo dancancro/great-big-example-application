@@ -146,9 +146,10 @@ export let reducers: ActionReducerMap<RootState> = {
 //     ? [logger]
 //     : [];
 
-export const metaReducers: MetaReducer<RootState>[] = (process.env.NODE_ENV === 'dev'
-    ? [logger]
-    : []).concat(loadingSetter)
+// export const metaReducers: MetaReducer<RootState>[] = (process.env.NODE_ENV === 'dev'
+// ? [logger]
+// : []).concat(loadingSetter)
+export const metaReducers: MetaReducer<RootState>[] = [logger, loadingSetter]
 
 // console.log all actions
 function logger(reducer: ActionReducer<RootState>) {
@@ -190,7 +191,7 @@ function setLoading(state, action) {
         newState[action.slice].loaded = false;
     }
 
-    if (action.verb === actions.LOAD_ALL_SUCCESS) {
+    if (action.verb === actions.ASYNC_SUCCESS) {
         if (typeof action.payload.totalItems !== 'undefined') {
             newState[action.slice].totalItems = action.payload.totalItems;
         }
@@ -217,8 +218,8 @@ function isLoadSuccessAction(verb: string) {
     switch (verb) {
         case actions.ADD_SUCCESS:
         case actions.DELETE_SUCCESS:
-        // case actions.LOAD_ALL:
-        case actions.LOAD_ALL_SUCCESS:
+        // case actions.ASYNC:
+        case actions.ASYNC_SUCCESS:
         case actions.PATCH_SUCCESS:
         case actions.UPDATE_SUCCESS:
             return true;

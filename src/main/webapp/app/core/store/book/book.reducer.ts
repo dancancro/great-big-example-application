@@ -10,20 +10,20 @@ import { EntityAction } from '../entity/entity.actions';
 import { SliceAction } from '../slice/slice.actions';
 
 export function reducer(state: Entities<Book> = initialEntities<Book>(slices.BOOK, initialBook),
-    action: EntityAction<Book> | SliceAction): Entities<Book> {
-    // console.log(`${action.type}`);
-    switch (action.type) {
-        case typeFor(slices.SEARCH, actions.LOAD_ALL_SUCCESS):
-        case typeFor(slices.COLLECTION, actions.LOAD_SUCCESS):
-            return entityFunctions.union(state, <any>action);
-        case typeFor(slices.BOOK, actions.LOAD):
-            return entityFunctions.addEntityToStore<Book>(state, <any>action);
-        case typeFor(slices.BOOK, actions.SELECT):
-            return entityFunctions.select<Book>(state, <any>action);
-        default: {
-            return state;
-        }
+  action: EntityAction<Book> | SliceAction): Entities<Book> {
+  // console.log(`${action.type}`);
+  switch (action.type) {
+    case typeFor(slices.SEARCH, actions.ASYNC_SUCCESS):
+    case typeFor(slices.COLLECTION, actions.LOAD_SUCCESS):
+      return entityFunctions.union(state, <any>action);
+    case typeFor(slices.BOOK, actions.LOAD):
+      return entityFunctions.addEntityToStore<Book>(state, <any>action);
+    case typeFor(slices.BOOK, actions.SELECT):
+      return entityFunctions.select<Book>(state, <any>action);
+    default: {
+      return state;
     }
+  }
 }
 
 /**
@@ -42,9 +42,9 @@ export const getIds = (state: Entities<Book>) => state.ids;
 export const getSelectedId = (state: Entities<Book>) => state.selectedEntityId;
 
 export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
-    return entities[selectedId];
+  return entities[selectedId];
 });
 
 export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+  return ids.map((id) => entities[id]);
 });

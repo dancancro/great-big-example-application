@@ -21,6 +21,7 @@ export interface Claim extends Entity {
     rebuttalIds?: string[];
     rebuttals?: Rebuttal[];
     imageLink?: string;
+    imageLabel?: string;
 
     // UI state
     rebuttalsReordered: boolean;
