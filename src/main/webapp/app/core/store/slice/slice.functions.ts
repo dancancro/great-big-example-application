@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-
 import { SliceAction } from './slice.actions';
 import { typeFor } from '../util';
 import { actions } from './slice.actions';
@@ -44,59 +43,56 @@ export function patch(state: any, action: SliceAction): any {
     return patchOrUpdate(state, action, false);
 }
 
+/**
+ *
+ * @param state
+ * @param action contains a payload that could be a primitive value, an object or a function with argument state
+ * that could return a primitive value or an object
+ * @param update boolean true if updating, false if patching
+ */
 function patchOrUpdate(state: any, action: SliceAction, update: boolean): any {
-    const obj = [state];
+    let obj = [state];
+    let patch = !update;
     const path = action.payload.path;
-    const val = action.payload.val;
+    const hasPath = path && path.length;
+    const pathLength = hasPath ? path.length : 0;
+    const key = path[path.length - 1]
+    let val = {};
+    let pos = pathLength;
 
-    if (!path || !path.length) {
-        const wiper = {}; // wipes out the meat of the state, leaving system stuff like loading
-        if (update) {
-            wiper[state.slice] = null;
-        }
-        return merge({}, merge({}, state, wiper), evaluate(val, state));
+    // object
+    if (typeof action.payload.val === 'object') {
+        // return [val, pos];
+        val = action.payload.val;
+    } else if (typeof action.payload.val === 'function') {
+        // function
+        val[key] = action.payload.val(state);
+        pos--;
+        patch = true;
+    } else {
+        // primitive
+        val[key] = action.payload.val;
+        pos--;
+        patch = true;
     }
 
     let i = 0;
-    for (i = 0; i < path.length - 1; i++) {
+    for (i = 0; i < pos; i++) {
         obj[i + 1] = obj[i][path[i]];
     }
-    let result = {};
-    let start = 0;
 
-    if ((typeof val === 'object') && (val !== null)) {
-        result = val;
-        start = path.length;
-
-    } else {
-        result[path[path.length - 1]] = evaluate(val, state);
-        start = path.length - 1;
+    if (patch) {
+        val = merge({}, obj[pos], val);
     }
 
-    let mutation = {};
-    for (i = start; i > 0; i--) {
-        if (i === start && update) {
-            mutation = result;
-        } else {
-            mutation = merge({}, obj[i], result);
-        }
-        result = {};
-        result[path[i - 1]] = mutation;
+    obj = [];
+    obj[pos] = val;
+    for (i = pos - 1; i >= 0; i--) {
+        obj[i] = {};
+        obj[i][path[i]] = obj[i + 1];
     }
 
-    if (update) {
-        return { ...state, ...result }
-    } else {
-        return merge({}, state, result);
-    }
-}
-
-function evaluate(val, state) {
-    if (typeof val === 'function') {
-        return val(state);
-    }
-
-    return val;
+    return { ...state, ...obj[0] };
 }
 
 /**

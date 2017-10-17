@@ -138,7 +138,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
             let i = 1;
             rebuttalIds.map((rebuttalId) => {
                 const crid = this.claimRebuttals.filter((cr) => cr.claimId === claim.id && cr.rebuttalId === rebuttalId)[0].id;
-                this.store.dispatch(new SliceActions.Update(slices.CLAIM_REBUTTAL, ['entities', crid, 'sortOrder'], i));
+                this.store.dispatch(new EntityActions.Patch(slices.CLAIM_REBUTTAL, { id: crid, sortOrder: i }));
                 i++;
             })
 

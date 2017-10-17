@@ -508,7 +508,7 @@ export const getDeepClaims = createSelector(getClaims, getDeepClaimRebuttals, ge
         })
     }
     )
-        .filter((dc) => bernieSearchTerm === '' || dc.name.toLowerCase().indexOf(bernieSearchTerm.toLowerCase()) > -1)
+        .filter((dc) => !bernieSearchTerm || (dc.name && dc.name.toLowerCase().indexOf(bernieSearchTerm.toLowerCase()) > -1))
         .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)
 });
 
