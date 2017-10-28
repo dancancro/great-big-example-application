@@ -6,7 +6,7 @@
                 <div>
                     <span>
                         <label for="search-box">Search</label>
-                        <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+                        <input #searchBox id="search-box" [value]="searchTerms" (keyup)="search(searchBox.value)" />
                     </span>
                     <span>
                         <button *ngIf="!page.expanded" class="btn btn-default" title="Expand All" (click)="toggleExpanded()">Expand All</button>

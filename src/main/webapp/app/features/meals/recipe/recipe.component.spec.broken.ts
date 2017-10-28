@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { StoreModule, Store, StateObservable, combineReducers } from '@ngrx/store';
 
 import { RecipeComponent } from './recipe.component';
-import { TimerButtonComponent } from '../recipe/timer-button/timer-button.component';
+import { TimerButtonComponent } from '../shared/timer/timer-button/timer-button.component';
 import { ApiService } from '../../../core/api/api.service';
 import { MockApiService } from '../../../core/api/mock-api.service.spec';
 import { GreatBigExampleApplicationSharedModule } from '../../../shared/shared.module';

@@ -18,7 +18,7 @@
     "@angular/material": "2.0.0-beta.7",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
-    "@angular/router": "4.4.3",
+    "@angular/router": "4.4.6",
     "@angularclass/form-validators": "^1.0.12",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.5",
     "@ngrx/db": "2.0.2",

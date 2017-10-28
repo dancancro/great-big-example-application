@@ -1,0 +1,21 @@
+<aside *ngIf="timerService.showTimer">
+    <h2 class="title">
+        <a [routerLink]="['/recipe', timerService.slug]" [attr.aria-label]="'Recipe related to the timer: ' + timerService.title"
+            appAxFocus01Fix>{{ timerService.title }}</a>
+    </h2>
+    <div class="controls">
+        <meals-button-clear label="Resets the timer to the original value" class="left" (click)="timerService.resetTimer()" appAxFocus01Fix>
+            <c2c-icon-reset></c2c-icon-reset>
+        </meals-button-clear>
+        <div class="center">
+            <meals-button-clear label="removes a minute from the timer" (click)="timerService.changeMinute(-1)" appAxFocus01Fix>
+                <c2c-icon-minus></c2c-icon-minus>
+            </meals-button-clear>
+            <time role="timer" [attr.aria-label]="'time left until recipe step completion is ' + timerService.readable">{{ timerService.readable }}</time>
+            <meals-button-clear label="adds a minute from the timer" (click)="timerService.changeMinute(1)" appAxFocus01Fix>
+                <c2c-icon-plus></c2c-icon-plus>
+            </meals-button-clear>
+        </div>
+        <meals-button-clear label="stops the timer" class="right" (click)="timerService.stopTimer()" appAxFocus01Fix>stop</meals-button-clear>
+    </div>
+</aside>

@@ -2,17 +2,21 @@
  * @module SharedModule
  * @preferred
  */ /** */
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AxFocusFixDirective } from './ax-focus-fix/ax-focus-fix.directive';
 import { ButtonClearComponent } from './button-clear/button-clear.component';
 import { LabelsComponent } from './labels/labels.component';
+import { TimerComponent } from './timer/timer.component';
+import { TimerService } from './timer/timer.service';
 import { UiModule } from '../../../shared/ui/ui.module';
 import { WatchHeightDirective } from './watch-height/watch-height.directive';
 import { GreatBigExampleApplicationSharedModule } from '../../../shared/shared.module';
 import { ImageCoverComponent } from '../../../shared/image-cover/image-cover.component';
 import { StatusBarComponent } from '../../../layouts/status-bar/status-bar.component';
+import { TimerButtonComponent } from './timer/timer-button/timer-button.component';
+import { RouterModule } from '@angular/router';
 
 /**
  * @whatItDoes {@link SharedModule} exists to hold the common components, directives, and pipes
@@ -26,11 +30,14 @@ import { StatusBarComponent } from '../../../layouts/status-bar/status-bar.compo
         CommonModule,
         UiModule,
         GreatBigExampleApplicationSharedModule,
+        RouterModule
     ],
     declarations: [
         AxFocusFixDirective,
         ButtonClearComponent,
         LabelsComponent,
+        TimerComponent,
+        TimerButtonComponent,
         WatchHeightDirective
     ],
     exports: [
@@ -41,7 +48,17 @@ import { StatusBarComponent } from '../../../layouts/status-bar/status-bar.compo
         UiModule,
         WatchHeightDirective,
         ImageCoverComponent,
+        TimerComponent,
+        TimerButtonComponent,
         GreatBigExampleApplicationSharedModule
     ]
 })
-export class MealsSharedModule { }
+export class MealsSharedModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: MealsSharedModule,
+            providers: [TimerService]
+        };
+    }
+
+}

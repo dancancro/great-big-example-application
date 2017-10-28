@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { TimerButtonComponent } from './timer-button.component';
-import { GreatBigExampleApplicationSharedModule } from '../../../../shared/shared.module';
-import { MealsSharedModule } from '../../shared/shared.module';
+import { GreatBigExampleApplicationSharedModule } from '../../../../../shared/shared.module';
+import { MealsSharedModule } from '../../shared.module';
 import { TimerService } from '../../timer/timer.service';
 import { MockTimerService } from '../../timer/mock-timer.service.spec';
 
@@ -17,7 +17,7 @@ describe('TimerButtonComponent', () => {
         mockTimerService = new MockTimerService();
         TestBed.configureTestingModule({
             imports: [GreatBigExampleApplicationSharedModule, MealsSharedModule],
-            declarations: [TimerButtonComponent],
+            // declarations: [TimerButtonComponent],
             providers: [
                 { provide: TimerService, useValue: mockTimerService }
             ]

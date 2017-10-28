@@ -8,7 +8,6 @@ import { MomentModule } from 'angular2-moment';
 import { RecipeComponent } from './recipe.component';
 import { RecipeRouting } from './recipe.routing';
 import { MealsSharedModule } from '../shared/shared.module';
-import { TimerButtonComponent } from './timer-button/timer-button.component';
 /**
  * @whatItDoes Lazy loaded feature module for the recipe page.
  * @consumers {@link AppRoutingModule} (on demand)
@@ -19,6 +18,6 @@ import { TimerButtonComponent } from './timer-button/timer-button.component';
         RecipeRouting,
         MealsSharedModule
     ],
-    declarations: [RecipeComponent, TimerButtonComponent]
+    declarations: [RecipeComponent]
 })
 export class RecipeModule { }

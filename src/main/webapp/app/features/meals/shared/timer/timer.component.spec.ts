@@ -8,9 +8,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TimerComponent } from './timer.component';
 import { TimerService } from './timer.service';
 import { MockTimerService } from './mock-timer.service.spec';
-import { GreatBigExampleApplicationSharedModule } from '../../../shared/shared.module';
-import { MealsSharedModule } from '../shared/shared.module';
-import { StatusBarService } from '../../../layouts/status-bar/status-bar.service';
+import { GreatBigExampleApplicationSharedModule } from '../../../../shared/shared.module';
+import { MealsSharedModule } from '../../shared/shared.module';
+import { StatusBarService } from '../../../../layouts/status-bar/status-bar.service';
 
 describe('TimerComponent', () => {
     let component: TimerComponent;
@@ -28,7 +28,7 @@ describe('TimerComponent', () => {
                 GreatBigExampleApplicationSharedModule,
                 MealsSharedModule
             ],
-            declarations: [TimerComponent],
+            // declarations: [TimerComponent],
             providers: [
                 StatusBarService,
                 TimerService,

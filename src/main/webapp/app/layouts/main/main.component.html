@@ -1,10 +1,10 @@
-<div *ngIf="whichLayout() === 'meals'">
+<div *ngIf="whichLayout() === 'meals';else notcondition">
     <jhi-page-ribbon></jhi-page-ribbon>
     <c2c-status-bar appStatusBarAware>
         <c2c-recipe-timer></c2c-recipe-timer>
     </c2c-status-bar>
     <c2c-layout></c2c-layout>
 </div>
-<div *ngIf="whichLayout() === 'jhipster'">
+<ng-template #notcondition>
     <jhi-standard-layout></jhi-standard-layout>
-</div>
+</ng-template>

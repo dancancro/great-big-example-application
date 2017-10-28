@@ -89,8 +89,8 @@ const imports = [
      */
     // There is a fix in the works for a performanc problem when
     // using devtools and router-store together
-    process.env.NODE_ENV === 'dev' ? StoreDevtoolsModule.instrument() : [],
-    // StoreDevtoolsModule.instrument(),
+    // process.env.NODE_ENV === 'dev' ? StoreDevtoolsModule.instrument() : [],
+    // StoreDevtoolsModule.instrument(),   // This really slows it down
     // !environment.production ? StoreDevtoolsModule.instrument() : [],
     /**
      * EffectsModule.forRoot() is imported once in the root module and

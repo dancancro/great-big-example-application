@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { PushNotificationsService } from 'angular2-notifications';
 
-import { StatusBarService } from '../../../layouts/status-bar/status-bar.service';
+import { StatusBarService } from '../../../../layouts/status-bar/status-bar.service';
 /**
  * @whatItDoes tracks the current status of the time and pushes needed notifications of timer state
  * to timer related components.
@@ -30,7 +30,7 @@ export class TimerService {
     /**
      * Interval object used to update the timers remaining time.
      */
-    interval: NodeJS.Timer;
+    interval: any;  // Was NodeJS.Timer. It works now. I don't know why it needed to be changed.
     /**
      * A human readable string showing the remaining time left.
      */
@@ -59,7 +59,9 @@ export class TimerService {
      */
     constructor(
         public pushNotificationsService: PushNotificationsService,
-        public statusBarService: StatusBarService) { }
+        public statusBarService: StatusBarService) {
+        console.log('CONSTRUCTING TIMER SERVICE')
+    }
     /**
      * - Turns the timer on/off
      * - Requests permission to send push notifications on first call.
@@ -83,7 +85,7 @@ export class TimerService {
         this.running = true;
         this.showTimer = true;
         this.statusBarService.setActive(true);
-        // this.interval = setInterval(() => this.onEachInterval(), 1000); // TODO: fix "cannot assign number to timer" error
+        this.interval = setInterval(() => this.onEachInterval(), 1000);
     }
     /**
      * Stops the timer.

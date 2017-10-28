@@ -22,5 +22,7 @@ export class TimerComponent {
      * current state.
      */
     constructor(
-        public timerService: TimerService) { }
+        public timerService: TimerService) {
+
+    }
 }

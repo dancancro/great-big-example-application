@@ -14,7 +14,7 @@ import { ClaimRebuttal, initialClaimRebuttal } from '../../core/store/claim-rebu
 import { Entities } from '../../core/store/entity/entity.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import * as SliceActions from '../../core/store/slice/slice.actions';
-import { slices } from '../../core/store/util';
+import { slices, handleNavigation } from '../../core/store/util';
 
 @Component({
     selector: 'jhi-bernie',
@@ -37,13 +37,18 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     claimRebuttals$: Store<ClaimRebuttal[]>;
     claimRebuttalsSub: Subscription;
     claimRebuttals: Readonly<ClaimRebuttal[]>;
-    searchTerms = new Subject<string>();
-
+    searchTerms$ = new Subject<string>();
+    searchTerms: string;
+    setSearch$: Subscription;
+    getBernieSearchTermSub: Subscription;
     options: SortablejsOptions = {
         disabled: true
     };
+    selectedClaimId$: Observable<string>;
+    selectedClaimIdSub: Subscription;
 
     constructor(private store: Store<fromRoot.RootState>,
+        private router: Router,
         private route: ActivatedRoute) {
 
     }
@@ -60,11 +65,23 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
         });
         this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
         this.claimEntitiesSub = this.claimEntities$.subscribe((claimEntities) => this.claimEntities = claimEntities);
-        this.searchTerms
+        this.getBernieSearchTermSub = this.store.select(fromRoot.getBernieSearchTerm).subscribe((term) => {
+            this.searchTerms = term;
+        });
+        // this.selectedClaimId$ = this.store.select(fromRoot.getSelectedClaimId);
+
+        this.selectedClaimIdSub =
+            this.store.select(fromRoot.getSelectedClaimId)
+                .withLatestFrom(this.deepClaims$)
+                .subscribe(([claimId, deepClaims]) => {
+                    this.store.dispatch(new EntityActions.Patch(slices.CLAIM, { id: claimId, expanded: true }));
+                })
+        this.searchTerms$
             .debounceTime(300)        // wait 300ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
             .subscribe((term) => {
-                this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term));
+                const url = '/features/bernie' + (term ? `?q=${term}` : '');
+                this.router.navigateByUrl(url);
             });
         this.store.dispatch(new EntityActions.Load(slices.CLAIM));
         this.store.dispatch(new EntityActions.Load(slices.CLAIM_REBUTTAL));
@@ -73,7 +90,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
 
     // Push a search term into the observable stream.
     search(term: string): void {
-        this.searchTerms.next(term);
+        this.searchTerms$.next(term);
     }
 
     toggleEditable() {

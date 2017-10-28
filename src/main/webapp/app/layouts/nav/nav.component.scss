@@ -3,6 +3,8 @@
 $transparent-black: rgba(0, 0, 0, .54);
 
 .nav {
+  display: block;
+
   .nav-content {
     background-color: $transparent-black;
     display: flex;

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 
 import { BerniePage } from './bernie.page';
 import { UserRouteAccessService } from '../../shared';
-import { ClaimsResolver } from './claims.resolver';
 
 const routes: Routes = [
     {
@@ -21,9 +20,6 @@ const routes: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.bernie.home.title'
         },
-        resolve: {
-            deepClaims: ClaimsResolver
-        },
         canActivate: [UserRouteAccessService]
     }
 ];
@@ -36,9 +32,6 @@ export const routedComponents = [BerniePage];
     ],
     exports: [
         RouterModule
-    ],
-    providers: [
-        ClaimsResolver
     ]
 })
 export class BernieRouting { }

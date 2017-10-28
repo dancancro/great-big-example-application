@@ -16,7 +16,7 @@ import {
     StatusBarComponent,
     StatusBarAwareDirective
 } from './';
-import { MealsModule } from '../features/meals/meals.module';
+import { MealsSharedModule } from '../features/meals/shared/shared.module';
 
 export const components = [
     JhiMainComponent,
@@ -36,7 +36,7 @@ export const components = [
         GreatBigExampleApplicationSharedModule,
         BrowserModule,
         RouterModule,
-        MealsModule
+        MealsSharedModule.forRoot()
     ],
     declarations: [
         ...components

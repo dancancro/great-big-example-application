@@ -113,13 +113,17 @@ $image-height: 50%;
 }
 
 :host {
-  display: block;
+  display: flex;
   position: relative;
 }
 
 .no-results {
-  font-size: 20px;
-  height: 100px;
-  margin: 100px auto;
-  text-align: center;
+    font-size: 20px;
+    height: 100px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+header {
+    z-index: auto !important;
 }

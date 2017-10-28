@@ -15,12 +15,12 @@ The main goal of this project is to make available source code for a state-of-th
 application the likes of which only exist as intellectual property visible exclusively to employed experts who
 have signed non-disclosure agreements and can't let you see it or learn how they made everything work together.
 
-> You should not have to get hired before learning how professionals do a thing
+> You should not have to get hired before learning how professionals actually do a thing
 
 The other goal is to assemble enough functionality into one excellent, free example application that people
 think twice before starting another one-feature, no edge-case, blog post example and exacerbating the already
 overwhelming starting point option overload. Hopefully this will persuade a few people to direct
-that energy instead into improving what already exists. **Don't stop making blog posts**. Just demonstrate the
+that energy instead into improving what already exists. Don't stop making blog posts. Just demonstrate the
 concept with added features to this project rather than entirely separate projects with entirely hard to incorporate,
 strictly aesthetic variations in architecture.
 
@@ -138,7 +138,7 @@ In addition to the features from these demos, I added one of my own. I replaced
 
 15. [this other project](http://www.bernierebuttals.org) which was made with JQuery and Google Scripts. The data is
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236)
-and served as JSON by a Google script. Well, I tried to anyway. This still isn't working.
+and served as JSON by a Google script.
 
 A great big thank you to those who created the example demos from which I put together this amalgam.
 

@@ -452,6 +452,7 @@ export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
     return ids.map((id) => entities[id]);
 });
+export const getSelectedClaimId = createSelector(getClaimsState, fromClaims.getSelectedId);
 
 export const getSelectedProfile = createSelector(getProfilesState, fromProfiles.getSelected);
 // export const getBerniePage = createSelector(getBerniePageState, getClaims, (berniePage, claims) => {

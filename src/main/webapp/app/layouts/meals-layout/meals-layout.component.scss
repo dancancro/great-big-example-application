@@ -28,7 +28,7 @@ c2c-layout { // :host (this element)
     bottom: 0;
     display: block;
     left: 0;
-    position: absolute;
+    position: static;
     right: 0;
   }
 }

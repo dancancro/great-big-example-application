@@ -20,6 +20,8 @@ export function reducer(state = initialEntities<Claim>(slices.CLAIM, initialClai
         case typeFor(slices.CLAIM, actions.PATCH):
         case typeFor(slices.CLAIM, actions.UPDATE):
             return entityFunctions.update<Claim>(state, <any>action);
+        case typeFor(slices.CLAIM, actions.SELECT):
+            return entityFunctions.select<Claim>(state, <any>action);
         default: {
             return state;
         }
@@ -27,5 +29,7 @@ export function reducer(state = initialEntities<Claim>(slices.CLAIM, initialClai
 }
 
 export const getEntities = (state: Entities<Claim>) => state.entities;
+
+export const getSelectedId = (state: Entities<Claim>) => state.selectedEntityId;
 
 export const getIds = (state: Entities<Claim>) => state.ids;
