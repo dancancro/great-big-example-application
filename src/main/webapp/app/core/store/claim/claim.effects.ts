@@ -18,15 +18,12 @@ export class ClaimEffects {
     private loadFromRemote$ = entityFunctions.loadFromRemote$(this.actions$, slices.CLAIM, this.dataService, this.store, initialClaim, undefined, undefined, false);
 
     @Effect()
-    setSearch$ = handleNavigation(this.store, this.actions$, '/features/bernie/:claimId', (r: ActivatedRouteSnapshot, state: RootState) => {
+    setSearch$ = handleNavigation(this.store, this.actions$, ['/features/bernie', '/features/bernie/:claimId'], (r: ActivatedRouteSnapshot, state: RootState) => {
         const term = r.queryParamMap.get('q');
         const claimId = r.firstChild.firstChild.params.claimId;
-        if (term) {
-            this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term));
-        }
+        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term || ''));
 
         if (claimId !== undefined) {
-            // this.store.dispatch(new EntityActions.Patch(slices.CLAIM, { id: claimId, expanded: true }));
             this.store.dispatch(new EntityActions.Select(slices.CLAIM, { id: claimId }));
         }
 

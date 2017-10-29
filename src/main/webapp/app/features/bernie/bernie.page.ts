@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
@@ -22,60 +21,44 @@ import { slices, handleNavigation } from '../../core/store/util';
     styleUrls: ['./bernie.page.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
-    page$: Observable<BerniePageLayout>;
+export class BerniePage implements OnInit, OnDestroy {
     pageSub: Subscription;
-    claimEntities$: Observable<Entities<Claim>>;
-    claimEntities: Entities<Claim>;
+    page: BerniePageLayout;
     claimEntitiesSub: Subscription;
-    deepClaims$: Store<Claim[]>;
-    deepClaims: Claim[];
-    rebuttals$: Observable<Rebuttal[]>;
-    loading$: Observable<boolean>;
-    expanded: boolean;
-    editable: boolean;
-    claimRebuttals$: Store<ClaimRebuttal[]>;
+    claimEntities: Entities<Claim>;
+    deepClaimsSub: Subscription;
+    deepClaims: Claim[] = [];
     claimRebuttalsSub: Subscription;
     claimRebuttals: Readonly<ClaimRebuttal[]>;
+    searchTermsSub: Subscription;
     searchTerms$ = new Subject<string>();
     searchTerms: string;
-    setSearch$: Subscription;
-    getBernieSearchTermSub: Subscription;
     options: SortablejsOptions = {
         disabled: true
     };
-    selectedClaimId$: Observable<string>;
-    selectedClaimIdSub: Subscription;
 
     constructor(private store: Store<fromRoot.RootState>,
         private router: Router,
         private route: ActivatedRoute) {
-
     }
 
     ngOnInit() {
-        this.page$ = this.store.select(fromRoot.getBerniePageState);
-        this.claimEntities$ = this.store.select(fromRoot.getClaimsState);
-        this.deepClaims$ = this.store.select(fromRoot.getDeepClaims);
-        this.claimRebuttals$ = this.store.select(fromRoot.getClaimRebuttals);
-        this.loading$ = this.store.select(fromRoot.getSearchLoading);
-        this.pageSub = this.page$.subscribe((page) => {
-            this.expanded = page.expanded;
-            this.editable = page.editable;
+        this.pageSub = this.store.select(fromRoot.getBerniePageState).subscribe((page) => {
+            this.page = page;
         });
-        this.claimRebuttalsSub = this.claimRebuttals$.subscribe((claimRebuttals) => this.claimRebuttals = claimRebuttals);
-        this.claimEntitiesSub = this.claimEntities$.subscribe((claimEntities) => this.claimEntities = claimEntities);
-        this.getBernieSearchTermSub = this.store.select(fromRoot.getBernieSearchTerm).subscribe((term) => {
-            this.searchTerms = term;
+        this.claimEntitiesSub = this.store.select(fromRoot.getClaimsState).subscribe((claimEntities) => {
+            this.claimEntities = claimEntities
         });
-        // this.selectedClaimId$ = this.store.select(fromRoot.getSelectedClaimId);
+        this.deepClaimsSub = this.store.select(fromRoot.getDeepClaims).subscribe((deepClaims) => {
+            this.deepClaims = deepClaims;
+        })
+        this.claimRebuttalsSub = this.store.select(fromRoot.getClaimRebuttals).subscribe((claimRebuttals) => {
+            this.claimRebuttals = claimRebuttals
+        });
+        this.searchTermsSub = this.store.select(fromRoot.getBernieSearchTerm).subscribe((terms) => {
+            this.searchTerms = terms;
+        });
 
-        this.selectedClaimIdSub =
-            this.store.select(fromRoot.getSelectedClaimId)
-                .withLatestFrom(this.deepClaims$)
-                .subscribe(([claimId, deepClaims]) => {
-                    this.store.dispatch(new EntityActions.Patch(slices.CLAIM, { id: claimId, expanded: true }));
-                })
         this.searchTerms$
             .debounceTime(300)        // wait 300ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
@@ -94,12 +77,12 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     toggleEditable() {
-        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'editable'], !this.editable));
+        this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'editable'], !this.page.editable));
         this.options = { disabled: !this.options.disabled };
     }
 
     toggleExpanded() {
-        const expanded = this.expanded;
+        const expanded = this.page.expanded;
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'expanded'], !expanded));
         this.store.dispatch(new EntityActions.PatchEach(slices.CLAIM, { expanded: !expanded }));
     }
@@ -126,7 +109,7 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
         this.store.dispatch(new EntityActions.AddTemp(slices.CLAIM_REBUTTAL, { claimId: claim.id, rebuttalId: EntityActions.TEMP }));
     }
 
-    toggleRebuttals(claim: Claim) {
+    toggleRebuttals(claim: { id: string, expanded: boolean }) {
         this.store.dispatch(new EntityActions.Patch<ClaimFields>(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
     }
 
@@ -185,12 +168,10 @@ export class BerniePage implements OnInit, OnDestroy, AfterViewChecked {
 
     ngOnDestroy() {
         this.pageSub && this.pageSub.unsubscribe();
+        this.deepClaimsSub && this.deepClaimsSub.unsubscribe();
         this.claimRebuttalsSub && this.claimRebuttalsSub.unsubscribe();
+        this.claimEntitiesSub && this.claimEntitiesSub.unsubscribe();
+        this.searchTermsSub && this.searchTermsSub.unsubscribe();
     }
 
-    ngAfterViewChecked() {
-        // this.scrollDistance = WrappedValue.wrap(0)
-        // console.log("setting scrolly")
-        // this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'scrollY'], 300));
-    }
 }
