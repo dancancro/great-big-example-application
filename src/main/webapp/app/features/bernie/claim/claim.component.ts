@@ -27,6 +27,7 @@ export class ClaimComponent {
     @Output() saveRebuttal = new EventEmitter();
     @Output() makeRebuttalEditable = new EventEmitter();
     @Output() addRebuttal = new EventEmitter();
+    @Output() navigate = new EventEmitter();
 
     options: SortablejsOptions = {
         handle: '.drag-handle',

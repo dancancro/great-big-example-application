@@ -4,8 +4,7 @@ import { SliceAction } from '../slice/slice.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
 import * as entityFunctions from '../entity/entity.functions';
 import * as sliceFunctions from '../slice/slice.functions';
-import { slices } from '../util';
-import { typeFor } from '../util';
+import { slices, typeFor } from '../util';
 import { Patch } from '../entity/entity.actions';
 
 export function reducer(state = initialEntities<Claim>(slices.CLAIM, initialClaim),
@@ -15,7 +14,7 @@ export function reducer(state = initialEntities<Claim>(slices.CLAIM, initialClai
         case typeFor(slices.CLAIM, actions.ADD_TEMP):
             return entityFunctions.addEntityToStore<Claim>(state, <any>action);
         case typeFor(slices.CLAIM, actions.ASYNC_SUCCESS):
-            return expandSelected(entityFunctions.addEntitiesToStore(state, <any>action));
+            return entityFunctions.addEntitiesToStore(state, <any>action);
         case typeFor(slices.CLAIM, actions.PATCH_EACH):
             return entityFunctions.patchEach<Claim>(state, <any>action);
         case typeFor(slices.CLAIM, actions.PATCH):
@@ -27,14 +26,6 @@ export function reducer(state = initialEntities<Claim>(slices.CLAIM, initialClai
             return state;
         }
     }
-}
-
-function expandSelected(state): Entities<Claim> {
-    if (state.selectedEntityId === null) {
-        return state;
-    }
-
-    return entityFunctions.update(state, <any>new Patch(slices.CLAIM, { id: +state.selectedEntityId, expanded: true }))
 }
 
 export const getEntities = (state: Entities<Claim>) => state.entities;

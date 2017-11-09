@@ -3,7 +3,7 @@ import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MATERIAL_SANITY_CHECKS } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -116,7 +116,11 @@ export class CoreModule {
                 GlobalEventsService,
                 StatusBarService,
                 { provide: 'Document', useValue: document },
-                { provide: 'Window', useValue: window }
+                { provide: 'Window', useValue: window },
+                {
+                    provide: MATERIAL_SANITY_CHECKS,
+                    useValue: false
+                }
             ]
         };
     }

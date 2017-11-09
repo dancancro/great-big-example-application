@@ -26,13 +26,12 @@
     </md-card>
     <br>
     <br>
-    <div class="content-container box" [scrollTop]="page.scrollY">
-        <div>{{deepClaims | json | shorten: 1000: '...' }}</div>
-        <ul id="claim-list" [sortablejs]="deepClaims" [sortablejsOptions]="options" (update)="reorderClaims($event)">
-            <li *ngFor="let claim of deepClaims">
+    <div id="claim-box" class="content-container box">
+        <ul id="claim-list" [sortablejs]="claims" [sortablejsOptions]="options" (update)="reorderClaims($event)">
+            <li *ngFor="let claim of claims">
                 <jhi-bernie-claim [page]="page" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
                     (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-                    (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)"></jhi-bernie-claim>
+                    (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)" (navigate)="navigate($event)"></jhi-bernie-claim>
             </li>
         </ul>
     </div>
@@ -48,13 +47,5 @@
     <br>
     <br>
     <br>
-    <!--
-  if(e.parameter.claim) {
-    var id = e.parameter.claim;
-    s +=     '<script type="text/javascript">'
-      +      'goTo(' + id + ');'
-      +      '</script>';
-    }
-    -->
     <p>Unaffiliated with any campaign. Made by volunteers with optimism for a better future</p>
 </div>

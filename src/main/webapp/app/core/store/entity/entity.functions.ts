@@ -17,7 +17,7 @@ export function addEntityToStore<T extends Entity>(state: Entities<T>, action: E
     const entities = completeAssign({}, state.entities);
     const newEntity = reduceOne(state, null, action);
     newEntity.slice = state;
-    entities[newEntity.id] = newEntity;
+    entities[newEntity.id] = { ...newEntity, id: '' + newEntity.id };
     const newState = completeAssign({}, state, {
         ids: Object.keys(entities),
         entities,
@@ -33,8 +33,8 @@ export function addEntityToStore<T extends Entity>(state: Entities<T>, action: E
  * @param action needs a payload that is an array of entities
  */
 export function addEntitiesToStore<T extends Entity>(state: Entities<T>, action: EntityActions.Update<T>): Entities<T> {
-    const entities = action.payload.entities.reduce(function (map, obj) {
-        map[obj.id] = completeAssign({}, state.initialEntity, obj, { dirty: false });
+    const entities = action.payload.entities.reduce(function(map, obj) {
+        map[obj.id] = completeAssign({}, state.initialEntity, obj, { id: '' + obj.id, dirty: false });
         return map;
     }, {});
     return completeAssign({}, state, {
@@ -79,7 +79,7 @@ export function deleteTemp<T extends Entity>(state: Entities<T>, action: EntityA
 
 export function select<T extends Entity>(state: Entities<T>, action: EntityActions.Select<T>): Entities<T> {
     return completeAssign({}, state, {
-        selectedEntityId: action.payload.id || action.payload
+        selectedEntityId: action.payload.id
     });
 };
 

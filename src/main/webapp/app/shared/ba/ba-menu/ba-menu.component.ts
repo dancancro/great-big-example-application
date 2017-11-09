@@ -23,7 +23,7 @@ export class BaMenu implements OnInit, OnDestroy {
     public hoverElemHeight: number;
     public hoverElemTop: number;
     protected _onRouteChange: Subscription;
-    public outOfArea: number = -200;
+    public outOfArea = -200;
 
     constructor(private _router: Router, private _service: BaMenuService, private _state: GlobalState) {
     }

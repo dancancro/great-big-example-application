@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="claim.id">
     <a id="{{claim.id}}"></a>
     <h3>
-        <a [routerLink]="['../',claim.id]">🔗</a>
+        <a (click)="navigate.emit(claim.id)">🔗</a>
         <span class="claim-name" [class.editable]="page.editable" (click)="toggleRebuttals.emit(claim)">{{claim.name}}</span>
     </h3>
     <span class="claim-block" *ngIf="claim.expanded">

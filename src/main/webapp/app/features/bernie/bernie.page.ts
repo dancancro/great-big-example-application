@@ -8,8 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../../core/store';
 import { BerniePageLayout } from './bernie.layout';
 import { Claim, ClaimFields, initialClaim } from '../../core/store/claim/claim.model';
-import { Rebuttal, RebuttalFields, initialRebuttal } from '../../core/store/rebuttal/rebuttal.model';
-import { ClaimRebuttal, initialClaimRebuttal } from '../../core/store/claim-rebuttal/claim-rebuttal.model';
+import { Rebuttal, RebuttalFields } from '../../core/store/rebuttal/rebuttal.model';
+import { ClaimRebuttal } from '../../core/store/claim-rebuttal/claim-rebuttal.model';
 import { Entities } from '../../core/store/entity/entity.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import * as SliceActions from '../../core/store/slice/slice.actions';
@@ -19,15 +19,17 @@ import { slices, handleNavigation } from '../../core/store/util';
     selector: 'jhi-bernie',
     templateUrl: './bernie.page.html',
     styleUrls: ['./bernie.page.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // This is inappropriate here because this component has internal state
+    // For every component you have to choose between either using 1) Observables and the async pipe or using 2) internal state
+    // If you use internal state, then you should not use ChangeDetectionStrategy.OnPush which is an optimization
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BerniePage implements OnInit, OnDestroy {
     pageSub: Subscription;
     page: BerniePageLayout;
-    claimEntitiesSub: Subscription;
-    claimEntities: Entities<Claim>;
-    deepClaimsSub: Subscription;
-    deepClaims: Claim[] = [];
+    claimsSub: Subscription;
+    claims: Claim[];
+    shallowClaims: { [index: string]: Claim };
     claimRebuttalsSub: Subscription;
     claimRebuttals: Readonly<ClaimRebuttal[]>;
     searchTermsSub: Subscription;
@@ -36,6 +38,8 @@ export class BerniePage implements OnInit, OnDestroy {
     options: SortablejsOptions = {
         disabled: true
     };
+    selectedClaimId: string;
+    scrollY$ = new Subject<string>();
 
     constructor(private store: Store<fromRoot.RootState>,
         private router: Router,
@@ -46,36 +50,59 @@ export class BerniePage implements OnInit, OnDestroy {
         this.pageSub = this.store.select(fromRoot.getBerniePageState).subscribe((page) => {
             this.page = page;
         });
-        this.claimEntitiesSub = this.store.select(fromRoot.getClaimsState).subscribe((claimEntities) => {
-            this.claimEntities = claimEntities
-        });
-        this.deepClaimsSub = this.store.select(fromRoot.getDeepClaims).subscribe((deepClaims) => {
-            this.deepClaims = deepClaims;
+        this.claimsSub = this.store.select(fromRoot.getDeepClaims).subscribe((claims) => {
+            this.selectedClaimId = claims.selectedClaimId;
+            this.claims = claims.deepClaims;
+            this.shallowClaims = claims.shallowClaims;  // we need this to do claims reordering
+            if (this.selectedClaimId !== null && this.shallowClaims[this.selectedClaimId] && !this.shallowClaims[this.selectedClaimId].expanded) {
+                // by this point a Select action has already been dispatched and the selectedEntityId set
+                this.store.dispatch(new EntityActions.Patch(slices.CLAIM, { id: this.selectedClaimId, expanded: true }));
+                this.scrollY$.next(this.selectedClaimId);
+            }
         })
         this.claimRebuttalsSub = this.store.select(fromRoot.getClaimRebuttals).subscribe((claimRebuttals) => {
-            this.claimRebuttals = claimRebuttals
+            this.claimRebuttals = claimRebuttals;
         });
         this.searchTermsSub = this.store.select(fromRoot.getBernieSearchTerm).subscribe((terms) => {
             this.searchTerms = terms;
         });
 
         this.searchTerms$
-            .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+            .debounceTime(400)        // wait 400ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
             .subscribe((term) => {
-                const url = '/features/bernie' + (term ? `?q=${term}` : '');
-                this.router.navigateByUrl(url);
+                this.store.dispatch(new SliceActions.Patch(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term));
             });
+
+        // This is so that the scrolling happens after the data is fetched and the dom is loaded
+        this.scrollY$
+            .debounceTime(20)  // this must be an amount of time greater than what it takes to load the dom
+            .distinctUntilChanged()
+            .subscribe((claimId) => {
+                const claimBox = window.document.getElementById('claim-box');
+                const y = window.document.getElementById(claimId).offsetTop;
+                claimBox.scrollTo(0, y - 5); // scroll to the selected Claim minus a smidge of space
+            })
+
+        this.store.dispatch(new EntityActions.Unload(slices.CLAIM));
+        this.store.dispatch(new EntityActions.Unload(slices.CLAIM_REBUTTAL));
+        this.store.dispatch(new EntityActions.Unload(slices.REBUTTAL));
         this.store.dispatch(new EntityActions.Load(slices.CLAIM));
         this.store.dispatch(new EntityActions.Load(slices.CLAIM_REBUTTAL));
         this.store.dispatch(new EntityActions.Load(slices.REBUTTAL));
+
     }
 
     // Push a search term into the observable stream.
     search(term: string): void {
         this.searchTerms$.next(term);
     }
-
+    navigate(claimId: string) {
+        const url = '/features/bernie'
+            + (claimId !== null ? `/${claimId}` : '')
+            + (this.searchTerms ? `?q=${this.searchTerms}` : '');
+        this.router.navigateByUrl(url);
+    }
     toggleEditable() {
         this.store.dispatch(new SliceActions.Update(slices.LAYOUT, ['berniePage', 'editable'], !this.page.editable));
         this.options = { disabled: !this.options.disabled };
@@ -110,6 +137,9 @@ export class BerniePage implements OnInit, OnDestroy {
     }
 
     toggleRebuttals(claim: { id: string, expanded: boolean }) {
+        if (this.selectedClaimId === claim.id && claim.expanded) {
+            this.store.dispatch(new EntityActions.Select(slices.CLAIM, { id: null }));
+        }
         this.store.dispatch(new EntityActions.Patch<ClaimFields>(slices.CLAIM, { id: claim.id, expanded: !claim.expanded }));
     }
 
@@ -150,27 +180,24 @@ export class BerniePage implements OnInit, OnDestroy {
             return;
         }
 
-        setTimeout(() => {   // need this or else sortablejs event handling gets screwed up
+        setTimeout(() => {   // need this setTimeout or else sortablejs event handling gets screwed up
             // get the claim ids in the updated order from the DOM LIs   IS THERE A BETTER WAY TO GET THESE?
             const ids = Array.prototype.slice.call(event.srcElement.children).map((li) => li.children[0].children[0].children[0].id);
 
             // get an updated hash of entities by updating sortOrder of the old ones
-            const entities = Object.assign({}, this.claimEntities.entities);
+            const entities = Object.assign({}, this.shallowClaims);
             ids.map((id, index) => {
                 entities[id].sortOrder = index;
             })
 
-            // combine entities and ids and other properties of claimEntities like selectedEntity into a new object and dispatch an update
-            const newEntities = Object.assign({}, this.claimEntities, { entities, ids });  // this Object.assign isn't necessary. Merge in slice.functions too
-            this.store.dispatch(new SliceActions.Update(slices.CLAIM, [], newEntities));
+            this.store.dispatch(new SliceActions.Patch(slices.CLAIM, [], { entities }));
         })
     }
 
     ngOnDestroy() {
         this.pageSub && this.pageSub.unsubscribe();
-        this.deepClaimsSub && this.deepClaimsSub.unsubscribe();
+        this.claimsSub && this.claimsSub.unsubscribe();
         this.claimRebuttalsSub && this.claimRebuttalsSub.unsubscribe();
-        this.claimEntitiesSub && this.claimEntitiesSub.unsubscribe();
         this.searchTermsSub && this.searchTermsSub.unsubscribe();
     }
 

@@ -81,7 +81,12 @@ const apis: { [entity: string]: EntityConfig } = {
         url: 'claims'
     },
     claimRebuttal: {
-        url: 'claim-rebuttals'
+        url: 'claim-rebuttals',
+        getEntities: {
+            response: (resp, claimRebuttal, state, query) => {
+                return ({ ...resp, entities: resp.entities.map((cr) => ({ ...cr, id: '' + cr.id, claimId: '' + cr.claimId, rebuttalId: '' + cr.rebuttalId })) });
+            }
+        }
     },
     comment: {
         url: 'comments',
