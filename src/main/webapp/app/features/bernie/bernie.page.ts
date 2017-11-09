@@ -161,7 +161,7 @@ export class BerniePage implements OnInit, OnDestroy {
     }
 
     reorderRebuttals(claim, event) {
-        const rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter((li) => li.id).map((li) => +li.id);
+        const rebuttalIds = Array.prototype.slice.call(event.srcElement.children).filter((li) => li.id).map((li) => li.id);
 
         // Otherwise sortablejs gets a null event and throws an error
         setTimeout(() => {
