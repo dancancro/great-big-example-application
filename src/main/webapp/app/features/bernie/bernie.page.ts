@@ -71,7 +71,7 @@ export class BerniePage implements OnInit, OnDestroy {
             .debounceTime(400)        // wait 400ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
             .subscribe((term) => {
-                this.store.dispatch(new SliceActions.Patch(slices.LAYOUT, ['berniePage', 'bernieSearchTerm'], term));
+                this.navigate(term)
             });
 
         // This is so that the scrolling happens after the data is fetched and the dom is loaded
@@ -97,10 +97,10 @@ export class BerniePage implements OnInit, OnDestroy {
     search(term: string): void {
         this.searchTerms$.next(term);
     }
-    navigate(claimId: string) {
+    navigate(term: string = this.searchTerms, claimId: string = this.selectedClaimId) {
         const url = '/features/bernie'
             + (claimId !== null ? `/${claimId}` : '')
-            + (this.searchTerms ? `?q=${this.searchTerms}` : '');
+            + (term ? `?q=${term}` : '');
         this.router.navigateByUrl(url);
     }
     toggleEditable() {

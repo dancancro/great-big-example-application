@@ -1,6 +1,8 @@
 <div *ngIf="page">
     <md-card>
-        <md-card-title> Bernie Rebuttals</md-card-title>
+        <md-card-title>
+            <a routerLink="/features/bernie">Bernie Rebuttals</a>
+        </md-card-title>
         <md-card-content>
             <div>
                 <div>
@@ -31,7 +33,7 @@
             <li *ngFor="let claim of claims">
                 <jhi-bernie-claim [page]="page" [claim]="claim" (addClaim)="addClaim()" (toggleEditable)="toggleEditable()" (addRebuttal)="addRebuttal($event)"
                     (toggleRebuttals)="toggleRebuttals($event)" (reorderRebuttals)="reorderRebuttals(claim, $event)" (cancelRebuttal)="cancelRebuttal($event)"
-                    (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)" (navigate)="navigate($event)"></jhi-bernie-claim>
+                    (saveRebuttal)="saveRebuttal($event)" (makeRebuttalEditable)="makeRebuttalEditable($event)" (navigate)="navigate(undefined, $event)"></jhi-bernie-claim>
             </li>
         </ul>
     </div>
