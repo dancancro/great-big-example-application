@@ -1,11 +1,13 @@
 import { EntityAction } from './entity.actions';
 import { initialSlice, Slice } from '../slice/slice.model';
 import { completeAssign } from '../util';
+import { TEMP } from './entity.actions';
 
 export interface Entity {
     id: string,
-    loading?: boolean;  // not really optional. set during construction
     slice?: Entities<any> // not really optional. set during construction
+    loading?: boolean;  // not really optional. set during construction
+    isNew?: boolean;  // not really optional. set during construction
     [field: string]: any,
 }
 
@@ -14,7 +16,11 @@ const initialBaseEntity = {
     slice: null,
     get loading() {
         return this.slice && this.slice.loading;
+    },
+    get isNew() {
+        return this.id === TEMP;
     }
+
 };
 
 export interface Entities<T extends Entity> extends Slice {

@@ -50,6 +50,10 @@ any preferences yet).
 scientists are above that and only engage in abstract thought of conceptual, unreal demos" (and exposure
 to code used to conduct real business is somehow a detriment to learning abstract concepts?).
 
+"Technical writers employed at a company that produces one technology with customers who use many technologies must
+remain neutral to the technologies used by customers for concerns in an application not met by that company's
+products. That would be impossible to do in a big application in which all things are handled."
+
 "Creators of many tutorials don't have time to implement all of them as parts of the same big example
 (like what they have readily at hand because they do this every day for a living), so they need to
 make each one from scratch by spending the time to simplify the approaches they use on the job."
@@ -58,11 +62,12 @@ make each one from scratch by spending the time to simplify the approaches they 
 
 "Bloated!!"
 
-There's a strange resistance to using big, commercial-grade examples as the _primary_ instrument of web
-development education or even at all. Would you teach automotive engineering using go-karts? Home construction
-using just windows? I don't understand the resistance, not even a little. As ones and zeroes, expertise
-in this field is uniquely easily transferrable, yet for some reason it isn't. The case seems pretty plain to me
-but to settle the matter, here are some reasons why web development should be taught using big examples:
+There's a strange resistance to using big, commercial-grade examples as the _primary_ instrument of education
+for making big commercial-grade applications or even at all. Would you teach automotive engineering using
+go-karts? Home construction using just windows? I don't understand the resistance, not even a little. As
+ones and zeroes, expertise in this field is uniquely easily transferrable, yet for some reason it isn't.
+The case seems pretty plain to me but to settle the matter, here are some reasons why web development should
+be taught using big examples:
 
     1. Production-grade code answers every production-grade code question, not just what the authors of
     tutorials choose to answer through their choices of simplifications.

@@ -153,7 +153,7 @@ export const metaReducers: MetaReducer<RootState>[] = [logger, loadingSetter]
 
 // console.log all actions
 function logger(reducer: ActionReducer<RootState>) {
-    return function(state: RootState, action: any) {
+    return function (state: RootState, action: any) {
         console.log('state', state);
         console.log('action', action);
 
@@ -163,7 +163,7 @@ function logger(reducer: ActionReducer<RootState>) {
 
 // set loading and loaded fields
 function loadingSetter(reducer: ActionReducer<RootState>) {
-    return function(state: RootState, action: any) {
+    return function (state: RootState, action: any) {
         let newState = state;
         if (action.verb) {
             newState = setLoading(state, action)
@@ -499,36 +499,12 @@ export const getDeepClaimRebuttals = createSelector(getClaimRebuttals, getRebutt
     })
 });
 
-// This isn't really needed
-// interface DeepClaims {
-//     selectedClaimId: string,
-//     deepClaims:
-//     {
-//         id: string,
-//         name: string,
-//         expanded: boolean,
-//         imageLink?: string,
-//         sortOrder: number,
-//         rebuttals:
-//         {
-//             id: string
-//             shortName: string,
-//             longName: string,
-//             editing: boolean,
-//             link?: string,
-//             dirty: boolean
-//         }[],
-//         rebuttalsReordered: boolean
-//     }[],
-//     shallowClaims: { [index: string]: Claim }
-// }
-
 export const getDeepClaims = createSelector(getClaimsState, getDeepClaimRebuttals, getBernieSearchTerm, (state, deepClaimRebuttals, bernieSearchTerm) => {
     return {
         selectedClaimId: state.selectedEntityId,
         shallowClaims: state.entities,
         deepClaims: state.ids.map((id) => {
-            return Object.assign({}, <Claim>state.entities[id], {
+            return completeAssign({}, <Claim>state.entities[id], {
                 rebuttals: deepClaimRebuttals
                     .filter((dcr) => !!dcr.rebuttal && dcr.claimId === id)
                     .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)

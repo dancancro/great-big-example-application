@@ -51,3 +51,9 @@ section:before {
     overflow: scroll;
     border: 1px solid black;
 }
+
+:host {
+    font-size: normal;
+    line-height: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}

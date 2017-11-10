@@ -25,21 +25,24 @@ import { slices, handleNavigation } from '../../core/store/util';
     // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BerniePage implements OnInit, OnDestroy {
+    // Subscriptions
     pageSub: Subscription;
-    page: BerniePageLayout;
     claimsSub: Subscription;
-    claims: Claim[];
-    shallowClaims: { [index: string]: Claim };
     claimRebuttalsSub: Subscription;
-    claimRebuttals: Readonly<ClaimRebuttal[]>;
     searchTermsSub: Subscription;
+
+    // Things that need debouncing
     searchTerms$ = new Subject<string>();
-    searchTerms: string;
-    options: SortablejsOptions = {
-        disabled: true
-    };
-    selectedClaimId: string;
     scrollY$ = new Subject<string>();
+
+    // Component State
+    options: SortablejsOptions = { disabled: true };
+    page: BerniePageLayout;
+    shallowClaims: { [index: string]: Claim };
+    claims: Claim[];
+    claimRebuttals: Readonly<ClaimRebuttal[]>;
+    selectedClaimId: string;
+    searchTerms: string;
 
     constructor(private store: Store<fromRoot.RootState>,
         private router: Router,

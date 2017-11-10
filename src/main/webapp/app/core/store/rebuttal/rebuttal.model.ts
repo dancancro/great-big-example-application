@@ -10,7 +10,6 @@ export interface RebuttalFields {
     // UI state
     dirty: boolean;
     editing: boolean;
-    isNew?: boolean;
     original?: Rebuttal;
 }
 
@@ -24,7 +23,6 @@ export interface Rebuttal extends Entity {
     // UI state
     dirty: boolean;
     editing: boolean;
-    isNew?: boolean;
     original?: Rebuttal;
 }
 
@@ -35,7 +33,6 @@ export const initialRebuttal = {
     longName: null,
     link: null,
     comments: null,
-    isNew: false,
 
     // UI state
     dirty: false,

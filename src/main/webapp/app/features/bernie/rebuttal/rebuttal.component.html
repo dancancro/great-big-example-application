@@ -1,10 +1,10 @@
 <span *ngIf="page.editable">
     <span class="drag-handle">☰</span>
-    <button class="btn btn-default btn-xs" title="edit" (click)="makeEditable.emit(rebuttal)" *ngIf="!rebuttal.editing">✎</button>
-    <button class="btn btn-default btn-xs" title="save" (click)="save.emit({id: rebuttal.id, shortName: editForm.controls.shortName.value, longName: editForm.controls.longName.value, link: editForm.controls.link.value, comments: editForm.controls.comments.value})"
-        *ngIf="rebuttal.editing">💾</button>
-    <button class="btn btn-default btn-xs cancel" title="cancel" (click)="cancel.emit({claimRebuttalId: claimRebuttalId, rebuttal: rebuttal})"
-        *ngIf="rebuttal.editing">❌</button>
+    <button class="fa fa-edit" title="edit" (click)="makeEditable.emit(rebuttal)" *ngIf="!rebuttal.editing"></button>
+    <button class="fa fa-save" title="save" (click)="save.emit({id: rebuttal.id, shortName: editForm.controls.shortName.value, longName: editForm.controls.longName.value, link: editForm.controls.link.value, comments: editForm.controls.comments.value})"
+        *ngIf="rebuttal.editing"></button>
+    <button [ngClass]="{'fa-undo':!rebuttal.isNew, 'fa-trash':rebuttal.isNew}" class="fa" title="cancel" (click)="cancel.emit({claimRebuttalId: claimRebuttalId, rebuttal: rebuttal})"
+        *ngIf="rebuttal.editing"></button>
 </span>
 
 <form [formGroup]="editForm" *ngIf="rebuttal.editing">
