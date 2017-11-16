@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Hero } from './hero.model';
@@ -11,7 +11,7 @@ export class HeroService {
     private resourceUrl = 'api/heroes';
     private resourceSearchUrl = 'api/_search/heroes';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(hero: Hero): Observable<Hero> {
         const copy = this.convert(hero);
@@ -40,7 +40,7 @@ export class HeroService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

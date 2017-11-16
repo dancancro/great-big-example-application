@@ -8,7 +8,7 @@ import {
     Input,
     OnChanges,
     OnInit,
-    Renderer
+    Renderer2
 } from '@angular/core';
 /**
  * @whatItDoes Creates an image that covers the element.
@@ -51,11 +51,11 @@ export class ImageCoverComponent implements AfterViewInit, OnChanges, OnInit {
     /**
      * Creates the {@link ImageCoverComponent}
      * @param renderer used to update the DOM
-     * [Angular 2 - Renderer](https://angular.io/docs/ts/latest/api/core/index/Renderer-class.html)
+     * [Angular 2 - Renderer2](https://angular.io/docs/ts/latest/api/core/index/Renderer2-class.html)
      * @param element a reference to the host element
      */
     constructor(
-        private renderer: Renderer,
+        private renderer: Renderer2,
         private element: ElementRef) { }
     /**
      * Let image fade in if it takes more than 300 milliseconds o load.
@@ -82,7 +82,7 @@ export class ImageCoverComponent implements AfterViewInit, OnChanges, OnInit {
      */
     private updateImage() {
         if (this.src !== undefined && this.src !== null) {
-            this.renderer.setElementStyle(
+            this.renderer.setStyle(
                 this.element.nativeElement, 'backgroundImage', `url(${this.src})`);
         }
     }

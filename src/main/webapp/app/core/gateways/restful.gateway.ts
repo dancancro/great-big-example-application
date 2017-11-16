@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, ResponseOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -20,7 +20,7 @@ export class RestfulGateway extends BaseGateway {
     private lastText = '';
     private lastTime = 0;
 
-    constructor(private http: Http, private config: AppConfig) {
+    constructor(private http: HttpClient, private config: AppConfig) {
         super();
     }
 

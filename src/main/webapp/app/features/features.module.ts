@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,7 +16,7 @@ import { VersionService } from '../shared';
         FeaturesComponent
     ],
     imports: [
-        // HttpModule,
+        // HttpClientModule,
         // CoreModule,
         CommonModule,
         FeaturesRouting,

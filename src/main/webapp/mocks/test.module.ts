@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MockBackend } from '@angular/http/testing';
-import { Http, BaseRequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { JhiLanguageService } from 'ng-jhipster';
 import { StoreModule } from '@ngrx/store';
 import 'hammerjs';
@@ -21,9 +20,9 @@ import { reducers, metaReducers } from '../app/core/store';
             useClass: MockLanguageService
         },
         {
-            provide: Http,
+            provide: HttpClient,
             useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-                return new Http(backendInstance, defaultOptions);
+                return new HttpClient(backendInstance, defaultOptions);
             },
             deps: [MockBackend, BaseRequestOptions]
         },

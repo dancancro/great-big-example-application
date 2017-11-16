@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-import { RequestOptionsArgs, Response } from '@angular/http';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import { JhiHttpInterceptor } from 'ng-jhipster';
 

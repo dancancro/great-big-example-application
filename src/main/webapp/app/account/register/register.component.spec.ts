@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
-import { Renderer, ElementRef } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../mocks/mock-language.service';
@@ -25,7 +25,7 @@ describe('Component Tests', () => {
                         useValue: null
                     },
                     {
-                        provide: Renderer,
+                        provide: Renderer2,
                         useValue: null
                     },
                     {

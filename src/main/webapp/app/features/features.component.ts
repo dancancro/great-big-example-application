@@ -6,14 +6,14 @@ import {
     ViewChild,
     Input,
     ChangeDetectorRef,
-    Renderer,
+    Renderer2,
     ElementRef
 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MdSidenav } from '@angular/material';
 import { FeatureMeta, FeaturesService } from './features.service';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
@@ -31,11 +31,11 @@ export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
     private _subscription = null;
     private user = undefined;
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
         // private changeDetectorRef: ChangeDetectorRef,
         // private media: Media,
         element: ElementRef,
-        renderer: Renderer,
+        renderer: Renderer2,
         private _router: Router,
         private _moduleService: FeaturesService) {
         // Remove loading class to unset default styles

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Log } from './log.model';
 
 @Injectable()
 export class LogsService {
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     changeLevel(log: Log): Observable<Response> {
-        return this.http.put('management/logs', log);
+        return <Observable<Response>>this.http.put('management/logs', log);
     }
 
     findAll(): Observable<Log[]> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../store/user/user.model';
@@ -14,7 +14,7 @@ export class UserService {
     isLoggedIn = true;
     user = { name: 'Sam Spade' };
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(user: User): Observable<ResponseWrapper> {
         return this.http.post(this.resourceUrl, user)
@@ -37,7 +37,7 @@ export class UserService {
     }
 
     delete(login: string): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${login}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${login}`);
     }
 
     authorities(): Observable<string[]> {

@@ -7,6 +7,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin")
 const path = require('path');
+const utils = require('./utils.js');
 
 const parseVersion = require('./utils.js').parseVersion;
 
@@ -135,7 +136,11 @@ module.exports = (options) => {
             new WebpackNotifierPlugin({
                 title: 'JHipster',
                 contentImage: path.join(__dirname, 'logo-jhipster.png')
-            })
+            }),
+            new webpack.ContextReplacementPlugin(
+                /(.+)?angular(\\|\/)core(.+)?/,
+                utils.root('src/main/webapp/app'), {}
+            )
         ]
     };
 };

@@ -1,35 +1,32 @@
 import { Injectable } from '@angular/core';
-import { SessionStorageService } from 'ng2-webstorage';
 
 @Injectable()
 export class StateStorageService {
-    constructor(
-        private $sessionStorage: SessionStorageService
-    ) {}
+    constructor() { }
 
     getPreviousState() {
-        return this.$sessionStorage.retrieve('previousState');
+        return JSON.parse(sessionStorage.getItem('previousState'));
     }
 
     resetPreviousState() {
-        this.$sessionStorage.clear('previousState');
+        sessionStorage.removeItem('previousState');
     }
 
     storePreviousState(previousStateName, previousStateParams) {
         const previousState = { 'name': previousStateName, 'params': previousStateParams };
-        this.$sessionStorage.store('previousState', previousState);
+        sessionStorage.setItem('previousState', JSON.stringify(previousState));
     }
 
     getDestinationState() {
-        return this.$sessionStorage.retrieve('destinationState');
+        return JSON.parse(sessionStorage.getItem('destinationState'));
     }
 
     storeUrl(url: string) {
-        this.$sessionStorage.store('previousUrl', url);
+        sessionStorage.setItem('previousUrl', url);
     }
 
     getUrl() {
-        return this.$sessionStorage.retrieve('previousUrl');
+        return sessionStorage.getItem('previousUrl');
     }
 
     storeDestinationState(destinationState, destinationStateParams, fromState) {
@@ -43,6 +40,6 @@ export class StateStorageService {
                 'name': fromState.name,
             }
         };
-        this.$sessionStorage.store('destinationState', destinationInfo);
+        sessionStorage.setItem('destinationState', JSON.stringify(destinationInfo));
     }
 }

@@ -2,8 +2,7 @@
 // https://angular.io/docs/ts/latest/guide/style-guide.html#04-09
 
 import { NgModule } from '@angular/core';
-import { Jsonp, URLSearchParams } from '@angular/http';
-import { JsonpModule } from '@angular/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 
 import { WikiComponent } from './wiki.component';
 import { WikiSmartComponent } from './wiki-smart.component';
@@ -16,7 +15,7 @@ import { WikiRouting } from './wiki.routing';
     imports: [
         GreatBigExampleApplicationSharedModule,
         WikiRouting,
-        JsonpModule,
+        HttpClientJsonpModule,
     ],
     declarations: [
         WikiPage,

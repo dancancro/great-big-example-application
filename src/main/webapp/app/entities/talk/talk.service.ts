@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Talk } from './talk.model';
@@ -11,7 +11,7 @@ export class TalkService {
     private resourceUrl = 'api/talks';
     private resourceSearchUrl = 'api/_search/talks';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(talk: Talk): Observable<Talk> {
         const copy = this.convert(talk);
@@ -40,7 +40,7 @@ export class TalkService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
@@ -23,7 +23,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private loginService: LoginService,
         private stateStorageService: StateStorageService,
         private elementRef: ElementRef,
-        private renderer: Renderer,
+        private renderer: Renderer2,
         private socialService: SocialService,
         private router: Router,
         public activeModal: NgbActiveModal

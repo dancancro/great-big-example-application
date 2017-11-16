@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AuditsService  {
-    constructor(private http: Http) { }
+export class AuditsService {
+    constructor(private http: HttpClient) { }
 
     query(req: any): Observable<Response> {
         const params: URLSearchParams = new URLSearchParams();

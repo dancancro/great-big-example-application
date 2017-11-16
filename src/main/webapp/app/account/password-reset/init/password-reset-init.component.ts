@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 
 import { PasswordResetInitService } from './password-reset-init.service';
 
@@ -15,7 +15,7 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
     constructor(
         private passwordResetInitService: PasswordResetInitService,
         private elementRef: ElementRef,
-        private renderer: Renderer
+        private renderer: Renderer2
     ) {
     }
 

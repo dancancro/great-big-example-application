@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../shared/nga.module';
@@ -29,7 +29,7 @@ import { UsersMapService } from './users-map/users-map.service';
 import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 // AoT requires an exported function for factories
-// export function HttpLoaderFactory(http: Http) {
+// export function HttpLoaderFactory(http: HttpClient) {
 //     return new TranslateHttpLoader(http, 'content/i18n/', '.json');
 // }
 

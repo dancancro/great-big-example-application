@@ -5,11 +5,11 @@ import {
 import {
     MockBackend,
     MockConnection
-} from '@angular/http/testing';
+} from '@angular/common/http/testing';
 
 import {
-    HttpModule, Http, XHRBackend, Response, ResponseOptions
-} from '@angular/http';
+    HttpClientModule, HttpClient
+} from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Hero } from '../store/hero/hero.model';
@@ -25,13 +25,13 @@ const makeHeroData = () => [
 ] as Hero[];
 
 ////////  Tests  /////////////
-describe('Http-RESTService (mockBackend)', () => {
+describe('HttpClient-RESTService (mockBackend)', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 GreatBigExampleApplicationTestModule,
-                HttpModule],
+                HttpClientModule],
             providers: [
                 RESTService,
                 { provide: XHRBackend, useClass: MockBackend }
@@ -45,7 +45,7 @@ describe('Http-RESTService (mockBackend)', () => {
             expect(service instanceof RESTService).toBe(true);
         }));
 
-    it('can instantiate service with "new"', inject([Http, AppConfig], (http: Http, config: AppConfig) => {
+    it('can instantiate service with "new"', inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig) => {
         expect(http).not.toBeNull('http should be provided');
         const service = new RESTService(http, config);
         expect(service instanceof RESTService).toBe(true, 'new service should be ok');
@@ -62,7 +62,7 @@ describe('Http-RESTService (mockBackend)', () => {
         let fakeHeroes: Hero[];
         let response: Response;
 
-        beforeEach(inject([Http, AppConfig, XHRBackend], (http: Http, config: AppConfig, be: MockBackend) => {
+        beforeEach(inject([HttpClient, AppConfig, XHRBackend], (http: HttpClient, config: AppConfig, be: MockBackend) => {
             backend = be;
             service = new RESTService(http, config);
             fakeHeroes = makeHeroData();

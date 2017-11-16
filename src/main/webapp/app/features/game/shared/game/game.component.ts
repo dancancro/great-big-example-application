@@ -1,5 +1,5 @@
 import {
-    Component, Renderer, Input, ViewChild, ElementRef, Output, EventEmitter,
+    Component, Renderer2, Input, ViewChild, ElementRef, Output, EventEmitter,
     AfterViewInit
 } from '@angular/core';
 import { TimerComponent } from '../timer/timer.component';
@@ -40,7 +40,7 @@ export class GameComponent implements AfterViewInit {
     @Output() end: EventEmitter<number> = new EventEmitter<number>();
     @Output() change: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private facade: GameFacade, private renderer: Renderer) { }
+    constructor(private facade: GameFacade, private renderer: Renderer2) { }
 
     ngAfterViewInit() {
         setTimeout(() => {
