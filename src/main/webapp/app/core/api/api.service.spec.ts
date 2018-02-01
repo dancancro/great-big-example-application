@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
-import { AngularFireOffline } from 'angularfire2-offline';
+import { ANGULARFIRE_OFFLINE_PROVIDER } from 'angularfire2-offline';
 import { MockAngularFireOffline } from './mock-firebase-cache.service.spec';
 
 describe('Service: ApiService', () => {
@@ -15,7 +15,7 @@ describe('Service: ApiService', () => {
         TestBed.configureTestingModule({
             providers: [
                 ApiService,
-                { provide: AngularFireOffline, useValue: mockAngularFireOffline },
+                { provide: ANGULARFIRE_OFFLINE_PROVIDER, useValue: mockAngularFireOffline },
             ]
         });
     });

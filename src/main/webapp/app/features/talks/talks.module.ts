@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule, ActionReducer, combineReducers } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,7 +27,7 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        HttpModule,
+        HttpClientModule,
         // NoopAnimationsModule,
 
         MaterialModule,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Author } from './author.model';
@@ -11,7 +11,7 @@ export class AuthorService {
     private resourceUrl = 'api/authors';
     private resourceSearchUrl = 'api/_search/authors';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(author: Author): Observable<Author> {
         const copy = this.convert(author);
@@ -40,7 +40,7 @@ export class AuthorService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

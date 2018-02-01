@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2';
+import { AfoListObservable } from 'angularfire2-offline';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -12,7 +12,7 @@ export class MockApiService {
     options$;
     recipe$;
     recipes$;
-    recipes: FirebaseListObservable<any[]>;
+    recipes: AfoListObservable<any[]>;
     filterOptions: Observable<FilterOptions>;
     private filterOptionsData = {
         searchFields: []

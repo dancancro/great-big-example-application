@@ -1,7 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 
 module.exports = {
-    parseVersion : parseVersion
+    parseVersion,
+    root
 };
 
 const parseString = require('xml2js').parseString;
@@ -10,14 +12,20 @@ function parseVersion() {
     let version = null;
     const pomXml = fs.readFileSync('pom.xml', 'utf8');
     parseString(pomXml, (err, result) => {
-        if (result.project.version && result.project.version[0]) {
+        if(result.project.version && result.project.version[0]) {
             version = result.project.version[0];
-        } else if (result.project.parent && result.project.parent[0] && result.project.parent[0].version && result.project.parent[0].version[0]) {
+        } else if(result.project.parent && result.project.parent[0] && result.project.parent[0].version && result.project.parent[0].version[0]) {
             version = result.project.parent[0].version[0];
         }
     });
-    if (version === null) {
+    if(version === null) {
         throw new Error('pom.xml is malformed. No version is defined');
     }
     return version;
+}
+const _root = path.resolve(__dirname, '..');
+
+function root(args) {
+    args = Array.prototype.slice.call(arguments, 0);
+    return path.join.apply(path, [_root].concat(args));
 }

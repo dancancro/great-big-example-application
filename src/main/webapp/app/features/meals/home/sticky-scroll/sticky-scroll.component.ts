@@ -9,7 +9,7 @@ import {
     OnChanges,
     OnDestroy,
     OnInit,
-    Renderer,
+    Renderer2,
     ViewChild
 } from '@angular/core';
 
@@ -64,7 +64,7 @@ export class StickyScrollComponent implements AfterViewInit, OnChanges, OnDestro
         public statusBarService: StatusBarService,
         private globalEventsService: GlobalEventsService,
         private element: ElementRef,
-        private renderer: Renderer) { }
+        private renderer: Renderer2) { }
     /**
      * Manually updates {@link height}
      *

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Renderer, ElementRef } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginModalService } from '../../../shared';
 import { GreatBigExampleApplicationTestModule } from '../../../../mocks/test.module';
@@ -29,7 +29,7 @@ describe('Component Tests', () => {
                         useValue: new MockActivatedRoute({ 'key': 'XYZPDQ' })
                     },
                     {
-                        provide: Renderer,
+                        provide: Renderer2,
                         useValue: {
                             invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
                         }

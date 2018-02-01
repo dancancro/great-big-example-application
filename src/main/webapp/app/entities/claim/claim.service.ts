@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Claim } from './claim.model';
@@ -11,7 +11,7 @@ export class ClaimService {
     private resourceUrl = 'api/claims';
     private resourceSearchUrl = 'api/_search/claims';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(claim: Claim): Observable<Claim> {
         const copy = this.convert(claim);
@@ -40,7 +40,7 @@ export class ClaimService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

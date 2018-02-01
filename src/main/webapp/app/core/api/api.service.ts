@@ -3,7 +3,7 @@
  */ /** */
 import { Injectable } from '@angular/core';
 import {
-    AngularFireOffline,
+    AngularFireOfflineDatabase,
     AfoListObservable,
     AfoObjectObservable
 } from 'angularfire2-offline';
@@ -42,10 +42,10 @@ export class ApiService {
     latest: Observable<any>;
     /**
      * Creates the {@link ApiService}
-     * @param afo AngularFireOffline is used to connect to Firebase and cache data for offline use
+     * @param afo ANGULARFIRE_OFFLINE_PROVIDER is used to connect to Firebase and cache data for offline use
      */
     constructor(
-        private afo: AngularFireOffline) {
+        private afo: AngularFireOfflineDatabase) {
         this.onInit();
     }
     /**
@@ -53,13 +53,13 @@ export class ApiService {
      * - Gets the required items from Firebase to use in the app
      */
     onInit() {
-        this.about = this.afo.database.object('client/about');
-        this.recipes = this.afo.database.list('client/recipes', {
+        this.about = this.afo.object('client/about');
+        this.recipes = this.afo.list('client/recipes', {
             query: {
                 orderByChild: 'revStamp'
             }
         });
-        this.filterOptions = this.afo.database.object('client/filter');
+        this.filterOptions = this.afo.object('client/filter');
         this.latest = this.recipes.pluck('0');
 
     }
@@ -68,6 +68,6 @@ export class ApiService {
      * @param slug a unique string associated with a recipe
      */
     slugToRecipe(slug: string): AfoObjectObservable<any> {
-        return this.afo.database.object(`client/recipes/${slug}`);
+        return this.afo.object(`client/recipes/${slug}`);
     }
 }

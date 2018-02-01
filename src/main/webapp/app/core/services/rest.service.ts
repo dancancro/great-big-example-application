@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, URLSearchParams, Response, Headers, RequestOptionsArgs } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
@@ -209,7 +209,7 @@ const apis: { [entity: string]: EntityConfig } = {
 
 const getParamsFromQuery = (query: QueryPayload) => {
 
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     if (query && typeof query === 'object') {
         Object.keys(query)
@@ -225,7 +225,7 @@ const getParamsFromQuery = (query: QueryPayload) => {
 
 @Injectable()
 export class RESTService implements DataService {
-    constructor(private http: Http, private config: AppConfig) { }
+    constructor(private http: HttpClient, private config: AppConfig) { }
 
     private getUrl(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): string {
         return apis[slice][job] && (typeof apis[slice][job].url === 'function') && apis[slice][job].url(entity, state, query)

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { JhiDateUtils } from 'ng-jhipster';
 
@@ -12,7 +12,7 @@ export class ArticleService {
     private resourceUrl = 'api/articles';
     private resourceSearchUrl = 'api/_search/articles';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(article: Article): Observable<Article> {
         const copy = this.convert(article);
@@ -47,7 +47,7 @@ export class ArticleService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

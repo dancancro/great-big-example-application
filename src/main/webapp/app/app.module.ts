@@ -2,7 +2,6 @@ import './vendor';
 import './rxjs-imports'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Ng2Webstorage } from 'ng2-webstorage';
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 
 import { DBModule } from '@ngrx/db';
@@ -52,7 +51,6 @@ const imports = [
     BrowserModule,
     AppRouting,
     // LayoutRoutingModule,
-    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
     GreatBigExampleApplicationSharedModule,
     GreatBigExampleApplicationAdminModule,
     GreatBigExampleApplicationAccountModule,

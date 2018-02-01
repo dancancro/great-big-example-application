@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Jsonp, URLSearchParams } from '@angular/http';
+import { Jsonp, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class WikipediaService {
-  constructor(private jsonp: Jsonp) {}
+    constructor(private jsonp: Jsonp) { }
 
-  search(term: string) {
+    search(term: string) {
 
-    const wikiUrl = 'https://en.wikipedia.org/w/api.php';
+        const wikiUrl = 'https://en.wikipedia.org/w/api.php';
 
-    const params = new URLSearchParams();
-    params.set('search', term); // the user's search value
-    params.set('action', 'opensearch');
-    params.set('format', 'json');
-    params.set('callback', 'JSONP_CALLBACK');
+        const params = new HttpParams()
+            .set('search', term) // the user's search value
+            .set('action', 'opensearch')
+            .set('format', 'json')
+            .set('callback', 'JSONP_CALLBACK');
 
-    // TODO: Add error handling
-    return this.jsonp
-               .get(wikiUrl, { search: params })
-               .map((response) => <string[]> response.json()[1]);
-  }
+        // TODO: Add error handling
+        return this.jsonp
+            .get(wikiUrl, { search: params })
+            .map((response) => <string[]>response.json()[1]);
+    }
 }
 
 /*

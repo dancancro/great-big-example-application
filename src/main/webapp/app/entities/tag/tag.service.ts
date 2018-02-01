@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Tag } from './tag.model';
@@ -11,7 +11,7 @@ export class TagService {
     private resourceUrl = 'api/tags';
     private resourceSearchUrl = 'api/_search/tags';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     create(tag: Tag): Observable<Tag> {
         const copy = this.convert(tag);
@@ -40,7 +40,7 @@ export class TagService {
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

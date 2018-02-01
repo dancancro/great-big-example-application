@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 export interface VersionMeta {
     version: string;
@@ -12,7 +12,7 @@ export class VersionService {
 
     private _promise: Promise<void>;
 
-    constructor(http: Http) {
+    constructor(http: HttpClient) {
         this._promise = new Promise<void>((resolve) => {
             http.get('version.json').subscribe((res: Response) => {
                 this.meta = res.json();

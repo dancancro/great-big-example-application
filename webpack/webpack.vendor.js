@@ -9,7 +9,6 @@ module.exports = {
             '@angular/compiler',
             '@angular/core',
             '@angular/forms',
-            '@angular/http',
             '@angular/platform-browser',
             '@angular/platform-browser-dynamic',
             '@angular/router',
@@ -50,6 +49,7 @@ module.exports = {
         new webpack.DllPlugin({
             name: '[name]',
             path: path.resolve('./target/www/[name].json')
-        })
+        }),
+        new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.resolve('./target/www'))
     ]
 };

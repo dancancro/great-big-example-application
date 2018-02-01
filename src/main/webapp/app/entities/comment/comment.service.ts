@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { JhiDateUtils } from 'ng-jhipster';
 
@@ -12,42 +12,42 @@ export class CommentService {
     private resourceUrl = 'api/comments';
     private resourceSearchUrl = 'api/_search/comments';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(comment: Comment): Observable<Comment> {
         const copy = this.convert(comment);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.post(this.resourceUrl, copy).map((res: ArrayBuffer) => {
             const jsonResponse = res.json();
             this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return <Comment>jsonResponse;
         });
     }
 
     update(comment: Comment): Observable<Comment> {
         const copy = this.convert(comment);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.put(this.resourceUrl, copy).map((res: ArrayBuffer) => {
             const jsonResponse = res.json();
             this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return <Comment>jsonResponse;
         });
     }
 
     find(id: number): Observable<Comment> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
+        return this.http.get(`${this.resourceUrl}/${id}`).map((res: ArrayBuffer) => {
             const jsonResponse = res.json();
             this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return <Comment>jsonResponse;
         });
     }
 
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+            .map((res: ArrayBuffer) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+        return <Observable<Response>>this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {
