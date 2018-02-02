@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Article } from './article.model';
@@ -32,9 +33,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.articleService.find(id).subscribe((article) => {
-            this.article = article;
-        });
+        this.articleService.find(id)
+            .subscribe((articleResponse: HttpResponse<Article>) => {
+                this.article = articleResponse.body;
+            });
     }
     byteSize(field) {
         return this.dataUtils.byteSize(field);

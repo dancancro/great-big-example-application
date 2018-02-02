@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Jsonp, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class WikipediaService {
-    constructor(private jsonp: Jsonp) { }
+    constructor(private http: HttpClient) { }
 
     search(term: string) {
 
@@ -16,9 +16,10 @@ export class WikipediaService {
             .set('callback', 'JSONP_CALLBACK');
 
         // TODO: Add error handling
-        return this.jsonp
-            .get(wikiUrl, { search: params })
-            .map((response) => <string[]>response.json()[1]);
+        return this.http
+            .get(wikiUrl, { params })
+            // .map((response) => <string[]>response.json()[1]);
+            .map((response) => <string[]>response);
     }
 }
 

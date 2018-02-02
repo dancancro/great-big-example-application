@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalService } from './claim-rebuttal.service';
@@ -31,9 +32,10 @@ export class ClaimRebuttalDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.claimRebuttalService.find(id).subscribe((claimRebuttal) => {
-            this.claimRebuttal = claimRebuttal;
-        });
+        this.claimRebuttalService.find(id)
+            .subscribe((claimRebuttalResponse: HttpResponse<ClaimRebuttal>) => {
+                this.claimRebuttal = claimRebuttalResponse.body;
+            });
     }
     previousState() {
         window.history.back();

@@ -6,8 +6,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { ProfileService } from '../profiles/profile.service';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
-import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
-import { FeatureMeta, FeaturesService } from '../../features/features.service';
+import { VERSION } from '../../app.constants';
 
 @Component({
     selector: 'jhi-navbar',
@@ -17,17 +16,14 @@ import { FeatureMeta, FeaturesService } from '../../features/features.service';
     ]
 })
 export class NavbarComponent implements OnInit {
-
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-    features: FeatureMeta[] = [];
 
     constructor(
-        private featuresService: FeaturesService,
         private loginService: LoginService,
         private languageService: JhiLanguageService,
         private languageHelper: JhiLanguageHelper,
@@ -45,11 +41,10 @@ export class NavbarComponent implements OnInit {
             this.languages = languages;
         });
 
-        this.profileService.getProfileInfo().subscribe((profileInfo) => {
+        this.profileService.getProfileInfo().then((profileInfo) => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
-        this.features = this.featuresService.getFeatures();
     }
 
     changeLanguage(languageKey: string) {

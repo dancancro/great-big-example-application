@@ -58,7 +58,7 @@
     "ng-jhipster": "0.3.6",
     "ng2-handsontable": "1.0.3",
     "ng2-slim-loading-bar": "4.0.0",
-    "ng2-webstorage": "2.0.0",
+    "ngx-webstorage": "2.0.1",
     "ngrx-store-freeze": "0.2.0",
     "ngrx-store-localstorage": "0.2.2",
     "ngx-cookie": "2.0.1",

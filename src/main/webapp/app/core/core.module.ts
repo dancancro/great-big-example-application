@@ -3,7 +3,7 @@ import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule, MATERIAL_SANITY_CHECKS } from '@angular/material';
+import { MATERIAL_SANITY_CHECKS } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -33,8 +33,6 @@ import { GreatBigExampleApplicationSharedModule } from '../shared/shared.module'
 import { RESTService } from './services/rest.service';
 import { SocketService } from './services/socket.service';
 import { UserService } from './services/user.service';
-import { customHttpProvider } from '../core/interceptor/http.provider';
-
 import { AppState, InternalStateType } from '../app.service';
 import { GlobalState } from '../global.state';
 
@@ -74,7 +72,6 @@ const imports = [
     CommonModule,
     RouterModule,
     GreatBigExampleApplicationSharedModule,
-    MaterialModule,
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     FlexLayoutModule,
@@ -110,7 +107,6 @@ export class CoreModule {
                 EntityExistsGuard,
                 SocketService,
                 UserService,
-                customHttpProvider(), // expose our Services and Providers into Angular's dependency injection
                 // APP_PROVIDERS
                 ApiService,
                 GlobalEventsService,

@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Rebuttal } from './rebuttal.model';
 import { RebuttalService } from './rebuttal.service';
@@ -31,9 +32,10 @@ export class RebuttalDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.rebuttalService.find(id).subscribe((rebuttal) => {
-            this.rebuttal = rebuttal;
-        });
+        this.rebuttalService.find(id)
+            .subscribe((rebuttalResponse: HttpResponse<Rebuttal>) => {
+                this.rebuttal = rebuttalResponse.body;
+            });
     }
     previousState() {
         window.history.back();

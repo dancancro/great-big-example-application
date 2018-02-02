@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Hero } from './hero.model';
 import { HeroService } from './hero.service';
@@ -31,9 +32,10 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.heroService.find(id).subscribe((hero) => {
-            this.hero = hero;
-        });
+        this.heroService.find(id)
+            .subscribe((heroResponse: HttpResponse<Hero>) => {
+                this.hero = heroResponse.body;
+            });
     }
     previousState() {
         window.history.back();

@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager , JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Talk } from './talk.model';
 import { TalkService } from './talk.service';
@@ -32,9 +33,10 @@ export class TalkDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.talkService.find(id).subscribe((talk) => {
-            this.talk = talk;
-        });
+        this.talkService.find(id)
+            .subscribe((talkResponse: HttpResponse<Talk>) => {
+                this.talk = talkResponse.body;
+            });
     }
     byteSize(field) {
         return this.dataUtils.byteSize(field);

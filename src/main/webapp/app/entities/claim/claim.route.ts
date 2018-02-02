@@ -1,15 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
-
 import { ClaimComponent } from './claim.component';
 import { ClaimDetailComponent } from './claim-detail.component';
 import { ClaimPopupComponent } from './claim-dialog.component';
 import { ClaimDeletePopupComponent } from './claim-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 export const claimRoute: Routes = [
     {

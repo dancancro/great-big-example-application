@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Message } from './message.model';
 import { MessagePopupService } from './message-popup.service';
@@ -16,12 +17,10 @@ import { MessageService } from './message.service';
 export class MessageDialogComponent implements OnInit {
 
     message: Message;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private messageService: MessageService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class MessageDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class MessageDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Message>) {
-        result.subscribe((res: Message) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Message>>) {
+        result.subscribe((res: HttpResponse<Message>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Message) {
-        this.eventManager.broadcast({ name: 'messageListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'messageListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class MessageDialogComponent implements OnInit {
 })
 export class MessagePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private messagePopupService: MessagePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.messagePopupService
-                    .open(<Component>MessageDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.messagePopupService
+                    .open(MessageDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.messagePopupService
-                    .open(<Component>MessageDialogComponent);
+                this.messagePopupService
+                    .open(MessageDialogComponent as Component);
             }
         });
     }

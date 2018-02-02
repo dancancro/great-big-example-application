@@ -1,17 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager, JhiDataUtils } from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { Author } from './author.model';
-import { Article } from '../article/article.model';
 import { AuthorPopupService } from './author-popup.service';
 import { AuthorService } from './author.service';
-import { ArticleService } from '../article/article.service';
 import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
+import { Article, ArticleService } from '../article';
 
 @Component({
     selector: 'jhi-author-dialog',
@@ -20,7 +19,6 @@ import { ResponseWrapper } from '../../shared';
 export class AuthorDialogComponent implements OnInit {
 
     author: Author;
-    authorities: any[];
     isSaving: boolean;
 
     users: User[];
@@ -32,23 +30,22 @@ export class AuthorDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private dataUtils: JhiDataUtils,
-        private alertService: JhiAlertService,
+        private jhiAlertService: JhiAlertService,
         private authorService: AuthorService,
-        private articleService: ArticleService,
         private userService: UserService,
+        private articleService: ArticleService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.userService.query()
-            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.authorService.query()
-            .subscribe((res: ResponseWrapper) => { this.authors = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Author[]>) => { this.authors = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.articleService.query()
-            .subscribe((res: ResponseWrapper) => { this.articles = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Article[]>) => { this.articles = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -59,17 +56,8 @@ export class AuthorDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, author, field, isImage) {
-        if (event && event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (isImage && !/^image\//.test(file.type)) {
-                return;
-            }
-            this.dataUtils.toBase64(file, (base64Data) => {
-                author[field] = base64Data;
-                author[`${field}ContentType`] = file.type;
-            });
-        }
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     clear() {
@@ -80,41 +68,30 @@ export class AuthorDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.author.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.authorService.update(this.author), false);
+                this.authorService.update(this.author));
         } else {
             this.subscribeToSaveResponse(
-                this.authorService.create(this.author), true);
+                this.authorService.create(this.author));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Author>, isCreated: boolean) {
-        result.subscribe((res: Author) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Author>>) {
+        result.subscribe((res: HttpResponse<Author>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: Author, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.author.created'
-                : 'greatBigExampleApplicationApp.author.updated',
-            { param: result.id }, null);
-
-        this.eventManager.broadcast({ name: 'authorListModification', content: 'OK' });
+    private onSaveSuccess(result: Author) {
+        this.eventManager.broadcast({ name: 'authorListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackUserById(index: number, item: User) {
@@ -147,22 +124,21 @@ export class AuthorDialogComponent implements OnInit {
 })
 export class AuthorPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private authorPopupService: AuthorPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.authorPopupService
-                    .open(<Component>AuthorDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.authorPopupService
+                    .open(AuthorDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.authorPopupService
-                    .open(<Component>AuthorDialogComponent);
+                this.authorPopupService
+                    .open(AuthorDialogComponent as Component);
             }
         });
     }

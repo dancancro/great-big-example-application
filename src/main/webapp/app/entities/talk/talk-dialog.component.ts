@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Talk } from './talk.model';
 import { TalkPopupService } from './talk-popup.service';
@@ -16,13 +17,11 @@ import { TalkService } from './talk.service';
 export class TalkDialogComponent implements OnInit {
 
     talk: Talk;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
         private dataUtils: JhiDataUtils,
-        private alertService: JhiAlertService,
         private talkService: TalkService,
         private eventManager: JhiEventManager
     ) {
@@ -30,7 +29,6 @@ export class TalkDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     byteSize(field) {
@@ -41,17 +39,8 @@ export class TalkDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, talk, field, isImage) {
-        if (event && event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (isImage && !/^image\//.test(file.type)) {
-                return;
-            }
-            this.dataUtils.toBase64(file, (base64Data) => {
-                talk[field] = base64Data;
-                talk[`${field}ContentType`] = file.type;
-            });
-        }
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     clear() {
@@ -69,29 +58,19 @@ export class TalkDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Talk>) {
-        result.subscribe((res: Talk) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Talk>>) {
+        result.subscribe((res: HttpResponse<Talk>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Talk) {
-        this.eventManager.broadcast({ name: 'talkListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'talkListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -101,22 +80,21 @@ export class TalkDialogComponent implements OnInit {
 })
 export class TalkPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private talkPopupService: TalkPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.talkPopupService
-                    .open(<Component>TalkDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.talkPopupService
+                    .open(TalkDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.talkPopupService
-                    .open(<Component>TalkDialogComponent);
+                this.talkPopupService
+                    .open(TalkDialogComponent as Component);
             }
         });
     }

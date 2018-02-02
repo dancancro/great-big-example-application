@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NoteService } from './note.service';
@@ -31,13 +32,13 @@ export class NoteDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.noteService.find(id).subscribe((note) => {
-            this.note = note;
-        });
+        this.noteService.find(id)
+            .subscribe((noteResponse: HttpResponse<Note>) => {
+                this.note = noteResponse.body;
+            });
     }
     previousState() {
-        window.history.back(); // FIXME: Inject Location: this.location.back();
-        // Using the window is not good =(
+        window.history.back();
     }
 
     ngOnDestroy() {

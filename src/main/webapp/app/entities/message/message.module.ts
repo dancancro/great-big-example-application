@@ -3,47 +3,47 @@ import { RouterModule } from '@angular/router';
 
 import { GreatBigExampleApplicationSharedModule } from '../../shared';
 import {
-  MessageService,
-  MessagePopupService,
-  MessageComponent,
-  MessageDetailComponent,
-  MessageDialogComponent,
-  MessagePopupComponent,
-  MessageDeletePopupComponent,
-  MessageDeleteDialogComponent,
-  messageRoute,
-  messagePopupRoute,
-} from './';
-
-const ENTITY_STATES = [
-  ...messageRoute,
-  ...messagePopupRoute,
-];
-
-@NgModule({
-  imports: [
-    GreatBigExampleApplicationSharedModule,
-    RouterModule.forChild(ENTITY_STATES)
-  ],
-  declarations: [
+    MessageService,
+    MessagePopupService,
     MessageComponent,
     MessageDetailComponent,
     MessageDialogComponent,
-    MessageDeleteDialogComponent,
     MessagePopupComponent,
     MessageDeletePopupComponent,
-  ],
-  entryComponents: [
-    MessageComponent,
-    MessageDialogComponent,
-    MessagePopupComponent,
     MessageDeleteDialogComponent,
-    MessageDeletePopupComponent,
-  ],
-  providers: [
-    MessageService,
-    MessagePopupService,
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    messageRoute,
+    messagePopupRoute,
+} from './';
+
+const ENTITY_STATES = [
+    ...messageRoute,
+    ...messagePopupRoute,
+];
+
+@NgModule({
+    imports: [
+        GreatBigExampleApplicationSharedModule,
+        RouterModule.forChild(ENTITY_STATES)
+    ],
+    declarations: [
+        MessageComponent,
+        MessageDetailComponent,
+        MessageDialogComponent,
+        MessageDeleteDialogComponent,
+        MessagePopupComponent,
+        MessageDeletePopupComponent,
+    ],
+    entryComponents: [
+        MessageComponent,
+        MessageDialogComponent,
+        MessagePopupComponent,
+        MessageDeleteDialogComponent,
+        MessageDeletePopupComponent,
+    ],
+    providers: [
+        MessageService,
+        MessagePopupService,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationMessageModule { }
+export class GreatBigExampleApplicationMessageModule {}

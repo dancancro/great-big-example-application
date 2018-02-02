@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager , JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Author } from './author.model';
 import { AuthorService } from './author.service';
@@ -32,9 +33,10 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.authorService.find(id).subscribe((author) => {
-            this.author = author;
-        });
+        this.authorService.find(id)
+            .subscribe((authorResponse: HttpResponse<Author>) => {
+                this.author = authorResponse.body;
+            });
     }
     byteSize(field) {
         return this.dataUtils.byteSize(field);

@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
@@ -31,9 +32,10 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.contactService.find(id).subscribe((contact) => {
-            this.contact = contact;
-        });
+        this.contactService.find(id)
+            .subscribe((contactResponse: HttpResponse<Contact>) => {
+                this.contact = contactResponse.body;
+            });
     }
     previousState() {
         window.history.back();

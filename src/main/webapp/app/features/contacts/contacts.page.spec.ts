@@ -5,14 +5,13 @@ import { Store, StoreModule } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import * as fromRoot from '../../core/store';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { ContactsPage } from './contacts.page';
 import { CoreModule } from '../../core/core.module';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 import { reducers, metaReducers, developmentReducerFactory } from '../../core/store';
 
 describe('ContactPage', () => {

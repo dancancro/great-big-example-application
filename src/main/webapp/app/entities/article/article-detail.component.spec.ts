@@ -1,11 +1,9 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+/* tslint:disable max-line-length */
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { MockActivatedRoute } from '../../../mocks/mock-route.service';
 import { ArticleDetailComponent } from './article-detail.component';
 import { ArticleService } from './article.service';
 import { Article } from './article.model';
@@ -22,17 +20,10 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [ArticleDetailComponent],
                 providers: [
-                    JhiDateUtils,
-                    JhiDataUtils,
-                    DatePipe,
-                    {
-                        provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({ id: 123 })
-                    },
-                    ArticleService,
-                    JhiEventManager
+                    ArticleService
                 ]
-            }).overrideTemplate(ArticleDetailComponent, '')
+            })
+                .overrideTemplate(ArticleDetailComponent, '')
                 .compileComponents();
         }));
 
@@ -46,14 +37,16 @@ describe('Component Tests', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
-                spyOn(service, 'find').and.returnValue(Observable.of(new Article(10)));
+                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
+                    body: new Article(123)
+                })));
 
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
                 expect(service.find).toHaveBeenCalledWith(123);
-                expect(comp.article).toEqual(jasmine.objectContaining({ id: 10 }));
+                expect(comp.article).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });

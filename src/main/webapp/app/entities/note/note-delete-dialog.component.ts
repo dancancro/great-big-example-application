@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Note } from './note.model';
@@ -44,18 +44,17 @@ export class NoteDeleteDialogComponent {
 })
 export class NoteDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private notePopupService: NotePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.notePopupService
-                .open(<Component>NoteDeleteDialogComponent, params['id']);
+            this.notePopupService
+                .open(NoteDeleteDialogComponent as Component, params['id']);
         });
     }
 

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { Article } from './article.model';
@@ -10,7 +11,6 @@ import { ArticlePopupService } from './article-popup.service';
 import { ArticleService } from './article.service';
 import { Tag, TagService } from '../tag';
 import { Author, AuthorService } from '../author';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-article-dialog',
@@ -19,7 +19,6 @@ import { ResponseWrapper } from '../../shared';
 export class ArticleDialogComponent implements OnInit {
 
     article: Article;
-    authorities: any[];
     isSaving: boolean;
 
     tags: Tag[];
@@ -29,7 +28,7 @@ export class ArticleDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private dataUtils: JhiDataUtils,
-        private alertService: JhiAlertService,
+        private jhiAlertService: JhiAlertService,
         private articleService: ArticleService,
         private tagService: TagService,
         private authorService: AuthorService,
@@ -39,11 +38,10 @@ export class ArticleDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.tagService.query()
-            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Tag[]>) => { this.tags = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.authorService.query()
-            .subscribe((res: ResponseWrapper) => { this.authors = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Author[]>) => { this.authors = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -54,17 +52,8 @@ export class ArticleDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, article, field, isImage) {
-        if (event && event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (isImage && !/^image\//.test(file.type)) {
-                return;
-            }
-            this.dataUtils.toBase64(file, (base64Data) => {
-                article[field] = base64Data;
-                article[`${field}ContentType`] = file.type;
-            });
-        }
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     clear() {
@@ -82,29 +71,23 @@ export class ArticleDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Article>) {
-        result.subscribe((res: Article) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Article>>) {
+        result.subscribe((res: HttpResponse<Article>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Article) {
-        this.eventManager.broadcast({ name: 'articleListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'articleListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackTagById(index: number, item: Tag) {
@@ -133,22 +116,21 @@ export class ArticleDialogComponent implements OnInit {
 })
 export class ArticlePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private articlePopupService: ArticlePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.articlePopupService
-                    .open(<Component>ArticleDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.articlePopupService
+                    .open(ArticleDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.articlePopupService
-                    .open(<Component>ArticleDialogComponent);
+                this.articlePopupService
+                    .open(ArticleDialogComponent as Component);
             }
         });
     }

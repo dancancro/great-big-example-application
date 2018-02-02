@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -20,7 +19,6 @@ import { BookEffects } from '../../core/store/book/book.effects';
 import { CollectionEffects } from '../../core/store/collection/collection.effects';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
 import { BooksRouting } from './books.routing';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 export const COMPONENTS = [
     BookAuthorsComponent,
@@ -42,14 +40,12 @@ export const COMPONENTS = [
         BooksRouting,
         CommonModule,
         ReactiveFormsModule,
-        MaterialModule,
         RouterModule,
         EffectsModule.forRoot([BookEffects, CollectionEffects]),
     ],
     declarations: COMPONENTS,
     exports: COMPONENTS,
     providers: [
-        customHttpProvider()
     ],
 })
 export class BooksModule { }

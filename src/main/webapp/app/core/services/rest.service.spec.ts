@@ -4,8 +4,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-    MockBackend,
-    MockConnection
+    ɵa as MockBackend,
 } from '@angular/common/http/testing';
 
 import {
@@ -34,8 +33,7 @@ describe('HttpClient-RESTService (mockBackend)', () => {
                 GreatBigExampleApplicationTestModule,
                 HttpClientModule],
             providers: [
-                RESTService,
-                { provide: XHRBackend, useClass: MockBackend }
+                RESTService
             ]
         })
             .compileComponents();
@@ -52,22 +50,17 @@ describe('HttpClient-RESTService (mockBackend)', () => {
         expect(service instanceof RESTService).toBe(true, 'new service should be ok');
     }));
 
-    it('can provide the mockBackend as XHRBackend',
-        inject([XHRBackend], (backend: MockBackend) => {
-            expect(backend).not.toBeNull('backend should be provided');
-        }));
-
     describe('when getHeroes', () => {
         let backend: MockBackend;
         let service: RESTService;
         let fakeHeroes: Hero[];
         let response: Response;
 
-        beforeEach(inject([HttpClient, AppConfig, XHRBackend], (http: HttpClient, config: AppConfig, be: MockBackend) => {
+        beforeEach(inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig, be: MockBackend) => {
             backend = be;
             service = new RESTService(http, config);
             fakeHeroes = makeHeroData();
-            const options = new ResponseOptions({ status: 200, body: { data: fakeHeroes } });
+            const options = { status: 200, body: { data: fakeHeroes } };
             response = new Response(options);
         }));
 

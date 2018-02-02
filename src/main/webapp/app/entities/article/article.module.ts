@@ -46,4 +46,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationArticleModule { }
+export class GreatBigExampleApplicationArticleModule {}

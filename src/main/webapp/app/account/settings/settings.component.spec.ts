@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
-import { JhiLanguageHelper } from '../../shared';
+
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { Principal, AccountService } from '../../shared';
 import { SettingsComponent } from './settings.component';
-import { MockAccountService } from '../../../mocks/mock-account.service';
-import { MockPrincipal } from '../../../mocks/mock-principal.service';
 import { JhiTrackerService } from '../../shared/tracker/tracker.service';
 import { MockTrackerService } from '../../../mocks/mock-tracker.service';
+
 
 describe('Component Tests', () => {
 
@@ -24,23 +23,12 @@ describe('Component Tests', () => {
                 declarations: [SettingsComponent],
                 providers: [
                     {
-                        provide: Principal,
-                        useClass: MockPrincipal
-                    },
-                    {
-                        provide: AccountService,
-                        useClass: MockAccountService
-                    },
-                    {
                         provide: JhiTrackerService,
                         useClass: MockTrackerService
                     },
-                    {
-                        provide: JhiLanguageHelper,
-                        useValue: null
-                    },
                 ]
-            }).overrideTemplate(SettingsComponent, '')
+            })
+                .overrideTemplate(SettingsComponent, '')
                 .compileComponents();
         }));
 

@@ -74,4 +74,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationAdminModule { }
+export class GreatBigExampleApplicationAdminModule {}

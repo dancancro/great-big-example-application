@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Crisis } from './crisis.model';
 import { CrisisPopupService } from './crisis-popup.service';
@@ -16,12 +17,10 @@ import { CrisisService } from './crisis.service';
 export class CrisisDialogComponent implements OnInit {
 
     crisis: Crisis;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private crisisService: CrisisService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class CrisisDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class CrisisDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Crisis>) {
-        result.subscribe((res: Crisis) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Crisis>>) {
+        result.subscribe((res: HttpResponse<Crisis>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Crisis) {
-        this.eventManager.broadcast({ name: 'crisisListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'crisisListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class CrisisDialogComponent implements OnInit {
 })
 export class CrisisPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private crisisPopupService: CrisisPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.crisisPopupService
-                    .open(<Component>CrisisDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.crisisPopupService
+                    .open(CrisisDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.crisisPopupService
-                    .open(<Component>CrisisDialogComponent);
+                this.crisisPopupService
+                    .open(CrisisDialogComponent as Component);
             }
         });
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Message } from './message.model';
@@ -44,18 +44,17 @@ export class MessageDeleteDialogComponent {
 })
 export class MessageDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private messagePopupService: MessagePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.messagePopupService
-                .open(<Component>MessageDeleteDialogComponent, params['id']);
+            this.messagePopupService
+                .open(MessageDeleteDialogComponent as Component, params['id']);
         });
     }
 

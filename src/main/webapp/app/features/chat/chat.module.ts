@@ -6,7 +6,6 @@ import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.modu
 import { ChatPage } from './chat.page';
 import { ChatRouting } from './chat.routing';
 import { ChatService } from './services/chat.service';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -20,7 +19,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
     ],
     providers: [
         // { provide: Window, useValue: window },
-        customHttpProvider(),
         ChatService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

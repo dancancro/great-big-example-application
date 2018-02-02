@@ -16,7 +16,7 @@ module.exports = {
             'ngx-infinite-scroll',
             'jquery',
             'ng-jhipster',
-            'ng2-webstorage',
+            'ngx-webstorage',
             'ngx-cookie',
             'sockjs-client',
             'webstomp-client',

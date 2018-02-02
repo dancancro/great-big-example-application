@@ -9,7 +9,6 @@ import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { BlogRouting } from './blog.routing';
 import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.module';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 import { SharedModule } from './shared/shared.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -35,7 +34,6 @@ import { TagEffects } from '../../core/store/tag/tag.effects';
         HeaderComponent
     ],
     providers: [
-        customHttpProvider()
     ]
 })
 export class BlogModule { }

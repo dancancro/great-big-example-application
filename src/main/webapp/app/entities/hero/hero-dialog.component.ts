@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Hero } from './hero.model';
 import { HeroPopupService } from './hero-popup.service';
@@ -16,12 +17,10 @@ import { HeroService } from './hero.service';
 export class HeroDialogComponent implements OnInit {
 
     hero: Hero;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private heroService: HeroService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class HeroDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class HeroDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Hero>) {
-        result.subscribe((res: Hero) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Hero>>) {
+        result.subscribe((res: HttpResponse<Hero>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Hero) {
-        this.eventManager.broadcast({ name: 'heroListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'heroListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class HeroDialogComponent implements OnInit {
 })
 export class HeroPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private heroPopupService: HeroPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.heroPopupService
-                    .open(<Component>HeroDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.heroPopupService
+                    .open(HeroDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.heroPopupService
-                    .open(<Component>HeroDialogComponent);
+                this.heroPopupService
+                    .open(HeroDialogComponent as Component);
             }
         });
     }

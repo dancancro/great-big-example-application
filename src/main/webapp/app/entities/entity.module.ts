@@ -7,11 +7,11 @@ import { GreatBigExampleApplicationContactModule } from './contact/contact.modul
 import { GreatBigExampleApplicationNoteModule } from './note/note.module';
 import { GreatBigExampleApplicationRebuttalModule } from './rebuttal/rebuttal.module';
 import { GreatBigExampleApplicationClaimRebuttalModule } from './claim-rebuttal/claim-rebuttal.module';
-import { GreatBigExampleApplicationArticleModule } from './article/article.module';
-import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
 import { GreatBigExampleApplicationMessageModule } from './message/message.module';
-import { GreatBigExampleApplicationAuthorModule } from './author/author.module';
+import { GreatBigExampleApplicationTagModule } from './tag/tag.module';
+import { GreatBigExampleApplicationArticleModule } from './article/article.module';
 import { GreatBigExampleApplicationCommentModule } from './comment/comment.module';
+import { GreatBigExampleApplicationAuthorModule } from './author/author.module';
 import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -24,11 +24,11 @@ import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
         GreatBigExampleApplicationNoteModule,
         GreatBigExampleApplicationRebuttalModule,
         GreatBigExampleApplicationClaimRebuttalModule,
-        GreatBigExampleApplicationArticleModule,
-        GreatBigExampleApplicationTagModule,
         GreatBigExampleApplicationMessageModule,
-        GreatBigExampleApplicationAuthorModule,
+        GreatBigExampleApplicationTagModule,
+        GreatBigExampleApplicationArticleModule,
         GreatBigExampleApplicationCommentModule,
+        GreatBigExampleApplicationAuthorModule,
         GreatBigExampleApplicationTalkModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],

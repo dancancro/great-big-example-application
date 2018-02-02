@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.longName" for="field_longName">Long Name</label>
             <input type="text" class="form-control" name="longName" id="field_longName"
-                [(ngModel)]="rebuttal.longName" minlength="20" maxlength="1200" />
+                [(ngModel)]="rebuttal.longName" minlength="20" maxlength="1200"/>
             <div [hidden]="!(editForm.controls.longName?.dirty && editForm.controls.longName?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.longName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 20 }">
@@ -30,31 +30,31 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.shortName" for="field_shortName">Short Name</label>
             <input type="text" class="form-control" name="shortName" id="field_shortName"
-                [(ngModel)]="rebuttal.shortName"  />
+                [(ngModel)]="rebuttal.shortName" />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.date" for="field_date">Date</label>
             <div class="d-flex">
                 <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="rebuttal.date"
-                  />
+                />
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.expires" for="field_expires">Expires</label>
             <div class="d-flex">
                 <input id="field_expires" type="datetime-local" class="form-control" name="expires" [(ngModel)]="rebuttal.expires"
-                  />
+                />
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.rebuttal.link" for="field_link">Link</label>
             <input type="text" class="form-control" name="link" id="field_link"
-                [(ngModel)]="rebuttal.link"  />
+                [(ngModel)]="rebuttal.link" />
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">

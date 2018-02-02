@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Claim } from './claim.model';
 import { ClaimPopupService } from './claim-popup.service';
@@ -16,12 +17,10 @@ import { ClaimService } from './claim.service';
 export class ClaimDialogComponent implements OnInit {
 
     claim: Claim;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private claimService: ClaimService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class ClaimDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class ClaimDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Claim>) {
-        result.subscribe((res: Claim) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Claim>>) {
+        result.subscribe((res: HttpResponse<Claim>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Claim) {
-        this.eventManager.broadcast({ name: 'claimListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'claimListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class ClaimDialogComponent implements OnInit {
 })
 export class ClaimPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private claimPopupService: ClaimPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.claimPopupService
-                    .open(<Component>ClaimDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.claimPopupService
+                    .open(ClaimDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.claimPopupService
-                    .open(<Component>ClaimDialogComponent);
+                this.claimPopupService
+                    .open(ClaimDialogComponent as Component);
             }
         });
     }

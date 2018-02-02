@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Article } from './article.model';
@@ -40,22 +40,21 @@ export class ArticleDeleteDialogComponent {
 
 @Component({
     selector: 'jhi-article-delete-popup',
-    template: './article-delete-dialog.component.html'
+    template: ''
 })
 export class ArticleDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private articlePopupService: ArticlePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.articlePopupService
-                .open(<Component>ArticleDeleteDialogComponent, params['id']);
+            this.articlePopupService
+                .open(ArticleDeleteDialogComponent as Component, params['id']);
         });
     }
 

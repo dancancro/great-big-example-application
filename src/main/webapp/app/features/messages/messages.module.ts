@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MessagesRouting } from './messages.routing';
-import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -22,7 +21,6 @@ import { MessageEffects } from '../../core/store/message/message.effects';
         EffectsModule.forRoot([MessageEffects]),
         FormsModule,
         MessagesRouting,
-        MaterialModule,
         FlexLayoutModule,
         NgxDatatableModule
     ]

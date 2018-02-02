@@ -1,7 +1,15 @@
 import './vendor';
 import './rxjs-imports'
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Ng2Webstorage, LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { JhiEventManager } from 'ng-jhipster';
+
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { AuthExpiredInterceptor } from './core/interceptor/auth-expired.interceptor';
+import { ErrorHandlerInterceptor } from './core/interceptor/errorhandler.interceptor';
+import { NotificationInterceptor } from './core/interceptor/notification.interceptor';
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 
 import { DBModule } from '@ngrx/db';
@@ -20,7 +28,6 @@ import {
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
-import { customHttpProvider } from './core/interceptor/http.provider';
 import { PaginationConfig } from './core/config/uib-pagination.config';
 import { FeaturesModule } from './features/features.module';
 import { CoreModule } from './core/core.module';
@@ -50,6 +57,7 @@ import {
 const imports = [
     BrowserModule,
     AppRouting,
+    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
     // LayoutRoutingModule,
     GreatBigExampleApplicationSharedModule,
     GreatBigExampleApplicationAdminModule,
@@ -144,11 +152,42 @@ const imports = [
     declarations: [
     ],
     providers: [
-        AppConfig,
         ProfileService,
-        customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+            deps: [
+                LocalStorageService,
+                SessionStorageService
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthExpiredInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlerInterceptor,
+            multi: true,
+            deps: [
+                JhiEventManager
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: NotificationInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        }
     ],
     bootstrap: [JhiMainComponent]
 })

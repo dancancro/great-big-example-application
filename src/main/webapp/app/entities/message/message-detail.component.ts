@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Message } from './message.model';
 import { MessageService } from './message.service';
@@ -31,9 +32,10 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.messageService.find(id).subscribe((message) => {
-            this.message = message;
-        });
+        this.messageService.find(id)
+            .subscribe((messageResponse: HttpResponse<Message>) => {
+                this.message = messageResponse.body;
+            });
     }
     previousState() {
         window.history.back();

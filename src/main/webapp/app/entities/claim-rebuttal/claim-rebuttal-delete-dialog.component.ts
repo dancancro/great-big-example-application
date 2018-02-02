@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
@@ -40,22 +40,21 @@ export class ClaimRebuttalDeleteDialogComponent {
 
 @Component({
     selector: 'jhi-claim-rebuttal-delete-popup',
-    template: './claim-rebuttal-delete-dialog.component.html'
+    template: ''
 })
 export class ClaimRebuttalDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private claimRebuttalPopupService: ClaimRebuttalPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.claimRebuttalPopupService
-                .open(<Component>ClaimRebuttalDeleteDialogComponent, params['id']);
+            this.claimRebuttalPopupService
+                .open(ClaimRebuttalDeleteDialogComponent as Component, params['id']);
         });
     }
 

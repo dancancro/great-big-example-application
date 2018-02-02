@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Crisis } from './crisis.model';
 import { CrisisService } from './crisis.service';
@@ -31,9 +32,10 @@ export class CrisisDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.crisisService.find(id).subscribe((crisis) => {
-            this.crisis = crisis;
-        });
+        this.crisisService.find(id)
+            .subscribe((crisisResponse: HttpResponse<Crisis>) => {
+                this.crisis = crisisResponse.body;
+            });
     }
     previousState() {
         window.history.back();

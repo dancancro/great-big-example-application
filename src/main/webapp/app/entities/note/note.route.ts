@@ -1,15 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
-
 import { NoteComponent } from './note.component';
 import { NoteDetailComponent } from './note-detail.component';
 import { NotePopupComponent } from './note-dialog.component';
 import { NoteDeletePopupComponent } from './note-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 export const noteRoute: Routes = [
     {

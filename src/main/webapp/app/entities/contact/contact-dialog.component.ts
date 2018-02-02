@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactPopupService } from './contact-popup.service';
@@ -16,12 +17,10 @@ import { ContactService } from './contact.service';
 export class ContactDialogComponent implements OnInit {
 
     contact: Contact;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private contactService: ContactService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class ContactDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class ContactDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Contact>) {
-        result.subscribe((res: Contact) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Contact>>) {
+        result.subscribe((res: HttpResponse<Contact>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Contact) {
-        this.eventManager.broadcast({ name: 'contactListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'contactListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class ContactDialogComponent implements OnInit {
 })
 export class ContactPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private contactPopupService: ContactPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.contactPopupService
-                    .open(<Component>ContactDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.contactPopupService
+                    .open(ContactDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.contactPopupService
-                    .open(<Component>ContactDialogComponent);
+                this.contactPopupService
+                    .open(ContactDialogComponent as Component);
             }
         });
     }

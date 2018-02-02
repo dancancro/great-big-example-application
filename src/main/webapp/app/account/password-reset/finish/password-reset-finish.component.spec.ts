@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Renderer2, ElementRef } from '@angular/core';
+import { ComponentFixture, TestBed, inject, tick, fakeAsync } from '@angular/core/testing';
+import { Observable } from 'rxjs/Observable';
+import { Renderer, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoginModalService } from '../../../shared';
+
 import { GreatBigExampleApplicationTestModule } from '../../../../mocks/test.module';
 import { PasswordResetFinishComponent } from './password-reset-finish.component';
 import { PasswordResetFinishService } from './password-reset-finish.service';
@@ -21,15 +22,11 @@ describe('Component Tests', () => {
                 providers: [
                     PasswordResetFinishService,
                     {
-                        provide: LoginModalService,
-                        useValue: null
-                    },
-                    {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({ 'key': 'XYZPDQ' })
                     },
                     {
-                        provide: Renderer2,
+                        provide: Renderer,
                         useValue: {
                             invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
                         }
@@ -39,9 +36,15 @@ describe('Component Tests', () => {
                         useValue: new ElementRef(null)
                     }
                 ]
-            }).overrideTemplate(PasswordResetFinishComponent, '')
+            })
+                .overrideTemplate(PasswordResetFinishComponent, '')
                 .createComponent(PasswordResetFinishComponent);
+        });
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PasswordResetFinishComponent);
             comp = fixture.componentInstance;
+            comp.ngOnInit();
         });
 
         it('should define its initial state', () => {
@@ -70,5 +73,54 @@ describe('Component Tests', () => {
             })
         );
 
+        it('should ensure the two passwords entered match', () => {
+            comp.resetAccount.password = 'password';
+            comp.confirmPassword = 'non-matching';
+
+            comp.finishReset();
+
+            expect(comp.doNotMatch).toEqual('ERROR');
+        });
+
+        it('should update success to OK after resetting password',
+            inject([PasswordResetFinishService],
+                fakeAsync((service: PasswordResetFinishService) => {
+                    spyOn(service, 'save').and.returnValue(Observable.of({}));
+
+                    comp.resetAccount.password = 'password';
+                    comp.confirmPassword = 'password';
+
+                    comp.finishReset();
+                    tick();
+
+                    expect(service.save).toHaveBeenCalledWith({
+                        key: 'XYZPDQ',
+                        newPassword: 'password'
+                    });
+                    expect(comp.success).toEqual('OK');
+                })
+            )
+        );
+
+        it('should notify of generic error',
+            inject([PasswordResetFinishService],
+                fakeAsync((service: PasswordResetFinishService) => {
+                    spyOn(service, 'save').and.returnValue(Observable.throw('ERROR'));
+
+                    comp.resetAccount.password = 'password';
+                    comp.confirmPassword = 'password';
+
+                    comp.finishReset();
+                    tick();
+
+                    expect(service.save).toHaveBeenCalledWith({
+                        key: 'XYZPDQ',
+                        newPassword: 'password'
+                    });
+                    expect(comp.success).toBeNull();
+                    expect(comp.error).toEqual('ERROR');
+                })
+            )
+        );
     });
 });

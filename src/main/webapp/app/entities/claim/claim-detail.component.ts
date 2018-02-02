@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager  } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Claim } from './claim.model';
 import { ClaimService } from './claim.service';
@@ -31,9 +32,10 @@ export class ClaimDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.claimService.find(id).subscribe((claim) => {
-            this.claim = claim;
-        });
+        this.claimService.find(id)
+            .subscribe((claimResponse: HttpResponse<Claim>) => {
+                this.claim = claimResponse.body;
+            });
     }
     previousState() {
         window.history.back();

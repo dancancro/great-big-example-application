@@ -15,12 +15,12 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.userLogin" for="field_userLogin">User Login</label>
             <input type="text" class="form-control" name="userLogin" id="field_userLogin"
-                [(ngModel)]="message.userLogin"  />
+                [(ngModel)]="message.userLogin" />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.message" for="field_message">Message</label>
             <input type="text" class="form-control" name="message" id="field_message"
-                [(ngModel)]="message.message" required />
+                [(ngModel)]="message.message" required/>
             <div [hidden]="!(editForm.controls.message?.dirty && editForm.controls.message?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.message?.errors?.required" jhiTranslate="entity.validation.required">
@@ -32,20 +32,20 @@
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.createdAt" for="field_createdAt">Created At</label>
             <div class="d-flex">
                 <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" [(ngModel)]="message.createdAt"
-                  />
+                />
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.message.updatedAt" for="field_updatedAt">Updated At</label>
             <div class="d-flex">
                 <input id="field_updatedAt" type="datetime-local" class="form-control" name="updatedAt" [(ngModel)]="message.updatedAt"
-                  />
+                />
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">

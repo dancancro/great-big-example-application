@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NotePopupService } from './note-popup.service';
@@ -16,12 +17,10 @@ import { NoteService } from './note.service';
 export class NoteDialogComponent implements OnInit {
 
     note: Note;
-    authorities: any[];
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private noteService: NoteService,
         private eventManager: JhiEventManager
     ) {
@@ -29,7 +28,6 @@ export class NoteDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -47,29 +45,19 @@ export class NoteDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Note>) {
-        result.subscribe((res: Note) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Note>>) {
+        result.subscribe((res: HttpResponse<Note>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Note) {
-        this.eventManager.broadcast({ name: 'noteListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'noteListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
-    }
-
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
     }
 }
 
@@ -79,22 +67,21 @@ export class NoteDialogComponent implements OnInit {
 })
 export class NotePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private notePopupService: NotePopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.notePopupService
-                    .open(<Component>NoteDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.notePopupService
+                    .open(NoteDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.notePopupService
-                    .open(<Component>NoteDialogComponent);
+                this.notePopupService
+                    .open(NoteDialogComponent as Component);
             }
         });
     }

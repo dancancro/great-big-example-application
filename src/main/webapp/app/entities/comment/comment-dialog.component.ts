@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { Comment } from './comment.model';
@@ -10,7 +11,6 @@ import { CommentPopupService } from './comment-popup.service';
 import { CommentService } from './comment.service';
 import { Article, ArticleService } from '../article';
 import { Author, AuthorService } from '../author';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-comment-dialog',
@@ -19,7 +19,6 @@ import { ResponseWrapper } from '../../shared';
 export class CommentDialogComponent implements OnInit {
 
     comment: Comment;
-    authorities: any[];
     isSaving: boolean;
 
     articles: Article[];
@@ -29,7 +28,7 @@ export class CommentDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private dataUtils: JhiDataUtils,
-        private alertService: JhiAlertService,
+        private jhiAlertService: JhiAlertService,
         private commentService: CommentService,
         private articleService: ArticleService,
         private authorService: AuthorService,
@@ -39,11 +38,10 @@ export class CommentDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.articleService.query()
-            .subscribe((res: ResponseWrapper) => { this.articles = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Article[]>) => { this.articles = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.authorService.query()
-            .subscribe((res: ResponseWrapper) => { this.authors = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Author[]>) => { this.authors = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -54,17 +52,8 @@ export class CommentDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, comment, field, isImage) {
-        if (event && event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (isImage && !/^image\//.test(file.type)) {
-                return;
-            }
-            this.dataUtils.toBase64(file, (base64Data) => {
-                comment[field] = base64Data;
-                comment[`${field}ContentType`] = file.type;
-            });
-        }
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     clear() {
@@ -75,41 +64,30 @@ export class CommentDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.comment.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.commentService.update(this.comment), false);
+                this.commentService.update(this.comment));
         } else {
             this.subscribeToSaveResponse(
-                this.commentService.create(this.comment), true);
+                this.commentService.create(this.comment));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Comment>, isCreated: boolean) {
-        result.subscribe((res: Comment) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Comment>>) {
+        result.subscribe((res: HttpResponse<Comment>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: Comment, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.comment.created'
-                : 'greatBigExampleApplicationApp.comment.updated',
-            { param: result.id }, null);
-
-        this.eventManager.broadcast({ name: 'commentListModification', content: 'OK' });
+    private onSaveSuccess(result: Comment) {
+        this.eventManager.broadcast({ name: 'commentListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackArticleById(index: number, item: Article) {
@@ -127,22 +105,21 @@ export class CommentDialogComponent implements OnInit {
 })
 export class CommentPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private commentPopupService: CommentPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.modalRef = this.commentPopupService
-                    .open(<Component>CommentDialogComponent, params['id']);
+            if ( params['id'] ) {
+                this.commentPopupService
+                    .open(CommentDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.commentPopupService
-                    .open(<Component>CommentDialogComponent);
+                this.commentPopupService
+                    .open(CommentDialogComponent as Component);
             }
         });
     }

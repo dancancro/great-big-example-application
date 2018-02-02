@@ -1,11 +1,11 @@
 import { TestBed, async, tick, fakeAsync, inject } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { MockActivatedRoute } from '../../../mocks/mock-route.service';
-import { LoginModalService } from '../../shared';
-import { ActivateService } from '../../account/activate/activate.service';
-import { ActivateComponent } from '../../account/activate/activate.component';
+import { ActivateService } from '../activate/activate.service';
+import { ActivateComponent } from '../activate/activate.component';
 
 describe('Component Tests', () => {
 
@@ -22,13 +22,10 @@ describe('Component Tests', () => {
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({ 'key': 'ABC123' })
-                    },
-                    {
-                        provide: LoginModalService,
-                        useValue: null
                     }
                 ]
-            }).overrideTemplate(ActivateComponent, '')
+            })
+                .overrideTemplate(ActivateComponent, '')
                 .compileComponents();
         }));
 

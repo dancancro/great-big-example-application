@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
-
-import { UserRouteAccessService } from '../../shared';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { JhiPaginationUtil } from 'ng-jhipster';
 
+import { UserRouteAccessService } from '../../shared';
 import { CommentComponent } from './comment.component';
 import { CommentDetailComponent } from './comment-detail.component';
 import { CommentPopupComponent } from './comment-dialog.component';
 import { CommentDeletePopupComponent } from './comment-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 @Injectable()
 export class CommentResolvePagingParams implements Resolve<any> {

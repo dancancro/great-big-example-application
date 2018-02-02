@@ -46,7 +46,10 @@ export class GameComponent implements AfterViewInit {
         setTimeout(() => {
             this.facade.startGame();
             this.timer.start();
-            this.renderer.invokeElementMethod(this.textArea.nativeElement, 'focus', []);
+            // setting focus stopped working.
+            // maybe there will be a new way to do it.
+            //https://github.com/angular/angular/issues/15674
+            // this.renderer.invokeElementMethod(this.textArea.nativeElement, 'focus', []);
         }, 0);
     }
 
@@ -58,9 +61,9 @@ export class GameComponent implements AfterViewInit {
         } else {
             this.facade.onProgress(data, this.timer.time);
             if (this.text.indexOf(data) !== 0) {
-                this.renderer.setElementClass(this.gameContainer.nativeElement, 'wrong', true);
+                this.renderer.addClass(this.gameContainer.nativeElement, 'wrong');
             } else {
-                this.renderer.setElementClass(this.gameContainer.nativeElement, 'wrong', false);
+                this.renderer.removeClass(this.gameContainer.nativeElement, 'wrong');
             }
         }
     }
@@ -69,7 +72,7 @@ export class GameComponent implements AfterViewInit {
         this.timer.reset();
         this.text = '';
         this.textArea.nativeElement.value = '';
-        this.renderer.setElementClass(this.gameContainer.nativeElement, 'wrong', false);
+        this.renderer.removeClass(this.gameContainer.nativeElement, 'wrong');
     }
 
     invalid() {

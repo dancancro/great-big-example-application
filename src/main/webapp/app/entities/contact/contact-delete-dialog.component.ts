@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
@@ -44,18 +44,17 @@ export class ContactDeleteDialogComponent {
 })
 export class ContactDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private contactPopupService: ContactPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.contactPopupService
-                .open(<Component>ContactDeleteDialogComponent, params['id']);
+            this.contactPopupService
+                .open(ContactDeleteDialogComponent as Component, params['id']);
         });
     }
 

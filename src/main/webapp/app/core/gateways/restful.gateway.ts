@@ -63,7 +63,7 @@ export class RestfulGateway extends BaseGateway {
         }
 
         const obj =
-            (res && !!res._body && res.json()) ||
+            // (res && !!res._body && res.json()) ||
             res.data ||
             { id: res.url.match(/[^\/]+$/)[0] };
 
@@ -75,7 +75,7 @@ export class RestfulGateway extends BaseGateway {
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
+            const err = (<any>body).error || JSON.stringify(body);
             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
         } else {
             errMsg = error.message ? error.message : error.toString();

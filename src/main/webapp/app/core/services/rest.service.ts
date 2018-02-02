@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,20 @@ import * as SliceActions from '../store/slice/slice.actions';
 import * as EntityActions from '../store/entity/entity.actions';
 import { completeAssign, QueryPayload } from '../store/util';
 import * as config from '../../app.config';
+
+type RequestOptionsArgs = {
+    headers?: HttpHeaders | {
+        [header: string]: string | string[];
+    };
+    observe?: 'body';
+    params?: HttpParams | {
+        [param: string]: string | string[];
+    };
+    body?: any,
+    reportProgress?: boolean;
+    responseType?: 'json';
+    withCredentials?: boolean;
+}
 
 type APIConfig = {
     method?: ((entity?: any, state?: RootState) => string) | string,
@@ -362,7 +376,7 @@ export class RESTService implements DataService {
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
+            const err = (<any>body).error || JSON.stringify(body);
             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
         } else {
             errMsg = error.message ? error.message : error.toString();

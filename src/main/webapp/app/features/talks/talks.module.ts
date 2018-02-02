@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -21,7 +20,6 @@ import { TalkEffects } from '../../core/store/talk/talk.effects';
 import { LayoutEffects } from '../../core/store/layout/layout.effects';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TalksRouting } from './talks.routing';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -29,10 +27,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
         ReactiveFormsModule,
         HttpClientModule,
         // NoopAnimationsModule,
-
-        MaterialModule,
-        MdInputModule,
-        MdCheckboxModule,
 
         TalksRouting,
 
@@ -54,7 +48,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
     ],
 
     providers: [
-        customHttpProvider(),
         WatchService,
         TalkEffects
     ]

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Author } from './author.model';
@@ -44,18 +44,17 @@ export class AuthorDeleteDialogComponent {
 })
 export class AuthorDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private authorPopupService: AuthorPopupService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.authorPopupService
-                .open(<Component>AuthorDeleteDialogComponent, params['id']);
+            this.authorPopupService
+                .open(AuthorDeleteDialogComponent as Component, params['id']);
         });
     }
 

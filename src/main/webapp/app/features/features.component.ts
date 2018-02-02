@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 import { FeatureMeta, FeaturesService } from './features.service';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
@@ -26,7 +26,7 @@ export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     modules: FeatureMeta[] = [];
 
-    @ViewChild('menu') private menu: MdSidenav;
+    @ViewChild('menu') private menu: MatSidenav;
 
     private _subscription = null;
     private user = undefined;
@@ -39,7 +39,7 @@ export class FeaturesComponent implements OnInit, OnDestroy, AfterViewInit {
         private _router: Router,
         private _moduleService: FeaturesService) {
         // Remove loading class to unset default styles
-        renderer.setElementClass(element.nativeElement, 'loading', false);
+        renderer.removeClass(element.nativeElement, 'loading');
     }
 
     ngOnInit() {

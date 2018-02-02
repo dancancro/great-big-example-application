@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager , JhiDataUtils } from 'ng-jhipster';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Comment } from './comment.model';
 import { CommentService } from './comment.service';
@@ -32,9 +33,10 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.commentService.find(id).subscribe((comment) => {
-            this.comment = comment;
-        });
+        this.commentService.find(id)
+            .subscribe((commentResponse: HttpResponse<Comment>) => {
+                this.comment = commentResponse.body;
+            });
     }
     byteSize(field) {
         return this.dataUtils.byteSize(field);

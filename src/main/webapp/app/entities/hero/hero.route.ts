@@ -1,15 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
-
 import { HeroComponent } from './hero.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroPopupComponent } from './hero-dialog.component';
 import { HeroDeletePopupComponent } from './hero-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 export const heroRoute: Routes = [
     {

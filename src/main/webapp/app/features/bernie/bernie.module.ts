@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
-import { MaterialModule } from '@angular/material';
 import { NgPipesModule } from 'ngx-pipes';
 
 import { BerniePage } from './bernie.page';
@@ -15,7 +14,6 @@ import { BernieRouting } from './bernie.routing';
 import { ClaimEffects } from '../../core/store/claim/claim.effects';
 import { RebuttalEffects } from '../../core/store/rebuttal/rebuttal.effects';
 import { ClaimRebuttalEffects } from '../../core/store/claim-rebuttal/claim-rebuttal.effects';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -23,7 +21,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
         GreatBigExampleApplicationSharedModule,
         BernieRouting,
         ReactiveFormsModule,
-        MaterialModule,
         EffectsModule.forRoot([ClaimEffects, RebuttalEffects, ClaimRebuttalEffects]),
         NgPipesModule
     ],
@@ -33,7 +30,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
         RebuttalComponent
     ],
     providers: [
-        customHttpProvider(),
         RESTService
     ]
 })

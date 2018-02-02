@@ -7,7 +7,6 @@ import { GreatBigExampleApplicationSharedModule } from '../../shared/shared.modu
 import { ContactsPage } from './contacts.page';
 import { ContactsRouting } from './contacts.routing';
 import { ContactEffects } from '../../core/store/contact/contact.effects';
-import { customHttpProvider } from '../../core/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -20,7 +19,6 @@ import { customHttpProvider } from '../../core/interceptor/http.provider';
         ContactsPage
     ],
     providers: [
-        customHttpProvider(),
         RESTService
     ]
 })
