@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<Claim>;
 @Injectable()
 export class ClaimService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/claims';
+    private resourceUrl = SERVER_API_URL + 'api/claims';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/claims';
 
     constructor(private http: HttpClient) { }
@@ -29,7 +29,7 @@ export class ClaimService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Claim>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Claim>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -40,7 +40,7 @@ export class ClaimService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<Claim[]>> {
@@ -51,7 +51,7 @@ export class ClaimService {
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Claim = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Claim[]>): HttpResponse<Claim[]> {
@@ -60,7 +60,7 @@ export class ClaimService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

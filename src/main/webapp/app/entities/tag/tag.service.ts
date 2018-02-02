@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<Tag>;
 @Injectable()
 export class TagService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/tags';
+    private resourceUrl = SERVER_API_URL + 'api/tags';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/tags';
 
     constructor(private http: HttpClient) { }
@@ -29,7 +29,7 @@ export class TagService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Tag>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Tag>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -40,7 +40,7 @@ export class TagService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<Tag[]>> {
@@ -51,7 +51,7 @@ export class TagService {
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Tag = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Tag[]>): HttpResponse<Tag[]> {
@@ -60,7 +60,7 @@ export class TagService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

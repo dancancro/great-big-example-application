@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Renderer, ElementRef } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { GreatBigExampleApplicationTestModule } from '../../../../mocks/test.module';
@@ -20,7 +20,7 @@ describe('Component Tests', () => {
                 providers: [
                     PasswordResetInitService,
                     {
-                        provide: Renderer,
+                        provide: Renderer2,
                         useValue: {
                             invokeElementMethod(renderElement: any, methodName: string, args?: any[]) { }
                         }

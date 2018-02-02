@@ -6,7 +6,7 @@ import { SERVER_API_URL } from '../../app.constants';
 @Injectable()
 export class JhiMetricsService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getMetrics(): Observable<any> {
         return this.http.get(SERVER_API_URL + 'management/metrics');
