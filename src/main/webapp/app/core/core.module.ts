@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
-import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
+// import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
 import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
 import { HttpClient } from '@angular/common/http';
 
@@ -33,7 +33,6 @@ import { GreatBigExampleApplicationSharedModule } from '../shared/shared.module'
 import { RESTService } from './services/rest.service';
 import { SocketService } from './services/socket.service';
 import { UserService } from './services/user.service';
-import { AppState, InternalStateType } from '../app.service';
 import { GlobalState } from '../global.state';
 
 import { firebaseConfig } from './firebase-config';

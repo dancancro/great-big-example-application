@@ -16,7 +16,7 @@
             "index": "index.html",
             "main": "app/app.main.ts",
             "polyfills": "app/polyfills.ts",
-            "test": "../../../test.ts",
+            "test": "../../../entry.ts",
             "tsconfig": "../../../tsconfig.json",
             "prefix": "jhi",
             "mobile": false,

@@ -1,8 +1,9 @@
-const path = require('path');
+
 const webpack = require('webpack');
+const path = require('path');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
-const root = __path => path.join(__dirname, __path);
+const utils = require('./utils.js');
 
 module.exports = (WATCH) => ({
     resolve: {
@@ -11,7 +12,7 @@ module.exports = (WATCH) => ({
     module: {
         rules: [
             {
-                // test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader', exclude: /node_modules/
+                test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader', exclude: /node_modules/
             },
             {
                 test: /\.ts$/,
@@ -47,12 +48,15 @@ module.exports = (WATCH) => ({
                 loader: 'sourcemap-istanbul-instrumenter-loader?force-sourcemap=true'
             }]
     },
-    devtool: 'inline-source-map',
     plugins: [
+        new webpack.SourceMapDevToolPlugin({
+            filename: null, // if no value is provided the sourcemap is inlined
+            test: /\.(ts|js)($|\?)/i // process .js and .ts files only
+        }),
         new webpack.ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            root('./src') // location of your src
+            utils.root('./src') // location of your src
         ),
         new LoaderOptionsPlugin({
             options: {

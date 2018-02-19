@@ -11,6 +11,7 @@ export class JhiLanguageHelper {
 
     constructor(
         private translateService: TranslateService,
+        // tslint:disable-next-line: no-unused-variable
         private rootRenderer: RendererFactory2,
         private titleService: Title,
         private router: Router
@@ -32,7 +33,7 @@ export class JhiLanguageHelper {
      */
     updateTitle(titleKey?: string) {
         if (!titleKey) {
-             titleKey = this.getPageTitle(this.router.routerState.snapshot.root);
+            titleKey = this.getPageTitle(this.router.routerState.snapshot.root);
         }
 
         this.translateService.get(titleKey).subscribe((title) => {

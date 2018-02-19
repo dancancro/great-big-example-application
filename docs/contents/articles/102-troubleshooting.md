@@ -24,4 +24,4 @@ ERROR:
 reflect-metadata shim is required when using class decorators
 
 FIX:
-Add var reflect = require('reflect-metadata'); to test.ts
+Add var reflect = require('reflect-metadata'); to entry.ts

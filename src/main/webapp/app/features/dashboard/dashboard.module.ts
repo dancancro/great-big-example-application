@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../shared/nga.module';
 import { TranslateModule, TranslateLoader, TranslateParser, MissingTranslationHandler } from '@ngx-translate/core';
-import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
+// import { TranslateHttpLoader, } from '@ngx-translate/http-loader';
 import { translatePartialLoader, missingTranslationHandler } from 'ng-jhipster';
 import { JhiConfigService } from 'ng-jhipster/src/config.service';
 
