@@ -8,7 +8,7 @@
     "baseName": "GreatBigExampleApplication",
     "packageName": "org.exampleapps.greatbig",
     "packageFolder": "org/exampleapps/greatbig",
-    "serverPort": "8090",
+    "serverPort": "8070",
     "authenticationType": "jwt",
     "hibernateCache": "ehcache",
     "clusteredHttpSession": false,
