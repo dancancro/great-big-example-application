@@ -16,12 +16,13 @@ import java.io.Serializable;
 @Entity
 @Table(name = "jhi_authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+
 public class Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Id
     @Column(length = 50)
     private String name;

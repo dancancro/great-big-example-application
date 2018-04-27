@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
 
 @Injectable()
-export class AccountService {
+export class AccountService  {
     constructor(private http: HttpClient) { }
 
-    get(): Observable<any> {
-        return this.http.get('api/account').map((res: Response) => res.json());
+    get(): Observable<HttpResponse<Account>> {
+        return this.http.get<Account>(SERVER_API_URL + 'api/account', {observe : 'response'});
     }
 
-    save(account: any): Observable<Response> {
-        return <Observable<Response>>this.http.post('api/account', account);
+    save(account: any): Observable<HttpResponse<any>> {
+        return this.http.post(SERVER_API_URL + 'api/account', account, {observe: 'response'});
     }
 }

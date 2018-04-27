@@ -1,7 +1,7 @@
 version: '2'
 services:
     greatbigexampleapplication-elasticsearch:
-        image: elasticsearch:2.4.1
+        image: elasticsearch:2.4.6
         # volumes:
         #     - ~/volumes/jhipster/GreatBigExampleApplication/elasticsearch/:/usr/share/elasticsearch/data/
         ports:

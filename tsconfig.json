@@ -1,10 +1,6 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "lib": [
-            "es2017",
-            "dom"
-        ],
         "module": "commonjs",
         "moduleResolution": "node",
         "sourceMap": true,
@@ -12,15 +8,26 @@
         "experimentalDecorators": true,
         "removeComments": false,
         "noImplicitAny": false,
+        "skipLibCheck": true,
         "suppressImplicitAnyIndexErrors": true,
         "outDir": "target/www/app",
+        "lib": [
+            "es7",
+            "dom"
+        ],
         "typeRoots": [
             "node_modules/@types"
-        ]
+        ],
+        "baseUrl": "./",
+        "paths": {
+            "@angular/*": [
+                "../node_modules/@angular/*"
+            ]
+        }
     },
     "include": [
         "src/main/webapp/app",
-        "src/test/javascript",
+        "src/test/javascript/",
         "typings.d.ts"
     ]
 }

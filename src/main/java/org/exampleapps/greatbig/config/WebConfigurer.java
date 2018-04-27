@@ -21,6 +21,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.http.MediaType;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -70,9 +71,9 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     public void customize(ConfigurableEmbeddedServletContainer container) {
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
         // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
-        mappings.add("html", "text/html;charset=utf-8");
+        mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=utf-8");
         // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
-        mappings.add("json", "text/html;charset=utf-8");
+        mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=utf-8");
         container.setMimeMappings(mappings);
         // When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
         setLocationForStaticAssets(container);
@@ -102,14 +103,14 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     }
 
     /**
-     *  Resolve path prefix to static resources.
+     * Resolve path prefix to static resources.
      */
     private String resolvePathPrefix() {
         String fullExecutablePath = this.getClass().getResource("").getPath();
         String rootPath = Paths.get(".").toUri().normalize().getPath();
         String extractedPath = fullExecutablePath.replace(rootPath, "");
         int extractionEndIndex = extractedPath.indexOf("target/");
-        if(extractionEndIndex <= 0) {
+        if (extractionEndIndex <= 0) {
             return "";
         }
         return extractedPath.substring(0, extractionEndIndex);
@@ -163,6 +164,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration("/management/**", config);
             source.registerCorsConfiguration("/v2/api-docs", config);
         }
         return new CorsFilter(source);
@@ -173,10 +175,24 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
      */
     private void initH2Console(ServletContext servletContext) {
         log.debug("Initialize H2 console");
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
-        h2ConsoleServlet.addMapping("/h2-console/*");
-        h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
-        h2ConsoleServlet.setLoadOnStartup(1);
+        try {
+            // We don't want to include H2 when we are packaging for the "prod" profile and won't
+            // actually need it, so we have to load / invoke things at runtime through reflection.
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Class<?> servletClass = Class.forName("org.h2.server.web.WebServlet", true, loader);
+            Servlet servlet = (Servlet) servletClass.newInstance();
+
+            ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", servlet);
+            h2ConsoleServlet.addMapping("/h2-console/*");
+            h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
+            h2ConsoleServlet.setLoadOnStartup(1);
+
+        } catch (ClassNotFoundException | LinkageError  e) {
+            throw new RuntimeException("Failed to load and initialize org.h2.server.web.WebServlet", e);
+
+        } catch (IllegalAccessException | InstantiationException e) {
+            throw new RuntimeException("Failed to instantiate org.h2.server.web.WebServlet", e);
+        }
     }
 
     @Autowired(required = false)

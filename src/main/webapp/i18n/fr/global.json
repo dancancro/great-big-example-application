@@ -4,7 +4,7 @@
         "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu articles here (do not translate!)",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entités",
                 "hero": "Hero",
@@ -65,7 +65,7 @@
                 "audits": "Audits",
                 "apidocs": "API",
                 "database": "Base de données",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu articles here (do not translate!)"
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "language": "Langue"
         },

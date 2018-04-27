@@ -67,7 +67,7 @@ class ArticleHandler(val repository: ArticleRepository,
                 if (favorited != "") userRepository.findOneByLogin(favorited).get() else null
         ), p)
         val currentUser = userService.getUserWithAuthorities()
-        val currentAuthor = authorRepository.findById(currentUser.getId())
+        val currentAuthor = authorRepository.findById(currentUser.get().getId())
 
         val headers = PaginationUtil.generatePaginationHttpHeaders(articles, "/api/articles")
 
@@ -83,7 +83,7 @@ class ArticleHandler(val repository: ArticleRepository,
         log.debug("\n\nREST request to get article feed")
 
         val currentUser = userService.getUserWithAuthorities()
-        val currentAuthor = authorRepository.findById(currentUser.getId())
+        val currentAuthor = authorRepository.findById(currentUser.get().getId())
         val articles = repository.findByAuthorIdInOrderByCreatedAtDesc(currentAuthor.followers.map { it.id },
                 PageRequest(offset/limit, limit))
 
@@ -100,7 +100,7 @@ class ArticleHandler(val repository: ArticleRepository,
         log.debug("\n\nREST request to get Article for : ", slug)
 
         val currentUser = userService.getUserWithAuthorities()
-        val currentAuthor = authorRepository.findById(currentUser.getId())
+        val currentAuthor = authorRepository.findById(currentUser.get().getId())
         repository.findBySlug(slug)?.let {
             return articleView(it, currentAuthor)
         }
@@ -123,7 +123,7 @@ class ArticleHandler(val repository: ArticleRepository,
         }
 
         val currentUser = userService.getUserWithAuthorities()
-        val currentAuthor = authorRepository.findById(currentUser.getId())
+        val currentAuthor = authorRepository.findById(currentUser.get().getId())
 
         // search for tags
         val tags = newArticle.tags.map {
@@ -146,8 +146,8 @@ class ArticleHandler(val repository: ArticleRepository,
 
         repository.findBySlug(slug)?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
-            if (it.author.id != currentUser.id)
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
+            if (it.author.id != currentUser.get().getId())
                 throw ForbiddenRequestException()
 
             // check for errors
@@ -200,7 +200,7 @@ class ArticleHandler(val repository: ArticleRepository,
         log.debug("\n\nREST request to delete Article for: ", slug)
 
         repository.findBySlug(slug)?.let {
-            if (it.author.id != userService.getUserWithAuthorities().id)
+            if (it.author.id != userService.getUserWithAuthorities().get().getId())
                 throw ForbiddenRequestException()
 
             // commentRepository.deleteAll(commentRepository.findByArticle(it))
@@ -218,7 +218,7 @@ class ArticleHandler(val repository: ArticleRepository,
 
         repository.findBySlug(slug)?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             return commentsView(commentRepository.findByArticleOrderByCreatedAtDesc(it), currentAuthor)
         }
         throw NotFoundException()
@@ -235,7 +235,7 @@ class ArticleHandler(val repository: ArticleRepository,
 
         repository.findBySlug(slug)?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             val newComment = Comment(body = comment.body!!, article = it, author = currentAuthor)
             return commentView(commentRepository.save(newComment), currentAuthor)
         }
@@ -258,7 +258,7 @@ class ArticleHandler(val repository: ArticleRepository,
             }
             if (comment.article.id != it.id)
                 throw ForbiddenRequestException()
-            if (comment.author.id != currentUser.id)
+            if (comment.author.id != currentUser.get().getId())
                 throw ForbiddenRequestException()
 
             return commentRepository.delete(comment)
@@ -275,7 +275,7 @@ class ArticleHandler(val repository: ArticleRepository,
 
         repository.findBySlug(slug)?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             if (!it.favorited.contains(currentAuthor)) {
                 it.favorited.add(currentAuthor)
                 return articleView(repository.save(it), currentAuthor)
@@ -294,7 +294,7 @@ class ArticleHandler(val repository: ArticleRepository,
 
         repository.findBySlug(slug)?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             if (it.favorited.contains(currentAuthor)) {
                 it.favorited.remove(currentAuthor)
                 return articleView(repository.save(it), currentAuthor)

@@ -5,26 +5,21 @@ import { Principal } from '../';
 import { LoginModalService } from '../login/login-modal.service';
 import { StateStorageService } from './state-storage.service';
 
-/**
- * customHttpProvider must be a provider for any module with routes that use
- * this guard so that an authorization header is included in requests
- */
 @Injectable()
 export class UserRouteAccessService implements CanActivate {
 
     constructor(private router: Router,
-        private loginModalService: LoginModalService,
-        private principal: Principal,
-        private stateStorageService: StateStorageService) {
+                private loginModalService: LoginModalService,
+                private principal: Principal,
+                private stateStorageService: StateStorageService) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
 
         const authorities = route.data['authorities'];
-        if (!authorities || authorities.length === 0) {
-            return true;
-        }
-
+        // We need to call the checkLogin / and so the principal.identity() function, to ensure,
+        // that the client has a principal too, if they already logged in by the server.
+        // This could happen on a page refresh.
         return this.checkLogin(authorities, state.url);
     }
 
@@ -32,8 +27,17 @@ export class UserRouteAccessService implements CanActivate {
         const principal = this.principal;
         return Promise.resolve(principal.identity().then((account) => {
 
-            if (account && principal.hasAnyAuthorityDirect(authorities)) {
+            if (!authorities || authorities.length === 0) {
                 return true;
+            }
+
+            if (account) {
+                return principal.hasAnyAuthority(authorities).then((response) => {
+                    if (response) {
+                        return true;
+                    }
+                    return false;
+                });
             }
 
             this.stateStorageService.storeUrl(url);

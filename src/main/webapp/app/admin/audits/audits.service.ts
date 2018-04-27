@@ -3,10 +3,10 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 import { Audit } from './audit.model';
-import { createRequestOption } from '../../shared/model/request-util';
+import { createRequestOption} from '../../shared/model/request-util';
 
 @Injectable()
-export class AuditsService {
+export class AuditsService  {
     constructor(private http: HttpClient) { }
 
     query(req: any): Observable<HttpResponse<Audit[]>> {

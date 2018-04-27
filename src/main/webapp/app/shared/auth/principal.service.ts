@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Store } from '@ngrx/store';
 import { AccountService } from './account.service';
-import { JhiTrackerService } from '../tracker/tracker.service';
-import { slices } from '../../core/store/util';
-import * as SliceActions from '../../core/store/slice/slice.actions';
-import * as fromRoot from '../../core/store';
+import { JhiTrackerService } from '../tracker/tracker.service'; // Barrel doesn't work here. No idea why!
 
 @Injectable()
 export class Principal {
@@ -16,9 +12,8 @@ export class Principal {
 
     constructor(
         private account: AccountService,
-        private trackerService: JhiTrackerService,
-        private store: Store<fromRoot.RootState>
-    ) { }
+        private trackerService: JhiTrackerService
+    ) {}
 
     authenticate(identity) {
         this.userIdentity = identity;
@@ -36,7 +31,7 @@ export class Principal {
         }
 
         for (let i = 0; i < authorities.length; i++) {
-            if (this.userIdentity.authorities.indexOf(authorities[i]) !== -1) {
+            if (this.userIdentity.authorities.includes(authorities[i])) {
                 return true;
             }
         }
@@ -46,11 +41,11 @@ export class Principal {
 
     hasAuthority(authority: string): Promise<boolean> {
         if (!this.authenticated) {
-            return Promise.resolve(false);
+           return Promise.resolve(false);
         }
 
         return this.identity().then((id) => {
-            return Promise.resolve(id.authorities && id.authorities.indexOf(authority) !== -1);
+            return Promise.resolve(id.authorities && id.authorities.includes(authority));
         }, () => {
             return Promise.resolve(false);
         });
@@ -68,16 +63,13 @@ export class Principal {
         }
 
         // retrieve the userIdentity data from the server, update the identity object, and then resolve.
-        return this.account.get().toPromise().then((account) => {
+        return this.account.get().toPromise().then((response) => {
+            const account = response.body;
             if (account) {
-                // Added: This next line integrates the JHipster state with the ngrx store
-                this.store.dispatch(new SliceActions.LoadSuccess(slices.SESSION, { account }));
                 this.userIdentity = account;
                 this.authenticated = true;
                 this.trackerService.connect();
             } else {
-                // Added: This next line integrates the JHipster state with the ngrx store
-                this.store.dispatch(new SliceActions.LoadFail(slices.SESSION, { account }));
                 this.userIdentity = null;
                 this.authenticated = false;
             }

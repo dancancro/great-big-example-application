@@ -31,7 +31,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     module: {
         rules: [{
             test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-            use: ['@ngtools/webpack']
+            use: [ '@ngtools/webpack' ]
         },
         {
             test: /\.scss$/,
@@ -100,9 +100,9 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             minimize: true,
             debug: false
         }),
-        new WorkboxPlugin({
-            clientsClaim: true,
-            skipWaiting: true,
+        new WorkboxPlugin.GenerateSW({
+          clientsClaim: true,
+          skipWaiting: true,
         })
     ]
 });

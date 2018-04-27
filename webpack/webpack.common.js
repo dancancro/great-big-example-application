@@ -32,7 +32,7 @@ module.exports = (options) => ({
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                use: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
+                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]'],
                 exclude: /(sky-bg\.jpg$|(person|money|face|refresh).svg$)/
             },
             {

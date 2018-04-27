@@ -2,23 +2,7 @@
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
-    "extends": [
-        "rxjs-tslint-rules"
-    ],
     "rules": {
-        "rxjs-no-wholesale": {
-            "severity": "error"
-        },
-        "rxjs-add": {
-            "options": [
-                {
-                    "allowElsewhere": false,
-                    "allowUnused": false,
-                    "file": "./src/main/webapp/app/rxjs-imports.ts"
-                }
-            ],
-            "severity": "error"
-        },
         "class-name": true,
         "comment-format": [
             true,
@@ -57,16 +41,14 @@
         "no-duplicate-variable": true,
         "no-empty": false,
         "no-eval": true,
-        "no-inferrable-types": [
-            true
-        ],
+        "no-inferrable-types": [true],
         "no-shadowed-variable": true,
         "no-string-literal": false,
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": true,
         "no-unused-expression": true,
-        "no-use-before-declare": true,
         "no-var-keyword": true,
+        "no-unused-variable": true,
         "object-literal-sort-keys": false,
         "one-line": [
             true,
@@ -81,6 +63,7 @@
         ],
         "radix": true,
         "semicolon": [
+            true,
             "always"
         ],
         "triple-equals": [
@@ -107,33 +90,15 @@
             "check-type"
         ],
         "prefer-const": true,
-        "arrow-parens": [
-            true
-        ],
-        "arrow-return-shorthand": [
-            true
-        ],
+        "arrow-parens": [true],
+        "arrow-return-shorthand": [true],
         "import-spacing": true,
-        "no-consecutive-blank-lines": [
-            true
-        ],
+        "no-consecutive-blank-lines": [true],
         "object-literal-shorthand": true,
-        "space-before-function-paren": [
-            true,
-            "never"
-        ],
-        "directive-selector": [
-            true,
-            "attribute",
-            "jhi",
-            "camelCase"
-        ],
-        "component-selector": [
-            true,
-            "element",
-            "jhi",
-            "kebab-case"
-        ],
+        "space-before-function-paren": [true, "never"],
+
+        "directive-selector": [true, "attribute", "jhi", "camelCase"],
+        "component-selector": [true, "element", "jhi", "kebab-case"],
         "use-input-property-decorator": true,
         "use-output-property-decorator": true,
         "use-host-property-decorator": true,
@@ -142,9 +107,6 @@
         "use-life-cycle-interface": true,
         "use-pipe-transform-interface": false,
         "component-class-suffix": true,
-        "directive-class-suffix": true,
-        "no-access-missing-member": true,
-        "templates-use-public": true,
-        "invoke-injectable": true
+        "directive-class-suffix": true
     }
 }

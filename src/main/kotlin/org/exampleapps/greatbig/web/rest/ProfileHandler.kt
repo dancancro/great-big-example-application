@@ -23,7 +23,7 @@ class ProfileHandler(val userRepository: UserRepository,
         val user = userRepository.findOneByLogin(username);
         authorRepository.findById(user.get().getId())?.let {
             val currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             return view(it, currentAuthor)
         }
         throw NotFoundException()
@@ -36,7 +36,7 @@ class ProfileHandler(val userRepository: UserRepository,
         val user = userRepository.findOneByLogin(username);
         authorRepository.findById(user.get().getId())?.let {
             var currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             if (!currentAuthor.followers.contains(it)) {
                 currentAuthor.followers.add(it)
                 // currentAuthor = userService.setCurrentUser(userRepository.save(currentUser))
@@ -53,7 +53,7 @@ class ProfileHandler(val userRepository: UserRepository,
         val user = userRepository.findOneByLogin(username);
         authorRepository.findById(user.get().getId())?.let {
             var currentUser = userService.getUserWithAuthorities()
-            val currentAuthor = authorRepository.findById(currentUser.getId())
+            val currentAuthor = authorRepository.findById(currentUser.get().getId())
             if (currentAuthor.followers.contains(it)) {
                 currentAuthor.followers.remove(it)
                 // currentAuthor = userService.setCurrentUser(userRepository.save(currentUser))

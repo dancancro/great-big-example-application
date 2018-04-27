@@ -1,17 +1,14 @@
-/* after changing this file run 'yarn run 'yarn run webpack:build' */
-
-// This is important and not obvious. You need to set these variables that are used by included sass partials
-// in order for the imports below to work at all
+/* after changing this file run 'yarn run webpack:build' */
 $fa-font-path: '~font-awesome/fonts';
-$roboto-font-path: '~roboto-fontface/fonts';
-$ionicons-font-path: "~ionicons/dist/fonts";
 
 /***************************
 put Sass variables here:
 eg $input-color: red;
 ****************************/
+// Override Boostrap variables
+@import "bootstrap-variables";
+// Import Bootstrap source files from node_modules
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/font-awesome/scss/font-awesome';
 
-@import '~bootstrap/scss/bootstrap';
-@import '~font-awesome/scss/font-awesome';
-@import '~roboto-fontface/css/roboto/sass/roboto-fontface';
-@import '~ionicons/dist/scss/ionicons';
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */

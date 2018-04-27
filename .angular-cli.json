@@ -3,62 +3,63 @@
     "project": {
         "name": "great-big-example-application"
     },
-    "apps": [
-        {
-            "root": "src/main/webapp/",
-            "outDir": "target/www/app",
-            "assets": [
-                "content",
-                "i18n",
-                "favicon.ico",
-                "node_modules/@angular/material/prebuilt-themes"
-            ],
-            "index": "index.html",
-            "main": "app/app.main.ts",
-            "polyfills": "app/polyfills.ts",
-            "test": "../../../entry.ts",
-            "tsconfig": "../../../tsconfig.json",
-            "prefix": "jhi",
-            "mobile": false,
-            "styles": [
-                "content/scss/vendor.scss",
-                "content/scss/global.scss"
-            ],
-            "scripts": []
-        }
-    ],
+    "apps": [{
+        "root": "src/main/webapp",
+        "outDir": "target/www/app",
+        "assets": [
+            "content",
+            "i18n",
+            "favicon.ico"
+        ],
+        "index": "index.html",
+        "main": "app/app.main.ts",
+        "polyfills": "app/polyfills.ts",
+        "test": "src/test/javascript/spec/entry.ts",
+        "tsconfig": "../../../tsconfig.json",
+        "prefix": "jhi",
+        "mobile": false,
+        "styles": [
+            "content/scss/vendor.scss",
+            "content/scss/global.scss"
+        ],
+        "scripts": []
+    }],
     "e2e": {
         "protractor": {
-            "config": "protractor.conf.js"
+            "config": "src/test/javascript/protractor.conf.js"
         }
     },
-    "lint": [
-        {
-            "project": "./tsconfig.json",
-            "exclude": "**/node_modules/**/*"
+    "lint": [{
+            "project": "../../../tsconfig.json"
         },
         {
-            "project": "./tsconfig-aot.json",
-            "exclude": "**/node_modules/**/*"
+            "project": "../../../tsconfig-aot.json"
         }
     ],
     "test": {
         "karma": {
-            "config": "./karma.conf.js"
+            "config": "src/test/javascript/karma.conf.js"
         }
     },
     "defaults": {
         "styleExt": "scss",
         "prefixInterfaces": false,
-        "component": {
-            "inlineStyle": true,
-            "inlineTemplate": false
+        "component" : {
+            "inlineStyle" : true,
+            "inlineTemplate": false,
+            "spec": false
         },
-        "spec": {
-            "component": false,
-            "directive": false,
-            "pipe": false,
-            "service": false
+        "directive" : {
+            "spec": false
+        },
+        "guard" : {
+            "spec": false
+        },
+        "pipe" : {
+            "spec": false
+        },
+        "service" : {
+            "spec": false
         }
     },
     "packageManager": "yarn"

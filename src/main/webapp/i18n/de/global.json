@@ -4,7 +4,7 @@
         "browsehappy": "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=de/\">aktualisieren Sie Ihren Browser</a>, um die Benutzerfreundlichkeit zu erhöhen.",
         "menu": {
             "home": "Startseite",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu articles here (do not translate!)",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entitäten",
                 "hero": "Hero",
@@ -65,7 +65,7 @@
                 "audits": "Audits",
                 "apidocs": "API",
                 "database": "Datenbank",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu articles here (do not translate!)"
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "language": "Sprache"
         },
@@ -130,7 +130,7 @@
             "cancel": "Abbrechen",
             "delete": "Löschen",
             "edit": "Bearbeiten",
-            "open": "Open",
+            "open": "Öffnen",
             "save": "Speichern",
             "view": "Details"
         },

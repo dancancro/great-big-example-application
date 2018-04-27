@@ -1,5 +1,4 @@
-@import 'theme';
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import 'bootstrap-variables';
 
 /* ==============================================================
 Bootstrap tweaks
@@ -9,6 +8,15 @@ body, h1, h2, h3, h4 {
     font-weight: 300;
 }
 
+a {
+    color: #533f03;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #533f03;
+    font-weight: bold;
+}
 
 /* ==========================================================================
 Browser Upgrade Prompt
@@ -202,6 +210,13 @@ ui bootstrap tweaks
     outline: none;
 }
 
+.thread-dump-modal-lock {
+    max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+ }
+
 /* ==========================================================================
 Social button
 ========================================================================== */
@@ -244,5 +259,4 @@ Social button
     border-color: rgba(0, 0, 0, 0.2);
     color: #fff;
 }
-
 /* jhipster-needle-scss-add-main JHipster will add new css style */

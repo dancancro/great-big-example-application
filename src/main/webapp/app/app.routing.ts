@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { errorRoute } from './layouts';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { HomeComponent } from './features/home/home.component';
+import { DEBUG_INFO_ENABLED } from './app.constants';
 
 const routes: Routes = [
     { path: '', component: NavbarComponent, outlet: 'navbar' },
@@ -16,7 +17,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes, { useHash: true })
+        RouterModule.forRoot(routes, { useHash: true , enableTracing: DEBUG_INFO_ENABLED })
     ],
     exports: [
         RouterModule

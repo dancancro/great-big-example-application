@@ -41,6 +41,12 @@ Navbar
     }
 }
 
+@media screen and (min-width: 768px) {
+    .jh-navbar-toggler {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 992px) {
     .jh-logo-container {
         width: 100%;

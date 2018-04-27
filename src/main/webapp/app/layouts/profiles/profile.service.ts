@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+
 import { SERVER_API_URL } from '../../app.constants';
 import { ProfileInfo } from './profile-info.model';
 
@@ -19,7 +20,7 @@ export class ProfileService {
                     const pi = new ProfileInfo();
                     pi.activeProfiles = data.activeProfiles;
                     pi.ribbonEnv = data.ribbonEnv;
-                    pi.inProduction = data.activeProfiles.includes('prod');
+                    pi.inProduction = data.activeProfiles.includes('prod') ;
                     pi.swaggerEnabled = data.activeProfiles.includes('swagger');
                     return pi;
                 }).toPromise();
