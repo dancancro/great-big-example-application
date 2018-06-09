@@ -38,7 +38,7 @@
     "angular2-moment": "1.7.0",
     "angular2-notifications": "0.7.7",
     "angularfire2": "4.0.0-rc0",
-    "angularfire2-offline": "../../angularfire2-offline",
+    "angularfire2-offline": "dancancro/angularfire2-offline",
     "animate.css": "3.5.2",
     "bootstrap": "4.0.0",
     "chart.js": "1.1.1",
