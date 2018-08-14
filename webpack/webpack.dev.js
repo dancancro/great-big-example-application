@@ -2,6 +2,9 @@ const webpack = require('webpack');
 const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const path = require('path');
 
@@ -10,7 +13,7 @@ const commonConfig = require('./webpack.common.js');
 
 const ENV = 'development';
 
-module.exports = webpackMerge(commonConfig({ env: ENV }), {
+module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'eval-source-map',
     devServer: {
         contentBase: './target/www',
@@ -25,7 +28,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 '/auth'
             ],
             target: 'http://127.0.0.1:8090',
-            secure: false
+            secure: false,
+            headers: { host: 'localhost:9000' }
         },{
             context: [
                 '/websocket'
@@ -33,6 +37,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             target: 'ws://127.0.0.1:8090',
             ws: true
         }],
+        stats: options.stats,
         watchOptions: {
             ignored: /node_modules/
         }
@@ -56,11 +61,31 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         },
         {
             test: /\.ts$/,
-            loaders: [
-                'angular2-template-loader',
-                'awesome-typescript-loader'
+            use: [
+                { loader: 'angular2-template-loader' },
+                {
+                    loader: 'cache-loader',
+                    options: {
+                      cacheDirectory: path.resolve('target/cache-loader')
+                    }
+                },
+                {
+                    loader: 'thread-loader',
+                    options: {
+                        // there should be 1 cpu for the fork-ts-checker-webpack-plugin
+                        workers: require('os').cpus().length - 1
+                    }
+                },
+                {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                        happyPackMode: true
+                    }
+                },
+                { loader: 'angular-router-loader' }
             ],
-            exclude: ['node_modules/generator-jhipster']
+            exclude: ['node_modules']
         },
         {
             test: /\.scss$/,
@@ -81,7 +106,13 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             loaders: ['style-loader', 'css-loader']
         }]
     },
+    stats: options.stats,
     plugins: [
+        new SimpleProgressWebpackPlugin({
+            format: options.stats === 'minimal' ? 'compact' : 'expanded'
+        }),
+        new FriendlyErrorsWebpackPlugin(),
+        new ForkTsCheckerWebpackPlugin(),
         new BrowserSyncPlugin({
             host: 'localhost',
             port: 9000,
@@ -92,8 +123,10 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         }, {
             reload: false
         }),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.NamedModulesPlugin(),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)/,
+            path.resolve(__dirname, './src/main/webapp')
+        ),
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
             utils.root('src/test'),
@@ -102,5 +135,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             title: 'JHipster',
             contentImage: path.join(__dirname, 'logo-jhipster.png')
         })
-    ]
+    ],
+    mode: 'development'
 });

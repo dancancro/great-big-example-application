@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -26,12 +28,16 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.sameInstant;
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -59,8 +65,14 @@ public class MessageResourceIntTest {
     @Autowired
     private MessageRepository messageRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.MessageSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private MessageSearchRepository messageSearchRepository;
+    private MessageSearchRepository mockMessageSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -81,7 +93,7 @@ public class MessageResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MessageResource messageResource = new MessageResource(messageRepository, messageSearchRepository);
+        final MessageResource messageResource = new MessageResource(messageRepository, mockMessageSearchRepository);
         this.restMessageMockMvc = MockMvcBuilders.standaloneSetup(messageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -106,7 +118,6 @@ public class MessageResourceIntTest {
 
     @Before
     public void initTest() {
-        messageSearchRepository.deleteAll();
         message = createEntity(em);
     }
 
@@ -131,10 +142,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
 
         // Validate the Message in Elasticsearch
-        Message messageEs = messageSearchRepository.findOne(testMessage.getId());
-        assertThat(testMessage.getCreatedAt()).isEqualTo(testMessage.getCreatedAt());
-        assertThat(testMessage.getUpdatedAt()).isEqualTo(testMessage.getUpdatedAt());
-        assertThat(messageEs).isEqualToIgnoringGivenFields(testMessage, "createdAt", "updatedAt");
+        verify(mockMessageSearchRepository, times(1)).save(testMessage);
     }
 
     @Test
@@ -154,6 +162,9 @@ public class MessageResourceIntTest {
         // Validate the Message in the database
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Message in Elasticsearch
+        verify(mockMessageSearchRepository, times(0)).save(message);
     }
 
     @Test
@@ -190,6 +201,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(sameInstant(DEFAULT_CREATED_AT))))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(sameInstant(DEFAULT_UPDATED_AT))));
     }
+    
 
     @Test
     @Transactional
@@ -207,7 +219,6 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.createdAt").value(sameInstant(DEFAULT_CREATED_AT)))
             .andExpect(jsonPath("$.updatedAt").value(sameInstant(DEFAULT_UPDATED_AT)));
     }
-
     @Test
     @Transactional
     public void getNonExistingMessage() throws Exception {
@@ -221,11 +232,11 @@ public class MessageResourceIntTest {
     public void updateMessage() throws Exception {
         // Initialize the database
         messageRepository.saveAndFlush(message);
-        messageSearchRepository.save(message);
+
         int databaseSizeBeforeUpdate = messageRepository.findAll().size();
 
         // Update the message
-        Message updatedMessage = messageRepository.findOne(message.getId());
+        Message updatedMessage = messageRepository.findById(message.getId()).get();
         // Disconnect from session so that the updates on updatedMessage are not directly saved in db
         em.detach(updatedMessage);
         updatedMessage
@@ -249,10 +260,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
 
         // Validate the Message in Elasticsearch
-        Message messageEs = messageSearchRepository.findOne(testMessage.getId());
-        assertThat(testMessage.getCreatedAt()).isEqualTo(testMessage.getCreatedAt());
-        assertThat(testMessage.getUpdatedAt()).isEqualTo(testMessage.getUpdatedAt());
-        assertThat(messageEs).isEqualToIgnoringGivenFields(testMessage, "createdAt", "updatedAt");
+        verify(mockMessageSearchRepository, times(1)).save(testMessage);
     }
 
     @Test
@@ -262,15 +270,18 @@ public class MessageResourceIntTest {
 
         // Create the Message
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restMessageMockMvc.perform(put("/api/messages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(message)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Message in the database
         List<Message> messageList = messageRepository.findAll();
-        assertThat(messageList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(messageList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Message in Elasticsearch
+        verify(mockMessageSearchRepository, times(0)).save(message);
     }
 
     @Test
@@ -278,7 +289,7 @@ public class MessageResourceIntTest {
     public void deleteMessage() throws Exception {
         // Initialize the database
         messageRepository.saveAndFlush(message);
-        messageSearchRepository.save(message);
+
         int databaseSizeBeforeDelete = messageRepository.findAll().size();
 
         // Get the message
@@ -286,13 +297,12 @@ public class MessageResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean messageExistsInEs = messageSearchRepository.exists(message.getId());
-        assertThat(messageExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Message in Elasticsearch
+        verify(mockMessageSearchRepository, times(1)).deleteById(message.getId());
     }
 
     @Test
@@ -300,8 +310,8 @@ public class MessageResourceIntTest {
     public void searchMessage() throws Exception {
         // Initialize the database
         messageRepository.saveAndFlush(message);
-        messageSearchRepository.save(message);
-
+        when(mockMessageSearchRepository.search(queryStringQuery("id:" + message.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(message), PageRequest.of(0, 1), 1));
         // Search the message
         restMessageMockMvc.perform(get("/api/_search/messages?query=id:" + message.getId()))
             .andExpect(status().isOk())

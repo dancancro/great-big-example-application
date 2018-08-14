@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import { Author } from './author.model';
+import { IAuthor } from 'app/shared/model/author.model';
+import { Principal } from 'app/core';
 import { AuthorService } from './author.service';
-import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-author',
     templateUrl: './author.component.html'
 })
 export class AuthorComponent implements OnInit, OnDestroy {
-authors: Author[];
+    authors: IAuthor[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
@@ -26,22 +26,26 @@ authors: Author[];
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
-        this.currentSearch = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ?
-            this.activatedRoute.snapshot.params['search'] : '';
+        this.currentSearch =
+            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
+                ? this.activatedRoute.snapshot.params['search']
+                : '';
     }
 
     loadAll() {
         if (this.currentSearch) {
-            this.authorService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: HttpResponse<Author[]>) => this.authors = res.body,
+            this.authorService
+                .search({
+                    query: this.currentSearch
+                })
+                .subscribe(
+                    (res: HttpResponse<IAuthor[]>) => (this.authors = res.body),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
-       }
+        }
         this.authorService.query().subscribe(
-            (res: HttpResponse<Author[]>) => {
+            (res: HttpResponse<IAuthor[]>) => {
                 this.authors = res.body;
                 this.currentSearch = '';
             },
@@ -61,9 +65,10 @@ authors: Author[];
         this.currentSearch = '';
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInAuthors();
@@ -73,7 +78,7 @@ authors: Author[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: Author) {
+    trackId(index: number, item: IAuthor) {
         return item.id;
     }
 
@@ -84,11 +89,12 @@ authors: Author[];
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
     registerChangeInAuthors() {
-        this.eventSubscriber = this.eventManager.subscribe('authorListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('authorListModification', response => this.loadAll());
     }
 
-    private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

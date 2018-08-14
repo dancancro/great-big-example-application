@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Message;
-
 import org.exampleapps.greatbig.repository.MessageRepository;
 import org.exampleapps.greatbig.repository.search.MessageSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -84,7 +83,7 @@ public class MessageResource {
     public ResponseEntity<Message> updateMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         log.debug("REST request to update Message : {}", message);
         if (message.getId() == null) {
-            return createMessage(message);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Message result = messageRepository.save(message);
         messageSearchRepository.save(result);
@@ -118,8 +117,8 @@ public class MessageResource {
     @Timed
     public ResponseEntity<Message> getMessage(@PathVariable Long id) {
         log.debug("REST request to get Message : {}", id);
-        Message message = messageRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(message));
+        Optional<Message> message = messageRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(message);
     }
 
     /**
@@ -132,8 +131,9 @@ public class MessageResource {
     @Timed
     public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {
         log.debug("REST request to delete Message : {}", id);
-        messageRepository.delete(id);
-        messageSearchRepository.delete(id);
+
+        messageRepository.deleteById(id);
+        messageSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

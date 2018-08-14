@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Message } from './message.model';
-import { MessagePopupService } from './message-popup.service';
+import { IMessage } from 'app/shared/model/message.model';
 import { MessageService } from './message.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { MessageService } from './message.service';
     templateUrl: './message-delete-dialog.component.html'
 })
 export class MessageDeleteDialogComponent {
+    message: IMessage;
 
-    message: Message;
-
-    constructor(
-        private messageService: MessageService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private messageService: MessageService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.messageService.delete(id).subscribe((response) => {
+        this.messageService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'messageListModification',
                 content: 'Deleted an message'
@@ -43,22 +36,30 @@ export class MessageDeleteDialogComponent {
     template: ''
 })
 export class MessageDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private messagePopupService: MessagePopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.messagePopupService
-                .open(MessageDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ message }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(MessageDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.message = message;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

@@ -1,10 +1,29 @@
-import { Routes } from '@angular/router';
-
-import { UserRouteAccessService } from '../../shared';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { UserRouteAccessService } from 'app/core';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Hero } from 'app/shared/model/hero.model';
+import { HeroService } from './hero.service';
 import { HeroComponent } from './hero.component';
 import { HeroDetailComponent } from './hero-detail.component';
-import { HeroPopupComponent } from './hero-dialog.component';
+import { HeroUpdateComponent } from './hero-update.component';
 import { HeroDeletePopupComponent } from './hero-delete-dialog.component';
+import { IHero } from 'app/shared/model/hero.model';
+
+@Injectable({ providedIn: 'root' })
+export class HeroResolve implements Resolve<IHero> {
+    constructor(private service: HeroService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const id = route.params['id'] ? route.params['id'] : null;
+        if (id) {
+            return this.service.find(id).pipe(map((hero: HttpResponse<Hero>) => hero.body));
+        }
+        return of(new Hero());
+    }
+}
 
 export const heroRoute: Routes = [
     {
@@ -15,9 +34,37 @@ export const heroRoute: Routes = [
             pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
-        path: 'hero/:id',
+    },
+    {
+        path: 'hero/:id/view',
         component: HeroDetailComponent,
+        resolve: {
+            hero: HeroResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'hero/new',
+        component: HeroUpdateComponent,
+        resolve: {
+            hero: HeroResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'hero/:id/edit',
+        component: HeroUpdateComponent,
+        resolve: {
+            hero: HeroResolve
+        },
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
@@ -28,28 +75,11 @@ export const heroRoute: Routes = [
 
 export const heroPopupRoute: Routes = [
     {
-        path: 'hero-new',
-        component: HeroPopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
-        path: 'hero/:id/edit',
-        component: HeroPopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'greatBigExampleApplicationApp.hero.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
         path: 'hero/:id/delete',
         component: HeroDeletePopupComponent,
+        resolve: {
+            hero: HeroResolve
+        },
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.hero.home.title'

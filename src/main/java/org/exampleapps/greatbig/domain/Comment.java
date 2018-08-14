@@ -1,5 +1,6 @@
 package org.exampleapps.greatbig.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,7 +28,7 @@ public class Comment implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
+    
     @Lob
     @Column(name = "jhi_body", nullable = false)
     private String body;
@@ -41,9 +42,11 @@ public class Comment implements Serializable {
     private ZonedDateTime updatedAt;
 
     @ManyToOne
+    @JsonIgnoreProperties("comments")
     private Article article;
 
     @ManyToOne
+    @JsonIgnoreProperties("comments")
     private Author author;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

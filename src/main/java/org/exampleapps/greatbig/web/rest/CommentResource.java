@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Comment;
-
 import org.exampleapps.greatbig.repository.CommentRepository;
 import org.exampleapps.greatbig.repository.search.CommentSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -84,7 +83,7 @@ public class CommentResource {
     public ResponseEntity<Comment> updateComment(@Valid @RequestBody Comment comment) throws URISyntaxException {
         log.debug("REST request to update Comment : {}", comment);
         if (comment.getId() == null) {
-            return createComment(comment);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Comment result = commentRepository.save(comment);
         commentSearchRepository.save(result);
@@ -118,8 +117,8 @@ public class CommentResource {
     @Timed
     public ResponseEntity<Comment> getComment(@PathVariable Long id) {
         log.debug("REST request to get Comment : {}", id);
-        Comment comment = commentRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(comment));
+        Optional<Comment> comment = commentRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(comment);
     }
 
     /**
@@ -132,8 +131,9 @@ public class CommentResource {
     @Timed
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         log.debug("REST request to delete Comment : {}", id);
-        commentRepository.delete(id);
-        commentSearchRepository.delete(id);
+
+        commentRepository.deleteById(id);
+        commentSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

@@ -34,7 +34,7 @@ public class Talk implements Serializable {
     @Column(name = "speaker", nullable = false)
     private String speaker;
 
-    @NotNull
+    
     @Lob
     @Column(name = "description", nullable = false)
     private String description;

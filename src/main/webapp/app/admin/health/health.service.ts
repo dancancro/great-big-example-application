@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
 
-@Injectable()
+import { SERVER_API_URL } from 'app/app.constants';
+
+@Injectable({ providedIn: 'root' })
 export class JhiHealthService {
-
     separator: string;
 
     constructor(private http: HttpClient) {
@@ -18,7 +18,7 @@ export class JhiHealthService {
 
     transformHealthData(data): any {
         const response = [];
-        this.flattenHealthData(response, null, data);
+        this.flattenHealthData(response, null, data.details);
         return response;
     }
 
@@ -94,7 +94,7 @@ export class JhiHealthService {
         let result;
         if (path && name) {
             result = path + this.separator + name;
-        }  else if (path) {
+        } else if (path) {
             result = path;
         } else if (name) {
             result = name;

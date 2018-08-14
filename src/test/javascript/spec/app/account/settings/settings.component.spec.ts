@@ -1,16 +1,14 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
-import { Principal, AccountService } from '../../../../../../main/webapp/app/shared';
-import { SettingsComponent } from '../../../../../../main/webapp/app/account/settings/settings.component';
-import { JhiTrackerService } from '../../../../../../main/webapp/app/shared/tracker/tracker.service';
+import { Principal, AccountService } from 'app/core';
+import { SettingsComponent } from 'app/account/settings/settings.component';
+import { JhiTrackerService } from 'app/core/tracker/tracker.service';
 import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
 describe('Component Tests', () => {
-
     describe('SettingsComponent', () => {
-
         let comp: SettingsComponent;
         let fixture: ComponentFixture<SettingsComponent>;
         let mockAuth: any;
@@ -24,11 +22,11 @@ describe('Component Tests', () => {
                     {
                         provide: JhiTrackerService,
                         useClass: MockTrackerService
-                    },
+                    }
                 ]
             })
-            .overrideTemplate(SettingsComponent, '')
-            .compileComponents();
+                .overrideTemplate(SettingsComponent, '')
+                .compileComponents();
         }));
 
         beforeEach(() => {
@@ -79,7 +77,7 @@ describe('Component Tests', () => {
 
         it('should notify of error upon failed save', () => {
             // GIVEN
-            mockAuth.saveSpy.and.returnValue(Observable.throw('ERROR'));
+            mockAuth.saveSpy.and.returnValue(throwError('ERROR'));
 
             // WHEN
             comp.save();

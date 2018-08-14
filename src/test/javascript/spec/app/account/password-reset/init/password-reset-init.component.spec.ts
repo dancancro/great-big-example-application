@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Renderer, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of, throwError } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../../test.module';
-import { PasswordResetInitComponent } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.component';
-import { PasswordResetInitService } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service';
-import { EMAIL_NOT_FOUND_TYPE } from '../../../../../../../main/webapp/app/shared';
+import { PasswordResetInitComponent } from 'app/account/password-reset/init/password-reset-init.component';
+import { PasswordResetInitService } from 'app/account/password-reset/init/password-reset-init.service';
+import { EMAIL_NOT_FOUND_TYPE } from 'app/shared';
 
 describe('Component Tests', () => {
-
     describe('PasswordResetInitComponent', () => {
         let fixture: ComponentFixture<PasswordResetInitComponent>;
         let comp: PasswordResetInitComponent;
@@ -18,7 +17,6 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [PasswordResetInitComponent],
                 providers: [
-                    PasswordResetInitService,
                     {
                         provide: Renderer,
                         useValue: {
@@ -31,8 +29,8 @@ describe('Component Tests', () => {
                     }
                 ]
             })
-            .overrideTemplate(PasswordResetInitComponent, '')
-            .createComponent(PasswordResetInitComponent);
+                .overrideTemplate(PasswordResetInitComponent, '')
+                .createComponent(PasswordResetInitComponent);
             comp = fixture.componentInstance;
             comp.ngOnInit();
         });
@@ -44,46 +42,43 @@ describe('Component Tests', () => {
             expect(comp.resetAccount).toEqual({});
         });
 
-        it('sets focus after the view has been initialized',
-            inject([ElementRef], (elementRef: ElementRef) => {
-                const element = fixture.nativeElement;
-                const node = {
-                    focus() {}
-                };
+        it('sets focus after the view has been initialized', inject([ElementRef], (elementRef: ElementRef) => {
+            const element = fixture.nativeElement;
+            const node = {
+                focus() {}
+            };
 
-                elementRef.nativeElement = element;
-                spyOn(element, 'querySelector').and.returnValue(node);
-                spyOn(node, 'focus');
+            elementRef.nativeElement = element;
+            spyOn(element, 'querySelector').and.returnValue(node);
+            spyOn(node, 'focus');
 
-                comp.ngAfterViewInit();
+            comp.ngAfterViewInit();
 
-                expect(element.querySelector).toHaveBeenCalledWith('#email');
-                expect(node.focus).toHaveBeenCalled();
-            })
-        );
+            expect(element.querySelector).toHaveBeenCalledWith('#email');
+            expect(node.focus).toHaveBeenCalled();
+        }));
 
-        it('notifies of success upon successful requestReset',
-            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
-                spyOn(service, 'save').and.returnValue(Observable.of({}));
-                comp.resetAccount.email = 'user@domain.com';
+        it('notifies of success upon successful requestReset', inject([PasswordResetInitService], (service: PasswordResetInitService) => {
+            spyOn(service, 'save').and.returnValue(of({}));
+            comp.resetAccount.email = 'user@domain.com';
 
-                comp.requestReset();
+            comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
-                expect(comp.success).toEqual('OK');
-                expect(comp.error).toBeNull();
-                expect(comp.errorEmailNotExists).toBeNull();
-            })
-        );
+            expect(service.save).toHaveBeenCalledWith('user@domain.com');
+            expect(comp.success).toEqual('OK');
+            expect(comp.error).toBeNull();
+            expect(comp.errorEmailNotExists).toBeNull();
+        }));
 
-        it('notifies of unknown email upon email address not registered/400',
-            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
-                spyOn(service, 'save').and.returnValue(Observable.throw({
-                    status: 400,
-                    json() {
-                        return {type : EMAIL_NOT_FOUND_TYPE};
-                    }
-                }));
+        it('notifies of unknown email upon email address not registered/400', inject(
+            [PasswordResetInitService],
+            (service: PasswordResetInitService) => {
+                spyOn(service, 'save').and.returnValue(
+                    throwError({
+                        status: 400,
+                        error: { type: EMAIL_NOT_FOUND_TYPE }
+                    })
+                );
                 comp.resetAccount.email = 'user@domain.com';
 
                 comp.requestReset();
@@ -92,25 +87,24 @@ describe('Component Tests', () => {
                 expect(comp.success).toBeNull();
                 expect(comp.error).toBeNull();
                 expect(comp.errorEmailNotExists).toEqual('ERROR');
-            })
-        );
+            }
+        ));
 
-        it('notifies of error upon error response',
-            inject([PasswordResetInitService], (service: PasswordResetInitService) => {
-                spyOn(service, 'save').and.returnValue(Observable.throw({
+        it('notifies of error upon error response', inject([PasswordResetInitService], (service: PasswordResetInitService) => {
+            spyOn(service, 'save').and.returnValue(
+                throwError({
                     status: 503,
                     data: 'something else'
-                }));
-                comp.resetAccount.email = 'user@domain.com';
+                })
+            );
+            comp.resetAccount.email = 'user@domain.com';
 
-                comp.requestReset();
+            comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
-                expect(comp.success).toBeNull();
-                expect(comp.errorEmailNotExists).toBeNull();
-                expect(comp.error).toEqual('ERROR');
-            })
-        );
-
+            expect(service.save).toHaveBeenCalledWith('user@domain.com');
+            expect(comp.success).toBeNull();
+            expect(comp.errorEmailNotExists).toBeNull();
+            expect(comp.error).toEqual('ERROR');
+        }));
     });
 });

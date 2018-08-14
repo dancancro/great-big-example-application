@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Article;
-
 import org.exampleapps.greatbig.repository.ArticleRepository;
 import org.exampleapps.greatbig.repository.search.ArticleSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -84,7 +83,7 @@ public class ArticleResource {
     public ResponseEntity<Article> updateArticle(@Valid @RequestBody Article article) throws URISyntaxException {
         log.debug("REST request to update Article : {}", article);
         if (article.getId() == null) {
-            return createArticle(article);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
@@ -97,14 +96,20 @@ public class ArticleResource {
      * GET  /articles : get all the articles.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of articles in body
      */
     @GetMapping("/articles")
     @Timed
-    public ResponseEntity<List<Article>> getAllArticles(Pageable pageable) {
+    public ResponseEntity<List<Article>> getAllArticles(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Articles");
-        Page<Article> page = articleRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles");
+        Page<Article> page;
+        if (eagerload) {
+            page = articleRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = articleRepository.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/articles?eagerload=%b", eagerload));
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -118,8 +123,8 @@ public class ArticleResource {
     @Timed
     public ResponseEntity<Article> getArticle(@PathVariable Long id) {
         log.debug("REST request to get Article : {}", id);
-        Article article = articleRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(article));
+        Optional<Article> article = articleRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(article);
     }
 
     /**
@@ -132,8 +137,9 @@ public class ArticleResource {
     @Timed
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         log.debug("REST request to delete Article : {}", id);
-        articleRepository.delete(id);
-        articleSearchRepository.delete(id);
+
+        articleRepository.deleteById(id);
+        articleSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

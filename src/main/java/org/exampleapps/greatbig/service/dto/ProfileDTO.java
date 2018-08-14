@@ -1,6 +1,5 @@
 package org.exampleapps.greatbig.service.dto;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
@@ -71,7 +70,7 @@ public class ProfileDTO implements Serializable {
         }
 
         ProfileDTO profileDTO = (ProfileDTO) o;
-        if(profileDTO.getId() == null || getId() == null) {
+        if (profileDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), profileDTO.getId());

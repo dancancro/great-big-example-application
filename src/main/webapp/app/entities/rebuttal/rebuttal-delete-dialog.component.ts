@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Rebuttal } from './rebuttal.model';
-import { RebuttalPopupService } from './rebuttal-popup.service';
+import { IRebuttal } from 'app/shared/model/rebuttal.model';
 import { RebuttalService } from './rebuttal.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { RebuttalService } from './rebuttal.service';
     templateUrl: './rebuttal-delete-dialog.component.html'
 })
 export class RebuttalDeleteDialogComponent {
+    rebuttal: IRebuttal;
 
-    rebuttal: Rebuttal;
-
-    constructor(
-        private rebuttalService: RebuttalService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private rebuttalService: RebuttalService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.rebuttalService.delete(id).subscribe((response) => {
+        this.rebuttalService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'rebuttalListModification',
                 content: 'Deleted an rebuttal'
@@ -43,22 +36,30 @@ export class RebuttalDeleteDialogComponent {
     template: ''
 })
 export class RebuttalDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private rebuttalPopupService: RebuttalPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.rebuttalPopupService
-                .open(RebuttalDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ rebuttal }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(RebuttalDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.rebuttal = rebuttal;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

@@ -50,6 +50,8 @@
         "form": {
             "username": "Benutzername",
             "username.placeholder": "Ihr Benutzername",
+            "currentpassword": "Current password",
+            "currentpassword.placeholder": "Current password",
             "newpassword": "Neues Passwort",
             "newpassword.placeholder": "Neues Passwort",
             "confirmpassword": "Neues Passwort bestätigen",
@@ -140,7 +142,8 @@
         "Size": "Feld {{fieldName}} erfüllt nicht die minimalen/maximalen Voraussetzungen!",
         "userexists": "Benutzername bereits vergeben!",
         "emailexists": "Email wird bereits verwendet!",
-        "idexists": "Ein neuer {{entityName}} kann noch keine ID haben"
+        "idexists": "Ein neuer {{entityName}} kann noch keine ID haben",
+        "idnull": "Invalid ID"
     },
     "footer": "Dies ist Ihre Fußzeile"
 }

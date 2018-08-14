@@ -10,9 +10,12 @@ import org.exampleapps.greatbig.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,11 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,9 +53,16 @@ public class AuthorResourceIntTest {
 
     @Autowired
     private AuthorRepository authorRepository;
+    @Mock
+    private AuthorRepository authorRepositoryMock;
 
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.AuthorSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private AuthorSearchRepository authorSearchRepository;
+    private AuthorSearchRepository mockAuthorSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -68,7 +83,7 @@ public class AuthorResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AuthorResource authorResource = new AuthorResource(authorRepository, authorSearchRepository);
+        final AuthorResource authorResource = new AuthorResource(authorRepository, mockAuthorSearchRepository);
         this.restAuthorMockMvc = MockMvcBuilders.standaloneSetup(authorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -90,7 +105,6 @@ public class AuthorResourceIntTest {
 
     @Before
     public void initTest() {
-        authorSearchRepository.deleteAll();
         author = createEntity(em);
     }
 
@@ -112,8 +126,7 @@ public class AuthorResourceIntTest {
         assertThat(testAuthor.getBio()).isEqualTo(DEFAULT_BIO);
 
         // Validate the Author in Elasticsearch
-        Author authorEs = authorSearchRepository.findOne(testAuthor.getId());
-        assertThat(authorEs).isEqualToIgnoringGivenFields(testAuthor);
+        verify(mockAuthorSearchRepository, times(1)).save(testAuthor);
     }
 
     @Test
@@ -133,6 +146,9 @@ public class AuthorResourceIntTest {
         // Validate the Author in the database
         List<Author> authorList = authorRepository.findAll();
         assertThat(authorList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Author in Elasticsearch
+        verify(mockAuthorSearchRepository, times(0)).save(author);
     }
 
     @Test
@@ -148,6 +164,37 @@ public class AuthorResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(author.getId().intValue())))
             .andExpect(jsonPath("$.[*].bio").value(hasItem(DEFAULT_BIO.toString())));
     }
+    
+    public void getAllAuthorsWithEagerRelationshipsIsEnabled() throws Exception {
+        AuthorResource authorResource = new AuthorResource(authorRepositoryMock, mockAuthorSearchRepository);
+        when(authorRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restAuthorMockMvc = MockMvcBuilders.standaloneSetup(authorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restAuthorMockMvc.perform(get("/api/authors?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(authorRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllAuthorsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        AuthorResource authorResource = new AuthorResource(authorRepositoryMock, mockAuthorSearchRepository);
+            when(authorRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restAuthorMockMvc = MockMvcBuilders.standaloneSetup(authorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restAuthorMockMvc.perform(get("/api/authors?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(authorRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional
@@ -162,7 +209,6 @@ public class AuthorResourceIntTest {
             .andExpect(jsonPath("$.id").value(author.getId().intValue()))
             .andExpect(jsonPath("$.bio").value(DEFAULT_BIO.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingAuthor() throws Exception {
@@ -176,11 +222,11 @@ public class AuthorResourceIntTest {
     public void updateAuthor() throws Exception {
         // Initialize the database
         authorRepository.saveAndFlush(author);
-        authorSearchRepository.save(author);
+
         int databaseSizeBeforeUpdate = authorRepository.findAll().size();
 
         // Update the author
-        Author updatedAuthor = authorRepository.findOne(author.getId());
+        Author updatedAuthor = authorRepository.findById(author.getId()).get();
         // Disconnect from session so that the updates on updatedAuthor are not directly saved in db
         em.detach(updatedAuthor);
         updatedAuthor
@@ -198,8 +244,7 @@ public class AuthorResourceIntTest {
         assertThat(testAuthor.getBio()).isEqualTo(UPDATED_BIO);
 
         // Validate the Author in Elasticsearch
-        Author authorEs = authorSearchRepository.findOne(testAuthor.getId());
-        assertThat(authorEs).isEqualToIgnoringGivenFields(testAuthor);
+        verify(mockAuthorSearchRepository, times(1)).save(testAuthor);
     }
 
     @Test
@@ -209,15 +254,18 @@ public class AuthorResourceIntTest {
 
         // Create the Author
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restAuthorMockMvc.perform(put("/api/authors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(author)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Author in the database
         List<Author> authorList = authorRepository.findAll();
-        assertThat(authorList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(authorList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Author in Elasticsearch
+        verify(mockAuthorSearchRepository, times(0)).save(author);
     }
 
     @Test
@@ -225,7 +273,7 @@ public class AuthorResourceIntTest {
     public void deleteAuthor() throws Exception {
         // Initialize the database
         authorRepository.saveAndFlush(author);
-        authorSearchRepository.save(author);
+
         int databaseSizeBeforeDelete = authorRepository.findAll().size();
 
         // Get the author
@@ -233,13 +281,12 @@ public class AuthorResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean authorExistsInEs = authorSearchRepository.exists(author.getId());
-        assertThat(authorExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Author> authorList = authorRepository.findAll();
         assertThat(authorList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Author in Elasticsearch
+        verify(mockAuthorSearchRepository, times(1)).deleteById(author.getId());
     }
 
     @Test
@@ -247,8 +294,8 @@ public class AuthorResourceIntTest {
     public void searchAuthor() throws Exception {
         // Initialize the database
         authorRepository.saveAndFlush(author);
-        authorSearchRepository.save(author);
-
+        when(mockAuthorSearchRepository.search(queryStringQuery("id:" + author.getId())))
+            .thenReturn(Collections.singletonList(author));
         // Search the author
         restAuthorMockMvc.perform(get("/api/_search/authors?query=id:" + author.getId()))
             .andExpect(status().isOk())

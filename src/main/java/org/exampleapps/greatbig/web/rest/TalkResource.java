@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Talk;
-
 import org.exampleapps.greatbig.repository.TalkRepository;
 import org.exampleapps.greatbig.repository.search.TalkSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -84,7 +83,7 @@ public class TalkResource {
     public ResponseEntity<Talk> updateTalk(@Valid @RequestBody Talk talk) throws URISyntaxException {
         log.debug("REST request to update Talk : {}", talk);
         if (talk.getId() == null) {
-            return createTalk(talk);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Talk result = talkRepository.save(talk);
         talkSearchRepository.save(result);
@@ -118,8 +117,8 @@ public class TalkResource {
     @Timed
     public ResponseEntity<Talk> getTalk(@PathVariable Long id) {
         log.debug("REST request to get Talk : {}", id);
-        Talk talk = talkRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(talk));
+        Optional<Talk> talk = talkRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(talk);
     }
 
     /**
@@ -132,8 +131,9 @@ public class TalkResource {
     @Timed
     public ResponseEntity<Void> deleteTalk(@PathVariable Long id) {
         log.debug("REST request to delete Talk : {}", id);
-        talkRepository.delete(id);
-        talkSearchRepository.delete(id);
+
+        talkRepository.deleteById(id);
+        talkSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

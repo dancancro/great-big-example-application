@@ -29,11 +29,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="created_at" type="timestamp">
+            <column name="created_at" type="datetime">
                 <constraints nullable="true" />
             </column>
 
-            <column name="updated_at" type="timestamp">
+            <column name="updated_at" type="datetime">
                 <constraints nullable="true" />
             </column>
 

@@ -1,48 +1,33 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    ClaimRebuttalService,
-    ClaimRebuttalPopupService,
     ClaimRebuttalComponent,
     ClaimRebuttalDetailComponent,
-    ClaimRebuttalDialogComponent,
-    ClaimRebuttalPopupComponent,
+    ClaimRebuttalUpdateComponent,
     ClaimRebuttalDeletePopupComponent,
     ClaimRebuttalDeleteDialogComponent,
     claimRebuttalRoute,
-    claimRebuttalPopupRoute,
+    claimRebuttalPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...claimRebuttalRoute,
-    ...claimRebuttalPopupRoute,
-];
+const ENTITY_STATES = [...claimRebuttalRoute, ...claimRebuttalPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ClaimRebuttalComponent,
         ClaimRebuttalDetailComponent,
-        ClaimRebuttalDialogComponent,
+        ClaimRebuttalUpdateComponent,
         ClaimRebuttalDeleteDialogComponent,
-        ClaimRebuttalPopupComponent,
-        ClaimRebuttalDeletePopupComponent,
+        ClaimRebuttalDeletePopupComponent
     ],
     entryComponents: [
         ClaimRebuttalComponent,
-        ClaimRebuttalDialogComponent,
-        ClaimRebuttalPopupComponent,
+        ClaimRebuttalUpdateComponent,
         ClaimRebuttalDeleteDialogComponent,
-        ClaimRebuttalDeletePopupComponent,
-    ],
-    providers: [
-        ClaimRebuttalService,
-        ClaimRebuttalPopupService,
+        ClaimRebuttalDeletePopupComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

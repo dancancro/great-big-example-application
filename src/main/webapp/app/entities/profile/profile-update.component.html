@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-profile-heading" jhiTranslate="greatBigExampleApplicationApp.profile.home.createOrEditLabel">Create or edit a Profile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!profile.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="profile.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.profile.username" for="field_username">Username</label>
+                    <input type="text" class="form-control" name="username" id="field_username"
+                        [(ngModel)]="profile.username" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.profile.bio" for="field_bio">Bio</label>
+                    <textarea class="form-control" name="bio" id="field_bio"
+                        [(ngModel)]="profile.bio" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.profile.image" for="field_image">Image</label>
+                    <input type="text" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="profile.image" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.profile.following" for="field_following">Following</label>
+                    <input type="checkbox" class="form-control" name="following" id="field_following"
+                        [(ngModel)]="profile.following" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

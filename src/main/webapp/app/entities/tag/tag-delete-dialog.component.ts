@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Tag } from './tag.model';
-import { TagPopupService } from './tag-popup.service';
+import { ITag } from 'app/shared/model/tag.model';
 import { TagService } from './tag.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { TagService } from './tag.service';
     templateUrl: './tag-delete-dialog.component.html'
 })
 export class TagDeleteDialogComponent {
+    tag: ITag;
 
-    tag: Tag;
-
-    constructor(
-        private tagService: TagService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private tagService: TagService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.tagService.delete(id).subscribe((response) => {
+        this.tagService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'tagListModification',
                 content: 'Deleted an tag'
@@ -43,22 +36,30 @@ export class TagDeleteDialogComponent {
     template: ''
 })
 export class TagDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private tagPopupService: TagPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.tagPopupService
-                .open(TagDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ tag }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(TagDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.tag = tag;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

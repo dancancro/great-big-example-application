@@ -10,9 +10,12 @@ import org.exampleapps.greatbig.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,12 +30,17 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.sameInstant;
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,9 +73,16 @@ public class ArticleResourceIntTest {
 
     @Autowired
     private ArticleRepository articleRepository;
+    @Mock
+    private ArticleRepository articleRepositoryMock;
 
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.ArticleSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private ArticleSearchRepository articleSearchRepository;
+    private ArticleSearchRepository mockArticleSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -88,7 +103,7 @@ public class ArticleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ArticleResource articleResource = new ArticleResource(articleRepository, articleSearchRepository);
+        final ArticleResource articleResource = new ArticleResource(articleRepository, mockArticleSearchRepository);
         this.restArticleMockMvc = MockMvcBuilders.standaloneSetup(articleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -115,7 +130,6 @@ public class ArticleResourceIntTest {
 
     @Before
     public void initTest() {
-        articleSearchRepository.deleteAll();
         article = createEntity(em);
     }
 
@@ -142,10 +156,7 @@ public class ArticleResourceIntTest {
         assertThat(testArticle.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
 
         // Validate the Article in Elasticsearch
-        Article articleEs = articleSearchRepository.findOne(testArticle.getId());
-        assertThat(testArticle.getCreatedAt()).isEqualTo(testArticle.getCreatedAt());
-        assertThat(testArticle.getUpdatedAt()).isEqualTo(testArticle.getUpdatedAt());
-        assertThat(articleEs).isEqualToIgnoringGivenFields(testArticle, "createdAt", "updatedAt");
+        verify(mockArticleSearchRepository, times(1)).save(testArticle);
     }
 
     @Test
@@ -165,6 +176,9 @@ public class ArticleResourceIntTest {
         // Validate the Article in the database
         List<Article> articleList = articleRepository.findAll();
         assertThat(articleList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Article in Elasticsearch
+        verify(mockArticleSearchRepository, times(0)).save(article);
     }
 
     @Test
@@ -209,24 +223,6 @@ public class ArticleResourceIntTest {
         int databaseSizeBeforeTest = articleRepository.findAll().size();
         // set the field null
         article.setDescription(null);
-
-        // Create the Article, which fails.
-
-        restArticleMockMvc.perform(post("/api/articles")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(article)))
-            .andExpect(status().isBadRequest());
-
-        List<Article> articleList = articleRepository.findAll();
-        assertThat(articleList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkBodyIsRequired() throws Exception {
-        int databaseSizeBeforeTest = articleRepository.findAll().size();
-        // set the field null
-        article.setBody(null);
 
         // Create the Article, which fails.
 
@@ -293,6 +289,37 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(sameInstant(DEFAULT_CREATED_AT))))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(sameInstant(DEFAULT_UPDATED_AT))));
     }
+    
+    public void getAllArticlesWithEagerRelationshipsIsEnabled() throws Exception {
+        ArticleResource articleResource = new ArticleResource(articleRepositoryMock, mockArticleSearchRepository);
+        when(articleRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restArticleMockMvc = MockMvcBuilders.standaloneSetup(articleResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restArticleMockMvc.perform(get("/api/articles?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(articleRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllArticlesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ArticleResource articleResource = new ArticleResource(articleRepositoryMock, mockArticleSearchRepository);
+            when(articleRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restArticleMockMvc = MockMvcBuilders.standaloneSetup(articleResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restArticleMockMvc.perform(get("/api/articles?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(articleRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional
@@ -312,7 +339,6 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.createdAt").value(sameInstant(DEFAULT_CREATED_AT)))
             .andExpect(jsonPath("$.updatedAt").value(sameInstant(DEFAULT_UPDATED_AT)));
     }
-
     @Test
     @Transactional
     public void getNonExistingArticle() throws Exception {
@@ -326,11 +352,11 @@ public class ArticleResourceIntTest {
     public void updateArticle() throws Exception {
         // Initialize the database
         articleRepository.saveAndFlush(article);
-        articleSearchRepository.save(article);
+
         int databaseSizeBeforeUpdate = articleRepository.findAll().size();
 
         // Update the article
-        Article updatedArticle = articleRepository.findOne(article.getId());
+        Article updatedArticle = articleRepository.findById(article.getId()).get();
         // Disconnect from session so that the updates on updatedArticle are not directly saved in db
         em.detach(updatedArticle);
         updatedArticle
@@ -358,10 +384,7 @@ public class ArticleResourceIntTest {
         assertThat(testArticle.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
 
         // Validate the Article in Elasticsearch
-        Article articleEs = articleSearchRepository.findOne(testArticle.getId());
-        assertThat(testArticle.getCreatedAt()).isEqualTo(testArticle.getCreatedAt());
-        assertThat(testArticle.getUpdatedAt()).isEqualTo(testArticle.getUpdatedAt());
-        assertThat(articleEs).isEqualToIgnoringGivenFields(testArticle, "createdAt", "updatedAt");
+        verify(mockArticleSearchRepository, times(1)).save(testArticle);
     }
 
     @Test
@@ -371,15 +394,18 @@ public class ArticleResourceIntTest {
 
         // Create the Article
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restArticleMockMvc.perform(put("/api/articles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(article)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Article in the database
         List<Article> articleList = articleRepository.findAll();
-        assertThat(articleList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(articleList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Article in Elasticsearch
+        verify(mockArticleSearchRepository, times(0)).save(article);
     }
 
     @Test
@@ -387,7 +413,7 @@ public class ArticleResourceIntTest {
     public void deleteArticle() throws Exception {
         // Initialize the database
         articleRepository.saveAndFlush(article);
-        articleSearchRepository.save(article);
+
         int databaseSizeBeforeDelete = articleRepository.findAll().size();
 
         // Get the article
@@ -395,13 +421,12 @@ public class ArticleResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean articleExistsInEs = articleSearchRepository.exists(article.getId());
-        assertThat(articleExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Article> articleList = articleRepository.findAll();
         assertThat(articleList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Article in Elasticsearch
+        verify(mockArticleSearchRepository, times(1)).deleteById(article.getId());
     }
 
     @Test
@@ -409,8 +434,8 @@ public class ArticleResourceIntTest {
     public void searchArticle() throws Exception {
         // Initialize the database
         articleRepository.saveAndFlush(article);
-        articleSearchRepository.save(article);
-
+        when(mockArticleSearchRepository.search(queryStringQuery("id:" + article.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(article), PageRequest.of(0, 1), 1));
         // Search the article
         restArticleMockMvc.perform(get("/api/_search/articles?query=id:" + article.getId()))
             .andExpect(status().isOk())

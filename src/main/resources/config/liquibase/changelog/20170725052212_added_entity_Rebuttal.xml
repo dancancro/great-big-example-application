@@ -29,11 +29,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_date" type="timestamp">
+            <column name="jhi_date" type="datetime">
                 <constraints nullable="true" />
             </column>
 
-            <column name="expires" type="timestamp">
+            <column name="expires" type="datetime">
                 <constraints nullable="true" />
             </column>
 

@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,12 +29,16 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.sameInstant;
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -57,8 +63,14 @@ public class CommentResourceIntTest {
     @Autowired
     private CommentRepository commentRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.CommentSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private CommentSearchRepository commentSearchRepository;
+    private CommentSearchRepository mockCommentSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -79,7 +91,7 @@ public class CommentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CommentResource commentResource = new CommentResource(commentRepository, commentSearchRepository);
+        final CommentResource commentResource = new CommentResource(commentRepository, mockCommentSearchRepository);
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -103,7 +115,6 @@ public class CommentResourceIntTest {
 
     @Before
     public void initTest() {
-        commentSearchRepository.deleteAll();
         comment = createEntity(em);
     }
 
@@ -127,10 +138,7 @@ public class CommentResourceIntTest {
         assertThat(testComment.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
 
         // Validate the Comment in Elasticsearch
-        Comment commentEs = commentSearchRepository.findOne(testComment.getId());
-        assertThat(testComment.getCreatedAt()).isEqualTo(testComment.getCreatedAt());
-        assertThat(testComment.getUpdatedAt()).isEqualTo(testComment.getUpdatedAt());
-        assertThat(commentEs).isEqualToIgnoringGivenFields(testComment, "createdAt", "updatedAt");
+        verify(mockCommentSearchRepository, times(1)).save(testComment);
     }
 
     @Test
@@ -150,24 +158,9 @@ public class CommentResourceIntTest {
         // Validate the Comment in the database
         List<Comment> commentList = commentRepository.findAll();
         assertThat(commentList).hasSize(databaseSizeBeforeCreate);
-    }
 
-    @Test
-    @Transactional
-    public void checkBodyIsRequired() throws Exception {
-        int databaseSizeBeforeTest = commentRepository.findAll().size();
-        // set the field null
-        comment.setBody(null);
-
-        // Create the Comment, which fails.
-
-        restCommentMockMvc.perform(post("/api/comments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
-            .andExpect(status().isBadRequest());
-
-        List<Comment> commentList = commentRepository.findAll();
-        assertThat(commentList).hasSize(databaseSizeBeforeTest);
+        // Validate the Comment in Elasticsearch
+        verify(mockCommentSearchRepository, times(0)).save(comment);
     }
 
     @Test
@@ -221,6 +214,7 @@ public class CommentResourceIntTest {
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(sameInstant(DEFAULT_CREATED_AT))))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(sameInstant(DEFAULT_UPDATED_AT))));
     }
+    
 
     @Test
     @Transactional
@@ -237,7 +231,6 @@ public class CommentResourceIntTest {
             .andExpect(jsonPath("$.createdAt").value(sameInstant(DEFAULT_CREATED_AT)))
             .andExpect(jsonPath("$.updatedAt").value(sameInstant(DEFAULT_UPDATED_AT)));
     }
-
     @Test
     @Transactional
     public void getNonExistingComment() throws Exception {
@@ -251,11 +244,11 @@ public class CommentResourceIntTest {
     public void updateComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
-        commentSearchRepository.save(comment);
+
         int databaseSizeBeforeUpdate = commentRepository.findAll().size();
 
         // Update the comment
-        Comment updatedComment = commentRepository.findOne(comment.getId());
+        Comment updatedComment = commentRepository.findById(comment.getId()).get();
         // Disconnect from session so that the updates on updatedComment are not directly saved in db
         em.detach(updatedComment);
         updatedComment
@@ -277,10 +270,7 @@ public class CommentResourceIntTest {
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
 
         // Validate the Comment in Elasticsearch
-        Comment commentEs = commentSearchRepository.findOne(testComment.getId());
-        assertThat(testComment.getCreatedAt()).isEqualTo(testComment.getCreatedAt());
-        assertThat(testComment.getUpdatedAt()).isEqualTo(testComment.getUpdatedAt());
-        assertThat(commentEs).isEqualToIgnoringGivenFields(testComment, "createdAt", "updatedAt");
+        verify(mockCommentSearchRepository, times(1)).save(testComment);
     }
 
     @Test
@@ -290,15 +280,18 @@ public class CommentResourceIntTest {
 
         // Create the Comment
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restCommentMockMvc.perform(put("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(comment)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Comment in the database
         List<Comment> commentList = commentRepository.findAll();
-        assertThat(commentList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Comment in Elasticsearch
+        verify(mockCommentSearchRepository, times(0)).save(comment);
     }
 
     @Test
@@ -306,7 +299,7 @@ public class CommentResourceIntTest {
     public void deleteComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
-        commentSearchRepository.save(comment);
+
         int databaseSizeBeforeDelete = commentRepository.findAll().size();
 
         // Get the comment
@@ -314,13 +307,12 @@ public class CommentResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean commentExistsInEs = commentSearchRepository.exists(comment.getId());
-        assertThat(commentExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Comment> commentList = commentRepository.findAll();
         assertThat(commentList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Comment in Elasticsearch
+        verify(mockCommentSearchRepository, times(1)).deleteById(comment.getId());
     }
 
     @Test
@@ -328,8 +320,8 @@ public class CommentResourceIntTest {
     public void searchComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
-        commentSearchRepository.save(comment);
-
+        when(mockCommentSearchRepository.search(queryStringQuery("id:" + comment.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(comment), PageRequest.of(0, 1), 1));
         // Search the comment
         restCommentMockMvc.perform(get("/api/_search/comments?query=id:" + comment.getId()))
             .andExpect(status().isOk())

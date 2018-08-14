@@ -1,54 +1,40 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
-import { ClaimDetailComponent } from '../../../../../../main/webapp/app/entities/claim/claim-detail.component';
-import { ClaimService } from '../../../../../../main/webapp/app/entities/claim/claim.service';
-import { Claim } from '../../../../../../main/webapp/app/entities/claim/claim.model';
+import { ClaimDetailComponent } from 'app/entities/claim/claim-detail.component';
+import { Claim } from 'app/shared/model/claim.model';
 
 describe('Component Tests', () => {
-
     describe('Claim Management Detail Component', () => {
         let comp: ClaimDetailComponent;
         let fixture: ComponentFixture<ClaimDetailComponent>;
-        let service: ClaimService;
+        const route = ({ data: of({ claim: new Claim(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [ClaimDetailComponent],
-                providers: [
-                    ClaimService
-                ]
+                providers: [{ provide: ActivatedRoute, useValue: route }]
             })
-            .overrideTemplate(ClaimDetailComponent, '')
-            .compileComponents();
-        }));
-
-        beforeEach(() => {
+                .overrideTemplate(ClaimDetailComponent, '')
+                .compileComponents();
             fixture = TestBed.createComponent(ClaimDetailComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(ClaimService);
         });
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
-                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
-                    body: new Claim(123)
-                })));
-
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
-                expect(service.find).toHaveBeenCalledWith(123);
-                expect(comp.claim).toEqual(jasmine.objectContaining({id: 123}));
+                expect(comp.claim).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });
-
 });

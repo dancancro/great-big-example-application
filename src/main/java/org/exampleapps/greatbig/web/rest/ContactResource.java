@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Contact;
-
 import org.exampleapps.greatbig.repository.ContactRepository;
 import org.exampleapps.greatbig.repository.search.ContactSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -79,7 +78,7 @@ public class ContactResource {
     public ResponseEntity<Contact> updateContact(@Valid @RequestBody Contact contact) throws URISyntaxException {
         log.debug("REST request to update Contact : {}", contact);
         if (contact.getId() == null) {
-            return createContact(contact);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Contact result = contactRepository.save(contact);
         contactSearchRepository.save(result);
@@ -98,7 +97,7 @@ public class ContactResource {
     public List<Contact> getAllContacts() {
         log.debug("REST request to get all Contacts");
         return contactRepository.findAll();
-        }
+    }
 
     /**
      * GET  /contacts/:id : get the "id" contact.
@@ -110,8 +109,8 @@ public class ContactResource {
     @Timed
     public ResponseEntity<Contact> getContact(@PathVariable Long id) {
         log.debug("REST request to get Contact : {}", id);
-        Contact contact = contactRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(contact));
+        Optional<Contact> contact = contactRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(contact);
     }
 
     /**
@@ -124,8 +123,9 @@ public class ContactResource {
     @Timed
     public ResponseEntity<Void> deleteContact(@PathVariable Long id) {
         log.debug("REST request to delete Contact : {}", id);
-        contactRepository.delete(id);
-        contactSearchRepository.delete(id);
+
+        contactRepository.deleteById(id);
+        contactSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

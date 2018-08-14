@@ -25,11 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -57,11 +61,17 @@ public class ProfileResourceIntTest {
     @Autowired
     private ProfileRepository profileRepository;
 
+
     @Autowired
     private ProfileMapper profileMapper;
 
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.ProfileSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private ProfileSearchRepository profileSearchRepository;
+    private ProfileSearchRepository mockProfileSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -82,7 +92,7 @@ public class ProfileResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProfileResource profileResource = new ProfileResource(profileRepository, profileMapper, profileSearchRepository);
+        final ProfileResource profileResource = new ProfileResource(profileRepository, profileMapper, mockProfileSearchRepository);
         this.restProfileMockMvc = MockMvcBuilders.standaloneSetup(profileResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -107,7 +117,6 @@ public class ProfileResourceIntTest {
 
     @Before
     public void initTest() {
-        profileSearchRepository.deleteAll();
         profile = createEntity(em);
     }
 
@@ -133,8 +142,7 @@ public class ProfileResourceIntTest {
         assertThat(testProfile.isFollowing()).isEqualTo(DEFAULT_FOLLOWING);
 
         // Validate the Profile in Elasticsearch
-        Profile profileEs = profileSearchRepository.findOne(testProfile.getId());
-        assertThat(profileEs).isEqualToIgnoringGivenFields(testProfile);
+        verify(mockProfileSearchRepository, times(1)).save(testProfile);
     }
 
     @Test
@@ -155,6 +163,9 @@ public class ProfileResourceIntTest {
         // Validate the Profile in the database
         List<Profile> profileList = profileRepository.findAll();
         assertThat(profileList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Profile in Elasticsearch
+        verify(mockProfileSearchRepository, times(0)).save(profile);
     }
 
     @Test
@@ -173,6 +184,7 @@ public class ProfileResourceIntTest {
             .andExpect(jsonPath("$.[*].image").value(hasItem(DEFAULT_IMAGE.toString())))
             .andExpect(jsonPath("$.[*].following").value(hasItem(DEFAULT_FOLLOWING.booleanValue())));
     }
+    
 
     @Test
     @Transactional
@@ -190,7 +202,6 @@ public class ProfileResourceIntTest {
             .andExpect(jsonPath("$.image").value(DEFAULT_IMAGE.toString()))
             .andExpect(jsonPath("$.following").value(DEFAULT_FOLLOWING.booleanValue()));
     }
-
     @Test
     @Transactional
     public void getNonExistingProfile() throws Exception {
@@ -204,11 +215,11 @@ public class ProfileResourceIntTest {
     public void updateProfile() throws Exception {
         // Initialize the database
         profileRepository.saveAndFlush(profile);
-        profileSearchRepository.save(profile);
+
         int databaseSizeBeforeUpdate = profileRepository.findAll().size();
 
         // Update the profile
-        Profile updatedProfile = profileRepository.findOne(profile.getId());
+        Profile updatedProfile = profileRepository.findById(profile.getId()).get();
         // Disconnect from session so that the updates on updatedProfile are not directly saved in db
         em.detach(updatedProfile);
         updatedProfile
@@ -233,8 +244,7 @@ public class ProfileResourceIntTest {
         assertThat(testProfile.isFollowing()).isEqualTo(UPDATED_FOLLOWING);
 
         // Validate the Profile in Elasticsearch
-        Profile profileEs = profileSearchRepository.findOne(testProfile.getId());
-        assertThat(profileEs).isEqualToIgnoringGivenFields(testProfile);
+        verify(mockProfileSearchRepository, times(1)).save(testProfile);
     }
 
     @Test
@@ -245,15 +255,18 @@ public class ProfileResourceIntTest {
         // Create the Profile
         ProfileDTO profileDTO = profileMapper.toDto(profile);
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restProfileMockMvc.perform(put("/api/profiles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(profileDTO)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Profile in the database
         List<Profile> profileList = profileRepository.findAll();
-        assertThat(profileList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(profileList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Profile in Elasticsearch
+        verify(mockProfileSearchRepository, times(0)).save(profile);
     }
 
     @Test
@@ -261,7 +274,7 @@ public class ProfileResourceIntTest {
     public void deleteProfile() throws Exception {
         // Initialize the database
         profileRepository.saveAndFlush(profile);
-        profileSearchRepository.save(profile);
+
         int databaseSizeBeforeDelete = profileRepository.findAll().size();
 
         // Get the profile
@@ -269,13 +282,12 @@ public class ProfileResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean profileExistsInEs = profileSearchRepository.exists(profile.getId());
-        assertThat(profileExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Profile> profileList = profileRepository.findAll();
         assertThat(profileList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Profile in Elasticsearch
+        verify(mockProfileSearchRepository, times(1)).deleteById(profile.getId());
     }
 
     @Test
@@ -283,8 +295,8 @@ public class ProfileResourceIntTest {
     public void searchProfile() throws Exception {
         // Initialize the database
         profileRepository.saveAndFlush(profile);
-        profileSearchRepository.save(profile);
-
+        when(mockProfileSearchRepository.search(queryStringQuery("id:" + profile.getId())))
+            .thenReturn(Collections.singletonList(profile));
         // Search the profile
         restProfileMockMvc.perform(get("/api/_search/profiles?query=id:" + profile.getId()))
             .andExpect(status().isOk())

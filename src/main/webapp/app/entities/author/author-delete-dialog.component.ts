@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Author } from './author.model';
-import { AuthorPopupService } from './author-popup.service';
+import { IAuthor } from 'app/shared/model/author.model';
 import { AuthorService } from './author.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { AuthorService } from './author.service';
     templateUrl: './author-delete-dialog.component.html'
 })
 export class AuthorDeleteDialogComponent {
+    author: IAuthor;
 
-    author: Author;
-
-    constructor(
-        private authorService: AuthorService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private authorService: AuthorService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.authorService.delete(id).subscribe((response) => {
+        this.authorService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'authorListModification',
                 content: 'Deleted an author'
@@ -43,22 +36,30 @@ export class AuthorDeleteDialogComponent {
     template: ''
 })
 export class AuthorDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private authorPopupService: AuthorPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.authorPopupService
-                .open(AuthorDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ author }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(AuthorDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.author = author;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

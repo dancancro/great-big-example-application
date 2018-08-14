@@ -1,54 +1,40 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
-import { RebuttalDetailComponent } from '../../../../../../main/webapp/app/entities/rebuttal/rebuttal-detail.component';
-import { RebuttalService } from '../../../../../../main/webapp/app/entities/rebuttal/rebuttal.service';
-import { Rebuttal } from '../../../../../../main/webapp/app/entities/rebuttal/rebuttal.model';
+import { RebuttalDetailComponent } from 'app/entities/rebuttal/rebuttal-detail.component';
+import { Rebuttal } from 'app/shared/model/rebuttal.model';
 
 describe('Component Tests', () => {
-
     describe('Rebuttal Management Detail Component', () => {
         let comp: RebuttalDetailComponent;
         let fixture: ComponentFixture<RebuttalDetailComponent>;
-        let service: RebuttalService;
+        const route = ({ data: of({ rebuttal: new Rebuttal(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [RebuttalDetailComponent],
-                providers: [
-                    RebuttalService
-                ]
+                providers: [{ provide: ActivatedRoute, useValue: route }]
             })
-            .overrideTemplate(RebuttalDetailComponent, '')
-            .compileComponents();
-        }));
-
-        beforeEach(() => {
+                .overrideTemplate(RebuttalDetailComponent, '')
+                .compileComponents();
             fixture = TestBed.createComponent(RebuttalDetailComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(RebuttalService);
         });
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
-                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
-                    body: new Rebuttal(123)
-                })));
-
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
-                expect(service.find).toHaveBeenCalledWith(123);
-                expect(comp.rebuttal).toEqual(jasmine.objectContaining({id: 123}));
+                expect(comp.rebuttal).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });
-
 });

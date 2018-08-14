@@ -22,11 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,8 +49,14 @@ public class CrisisResourceIntTest {
     @Autowired
     private CrisisRepository crisisRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.CrisisSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private CrisisSearchRepository crisisSearchRepository;
+    private CrisisSearchRepository mockCrisisSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -67,7 +77,7 @@ public class CrisisResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CrisisResource crisisResource = new CrisisResource(crisisRepository, crisisSearchRepository);
+        final CrisisResource crisisResource = new CrisisResource(crisisRepository, mockCrisisSearchRepository);
         this.restCrisisMockMvc = MockMvcBuilders.standaloneSetup(crisisResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,7 +99,6 @@ public class CrisisResourceIntTest {
 
     @Before
     public void initTest() {
-        crisisSearchRepository.deleteAll();
         crisis = createEntity(em);
     }
 
@@ -111,8 +120,7 @@ public class CrisisResourceIntTest {
         assertThat(testCrisis.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Crisis in Elasticsearch
-        Crisis crisisEs = crisisSearchRepository.findOne(testCrisis.getId());
-        assertThat(crisisEs).isEqualToIgnoringGivenFields(testCrisis);
+        verify(mockCrisisSearchRepository, times(1)).save(testCrisis);
     }
 
     @Test
@@ -132,6 +140,9 @@ public class CrisisResourceIntTest {
         // Validate the Crisis in the database
         List<Crisis> crisisList = crisisRepository.findAll();
         assertThat(crisisList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Crisis in Elasticsearch
+        verify(mockCrisisSearchRepository, times(0)).save(crisis);
     }
 
     @Test
@@ -165,6 +176,7 @@ public class CrisisResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(crisis.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
+    
 
     @Test
     @Transactional
@@ -179,7 +191,6 @@ public class CrisisResourceIntTest {
             .andExpect(jsonPath("$.id").value(crisis.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingCrisis() throws Exception {
@@ -193,11 +204,11 @@ public class CrisisResourceIntTest {
     public void updateCrisis() throws Exception {
         // Initialize the database
         crisisRepository.saveAndFlush(crisis);
-        crisisSearchRepository.save(crisis);
+
         int databaseSizeBeforeUpdate = crisisRepository.findAll().size();
 
         // Update the crisis
-        Crisis updatedCrisis = crisisRepository.findOne(crisis.getId());
+        Crisis updatedCrisis = crisisRepository.findById(crisis.getId()).get();
         // Disconnect from session so that the updates on updatedCrisis are not directly saved in db
         em.detach(updatedCrisis);
         updatedCrisis
@@ -215,8 +226,7 @@ public class CrisisResourceIntTest {
         assertThat(testCrisis.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Crisis in Elasticsearch
-        Crisis crisisEs = crisisSearchRepository.findOne(testCrisis.getId());
-        assertThat(crisisEs).isEqualToIgnoringGivenFields(testCrisis);
+        verify(mockCrisisSearchRepository, times(1)).save(testCrisis);
     }
 
     @Test
@@ -226,15 +236,18 @@ public class CrisisResourceIntTest {
 
         // Create the Crisis
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restCrisisMockMvc.perform(put("/api/crises")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(crisis)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Crisis in the database
         List<Crisis> crisisList = crisisRepository.findAll();
-        assertThat(crisisList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(crisisList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Crisis in Elasticsearch
+        verify(mockCrisisSearchRepository, times(0)).save(crisis);
     }
 
     @Test
@@ -242,7 +255,7 @@ public class CrisisResourceIntTest {
     public void deleteCrisis() throws Exception {
         // Initialize the database
         crisisRepository.saveAndFlush(crisis);
-        crisisSearchRepository.save(crisis);
+
         int databaseSizeBeforeDelete = crisisRepository.findAll().size();
 
         // Get the crisis
@@ -250,13 +263,12 @@ public class CrisisResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean crisisExistsInEs = crisisSearchRepository.exists(crisis.getId());
-        assertThat(crisisExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Crisis> crisisList = crisisRepository.findAll();
         assertThat(crisisList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Crisis in Elasticsearch
+        verify(mockCrisisSearchRepository, times(1)).deleteById(crisis.getId());
     }
 
     @Test
@@ -264,8 +276,8 @@ public class CrisisResourceIntTest {
     public void searchCrisis() throws Exception {
         // Initialize the database
         crisisRepository.saveAndFlush(crisis);
-        crisisSearchRepository.save(crisis);
-
+        when(mockCrisisSearchRepository.search(queryStringQuery("id:" + crisis.getId())))
+            .thenReturn(Collections.singletonList(crisis));
         // Search the crisis
         restCrisisMockMvc.perform(get("/api/_search/crises?query=id:" + crisis.getId()))
             .andExpect(status().isOk())

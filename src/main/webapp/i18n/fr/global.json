@@ -50,6 +50,8 @@
         "form": {
             "username": "Nom d'utilisateur",
             "username.placeholder": "Votre nom d'utilisateur",
+            "currentpassword": "Current password",
+            "currentpassword.placeholder": "Current password",
             "newpassword": "Nouveau mot de passe",
             "newpassword.placeholder": "Nouveau mot de passe",
             "confirmpassword": "Confirmation du nouveau mot de passe",
@@ -140,7 +142,8 @@
         "Size": "Le champ {{fieldName}} ne respecte pas les critères minimum et maximum !",
         "userexists": "Login déjà utilisé !",
         "emailexists": "Email déjà utilisé !",
-        "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !"
+        "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !",
+        "idnull": "Invalid ID"
     },
     "footer": "Ceci est votre pied de page"
 }

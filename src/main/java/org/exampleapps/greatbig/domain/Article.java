@@ -1,6 +1,7 @@
 package org.exampleapps.greatbig.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -42,7 +43,7 @@ public class Article implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
+    
     @Lob
     @Column(name = "jhi_body", nullable = false)
     private String body;
@@ -56,18 +57,18 @@ public class Article implements Serializable {
     private ZonedDateTime updatedAt;
 
     @OneToMany(mappedBy = "article")
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "article_tag",
-               joinColumns = @JoinColumn(name="articles_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="id"))
+               joinColumns = @JoinColumn(name = "articles_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "tags_id", referencedColumnName = "id"))
     private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnoreProperties("articles")
     private Author author;
 
     @ManyToMany(mappedBy = "favorites")

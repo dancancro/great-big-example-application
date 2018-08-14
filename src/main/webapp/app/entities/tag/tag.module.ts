@@ -1,49 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    TagService,
-    TagPopupService,
     TagComponent,
     TagDetailComponent,
-    TagDialogComponent,
-    TagPopupComponent,
+    TagUpdateComponent,
     TagDeletePopupComponent,
     TagDeleteDialogComponent,
     tagRoute,
-    tagPopupRoute,
+    tagPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...tagRoute,
-    ...tagPopupRoute,
-];
+const ENTITY_STATES = [...tagRoute, ...tagPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
-    declarations: [
-        TagComponent,
-        TagDetailComponent,
-        TagDialogComponent,
-        TagDeleteDialogComponent,
-        TagPopupComponent,
-        TagDeletePopupComponent,
-    ],
-    entryComponents: [
-        TagComponent,
-        TagDialogComponent,
-        TagPopupComponent,
-        TagDeleteDialogComponent,
-        TagDeletePopupComponent,
-    ],
-    providers: [
-        TagService,
-        TagPopupService,
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    declarations: [TagComponent, TagDetailComponent, TagUpdateComponent, TagDeleteDialogComponent, TagDeletePopupComponent],
+    entryComponents: [TagComponent, TagUpdateComponent, TagDeleteDialogComponent, TagDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationTagModule {}

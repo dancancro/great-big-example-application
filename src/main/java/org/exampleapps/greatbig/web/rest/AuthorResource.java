@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Author;
-
 import org.exampleapps.greatbig.repository.AuthorRepository;
 import org.exampleapps.greatbig.repository.search.AuthorSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -78,7 +77,7 @@ public class AuthorResource {
     public ResponseEntity<Author> updateAuthor(@RequestBody Author author) throws URISyntaxException {
         log.debug("REST request to update Author : {}", author);
         if (author.getId() == null) {
-            return createAuthor(author);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Author result = authorRepository.save(author);
         authorSearchRepository.save(result);
@@ -90,14 +89,15 @@ public class AuthorResource {
     /**
      * GET  /authors : get all the authors.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of authors in body
      */
     @GetMapping("/authors")
     @Timed
-    public List<Author> getAllAuthors() {
+    public List<Author> getAllAuthors(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Authors");
         return authorRepository.findAllWithEagerRelationships();
-        }
+    }
 
     /**
      * GET  /authors/:id : get the "id" author.
@@ -109,8 +109,8 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Author> getAuthor(@PathVariable Long id) {
         log.debug("REST request to get Author : {}", id);
-        Author author = authorRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(author));
+        Optional<Author> author = authorRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(author);
     }
 
     /**
@@ -123,8 +123,9 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
         log.debug("REST request to delete Author : {}", id);
-        authorRepository.delete(id);
-        authorSearchRepository.delete(id);
+
+        authorRepository.deleteById(id);
+        authorSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

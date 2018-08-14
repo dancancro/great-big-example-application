@@ -1,38 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="profile">
+            <h2><span jhiTranslate="greatBigExampleApplicationApp.profile.detail.title">Profile</span> {{profile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.username">Username</span></dt>
+                <dd>
+                    <span>{{profile.username}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.bio">Bio</span></dt>
+                <dd>
+                    <span>{{profile.bio}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.image">Image</span></dt>
+                <dd>
+                    <span>{{profile.image}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.following">Following</span></dt>
+                <dd>
+                    <span>{{profile.following}}</span>
+                </dd>
+            </dl>
 
-<div *ngIf="profile">
-    <h2><span jhiTranslate="greatBigExampleApplicationApp.profile.detail.title">Profile</span> {{profile.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.username">Username</span></dt>
-        <dd>
-            <span>{{profile.username}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.bio">Bio</span></dt>
-        <dd>
-            <span>{{profile.bio}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.image">Image</span></dt>
-        <dd>
-            <span>{{profile.image}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.profile.following">Following</span></dt>
-        <dd>
-            <span>{{profile.following}}</span>
-        </dd>
-    </dl>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'profile/'+ profile.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+            <button type="button"
+                    [routerLink]="['/profile', profile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
 </div>

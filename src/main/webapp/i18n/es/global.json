@@ -50,6 +50,8 @@
         "form": {
             "username": "Usuario",
             "username.placeholder": "Nombre de usuario",
+            "currentpassword": "Current password",
+            "currentpassword.placeholder": "Current password",
             "newpassword": "Nueva contraseña",
             "newpassword.placeholder": "Nueva contraseña",
             "confirmpassword": "Confirmación de la nueva contraseña",
@@ -140,7 +142,8 @@
         "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
-        "idexists": "A new {{entityName}} cannot already have an ID"
+        "idexists": "A new {{entityName}} cannot already have an ID",
+        "idnull": "Invalid ID"
     },
     "footer": "pie de página"
 }

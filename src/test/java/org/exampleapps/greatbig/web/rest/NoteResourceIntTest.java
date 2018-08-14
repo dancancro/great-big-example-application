@@ -22,11 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -54,8 +58,14 @@ public class NoteResourceIntTest {
     @Autowired
     private NoteRepository noteRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.NoteSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private NoteSearchRepository noteSearchRepository;
+    private NoteSearchRepository mockNoteSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -76,7 +86,7 @@ public class NoteResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NoteResource noteResource = new NoteResource(noteRepository, noteSearchRepository);
+        final NoteResource noteResource = new NoteResource(noteRepository, mockNoteSearchRepository);
         this.restNoteMockMvc = MockMvcBuilders.standaloneSetup(noteResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -101,7 +111,6 @@ public class NoteResourceIntTest {
 
     @Before
     public void initTest() {
-        noteSearchRepository.deleteAll();
         note = createEntity(em);
     }
 
@@ -126,8 +135,7 @@ public class NoteResourceIntTest {
         assertThat(testNote.getTop()).isEqualTo(DEFAULT_TOP);
 
         // Validate the Note in Elasticsearch
-        Note noteEs = noteSearchRepository.findOne(testNote.getId());
-        assertThat(noteEs).isEqualToIgnoringGivenFields(testNote);
+        verify(mockNoteSearchRepository, times(1)).save(testNote);
     }
 
     @Test
@@ -147,6 +155,9 @@ public class NoteResourceIntTest {
         // Validate the Note in the database
         List<Note> noteList = noteRepository.findAll();
         assertThat(noteList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Note in Elasticsearch
+        verify(mockNoteSearchRepository, times(0)).save(note);
     }
 
     @Test
@@ -165,6 +176,7 @@ public class NoteResourceIntTest {
             .andExpect(jsonPath("$.[*].left").value(hasItem(DEFAULT_LEFT)))
             .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP)));
     }
+    
 
     @Test
     @Transactional
@@ -182,7 +194,6 @@ public class NoteResourceIntTest {
             .andExpect(jsonPath("$.left").value(DEFAULT_LEFT))
             .andExpect(jsonPath("$.top").value(DEFAULT_TOP));
     }
-
     @Test
     @Transactional
     public void getNonExistingNote() throws Exception {
@@ -196,11 +207,11 @@ public class NoteResourceIntTest {
     public void updateNote() throws Exception {
         // Initialize the database
         noteRepository.saveAndFlush(note);
-        noteSearchRepository.save(note);
+
         int databaseSizeBeforeUpdate = noteRepository.findAll().size();
 
         // Update the note
-        Note updatedNote = noteRepository.findOne(note.getId());
+        Note updatedNote = noteRepository.findById(note.getId()).get();
         // Disconnect from session so that the updates on updatedNote are not directly saved in db
         em.detach(updatedNote);
         updatedNote
@@ -224,8 +235,7 @@ public class NoteResourceIntTest {
         assertThat(testNote.getTop()).isEqualTo(UPDATED_TOP);
 
         // Validate the Note in Elasticsearch
-        Note noteEs = noteSearchRepository.findOne(testNote.getId());
-        assertThat(noteEs).isEqualToIgnoringGivenFields(testNote);
+        verify(mockNoteSearchRepository, times(1)).save(testNote);
     }
 
     @Test
@@ -235,15 +245,18 @@ public class NoteResourceIntTest {
 
         // Create the Note
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restNoteMockMvc.perform(put("/api/notes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(note)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Note in the database
         List<Note> noteList = noteRepository.findAll();
-        assertThat(noteList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(noteList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Note in Elasticsearch
+        verify(mockNoteSearchRepository, times(0)).save(note);
     }
 
     @Test
@@ -251,7 +264,7 @@ public class NoteResourceIntTest {
     public void deleteNote() throws Exception {
         // Initialize the database
         noteRepository.saveAndFlush(note);
-        noteSearchRepository.save(note);
+
         int databaseSizeBeforeDelete = noteRepository.findAll().size();
 
         // Get the note
@@ -259,13 +272,12 @@ public class NoteResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean noteExistsInEs = noteSearchRepository.exists(note.getId());
-        assertThat(noteExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Note> noteList = noteRepository.findAll();
         assertThat(noteList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Note in Elasticsearch
+        verify(mockNoteSearchRepository, times(1)).deleteById(note.getId());
     }
 
     @Test
@@ -273,8 +285,8 @@ public class NoteResourceIntTest {
     public void searchNote() throws Exception {
         // Initialize the database
         noteRepository.saveAndFlush(note);
-        noteSearchRepository.save(note);
-
+        when(mockNoteSearchRepository.search(queryStringQuery("id:" + note.getId())))
+            .thenReturn(Collections.singletonList(note));
         // Search the note
         restNoteMockMvc.perform(get("/api/_search/notes?query=id:" + note.getId()))
             .andExpect(status().isOk())

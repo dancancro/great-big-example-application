@@ -1,51 +1,29 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    CommentService,
-    CommentPopupService,
     CommentComponent,
     CommentDetailComponent,
-    CommentDialogComponent,
-    CommentPopupComponent,
+    CommentUpdateComponent,
     CommentDeletePopupComponent,
     CommentDeleteDialogComponent,
     commentRoute,
-    commentPopupRoute,
-    CommentResolvePagingParams,
+    commentPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...commentRoute,
-    ...commentPopupRoute,
-];
+const ENTITY_STATES = [...commentRoute, ...commentPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         CommentComponent,
         CommentDetailComponent,
-        CommentDialogComponent,
+        CommentUpdateComponent,
         CommentDeleteDialogComponent,
-        CommentPopupComponent,
-        CommentDeletePopupComponent,
+        CommentDeletePopupComponent
     ],
-    entryComponents: [
-        CommentComponent,
-        CommentDialogComponent,
-        CommentPopupComponent,
-        CommentDeleteDialogComponent,
-        CommentDeletePopupComponent,
-    ],
-    providers: [
-        CommentService,
-        CommentPopupService,
-        CommentResolvePagingParams,
-    ],
+    entryComponents: [CommentComponent, CommentUpdateComponent, CommentDeleteDialogComponent, CommentDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationCommentModule {}

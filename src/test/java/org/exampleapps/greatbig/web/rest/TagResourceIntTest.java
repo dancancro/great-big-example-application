@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -22,11 +24,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,8 +51,14 @@ public class TagResourceIntTest {
     @Autowired
     private TagRepository tagRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.TagSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private TagSearchRepository tagSearchRepository;
+    private TagSearchRepository mockTagSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -67,7 +79,7 @@ public class TagResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TagResource tagResource = new TagResource(tagRepository, tagSearchRepository);
+        final TagResource tagResource = new TagResource(tagRepository, mockTagSearchRepository);
         this.restTagMockMvc = MockMvcBuilders.standaloneSetup(tagResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,7 +101,6 @@ public class TagResourceIntTest {
 
     @Before
     public void initTest() {
-        tagSearchRepository.deleteAll();
         tag = createEntity(em);
     }
 
@@ -111,8 +122,7 @@ public class TagResourceIntTest {
         assertThat(testTag.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Tag in Elasticsearch
-        Tag tagEs = tagSearchRepository.findOne(testTag.getId());
-        assertThat(tagEs).isEqualToIgnoringGivenFields(testTag);
+        verify(mockTagSearchRepository, times(1)).save(testTag);
     }
 
     @Test
@@ -132,6 +142,9 @@ public class TagResourceIntTest {
         // Validate the Tag in the database
         List<Tag> tagList = tagRepository.findAll();
         assertThat(tagList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Tag in Elasticsearch
+        verify(mockTagSearchRepository, times(0)).save(tag);
     }
 
     @Test
@@ -165,6 +178,7 @@ public class TagResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(tag.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
+    
 
     @Test
     @Transactional
@@ -179,7 +193,6 @@ public class TagResourceIntTest {
             .andExpect(jsonPath("$.id").value(tag.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingTag() throws Exception {
@@ -193,11 +206,11 @@ public class TagResourceIntTest {
     public void updateTag() throws Exception {
         // Initialize the database
         tagRepository.saveAndFlush(tag);
-        tagSearchRepository.save(tag);
+
         int databaseSizeBeforeUpdate = tagRepository.findAll().size();
 
         // Update the tag
-        Tag updatedTag = tagRepository.findOne(tag.getId());
+        Tag updatedTag = tagRepository.findById(tag.getId()).get();
         // Disconnect from session so that the updates on updatedTag are not directly saved in db
         em.detach(updatedTag);
         updatedTag
@@ -215,8 +228,7 @@ public class TagResourceIntTest {
         assertThat(testTag.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Tag in Elasticsearch
-        Tag tagEs = tagSearchRepository.findOne(testTag.getId());
-        assertThat(tagEs).isEqualToIgnoringGivenFields(testTag);
+        verify(mockTagSearchRepository, times(1)).save(testTag);
     }
 
     @Test
@@ -226,15 +238,18 @@ public class TagResourceIntTest {
 
         // Create the Tag
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restTagMockMvc.perform(put("/api/tags")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(tag)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Tag in the database
         List<Tag> tagList = tagRepository.findAll();
-        assertThat(tagList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(tagList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Tag in Elasticsearch
+        verify(mockTagSearchRepository, times(0)).save(tag);
     }
 
     @Test
@@ -242,7 +257,7 @@ public class TagResourceIntTest {
     public void deleteTag() throws Exception {
         // Initialize the database
         tagRepository.saveAndFlush(tag);
-        tagSearchRepository.save(tag);
+
         int databaseSizeBeforeDelete = tagRepository.findAll().size();
 
         // Get the tag
@@ -250,13 +265,12 @@ public class TagResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean tagExistsInEs = tagSearchRepository.exists(tag.getId());
-        assertThat(tagExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Tag> tagList = tagRepository.findAll();
         assertThat(tagList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Tag in Elasticsearch
+        verify(mockTagSearchRepository, times(1)).deleteById(tag.getId());
     }
 
     @Test
@@ -264,8 +278,8 @@ public class TagResourceIntTest {
     public void searchTag() throws Exception {
         // Initialize the database
         tagRepository.saveAndFlush(tag);
-        tagSearchRepository.save(tag);
-
+        when(mockTagSearchRepository.search(queryStringQuery("id:" + tag.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(tag), PageRequest.of(0, 1), 1));
         // Search the tag
         restTagMockMvc.perform(get("/api/_search/tags?query=id:" + tag.getId()))
             .andExpect(status().isOk())

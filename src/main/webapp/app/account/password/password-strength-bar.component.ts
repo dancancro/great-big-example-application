@@ -13,18 +13,14 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
                 <li class="point"></li>
             </ul>
         </div>`,
-    styleUrls: [
-        'password-strength-bar.scss'
-    ]
+    styleUrls: ['password-strength-bar.scss']
 })
 export class PasswordStrengthBarComponent {
-
     colors = ['#F00', '#F90', '#FF0', '#9F0', '#0F0'];
 
-    constructor(private renderer: Renderer, private elementRef: ElementRef) { }
+    constructor(private renderer: Renderer, private elementRef: ElementRef) {}
 
     measureStrength(p: string): number {
-
         let force = 0;
         const regex = /[$-/:-?{-~!"^_`\[\]]/g; // "
         const lowerLetters = /[a-z]+/.test(p);
@@ -33,20 +29,20 @@ export class PasswordStrengthBarComponent {
         const symbols = regex.test(p);
 
         const flags = [lowerLetters, upperLetters, numbers, symbols];
-        const passedMatches = flags.filter( (isMatchedFlag: boolean) => {
+        const passedMatches = flags.filter((isMatchedFlag: boolean) => {
             return isMatchedFlag === true;
         }).length;
 
-        force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+        force += 2 * p.length + (p.length >= 10 ? 1 : 0);
         force += passedMatches * 10;
 
         // penality (short password)
-        force = (p.length <= 6) ? Math.min(force, 10) : force;
+        force = p.length <= 6 ? Math.min(force, 10) : force;
 
         // penality (poor variety of characters)
-        force = (passedMatches === 1) ? Math.min(force, 10) : force;
-        force = (passedMatches === 2) ? Math.min(force, 20) : force;
-        force = (passedMatches === 3) ? Math.min(force, 40) : force;
+        force = passedMatches === 1 ? Math.min(force, 10) : force;
+        force = passedMatches === 2 ? Math.min(force, 20) : force;
+        force = passedMatches === 3 ? Math.min(force, 40) : force;
 
         return force;
     }
@@ -64,7 +60,7 @@ export class PasswordStrengthBarComponent {
         } else {
             idx = 4;
         }
-        return {idx: idx + 1, col: this.colors[idx]};
+        return { idx: idx + 1, col: this.colors[idx] };
     }
 
     @Input()
@@ -72,8 +68,8 @@ export class PasswordStrengthBarComponent {
         if (password) {
             const c = this.getColor(this.measureStrength(password));
             const element = this.elementRef.nativeElement;
-            if ( element.className ) {
-                this.renderer.setElementClass(element, element.className , false);
+            if (element.className) {
+                this.renderer.setElementClass(element, element.className, false);
             }
             const lis = element.getElementsByTagName('li');
             for (let i = 0; i < lis.length; i++) {

@@ -1,54 +1,40 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
-import { HeroDetailComponent } from '../../../../../../main/webapp/app/entities/hero/hero-detail.component';
-import { HeroService } from '../../../../../../main/webapp/app/entities/hero/hero.service';
-import { Hero } from '../../../../../../main/webapp/app/entities/hero/hero.model';
+import { HeroDetailComponent } from 'app/entities/hero/hero-detail.component';
+import { Hero } from 'app/shared/model/hero.model';
 
 describe('Component Tests', () => {
-
     describe('Hero Management Detail Component', () => {
         let comp: HeroDetailComponent;
         let fixture: ComponentFixture<HeroDetailComponent>;
-        let service: HeroService;
+        const route = ({ data: of({ hero: new Hero(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [HeroDetailComponent],
-                providers: [
-                    HeroService
-                ]
+                providers: [{ provide: ActivatedRoute, useValue: route }]
             })
-            .overrideTemplate(HeroDetailComponent, '')
-            .compileComponents();
-        }));
-
-        beforeEach(() => {
+                .overrideTemplate(HeroDetailComponent, '')
+                .compileComponents();
             fixture = TestBed.createComponent(HeroDetailComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(HeroService);
         });
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
-                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
-                    body: new Hero(123)
-                })));
-
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
-                expect(service.find).toHaveBeenCalledWith(123);
-                expect(comp.hero).toEqual(jasmine.objectContaining({id: 123}));
+                expect(comp.hero).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });
-
 });

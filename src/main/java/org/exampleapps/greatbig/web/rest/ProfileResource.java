@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Profile;
-
 import org.exampleapps.greatbig.repository.ProfileRepository;
 import org.exampleapps.greatbig.repository.search.ProfileSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -62,6 +61,7 @@ public class ProfileResource {
         if (profileDTO.getId() != null) {
             throw new BadRequestAlertException("A new profile cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         Profile profile = profileMapper.toEntity(profileDTO);
         profile = profileRepository.save(profile);
         ProfileDTO result = profileMapper.toDto(profile);
@@ -85,8 +85,9 @@ public class ProfileResource {
     public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) throws URISyntaxException {
         log.debug("REST request to update Profile : {}", profileDTO);
         if (profileDTO.getId() == null) {
-            return createProfile(profileDTO);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
         Profile profile = profileMapper.toEntity(profileDTO);
         profile = profileRepository.save(profile);
         ProfileDTO result = profileMapper.toDto(profile);
@@ -107,7 +108,7 @@ public class ProfileResource {
         log.debug("REST request to get all Profiles");
         List<Profile> profiles = profileRepository.findAll();
         return profileMapper.toDto(profiles);
-        }
+    }
 
     /**
      * GET  /profiles/:id : get the "id" profile.
@@ -119,9 +120,9 @@ public class ProfileResource {
     @Timed
     public ResponseEntity<ProfileDTO> getProfile(@PathVariable Long id) {
         log.debug("REST request to get Profile : {}", id);
-        Profile profile = profileRepository.findOne(id);
-        ProfileDTO profileDTO = profileMapper.toDto(profile);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(profileDTO));
+        Optional<ProfileDTO> profileDTO = profileRepository.findById(id)
+            .map(profileMapper::toDto);
+        return ResponseUtil.wrapOrNotFound(profileDTO);
     }
 
     /**
@@ -134,8 +135,9 @@ public class ProfileResource {
     @Timed
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
         log.debug("REST request to delete Profile : {}", id);
-        profileRepository.delete(id);
-        profileSearchRepository.delete(id);
+
+        profileRepository.deleteById(id);
+        profileSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

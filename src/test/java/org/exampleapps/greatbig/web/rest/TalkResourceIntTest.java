@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,11 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -58,8 +64,14 @@ public class TalkResourceIntTest {
     @Autowired
     private TalkRepository talkRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.TalkSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private TalkSearchRepository talkSearchRepository;
+    private TalkSearchRepository mockTalkSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -80,7 +92,7 @@ public class TalkResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TalkResource talkResource = new TalkResource(talkRepository, talkSearchRepository);
+        final TalkResource talkResource = new TalkResource(talkRepository, mockTalkSearchRepository);
         this.restTalkMockMvc = MockMvcBuilders.standaloneSetup(talkResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -106,7 +118,6 @@ public class TalkResourceIntTest {
 
     @Before
     public void initTest() {
-        talkSearchRepository.deleteAll();
         talk = createEntity(em);
     }
 
@@ -132,8 +143,7 @@ public class TalkResourceIntTest {
         assertThat(testTalk.getRating()).isEqualTo(DEFAULT_RATING);
 
         // Validate the Talk in Elasticsearch
-        Talk talkEs = talkSearchRepository.findOne(testTalk.getId());
-        assertThat(talkEs).isEqualToIgnoringGivenFields(testTalk);
+        verify(mockTalkSearchRepository, times(1)).save(testTalk);
     }
 
     @Test
@@ -153,6 +163,9 @@ public class TalkResourceIntTest {
         // Validate the Talk in the database
         List<Talk> talkList = talkRepository.findAll();
         assertThat(talkList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Talk in Elasticsearch
+        verify(mockTalkSearchRepository, times(0)).save(talk);
     }
 
     @Test
@@ -193,24 +206,6 @@ public class TalkResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDescriptionIsRequired() throws Exception {
-        int databaseSizeBeforeTest = talkRepository.findAll().size();
-        // set the field null
-        talk.setDescription(null);
-
-        // Create the Talk, which fails.
-
-        restTalkMockMvc.perform(post("/api/talks")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(talk)))
-            .andExpect(status().isBadRequest());
-
-        List<Talk> talkList = talkRepository.findAll();
-        assertThat(talkList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllTalks() throws Exception {
         // Initialize the database
         talkRepository.saveAndFlush(talk);
@@ -226,6 +221,7 @@ public class TalkResourceIntTest {
             .andExpect(jsonPath("$.[*].yourRating").value(hasItem(DEFAULT_YOUR_RATING.doubleValue())))
             .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.doubleValue())));
     }
+    
 
     @Test
     @Transactional
@@ -244,7 +240,6 @@ public class TalkResourceIntTest {
             .andExpect(jsonPath("$.yourRating").value(DEFAULT_YOUR_RATING.doubleValue()))
             .andExpect(jsonPath("$.rating").value(DEFAULT_RATING.doubleValue()));
     }
-
     @Test
     @Transactional
     public void getNonExistingTalk() throws Exception {
@@ -258,11 +253,11 @@ public class TalkResourceIntTest {
     public void updateTalk() throws Exception {
         // Initialize the database
         talkRepository.saveAndFlush(talk);
-        talkSearchRepository.save(talk);
+
         int databaseSizeBeforeUpdate = talkRepository.findAll().size();
 
         // Update the talk
-        Talk updatedTalk = talkRepository.findOne(talk.getId());
+        Talk updatedTalk = talkRepository.findById(talk.getId()).get();
         // Disconnect from session so that the updates on updatedTalk are not directly saved in db
         em.detach(updatedTalk);
         updatedTalk
@@ -288,8 +283,7 @@ public class TalkResourceIntTest {
         assertThat(testTalk.getRating()).isEqualTo(UPDATED_RATING);
 
         // Validate the Talk in Elasticsearch
-        Talk talkEs = talkSearchRepository.findOne(testTalk.getId());
-        assertThat(talkEs).isEqualToIgnoringGivenFields(testTalk);
+        verify(mockTalkSearchRepository, times(1)).save(testTalk);
     }
 
     @Test
@@ -299,15 +293,18 @@ public class TalkResourceIntTest {
 
         // Create the Talk
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restTalkMockMvc.perform(put("/api/talks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(talk)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Talk in the database
         List<Talk> talkList = talkRepository.findAll();
-        assertThat(talkList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(talkList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Talk in Elasticsearch
+        verify(mockTalkSearchRepository, times(0)).save(talk);
     }
 
     @Test
@@ -315,7 +312,7 @@ public class TalkResourceIntTest {
     public void deleteTalk() throws Exception {
         // Initialize the database
         talkRepository.saveAndFlush(talk);
-        talkSearchRepository.save(talk);
+
         int databaseSizeBeforeDelete = talkRepository.findAll().size();
 
         // Get the talk
@@ -323,13 +320,12 @@ public class TalkResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean talkExistsInEs = talkSearchRepository.exists(talk.getId());
-        assertThat(talkExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Talk> talkList = talkRepository.findAll();
         assertThat(talkList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Talk in Elasticsearch
+        verify(mockTalkSearchRepository, times(1)).deleteById(talk.getId());
     }
 
     @Test
@@ -337,8 +333,8 @@ public class TalkResourceIntTest {
     public void searchTalk() throws Exception {
         // Initialize the database
         talkRepository.saveAndFlush(talk);
-        talkSearchRepository.save(talk);
-
+        when(mockTalkSearchRepository.search(queryStringQuery("id:" + talk.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(talk), PageRequest.of(0, 1), 1));
         // Search the talk
         restTalkMockMvc.perform(get("/api/_search/talks?query=id:" + talk.getId()))
             .andExpect(status().isOk())

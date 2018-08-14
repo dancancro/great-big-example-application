@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Talk } from './talk.model';
-import { TalkPopupService } from './talk-popup.service';
+import { ITalk } from 'app/shared/model/talk.model';
 import { TalkService } from './talk.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { TalkService } from './talk.service';
     templateUrl: './talk-delete-dialog.component.html'
 })
 export class TalkDeleteDialogComponent {
+    talk: ITalk;
 
-    talk: Talk;
-
-    constructor(
-        private talkService: TalkService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private talkService: TalkService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.talkService.delete(id).subscribe((response) => {
+        this.talkService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'talkListModification',
                 content: 'Deleted an talk'
@@ -43,22 +36,30 @@ export class TalkDeleteDialogComponent {
     template: ''
 })
 export class TalkDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private talkPopupService: TalkPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.talkPopupService
-                .open(TalkDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ talk }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(TalkDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.talk = talk;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Crisis;
-
 import org.exampleapps.greatbig.repository.CrisisRepository;
 import org.exampleapps.greatbig.repository.search.CrisisSearchRepository;
 import org.exampleapps.greatbig.web.rest.errors.BadRequestAlertException;
@@ -79,7 +78,7 @@ public class CrisisResource {
     public ResponseEntity<Crisis> updateCrisis(@Valid @RequestBody Crisis crisis) throws URISyntaxException {
         log.debug("REST request to update Crisis : {}", crisis);
         if (crisis.getId() == null) {
-            return createCrisis(crisis);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Crisis result = crisisRepository.save(crisis);
         crisisSearchRepository.save(result);
@@ -98,7 +97,7 @@ public class CrisisResource {
     public List<Crisis> getAllCrises() {
         log.debug("REST request to get all Crises");
         return crisisRepository.findAll();
-        }
+    }
 
     /**
      * GET  /crises/:id : get the "id" crisis.
@@ -110,8 +109,8 @@ public class CrisisResource {
     @Timed
     public ResponseEntity<Crisis> getCrisis(@PathVariable Long id) {
         log.debug("REST request to get Crisis : {}", id);
-        Crisis crisis = crisisRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(crisis));
+        Optional<Crisis> crisis = crisisRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(crisis);
     }
 
     /**
@@ -124,8 +123,9 @@ public class CrisisResource {
     @Timed
     public ResponseEntity<Void> deleteCrisis(@PathVariable Long id) {
         log.debug("REST request to delete Crisis : {}", id);
-        crisisRepository.delete(id);
-        crisisSearchRepository.delete(id);
+
+        crisisRepository.deleteById(id);
+        crisisSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

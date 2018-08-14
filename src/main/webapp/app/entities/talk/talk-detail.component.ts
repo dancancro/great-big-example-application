@@ -1,43 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
+import { JhiDataUtils } from 'ng-jhipster';
 
-import { Talk } from './talk.model';
-import { TalkService } from './talk.service';
+import { ITalk } from 'app/shared/model/talk.model';
 
 @Component({
     selector: 'jhi-talk-detail',
     templateUrl: './talk-detail.component.html'
 })
-export class TalkDetailComponent implements OnInit, OnDestroy {
+export class TalkDetailComponent implements OnInit {
+    talk: ITalk;
 
-    talk: Talk;
-    private subscription: Subscription;
-    private eventSubscriber: Subscription;
-
-    constructor(
-        private eventManager: JhiEventManager,
-        private dataUtils: JhiDataUtils,
-        private talkService: TalkService,
-        private route: ActivatedRoute
-    ) {
-    }
+    constructor(private dataUtils: JhiDataUtils, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['id']);
+        this.activatedRoute.data.subscribe(({ talk }) => {
+            this.talk = talk;
         });
-        this.registerChangeInTalks();
     }
 
-    load(id) {
-        this.talkService.find(id)
-            .subscribe((talkResponse: HttpResponse<Talk>) => {
-                this.talk = talkResponse.body;
-            });
-    }
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
@@ -47,17 +28,5 @@ export class TalkDetailComponent implements OnInit, OnDestroy {
     }
     previousState() {
         window.history.back();
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
-    registerChangeInTalks() {
-        this.eventSubscriber = this.eventManager.subscribe(
-            'talkListModification',
-            (response) => this.load(this.talk.id)
-        );
     }
 }

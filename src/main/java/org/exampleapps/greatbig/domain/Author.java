@@ -37,27 +37,25 @@ public class Author implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Article> articles = new HashSet<>();
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "author_follower",
-               joinColumns = @JoinColumn(name="authors_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="followers_id", referencedColumnName="id"))
+               joinColumns = @JoinColumn(name = "authors_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "followers_id", referencedColumnName = "id"))
     private Set<Author> followers = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "author_favorite",
-               joinColumns = @JoinColumn(name="authors_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="favorites_id", referencedColumnName="id"))
+               joinColumns = @JoinColumn(name = "authors_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "favorites_id", referencedColumnName = "id"))
     private Set<Article> favorites = new HashSet<>();
 
     @ManyToMany(mappedBy = "followers")

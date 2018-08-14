@@ -1,49 +1,29 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    ArticleService,
-    ArticlePopupService,
     ArticleComponent,
     ArticleDetailComponent,
-    ArticleDialogComponent,
-    ArticlePopupComponent,
+    ArticleUpdateComponent,
     ArticleDeletePopupComponent,
     ArticleDeleteDialogComponent,
     articleRoute,
-    articlePopupRoute,
+    articlePopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...articleRoute,
-    ...articlePopupRoute,
-];
+const ENTITY_STATES = [...articleRoute, ...articlePopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ArticleComponent,
         ArticleDetailComponent,
-        ArticleDialogComponent,
+        ArticleUpdateComponent,
         ArticleDeleteDialogComponent,
-        ArticlePopupComponent,
-        ArticleDeletePopupComponent,
+        ArticleDeletePopupComponent
     ],
-    entryComponents: [
-        ArticleComponent,
-        ArticleDialogComponent,
-        ArticlePopupComponent,
-        ArticleDeleteDialogComponent,
-        ArticleDeletePopupComponent,
-    ],
-    providers: [
-        ArticleService,
-        ArticlePopupService,
-    ],
+    entryComponents: [ArticleComponent, ArticleUpdateComponent, ArticleDeleteDialogComponent, ArticleDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationArticleModule {}

@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Profile } from './profile.model';
-import { ProfilePopupService } from './profile-popup.service';
+import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { ProfileService } from './profile.service';
     templateUrl: './profile-delete-dialog.component.html'
 })
 export class ProfileDeleteDialogComponent {
+    profile: IProfile;
 
-    profile: Profile;
-
-    constructor(
-        private profileService: ProfileService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private profileService: ProfileService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.profileService.delete(id).subscribe((response) => {
+        this.profileService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'profileListModification',
                 content: 'Deleted an profile'
@@ -43,22 +36,30 @@ export class ProfileDeleteDialogComponent {
     template: ''
 })
 export class ProfileDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private profilePopupService: ProfilePopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.profilePopupService
-                .open(ProfileDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ profile }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(ProfileDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.profile = profile;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }
