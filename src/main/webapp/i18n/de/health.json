@@ -1,0 +1,28 @@
+{
+    "health": {
+        "title": "Gesundheit Ihrer Anwendung",
+        "refresh.button": "Aktualisieren",
+        "stacktrace": "Stacktrace",
+        "details": {
+            "details": "Details",
+            "properties": "Properties",
+            "name": "Name",
+            "value": "Wert",
+            "error": "Error"
+        },
+        "indicator": {
+            "diskSpace": "Festplattenspeicher",
+            "mail": "Email",
+            "elasticsearch": "Elasticsearch",
+            "db": "Datenbank"
+        },
+        "table": {
+            "service": "Dienst Name",
+            "status": "Status"
+        },
+        "status": {
+            "UP": "UP",
+            "DOWN": "DOWN"
+        }
+    }
+}

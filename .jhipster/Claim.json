@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sortOrder",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "imageLabel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageLink",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170725052209",
+    "entityTableName": "claim",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "skipClient": true,
+    "skipServer": true
+}

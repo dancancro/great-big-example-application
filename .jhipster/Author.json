@@ -1,0 +1,60 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "custom(login)"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "article",
+            "otherEntityName": "article",
+            "otherEntityRelationshipName": "author"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comment",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "author"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "followee",
+            "relationshipName": "follower",
+            "otherEntityName": "author",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "favoriter",
+            "relationshipName": "favorite",
+            "otherEntityName": "article",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "followee",
+            "otherEntityName": "author",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "follower"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "bio",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "changelogDate": "20170617213423",
+    "entityTableName": "author",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
