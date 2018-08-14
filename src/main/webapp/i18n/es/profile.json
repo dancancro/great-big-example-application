@@ -1,0 +1,26 @@
+
+{
+    "greatBigExampleApplicationApp": {
+        "profile" : {
+            "home": {
+                "title": "Profiles",
+                "createLabel": "Crear nuevo Profile",
+                "createOrEditLabel": "Crear o editar Profile",
+                "search": "Search for Profile"
+            },
+            "created": "Un nuevo Profile ha sido creado con el identificador {{ param }}",
+            "updated": "Un Profile ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Profile ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Profile {{ id }}?"
+            },
+            "detail": {
+                "title": "Profile"
+            },
+            "username": "Username",
+            "bio": "Bio",
+            "image": "Image",
+            "following": "Following"
+        }
+    }
+}

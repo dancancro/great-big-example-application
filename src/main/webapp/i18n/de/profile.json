@@ -1,0 +1,26 @@
+
+{
+    "greatBigExampleApplicationApp": {
+        "profile" : {
+            "home": {
+                "title": "Profiles",
+                "createLabel": "Profile erstellen",
+                "createOrEditLabel": "Profile erstellen oder bearbeiten",
+                "search": "Suche nach Profile"
+            },
+            "created": "Profile erstellt mit ID {{ param }}",
+            "updated": "Profile aktualisiert mit ID {{ param }}",
+            "deleted": "Profile gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Profile {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Profile"
+            },
+            "username": "Username",
+            "bio": "Bio",
+            "image": "Image",
+            "following": "Following"
+        }
+    }
+}
