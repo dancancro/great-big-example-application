@@ -1,22 +1,12 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
+import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import {
-    AccountService,
-    AuthServerProvider,
-    CSRFService,
     GreatBigExampleApplicationSharedLibsModule,
     GreatBigExampleApplicationSharedCommonModule,
-    HasAnyAuthorityDirective,
     JhiLoginModalComponent,
-    JhiSocialComponent,
-    JhiTrackerService,
-    LoginModalService,
-    LoginService,
-    Principal,
-    SocialService,
-    StateStorageService
+    HasAnyAuthorityDirective
 } from './';
 
 import { DraggableDirective } from './draggable/draggable.directive';
@@ -68,53 +58,17 @@ export const components = [
 ];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedLibsModule,
-        GreatBigExampleApplicationSharedCommonModule,
-        UiModule,
-        // LayoutsModule,
-        RouterModule
-    ],
-    declarations: [
-        JhiSocialComponent,
-        JhiLoginModalComponent,
-        HasAnyAuthorityDirective,
-        ...components
-    ],
-    providers: [
-        LoginService,
-        LoginModalService,
-        AccountService,
-        StateStorageService,
-        Principal,
-        CSRFService,
-        JhiTrackerService,
-        AuthServerProvider,
-        SocialService,
-        DatePipe,
-        TwainService
-    ],
+    imports: [GreatBigExampleApplicationSharedLibsModule, GreatBigExampleApplicationSharedCommonModule],
+    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
+    providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],
-    exports: [
-        // GreatBigExampleApplicationSharedLibsModule,
-        GreatBigExampleApplicationSharedCommonModule,
-        UiModule,
-        JhiSocialComponent,
-        JhiLoginModalComponent,
-        HasAnyAuthorityDirective,
-        DatePipe,
-        // LayoutsModule,
-        ...components
-    ],
+    exports: [GreatBigExampleApplicationSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
 })
 export class GreatBigExampleApplicationSharedModule {
-
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: GreatBigExampleApplicationSharedModule
         };
     }
-
 }

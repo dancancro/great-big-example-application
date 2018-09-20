@@ -1,42 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="talk">
+            <h2><span jhiTranslate="greatBigExampleApplicationApp.talk.detail.title">Talk</span> {{talk.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.title">Title</span></dt>
+                <dd>
+                    <span>{{talk.title}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.speaker">Speaker</span></dt>
+                <dd>
+                    <span>{{talk.speaker}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.description">Description</span></dt>
+                <dd>
+                    <span>{{talk.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.yourRating">Your Rating</span></dt>
+                <dd>
+                    <span>{{talk.yourRating}}</span>
+                </dd>
+                <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.rating">Rating</span></dt>
+                <dd>
+                    <span>{{talk.rating}}</span>
+                </dd>
+            </dl>
 
-<div *ngIf="talk">
-    <h2><span jhiTranslate="greatBigExampleApplicationApp.talk.detail.title">Talk</span> {{talk.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.title">Title</span></dt>
-        <dd>
-            <span>{{talk.title}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.speaker">Speaker</span></dt>
-        <dd>
-            <span>{{talk.speaker}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.description">Description</span></dt>
-        <dd>
-            <span>{{talk.description}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.yourRating">Your Rating</span></dt>
-        <dd>
-            <span>{{talk.yourRating}}</span>
-        </dd>
-        <dt><span jhiTranslate="greatBigExampleApplicationApp.talk.rating">Rating</span></dt>
-        <dd>
-            <span>{{talk.rating}}</span>
-        </dd>
-    </dl>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'talk/'+ talk.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+            <button type="button"
+                    [routerLink]="['/talk', talk.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
 </div>

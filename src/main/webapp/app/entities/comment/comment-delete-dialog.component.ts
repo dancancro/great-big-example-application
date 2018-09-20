@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Comment } from './comment.model';
-import { CommentPopupService } from './comment-popup.service';
+import { IComment } from 'app/shared/model/comment.model';
 import { CommentService } from './comment.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { CommentService } from './comment.service';
     templateUrl: './comment-delete-dialog.component.html'
 })
 export class CommentDeleteDialogComponent {
+    comment: IComment;
 
-    comment: Comment;
-
-    constructor(
-        private commentService: CommentService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private commentService: CommentService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.commentService.delete(id).subscribe((response) => {
+        this.commentService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'commentListModification',
                 content: 'Deleted an comment'
@@ -43,22 +36,30 @@ export class CommentDeleteDialogComponent {
     template: ''
 })
 export class CommentDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private commentPopupService: CommentPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.commentPopupService
-                .open(CommentDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ comment }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(CommentDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.comment = comment;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

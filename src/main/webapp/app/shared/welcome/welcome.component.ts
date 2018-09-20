@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Principal } from '../../shared/auth/principal.service';
+import { Principal } from '../../core/auth/principal.service';
 
 @Component({
     selector: 'jhi-welcome',
@@ -7,12 +7,10 @@ import { Principal } from '../../shared/auth/principal.service';
 })
 export class WelcomeComponent implements OnInit {
     welcome = '-- not initialized yet --';
-    constructor(private principal: Principal) { }
+    constructor(private principal: Principal) {}
 
     ngOnInit(): void {
-        this.welcome = this.principal.isAuthenticated() ?
-            'Welcome, ' + this.principal.identity.name :
-            'Please log in.';
+        this.welcome = this.principal.isAuthenticated() ? 'Welcome, ' + this.principal.identity.name : 'Please log in.';
     }
 }
 

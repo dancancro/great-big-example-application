@@ -10,7 +10,7 @@ import { User } from '../../core/store/user/user.model';
 import * as EntityActions from '../../core/store/entity/entity.actions';
 import { slices } from '../../core/store/util';
 import { Entities } from '../../core/store/entity/entity.model';
-import { Account, Principal } from '../../shared';
+import { Account, Principal } from '../../core';
 
 @Component({
     selector: 'jhi-contact',
@@ -28,23 +28,19 @@ export class ContactsPage implements OnInit, OnDestroy {
     contactSub: Subscription;
     identity$: Promise<Account>;
 
-    constructor(
-        private principal: Principal,
-        private store: Store<fromRoot.RootState>,
-        private formBuilder: FormBuilder) {
-    }
+    constructor(private principal: Principal, private store: Store<fromRoot.RootState>, private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.user$ = this.store.select(fromRoot.getCurrentUser);
         this.msg$ = this.store.select(fromRoot.getMsg);
         this.identity$ = this.principal.identity();
         this.contact$ = this.store.select(fromRoot.getSelectedContact);
-        this.contactSub = this.contact$.subscribe((contact) => {
+        this.contactSub = this.contact$.subscribe(contact => {
             this.contactForm = this.formBuilder.group({
-                name: [contact ? contact.name : '', Validators.required],  // TODO: fix this hack
-                id: [contact ? contact.id : '', Validators.required]       // TODO: fix this hack
+                name: [contact ? contact.name : '', Validators.required], // TODO: fix this hack
+                id: [contact ? contact.id : '', Validators.required] // TODO: fix this hack
             });
-            this.adding = contact && contact.id !== EntityActions.TEMP
+            this.adding = contact && contact.id !== EntityActions.TEMP;
         });
         this.store.dispatch(new EntityActions.Load(slices.CONTACT));
     }
@@ -64,18 +60,15 @@ export class ContactsPage implements OnInit, OnDestroy {
 
     onSubmit() {
         if (this.contactForm.value.id === EntityActions.TEMP) {
-            this.store.dispatch(new EntityActions.Add(slices.CONTACT,
-                this.contactForm.value));
+            this.store.dispatch(new EntityActions.Add(slices.CONTACT, this.contactForm.value));
         } else {
-            this.store.dispatch(new EntityActions.Patch(slices.CONTACT,
-                this.contactForm.value));
+            this.store.dispatch(new EntityActions.Patch(slices.CONTACT, this.contactForm.value));
         }
     }
 
     ngOnDestroy() {
         this.contactSub && this.contactSub.unsubscribe();
     }
-
 }
 
 /*

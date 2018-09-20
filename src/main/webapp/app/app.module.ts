@@ -1,5 +1,5 @@
 import './vendor';
-import './rxjs-imports'
+import './rxjs-imports';
 import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { NotificationInterceptor } from './core/interceptor/notification.interce
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 
 import { DBModule } from '@ngrx/db';
-import { GreatBigExampleApplicationSharedModule, UserRouteAccessService } from './shared';
+import { GreatBigExampleApplicationSharedModule } from './shared';
 import { GreatBigExampleApplicationAdminModule } from './admin/admin.module';
 import { GreatBigExampleApplicationAccountModule } from './account/account.module';
 import { GreatBigExampleApplicationEntityModule } from './entities/entity.module';
@@ -21,11 +21,7 @@ import { GreatBigExampleApplicationHomeModule } from './features/home/home.modul
 // import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
 import { TranslateModule } from '@ngx-translate/core';
 import { EffectsModule } from '@ngrx/effects';
-import {
-    StoreRouterConnectingModule,
-    RouterStateSerializer,
-} from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 
 import { PaginationConfig } from './core/config/uib-pagination.config';
@@ -149,46 +145,33 @@ const imports = [
 
 @NgModule({
     imports: [imports],
-    declarations: [
-    ],
+    declarations: [],
     providers: [
-        ProfileService,
-        PaginationConfig,
-        UserRouteAccessService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true,
-            deps: [
-                LocalStorageService,
-                SessionStorageService
-            ]
+            deps: [LocalStorageService, SessionStorageService]
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthExpiredInterceptor,
             multi: true,
-            deps: [
-                Injector
-            ]
+            deps: [Injector]
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorHandlerInterceptor,
             multi: true,
-            deps: [
-                JhiEventManager
-            ]
+            deps: [JhiEventManager]
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: NotificationInterceptor,
             multi: true,
-            deps: [
-                Injector
-            ]
+            deps: [Injector]
         }
     ],
     bootstrap: [JhiMainComponent]
 })
-export class GreatBigExampleApplicationAppModule { }
+export class GreatBigExampleApplicationAppModule {}

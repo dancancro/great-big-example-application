@@ -13,7 +13,6 @@ import { Comment } from '../../../core/store/comment/comment.model';
 import { Profile } from '../../../core/store/profile/profile.model';
 import { slices } from '../../../core/store/util';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
-import { Account, Principal } from '../../../shared';
 
 @Component({
     selector: 'jhi-article-component',
@@ -43,29 +42,27 @@ export class ArticleComponent implements OnInit, OnDestroy {
         private alertService: JhiAlertService,
         private route: ActivatedRoute,
         private router: Router
-    ) { }
+    ) {}
 
     ngOnInit() {
         // this.identity = this.principal.identity();
         this.currentUserProfile$ = this.store.select(fromRoot.getCurrentProfile);
         this.article$ = this.store.select(fromRoot.getSelectedArticle);
-        this.articleSub = this.article$.subscribe((article) => {
+        this.articleSub = this.article$.subscribe(article => {
             this.store.dispatch(new EntityActions.Load(slices.COMMENT, { query: { slug: article.slug } }));
             this.article = article;
         });
         this.comments$ = this.store.select(fromRoot.getCommentsForSelectedArticle);
-        this.commentsSub = this.comments$.subscribe((comments) => this.comments = comments);
-        this.newCommentSub = this.store.select(fromRoot.getCleanTempComment).subscribe((comment) =>
-            this.commentControl.setValue(comment ? comment.body : '')
-        )
+        this.commentsSub = this.comments$.subscribe(comments => (this.comments = comments));
+        this.newCommentSub = this.store
+            .select(fromRoot.getCleanTempComment)
+            .subscribe(comment => this.commentControl.setValue(comment ? comment.body : ''));
 
-        this.currentUserProfileSub = Observable.combineLatest(this.currentUserProfile$, this.article$).subscribe(
-            ([profile, article]) => {
-                this.currentUserProfile = profile;
+        this.currentUserProfileSub = Observable.combineLatest(this.currentUserProfile$, this.article$).subscribe(([profile, article]) => {
+            this.currentUserProfile = profile;
 
-                this.canModify = article && article.author && (this.currentUserProfile.username === article.author.username);
-            }
-        );
+            this.canModify = article && article.author && this.currentUserProfile.username === article.author.username;
+        });
     }
 
     onToggleFavorite(favorited: boolean) {

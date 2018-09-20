@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ArticleComponent } from './article.component';
 import { EntityExistsGuard } from '../../../core/services/entity-exists.guard';
-import { UserRouteAccessService } from '../../../shared';
+import { UserRouteAccessService } from '../../../core';
 import { slices } from '../../../core/store/util';
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
             pageTitle: 'greatBigExampleApplicationApp.blog.home.title',
             slice: slices.ARTICLE
         },
-        canActivate: [UserRouteAccessService, EntityExistsGuard],
+        canActivate: [UserRouteAccessService, EntityExistsGuard]
     }
 ];
 
@@ -25,4 +25,4 @@ export const routedComponents = [ArticleComponent];
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class ArticleRouting { }
+export class ArticleRouting {}

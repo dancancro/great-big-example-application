@@ -1,9 +1,8 @@
 import { SpyObject } from './spyobject';
-import { LoginService } from '../../../../main/webapp/app/shared/login/login.service';
+import { LoginService } from 'app/core/login/login.service';
 import Spy = jasmine.Spy;
 
 export class MockLoginService extends SpyObject {
-
     loginSpy: Spy;
     logoutSpy: Spy;
     registerSpy: Spy;

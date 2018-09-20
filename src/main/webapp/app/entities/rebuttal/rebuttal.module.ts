@@ -1,49 +1,29 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    RebuttalService,
-    RebuttalPopupService,
     RebuttalComponent,
     RebuttalDetailComponent,
-    RebuttalDialogComponent,
-    RebuttalPopupComponent,
+    RebuttalUpdateComponent,
     RebuttalDeletePopupComponent,
     RebuttalDeleteDialogComponent,
     rebuttalRoute,
-    rebuttalPopupRoute,
+    rebuttalPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...rebuttalRoute,
-    ...rebuttalPopupRoute,
-];
+const ENTITY_STATES = [...rebuttalRoute, ...rebuttalPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         RebuttalComponent,
         RebuttalDetailComponent,
-        RebuttalDialogComponent,
+        RebuttalUpdateComponent,
         RebuttalDeleteDialogComponent,
-        RebuttalPopupComponent,
-        RebuttalDeletePopupComponent,
+        RebuttalDeletePopupComponent
     ],
-    entryComponents: [
-        RebuttalComponent,
-        RebuttalDialogComponent,
-        RebuttalPopupComponent,
-        RebuttalDeleteDialogComponent,
-        RebuttalDeletePopupComponent,
-    ],
-    providers: [
-        RebuttalService,
-        RebuttalPopupService,
-    ],
+    entryComponents: [RebuttalComponent, RebuttalUpdateComponent, RebuttalDeleteDialogComponent, RebuttalDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationRebuttalModule {}

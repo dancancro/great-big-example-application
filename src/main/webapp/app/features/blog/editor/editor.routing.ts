@@ -5,7 +5,7 @@ import { EditorPage } from './editor.page';
 import { AddPage } from './add.page';
 import { EditorGuard } from './editor.guard';
 import { EntityExistsGuard } from '../../../core/services/entity-exists.guard';
-import { UserRouteAccessService } from '../../../shared';
+import { UserRouteAccessService } from '../../../core';
 import { slices } from '../../../core/store/util';
 
 const routes: Routes = [
@@ -30,12 +30,10 @@ const routes: Routes = [
     }
 ];
 
-export const routedComponents = [
-    AddPage,
-    EditorPage];
+export const routedComponents = [AddPage, EditorPage];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class EditorRouting { }
+export class EditorRouting {}

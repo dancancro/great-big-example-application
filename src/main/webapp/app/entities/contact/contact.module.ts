@@ -1,49 +1,29 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    ContactService,
-    ContactPopupService,
     ContactComponent,
     ContactDetailComponent,
-    ContactDialogComponent,
-    ContactPopupComponent,
+    ContactUpdateComponent,
     ContactDeletePopupComponent,
     ContactDeleteDialogComponent,
     contactRoute,
-    contactPopupRoute,
+    contactPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...contactRoute,
-    ...contactPopupRoute,
-];
+const ENTITY_STATES = [...contactRoute, ...contactPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ContactComponent,
         ContactDetailComponent,
-        ContactDialogComponent,
+        ContactUpdateComponent,
         ContactDeleteDialogComponent,
-        ContactPopupComponent,
-        ContactDeletePopupComponent,
+        ContactDeletePopupComponent
     ],
-    entryComponents: [
-        ContactComponent,
-        ContactDialogComponent,
-        ContactPopupComponent,
-        ContactDeleteDialogComponent,
-        ContactDeletePopupComponent,
-    ],
-    providers: [
-        ContactService,
-        ContactPopupService,
-    ],
+    entryComponents: [ContactComponent, ContactUpdateComponent, ContactDeleteDialogComponent, ContactDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationContactModule {}

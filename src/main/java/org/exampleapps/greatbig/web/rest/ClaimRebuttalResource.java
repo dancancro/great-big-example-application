@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.ClaimRebuttal;
-
 import org.exampleapps.greatbig.repository.ClaimRebuttalRepository;
 import org.exampleapps.greatbig.repository.search.ClaimRebuttalSearchRepository;
 import org.exampleapps.greatbig.web.rest.util.HeaderUtil;
@@ -77,7 +76,7 @@ public class ClaimRebuttalResource {
     public ResponseEntity<ClaimRebuttal> updateClaimRebuttal(@RequestBody ClaimRebuttal claimRebuttal) throws URISyntaxException {
         log.debug("REST request to update ClaimRebuttal : {}", claimRebuttal);
         if (claimRebuttal.getId() == null) {
-            return createClaimRebuttal(claimRebuttal);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ClaimRebuttal result = claimRebuttalRepository.save(claimRebuttal);
         claimRebuttalSearchRepository.save(result);
@@ -108,8 +107,8 @@ public class ClaimRebuttalResource {
     @Timed
     public ResponseEntity<ClaimRebuttal> getClaimRebuttal(@PathVariable Long id) {
         log.debug("REST request to get ClaimRebuttal : {}", id);
-        ClaimRebuttal claimRebuttal = claimRebuttalRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(claimRebuttal));
+        Optional<ClaimRebuttal> claimRebuttal = claimRebuttalRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(claimRebuttal);
     }
 
     /**
@@ -122,8 +121,9 @@ public class ClaimRebuttalResource {
     @Timed
     public ResponseEntity<Void> deleteClaimRebuttal(@PathVariable Long id) {
         log.debug("REST request to delete ClaimRebuttal : {}", id);
-        claimRebuttalRepository.delete(id);
-        claimRebuttalSearchRepository.delete(id);
+
+        claimRebuttalRepository.deleteById(id);
+        claimRebuttalSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

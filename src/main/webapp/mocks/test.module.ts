@@ -6,7 +6,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService, JhiDataUtils, JhiDateUtils, JhiEventManager, JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 
 import { MockLanguageService, MockLanguageHelper } from './mock-language.service';
-import { JhiLanguageHelper, Principal, AccountService, LoginModalService, JhiTrackerService } from '../../../main/webapp/app/shared';
+import { JhiLanguageHelper, Principal, AccountService, LoginModalService, JhiTrackerService } from 'app/core';
 import { MockPrincipal } from './mock-principal.service';
 import { MockAccountService } from './mock-account.service';
 import { MockActivatedRoute, MockRouter } from './mock-route.service';
@@ -74,8 +74,8 @@ import { MockEventManager } from './mock-event-manager.service';
         {
             provide: NgbModal,
             useValue: null
-        },
+        }
     ],
     imports: [HttpClientTestingModule]
 })
-export class GreatBigExampleApplicationTestModule { }
+export class GreatBigExampleApplicationTestModule {}

@@ -26,11 +26,15 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
+
 
 import static org.exampleapps.greatbig.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -61,8 +65,14 @@ public class RebuttalResourceIntTest {
     @Autowired
     private RebuttalRepository rebuttalRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.RebuttalSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private RebuttalSearchRepository rebuttalSearchRepository;
+    private RebuttalSearchRepository mockRebuttalSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -83,7 +93,7 @@ public class RebuttalResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        RebuttalResource rebuttalResource = new RebuttalResource(rebuttalRepository, rebuttalSearchRepository);
+        final RebuttalResource rebuttalResource = new RebuttalResource(rebuttalRepository, mockRebuttalSearchRepository);
         this.restRebuttalMockMvc = MockMvcBuilders.standaloneSetup(rebuttalResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -108,7 +118,6 @@ public class RebuttalResourceIntTest {
 
     @Before
     public void initTest() {
-        rebuttalSearchRepository.deleteAll();
         rebuttal = createEntity(em);
     }
 
@@ -134,8 +143,7 @@ public class RebuttalResourceIntTest {
         assertThat(testRebuttal.getLink()).isEqualTo(DEFAULT_LINK);
 
         // Validate the Rebuttal in Elasticsearch
-        Rebuttal rebuttalEs = rebuttalSearchRepository.findOne(testRebuttal.getId());
-        assertThat(rebuttalEs).isEqualToComparingFieldByField(testRebuttal);
+        verify(mockRebuttalSearchRepository, times(1)).save(testRebuttal);
     }
 
     @Test
@@ -155,6 +163,9 @@ public class RebuttalResourceIntTest {
         // Validate the Alice in the database
         List<Rebuttal> rebuttalList = rebuttalRepository.findAll();
         assertThat(rebuttalList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Rebuttal in Elasticsearch
+        verify(mockRebuttalSearchRepository, times(0)).save(rebuttal);
     }
 
     @Test
@@ -175,6 +186,7 @@ public class RebuttalResourceIntTest {
             .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK.toString())));
     }
 
+
     @Test
     @Transactional
     public void getRebuttal() throws Exception {
@@ -192,7 +204,6 @@ public class RebuttalResourceIntTest {
             .andExpect(jsonPath("$.expires").value(sameInstant(DEFAULT_EXPIRES)))
             .andExpect(jsonPath("$.link").value(DEFAULT_LINK.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingRebuttal() throws Exception {
@@ -206,11 +217,13 @@ public class RebuttalResourceIntTest {
     public void updateRebuttal() throws Exception {
         // Initialize the database
         rebuttalRepository.saveAndFlush(rebuttal);
-        rebuttalSearchRepository.save(rebuttal);
+
         int databaseSizeBeforeUpdate = rebuttalRepository.findAll().size();
 
         // Update the rebuttal
-        Rebuttal updatedRebuttal = rebuttalRepository.findOne(rebuttal.getId());
+        Rebuttal updatedRebuttal = rebuttalRepository.findById(rebuttal.getId()).get();
+        // Disconnect from session so that the updates on updatedRebuttal are not directly saved in db
+        em.detach(updatedRebuttal);
         updatedRebuttal
             .longName(UPDATED_LONG_NAME)
             .shortName(UPDATED_SHORT_NAME)
@@ -234,8 +247,7 @@ public class RebuttalResourceIntTest {
         assertThat(testRebuttal.getLink()).isEqualTo(UPDATED_LINK);
 
         // Validate the Rebuttal in Elasticsearch
-        Rebuttal rebuttalEs = rebuttalSearchRepository.findOne(testRebuttal.getId());
-        assertThat(rebuttalEs).isEqualToComparingFieldByField(testRebuttal);
+        verify(mockRebuttalSearchRepository, times(1)).save(testRebuttal);
     }
 
     @Test
@@ -245,15 +257,18 @@ public class RebuttalResourceIntTest {
 
         // Create the Rebuttal
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRebuttalMockMvc.perform(put("/api/rebuttals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(rebuttal)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Rebuttal in the database
         List<Rebuttal> rebuttalList = rebuttalRepository.findAll();
-        assertThat(rebuttalList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(rebuttalList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Rebuttal in Elasticsearch
+        verify(mockRebuttalSearchRepository, times(0)).save(rebuttal);
     }
 
     @Test
@@ -261,7 +276,7 @@ public class RebuttalResourceIntTest {
     public void deleteRebuttal() throws Exception {
         // Initialize the database
         rebuttalRepository.saveAndFlush(rebuttal);
-        rebuttalSearchRepository.save(rebuttal);
+
         int databaseSizeBeforeDelete = rebuttalRepository.findAll().size();
 
         // Get the rebuttal
@@ -269,13 +284,12 @@ public class RebuttalResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean rebuttalExistsInEs = rebuttalSearchRepository.exists(rebuttal.getId());
-        assertThat(rebuttalExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Rebuttal> rebuttalList = rebuttalRepository.findAll();
         assertThat(rebuttalList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Rebuttal in Elasticsearch
+        verify(mockRebuttalSearchRepository, times(1)).deleteById(rebuttal.getId());
     }
 
     @Test
@@ -283,8 +297,8 @@ public class RebuttalResourceIntTest {
     public void searchRebuttal() throws Exception {
         // Initialize the database
         rebuttalRepository.saveAndFlush(rebuttal);
-        rebuttalSearchRepository.save(rebuttal);
-
+        when(mockRebuttalSearchRepository.search(queryStringQuery("id:" + rebuttal.getId())))
+            .thenReturn(Collections.singletonList(rebuttal));
         // Search the rebuttal
         restRebuttalMockMvc.perform(get("/api/_search/rebuttals?query=id:" + rebuttal.getId()))
             .andExpect(status().isOk())

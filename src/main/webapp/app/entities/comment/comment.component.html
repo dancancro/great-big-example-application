@@ -1,8 +1,8 @@
 <div>
-    <h2>
+    <h2 id="page-heading">
         <span jhiTranslate="greatBigExampleApplicationApp.comment.home.title">Comments</span>
-        <button class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/', { outlets: { popup: ['comment-new'] } }]">
-            <span class="fa fa-plus"></span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="greatBigExampleApplicationApp.comment.home.createLabel">
             Create new Comment
             </span>
@@ -15,10 +15,10 @@
                 <div class="input-group w-100 mt-3">
                     <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'greatBigExampleApplicationApp.comment.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <span class="fa fa-search"></span>
+                        <fa-icon [icon]="'search'"></fa-icon>
                     </button>
                     <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <span class="fa fa-trash-o"></span>
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
                     </button>
                 </div>
             </form>
@@ -29,45 +29,43 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="body"><span jhiTranslate="greatBigExampleApplicationApp.comment.body">Body</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="createdAt"><span jhiTranslate="greatBigExampleApplicationApp.comment.createdAt">Created At</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="updatedAt"><span jhiTranslate="greatBigExampleApplicationApp.comment.updatedAt">Updated At</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="article.id"><span jhiTranslate="greatBigExampleApplicationApp.comment.article">Article</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="author.id"><span jhiTranslate="greatBigExampleApplicationApp.comment.author">Author</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="body"><span jhiTranslate="greatBigExampleApplicationApp.comment.body">Body</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdAt"><span jhiTranslate="greatBigExampleApplicationApp.comment.createdAt">Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updatedAt"><span jhiTranslate="greatBigExampleApplicationApp.comment.updatedAt">Updated At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="article.id"><span jhiTranslate="greatBigExampleApplicationApp.comment.article">Article</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="author.id"><span jhiTranslate="greatBigExampleApplicationApp.comment.author">Author</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let comment of comments ;trackBy: trackId">
-                <td><a [routerLink]="['../comment', comment.id ]">{{comment.id}}</a></td>
+                <td><a [routerLink]="['/comment', comment.id, 'view' ]">{{comment.id}}</a></td>
                 <td>{{comment.body}}</td>
                 <td>{{comment.createdAt | date:'medium'}}</td>
                 <td>{{comment.updatedAt | date:'medium'}}</td>
                 <td>
                     <div *ngIf="comment.article">
-                        <a [routerLink]="['../article', comment.article?.id ]" >{{comment.article?.id}}</a>
+                        <a [routerLink]="['../article', comment.article?.id, 'view' ]" >{{comment.article?.id}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="comment.author">
-                        <a [routerLink]="['../author', comment.author?.id ]" >{{comment.author?.id}}</a>
+                        <a [routerLink]="['../author', comment.author?.id, 'view' ]" >{{comment.author?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../comment', comment.id ]"
+                                [routerLink]="['/comment', comment.id, 'view' ]"
                                 class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
+                            <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                                [routerLink]="['/comment', comment.id, 'edit']"
                                 class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
@@ -75,7 +73,7 @@
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
+                            <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>

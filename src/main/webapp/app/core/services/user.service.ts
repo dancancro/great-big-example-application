@@ -5,13 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 import { User } from '../store/user/user.model';
 import { ResponseWrapper } from '../../shared/model/response-wrapper.model';
-import { createRequestOption } from '../../shared/model/request-util';
+import { createRequestOption } from '../../shared/util/request-util';
 
 @Injectable()
 export class UserService {
     private resourceUrl = SERVER_API_URL + 'api/users';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     create(user: User): Observable<HttpResponse<User>> {
         return this.http.post<User>(this.resourceUrl, user, { observe: 'response' });
@@ -37,5 +37,4 @@ export class UserService {
     authorities(): Observable<string[]> {
         return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
     }
-
 }

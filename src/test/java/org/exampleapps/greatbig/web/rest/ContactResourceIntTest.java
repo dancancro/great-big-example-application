@@ -22,10 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
+
+import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,8 +49,14 @@ public class ContactResourceIntTest {
     @Autowired
     private ContactRepository contactRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.ContactSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private ContactSearchRepository contactSearchRepository;
+    private ContactSearchRepository mockContactSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -66,7 +77,7 @@ public class ContactResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ContactResource contactResource = new ContactResource(contactRepository, contactSearchRepository);
+        final ContactResource contactResource = new ContactResource(contactRepository, mockContactSearchRepository);
         this.restContactMockMvc = MockMvcBuilders.standaloneSetup(contactResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -87,7 +98,6 @@ public class ContactResourceIntTest {
 
     @Before
     public void initTest() {
-        contactSearchRepository.deleteAll();
         contact = createEntity(em);
     }
 
@@ -109,8 +119,7 @@ public class ContactResourceIntTest {
         assertThat(testContact.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Contact in Elasticsearch
-        Contact contactEs = contactSearchRepository.findOne(testContact.getId());
-        assertThat(contactEs).isEqualToComparingFieldByField(testContact);
+        verify(mockContactSearchRepository, times(1)).save(testContact);
     }
 
     @Test
@@ -130,6 +139,9 @@ public class ContactResourceIntTest {
         // Validate the Alice in the database
         List<Contact> contactList = contactRepository.findAll();
         assertThat(contactList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Contact in Elasticsearch
+        verify(mockContactSearchRepository, times(0)).save(contact);
     }
 
     @Test
@@ -164,6 +176,7 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
+
     @Test
     @Transactional
     public void getContact() throws Exception {
@@ -177,7 +190,6 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.id").value(contact.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingContact() throws Exception {
@@ -191,11 +203,13 @@ public class ContactResourceIntTest {
     public void updateContact() throws Exception {
         // Initialize the database
         contactRepository.saveAndFlush(contact);
-        contactSearchRepository.save(contact);
+
         int databaseSizeBeforeUpdate = contactRepository.findAll().size();
 
         // Update the contact
-        Contact updatedContact = contactRepository.findOne(contact.getId());
+        Contact updatedContact = contactRepository.findById(contact.getId()).get();
+        // Disconnect from session so that the updates on updatedContact are not directly saved in db
+        em.detach(updatedContact);
         updatedContact
             .name(UPDATED_NAME);
 
@@ -211,8 +225,7 @@ public class ContactResourceIntTest {
         assertThat(testContact.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Contact in Elasticsearch
-        Contact contactEs = contactSearchRepository.findOne(testContact.getId());
-        assertThat(contactEs).isEqualToComparingFieldByField(testContact);
+        verify(mockContactSearchRepository, times(1)).save(testContact);
     }
 
     @Test
@@ -222,15 +235,18 @@ public class ContactResourceIntTest {
 
         // Create the Contact
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restContactMockMvc.perform(put("/api/contacts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(contact)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Contact in the database
         List<Contact> contactList = contactRepository.findAll();
-        assertThat(contactList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(contactList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Contact in Elasticsearch
+        verify(mockContactSearchRepository, times(0)).save(contact);
     }
 
     @Test
@@ -238,7 +254,7 @@ public class ContactResourceIntTest {
     public void deleteContact() throws Exception {
         // Initialize the database
         contactRepository.saveAndFlush(contact);
-        contactSearchRepository.save(contact);
+
         int databaseSizeBeforeDelete = contactRepository.findAll().size();
 
         // Get the contact
@@ -246,13 +262,12 @@ public class ContactResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean contactExistsInEs = contactSearchRepository.exists(contact.getId());
-        assertThat(contactExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Contact> contactList = contactRepository.findAll();
         assertThat(contactList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Contact in Elasticsearch
+        verify(mockContactSearchRepository, times(1)).deleteById(contact.getId());
     }
 
     @Test
@@ -260,8 +275,8 @@ public class ContactResourceIntTest {
     public void searchContact() throws Exception {
         // Initialize the database
         contactRepository.saveAndFlush(contact);
-        contactSearchRepository.save(contact);
-
+        when(mockContactSearchRepository.search(queryStringQuery("id:" + contact.getId())))
+            .thenReturn(Collections.singletonList(contact));
         // Search the contact
         restContactMockMvc.perform(get("/api/_search/contacts?query=id:" + contact.getId()))
             .andExpect(status().isOk())

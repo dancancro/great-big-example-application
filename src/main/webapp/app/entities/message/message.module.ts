@@ -1,49 +1,29 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    MessageService,
-    MessagePopupService,
     MessageComponent,
     MessageDetailComponent,
-    MessageDialogComponent,
-    MessagePopupComponent,
+    MessageUpdateComponent,
     MessageDeletePopupComponent,
     MessageDeleteDialogComponent,
     messageRoute,
-    messagePopupRoute,
+    messagePopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...messageRoute,
-    ...messagePopupRoute,
-];
+const ENTITY_STATES = [...messageRoute, ...messagePopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         MessageComponent,
         MessageDetailComponent,
-        MessageDialogComponent,
+        MessageUpdateComponent,
         MessageDeleteDialogComponent,
-        MessagePopupComponent,
-        MessageDeletePopupComponent,
+        MessageDeletePopupComponent
     ],
-    entryComponents: [
-        MessageComponent,
-        MessageDialogComponent,
-        MessagePopupComponent,
-        MessageDeleteDialogComponent,
-        MessageDeletePopupComponent,
-    ],
-    providers: [
-        MessageService,
-        MessagePopupService,
-    ],
+    entryComponents: [MessageComponent, MessageUpdateComponent, MessageDeleteDialogComponent, MessageDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationMessageModule {}

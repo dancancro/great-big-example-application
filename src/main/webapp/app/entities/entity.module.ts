@@ -16,6 +16,7 @@ import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
+    // prettier-ignore
     imports: [
         GreatBigExampleApplicationHeroModule,
         GreatBigExampleApplicationCrisisModule,
@@ -37,4 +38,4 @@ import { GreatBigExampleApplicationTalkModule } from './talk/talk.module';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GreatBigExampleApplicationEntityModule { }
+export class GreatBigExampleApplicationEntityModule {}

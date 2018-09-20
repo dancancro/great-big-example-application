@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Note } from './note.model';
-import { NotePopupService } from './note-popup.service';
+import { INote } from 'app/shared/model/note.model';
 import { NoteService } from './note.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { NoteService } from './note.service';
     templateUrl: './note-delete-dialog.component.html'
 })
 export class NoteDeleteDialogComponent {
+    note: INote;
 
-    note: Note;
-
-    constructor(
-        private noteService: NoteService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private noteService: NoteService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.noteService.delete(id).subscribe((response) => {
+        this.noteService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'noteListModification',
                 content: 'Deleted an note'
@@ -43,22 +36,30 @@ export class NoteDeleteDialogComponent {
     template: ''
 })
 export class NoteDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private notePopupService: NotePopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.notePopupService
-                .open(NoteDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ note }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(NoteDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.note = note;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

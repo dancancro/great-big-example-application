@@ -1,91 +1,81 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
-import { JhiDateUtils } from 'ng-jhipster';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IRebuttal } from 'app/shared/model/rebuttal.model';
 
-import { Rebuttal } from './rebuttal.model';
-import { createRequestOption } from '../../shared';
+type EntityResponseType = HttpResponse<IRebuttal>;
+type EntityArrayResponseType = HttpResponse<IRebuttal[]>;
 
-export type EntityResponseType = HttpResponse<Rebuttal>;
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RebuttalService {
-
-    private resourceUrl =  SERVER_API_URL + 'api/rebuttals';
+    private resourceUrl = SERVER_API_URL + 'api/rebuttals';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/rebuttals';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient) {}
 
-    create(rebuttal: Rebuttal): Observable<EntityResponseType> {
-        const copy = this.convert(rebuttal);
-        return this.http.post<Rebuttal>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(rebuttal: IRebuttal): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(rebuttal);
+        return this.http
+            .post<IRebuttal>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    update(rebuttal: Rebuttal): Observable<EntityResponseType> {
-        const copy = this.convert(rebuttal);
-        return this.http.put<Rebuttal>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(rebuttal: IRebuttal): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(rebuttal);
+        return this.http
+            .put<IRebuttal>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Rebuttal>(`${this.resourceUrl}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http
+            .get<IRebuttal>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any): Observable<HttpResponse<Rebuttal[]>> {
+    query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Rebuttal[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Rebuttal[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IRebuttal[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    search(req?: any): Observable<HttpResponse<Rebuttal[]>> {
+    search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Rebuttal[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Rebuttal[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IRebuttal[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: Rebuttal = this.convertItemFromServer(res.body);
-        return res.clone({body});
-    }
-
-    private convertArrayResponse(res: HttpResponse<Rebuttal[]>): HttpResponse<Rebuttal[]> {
-        const jsonResponse: Rebuttal[] = res.body;
-        const body: Rebuttal[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return res.clone({body});
-    }
-
-    /**
-     * Convert a returned JSON object to Rebuttal.
-     */
-    private convertItemFromServer(rebuttal: Rebuttal): Rebuttal {
-        const copy: Rebuttal = Object.assign({}, rebuttal);
-        copy.date = this.dateUtils
-            .convertDateTimeFromServer(rebuttal.date);
-        copy.expires = this.dateUtils
-            .convertDateTimeFromServer(rebuttal.expires);
+    private convertDateFromClient(rebuttal: IRebuttal): IRebuttal {
+        const copy: IRebuttal = Object.assign({}, rebuttal, {
+            date: rebuttal.date != null && rebuttal.date.isValid() ? rebuttal.date.toJSON() : null,
+            expires: rebuttal.expires != null && rebuttal.expires.isValid() ? rebuttal.expires.toJSON() : null
+        });
         return copy;
     }
 
-    /**
-     * Convert a Rebuttal to a JSON which can be sent to the server.
-     */
-    private convert(rebuttal: Rebuttal): Rebuttal {
-        const copy: Rebuttal = Object.assign({}, rebuttal);
+    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        res.body.date = res.body.date != null ? moment(res.body.date) : null;
+        res.body.expires = res.body.expires != null ? moment(res.body.expires) : null;
+        return res;
+    }
 
-        copy.date = this.dateUtils.toDate(rebuttal.date);
-
-        copy.expires = this.dateUtils.toDate(rebuttal.expires);
-        return copy;
+    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        res.body.forEach((rebuttal: IRebuttal) => {
+            rebuttal.date = rebuttal.date != null ? moment(rebuttal.date) : null;
+            rebuttal.expires = rebuttal.expires != null ? moment(rebuttal.expires) : null;
+        });
+        return res;
     }
 }

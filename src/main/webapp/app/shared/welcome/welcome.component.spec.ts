@@ -3,7 +3,7 @@
 // import { DebugElement } from '@angular/core';
 
 // import { WelcomeComponent } from './welcome.component';
-// import { Principal } from '../../shared/auth/principal.service';
+// import { Principal } from '../../core/auth/principal.service';
 // import { MockPrincipal } from '../../../mocks/mock-principal.service';
 
 // describe('WelcomeComponent', () => {

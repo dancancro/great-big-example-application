@@ -1,36 +1,35 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { Principal, AccountService } from '../../shared';
-import { SettingsComponent } from './settings.component';
-import { JhiTrackerService } from '../../shared/tracker/tracker.service';
+import { Principal, AccountService } from 'app/core';
+import { SettingsComponent } from 'app/account/settings/settings.component';
+import { JhiTrackerService } from 'app/core/tracker/tracker.service';
 import { MockTrackerService } from '../../../mocks/mock-tracker.service';
 
-
 describe('Component Tests', () => {
-
     describe('SettingsComponent', () => {
-
         let comp: SettingsComponent;
         let fixture: ComponentFixture<SettingsComponent>;
         let mockAuth: any;
         let mockPrincipal: any;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [GreatBigExampleApplicationTestModule],
-                declarations: [SettingsComponent],
-                providers: [
-                    {
-                        provide: JhiTrackerService,
-                        useClass: MockTrackerService
-                    },
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [GreatBigExampleApplicationTestModule],
+                    declarations: [SettingsComponent],
+                    providers: [
+                        {
+                            provide: JhiTrackerService,
+                            useClass: MockTrackerService
+                        }
+                    ]
+                })
+                    .overrideTemplate(SettingsComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(SettingsComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(SettingsComponent);
@@ -80,7 +79,7 @@ describe('Component Tests', () => {
 
         it('should notify of error upon failed save', () => {
             // GIVEN
-            mockAuth.saveSpy.and.returnValue(Observable.throw('ERROR'));
+            mockAuth.saveSpy.and.returnValue(throwError('ERROR'));
 
             // WHEN
             comp.save();

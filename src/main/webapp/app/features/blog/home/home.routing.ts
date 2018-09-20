@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { UserRouteAccessService } from '../../../shared';
+import { UserRouteAccessService } from '../../../core';
 
 const routes: Routes = [
     {
@@ -22,4 +22,4 @@ export const routedComponents = [HomePage];
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class HomeRouting { }
+export class HomeRouting {}

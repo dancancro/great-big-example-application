@@ -40,7 +40,7 @@ import {
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
+// import { storeFreeze } from 'ngrx-store-freeze';
 
 /**
  * Every reducer module's default export is the reducer function itself. In
@@ -149,27 +149,27 @@ export let reducers: ActionReducerMap<RootState> = {
 // export const metaReducers: MetaReducer<RootState>[] = (process.env.NODE_ENV === 'dev'
 // ? [logger]
 // : []).concat(loadingSetter)
-export const metaReducers: MetaReducer<RootState>[] = [logger, loadingSetter]
+export const metaReducers: MetaReducer<RootState>[] = [logger, loadingSetter];
 
 // console.log all actions
 function logger(reducer: ActionReducer<RootState>) {
-    return function (state: RootState, action: any) {
+    return function(state: RootState, action: any) {
         console.log('state', state);
         console.log('action', action);
 
         return reducer(state, action);
-    }
+    };
 }
 
 // set loading and loaded fields
 function loadingSetter(reducer: ActionReducer<RootState>) {
-    return function (state: RootState, action: any) {
+    return function(state: RootState, action: any) {
         let newState = state;
         if (action.verb) {
-            newState = setLoading(state, action)
+            newState = setLoading(state, action);
         }
         return reducer(newState, action);
-    }
+    };
 }
 
 function setLoading(state, action) {
@@ -197,7 +197,6 @@ function setLoading(state, action) {
         }
     }
     return newState;
-
 }
 
 function isLoadingAction(verb: string) {
@@ -207,7 +206,7 @@ function isLoadingAction(verb: string) {
         case actions.LOAD:
         case actions.PATCH:
         case actions.UPDATE:
-        case 'ADD_COMMENT':  // TODO: create an ADD_CHILD action verb to handle this
+        case 'ADD_COMMENT': // TODO: create an ADD_CHILD action verb to handle this
             return true;
         default:
             return false;
@@ -246,13 +245,15 @@ const developmentReducer = compose(
     // reduxPromiseMiddleware(),
     // storeFreeze,
     localStorageSync({ keys: ['session'] }),
-    combineReducers)(reducers);
+    combineReducers
+)(reducers);
 const productionReducer = compose(
     // reduxThunk,               // Thunk middleware for Redux
     // reduxMulti,               // Dispatch multiple actions
     // reduxPromiseMiddleware(),
     localStorageSync({ keys: ['session'] }),
-    combineReducers)(reducers);
+    combineReducers
+)(reducers);
 
 export function reducer(state: any, action: any) {
     if (process.env.NODE_ENV === 'prod') {
@@ -303,9 +304,9 @@ export const developmentReducerFactory: ActionReducerFactory<RootState, Action> 
  */
 
 /**
-  * The createFeatureSelector function selects a piece of state from the root of the state object.
-  * This is used for selecting feature states that are loaded eagerly or lazily.
-*/
+ * The createFeatureSelector function selects a piece of state from the root of the state object.
+ * This is used for selecting feature states that are loaded eagerly or lazily.
+ */
 
 // const developmentReducer = compose(
 //     // reduxThunk,                // Thunk middleware for Redux
@@ -381,7 +382,7 @@ export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoa
  * composes the search result IDs to return an array of books in the store.
  */
 export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
-    return searchIds.map((id) => books[id]);
+    return searchIds.map(id => books[id]);
 });
 
 export const getCollectionState = (state: RootState) => state.collection;
@@ -389,7 +390,7 @@ export const getCollectionLoaded = createSelector(getCollectionState, fromCollec
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
 export const getCollectionBookIds = createSelector(getCollectionState, fromCollection.getIds);
 export const getBookCollection = createSelector(getBookEntities, getCollectionBookIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 export const isSelectedBookInCollection = createSelector(getCollectionBookIds, getSelectedBookId, (ids, selected) => {
     return ids.indexOf(selected) > -1;
@@ -426,7 +427,7 @@ export const getProfilesState = (state: RootState): Entities<Profile> => state.p
 export const getProfileEntities = createSelector(getProfilesState, fromProfiles.getEntities);
 export const getProfileIds = createSelector(getProfilesState, fromProfiles.getIds);
 export const getProfiles = createSelector(getProfileEntities, getProfileIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 // TODO: Setting bio to '' is just wrong, but the author:user relationship is a real pain
 export const getCurrentProfile = createSelector(getCurrentUser, (user): Profile => {
@@ -440,7 +441,7 @@ export const getNotesState = (state: RootState) => state.note;
 export const getNoteEntities = createSelector(getNotesState, fromNotes.getEntities);
 export const getNoteIds = createSelector(getNotesState, fromNotes.getIds);
 export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 /**
@@ -450,7 +451,7 @@ export const getClaimsState = (state: RootState): Entities<Claim> => state.claim
 export const getClaimEntities = createSelector(getClaimsState, fromClaims.getEntities);
 export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 export const getSelectedClaimId = createSelector(getClaimsState, fromClaims.getSelectedId);
 
@@ -477,7 +478,7 @@ export const getRebuttalsState = (state: RootState): Entities<Rebuttal> => state
 export const getRebuttalEntities = createSelector(getRebuttalsState, fromRebuttals.getEntities);
 export const getRebuttalIds = createSelector(getRebuttalsState, fromRebuttals.getIds);
 export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 /**
@@ -487,35 +488,40 @@ export const getClaimRebuttalsState = (state: RootState): Entities<ClaimRebuttal
 export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
 export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
 export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 export const getDeepClaimRebuttals = createSelector(getClaimRebuttals, getRebuttals, (claimRebuttals, rebuttals) => {
-    return claimRebuttals.map((cr) => {
+    return claimRebuttals.map(cr => {
         return {
             claimId: cr.claimId,
             sortOrder: cr.sortOrder,
-            rebuttal: rebuttals.filter((rebuttal) => rebuttal.id === cr.rebuttalId)[0]
-        }
-    })
+            rebuttal: rebuttals.filter(rebuttal => rebuttal.id === cr.rebuttalId)[0]
+        };
+    });
 });
 
-export const getDeepClaims = createSelector(getClaimsState, getDeepClaimRebuttals, getBernieSearchTerm, (state, deepClaimRebuttals, bernieSearchTerm) => {
-    return {
-        selectedClaimId: state.selectedEntityId,
-        shallowClaims: state.entities,
-        deepClaims: state.ids.map((id) => {
-            return completeAssign({}, <Claim>state.entities[id], {
-                rebuttals: deepClaimRebuttals
-                    .filter((dcr) => !!dcr.rebuttal && dcr.claimId === id)
-                    .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)
-                    .map((dcr) => dcr.rebuttal)
-            })
-        }
-        )
-            .filter((dc) => !bernieSearchTerm || (dc.name && dc.name.toLowerCase().indexOf(bernieSearchTerm.toLowerCase()) > -1))
-            .sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1)
+export const getDeepClaims = createSelector(
+    getClaimsState,
+    getDeepClaimRebuttals,
+    getBernieSearchTerm,
+    (state, deepClaimRebuttals, bernieSearchTerm) => {
+        return {
+            selectedClaimId: state.selectedEntityId,
+            shallowClaims: state.entities,
+            deepClaims: state.ids
+                .map(id => {
+                    return completeAssign({}, <Claim>state.entities[id], {
+                        rebuttals: deepClaimRebuttals
+                            .filter(dcr => !!dcr.rebuttal && dcr.claimId === id)
+                            .sort((a, b) => (a.sortOrder < b.sortOrder ? -1 : 1))
+                            .map(dcr => dcr.rebuttal)
+                    });
+                })
+                .filter(dc => !bernieSearchTerm || (dc.name && dc.name.toLowerCase().indexOf(bernieSearchTerm.toLowerCase()) > -1))
+                .sort((a, b) => (a.sortOrder < b.sortOrder ? -1 : 1))
+        };
     }
-});
+);
 
 /**
  * Counter Selectors
@@ -531,13 +537,14 @@ export const getCrisisEntities = createSelector(getCrisesState, fromCrises.getEn
 export const getCrisisIds = createSelector(getCrisesState, fromCrises.getIds);
 export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSelected);
 export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 // A selector that takes a parameter (id)
-export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => {
-    // return crisisList.filter(c => c.id === id);
-    return crisisList.ids.map((crisisId) => crisisList.entities[crisisId]).filter((c) => c.id === id);
-});
+export const getCrisis = id =>
+    createSelector(getCrisesState, crisisList => {
+        // return crisisList.filter(c => c.id === id);
+        return crisisList.ids.map(crisisId => crisisList.entities[crisisId]).filter(c => c.id === id);
+    });
 
 /**
  * Contacts Selectors
@@ -548,7 +555,7 @@ export const getContactEntities = createSelector(getContactsState, fromContacts.
 export const getContactIds = createSelector(getContactsState, fromContacts.getIds);
 export const getSelectedContact = createSelector(getContactsState, fromContacts.getSelected);
 export const getContacts = createSelector(getContactEntities, getContactIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 /**
@@ -559,10 +566,10 @@ export const getHeroEntities = createSelector(getHeroesState, fromHeroes.getEnti
 export const getHeroIds = createSelector(getHeroesState, fromHeroes.getIds);
 export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSelected);
 export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
-    return heroes.filter((hero) => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+    return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
 });
 
 /**
@@ -573,7 +580,7 @@ export const getMessageEntities = createSelector(getMessagesState, fromMessages.
 export const getMessageIds = createSelector(getMessagesState, fromMessages.getIds);
 export const getSelectedMessage = createSelector(getMessagesState, fromMessages.getSelected);
 export const getMessages = createSelector(getMessageEntities, getMessageIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 export const getMessage = createSelector(getMessagesState, fromMessages.getSelected);
 
@@ -584,7 +591,7 @@ export const getCommentsState = (state: RootState): Entities<Comment> => state.c
 export const getCommentEntities = createSelector(getCommentsState, fromComments.getEntities);
 export const getCommentIds = createSelector(getCommentsState, fromComments.getIds);
 export const getComments = createSelector(getCommentEntities, getCommentIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 export const getCleanTempComment = createSelector(getCommentsState, fromComments.getCleanTemp);
@@ -596,7 +603,7 @@ export const getTagsState = (state: RootState): Entities<Tag> => state.tag;
 export const getTagEntities = createSelector(getTagsState, fromTags.getEntities);
 export const getTagIds = createSelector(getTagsState, fromTags.getIds);
 export const getTags = createSelector(getTagEntities, getTagIds, (entities, ids) => {
-    return ids.map((id) => entities[id].name);
+    return ids.map(id => entities[id].name);
 });
 
 /**
@@ -607,16 +614,16 @@ export const getArticleEntities = createSelector(getArticlesState, fromArticles.
 export const getArticleIds = createSelector(getArticlesState, fromArticles.getIds);
 export const getArticleLoaded = createSelector(getArticlesState, fromArticles.getLoading);
 export const getSelectedArticleId = createSelector(getArticlesState, fromArticles.getSelectedId);
-export const getSelectedArticle = createSelector(getArticlesState, (articles) => {
+export const getSelectedArticle = createSelector(getArticlesState, articles => {
     return completeAssign({}, articles.entities[articles.selectedEntityId], { loading: articles.loading });
 });
 export const getTempArticle = createSelector(getArticlesState, fromArticles.getTemp);
 export const getArticles = createSelector(getArticleEntities, getArticleIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 export const getCommentsForSelectedArticle = createSelector(getComments, getSelectedArticleId, (comments, articleId) => {
-    return comments.filter((comment) => comment && comment.articleId === articleId);
+    return comments.filter(comment => comment && comment.articleId === articleId);
 });
 
 /**
@@ -628,15 +635,15 @@ export const getSelectedTalkId = createSelector(getTalksState, fromTalks.getSele
 export const getSelectedTalk = createSelector(getTalksState, fromTalks.getSelected);
 export const getTalkIds = createSelector(getTalksState, fromTalks.getIds);
 export const getTalks = createSelector(getTalkEntities, getTalkIds, (entities, ids) => {
-    return ids.map((id) => entities[id]);
+    return ids.map(id => entities[id]);
 });
 
 export const getEntityState = (slice: keyof RootState) => {
     return (state: RootState) => state[slice];
-}
+};
 
 export const getEntityLoaded = (slice: keyof RootState) => {
     return (state: RootState) => {
         return state[slice].loaded;
-    }
-}
+    };
+};

@@ -6,12 +6,11 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 import { UserMgmtDialogComponent } from './user-management-dialog.component';
-import { JhiLanguageHelper } from '../../shared';
+import { JhiLanguageHelper } from '../../core/language/language.helper';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/store/user/user.model';
 
 describe('Component Tests', () => {
-
     describe('User Management Dialog Component', () => {
         let comp: UserMgmtDialogComponent;
         let fixture: ComponentFixture<UserMgmtDialogComponent>;
@@ -20,17 +19,17 @@ describe('Component Tests', () => {
         let mockActiveModal: any;
         let mockLanguageHelper: any;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [GreatBigExampleApplicationTestModule],
-                declarations: [UserMgmtDialogComponent],
-                providers: [
-                    UserService
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [GreatBigExampleApplicationTestModule],
+                    declarations: [UserMgmtDialogComponent],
+                    providers: [UserService]
+                })
+                    .overrideTemplate(UserMgmtDialogComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(UserMgmtDialogComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(UserMgmtDialogComponent);
@@ -42,8 +41,10 @@ describe('Component Tests', () => {
         });
 
         describe('OnInit', () => {
-            it('Should load authorities and language on init',
-                inject([],
+            it(
+                'Should load authorities and language on init',
+                inject(
+                    [],
                     fakeAsync(() => {
                         // GIVEN
                         spyOn(service, 'authorities').and.returnValue(Observable.of(['USER']));
@@ -61,14 +62,20 @@ describe('Component Tests', () => {
         });
 
         describe('save', () => {
-            it('Should call update service on save for existing user',
-                inject([],
+            it(
+                'Should call update service on save for existing user',
+                inject(
+                    [],
                     fakeAsync(() => {
                         // GIVEN
                         const entity = new User(123);
-                        spyOn(service, 'update').and.returnValue(Observable.of(new HttpResponse({
-                            body: entity
-                        })));
+                        spyOn(service, 'update').and.returnValue(
+                            Observable.of(
+                                new HttpResponse({
+                                    body: entity
+                                })
+                            )
+                        );
                         comp.user = entity;
                         // WHEN
                         comp.save();
@@ -83,8 +90,10 @@ describe('Component Tests', () => {
                 )
             );
 
-            it('Should call create service on save for new user',
-                inject([],
+            it(
+                'Should call create service on save for new user',
+                inject(
+                    [],
                     fakeAsync(() => {
                         // GIVEN
                         const entity = new User();
@@ -104,5 +113,4 @@ describe('Component Tests', () => {
             );
         });
     });
-
 });

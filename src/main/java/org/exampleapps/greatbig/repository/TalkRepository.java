@@ -1,15 +1,14 @@
 package org.exampleapps.greatbig.repository;
 
 import org.exampleapps.greatbig.domain.Talk;
-import org.springframework.stereotype.Repository;
-
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data JPA repository for the Talk entity.
+ * Spring Data  repository for the Talk entity.
  */
 @SuppressWarnings("unused")
 @Repository

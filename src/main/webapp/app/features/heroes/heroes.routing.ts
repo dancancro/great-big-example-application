@@ -6,7 +6,7 @@ import { CanDeactivateGuard } from '../../shared/can-deactivate/can-deactivate.g
 import { SelectivePreloadingStrategy } from '../../shared/selective-preloading-strategy';
 import { HeroesPage } from './heroes.page';
 import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
@@ -15,13 +15,13 @@ const routes: Routes = [
         children: [
             {
                 path: 'admin',
-                loadChildren: './admin/admin.module#AdminModule',
+                loadChildren: './admin/admin.module#AdminModule'
                 // canLoad: [AuthGuard]
             },
             {
                 path: 'crisis-center',
                 loadChildren: './crisis-center/crisis-center.module#CrisisCenterModule',
-                data: { preload: true },
+                data: { preload: true }
                 // canLoad: [AuthGuard]
             },
             {
@@ -29,11 +29,12 @@ const routes: Routes = [
                 loadChildren: './dashboard/dashboard.module#DashboardModule'
             },
             {
-                path: 'hero/:id', component: HeroDetailComponent,
+                path: 'hero/:id',
+                component: HeroDetailComponent
                 // canLoad: [AuthGuard]
             },
             { path: 'list', loadChildren: './hero/hero.module#HeroModule' },
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ],
         data: {
             authorities: ['ROLE_USER'],
@@ -44,18 +45,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        CanDeactivateGuard,
-        SelectivePreloadingStrategy
-    ]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+    providers: [CanDeactivateGuard, SelectivePreloadingStrategy]
 })
-export class HeroesRouting { }
+export class HeroesRouting {}
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

@@ -6,37 +6,34 @@ import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { ArticleDialogComponent } from './article-dialog.component';
 import { ArticleService } from './article.service';
-import { Article } from './article.model';
+import { Article } from 'app/shared/model/article.model';
+import { ArticleDeleteDialogComponent } from 'app/entities/article/article-delete-dialog.component';
 import { TagService } from '../tag';
 import { AuthorService } from '../author';
 
 describe('Component Tests', () => {
-
     describe('Article Management Dialog Component', () => {
-        let comp: ArticleDialogComponent;
-        let fixture: ComponentFixture<ArticleDialogComponent>;
+        let comp: ArticleDeleteDialogComponent;
+        let fixture: ComponentFixture<ArticleDeleteDialogComponent>;
         let service: ArticleService;
         let mockEventManager: any;
         let mockActiveModal: any;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [GreatBigExampleApplicationTestModule],
-                declarations: [ArticleDialogComponent],
-                providers: [
-                    TagService,
-                    AuthorService,
-                    ArticleService
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [GreatBigExampleApplicationTestModule],
+                    declarations: [ArticleDeleteDialogComponent],
+                    providers: [TagService, AuthorService, ArticleService]
+                })
+                    .overrideTemplate(ArticleDeleteDialogComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(ArticleDialogComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ArticleDialogComponent);
+            fixture = TestBed.createComponent(ArticleDeleteDialogComponent);
             comp = fixture.componentInstance;
             service = fixture.debugElement.injector.get(ArticleService);
             mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
@@ -44,8 +41,10 @@ describe('Component Tests', () => {
         });
 
         describe('save', () => {
-            it('Should call update service on save for existing entity',
-                inject([],
+            it(
+                'Should call update service on save for existing entity',
+                inject(
+                    [],
                     fakeAsync(() => {
                         // GIVEN
                         const entity = new Article(123);
@@ -64,8 +63,10 @@ describe('Component Tests', () => {
                 )
             );
 
-            it('Should call create service on save for new entity',
-                inject([],
+            it(
+                'Should call create service on save for new entity',
+                inject(
+                    [],
                     fakeAsync(() => {
                         // GIVEN
                         const entity = new Article();
@@ -85,5 +86,4 @@ describe('Component Tests', () => {
             );
         });
     });
-
 });

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FeaturesComponent } from './features.component';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { UserRouteAccessService } from '../shared';
+import { UserRouteAccessService } from '../core';
 
 const routes: Routes = [
     {
@@ -13,7 +13,8 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard', pathMatch: 'full'
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
             },
             {
                 path: 'bernie',
@@ -45,7 +46,8 @@ const routes: Routes = [
             // https://github.com/akveo/ng2-admin/issues/1079#issuecomment-301707767
             // { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             {
-                path: 'dashboard', component: DashboardPage,
+                path: 'dashboard',
+                component: DashboardPage,
                 data: {
                     authorities: ['ROLE_USER'],
                     pageTitle: 'dashboard.home.title'
@@ -77,14 +79,11 @@ const routes: Routes = [
                 loadChildren: './wiki/wiki.module#WikiModule'
             }
         ]
-    },
+    }
 ];
 
 @NgModule({
-    imports: [
-        DashboardModule,
-        RouterModule.forChild(routes)
-    ],
+    imports: [DashboardModule, RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class FeaturesRouting { }
+export class FeaturesRouting {}

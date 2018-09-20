@@ -22,10 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
+
+import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -50,8 +55,14 @@ public class ClaimRebuttalResourceIntTest {
     @Autowired
     private ClaimRebuttalRepository claimRebuttalRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.ClaimRebuttalSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private ClaimRebuttalSearchRepository claimRebuttalSearchRepository;
+    private ClaimRebuttalSearchRepository mockClaimRebuttalSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -72,7 +83,7 @@ public class ClaimRebuttalResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ClaimRebuttalResource claimRebuttalResource = new ClaimRebuttalResource(claimRebuttalRepository, claimRebuttalSearchRepository);
+        final ClaimRebuttalResource claimRebuttalResource = new ClaimRebuttalResource(claimRebuttalRepository, mockClaimRebuttalSearchRepository);
         this.restClaimRebuttalMockMvc = MockMvcBuilders.standaloneSetup(claimRebuttalResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -95,7 +106,6 @@ public class ClaimRebuttalResourceIntTest {
 
     @Before
     public void initTest() {
-        claimRebuttalSearchRepository.deleteAll();
         claimRebuttal = createEntity(em);
     }
 
@@ -119,8 +129,7 @@ public class ClaimRebuttalResourceIntTest {
         assertThat(testClaimRebuttal.getSortOrder()).isEqualTo(DEFAULT_SORT_ORDER);
 
         // Validate the ClaimRebuttal in Elasticsearch
-        ClaimRebuttal claimRebuttalEs = claimRebuttalSearchRepository.findOne(testClaimRebuttal.getId());
-        assertThat(claimRebuttalEs).isEqualToComparingFieldByField(testClaimRebuttal);
+        verify(mockClaimRebuttalSearchRepository, times(1)).save(testClaimRebuttal);
     }
 
     @Test
@@ -140,6 +149,9 @@ public class ClaimRebuttalResourceIntTest {
         // Validate the Alice in the database
         List<ClaimRebuttal> claimRebuttalList = claimRebuttalRepository.findAll();
         assertThat(claimRebuttalList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the ClaimRebuttal in Elasticsearch
+        verify(mockClaimRebuttalSearchRepository, times(0)).save(claimRebuttal);
     }
 
     @Test
@@ -158,6 +170,7 @@ public class ClaimRebuttalResourceIntTest {
             .andExpect(jsonPath("$.[*].sortOrder").value(hasItem(DEFAULT_SORT_ORDER)));
     }
 
+
     @Test
     @Transactional
     public void getClaimRebuttal() throws Exception {
@@ -173,7 +186,6 @@ public class ClaimRebuttalResourceIntTest {
             .andExpect(jsonPath("$.rebuttalId").value(DEFAULT_REBUTTAL_ID.intValue()))
             .andExpect(jsonPath("$.sortOrder").value(DEFAULT_SORT_ORDER));
     }
-
     @Test
     @Transactional
     public void getNonExistingClaimRebuttal() throws Exception {
@@ -187,11 +199,13 @@ public class ClaimRebuttalResourceIntTest {
     public void updateClaimRebuttal() throws Exception {
         // Initialize the database
         claimRebuttalRepository.saveAndFlush(claimRebuttal);
-        claimRebuttalSearchRepository.save(claimRebuttal);
+
         int databaseSizeBeforeUpdate = claimRebuttalRepository.findAll().size();
 
         // Update the claimRebuttal
-        ClaimRebuttal updatedClaimRebuttal = claimRebuttalRepository.findOne(claimRebuttal.getId());
+        ClaimRebuttal updatedClaimRebuttal = claimRebuttalRepository.findById(claimRebuttal.getId()).get();
+        // Disconnect from session so that the updates on updatedClaimRebuttal are not directly saved in db
+        em.detach(updatedClaimRebuttal);
         updatedClaimRebuttal
             .claimId(UPDATED_CLAIM_ID)
             .rebuttalId(UPDATED_REBUTTAL_ID)
@@ -211,8 +225,7 @@ public class ClaimRebuttalResourceIntTest {
         assertThat(testClaimRebuttal.getSortOrder()).isEqualTo(UPDATED_SORT_ORDER);
 
         // Validate the ClaimRebuttal in Elasticsearch
-        ClaimRebuttal claimRebuttalEs = claimRebuttalSearchRepository.findOne(testClaimRebuttal.getId());
-        assertThat(claimRebuttalEs).isEqualToComparingFieldByField(testClaimRebuttal);
+        verify(mockClaimRebuttalSearchRepository, times(1)).save(testClaimRebuttal);
     }
 
     @Test
@@ -222,15 +235,18 @@ public class ClaimRebuttalResourceIntTest {
 
         // Create the ClaimRebuttal
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restClaimRebuttalMockMvc.perform(put("/api/claim-rebuttals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(claimRebuttal)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the ClaimRebuttal in the database
         List<ClaimRebuttal> claimRebuttalList = claimRebuttalRepository.findAll();
-        assertThat(claimRebuttalList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(claimRebuttalList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the ClaimRebuttal in Elasticsearch
+        verify(mockClaimRebuttalSearchRepository, times(0)).save(claimRebuttal);
     }
 
     @Test
@@ -238,7 +254,7 @@ public class ClaimRebuttalResourceIntTest {
     public void deleteClaimRebuttal() throws Exception {
         // Initialize the database
         claimRebuttalRepository.saveAndFlush(claimRebuttal);
-        claimRebuttalSearchRepository.save(claimRebuttal);
+
         int databaseSizeBeforeDelete = claimRebuttalRepository.findAll().size();
 
         // Get the claimRebuttal
@@ -246,13 +262,12 @@ public class ClaimRebuttalResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean claimRebuttalExistsInEs = claimRebuttalSearchRepository.exists(claimRebuttal.getId());
-        assertThat(claimRebuttalExistsInEs).isFalse();
-
         // Validate the database is empty
         List<ClaimRebuttal> claimRebuttalList = claimRebuttalRepository.findAll();
         assertThat(claimRebuttalList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the ClaimRebuttal in Elasticsearch
+        verify(mockClaimRebuttalSearchRepository, times(1)).deleteById(claimRebuttal.getId());
     }
 
     @Test
@@ -260,8 +275,8 @@ public class ClaimRebuttalResourceIntTest {
     public void searchClaimRebuttal() throws Exception {
         // Initialize the database
         claimRebuttalRepository.saveAndFlush(claimRebuttal);
-        claimRebuttalSearchRepository.save(claimRebuttal);
-
+        when(mockClaimRebuttalSearchRepository.search(queryStringQuery("id:" + claimRebuttal.getId())))
+            .thenReturn(Collections.singletonList(claimRebuttal));
         // Search the claimRebuttal
         restClaimRebuttalMockMvc.perform(get("/api/_search/claim-rebuttals?query=id:" + claimRebuttal.getId()))
             .andExpect(status().isOk())

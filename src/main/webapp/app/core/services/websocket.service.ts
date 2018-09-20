@@ -6,9 +6,9 @@ import { Observer } from 'rxjs/Observer';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';
 
-import { CSRFService } from '../../shared/auth/csrf.service';
+import { CSRFService } from '../../core/auth/csrf.service';
 import { WindowRef } from '../../shared/services/window.service';
-import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
+import { AuthServerProvider } from '../../core/auth/auth-jwt.service';
 
 @Injectable()
 export class WebSocketService {
@@ -19,11 +19,7 @@ export class WebSocketService {
     private connectedPromise: any;
     private alreadyConnectedOnce = false;
 
-    constructor(
-        private authServerProvider: AuthServerProvider,
-        private $window: WindowRef,
-        private csrfService: CSRFService
-    ) {
+    constructor(private authServerProvider: AuthServerProvider, private $window: WindowRef, private csrfService: CSRFService) {
         this.connection = this.createConnection();
     }
 
@@ -61,14 +57,13 @@ export class WebSocketService {
             }
         });
 
-        const observable = Observable.create(
-            (obs: Observer<MessageEvent>) => {
-                ws.onmessage = obs.next.bind(obs);
-                ws.onerror = obs.error.bind(obs);
-                ws.onclose = obs.complete.bind(obs);
+        const observable = Observable.create((obs: Observer<MessageEvent>) => {
+            ws.onmessage = obs.next.bind(obs);
+            ws.onerror = obs.error.bind(obs);
+            ws.onclose = obs.complete.bind(obs);
 
-                return ws.close.bind(ws);
-            });
+            return ws.close.bind(ws);
+        });
 
         const observer = {
             next: (data: Object) => {
@@ -99,14 +94,13 @@ export class WebSocketService {
     private createData(url: string): Subject<number> {
         const ws = new WebSocket(url);
 
-        const observable = Observable.create(
-            (obs: Observer<number>) => {
-                ws.onmessage = obs.next.bind(obs);
-                ws.onerror = obs.error.bind(obs);
-                ws.onclose = obs.complete.bind(obs);
+        const observable = Observable.create((obs: Observer<number>) => {
+            ws.onmessage = obs.next.bind(obs);
+            ws.onerror = obs.error.bind(obs);
+            ws.onclose = obs.complete.bind(obs);
 
-                return ws.close.bind(ws);
-            });
+            return ws.close.bind(ws);
+        });
 
         const observer = {
             next: (data: Object) => {
@@ -120,6 +114,6 @@ export class WebSocketService {
     }
 
     private createConnection(): Promise<any> {
-        return new Promise((resolve, reject) => this.connectedPromise = resolve);
+        return new Promise((resolve, reject) => (this.connectedPromise = resolve));
     }
 } // end class WebSocketService

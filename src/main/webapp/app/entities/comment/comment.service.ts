@@ -1,91 +1,81 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
-import { JhiDateUtils } from 'ng-jhipster';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IComment } from 'app/shared/model/comment.model';
 
-import { Comment } from './comment.model';
-import { createRequestOption } from '../../shared';
+type EntityResponseType = HttpResponse<IComment>;
+type EntityArrayResponseType = HttpResponse<IComment[]>;
 
-export type EntityResponseType = HttpResponse<Comment>;
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommentService {
-
-    private resourceUrl =  SERVER_API_URL + 'api/comments';
+    private resourceUrl = SERVER_API_URL + 'api/comments';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/comments';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient) {}
 
-    create(comment: Comment): Observable<EntityResponseType> {
-        const copy = this.convert(comment);
-        return this.http.post<Comment>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(comment: IComment): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(comment);
+        return this.http
+            .post<IComment>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    update(comment: Comment): Observable<EntityResponseType> {
-        const copy = this.convert(comment);
-        return this.http.put<Comment>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(comment: IComment): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(comment);
+        return this.http
+            .put<IComment>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Comment>(`${this.resourceUrl}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http
+            .get<IComment>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any): Observable<HttpResponse<Comment[]>> {
+    query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Comment[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Comment[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IComment[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    search(req?: any): Observable<HttpResponse<Comment[]>> {
+    search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Comment[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Comment[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IComment[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: Comment = this.convertItemFromServer(res.body);
-        return res.clone({body});
-    }
-
-    private convertArrayResponse(res: HttpResponse<Comment[]>): HttpResponse<Comment[]> {
-        const jsonResponse: Comment[] = res.body;
-        const body: Comment[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return res.clone({body});
-    }
-
-    /**
-     * Convert a returned JSON object to Comment.
-     */
-    private convertItemFromServer(comment: Comment): Comment {
-        const copy: Comment = Object.assign({}, comment);
-        copy.createdAt = this.dateUtils
-            .convertDateTimeFromServer(comment.createdAt);
-        copy.updatedAt = this.dateUtils
-            .convertDateTimeFromServer(comment.updatedAt);
+    private convertDateFromClient(comment: IComment): IComment {
+        const copy: IComment = Object.assign({}, comment, {
+            createdAt: comment.createdAt != null && comment.createdAt.isValid() ? comment.createdAt.toJSON() : null,
+            updatedAt: comment.updatedAt != null && comment.updatedAt.isValid() ? comment.updatedAt.toJSON() : null
+        });
         return copy;
     }
 
-    /**
-     * Convert a Comment to a JSON which can be sent to the server.
-     */
-    private convert(comment: Comment): Comment {
-        const copy: Comment = Object.assign({}, comment);
+    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        res.body.createdAt = res.body.createdAt != null ? moment(res.body.createdAt) : null;
+        res.body.updatedAt = res.body.updatedAt != null ? moment(res.body.updatedAt) : null;
+        return res;
+    }
 
-        copy.createdAt = this.dateUtils.toDate(comment.createdAt);
-
-        copy.updatedAt = this.dateUtils.toDate(comment.updatedAt);
-        return copy;
+    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        res.body.forEach((comment: IComment) => {
+            comment.createdAt = comment.createdAt != null ? moment(comment.createdAt) : null;
+            comment.updatedAt = comment.updatedAt != null ? moment(comment.updatedAt) : null;
+        });
+        return res;
     }
 }

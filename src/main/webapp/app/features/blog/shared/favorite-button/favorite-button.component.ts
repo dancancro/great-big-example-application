@@ -7,7 +7,7 @@ import * as fromRoot from '../../../../core/store';
 import { Article } from '../../../../core/store/article/article.model';
 import { Profile } from '../../../../core/store/profile/profile.model';
 import { User } from '../../../../core/store/user/user.model';
-import { Principal } from '../../../../shared';
+import { Principal } from '../../../../core';
 import { slices } from '../../../../core/store/util';
 import * as EntityActions from '../../../../core/store/entity/entity.actions';
 
@@ -17,11 +17,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 })
 export class FavoriteButtonComponent implements OnInit {
     identity$: Promise<Account>;
-    constructor(
-        private store: Store<fromRoot.RootState>,
-        private router: Router,
-        private principal: Principal
-    ) { }
+    constructor(private store: Store<fromRoot.RootState>, private router: Router, private principal: Principal) {}
 
     @Input() article: Article;
 
@@ -37,6 +33,5 @@ export class FavoriteButtonComponent implements OnInit {
 
         // Favorite the article if it isn't favorited yet
         this.store.dispatch(new EntityActions.Patch(slices.ARTICLE, { id: this.article.id, favorited: !this.article.favorited }));
-
     }
 }
