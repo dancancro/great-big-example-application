@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { Hero } from './hero.model';
+import { IHero } from 'app/shared/model/hero.model';
+import { Principal } from 'app/core';
 import { HeroService } from './hero.service';
-import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-hero',
     templateUrl: './hero.component.html'
 })
 export class HeroComponent implements OnInit, OnDestroy {
-heroes: Hero[];
+    heroes: IHero[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
@@ -25,22 +25,23 @@ heroes: Hero[];
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
-        this.currentSearch = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ?
-            this.activatedRoute.snapshot.params['search'] : '';
+        this.currentSearch =
+            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
+                ? this.activatedRoute.snapshot.params['search']
+                : '';
     }
 
     loadAll() {
         if (this.currentSearch) {
-            this.heroService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: HttpResponse<Hero[]>) => this.heroes = res.body,
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
+            this.heroService
+                .search({
+                    query: this.currentSearch
+                })
+                .subscribe((res: HttpResponse<IHero[]>) => (this.heroes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
             return;
-       }
+        }
         this.heroService.query().subscribe(
-            (res: HttpResponse<Hero[]>) => {
+            (res: HttpResponse<IHero[]>) => {
                 this.heroes = res.body;
                 this.currentSearch = '';
             },
@@ -60,9 +61,10 @@ heroes: Hero[];
         this.currentSearch = '';
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInHeroes();
@@ -72,14 +74,15 @@ heroes: Hero[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: Hero) {
+    trackId(index: number, item: IHero) {
         return item.id;
     }
+
     registerChangeInHeroes() {
-        this.eventSubscriber = this.eventManager.subscribe('heroListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('heroListModification', response => this.loadAll());
     }
 
-    private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

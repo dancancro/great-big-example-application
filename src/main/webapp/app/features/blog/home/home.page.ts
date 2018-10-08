@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../../../core/store';
 import { Article } from '../../../core/store/article/article.model';
-import { Account, Principal } from '../../../shared';
+import { Account, Principal } from '../../../core';
 import { User } from '../../../core/store/user/user.model';
 import * as SliceActions from '../../../core/store/slice/slice.actions';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
@@ -27,21 +27,17 @@ export class HomePage implements OnInit, OnDestroy {
     tagsLoaded = false;
     blogPageLayout$: Observable<BlogPageLayout>;
 
-    constructor(
-        private principal: Principal,
-        private store: Store<fromRoot.RootState>,
-        private router: Router,
-    ) { }
+    constructor(private principal: Principal, private store: Store<fromRoot.RootState>, private router: Router) {}
 
     ngOnInit() {
         this.user$ = this.store.select(fromRoot.getCurrentUser);
         this.tags$ = this.store.select(fromRoot.getTags);
-        this.tagsSub = this.tags$.subscribe((tags) => {
+        this.tagsSub = this.tags$.subscribe(tags => {
             this.tags = tags;
             this.tagsLoaded = true;
-        })
+        });
         this.blogPageLayout$ = this.store.select(fromRoot.getBlogPageLayout);
-        this.userSub = this.user$.subscribe((user) => {
+        this.userSub = this.user$.subscribe(user => {
             // set the article list accordingly
             if (this.principal.isAuthenticated()) {
                 this.setListTo('feed');

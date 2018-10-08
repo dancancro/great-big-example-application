@@ -1,51 +1,24 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
-import { GreatBigExampleApplicationAdminModule } from '../../admin/admin.module';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
+import { GreatBigExampleApplicationAdminModule } from 'app/admin/admin.module';
 import {
-    AuthorService,
-    AuthorPopupService,
     AuthorComponent,
     AuthorDetailComponent,
-    AuthorDialogComponent,
-    AuthorPopupComponent,
+    AuthorUpdateComponent,
     AuthorDeletePopupComponent,
     AuthorDeleteDialogComponent,
     authorRoute,
-    authorPopupRoute,
+    authorPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...authorRoute,
-    ...authorPopupRoute,
-];
+const ENTITY_STATES = [...authorRoute, ...authorPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        GreatBigExampleApplicationAdminModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
-    declarations: [
-        AuthorComponent,
-        AuthorDetailComponent,
-        AuthorDialogComponent,
-        AuthorDeleteDialogComponent,
-        AuthorPopupComponent,
-        AuthorDeletePopupComponent,
-    ],
-    entryComponents: [
-        AuthorComponent,
-        AuthorDialogComponent,
-        AuthorPopupComponent,
-        AuthorDeleteDialogComponent,
-        AuthorDeletePopupComponent,
-    ],
-    providers: [
-        AuthorService,
-        AuthorPopupService,
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, GreatBigExampleApplicationAdminModule, RouterModule.forChild(ENTITY_STATES)],
+    declarations: [AuthorComponent, AuthorDetailComponent, AuthorUpdateComponent, AuthorDeleteDialogComponent, AuthorDeletePopupComponent],
+    entryComponents: [AuthorComponent, AuthorUpdateComponent, AuthorDeleteDialogComponent, AuthorDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationAuthorModule {}

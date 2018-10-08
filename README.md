@@ -289,6 +289,19 @@ a pretty big performance penalty so it's turned off. To turn it on edit the part
 | src/main/resources/config/application-prod.yml | spring.datasource.username | your postgresql username |
 | | spring.datasource.password | your postgresql password |
 
+```html
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+        .register('./service-worker.js')
+        .then(function() { console.log('Service Worker Registered'); });
+    }
+</script>
+```
+
+Note: workbox creates the respective service worker and dynamically generate the `service-worker.js`
+>>>>>>> jhipster_upgrade
+
 ### Managing dependencies
 
 For example, to add [Leaflet][] library as a runtime dependency of your application, you would run the following command:
@@ -368,7 +381,7 @@ To launch your backend, java tests, run:
 
 ### Client tests
 
-Unit tests are run by [Karma][] and written with [Jasmine][]. They can be run with:
+Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
 
     yarn test
 
@@ -376,9 +389,9 @@ UI end-to-end tests are powered by [Protractor][], which is built on top of WebD
 and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`yarn run e2e`) in a second one.
 ### Other tests
 
-Performance tests are run by [Gatling][] and written in Scala. They're located in [src/test/gatling](src/test/gatling) and can be run with:
+Performance tests are run by [Gatling][] and written in Scala. They're located in [src/test/gatling](src/test/gatling).
 
-    ./mvnw gatling:execute
+To use those tests, you must install Gatling from [https://gatling.io/](https://gatling.io/).
 
 For more information, refer to the [Running tests page][].
 
@@ -396,7 +409,7 @@ To stop it and remove the container, run:
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
 
-    ./mvnw package -Pprod docker:build
+    ./mvnw verify -Pprod dockerfile:build dockerfile:tag@version dockerfile:tag@commit
 
 Then run:
 
@@ -408,14 +421,14 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 
 To configure CI for your project, run the ci-cd sub-generator (`yo jhipster:ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
-[JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 4.4.1 archive]: https://jhipster.github.io/documentation-archive/v4.4.1
+[JHipster Homepage and latest documentation]: https://www.jhipster.tech
+[JHipster 5.2.0 archive]: https://www.jhipster.tech/documentation-archive/v5.2.0
 
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.4.1/development/
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.4.1/docker-compose
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.4.1/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v4.4.1/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.4.1/setting-up-ci/
+[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.2.0/development/
+[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.2.0/docker-compose
+[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.2.0/production/
+[Running tests page]: https://www.jhipster.tech/documentation-archive/v5.2.0/running-tests/
+[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.2.0/setting-up-ci/
 
 [Gatling]: http://gatling.io/
 [Node.js]: https://nodejs.org/
@@ -423,7 +436,7 @@ To configure CI for your project, run the ci-cd sub-generator (`yo jhipster:ci-c
 [Webpack]: https://webpack.github.io/
 [Angular CLI]: https://cli.angular.io/
 [BrowserSync]: http://www.browsersync.io/
-[Karma]: http://karma-runner.github.io/
+[Jest]: https://facebook.github.io/jest/
 [Jasmine]: http://jasmine.github.io/2.0/introduction.html
 [Protractor]: https://angular.github.io/protractor/
 [Leaflet]: http://leafletjs.com/

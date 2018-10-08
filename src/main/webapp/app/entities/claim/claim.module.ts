@@ -1,49 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    ClaimService,
-    ClaimPopupService,
     ClaimComponent,
     ClaimDetailComponent,
-    ClaimDialogComponent,
-    ClaimPopupComponent,
+    ClaimUpdateComponent,
     ClaimDeletePopupComponent,
     ClaimDeleteDialogComponent,
     claimRoute,
-    claimPopupRoute,
+    claimPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...claimRoute,
-    ...claimPopupRoute,
-];
+const ENTITY_STATES = [...claimRoute, ...claimPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
-    declarations: [
-        ClaimComponent,
-        ClaimDetailComponent,
-        ClaimDialogComponent,
-        ClaimDeleteDialogComponent,
-        ClaimPopupComponent,
-        ClaimDeletePopupComponent,
-    ],
-    entryComponents: [
-        ClaimComponent,
-        ClaimDialogComponent,
-        ClaimPopupComponent,
-        ClaimDeleteDialogComponent,
-        ClaimDeletePopupComponent,
-    ],
-    providers: [
-        ClaimService,
-        ClaimPopupService,
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    declarations: [ClaimComponent, ClaimDetailComponent, ClaimUpdateComponent, ClaimDeleteDialogComponent, ClaimDeletePopupComponent],
+    entryComponents: [ClaimComponent, ClaimUpdateComponent, ClaimDeleteDialogComponent, ClaimDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationClaimModule {}

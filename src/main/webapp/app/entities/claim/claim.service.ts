@@ -1,81 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
 
-import { Claim } from './claim.model';
-import { createRequestOption } from '../../shared';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IClaim } from 'app/shared/model/claim.model';
 
-export type EntityResponseType = HttpResponse<Claim>;
+type EntityResponseType = HttpResponse<IClaim>;
+type EntityArrayResponseType = HttpResponse<IClaim[]>;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ClaimService {
-
     private resourceUrl = SERVER_API_URL + 'api/claims';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/claims';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-    create(claim: Claim): Observable<EntityResponseType> {
-        const copy = this.convert(claim);
-        return this.http.post<Claim>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(claim: IClaim): Observable<EntityResponseType> {
+        return this.http.post<IClaim>(this.resourceUrl, claim, { observe: 'response' });
     }
 
-    update(claim: Claim): Observable<EntityResponseType> {
-        const copy = this.convert(claim);
-        return this.http.put<Claim>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(claim: IClaim): Observable<EntityResponseType> {
+        return this.http.put<IClaim>(this.resourceUrl, claim, { observe: 'response' });
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Claim>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http.get<IClaim>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<HttpResponse<Claim[]>> {
+    query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Claim[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Claim[]>) => this.convertArrayResponse(res));
+        return this.http.get<IClaim[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    search(req?: any): Observable<HttpResponse<Claim[]>> {
+    search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Claim[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Claim[]>) => this.convertArrayResponse(res));
-    }
-
-    private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: Claim = this.convertItemFromServer(res.body);
-        return res.clone({ body });
-    }
-
-    private convertArrayResponse(res: HttpResponse<Claim[]>): HttpResponse<Claim[]> {
-        const jsonResponse: Claim[] = res.body;
-        const body: Claim[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return res.clone({ body });
-    }
-
-    /**
-     * Convert a returned JSON object to Claim.
-     */
-    private convertItemFromServer(claim: Claim): Claim {
-        const copy: Claim = Object.assign({}, claim);
-        return copy;
-    }
-
-    /**
-     * Convert a Claim to a JSON which can be sent to the server.
-     */
-    private convert(claim: Claim): Claim {
-        const copy: Claim = Object.assign({}, claim);
-        return copy;
+        return this.http.get<IClaim[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
 }

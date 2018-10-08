@@ -1,13 +1,12 @@
 package org.exampleapps.greatbig.repository;
 
 import org.exampleapps.greatbig.domain.Crisis;
-import org.springframework.stereotype.Repository;
-
 import org.springframework.data.jpa.repository.*;
+import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data JPA repository for the Crisis entity.
+ * Spring Data  repository for the Crisis entity.
  */
 @SuppressWarnings("unused")
 @Repository

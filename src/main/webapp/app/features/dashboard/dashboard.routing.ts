@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CanDeactivateGuard } from '../../shared/can-deactivate/can-deactivate.guard';
 import { SelectivePreloadingStrategy } from '../../shared/selective-preloading-strategy';
 import { DashboardPage } from './dashboard.page';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
@@ -19,15 +19,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        CanDeactivateGuard,
-        SelectivePreloadingStrategy
-    ]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+    providers: [CanDeactivateGuard, SelectivePreloadingStrategy]
 })
-export class DashboardRouting { }
+export class DashboardRouting {}

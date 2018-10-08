@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Hero;
-
 import org.exampleapps.greatbig.repository.HeroRepository;
 import org.exampleapps.greatbig.repository.search.HeroSearchRepository;
 import org.exampleapps.greatbig.web.rest.util.HeaderUtil;
@@ -78,7 +77,7 @@ public class HeroResource {
     public ResponseEntity<Hero> updateHero(@Valid @RequestBody Hero hero) throws URISyntaxException {
         log.debug("REST request to update Hero : {}", hero);
         if (hero.getId() == null) {
-            return createHero(hero);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Hero result = heroRepository.save(hero);
         heroSearchRepository.save(result);
@@ -109,8 +108,8 @@ public class HeroResource {
     @Timed
     public ResponseEntity<Hero> getHero(@PathVariable Long id) {
         log.debug("REST request to get Hero : {}", id);
-        Hero hero = heroRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(hero));
+        Optional<Hero> hero = heroRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(hero);
     }
 
     /**
@@ -123,8 +122,9 @@ public class HeroResource {
     @Timed
     public ResponseEntity<Void> deleteHero(@PathVariable Long id) {
         log.debug("REST request to delete Hero : {}", id);
-        heroRepository.delete(id);
-        heroSearchRepository.delete(id);
+
+        heroRepository.deleteById(id);
+        heroSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

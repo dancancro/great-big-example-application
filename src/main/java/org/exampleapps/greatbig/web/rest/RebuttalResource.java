@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Rebuttal;
-
 import org.exampleapps.greatbig.repository.RebuttalRepository;
 import org.exampleapps.greatbig.repository.search.RebuttalSearchRepository;
 import org.exampleapps.greatbig.web.rest.util.HeaderUtil;
@@ -78,7 +77,7 @@ public class RebuttalResource {
     public ResponseEntity<Rebuttal> updateRebuttal(@Valid @RequestBody Rebuttal rebuttal) throws URISyntaxException {
         log.debug("REST request to update Rebuttal : {}", rebuttal);
         if (rebuttal.getId() == null) {
-            return createRebuttal(rebuttal);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Rebuttal result = rebuttalRepository.save(rebuttal);
         rebuttalSearchRepository.save(result);
@@ -109,8 +108,8 @@ public class RebuttalResource {
     @Timed
     public ResponseEntity<Rebuttal> getRebuttal(@PathVariable Long id) {
         log.debug("REST request to get Rebuttal : {}", id);
-        Rebuttal rebuttal = rebuttalRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(rebuttal));
+        Optional<Rebuttal> rebuttal = rebuttalRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(rebuttal);
     }
 
     /**
@@ -123,8 +122,9 @@ public class RebuttalResource {
     @Timed
     public ResponseEntity<Void> deleteRebuttal(@PathVariable Long id) {
         log.debug("REST request to delete Rebuttal : {}", id);
-        rebuttalRepository.delete(id);
-        rebuttalSearchRepository.delete(id);
+
+        rebuttalRepository.deleteById(id);
+        rebuttalSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

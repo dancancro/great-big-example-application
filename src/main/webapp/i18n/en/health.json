@@ -21,6 +21,7 @@
             "status": "Status"
         },
         "status": {
+            "UNKNOWN": "UNKNOWN",
             "UP": "UP",
             "DOWN": "DOWN"
         }

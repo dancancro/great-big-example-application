@@ -1,81 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
 
-import { Note } from './note.model';
-import { createRequestOption } from '../../shared';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { INote } from 'app/shared/model/note.model';
 
-export type EntityResponseType = HttpResponse<Note>;
+type EntityResponseType = HttpResponse<INote>;
+type EntityArrayResponseType = HttpResponse<INote[]>;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NoteService {
-
-    private resourceUrl =  SERVER_API_URL + 'api/notes';
+    private resourceUrl = SERVER_API_URL + 'api/notes';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/notes';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-    create(note: Note): Observable<EntityResponseType> {
-        const copy = this.convert(note);
-        return this.http.post<Note>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(note: INote): Observable<EntityResponseType> {
+        return this.http.post<INote>(this.resourceUrl, note, { observe: 'response' });
     }
 
-    update(note: Note): Observable<EntityResponseType> {
-        const copy = this.convert(note);
-        return this.http.put<Note>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(note: INote): Observable<EntityResponseType> {
+        return this.http.put<INote>(this.resourceUrl, note, { observe: 'response' });
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Note>(`${this.resourceUrl}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http.get<INote>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<HttpResponse<Note[]>> {
+    query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Note[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Note[]>) => this.convertArrayResponse(res));
+        return this.http.get<INote[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    search(req?: any): Observable<HttpResponse<Note[]>> {
+    search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Note[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Note[]>) => this.convertArrayResponse(res));
-    }
-
-    private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: Note = this.convertItemFromServer(res.body);
-        return res.clone({body});
-    }
-
-    private convertArrayResponse(res: HttpResponse<Note[]>): HttpResponse<Note[]> {
-        const jsonResponse: Note[] = res.body;
-        const body: Note[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return res.clone({body});
-    }
-
-    /**
-     * Convert a returned JSON object to Note.
-     */
-    private convertItemFromServer(note: Note): Note {
-        const copy: Note = Object.assign({}, note);
-        return copy;
-    }
-
-    /**
-     * Convert a Note to a JSON which can be sent to the server.
-     */
-    private convert(note: Note): Note {
-        const copy: Note = Object.assign({}, note);
-        return copy;
+        return this.http.get<INote[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
 }

@@ -2,6 +2,7 @@ import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,6 +17,10 @@ import { HttpClient } from '@angular/common/http';
 import { NgaModule } from '../shared/nga.module';
 
 import { ModuleWithProviders } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import locale from '@angular/common/locales/en';
 import { PushNotificationsModule } from 'angular2-notifications';
 import { AngularFireModule } from 'angularfire2';
 import { EntityExistsGuard } from './services/entity-exists.guard';
@@ -66,6 +71,7 @@ import { SkipNavComponent } from '../layouts/skip-nav/skip-nav.component';
 //     return new TranslateHttpLoader(http);
 // }
 const imports = [
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     CommonModule,
@@ -81,17 +87,21 @@ const imports = [
     AngularFireModule.initializeApp(firebaseConfig),
     CommonModule,
     PushNotificationsModule,
-    RouterModule,
+    RouterModule
 ];
 
 @NgModule({
     imports,
-    declarations: [
-    ],
+    declarations: [],
     providers: [
+        Title,
+        {
+            provide: LOCALE_ID,
+            useValue: 'en'
+        },
+        DatePipe
     ]
 })
-
 export class CoreModule {
     /**
      * The root {@link AppModule} imports the {@link CoreModule} and adds the `providers` to the {@link AppModule}
@@ -126,13 +136,17 @@ export class CoreModule {
      * otherwise it will throw an error.
      * @see [Angular 2 docs - Prevent reimport of the CoreModule](https://angular.io/docs/ts/latest/guide/ngmodule.html#prevent-reimport)
      */
-    constructor( @Optional() @SkipSelf() parentModule: CoreModule,
+    constructor(
+        @Optional()
+        @SkipSelf()
+        parentModule: CoreModule,
         public appRef: ApplicationRef,
-        private store: Store<any>) {
+        private store: Store<any>
+    ) {
         if (parentModule) {
-            throw new Error(
-                'CoreModule is already loaded. Import it in the AppModule only');
+            throw new Error('CoreModule is already loaded. Import it in the AppModule only');
         }
+        registerLocaleData(locale);
     }
 
     hmrOnInit(store) {
@@ -149,13 +163,15 @@ export class CoreModule {
         }
 
         // restore input values
-        if ('restoreInputValues' in store) { store.restoreInputValues(); }
+        if ('restoreInputValues' in store) {
+            store.restoreInputValues();
+        }
         this.appRef.tick();
-        Object.keys(store).forEach((prop) => delete store[prop]);
+        Object.keys(store).forEach(prop => delete store[prop]);
     }
     hmrOnDestroy(store) {
-        const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
-        this.store.subscribe((s) => store.rootState = s);
+        const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
+        this.store.subscribe(s => (store.rootState = s));
         // recreate elements
         store.disposeOldHosts = createNewHosts(cmpLocation);
         // save input values

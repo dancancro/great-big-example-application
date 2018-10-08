@@ -8,8 +8,8 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';
 import { Store } from '@ngrx/store';
 
-import { CSRFService } from '../../../shared/auth/csrf.service';
-import { AuthServerProvider } from '../../../shared/auth/auth-jwt.service';
+import { CSRFService } from '../../../core/auth/csrf.service';
+import { AuthServerProvider } from '../../../core/auth/auth-jwt.service';
 
 import { Message } from '../../../core/store/message/message.model';
 import * as EntityActions from '../../../core/store/entity/entity.actions';
@@ -84,7 +84,7 @@ export class ChatService {
         if (this.stompClient !== null && this.stompClient.connected) {
             this.stompClient.send(
                 '/chat', // destination
-                JSON.stringify({ 'message': message }), // body
+                JSON.stringify({ message: message }), // body
                 {} // header
             );
         }
@@ -92,7 +92,7 @@ export class ChatService {
 
     subscribe() {
         this.connection.then(() => {
-            this.subscriber = this.stompClient.subscribe('/chat/public', (data) => {
+            this.subscriber = this.stompClient.subscribe('/chat/public', data => {
                 const message = JSON.parse(data.body);
                 this.store.dispatch(new EntityActions.LoadSuccess<Message>(slices.MESSAGE, message));
                 // this.listenerObserver.next(JSON.parse(data.body));
@@ -108,12 +108,12 @@ export class ChatService {
     }
 
     private createListener(): Observable<any> {
-        return new Observable((observer) => {
+        return new Observable(observer => {
             this.listenerObserver = observer;
         });
     }
 
     private createConnection(): Promise<any> {
-        return new Promise((resolve, reject) => this.connectedPromise = resolve);
+        return new Promise((resolve, reject) => (this.connectedPromise = resolve));
     }
 }

@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ContactsPage } from './contacts.page';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
-        path: '', component: ContactsPage,
+        path: '',
+        component: ContactsPage,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.contact.home.title'
@@ -21,7 +22,7 @@ export const routedComponents = [ContactsPage];
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class ContactsRouting { }
+export class ContactsRouting {}
 /*
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

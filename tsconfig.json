@@ -20,10 +20,12 @@
         ],
         "baseUrl": "./",
         "paths": {
-            "@angular/*": [
-                "../node_modules/@angular/*"
+            "app/*": [
+                "src/main/webapp/app/*"
             ]
-        }
+        },
+        "importHelpers": true,
+        "allowJs": true
     },
     "include": [
         "src/main/webapp/app",

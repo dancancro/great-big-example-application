@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Talk;
-
 import org.exampleapps.greatbig.repository.TalkRepository;
 import org.exampleapps.greatbig.repository.search.TalkSearchRepository;
 import org.exampleapps.greatbig.web.rest.util.HeaderUtil;
@@ -173,8 +172,8 @@ public class TalkResource {
     @Timed
     public ResponseEntity<Talk> getTalk(@PathVariable Long id) {
         log.debug("REST request to get Talk : {}", id);
-        Talk talk = talkRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(talk));
+        Optional<Talk> talk = talkRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(talk);
     }
 
     /**
@@ -187,8 +186,9 @@ public class TalkResource {
     @Timed
     public ResponseEntity<Void> deleteTalk(@PathVariable Long id) {
         log.debug("REST request to delete Talk : {}", id);
-        talkRepository.delete(id);
-        talkSearchRepository.delete(id);
+
+        talkRepository.deleteById(id);
+        talkSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

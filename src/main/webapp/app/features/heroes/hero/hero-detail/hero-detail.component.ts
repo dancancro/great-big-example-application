@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Location } from '@angular/common';
 
-import { slideInDownAnimation } from '../../../../shared/animations';
 import { Hero } from '../../../../core/store/hero/hero.model';
 import * as fromRoot from '../../../../core/store';
 import { slices } from '../../../../core/store/util';
@@ -14,8 +13,7 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 @Component({
     selector: 'jhi-hero-detail',
     templateUrl: './hero-detail.component.html',
-    styleUrls: ['./hero-detail.component.scss'],
-    animations: [slideInDownAnimation]
+    styleUrls: ['./hero-detail.component.scss']
 })
 export class HeroDetailComponent implements OnInit, OnDestroy {
     @HostBinding('@routeAnimation') routeAnimation = true;
@@ -30,15 +28,15 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private store: Store<fromRoot.RootState>,
-        private location: Location) { }
+        private location: Location
+    ) {}
 
     ngOnInit(): void {
         this.hero$ = this.store.select(fromRoot.getSelectedHero);
-        this.heroSub = this.hero$.subscribe((hero) => this.hero = hero);
-        this.routeSub = this.route.params
-            .subscribe((params: Params) => {
-                this.store.dispatch(new EntityActions.Select(slices.HERO, { id: params['id'] }));
-            });
+        this.heroSub = this.hero$.subscribe(hero => (this.hero = hero));
+        this.routeSub = this.route.params.subscribe((params: Params) => {
+            this.store.dispatch(new EntityActions.Select(slices.HERO, { id: params['id'] }));
+        });
     }
 
     save(): void {
@@ -46,7 +44,9 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
         this.goBack();
     }
 
-    cancel(): void { this.goBack(); }
+    cancel(): void {
+        this.goBack();
+    }
 
     gotoList(): void {
         const heroId = this.hero ? this.hero.id : null;

@@ -22,36 +22,40 @@ import { completeAssign, QueryPayload } from '../store/util';
 import * as config from '../../app.config';
 
 type RequestOptionsArgs = {
-    headers?: HttpHeaders | {
-        [header: string]: string | string[];
-    };
+    headers?:
+        | HttpHeaders
+        | {
+              [header: string]: string | string[];
+          };
     observe?: 'body';
-    params?: HttpParams | {
-        [param: string]: string | string[];
-    };
-    body?: any,
+    params?:
+        | HttpParams
+        | {
+              [param: string]: string | string[];
+          };
+    body?: any;
     reportProgress?: boolean;
     responseType?: 'json';
     withCredentials?: boolean;
-}
+};
 
 type APIConfig = {
-    method?: ((entity?: any, state?: RootState) => string) | string,
-    url?: ((entity?: any, state?: RootState, query?: QueryPayload, slice?: keyof RootState) => string) | string,
-    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs,
-    response?: (resp: any, entity?: any, state?: RootState, query?: QueryPayload) => any
-}
+    method?: ((entity?: any, state?: RootState) => string) | string;
+    url?: ((entity?: any, state?: RootState, query?: QueryPayload, slice?: keyof RootState) => string) | string;
+    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs;
+    response?: (resp: any, entity?: any, state?: RootState, query?: QueryPayload) => any;
+};
 
 type EntityConfig = {
-    url?: ((entity?: any, state?: RootState, query?: QueryPayload) => string) | string,
-    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs,
+    url?: ((entity?: any, state?: RootState, query?: QueryPayload) => string) | string;
+    options?: (entity?: any, state?: RootState, query?: QueryPayload) => RequestOptionsArgs;
 
-    getEntity?: APIConfig,
-    getEntities?: APIConfig,
-    update?: APIConfig,
-    remove?: APIConfig,
-    add?: APIConfig,
-}
+    getEntity?: APIConfig;
+    getEntities?: APIConfig;
+    update?: APIConfig;
+    remove?: APIConfig;
+    add?: APIConfig;
+};
 
 const GOOGLE_ROOT = 'https://www.googleapis.com/books/v1/volumes';
 
@@ -75,8 +79,8 @@ const apis: { [entity: string]: EntityConfig } = {
                 }
                 return 'put';
             },
-            options: (article, state, query) => (typeof article.favorited !== 'undefined') ? null : article,
-            response: (resp, article) => ({ id: article.id, ...resp })  // the slug could be different if the title changed
+            options: (article, state, query) => (typeof article.favorited !== 'undefined' ? null : article),
+            response: (resp, article) => ({ id: article.id, ...resp }) // the slug could be different if the title changed
         },
         // getEntity: {
         //     url: (article, state) => {
@@ -86,7 +90,7 @@ const apis: { [entity: string]: EntityConfig } = {
         // },
         getEntities: {
             url: (article, state: RootState) => {
-                return `${config.apiUrl}/articles` + ((state.layout.blogPage.type === 'feed') ? '/feed' : '');
+                return `${config.apiUrl}/articles` + (state.layout.blogPage.type === 'feed' ? '/feed' : '');
             },
             options: (article, state, query) => ({ params: getParamsFromQuery(query) })
         }
@@ -98,7 +102,10 @@ const apis: { [entity: string]: EntityConfig } = {
         url: 'claim-rebuttals',
         getEntities: {
             response: (resp, claimRebuttal, state, query) => {
-                return ({ ...resp, entities: resp.entities.map((cr) => ({ ...cr, id: '' + cr.id, claimId: '' + cr.claimId, rebuttalId: '' + cr.rebuttalId })) });
+                return {
+                    ...resp,
+                    entities: resp.entities.map(cr => ({ ...cr, id: '' + cr.id, claimId: '' + cr.claimId, rebuttalId: '' + cr.rebuttalId }))
+                };
             }
         }
     },
@@ -124,7 +131,7 @@ const apis: { [entity: string]: EntityConfig } = {
                 return `${config.apiUrl}/articles/${slug}/comments`;
             },
             response: (resp, comment, state, query) => {
-                return ({ ...resp, entities: resp.entities.map((comment) => ({ articleId: query['slug'], ...comment })) });
+                return { ...resp, entities: resp.entities.map(comment => ({ articleId: query['slug'], ...comment })) };
             }
         }
     },
@@ -159,7 +166,7 @@ const apis: { [entity: string]: EntityConfig } = {
                 }
                 return `${config.apiUrl}/profiles`;
             },
-            options: (profile, state, query) => (typeof profile.following !== 'undefined') ? null : profile
+            options: (profile, state, query) => (typeof profile.following !== 'undefined' ? null : profile)
         },
         getEntities: {
             url: (profile, state, query) => {
@@ -191,9 +198,10 @@ const apis: { [entity: string]: EntityConfig } = {
     tag: {
         url: 'tags',
         getEntities: {
-            response: (resp) => resp.map((tag) => {
-                return { id: tag, name: tag };
-            })
+            response: resp =>
+                resp.map(tag => {
+                    return { id: tag, name: tag };
+                })
         }
     },
     talk: {
@@ -219,70 +227,79 @@ const apis: { [entity: string]: EntityConfig } = {
             url: (entity, state, query, slice) => `${config.apiUrl}/${apis[slice].url}/${entity.id}`
         }
     }
-}
+};
 
 const getParamsFromQuery = (query: QueryPayload) => {
-
     const params: HttpParams = new HttpParams();
 
     if (query && typeof query === 'object') {
-        Object.keys(query)
-            .forEach((key) => {
-                if (query[key] !== null) {
-                    params.set(key, '' + query[key]);
-                }
-            });
+        Object.keys(query).forEach(key => {
+            if (query[key] !== null) {
+                params.set(key, '' + query[key]);
+            }
+        });
     }
 
     return params;
-}
+};
 
 @Injectable()
 export class RESTService implements DataService {
-    constructor(private http: HttpClient, private config: AppConfig) { }
+    constructor(private http: HttpClient, private config: AppConfig) {}
 
     private getUrl(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): string {
-        return apis[slice][job] && (typeof apis[slice][job].url === 'function') && apis[slice][job].url(entity, state, query)
-            || (typeof apis.defaults[job].url === 'function') && apis.defaults[job].url(entity, state, query, slice);
+        return (
+            (apis[slice][job] && typeof apis[slice][job].url === 'function' && apis[slice][job].url(entity, state, query)) ||
+            (typeof apis.defaults[job].url === 'function' && apis.defaults[job].url(entity, state, query, slice))
+        );
     }
 
     private getOptions(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): RequestOptionsArgs {
         // remove the infrastructure parts of the entity
         const newEntity = { ...this.prepareEntity(entity) };
 
-        return apis[slice][job] && (typeof apis[slice][job].options === 'function') && apis[slice][job].options(newEntity, state, query)
-            || (typeof apis.defaults[job].options === 'function') && apis.defaults[job].options(newEntity, state, query)
-            || (typeof apis.defaults.options === 'function') && apis.defaults.options(newEntity, state, query);
+        return (
+            (apis[slice][job] && typeof apis[slice][job].options === 'function' && apis[slice][job].options(newEntity, state, query)) ||
+            (typeof apis.defaults[job].options === 'function' && apis.defaults[job].options(newEntity, state, query)) ||
+            (typeof apis.defaults.options === 'function' && apis.defaults.options(newEntity, state, query))
+        );
     }
 
     private getMethod(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): string {
-        return apis[slice][job] && (typeof apis[slice][job].method === 'function') && apis[slice][job].method(entity, state)
-            || apis.defaults[job].method;
+        return (
+            (apis[slice][job] && typeof apis[slice][job].method === 'function' && apis[slice][job].method(entity, state)) ||
+            apis.defaults[job].method
+        );
     }
 
     private getResponse(slice: keyof RootState, state: RootState, entity: any, query: QueryPayload, job: string): any {
         return (resp: any) => {
-            return apis[slice][job] && (typeof apis[slice][job].response === 'function') && apis[slice][job].response(resp, entity, state, query)
-                || resp;
-        }
+            return (
+                (apis[slice][job] &&
+                    typeof apis[slice][job].response === 'function' &&
+                    apis[slice][job].response(resp, entity, state, query)) ||
+                resp
+            );
+        };
     }
 
-    getEntities(slice: keyof RootState, query: QueryPayload = null,
-        state: RootState): Observable<any[]> {
-
+    getEntities(slice: keyof RootState, query: QueryPayload = null, state: RootState): Observable<any[]> {
         const url = this.getUrl(slice, state, null, query, 'getEntities');
         const options = this.getOptions(slice, state, null, query, 'getEntities');
 
-        return this.http.get(url, options)
+        return this.http
+            .get(url, options)
             .map(this.extractData)
             .map(this.getResponse(slice, state, null, query, 'getEntities'))
+            .map(obj => Object.keys(obj).map(key => obj[key]))
             .catch(this.handleError);
     }
 
     getEntity(slice: keyof RootState, id: string, state: RootState): Observable<any> {
         const url = this.getUrl(slice, state, { id }, null, 'getEntity');
         const options = this.getOptions(slice, state, null, null, 'getEntity');
-        return this.http.get(url, options)
+        return this.http
+            .get(url, options)
             .map(this.extractData)
             .map(this.getResponse(slice, state, null, null, 'getEntity'))
             .catch(this.handleError);
@@ -292,8 +309,9 @@ export class RESTService implements DataService {
         const url = this.getUrl(slice, state, entity, null, 'add');
         const options = this.getOptions(slice, state, entity, null, 'add');
 
-        return this.http.post(url, options)
-            .map((result) => {
+        return this.http
+            .post(url, options)
+            .map(result => {
                 let oldObject = {};
                 const newObject = this.extractData(result);
                 const tempEntity = state[slice].entities[EntityActions.TEMP];
@@ -316,13 +334,15 @@ export class RESTService implements DataService {
     }
 
     get(route: string): Observable<any> {
-        return this.http.get(`${this.config.apiUrl}/${route}`)
+        return this.http
+            .get(`${this.config.apiUrl}/${route}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     post(route: string, object: any): Observable<any> {
-        return this.http.post(`${this.config.apiUrl}/${route}`, this.prepareEntity(object))
+        return this.http
+            .post(`${this.config.apiUrl}/${route}`, this.prepareEntity(object))
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -339,7 +359,8 @@ export class RESTService implements DataService {
 
     remove(slice: keyof RootState, entity: Entity, state: RootState, store: Store<RootState>): Observable<any> {
         const url = this.getUrl(slice, state, entity, null, 'remove');
-        return this.http.delete(url)
+        return this.http
+            .delete(url)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -360,13 +381,10 @@ export class RESTService implements DataService {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        let obj =
-            (res && !!res._body && res.json()) ||
-            res.data ||
-            { id: res.url.match(/[^\/]+$/)[0] };
+        let obj = (res && !!res._body && res.json()) || res.data || { id: res.url.match(/[^\/]+$/)[0] };
 
         if (Array.isArray(obj)) {
-            obj = { entities: obj, totalItems: +res.headers.get('X-Total-Count') }
+            obj = { entities: obj, totalItems: +res.headers.get('X-Total-Count') };
         }
         return obj;
     }
@@ -384,6 +402,6 @@ export class RESTService implements DataService {
         console.error(errMsg);
         const id = error.url.match(/[^\/]+$/)[0]; // if DELETE_FAIL, get id from resp.url
 
-        return Observable.throw({ errMsg, id })
+        return Observable.throw({ errMsg, id });
     }
 }

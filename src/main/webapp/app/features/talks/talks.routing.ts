@@ -7,14 +7,17 @@ import { StoreAndRouterConnectorGuard } from '../../core/store/store-and-router-
 import { TalksPage } from './talks.page';
 import { TalksAndFiltersPage } from './talks-and-filters/talks-and-filters.page';
 import { TalkDetailsComponent } from './talk-details/talk-details.component';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
-        path: '', component: TalksPage,
+        path: '',
+        component: TalksPage,
         children: [
             {
-                path: '', pathMatch: 'full', component: TalksAndFiltersPage,
+                path: '',
+                pathMatch: 'full',
+                component: TalksAndFiltersPage,
                 data: {
                     authorities: ['ROLE_USER'],
                     pageTitle: 'greatBigExampleApplicationApp.talks.home.title'
@@ -22,24 +25,22 @@ const routes: Routes = [
                 canActivate: [UserRouteAccessService]
             },
             {
-                path: 'talk/:id', component: TalkDetailsComponent,
+                path: 'talk/:id',
+                component: TalkDetailsComponent,
                 data: {
                     authorities: ['ROLE_USER'],
                     pageTitle: 'greatBigExampleApplicationApp.talks.home.title'
                 },
                 canActivate: [UserRouteAccessService]
-            }]
+            }
+        ]
     }
 ];
 
 export const routedComponents = [TalksAndFiltersPage, TalkDetailsComponent];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [
-        RouterModule
-    ]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class TalksRouting { }
+export class TalksRouting {}

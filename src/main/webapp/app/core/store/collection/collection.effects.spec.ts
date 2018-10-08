@@ -1,34 +1,21 @@
 import { Actions } from '@ngrx/effects';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
-import { empty } from 'rxjs/observable/empty';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
+import { empty, Observable } from 'rxjs';
 import { Database } from '@ngrx/db';
+import 'rxjs/add/operator/toBeObservable';
 
 import { CollectionEffects } from './collection.effects';
 import { Book } from '../book/book.model';
 import * as IDActions from '../id/id.actions';
 import { slices } from '../util';
 
-export class TestActions extends Actions {
-    constructor() {
-        super(empty());
-    }
-
-    set stream(source: Observable<any>) {
-        this.source = source;
-    }
-}
-
-export function getActions() {
-    return new TestActions();
-}
-
 describe('CollectionEffects', () => {
     let db: any;
     let effects: CollectionEffects;
-    let actions$: TestActions;
+    let actions$: Observable<any>;
 
     const book1 = { id: '111', volumeInfo: {} } as Book;
     const book2 = { id: '222', volumeInfo: {} } as Book;
@@ -37,8 +24,16 @@ describe('CollectionEffects', () => {
         TestBed.configureTestingModule({
             providers: [
                 CollectionEffects,
-                { provide: Database, useValue: jasmine.createSpyObj('database', ['open', 'query', 'insert', 'executeWrite']) },
-                { provide: Actions, useFactory: getActions },
+                {
+                    provide: Database,
+                    useValue: {
+                        open: jest.fn(),
+                        query: jest.fn(),
+                        insert: jest.fn(),
+                        executeWrite: jest.fn()
+                    }
+                },
+                provideMockActions(() => actions$)
             ]
         });
 
@@ -59,10 +54,10 @@ describe('CollectionEffects', () => {
             const action = new IDActions.Load(slices.COLLECTION);
             const completion = new IDActions.LoadSuccess(slices.COLLECTION, [book1, book2]);
 
-            actions$.stream = hot('-a', { a: action });
+            actions$ = hot('-a', { a: action });
             const response = cold('-a-b|', { a: book1, b: book2 });
             const expected = cold('-----c', { c: completion });
-            db.query.and.returnValue(response);
+            db.query = jest.fn(() => response);
 
             expect(effects.loadCollection$).toBeObservable(expected);
         });
@@ -72,7 +67,7 @@ describe('CollectionEffects', () => {
             const error = 'Error!';
             const completion = new IDActions.LoadFail(slices.COLLECTION, error);
 
-            actions$.stream = hot('-a', { a: action });
+            actions$ = hot('-a', { a: action });
             const response = cold('-#', {}, error);
             const expected = cold('--c', { c: completion });
             db.query.and.returnValue(response);
@@ -86,7 +81,7 @@ describe('CollectionEffects', () => {
             const action = new IDActions.Add(slices.COLLECTION, book1);
             const completion = new IDActions.AddSuccess(slices.COLLECTION, book1);
 
-            actions$.stream = hot('-a', { a: action });
+            actions$ = hot('-a', { a: action });
             const response = cold('-b', { b: true });
             const expected = cold('--c', { c: completion });
             db.insert.and.returnValue(response);
@@ -100,7 +95,7 @@ describe('CollectionEffects', () => {
             const completion = new IDActions.AddFail(slices.COLLECTION, book1);
             const error = 'Error!';
 
-            actions$.stream = hot('-a', { a: action });
+            actions$ = hot('-a', { a: action });
             const response = cold('-#', {}, error);
             const expected = cold('--c', { c: completion });
             db.insert.and.returnValue(response);
@@ -113,7 +108,7 @@ describe('CollectionEffects', () => {
                 const action = new IDActions.Delete(slices.COLLECTION, book1);
                 const completion = new IDActions.DeleteSuccess(slices.COLLECTION, book1);
 
-                actions$.stream = hot('-a', { a: action });
+                actions$ = hot('-a', { a: action });
                 const response = cold('-b', { b: true });
                 const expected = cold('--c', { c: completion });
                 db.executeWrite.and.returnValue(response);
@@ -127,7 +122,7 @@ describe('CollectionEffects', () => {
                 const completion = new IDActions.DeleteFail(slices.COLLECTION, book1);
                 const error = 'Error!';
 
-                actions$.stream = hot('-a', { a: action });
+                actions$ = hot('-a', { a: action });
                 const response = cold('-#', {}, error);
                 const expected = cold('--c', { c: completion });
                 db.executeWrite.and.returnValue(response);

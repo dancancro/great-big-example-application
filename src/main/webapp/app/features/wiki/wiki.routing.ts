@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WikiPage } from './wiki.page';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
-        path: '', component: WikiPage,
+        path: '',
+        component: WikiPage,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'greatBigExampleApplicationApp.wiki.home.title'
@@ -21,4 +22,4 @@ export const routedComponents = [WikiPage];
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class WikiRouting { }
+export class WikiRouting {}

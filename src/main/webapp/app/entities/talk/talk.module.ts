@@ -1,51 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { GreatBigExampleApplicationSharedModule } from '../../shared';
+import { GreatBigExampleApplicationSharedModule } from 'app/shared';
 import {
-    TalkService,
-    TalkPopupService,
     TalkComponent,
     TalkDetailComponent,
-    TalkDialogComponent,
-    TalkPopupComponent,
+    TalkUpdateComponent,
     TalkDeletePopupComponent,
     TalkDeleteDialogComponent,
     talkRoute,
-    talkPopupRoute,
-    TalkResolvePagingParams,
+    talkPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...talkRoute,
-    ...talkPopupRoute,
-];
+const ENTITY_STATES = [...talkRoute, ...talkPopupRoute];
 
 @NgModule({
-    imports: [
-        GreatBigExampleApplicationSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
-    declarations: [
-        TalkComponent,
-        TalkDetailComponent,
-        TalkDialogComponent,
-        TalkDeleteDialogComponent,
-        TalkPopupComponent,
-        TalkDeletePopupComponent,
-    ],
-    entryComponents: [
-        TalkComponent,
-        TalkDialogComponent,
-        TalkPopupComponent,
-        TalkDeleteDialogComponent,
-        TalkDeletePopupComponent,
-    ],
-    providers: [
-        TalkService,
-        TalkPopupService,
-        TalkResolvePagingParams,
-    ],
+    imports: [GreatBigExampleApplicationSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    declarations: [TalkComponent, TalkDetailComponent, TalkUpdateComponent, TalkDeleteDialogComponent, TalkDeletePopupComponent],
+    entryComponents: [TalkComponent, TalkUpdateComponent, TalkDeleteDialogComponent, TalkDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GreatBigExampleApplicationTalkModule {}

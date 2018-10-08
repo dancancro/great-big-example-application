@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { SinglePlayerComponent } from './single-player/single-player.component';
 import { MultiPlayerComponent } from './multi-player/multi-player.component';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
@@ -40,4 +40,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class GameRouting { }
+export class GameRouting {}

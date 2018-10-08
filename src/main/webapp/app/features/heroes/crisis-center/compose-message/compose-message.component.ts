@@ -1,12 +1,10 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { slideInDownAnimation } from '../../../../shared/animations';
-
 @Component({
+    selector: 'jhi-compose-message',
     templateUrl: './compose-message.component.html',
-    styles: [':host { position: relative; bottom: 10%; }'],
-    animations: [slideInDownAnimation]
+    styleUrls: ['./compose-message.component.css']
 })
 export class ComposeMessageComponent {
     @HostBinding('@routeAnimation') routeAnimation = true;
@@ -17,7 +15,7 @@ export class ComposeMessageComponent {
     sending = false;
     message: string;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) {}
 
     send() {
         this.sending = true;

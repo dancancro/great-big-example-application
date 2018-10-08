@@ -8,9 +8,9 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';
 
 import { RootState } from '../store';
-import { CSRFService } from '../../shared/auth/csrf.service';
+import { CSRFService } from '../../core/auth/csrf.service';
 import { WindowRef } from '../../shared/services/window.service';
-import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
+import { AuthServerProvider } from '../../core/auth/auth-jwt.service';
 import * as EntityActions from '../store/entity/entity.actions';
 import { DataService } from './data.service';
 import { QueryPayload } from '../store/util';
@@ -41,19 +41,19 @@ export class SocketService implements DataService {
         private router: Router,
         private authServerProvider: AuthServerProvider,
         private $window: WindowRef,
-        private csrfService: CSRFService,   // ??
+        private csrfService: CSRFService, // ??
         private store: Store<any>
     ) {
         this.connection = this.createConnection();
         this.listener = this.createListener();
-        this.resource$ = new Observable((observable) => this.observable = observable);
+        this.resource$ = new Observable(observable => (this.observable = observable));
     }
 
     // TODO: fix these up. I'm not sure how these work with sockets
     getEntity(id: string, service: keyof RootState): Observable<any> {
         return this.sendData(`/topic/${service}`, id);
     }
-    add(service: keyof RootState, entity: any, ): Observable<any> {
+    add(service: keyof RootState, entity: any): Observable<any> {
         return this.sendData(`/topic/${service}`, entity);
     }
     update(service: keyof RootState, entity: any): Observable<any> {
@@ -62,8 +62,7 @@ export class SocketService implements DataService {
     remove(service: keyof RootState, entity: any): Observable<any> {
         return this.sendData(`/topic/${service}`, entity);
     }
-    getEntities(table: keyof RootState,
-        query: QueryPayload = null, state: RootState): Observable<any[]> {
+    getEntities(table: keyof RootState, query: QueryPayload = null, state: RootState): Observable<any[]> {
         return this.sendData(`/topic/${table}`, query);
     }
 
@@ -72,7 +71,7 @@ export class SocketService implements DataService {
         if (this.stompClient !== null && this.stompClient.connected) {
             x = this.stompClient.send(dest, JSON.stringify(data), {});
         } else {
-            x = Observable.empty();  // TODO: ??
+            x = Observable.empty(); // TODO: ??
         }
         return x;
     }
@@ -126,7 +125,7 @@ export class SocketService implements DataService {
 
     subscribe(service: keyof RootState) {
         this.connection.then(() => {
-            this.subscriber = this.stompClient.subscribe('/topic/' + service, (data) => {
+            this.subscriber = this.stompClient.subscribe('/topic/' + service, data => {
                 this.listenerObserver.next(JSON.parse(data.body));
                 this.store.dispatch(new EntityActions.Load(service, data.body));
             });
@@ -141,13 +140,13 @@ export class SocketService implements DataService {
     }
 
     private createListener(): Observable<any> {
-        return new Observable((observer) => {
+        return new Observable(observer => {
             this.listenerObserver = observer;
         });
     }
 
     private createConnection(): Promise<any> {
-        return new Promise((resolve, reject) => this.connectedPromise = resolve);
+        return new Promise((resolve, reject) => (this.connectedPromise = resolve));
     }
     // authenticate(option?: any) {
     //   return this.app.authenticate(option)

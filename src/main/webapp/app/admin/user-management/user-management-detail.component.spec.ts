@@ -1,73 +1,67 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
-import { MockActivatedRoute } from '../../../mocks/mock-route.service';
-import { UserMgmtDetailComponent } from './user-management-detail.component';
-import { UserService } from '../../core/services/user.service';
-import { User } from '../../core/store/user/user.model';
+import { UserMgmtDetailComponent } from 'app/admin/user-management/user-management-detail.component';
+import { User } from 'app/core';
 
 describe('Component Tests', () => {
-
     describe('User Management Detail Component', () => {
         let comp: UserMgmtDetailComponent;
         let fixture: ComponentFixture<UserMgmtDetailComponent>;
-        let service: UserService;
+        const route = ({
+            data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null) })
+        } as any) as ActivatedRoute;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [GreatBigExampleApplicationTestModule],
-                declarations: [UserMgmtDetailComponent],
-                providers: [
-                    {
-                        provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({ login: 'user' })
-                    },
-                    UserService
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [GreatBigExampleApplicationTestModule],
+                    declarations: [UserMgmtDetailComponent],
+                    providers: [
+                        {
+                            provide: ActivatedRoute,
+                            useValue: route
+                        }
+                    ]
+                })
+                    .overrideTemplate(UserMgmtDetailComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(UserMgmtDetailComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(UserMgmtDetailComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(UserService);
         });
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
-                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
-                    body: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null)
-                })));
-
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
-                expect(service.find).toHaveBeenCalledWith('user');
-                expect(comp.user).toEqual(jasmine.objectContaining({
-                    id: 1,
-                    login: 'user',
-                    firstName: 'first',
-                    lastName: 'last',
-                    email: 'first@last.com',
-                    activated: true,
-                    langKey: 'en',
-                    authorities: ['ROLE_USER'],
-                    createdBy: 'admin',
-                    createdDate: null,
-                    lastModifiedBy: null,
-                    lastModifiedDate: null,
-                    password: null
-                }));
+                expect(comp.user).toEqual(
+                    jasmine.objectContaining({
+                        id: 1,
+                        login: 'user',
+                        firstName: 'first',
+                        lastName: 'last',
+                        email: 'first@last.com',
+                        activated: true,
+                        langKey: 'en',
+                        authorities: ['ROLE_USER'],
+                        createdBy: 'admin',
+                        createdDate: null,
+                        lastModifiedBy: null,
+                        lastModifiedDate: null,
+                        password: null
+                    })
+                );
             });
         });
     });
-
 });

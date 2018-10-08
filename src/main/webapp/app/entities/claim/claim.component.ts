@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { Claim } from './claim.model';
+import { IClaim } from 'app/shared/model/claim.model';
+import { Principal } from 'app/core';
 import { ClaimService } from './claim.service';
-import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-claim',
     templateUrl: './claim.component.html'
 })
 export class ClaimComponent implements OnInit, OnDestroy {
-claims: Claim[];
+    claims: IClaim[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
@@ -25,22 +25,26 @@ claims: Claim[];
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
-        this.currentSearch = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ?
-            this.activatedRoute.snapshot.params['search'] : '';
+        this.currentSearch =
+            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
+                ? this.activatedRoute.snapshot.params['search']
+                : '';
     }
 
     loadAll() {
         if (this.currentSearch) {
-            this.claimService.search({
-                query: this.currentSearch,
-                }).subscribe(
-                    (res: HttpResponse<Claim[]>) => this.claims = res.body,
+            this.claimService
+                .search({
+                    query: this.currentSearch
+                })
+                .subscribe(
+                    (res: HttpResponse<IClaim[]>) => (this.claims = res.body),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
-       }
+        }
         this.claimService.query().subscribe(
-            (res: HttpResponse<Claim[]>) => {
+            (res: HttpResponse<IClaim[]>) => {
                 this.claims = res.body;
                 this.currentSearch = '';
             },
@@ -60,9 +64,10 @@ claims: Claim[];
         this.currentSearch = '';
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInClaims();
@@ -72,14 +77,15 @@ claims: Claim[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: Claim) {
+    trackId(index: number, item: IClaim) {
         return item.id;
     }
+
     registerChangeInClaims() {
-        this.eventSubscriber = this.eventManager.subscribe('claimListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('claimListModification', response => this.loadAll());
     }
 
-    private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Claim } from './claim.model';
-import { ClaimPopupService } from './claim-popup.service';
+import { IClaim } from 'app/shared/model/claim.model';
 import { ClaimService } from './claim.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { ClaimService } from './claim.service';
     templateUrl: './claim-delete-dialog.component.html'
 })
 export class ClaimDeleteDialogComponent {
+    claim: IClaim;
 
-    claim: Claim;
-
-    constructor(
-        private claimService: ClaimService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private claimService: ClaimService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.claimService.delete(id).subscribe((response) => {
+        this.claimService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'claimListModification',
                 content: 'Deleted an claim'
@@ -43,22 +36,30 @@ export class ClaimDeleteDialogComponent {
     template: ''
 })
 export class ClaimDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private claimPopupService: ClaimPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.claimPopupService
-                .open(ClaimDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ claim }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(ClaimDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.claim = claim;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

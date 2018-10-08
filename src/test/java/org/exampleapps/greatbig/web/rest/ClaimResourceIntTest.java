@@ -22,10 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
+
+import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -53,8 +58,14 @@ public class ClaimResourceIntTest {
     @Autowired
     private ClaimRepository claimRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.ClaimSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private ClaimSearchRepository claimSearchRepository;
+    private ClaimSearchRepository mockClaimSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -75,7 +86,7 @@ public class ClaimResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ClaimResource claimResource = new ClaimResource(claimRepository, claimSearchRepository);
+        final ClaimResource claimResource = new ClaimResource(claimRepository, mockClaimSearchRepository);
         this.restClaimMockMvc = MockMvcBuilders.standaloneSetup(claimResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -99,7 +110,6 @@ public class ClaimResourceIntTest {
 
     @Before
     public void initTest() {
-        claimSearchRepository.deleteAll();
         claim = createEntity(em);
     }
 
@@ -124,8 +134,7 @@ public class ClaimResourceIntTest {
         assertThat(testClaim.getImageLink()).isEqualTo(DEFAULT_IMAGE_LINK);
 
         // Validate the Claim in Elasticsearch
-        Claim claimEs = claimSearchRepository.findOne(testClaim.getId());
-        assertThat(claimEs).isEqualToComparingFieldByField(testClaim);
+        verify(mockClaimSearchRepository, times(1)).save(testClaim);
     }
 
     @Test
@@ -145,6 +154,9 @@ public class ClaimResourceIntTest {
         // Validate the Alice in the database
         List<Claim> claimList = claimRepository.findAll();
         assertThat(claimList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Claim in Elasticsearch
+        verify(mockClaimSearchRepository, times(0)).save(claim);
     }
 
     @Test
@@ -182,6 +194,7 @@ public class ClaimResourceIntTest {
             .andExpect(jsonPath("$.[*].imageLink").value(hasItem(DEFAULT_IMAGE_LINK.toString())));
     }
 
+
     @Test
     @Transactional
     public void getClaim() throws Exception {
@@ -198,7 +211,6 @@ public class ClaimResourceIntTest {
             .andExpect(jsonPath("$.imageLabel").value(DEFAULT_IMAGE_LABEL.toString()))
             .andExpect(jsonPath("$.imageLink").value(DEFAULT_IMAGE_LINK.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingClaim() throws Exception {
@@ -212,11 +224,13 @@ public class ClaimResourceIntTest {
     public void updateClaim() throws Exception {
         // Initialize the database
         claimRepository.saveAndFlush(claim);
-        claimSearchRepository.save(claim);
+
         int databaseSizeBeforeUpdate = claimRepository.findAll().size();
 
         // Update the claim
-        Claim updatedClaim = claimRepository.findOne(claim.getId());
+        Claim updatedClaim = claimRepository.findById(claim.getId()).get();
+        // Disconnect from session so that the updates on updatedClaim are not directly saved in db
+        em.detach(updatedClaim);
         updatedClaim
             .name(UPDATED_NAME)
             .sortOrder(UPDATED_SORT_ORDER)
@@ -238,8 +252,7 @@ public class ClaimResourceIntTest {
         assertThat(testClaim.getImageLink()).isEqualTo(UPDATED_IMAGE_LINK);
 
         // Validate the Claim in Elasticsearch
-        Claim claimEs = claimSearchRepository.findOne(testClaim.getId());
-        assertThat(claimEs).isEqualToComparingFieldByField(testClaim);
+        verify(mockClaimSearchRepository, times(1)).save(testClaim);
     }
 
     @Test
@@ -249,15 +262,18 @@ public class ClaimResourceIntTest {
 
         // Create the Claim
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restClaimMockMvc.perform(put("/api/claims")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(claim)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Claim in the database
         List<Claim> claimList = claimRepository.findAll();
-        assertThat(claimList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(claimList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Claim in Elasticsearch
+        verify(mockClaimSearchRepository, times(0)).save(claim);
     }
 
     @Test
@@ -265,7 +281,7 @@ public class ClaimResourceIntTest {
     public void deleteClaim() throws Exception {
         // Initialize the database
         claimRepository.saveAndFlush(claim);
-        claimSearchRepository.save(claim);
+
         int databaseSizeBeforeDelete = claimRepository.findAll().size();
 
         // Get the claim
@@ -273,13 +289,12 @@ public class ClaimResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean claimExistsInEs = claimSearchRepository.exists(claim.getId());
-        assertThat(claimExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Claim> claimList = claimRepository.findAll();
         assertThat(claimList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Claim in Elasticsearch
+        verify(mockClaimSearchRepository, times(1)).deleteById(claim.getId());
     }
 
     @Test
@@ -287,8 +302,8 @@ public class ClaimResourceIntTest {
     public void searchClaim() throws Exception {
         // Initialize the database
         claimRepository.saveAndFlush(claim);
-        claimSearchRepository.save(claim);
-
+        when(mockClaimSearchRepository.search(queryStringQuery("id:" + claim.getId())))
+            .thenReturn(Collections.singletonList(claim));
         // Search the claim
         restClaimMockMvc.perform(get("/api/_search/claims?query=id:" + claim.getId()))
             .andExpect(status().isOk())

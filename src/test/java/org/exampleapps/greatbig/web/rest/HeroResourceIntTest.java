@@ -22,10 +22,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
+
+import static org.exampleapps.greatbig.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,8 +49,14 @@ public class HeroResourceIntTest {
     @Autowired
     private HeroRepository heroRepository;
 
+
+    /**
+     * This repository is mocked in the org.exampleapps.greatbig.repository.search test package.
+     *
+     * @see org.exampleapps.greatbig.repository.search.HeroSearchRepositoryMockConfiguration
+     */
     @Autowired
-    private HeroSearchRepository heroSearchRepository;
+    private HeroSearchRepository mockHeroSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -66,7 +77,7 @@ public class HeroResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        HeroResource heroResource = new HeroResource(heroRepository, heroSearchRepository);
+        final HeroResource heroResource = new HeroResource(heroRepository, mockHeroSearchRepository);
         this.restHeroMockMvc = MockMvcBuilders.standaloneSetup(heroResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -87,7 +98,6 @@ public class HeroResourceIntTest {
 
     @Before
     public void initTest() {
-        heroSearchRepository.deleteAll();
         hero = createEntity(em);
     }
 
@@ -109,8 +119,7 @@ public class HeroResourceIntTest {
         assertThat(testHero.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Hero in Elasticsearch
-        Hero heroEs = heroSearchRepository.findOne(testHero.getId());
-        assertThat(heroEs).isEqualToComparingFieldByField(testHero);
+        verify(mockHeroSearchRepository, times(1)).save(testHero);
     }
 
     @Test
@@ -130,6 +139,9 @@ public class HeroResourceIntTest {
         // Validate the Alice in the database
         List<Hero> heroList = heroRepository.findAll();
         assertThat(heroList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Hero in Elasticsearch
+        verify(mockHeroSearchRepository, times(0)).save(hero);
     }
 
     @Test
@@ -164,6 +176,7 @@ public class HeroResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
+
     @Test
     @Transactional
     public void getHero() throws Exception {
@@ -177,7 +190,6 @@ public class HeroResourceIntTest {
             .andExpect(jsonPath("$.id").value(hero.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingHero() throws Exception {
@@ -191,11 +203,13 @@ public class HeroResourceIntTest {
     public void updateHero() throws Exception {
         // Initialize the database
         heroRepository.saveAndFlush(hero);
-        heroSearchRepository.save(hero);
+
         int databaseSizeBeforeUpdate = heroRepository.findAll().size();
 
         // Update the hero
-        Hero updatedHero = heroRepository.findOne(hero.getId());
+        Hero updatedHero = heroRepository.findById(hero.getId()).get();
+        // Disconnect from session so that the updates on updatedHero are not directly saved in db
+        em.detach(updatedHero);
         updatedHero
             .name(UPDATED_NAME);
 
@@ -211,8 +225,7 @@ public class HeroResourceIntTest {
         assertThat(testHero.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Hero in Elasticsearch
-        Hero heroEs = heroSearchRepository.findOne(testHero.getId());
-        assertThat(heroEs).isEqualToComparingFieldByField(testHero);
+        verify(mockHeroSearchRepository, times(1)).save(testHero);
     }
 
     @Test
@@ -222,15 +235,18 @@ public class HeroResourceIntTest {
 
         // Create the Hero
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restHeroMockMvc.perform(put("/api/heroes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(hero)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Hero in the database
         List<Hero> heroList = heroRepository.findAll();
-        assertThat(heroList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(heroList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Hero in Elasticsearch
+        verify(mockHeroSearchRepository, times(0)).save(hero);
     }
 
     @Test
@@ -238,7 +254,7 @@ public class HeroResourceIntTest {
     public void deleteHero() throws Exception {
         // Initialize the database
         heroRepository.saveAndFlush(hero);
-        heroSearchRepository.save(hero);
+
         int databaseSizeBeforeDelete = heroRepository.findAll().size();
 
         // Get the hero
@@ -246,13 +262,12 @@ public class HeroResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean heroExistsInEs = heroSearchRepository.exists(hero.getId());
-        assertThat(heroExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Hero> heroList = heroRepository.findAll();
         assertThat(heroList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Hero in Elasticsearch
+        verify(mockHeroSearchRepository, times(1)).deleteById(hero.getId());
     }
 
     @Test
@@ -260,8 +275,8 @@ public class HeroResourceIntTest {
     public void searchHero() throws Exception {
         // Initialize the database
         heroRepository.saveAndFlush(hero);
-        heroSearchRepository.save(hero);
-
+        when(mockHeroSearchRepository.search(queryStringQuery("id:" + hero.getId())))
+            .thenReturn(Collections.singletonList(hero));
         // Search the hero
         restHeroMockMvc.perform(get("/api/_search/heroes?query=id:" + hero.getId()))
             .andExpect(status().isOk())

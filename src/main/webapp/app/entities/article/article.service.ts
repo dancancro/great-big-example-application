@@ -1,91 +1,81 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
-import { JhiDateUtils } from 'ng-jhipster';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IArticle } from 'app/shared/model/article.model';
 
-import { Article } from './article.model';
-import { createRequestOption } from '../../shared';
+type EntityResponseType = HttpResponse<IArticle>;
+type EntityArrayResponseType = HttpResponse<IArticle[]>;
 
-export type EntityResponseType = HttpResponse<Article>;
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ArticleService {
-
-    private resourceUrl =  SERVER_API_URL + 'api/articles';
+    private resourceUrl = SERVER_API_URL + 'api/articles';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/articles';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient) {}
 
-    create(article: Article): Observable<EntityResponseType> {
-        const copy = this.convert(article);
-        return this.http.post<Article>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(article: IArticle): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(article);
+        return this.http
+            .post<IArticle>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    update(article: Article): Observable<EntityResponseType> {
-        const copy = this.convert(article);
-        return this.http.put<Article>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(article: IArticle): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(article);
+        return this.http
+            .put<IArticle>(this.resourceUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Article>(`${this.resourceUrl}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
+        return this.http
+            .get<IArticle>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any): Observable<HttpResponse<Article[]>> {
+    query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Article[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Article[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IArticle[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    search(req?: any): Observable<HttpResponse<Article[]>> {
+    search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<Article[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<Article[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<IArticle[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: Article = this.convertItemFromServer(res.body);
-        return res.clone({body});
-    }
-
-    private convertArrayResponse(res: HttpResponse<Article[]>): HttpResponse<Article[]> {
-        const jsonResponse: Article[] = res.body;
-        const body: Article[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return res.clone({body});
-    }
-
-    /**
-     * Convert a returned JSON object to Article.
-     */
-    private convertItemFromServer(article: Article): Article {
-        const copy: Article = Object.assign({}, article);
-        copy.createdAt = this.dateUtils
-            .convertDateTimeFromServer(article.createdAt);
-        copy.updatedAt = this.dateUtils
-            .convertDateTimeFromServer(article.updatedAt);
+    private convertDateFromClient(article: IArticle): IArticle {
+        const copy: IArticle = Object.assign({}, article, {
+            createdAt: article.createdAt != null && article.createdAt.isValid() ? article.createdAt.toJSON() : null,
+            updatedAt: article.updatedAt != null && article.updatedAt.isValid() ? article.updatedAt.toJSON() : null
+        });
         return copy;
     }
 
-    /**
-     * Convert a Article to a JSON which can be sent to the server.
-     */
-    private convert(article: Article): Article {
-        const copy: Article = Object.assign({}, article);
+    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        res.body.createdAt = res.body.createdAt != null ? moment(res.body.createdAt) : null;
+        res.body.updatedAt = res.body.updatedAt != null ? moment(res.body.updatedAt) : null;
+        return res;
+    }
 
-        copy.createdAt = this.dateUtils.toDate(article.createdAt);
-
-        copy.updatedAt = this.dateUtils.toDate(article.updatedAt);
-        return copy;
+    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        res.body.forEach((article: IArticle) => {
+            article.createdAt = article.createdAt != null ? moment(article.createdAt) : null;
+            article.updatedAt = article.updatedAt != null ? moment(article.updatedAt) : null;
+        });
+        return res;
     }
 }

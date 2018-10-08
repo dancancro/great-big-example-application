@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Hero } from './hero.model';
-import { HeroPopupService } from './hero-popup.service';
+import { IHero } from 'app/shared/model/hero.model';
 import { HeroService } from './hero.service';
 
 @Component({
@@ -13,22 +12,16 @@ import { HeroService } from './hero.service';
     templateUrl: './hero-delete-dialog.component.html'
 })
 export class HeroDeleteDialogComponent {
+    hero: IHero;
 
-    hero: Hero;
-
-    constructor(
-        private heroService: HeroService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
-    }
+    constructor(private heroService: HeroService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.heroService.delete(id).subscribe((response) => {
+        this.heroService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'heroListModification',
                 content: 'Deleted an hero'
@@ -43,22 +36,30 @@ export class HeroDeleteDialogComponent {
     template: ''
 })
 export class HeroDeletePopupComponent implements OnInit, OnDestroy {
+    private ngbModalRef: NgbModalRef;
 
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private heroPopupService: HeroPopupService
-    ) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.heroPopupService
-                .open(HeroDeleteDialogComponent as Component, params['id']);
+        this.activatedRoute.data.subscribe(({ hero }) => {
+            setTimeout(() => {
+                this.ngbModalRef = this.modalService.open(HeroDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef.componentInstance.hero = hero;
+                this.ngbModalRef.result.then(
+                    result => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    },
+                    reason => {
+                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.ngbModalRef = null;
+                    }
+                );
+            }, 0);
         });
     }
 
     ngOnDestroy() {
-        this.routeSub.unsubscribe();
+        this.ngbModalRef = null;
     }
 }

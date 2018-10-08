@@ -81,6 +81,7 @@ public class ProfileDTO implements Serializable {
 
         ProfileDTO profileDTO = (ProfileDTO) o;
         if(profileDTO.getUsername() == null || getUsername() == null) {
+//        if (profileDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getUsername(), profileDTO.getUsername());

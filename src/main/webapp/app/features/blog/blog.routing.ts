@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BlogPage } from './blog.page';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 
 const routes: Routes = [
     {
-        path: '', component: BlogPage,
+        path: '',
+        component: BlogPage,
         children: [
             {
                 path: '',
-                loadChildren: './home/home.module#HomeModule',
+                loadChildren: './home/home.module#HomeModule'
             },
             {
                 path: 'article',
@@ -44,4 +45,4 @@ export const routedComponents = [BlogPage];
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class BlogRouting { }
+export class BlogRouting {}

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { slideInDownAnimation } from '../../../../shared/animations';
 import { DialogService } from '../../../../shared/dialog/dialog.service';
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
 import * as fromRoot from '../../../../core/store';
@@ -12,23 +11,9 @@ import * as EntityActions from '../../../../core/store/entity/entity.actions';
 import { slices } from '../../../../core/store/util';
 
 @Component({
-    template: `
-  <div *ngIf="crisis">
-    <h3>"{{ editName }}"</h3>
-    <div>
-      <label>Id: </label>{{ crisis.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="editName" placeholder="name"/>
-    </div>
-    <p>
-      <button (click)="save()">Save</button>
-      <button (click)="cancel()">Cancel</button>
-    </p>
-  </div>
-  `,
-    styles: ['input {width: 20em}'],
-    animations: [slideInDownAnimation]
+    selector: 'jhi-crisis-detail',
+    templateUrl: './crisis-detail.component.html',
+    styleUrls: ['./crisis-detail.component.css']
 })
 export class CrisisDetailComponent implements OnInit, OnDestroy {
     @HostBinding('@routeAnimation') routeAnimation = true;
@@ -44,19 +29,17 @@ export class CrisisDetailComponent implements OnInit, OnDestroy {
         private router: Router,
         private store: Store<fromRoot.RootState>,
         public dialogService: DialogService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.crisis$ = this.store.select(fromRoot.getSelectedCrisis);
-        this.crisisSub = this.crisis$.subscribe((crisis) => this.crisis = crisis);
+        this.crisisSub = this.crisis$.subscribe(crisis => (this.crisis = crisis));
 
         // Load the current user's data
-        this.crisisSub = this.crisis$.subscribe(
-            (crisis) => {
-                this.editName = crisis.name;
-                this.crisis = crisis;
-            }
-        );
+        this.crisisSub = this.crisis$.subscribe(crisis => {
+            this.editName = crisis.name;
+            this.crisis = crisis;
+        });
     }
 
     cancel() {

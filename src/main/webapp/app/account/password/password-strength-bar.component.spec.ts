@@ -3,19 +3,19 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { PasswordStrengthBarComponent } from './password-strength-bar.component';
 
 describe('Component Tests', () => {
-
     describe('PasswordStrengthBarComponent', () => {
-
         let comp: PasswordStrengthBarComponent;
         let fixture: ComponentFixture<PasswordStrengthBarComponent>;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                declarations: [PasswordStrengthBarComponent]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    declarations: [PasswordStrengthBarComponent]
+                })
+                    .overrideTemplate(PasswordStrengthBarComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(PasswordStrengthBarComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PasswordStrengthBarComponent);

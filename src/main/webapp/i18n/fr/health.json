@@ -21,6 +21,7 @@
             "status": "Etat"
         },
         "status": {
+            "UNKNOWN": "UNKNOWN",
             "UP": "DISPONIBLE",
             "DOWN": "HORS SERVICE"
         }

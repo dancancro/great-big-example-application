@@ -2,7 +2,6 @@ package org.exampleapps.greatbig.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.exampleapps.greatbig.domain.Note;
-
 import org.exampleapps.greatbig.repository.NoteRepository;
 import org.exampleapps.greatbig.repository.search.NoteSearchRepository;
 import org.exampleapps.greatbig.web.rest.util.HeaderUtil;
@@ -78,7 +77,7 @@ public class NoteResource {
     public ResponseEntity<Note> updateNote(@RequestBody Note note) throws URISyntaxException {
         log.debug("REST request to update Note : {}", note);
         if (note.getId() == null) {
-            return createNote(note);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Note result = noteRepository.save(note);
         noteSearchRepository.save(result);
@@ -109,8 +108,8 @@ public class NoteResource {
     @Timed
     public ResponseEntity<Note> getNote(@PathVariable String id) {
         log.debug("REST request to get Note : {}", id);
-        Note note = noteRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(note));
+        Optional<Note> note = noteRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(note);
     }
 
     /**
@@ -123,8 +122,9 @@ public class NoteResource {
     @Timed
     public ResponseEntity<Void> deleteNote(@PathVariable String id) {
         log.debug("REST request to delete Note : {}", id);
-        noteRepository.delete(id);
-        noteSearchRepository.delete(id);
+
+        noteRepository.deleteById(id);
+        noteSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

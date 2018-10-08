@@ -1,55 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager } from 'ng-jhipster';
 
-import { Crisis } from './crisis.model';
-import { CrisisService } from './crisis.service';
+import { ICrisis } from 'app/shared/model/crisis.model';
 
 @Component({
     selector: 'jhi-crisis-detail',
     templateUrl: './crisis-detail.component.html'
 })
-export class CrisisDetailComponent implements OnInit, OnDestroy {
+export class CrisisDetailComponent implements OnInit {
+    crisis: ICrisis;
 
-    crisis: Crisis;
-    private subscription: Subscription;
-    private eventSubscriber: Subscription;
-
-    constructor(
-        private eventManager: JhiEventManager,
-        private crisisService: CrisisService,
-        private route: ActivatedRoute
-    ) {
-    }
+    constructor(private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['id']);
+        this.activatedRoute.data.subscribe(({ crisis }) => {
+            this.crisis = crisis;
         });
-        this.registerChangeInCrises();
     }
 
-    load(id) {
-        this.crisisService.find(id)
-            .subscribe((crisisResponse: HttpResponse<Crisis>) => {
-                this.crisis = crisisResponse.body;
-            });
-    }
     previousState() {
         window.history.back();
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
-    registerChangeInCrises() {
-        this.eventSubscriber = this.eventManager.subscribe(
-            'crisisListModification',
-            (response) => this.load(this.crisis.id)
-        );
     }
 }

@@ -18,9 +18,9 @@ export class SpyObject {
         }
 
         const m = {};
-        Object.keys(config).forEach((key) => m[key] = config[key]);
-        Object.keys(overrides).forEach((key) => m[key] = overrides[key]);
-        Object.keys(m).forEach((key) => {
+        Object.keys(config).forEach(key => (m[key] = config[key]));
+        Object.keys(overrides).forEach(key => (m[key] = overrides[key]));
+        Object.keys(m).forEach(key => {
             object.spy(key).andReturn(m[key]);
         });
         return object;
@@ -28,7 +28,7 @@ export class SpyObject {
 
     constructor(type = null) {
         if (type) {
-            Object.keys(type.prototype).forEach((prop) => {
+            Object.keys(type.prototype).forEach(prop => {
                 let m = null;
                 try {
                     m = type.prototype[prop];
@@ -58,10 +58,10 @@ export class SpyObject {
 
     /** @internal */
     _createGuinnessCompatibleSpy(name): GuinessCompatibleSpy {
-        const newSpy: GuinessCompatibleSpy = < any > jasmine.createSpy(name);
-        newSpy.andCallFake = < any > newSpy.and.callFake;
-        newSpy.andReturn = < any > newSpy.and.returnValue;
-        newSpy.reset = < any > newSpy.calls.reset;
+        const newSpy: GuinessCompatibleSpy = <any>jasmine.createSpy(name);
+        newSpy.andCallFake = <any>newSpy.and.callFake;
+        newSpy.andReturn = <any>newSpy.and.returnValue;
+        newSpy.reset = <any>newSpy.calls.reset;
         // revisit return null here (previously needed for rtts_assert).
         newSpy.and.returnValue(null);
         return newSpy;

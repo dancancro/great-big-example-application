@@ -1,8 +1,8 @@
 <div>
-    <h2>
+    <h2 id="page-heading">
         <span jhiTranslate="greatBigExampleApplicationApp.rebuttal.home.title">Rebuttals</span>
-        <button class="btn btn-primary float-right jh-create-entity create-rebuttal" [routerLink]="['/', { outlets: { popup: ['rebuttal-new'] } }]">
-            <span class="fa fa-plus"></span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-rebuttal" [routerLink]="['/rebuttal/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="greatBigExampleApplicationApp.rebuttal.home.createLabel">
             Create new Rebuttal
             </span>
@@ -15,10 +15,10 @@
                 <div class="input-group w-100 mt-3">
                     <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'greatBigExampleApplicationApp.rebuttal.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <span class="fa fa-search"></span>
+                        <fa-icon [icon]="'search'"></fa-icon>
                     </button>
                     <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <span class="fa fa-trash-o"></span>
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
                     </button>
                 </div>
             </form>
@@ -40,7 +40,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let rebuttal of rebuttals ;trackBy: trackId">
-                <td><a [routerLink]="['../rebuttal', rebuttal.id ]">{{rebuttal.id}}</a></td>
+                <td><a [routerLink]="['/rebuttal', rebuttal.id, 'view' ]">{{rebuttal.id}}</a></td>
                 <td>{{rebuttal.longName}}</td>
                 <td>{{rebuttal.shortName}}</td>
                 <td>{{rebuttal.date | date:'medium'}}</td>
@@ -49,17 +49,15 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../rebuttal', rebuttal.id ]"
+                                [routerLink]="['/rebuttal', rebuttal.id, 'view' ]"
                                 class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
+                            <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'rebuttal/'+ rebuttal.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                                [routerLink]="['/rebuttal', rebuttal.id, 'edit']"
                                 class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
@@ -67,7 +65,7 @@
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
+                            <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>

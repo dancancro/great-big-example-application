@@ -5,7 +5,7 @@ import { FindBookPage } from './find-book.page';
 import { ViewBookPage } from './view-book.page';
 import { CollectionPage } from './collection.page';
 import { SelectivePreloadingStrategy } from '../../shared/selective-preloading-strategy';
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../../core';
 import { EntityExistsGuard } from '../../core/services/entity-exists.guard';
 import { slices } from '../../core/store/util';
 
@@ -41,15 +41,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        EntityExistsGuard,
-        SelectivePreloadingStrategy
-    ]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+    providers: [EntityExistsGuard, SelectivePreloadingStrategy]
 })
-export class BooksRouting { };
+export class BooksRouting {}

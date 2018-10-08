@@ -1,8 +1,8 @@
 <div>
     <h2>
-        <span jhiTranslate="metrics.title">Application Metrics</span>
+        <span id="metrics-page-heading" jhiTranslate="metrics.title">Application Metrics</span>
         <button class="btn btn-primary float-right" (click)="refresh()">
-            <span class="fa fa-refresh"></span> <span jhiTranslate="metrics.refresh.button">Refresh</span>
+            <fa-icon [icon]="'sync'"></fa-icon> <span jhiTranslate="metrics.refresh.button">Refresh</span>
         </button>
     </h2>
 
@@ -10,21 +10,21 @@
     <div class="row" *ngIf="!updatingMetrics">
         <div class="col-md-4">
             <b jhiTranslate="metrics.jvm.memory.title">Memory</b>
-            <p><span jhiTranslate="metrics.jvm.memory.total">Total Memory</span> ({{metrics.gauges['jvm.memory.total.used'].value / 1000000 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.total.max'].value / 1000000 | number:'1.0-0'}}M)</p>
+            <p><span jhiTranslate="metrics.jvm.memory.total">Total Memory</span> ({{metrics.gauges['jvm.memory.total.used'].value / 1048576 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.total.max'].value / 1048576 | number:'1.0-0'}}M)</p>
             <ngb-progressbar type="success" [max]="metrics.gauges['jvm.memory.total.max'].value" [value]="metrics.gauges['jvm.memory.total.used'].value" [striped]="true" [animated]="false">
                 <span>{{metrics.gauges['jvm.memory.total.used'].value * 100 / metrics.gauges['jvm.memory.total.max'].value  | number:'1.0-0'}}%</span>
             </ngb-progressbar>
-            <p><span jhiTranslate="metrics.jvm.memory.heap">Heap Memory</span> ({{metrics.gauges['jvm.memory.heap.used'].value / 1000000 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.heap.max'].value / 1000000 | number:'1.0-0'}}M)</p>
+            <p><span jhiTranslate="metrics.jvm.memory.heap">Heap Memory</span> ({{metrics.gauges['jvm.memory.heap.used'].value / 1048576 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.heap.max'].value / 1048576 | number:'1.0-0'}}M)</p>
             <ngb-progressbar [max]="metrics.gauges['jvm.memory.heap.max'].value" [value]="metrics.gauges['jvm.memory.heap.used'].value" [striped]="true" [animated]="false" type="success">
                 <span>{{metrics.gauges['jvm.memory.heap.used'].value * 100 / metrics.gauges['jvm.memory.heap.max'].value  | number:'1.0-0'}}%</span>
             </ngb-progressbar>
-            <p><span jhiTranslate="metrics.jvm.memory.nonheap">Non-Heap Memory</span> ({{metrics.gauges['jvm.memory.non-heap.used'].value / 1000000 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.non-heap.committed'].value / 1000000 | number:'1.0-0'}}M)</p>
+            <p><span jhiTranslate="metrics.jvm.memory.nonheap">Non-Heap Memory</span> ({{metrics.gauges['jvm.memory.non-heap.used'].value / 1048576 | number:'1.0-0'}}M / {{metrics.gauges['jvm.memory.non-heap.committed'].value / 1048576 | number:'1.0-0'}}M)</p>
             <ngb-progressbar [max]="metrics.gauges['jvm.memory.non-heap.committed'].value" [value]="metrics.gauges['jvm.memory.non-heap.used'].value" [striped]="true" [animated]="false" type="success">
                 <span>{{metrics.gauges['jvm.memory.non-heap.used'].value * 100 / metrics.gauges['jvm.memory.non-heap.committed'].value  | number:'1.0-0'}}%</span>
             </ngb-progressbar>
         </div>
         <div class="col-md-4">
-            <b jhiTranslate="metrics.jvm.threads.title">Threads</b> (Total: {{metrics.gauges['jvm.threads.count'].value}}) <a class="hand" (click)="refreshThreadDumpData()" data-toggle="modal" data-target="#threadDump"><i class="fa fa-eye"></i></a>
+            <b jhiTranslate="metrics.jvm.threads.title">Threads</b> (Total: {{metrics.gauges['jvm.threads.count'].value}}) <a class="hand" (click)="refreshThreadDumpData()" data-toggle="modal" data-target="#threadDump"><fa-icon [icon]="'eye'"></fa-icon></a>
             <p><span jhiTranslate="metrics.jvm.threads.runnable">Runnable</span> {{metrics.gauges['jvm.threads.runnable.count'].value}}</p>
             <ngb-progressbar [value]="metrics.gauges['jvm.threads.runnable.count'].value" [max]="metrics.gauges['jvm.threads.count'].value" [striped]="true" [animated]="false" type="success">
                 <span>{{metrics.gauges['jvm.threads.runnable.count'].value * 100 / metrics.gauges['jvm.threads.count'].value  | number:'1.0-0'}}%</span>
@@ -165,13 +165,13 @@
             <tr *ngFor="let entry of servicesStats | keys">
                 <td>{{entry.key}}</td>
                 <td class="text-right">{{entry.value.count}}</td>
-                <td class="text-right">{{entry.value.mean * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.min * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p50 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p75 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p95 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p99 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.max * 1000 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.mean * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.min * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.p50 * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.p75 * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.p95 * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.p99 * 1024 | number:'1.0-0'}}</td>
+                <td class="text-right">{{entry.value.max * 1024 | number:'1.0-0'}}</td>
             </tr>
             </tbody>
         </table>

@@ -16,7 +16,4 @@ export * from './register/register.service';
 export * from './register/register.route';
 export * from './settings/settings.component';
 export * from './settings/settings.route';
-export * from './social/social-auth.component';
-export * from './social/social-register.component';
-export * from './social/social.route';
 export * from './account.route';

@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from 'app/core';
 import { SettingsComponent } from './settings.component';
 
 export const settingsRoute: Route = {

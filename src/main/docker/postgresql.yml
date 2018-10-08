@@ -1,7 +1,7 @@
 version: '2'
 services:
     greatbigexampleapplication-postgresql:
-        image: postgres:9.6.5
+        image: postgres:10.4
         # volumes:
         #     - ~/volumes/jhipster/GreatBigExampleApplication/postgresql/:/var/lib/postgresql/data/
         environment:

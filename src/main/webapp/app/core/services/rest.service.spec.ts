@@ -1,15 +1,10 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {
-    async, inject, TestBed
-} from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 
-import {
-    ɵa as MockBackend,
-} from '@angular/common/http/testing';
+// I don't know about this one
+import { ɵangular_packages_common_http_testing_testing_a as HttpClientTestingBackend } from '@angular/common/http/testing';
 
-import {
-    HttpClientModule, HttpClient
-} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Hero } from '../store/hero/hero.model';
@@ -17,52 +12,51 @@ import { RESTService } from './rest.service';
 import { AppConfig } from '../../app.config';
 import { GreatBigExampleApplicationTestModule } from '../../../mocks/test.module';
 
-const makeHeroData = () => [
-    { id: '1', name: 'Windstorm' },
-    { id: '2', name: 'Bombasto' },
-    { id: '3', name: 'Magneta' },
-    { id: '4', name: 'Tornado' }
-] as Hero[];
+const makeHeroData = () =>
+    [{ id: '1', name: 'Windstorm' }, { id: '2', name: 'Bombasto' }, { id: '3', name: 'Magneta' }, { id: '4', name: 'Tornado' }] as Hero[];
 
 ////////  Tests  /////////////
 describe('HttpClient-RESTService (mockBackend)', () => {
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                GreatBigExampleApplicationTestModule,
-                HttpClientModule],
-            providers: [
-                RESTService
-            ]
+    beforeEach(
+        async(() => {
+            TestBed.configureTestingModule({
+                imports: [GreatBigExampleApplicationTestModule, HttpClientModule],
+                providers: [RESTService]
+            }).compileComponents();
         })
-            .compileComponents();
-    }));
+    );
 
-    it('can instantiate service when inject service',
+    it(
+        'can instantiate service when inject service',
         inject([RESTService], (service: RESTService) => {
             expect(service instanceof RESTService).toBe(true);
-        }));
+        })
+    );
 
-    it('can instantiate service with "new"', inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig) => {
-        expect(http).not.toBeNull('http should be provided');
-        const service = new RESTService(http, config);
-        expect(service instanceof RESTService).toBe(true, 'new service should be ok');
-    }));
+    it(
+        'can instantiate service with "new"',
+        inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig) => {
+            expect(http).not.toBeNull('http should be provided');
+            const service = new RESTService(http, config);
+            expect(service instanceof RESTService).toBe(true, 'new service should be ok');
+        })
+    );
 
     describe('when getHeroes', () => {
-        let backend: MockBackend;
+        let backend: HttpClientTestingBackend;
         let service: RESTService;
         let fakeHeroes: Hero[];
         let response: Response;
 
-        beforeEach(inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig, be: MockBackend) => {
-            backend = be;
-            service = new RESTService(http, config);
-            fakeHeroes = makeHeroData();
-            const options = { status: 200, body: { data: fakeHeroes } };
-            response = new Response(options);
-        }));
+        beforeEach(
+            inject([HttpClient, AppConfig], (http: HttpClient, config: AppConfig, be: HttpClientTestingBackend) => {
+                backend = be;
+                service = new RESTService(http, config);
+                fakeHeroes = makeHeroData();
+                const options = { status: 200, body: { data: fakeHeroes }, locked: false, cancel: false };
+                // response = new Response(options);
+            })
+        );
 
         // it('should have expected fake heroes (then)', async(inject([], () => {
         //   backend.connections.subscribe((c: MockConnection) => c.mockRespond(response));
