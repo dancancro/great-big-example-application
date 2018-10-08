@@ -277,24 +277,9 @@ public class UserService {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
-    /**
-     * @return null
-     */
-    public User findByToken(String token) {
-        return null;
-    }
-
-    /**
-     * @return true
-     */
-    public Boolean validToken(String token, User user) {
-        return true;
-    }
-
-    /**
-     * @return void
-     */
-    public void setCurrentUser(User user) {
+    private void clearUserCaches(User user) {
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
 
     /**

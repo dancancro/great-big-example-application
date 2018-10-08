@@ -21,9 +21,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         // private $storageService: StateStorageService,
         // private _state: GlobalState,
         private _imageLoader: BaImageLoaderService,
-        private _spinner: BaThemeSpinner // private viewContainerRef: ViewContainerRef,
-    ) // private themeConfig: BaThemeConfig,
-    {}
+        private _spinner: BaThemeSpinner // private viewContainerRef: ViewContainerRef, // private themeConfig: BaThemeConfig,
+    ) {}
 
     whichLayout() {
         return this.router.routerState.snapshot.url.indexOf('meals') > -1 ? 'meals' : 'jhipster';
