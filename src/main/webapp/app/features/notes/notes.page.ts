@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as uuid from 'uuid/uuid';
+// import * as uuid from 'uuid/uuid';
 
 import * as fromRoot from '../../core/store';
 import { Note } from '../../core/store/note/note.model';
@@ -22,7 +22,7 @@ export class NotesPage implements OnInit {
 
     onAddNote(colour) {
         this.store.dispatch(new EntityActions.AddOptimistically(slices.NOTE, {
-            id: uuid.v1(),
+            id: 1111,
             text: '',
             colour,
             left: 200,
